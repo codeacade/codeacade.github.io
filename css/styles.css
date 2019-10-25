@@ -1,3 +1,3 @@
 body {background-color: #dee; font-size: 12px; font-family: sans-serif, Tahomoa, Helvetica; text-aligh: center;}
 #container {margin: 0 5%; padding: 5px; background-color: #aff;}
-.footer, .header {background-color: #aaf; width: 80%;}
+.footer, .header {color: #444; background-color: #aaf; width: 80%; font-size: 2em; }
