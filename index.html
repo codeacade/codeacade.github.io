@@ -5,89 +5,219 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wild Circus</title>
     <link rel="stylesheet" href="style.css?v=1.0"">
+    <style>
+      * {
+        transition: color 0.5s;
+      }
+      hr {width: 20%;}
+      ul, h1, h2{
+        text-align: center;
+        margin: 80px 0;
+        font-weight: lighter;
+      }
+      ul {padding-left: 0;}
+      h1 {
+        font-size: 8em;
+        line-height: 0.8em;
+      }
+      h2 {
+        font-size: 5em;
+      }
+      li {
+        display: inline-block;
+        margin: 0 1%;
+      }
+      section li {
+        width: 30%;
+        min-width: 400px;
+        padding: 20px 0;
+      }
+      li a {
+        text-decoration: none;
+        text-transform:uppercase;
+        font-weight: bold; 
+        color: #aaa;
+        font-size: 1.2em;
+        padding: 5px;
+      } 
+      li a:hover{
+        color: #fff;
+        padding: 4px;
+        border: 1px solid #fff;
+      }
+      .ball {
+        border: 80px solid rgb(255, 222, 173, 0.1);
+        position: relative;
+        width: 20%;
+        height: calc(19vw);
+        margin: 0 5%;
+        border-radius: 50%;
+      }
+      .ballp {
+        margin-left: auto!important;
+        border: 70px solid rgb(255, 222, 173, 0.1);
+        position: relative;
+        width: 16%;
+        height: calc(15vw);
+        margin: 0 5%;
+        border-radius: 50%;
+      }
+      .ball p {
+        position: absolute;
+        top: 25%;
+        left: 20%;
+        width: 380%;
+        font-size: 1.5em;
+      }
+      .ballp p {
+        position: absolute;
+        text-align: right;
+        top: 22%;
+        right: 20%;
+        width: 420%;
+        font-size: 1.5em;
+      }
+      #tablep {
+        display: table;
+        text-align: center;
+        margin: auto;
+        width: 95%;
+      }
+      .row {display: table-row;}
+      .cell {
+        display: table-cell;
+        border: 1px solid #fff;
+        padding: 2%;
+        
+      }
+      span {
+        text-align: center;
+      }
+    </style>
 </head>
 <body>
     <!-- 
 In order to validate your HTML code, click on the arrow at the top right of this window. If you have some problems with validation, you can have a look here  : https://blog.codepen.io/2017/10/11/analyze-css-now-using-stylelint/ 
 -->
+    
+<body>
+  <header>
+    <h1>Wild <br />Circus</h1>
+    <nav>
+      <ul>
+        <!-- TODO: every menu link drive us to the specific section -->
+        <li><a href="#">Performances</a></li>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#prices">Prices</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
 
-<head>
-        <meta charset="UTF-8">
-        <title>Wild Circus</title>
-    </head>
+  <section>
+    <h2>Performances</h2>
+    <!-- TODO: With your CSS, put the three performances here  ("lough", "dream, "marvel at") on the same line, without the generated dot. Becareful, only use the CSS in order to align everything, you must not remove the <li> tags.-->
+    <ul>
+      <!-- performance 1 -->
+      <li>
+          <h3>Laugh</h3>
+          <p>As an adult, come and discover our irresistible clowns, between practical jokes and pranks let yourself be carried away by their joy and fall back into childhood.</p>
+        </li>
+      <!-- performance 2 -->
+        <li>
+          <h3>Dream</h3>
+          <p>Let yourself be carried away in a world where the real and the imaginary are one, in the company of our talented magicians, discover a wonderful world limited only by your imagination.</p>
+        </li>
+        <!-- performance 3 -->
+        <li>
+          <h3>Marvel at</h3>
+          <p>Tame the untameable in the company of our tamers, between roar and razor-sharp claws, watch these fierce felines turn into sweet kittens.</p>
+        </li>
+    </ul>
+  </section>
+
+  <hr/>
+
+  <section>
     
-    <body>
-        <header>
-          <h1>Wild Circus</h1>
-          <nav>
-            <ul>
-                <!-- TODO: every menu link drive us to the specific section -->
-                <li><a>Performances</a></li>
-                <li><a>About Us</a></li>
-                <li><a>Prices</a></li>
-                <li><a>Contact</a></li>
-            </ul>
-          </nav>
-        </header>
-    
-        <section>
-          <h2>Performances</h2>
-          <!-- TODO: With your CSS, put the three performances here  ("lough", "dream, "marvel at") on the same line, without the generated dot. Becareful, only use the CSS in order to align everything, you must not remove the <li> tags.-->
-          <ul>
-            <!-- performance 1 -->
-            <li>
-                <h3>Laugh</h3>
-                <p>As an adult, come and discover our irresistible clowns, between practical jokes and pranks let yourself be carried away by their joy and fall back into childhood.</p>
-             </li>
-            <!-- performance 2 -->
-             <li>
-                <h3>Dream</h3>
-                <p>Let yourself be carried away in a world where the real and the imaginary are one, in the company of our talented magicians, discover a wonderful world limited only by your imagination.</p>
-             </li>
-             <!-- performance 3 -->
-             <li>
-                <h3>Marvel at</h3>
-                <p>Tame the untameable in the company of our tamers, between roar and razor-sharp claws, watch these fierce felines turn into sweet kittens.</p>
-             </li>
-          </ul>
-        </section>
-    
-        <hr/>
-    
-        <section>
-          <h2>About Us</h2>
-          <!-- TODO: This section hasn't been realized yet, . Cette section n'a pas encore été réalisée, you can show us here all of your creativity -->
-        </section>
-    
-        <hr/>
-    
-        <section>
-          <h2>Prices</h2>
-          <!-- TODO:  Create a table with all the prices (hint :  increase the size of the window in order to see all of the table.
-    
-                                    | Adults  | Children under 12       | Groups (more than 10)          | Schools
-            Weels (without wed.)    |         |                         |                                |
-            weekend et wednesday    |         |                         |                                |
-          -->
-        </section>
-    
-        <hr/>
-    
-        <section>
-          <h2>Contact Us</h2>
-          <!-- TODO: Create a contact form with the inputs for the email and message, add the send button at the end. Don't forget to add the labels on the inputs.
-                This form doesn't need to be functional, just create the layout. 
-          -->
-        </section>
-    
-        <footer>
-          <!-- TODO: Add your last name and first name.
-            Place the link pointing on the Wild Code School website (https://wildcodeschool.com).
-            You can also add the link to your own website, blog or Github profile. 
-           -->
-          <p>Wild Circus by [Your Name] - Codecademy: [Link to Codecademy] - SoloLearn: [Link to SoloLearn] - Wild Code School - [Creation date of your website]</p>
-        </footer>
-    </body>
-    
+    <a name="about"></a>
+    <h2>About Us</h2>
+    <!-- TODO: This section hasn't been realized yet, . Cette section n'a pas encore été réalisée, you can show us here all of your creativity -->
+    <div class="ball">
+        <p>As an adult, come and discover our irresistible clowns, between practical jokes and pranks let yourself be carried away by their joy and fall back into childhood.
+          As an adult, come and discover our irresistible clowns, between practical jokes and pranks let yourself be carried away by their joy and fall back into childhood.
+        </p>
+    </div>
+    <div class="ballp">
+        <p>Let yourself be carried away in a world where the real and the imaginary are one, in the company of our talented magicians, discover a wonderful world limited only by your imagination.</p>
+    </div>
+    <div class="ball">
+        <p>As an adult, come and discover our irresistible clowns, between practical jokes and pranks let yourself be carried away by their joy and fall back into childhood.
+          As an adult, come and discover our irresistible clowns, between practical jokes and pranks let yourself be carried away by their joy and fall back into childhood.
+        </p>
+    </div>
+    <h1></h1>
+  </section>
+
+  <hr/>
+
+  <section>
+    <a name="prices"></a>
+    <h2>Prices</h2>
+    <!-- TODO:  Create a table with all the prices (hint :  increase the size of the window in order to see all of the table.
+
+                              | Adults  | Children under 12       | Groups (more than 10)          | Schools
+      Weels (without wed.)    |         |                         |                                |
+      weekend et wednesday    |         |                         |                                |
+    -->
+    <div id="tablep">
+      <div class="row">
+        <div class="cell"></div>
+        <div class="cell">Adults</div>
+        <div class="cell">Children under 12</div>
+        <div class="cell">Groups (more then 10)</div>
+        <div class="cell">Schools</div>
+      </div>
+      <div class="row">
+        <div class="cell">Weels (without wed.)</div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+      </div>
+      <div class="row">
+        <div class="cell">Weekend et wednesday</div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+      </div>
+    </div>
+    <h1></h1>
+  </section>
+
+  <hr/>
+
+  <section>
+    <a name="contact"></a>
+    <h2>Contact Us</h2>
+    <!-- TODO: Create a contact form with the inputs for the email and message, add the send button at the end. Don't forget to add the labels on the inputs.
+          This form doesn't need to be functional, just create the layout. 
+    -->
+    <span>If you are interested in our Circus, or you'd like just to comment on our performance please get in touch via the contact form below. We'd love to hear from you! </span>
+    <form action="#" method="get">
+      <label for="email">Email:</label>
+      <input type="text" name="email" id="email">
+    </form>
+  </section>
+
+  <footer>
+    <!-- TODO: Add your last name and first name.
+      Place the link pointing on the Wild Code School website (https://wildcodeschool.com).
+      You can also add the link to your own website, blog or Github profile. 
+      -->
+    <p>Wild Circus by [Your Name] - Codecademy: [Link to Codecademy] - SoloLearn: [Link to SoloLearn] - Wild Code School - [Creation date of your website]</p>
+  </footer>
 </body>
+  
 </html>
