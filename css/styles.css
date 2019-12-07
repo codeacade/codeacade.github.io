@@ -1,2 +1,9 @@
-body {background-color: #fff; font-size: 12px; font-family: sans-serif, Tahomoa, Helvetica;}
+/* In order to validate your CSS code, click on the arrow at the top right of this window. Don't forget, you can have a look here : https://blog.codepen.io/2017/10/11/analyze-css-now-using-stylelint/ 
+ */
 
+/* Your CSS code here */
+body { 
+    background-image: linear-gradient(to right, #222 , #600);
+    font-size: 14px;
+    color: #FFDEAD;
+}
