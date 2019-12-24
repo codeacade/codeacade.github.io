@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Kurs Javascript - AJAX</title>
 	<meta name="description" content="Kurs Javascript dla superbohaterów, artykuły, tutoriale, porady, zadania do wykonania" />
-    <link rel="canonical" href="https://kursjs.pl/kurs/ajax/ajax.php" />
+    <link rel="canonical" href="https://kursjs.pl/kurs/ajax/ajax.html" />
 	<link rel="stylesheet" href="./css.css" />
     <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,700&display=swap&subset=latin-ext" rel="stylesheet">
 	<meta name="image" content="https://kursjs.pl/kursjs.png">
@@ -78,11 +78,11 @@ Działanie internetu w większości opiera się o protokół HTTP (przy czym ju�
 HTTP2 i HTTP3 będą usprawniały działanie HTTP, który jest obecnie używany najczęściej. A właściwie co one mają usprawniać?
 </p>
 <p>
-Gdy robimy zapytanie o jakiś zasób (np. wchodzimy na daną stronę, pobieramy jakąś grafikę, plik CSS itp.), przeglądarka wysyła w internet żądanie. Od razu włącz debugera i przejdź na <a href="../debuger/debuger.php#zakladka-network">zakładkę Network</a>. Następnie odśwież tą stronę by wczytać ponownie requesty. Jak zauważysz, pierwszym requestem na liście będzie żądanie o wyświetlenie tej właśnie strony.
+Gdy robimy zapytanie o jakiś zasób (np. wchodzimy na daną stronę, pobieramy jakąś grafikę, plik CSS itp.), przeglądarka wysyła w internet żądanie. Od razu włącz debugera i przejdź na <a href="../debuger/debuger.html#zakladka-network">zakładkę Network</a>. Następnie odśwież tą stronę by wczytać ponownie requesty. Jak zauważysz, pierwszym requestem na liście będzie żądanie o wyświetlenie tej właśnie strony.
 </p>
 
 <p>
-Twoja przeglądarka wysłała zapytanie o adres "/kurs/ajax/ajax.php" oraz kilka nagłówków informacyjnych.
+Twoja przeglądarka wysłała zapytanie o adres "/kurs/ajax/ajax.html" oraz kilka nagłówków informacyjnych.
 Kliknij na pierwszy request i zbadaj jego postać. Zobaczysz tam sekcję <strong>Request headers</strong>.
 Wśród tych nagłówków są informacje takie jak rodzaj przeglądarki, jakie typy danych ona obsługuje, rodzaj cache itp.<br>
 </p>
@@ -91,7 +91,7 @@ Wśród tych nagłówków są informacje takie jak rodzaj przeglądarki, jakie t
 
 <p>
 Takie zapytanie leci w Internet, ale nie trafia ono bezpośrednio do serwera na którym znajduje się żądana strona. Każdy komputer w internecie ma swój numer IP. Jeżeli chcesz znaleźć swój, możesz skorzystać ze strony <a href="http://www.howtofindmyipaddress.com/">http://www.howtofindmyipaddress.com/</a>.
-W każdym bądź razie - my wysłaliśmy zapytanie o adres "/kurs/ajax/ajax.php" (czyli na stronę, która leży na konkretnej domenie), a w internecie komputery istnieją pod postacią adresów IP. Zapytanie to trafia na serwer <a href="https://pl.wikipedia.org/wiki/Domain_Name_System">DNS</a>, które mapuje dany "ludzki" adres na odpowiedni numer IP. Zapytanie wędruje do odpowiedniego serwera w Internecie. Ten opis jest mocno uproszczony.
+W każdym bądź razie - my wysłaliśmy zapytanie o adres "/kurs/ajax/ajax.html" (czyli na stronę, która leży na konkretnej domenie), a w internecie komputery istnieją pod postacią adresów IP. Zapytanie to trafia na serwer <a href="https://pl.wikipedia.org/wiki/Domain_Name_System">DNS</a>, które mapuje dany "ludzki" adres na odpowiedni numer IP. Zapytanie wędruje do odpowiedniego serwera w Internecie. Ten opis jest mocno uproszczony.
 </p>
 
 <p>Po dotarciu do docelowego serwera, ten analizuje dane zapytanie, po czym zwraca nam odpowiedź, która składa się z:</p>
@@ -140,7 +140,7 @@ Nagłówek <strong>content/type</strong>, określa typ <a href="https://pl.wikip
 Tu pojawia się mała ciekawostka. Jeżeli serwer wyśle nam dokument HTML (stronę, o którą prosiliśmy), ale jako typ ustawi text/plain, wtedy w naszej przeglądarce strona wyświetli się jako plik tekstowy. Podobnie z całą resztą zasobów - gdy serwer wyśle grafikę png jako text/plain, w naszej przeglądarce zobaczymy tekstowy śmietnik, bo tak właśnie wyglądała by ta grafika gdybyśmy otworzyli ją za pomocą edytora tekstowego.</p>
 
 <div class="kartofel-informuje">
-Raz od święta może się zdarzyć, że uda ci się w wyszukiwarce znaleźć grafiki jpg, które mają przezroczyste tło. Stosownego przykładu z głowy ci nie podam, ale sam natrafiałem na takie twory. Wynika to właśnie z tego, że serwer, który wysłał ci dany zasób pomylił się i wysłał plik png z content/type ustawionym na jpg. Podobnie może się dziać z wieloma innymi zasobami - dla przykładu można wysyłać skrypty php które podszywają się pod grafiki...
+Raz od święta może się zdarzyć, że uda ci się w wyszukiwarce znaleźć grafiki jpg, które mają przezroczyste tło. Stosownego przykładu z głowy ci nie podam, ale sam natrafiałem na takie twory. Wynika to właśnie z tego, że serwer, który wysłał ci dany zasób pomylił się i wysłał plik png z content/type ustawionym na jpg. Podobnie może się dziać z wieloma innymi zasobami - dla przykładu można wysyłać skrypty html które podszywają się pod grafiki...
 </div>
 
 <p>Kolejną bardzo ważną właściwością każdego połączenia jest jego typ. Jeżeli wejdziesz do debugera i zakładki Network, a następnie odświeżysz tą stronę,  zobaczysz, że większość połączeń będzie typu GET. Dlatego, że pobieramy dane. Takich typów jest kilka:</p>
@@ -338,7 +338,7 @@ I nie, XML wcale nie jest złem wcielonym. Autor przez długi czas korzystał z 
 <!-- ### -->
 <h2 class="subtitle" id="json">JSON</h2>
 <p>XML działa całkiem dobrze, ale można i lepiej. Dość szybko wymyślony został inny format - JSON, który bardzo uprościł prace na przesyłanych danych.</p>
-<p>Format JSON do złudzenia przypomina <a href="../obiekty/obiekty.php#literal">klasyczne obiekty</a> w JavaScript:</p>
+<p>Format JSON do złudzenia przypomina <a href="../obiekty/obiekty.html#literal">klasyczne obiekty</a> w JavaScript:</p>
 
 <pre><code class="language-json">
 {
@@ -439,14 +439,14 @@ console.log(obStr); //"{"name":"Piotr","subname":"Nowak"}"
 console.log( JSON.parse(obStr) ); //nasz wcześniejszy obiekt
 </code></pre>
 
-<p>Do czego to może się przydać? W przypadku Ajax będziemy go wykorzystywać do <a href="./fetch.php#use-stringify">wysyłania danych na serwer w formacie JSON</a>.
+<p>Do czego to może się przydać? W przypadku Ajax będziemy go wykorzystywać do <a href="./fetch.html#use-stringify">wysyłania danych na serwer w formacie JSON</a>.
 </p>
 
 <p>
 Wysłanie prostych nie zagnieżdżonych danych nie jest problemem - będziemy wykonywać go tradycyjnie. Jeżeli jednak chcemy wysłać dane które są zagnieżdżone (np. obiekt w obiekcie), wtedy bez JSON.stringify się nie obejdzie.
 </p>
 
-<p>Innym praktycznym zastosowaniem obiektu JSON jest praca z <a href="../dom/dom-wlasciwosci.php#stringfity">dataset</a>, gdzie dane są przechowywane jako string, dlatego gdy chcemy przechować tam obiekt, musimy go zamienić na zapis tekstowy.</p>
+<p>Innym praktycznym zastosowaniem obiektu JSON jest praca z <a href="../dom/dom-wlasciwosci.html#stringfity">dataset</a>, gdzie dane są przechowywane jako string, dlatego gdy chcemy przechować tam obiekt, musimy go zamienić na zapis tekstowy.</p>
 
 <pre><code class="language-js">
 const ob = {
@@ -486,11 +486,11 @@ $.ajax({
 <!-- ### -->
 <h2 class="subtitle" id="czym-sie-laczyc">Czym się łączyć</h2>
 <p>
-    W czystym JavaScript do obsługi dynamicznych połączeń XHR możemy skorzystać z 2 rzeczy: obiektu <a href="./xmlhttprequest.php">XMLHttpRequest</a>oraz <a href="./fetch.php">Fetch</a>.<br>
+    W czystym JavaScript do obsługi dynamicznych połączeń XHR możemy skorzystać z 2 rzeczy: obiektu <a href="./xmlhttprequest.html">XMLHttpRequest</a>oraz <a href="./fetch.html">Fetch</a>.<br>
     Ten pierwszy istnieje nierozłączenie od początku istnienia Ajax. Mnogość opcji, ale i nieco kodu, który musimy napisać przy realnych problemach sprawia, że sporo osób uważa go za mocno niewygodne narzędzie do łączenia się.
 </p>
 <p>
-    Ten drugi to nowsze rozwiązanie, które w wielu sytuacjach jest o wiele prostsze w użyciu, a to dzięki domyślnej obsłudze <a href="promise.php">obietnic</a>, a i kilku nowym interfejsom takim jak <a href="https://developer.mozilla.org/en-US/docs/Web/API/Headers">Headers</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/API/Response">Response</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/API/Request">Request</a>.
+    Ten drugi to nowsze rozwiązanie, które w wielu sytuacjach jest o wiele prostsze w użyciu, a to dzięki domyślnej obsłudze <a href="promise.html">obietnic</a>, a i kilku nowym interfejsom takim jak <a href="https://developer.mozilla.org/en-US/docs/Web/API/Headers">Headers</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/API/Response">Response</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/API/Request">Request</a>.
 </p>
 
 <p>
@@ -500,7 +500,7 @@ Przy najprostszych skryptach użycie obydwu sposobów jest całkiem proste. Prob
 <p>Między innymi dlatego właśnie dość często jeżeli mówimy o realnych projektach, wybierane są gotowe biblioteki, które dają nam swoistą nakładkę na cały kod, który i tak musielibyśmy napisać. Nie jest to rzecz, którą używać musimy, ale może nam to po prostu ułatwić pracę z przyszłym projektem.</p>
 
 <p>
-Jedną z najczęściej wybieranych metod jest użycie <a href="../jquery/jquery-ajax.php">Ajax w jQuery</a>, która jest bajecznie prosta w użyciu.
+Jedną z najczęściej wybieranych metod jest użycie <a href="../jquery/jquery-ajax.html">Ajax w jQuery</a>, która jest bajecznie prosta w użyciu.
 </p>
 
 <p>
@@ -561,7 +561,7 @@ Czy polecam to podejście? Gdy trzeba coś na szybko przetestować - pewnie da r
 
 <p>Innym rozwiązaniem CORS jest stworzenie pośredniego serwera agregującego. Problem CORS dotyczy tylko przeglądarek. Strona backendowa spokojnie może takie połączenia wykonywać. Wystarczy stworzyć mini serwer (np. w <a href="./server-easy.zip">Express</a>), który będzie łączył się z danym serwerem, pobierał stamtąd dane, a my będziemy się łączyć z naszym.</p>
 
-<p>Tak czy siak, przy pracy z Ajaxem nie unikniemy jednej rzeczy - pracy z <a href="./server-lokalny.php">własnym serwerem</a>.</p>
+<p>Tak czy siak, przy pracy z Ajaxem nie unikniemy jednej rzeczy - pracy z <a href="./server-lokalny.html">własnym serwerem</a>.</p>
 
 <!-- ### -->
 <h2 class="subtitle" id="postman">Postman</h2>
@@ -644,8 +644,8 @@ Czy polecam to podejście? Gdy trzeba coś na szybko przetestować - pewnie da r
 			</div><!-- e: page-content-text -->
 			<footer class="page-footer">
 				<p>
-				Wszelkie prawa zastrzeżone. Jeżeli chcesz używać jakiejś części tego kursu, skontaktuj się z <a href="/kurs/autor.php">autorem</a>.
-				Aha - i ta strona korzysta z <a href="/kurs/polityka-prywatnosci.php">ciasteczek</a>.
+				Wszelkie prawa zastrzeżone. Jeżeli chcesz używać jakiejś części tego kursu, skontaktuj się z <a href="/kurs/autor.html">autorem</a>.
+				Aha - i ta strona korzysta z <a href="/kurs/polityka-prywatnosci.html">ciasteczek</a>.
 				</p>
 			</footer>
 							<div class="rekl-cnt">
@@ -681,12 +681,12 @@ Czy polecam to podejście? Gdy trzeba coś na szybko przetestować - pewnie da r
 		</button>
 
 		<div class="page-sidebar-title">
-			<a href="/kurs/kontakt.php" title="Nawrzucaj autorowi" class="mail-to-author" id="mailToAuthor">Napisz do mnie</a>
+			<a href="/kurs/kontakt.html" title="Nawrzucaj autorowi" class="mail-to-author" id="mailToAuthor">Napisz do mnie</a>
 			<a href="#popupOptions" class="page-setup-link popupOpen" title="Ustawienia strony" id="showOptions">Ustawienia</a>
-			<a href="/index.php" aria-label="Strona główna" class="page-sidebar-title-link">Kurs Javascript</a>
+			<a href="/index.html" aria-label="Strona główna" class="page-sidebar-title-link">Kurs Javascript</a>
 		</div>
 
-        <form aria-label="Wyszukiwarka" class="search-sidebar" action="/search.php" method="post">
+        <form aria-label="Wyszukiwarka" class="search-sidebar" action="/search.html" method="post">
             <label for="search" class="search-sidebar-label">Szukaj</label>
             <div class="search-sidebar-input-cnt">
                 <svg class="search-sidebar-input-icon" xmlns="http://www.w3.org/2000/svg" width="26" height="28" viewBox="0 0 26 28" aria-hidden="true">
@@ -701,7 +701,7 @@ Czy polecam to podejście? Gdy trzeba coś na szybko przetestować - pewnie da r
 			<h2 class="visuallyhidden">Spis treści</h2>
             <div class="page-sidebar-section">
 				<h3 class="page-sidebar-section-title noopen">
-                    <a href="/index.php">Strona główna</a>
+                    <a href="./index.html">Strona główna</a>
                 </h3>
             </div>
 
@@ -712,13 +712,13 @@ Czy polecam to podejście? Gdy trzeba coś na szybko przetestować - pewnie da r
 				<div class="page-sidebar-list-cnt">
 					<ul class="page-sidebar-list">
 						<li >
-							<a href="/kurs/wstep/wstep.php">Wstęp</a>
+							<a href="./wstep.html">Wstęp</a>
 						</li>
 						<li >
-							<a href="/kurs/wstep/co-to-jest-javascript.php">Co to jest JavaScript i z czym go się je?</a>
+							<a href="./co-to-jest-javascript.html">Co to jest JavaScript i z czym go się je?</a>
 						</li>
 						<li >
-							<a href="/kurs/wstep/wymagania.php">Wymagania</a>
+							<a href="./wymagania.html">Wymagania</a>
 						</li>
 					</ul>
 				</div>
@@ -731,49 +731,49 @@ Czy polecam to podejście? Gdy trzeba coś na szybko przetestować - pewnie da r
 				<div class="page-sidebar-list-cnt">
 					<ul class="page-sidebar-list">
 						<li >
-							<a href="/kurs/debuger/debuger.php">Debuger</a>
+							<a href="./debuger.html">Debuger</a>
 						</li>
 						<li >
-							<a href="/kurs/super-podstawy/pierwszy-skrypt.php">Wstawiamy skrypty na naszą stronę</a>
+							<a href="./pierwszy-skrypt.html">Wstawiamy skrypty na naszą stronę</a>
 						</li>
 						<li >
-							<a href="/kurs/super-podstawy/strict-mode.php">Strict mode</a>
+							<a href="./strict-mode.html">Strict mode</a>
 						</li>
 						<li >
-							<a href="/kurs/super-podstawy/typy-danych.php">Typy danych i konwersja danych</a>
+							<a href="./typy-danych.html">Typy danych i konwersja danych</a>
 						</li>
 						<li >
-							<a href="/kurs/super-podstawy/zmienne.php">Zmienne</a>
+							<a href="./zmienne.html">Zmienne</a>
 						</li>
 						<li >
-							<a href="/kurs/super-podstawy/operatory.php">Operatory</a>
+							<a href="./operatory.html">Operatory</a>
 						</li>
 						<li >
-							<a href="/kurs/super-podstawy/math.php">Obiekt Math</a>
+							<a href="./math.html">Obiekt Math</a>
 						</li>
 						<li >
-							<a href="/kurs/super-podstawy/string.php">String - teksty</a>
+							<a href="./string.html">String - teksty</a>
 						</li>
 						<li >
-							<a href="/kurs/super-podstawy/instrukcje-warunkowe.php">Instrukcje warunkowe</a>
+							<a href="./instrukcje-warunkowe.html">Instrukcje warunkowe</a>
 						</li>
 						<li >
-							<a href="/kurs/super-podstawy/petle.php">Pętle</a>
+							<a href="./petle.html">Pętle</a>
 						</li>
 						<li >
-							<a href="/kurs/super-podstawy/funkcje.php">Funkcje</a>
+							<a href="./funkcje.html">Funkcje</a>
 						</li>
                         <li >
-							<a href="/kurs/super-podstawy/funkcje-tematy-dodatkowe.php">Funkcje - tematy dodatkowe</a>
+							<a href="./funkcje-tematy-dodatkowe.html">Funkcje - tematy dodatkowe</a>
 						</li>
 						<li >
-							<a href="/kurs/super-podstawy/tablice.php">Tablice</a>
+							<a href="./tablice.html">Tablice</a>
 						</li>
                         <li >
-							<a href="/kurs/super-podstawy/tablice-iteracje.php">Tablice pętle</a>
+							<a href="./tablice-iteracje.html">Tablice pętle</a>
 						</li>
 						<li >
-							<a href="/kurs/debuger/debugowanie.php">Debugowanie kodu</a>
+							<a href="./debugowanie.html">Debugowanie kodu</a>
 						</li>
 					</ul>
 				</div>
@@ -786,25 +786,25 @@ Czy polecam to podejście? Gdy trzeba coś na szybko przetestować - pewnie da r
 				<div class="page-sidebar-list-cnt">
 					<ul class="page-sidebar-list">
                         <li >
-							<a href="/kurs/obiekty/obiekty.php">Obiekty i this</a>
+							<a href="./obiekty.html">Obiekty i this</a>
 						</li>
                         <li >
-							<a href="/kurs/obiekty/obiekty-jak-to-dziala.php">Jak to działa</a>
+							<a href="./obiekty-jak-to-dziala.html">Jak to działa</a>
 						</li>
                         <li >
-							<a href="/kurs/obiekty/obiekty-konstruktor.php">Konstruktor</a>
+							<a href="./obiekty-konstruktor.html">Konstruktor</a>
 						</li>
                         <li >
-							<a href="/kurs/obiekty/obiekty-zaawansowane-this.php">Zaawansowane this</a>
+							<a href="./obiekty-zaawansowane-this.html">Zaawansowane this</a>
 						</li>
                         <li >
-							<a href="/kurs/obiekty/obiekty-dziedziczenie.php">Dziedziczenie w Javascript</a>
+							<a href="./obiekty-dziedziczenie.html">Dziedziczenie w Javascript</a>
 						</li>
                         <li >
-							<a href="/kurs/obiekty/obiekty-inne-sposoby-tworzenia.php">Inne sposoby tworzenia obiektów</a>
+							<a href="./obiekty-inne-sposoby-tworzenia.html">Inne sposoby tworzenia obiektów</a>
 						</li>
                         <li >
-							<a href="/kurs/obiekty/obiekty-instanceof-hasownproperty.php">instanceof i hasOwnProperty</a>
+							<a href="./obiekty-instanceof-hasownproperty.html">instanceof i hasOwnProperty</a>
 						</li>
                     </ul>
                 </div>
@@ -817,34 +817,34 @@ Czy polecam to podejście? Gdy trzeba coś na szybko przetestować - pewnie da r
 				<div class="page-sidebar-list-cnt">
 					<ul class="page-sidebar-list">
 						<li >
-							<a href="/kurs/dom/dom.php">Document Object Model</a>
+							<a href="./dom.html">Document Object Model</a>
 						</li>
 						<li >
-							<a href="/kurs/dom/dom-wlasciwosci.php">Właściwości elementów</a>
+							<a href="./dom-wlasciwosci.html">Właściwości elementów</a>
 						</li>
 						<li >
-							<a href="/kurs/dom/dom-relacje.php">Relacje między elementami</a>
+							<a href="./dom-relacje.html">Relacje między elementami</a>
 						</li>
 						<li >
-							<a href="/kurs/dom/dom-tworzenie-i-usuwanie.php">Tworzenie i usuwanie elementów</a>
+							<a href="./dom-tworzenie-i-usuwanie.html">Tworzenie i usuwanie elementów</a>
 						</li>
                         <li >
-                            <a href="/kurs/dom/style.php">Style w CSS</a>
+                            <a href="./style.html">Style w CSS</a>
                         </li>
 						<li >
-							<a href="/kurs/events/events.php">Zdarzenia</a>
+							<a href="./events.html">Zdarzenia</a>
 						</li>
 						<li >
-							<a href="/kurs/events/events-keys.php">Zdarzenia - klawisze</a>
+							<a href="./events-keys.html">Zdarzenia - klawisze</a>
 						</li>
 						<li >
-							<a href="/kurs/events/events-mouse.php">Zdarzenia - myszka</a>
+							<a href="./events-mouse.html">Zdarzenia - myszka</a>
 						</li>
 						<li >
-							<a href="/kurs/dom/projekt-todo.php">Projekt TODO</a>
+							<a href="./projekt-todo.html">Projekt TODO</a>
 						</li>
 						<li >
-							<a href="/kurs/dom/slider.php">Tworzymy slider</a>
+							<a href="./slider.html">Tworzymy slider</a>
 						</li>
 					</ul>
 				</div>
@@ -858,40 +858,40 @@ Czy polecam to podejście? Gdy trzeba coś na szybko przetestować - pewnie da r
 				<div class="page-sidebar-list-cnt">
 					<ul class="page-sidebar-list">
 						<li >
-							<a href="/kurs/grafika/grafika-na-stronie.php">Grafika na stronie</a>
+							<a href="./grafika-na-stronie.html">Grafika na stronie</a>
 						</li>
 						<li >
-							<a href="/kurs/intervals/intervals.php">setTimeout i setInterval</a>
+							<a href="./intervals.html">setTimeout i setInterval</a>
 						</li>
 						<li >
-							<a href="/kurs/match-media.php">Praca z RWD</a>
+							<a href="./match-media.html">Praca z RWD</a>
 						</li>
 						<li >
-							<a href="/kurs/okna-dialogowe.php">Okienka dialogowe</a>
+							<a href="./okna-dialogowe.html">Okienka dialogowe</a>
 						</li>
 						<li >
-							<a href="/kurs/okna.php">Tworzenie nowych okien</a>
+							<a href="./okna.html">Tworzenie nowych okien</a>
 						</li>
 						<li >
-							<a href="/kurs/date/date.php">Obiekt Date</a>
+							<a href="./date.html">Obiekt Date</a>
 						</li>
 						<li >
-							<a href="/kurs/date/date-calendar.php">Tworzymy kalendarz</a>
+							<a href="./date-calendar.html">Tworzymy kalendarz</a>
 						</li>
 						<li >
-							<a href="/kurs/cookies/cookie.php">Obiekt Cookie</a>
+							<a href="./cookie.html">Obiekt Cookie</a>
 						</li>
 						<li >
-							<a href="/kurs/storage/storage.php">Storage</a>
+							<a href="./storage.html">Storage</a>
 						</li>
 						<li >
-							<a href="/kurs/regular.php">Wyrażenia regularne</a>
+							<a href="./regular.html">Wyrażenia regularne</a>
 						</li>
 						<li >
-							<a href="/kurs/formularze/formularze.php">Formularze</a>
+							<a href="./formularze.html">Formularze</a>
 						</li>
 						<li >
-							<a href="/kurs/formularze/formularze-walidacja.php">Formularze - walidacja</a>
+							<a href="./formularze-walidacja.html">Formularze - walidacja</a>
 						</li>
 					</ul>
 				</div>
@@ -904,16 +904,16 @@ Czy polecam to podejście? Gdy trzeba coś na szybko przetestować - pewnie da r
 				<div class="page-sidebar-list-cnt">
 					<ul class="page-sidebar-list">
 						<li class="active">
-							<a href="/kurs/ajax/ajax.php">AJAX, REST, JSON</a>
+							<a href="./ajax.html">AJAX, REST, JSON</a>
 						</li>
 						<li >
-							<a href="/kurs/ajax/xmlhttprequest.php">XMLHttpRequest</a>
+							<a href="./xmlhttprequest.html">XMLHttpRequest</a>
 						</li>
             			<li >
-							<a href="/kurs/ajax/fetch.php">Fetch API</a>
+							<a href="./fetch.html">Fetch API</a>
 						</li>
 						<li >
-							<a href="/kurs/ajax/formularz-kontaktowy.php">Dynamiczny formularz kontaktowy</a>
+							<a href="./formularz-kontaktowy.html">Dynamiczny formularz kontaktowy</a>
 						</li>
 					</ul>
 				</div>
@@ -926,37 +926,37 @@ Czy polecam to podejście? Gdy trzeba coś na szybko przetestować - pewnie da r
 				<div class="page-sidebar-list-cnt">
 					<ul class="page-sidebar-list">
 						<li >
-							<a href="/kurs/es6/ecma-script-2015.php">ES6</a>
+							<a href="./ecma-script-2015.html">ES6</a>
 						</li>
 						<li >
-							<a href="/kurs/es6/webpack.php">Webpack</a>
+							<a href="./webpack.html">Webpack</a>
 						</li>
-                        <li >
-            				<a href="/kurs/es6/obiekty-w-es6.php">Obiekty w ES6</a>
-						</li>
-						<li >
-							<a href="/kurs/es6/funkcja-strzalkowa.php">Funkcja strzałkowa</a>
+./
+            				<a href="./obiekty-w-es6.html">Obiekty w ES6</a>
 						</li>
 						<li >
-							<a href="/kurs/es6/spread-rest.php">Spread i rest</a>
+							<a href="./funkcja-strzalkowa.html">Funkcja strzałkowa</a>
 						</li>
 						<li >
-							<a href="/kurs/es6/template-strings.php">Template strings</a>
+							<a href="./spread-rest.html">Spread i rest</a>
 						</li>
 						<li >
-            				<a href="/kurs/es6/destructuring.php">Dekompozycja</a>
+							<a href="./template-strings.html">Template strings</a>
+						</li>
+						<li >
+            				<a href="./destructuring.html">Dekompozycja</a>
         				</li>
 						<li >
-							<a href="/kurs/es6/class.php">Klasy w ES6</a>
+							<a href="./class.html">Klasy w ES6</a>
 						</li>
 						<li >
-							<a href="/kurs/es6/promises.php">Promises</a>
+							<a href="./promises.html">Promises</a>
 						</li>
 						<li >
-							<a href="/kurs/es6/async-await.php">Async/Await</a>
+							<a href="./async-await.html">Async/Await</a>
 						</li>
 						<li >
-							<a href="/kurs/es6/symbole.php">Symbole</a>
+							<a href="./symbole.html">Symbole</a>
 						</li>
 					</ul>
 				</div>
@@ -969,19 +969,19 @@ Czy polecam to podejście? Gdy trzeba coś na szybko przetestować - pewnie da r
 				<div class="page-sidebar-list-cnt">
 					<ul class="page-sidebar-list">
 						<li >
-							<a href="/kurs/jquery/jquery.php">jQuery</a>
+							<a href="/kurs/jquery/jquery.html">jQuery</a>
 						</li>
 						<li >
-							<a href="/kurs/jquery/animacje-w-jquery.php">Animacje w jQuery</a>
+							<a href="/kurs/jquery/animacje-w-jquery.html">Animacje w jQuery</a>
 						</li>
 						<li >
-							<a href="/kurs/jquery/jquery-ajax.php">Ajax w jQuery</a>
+							<a href="/kurs/jquery/jquery-ajax.html">Ajax w jQuery</a>
 						</li>
 						<li >
-							<a href="/kurs/jquery/tabs.php">Taby w jQuery</a>
+							<a href="/kurs/jquery/tabs.html">Taby w jQuery</a>
 						</li>
 						<li >
-							<a href="/kurs/jquery/plugin.php">Karuzela w jQuery</a>
+							<a href="/kurs/jquery/plugin.html">Karuzela w jQuery</a>
 						</li>
 					</ul>
 				</div>
@@ -994,17 +994,17 @@ Czy polecam to podejście? Gdy trzeba coś na szybko przetestować - pewnie da r
 				<div class="page-sidebar-list-cnt">
 					<ul class="page-sidebar-list">
 						<li >
-							<a href="/kurs/canvas/canvas.php">Canvas</a>
+							<a href="/kurs/canvas/canvas.html">Canvas</a>
 						</li>
 						<li >
-							<a href="/kurs/canvas/canvas-images.php">Grafika w canvas</a>
+							<a href="/kurs/canvas/canvas-images.html">Grafika w canvas</a>
 						</li>
 						<li >
-						<a href="/kurs/canvas/canvas-paint.php">Praktycznie : Paint w canvas</a>
+						<a href="/kurs/canvas/canvas-paint.html">Praktycznie : Paint w canvas</a>
 						</li>
 
 						<li >
-							<a href="/kurs/canvas/canvas-animacja.php">Animacja w canvas</a>
+							<a href="/kurs/canvas/canvas-animacja.html">Animacja w canvas</a>
 						</li>
 					</ul>
 				</div>
@@ -1017,10 +1017,10 @@ Czy polecam to podejście? Gdy trzeba coś na szybko przetestować - pewnie da r
 				<div class="page-sidebar-list-cnt">
 					<ul class="page-sidebar-list">
 						<li >
-							<a href="/kurs/gry/hangman/hangman.php">Szubienica</a>
+							<a href="/kurs/gry/hangman/hangman.html">Szubienica</a>
 						</li>
 						<li >
-							<a href="/kurs/gry/memory/memory.php">Memory</a>
+							<a href="/kurs/gry/memory/memory.html">Memory</a>
 						</li>
 					</ul>
 				</div>
@@ -1033,25 +1033,25 @@ Czy polecam to podejście? Gdy trzeba coś na szybko przetestować - pewnie da r
 				<div class="page-sidebar-list-cnt">
 					<ul class="page-sidebar-list">
 						<li >
-							<a href="/kurs/dodatkowe-materialy.php">Dodatkowe materiały</a>
+							<a href="/kurs/dodatkowe-materialy.html">Dodatkowe materiały</a>
 						</li>
 						<li >
-							<a href="/kurs/faq.php">FAQ</a>
+							<a href="/kurs/faq.html">FAQ</a>
 						</li>
 						<li >
-							<a href="/kurs/polityka-prywatnosci.php">Polityka prywatności</a>
+							<a href="/kurs/polityka-prywatnosci.html">Polityka prywatności</a>
 						</li>
 						<li >
-							<a href="/kurs/autor.php">O autorze</a>
+							<a href="/kurs/autor.html">O autorze</a>
 						</li>
 						<li >
-							<a href="/kurs/kontakt.php">Kontakt</a>
+							<a href="/kurs/kontakt.html">Kontakt</a>
 						</li>
 					</ul>
 				</div>
 			</div>
 			<div class="page-sidebar-section">
-                <a class="special-link" href="/kurs/autor.php#donate">Wesprzyj kurs</a>
+                <a class="special-link" href="/kurs/autor.html#donate">Wesprzyj kurs</a>
             </div>
 		</div>
 	</div>
