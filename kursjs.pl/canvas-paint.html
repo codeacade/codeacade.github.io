@@ -1,0 +1,1421 @@
+<!doctype html>
+<html lang="pl-PL">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kurs Javascript - Canvas - tworzymy Painta</title>
+	<meta name="description" content="Kurs Javascript dla superbohaterów, artykuły, tutoriale, porady, zadania do wykonania" />
+    <link rel="canonical" href="https://kursjs.pl/kurs/canvas/canvas-paint.php" />
+	<link rel="stylesheet" href="./css.css" />
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,700&display=swap&subset=latin-ext" rel="stylesheet">
+	<meta name="image" content="https://kursjs.pl/kursjs.png">
+<meta name="twitter:card" content="product">
+<meta name="twitter:site" content="@publisher_handle">
+<meta name="twitter:title" content="Kurs Javascript">
+<meta name="twitter:description" content="Kurs Javascript dla superbohaterów">
+<meta name="twitter:creator" content="@kartofelek007">
+<meta name="twitter:image" content="https://kursjs.pl/kursjs.png">
+<meta property="og:title" content="Kurs Javascript">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.kursjs.com/">
+<meta property="og:image" content="https://kursjs.pl/kursjs.png">
+<meta property="og:description" content="Kurs Javascript dla superbohaterów">
+<meta property="og:site_name" content="Kurs Javascript">
+<link rel="apple-touch-icon" sizes="57x57" href="/favicons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/favicons/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/favicons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/favicons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/favicons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/favicons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/favicons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/favicons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="/manifest.json">
+<meta name="msapplication-TileColor" content="#FF6347">
+<meta name="msapplication-TileImage" content="/mstile-144x144.png">
+    <script src="/js/jquery.min.js"></script>
+</head>
+<body>
+
+<div class="page-container" id="pageContainer">
+	<div class="page-content-wrapper">
+        <main class="page-content" id="mainContent"  data-text-for-print="Kurs Javascript dla superbohaterów">
+                        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <div class="rekl-cnt">
+                <ins
+                class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-6843603045703750"
+                data-ad-slot="4690777640"
+                data-ad-format="auto"
+                data-full-width-responsive="true"
+                ></ins>
+            </div>
+                        <div class="page-content-text">
+
+
+<h1 class="page-title">Canvas - tworzymy Painta</h1>
+<!-- ### -->
+<p>
+    W ramach treningu poznanych rzeczy w tym artykule stworzymy prostą aplikację do rysowania.<br>
+    Zanim zaczniemy pracę, zobacz <a href="./paint/paint-final.html">skończoną aplikację</a>.
+</p>
+
+<p>
+    Uwaga. Poniższy tutorial nie jest dla super początkujących. Żeby go przerobić, <a href="../es6/class.php">powinieneś znać klasy</a>, <a href="../obiekty/obiekty-zaawansowane-this.php">zaawansowane this</a> i ogólnie mieć już ciut wprawy w pisaniu kodu.
+</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="html">HTML</h2>
+<p>Klasycznie zaczynamy od HTML.</p>
+
+<pre><code class="language-html">
+&lt;div class="paint">
+    &lt;div class="paint-bar">
+        &lt;input id="paintSize" type="range" class="paint-size" min="1" max="50" value="5">
+        &lt;output for="paintSize" class="paint-size-val">&lt;/span>
+
+        &lt;input type="color" class="paint-color">
+
+        &lt;div class="paint-buttons-cnt">
+            &lt;button data-mode="draw" class="button-mode" type="button">
+                Draw
+            &lt;/button>
+            &lt;button data-mode="line" class="button-mode" type="button">
+                Line
+            &lt;/button>
+            &lt;button data-mode="rectangle" class="button-mode" type="button">
+                Rectangle
+            &lt;/button>
+        &lt;/div>
+    &lt;/div>
+
+    &lt;div class="paint-canvas-cnt">
+    &lt;/div>
+&lt;/div>
+</code></pre>
+
+<p>Nasza aplikacja składa się z głównej belki z narzędziami <strong>.paint-bar</strong>
+oraz miejsca <strong>.paint-canvas-cnt</strong> do którego będziemy wstawiać dynamicznie utworzone canvasy.
+</p>
+<p>Belka narzędzi zawiera <strong>input:range</strong> służący do wyboru wielkości pędzla do rysowania. Nie stylowałem tego elementu, bo jest to
+ogólnie trochę problematyczne, a i nie chciałem za bardzo śmiecić w kodzie. Jeżeli uznasz, że chcesz bardziej ten element upiększyć, warto skorzystać z jakiegoś pluginu, lub skorzystać z porad np. <a href="https://css-tricks.com/styling-cross-browser-compatible-range-inputs-css/">z tego artykułu</a> lub <a href="https://css-tricks.com/sliding-nightmare-understanding-range-input/">z tego</a>.
+</p>
+<p>
+Dodatkowo belka posiada <strong>input:color</strong> - służący do wyboru koloru, oraz 3 buttony do wyboru aktualnego trybu rysowania - draw, line i rectangle. Każdy taki button ma atrubyt <strong>data-mode</strong>, który określa aktualny tryb rysowania. Dostaniemy się do nich przez <a href="../dom/dom-wlasciwosci.php#dataset">dataset</a>, ale to trochę później.</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="html">CSS</h2>
+<p>Zanim przejdziemy do pisania właściwej aplikacji, dodajmy do niej odpowiednie stylowanie. Zwróć uwagę, że canvas jest pozycjonowany absolutnie względem rodzica <strong>.paint-canvas-cnt</strong>. Wróci to do nas gdy będziemy rysować linie.</p>
+
+<p>Dla przycisków trybów rysowania użyta jest grafika:</p>
+
+<img src="./paint/icons.png" alt="ikony przycisków painta" class="border space">
+
+<p>Poszczególne ikony uzyskujemy przez przesunięcie tła. Jest to znana technika stosowana w <a href="http://domanart.pl/css-sprites/">css sprites</a>.</p>
+
+<pre><code class="language-css">
+* {
+    box-sizing: border-box;
+}
+
+.paint {
+    width:1000px;
+}
+
+.paint-bar {
+    padding:20px;
+    border:1px solid #ccc;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+    z-index: 3;
+    position: relative;
+    font-family: sans-serif;
+}
+
+/* range input */
+.paint-bar .paint-size {
+    cursor:pointer;
+}
+
+/* informacja o wartości range. Domyślnie range czegoś takiego nie ma */
+.paint-bar .paint-size-val {
+    min-width:2.3rem;
+    border-radius: 3px;
+    padding:0 10px;
+    color:#333;
+    background: #333;
+    padding:5px;
+    margin-right:30px;
+    margin-left:10px;
+    color:#fff;
+    display: inline-block;
+    text-align: center;
+    position: relative;
+}
+.paint-bar .paint-size-val:before {
+    content:'';
+    position: absolute;
+    left:-10px;
+    top:50%;
+    transform: translate(0, -50%);
+    width:0;
+    height:0;
+    border:5px solid transparent;
+    border-right-color:#333;
+}
+
+/* przycisk wyboru koloru */
+.paint-bar .paint-color {
+    height:60px;
+    width:60px;
+    border:1px solid #aaa;
+    border-radius: 3px;
+}
+.paint-bar .paint-color::-webkit-color-swatch-wrapper {
+    padding: 3px;
+    border:0;
+}
+.paint-bar .paint-color::-webkit-color-swatch {
+    border: none;
+    border-radius: 3px;
+}
+
+/* przyciski z akcjami - draw, line, rectangle */
+.paint-bar .paint-buttons-cnt {
+    margin-left:auto;
+}
+.paint-bar .button-mode {
+    cursor:pointer;
+    height:60px;
+    background: transparent;
+    margin:0 5px;
+    border:0;
+    background: url(icons.png) no-repeat;
+    border:1px solid #ccc;
+    color:#aaa;
+    border-radius: 3px;
+    text-indent:-9999px;
+    overflow: hidden;
+    width:62px;
+    height:62px;
+}
+.paint-bar .button-mode[data-mode="draw"] {
+    background-position: 0 0;
+}
+.paint-bar .button-mode[data-mode="line"] {
+    background-position: -60px 0;
+}
+.paint-bar .button-mode[data-mode="rectangle"] {
+    background-position: -120px 0;
+}
+.paint-bar .button-mode:focus {
+    outline: none;
+}
+.paint-bar .button-mode.active {
+    border-color: red;
+    box-shadow: inset 0 0 0 1px red;
+}
+
+/* miejsce na canvasy */
+.paint-canvas-cnt {
+    width:1000px;
+    height:600px;
+    position: relative;
+}
+.paint-canvas-cnt canvas {
+    position: absolute;
+    left:0;
+    top:0;
+    width:100%;
+    height:100%;
+}
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="pain">Obiekt paint</h2>
+<p>Zaczynamy pisać skrypt. Nasz paint zrobimy jako klasę.</p>
+
+<pre><code class="language-js">
+class Paint {
+    constructor() {
+        ..tutaj początkowe ustawienia
+    }
+}
+</code></pre>
+
+<p>Chcemy by nasza aplikacja miała jakieś tło, po którym będziemy rysować.
+    W necie jest wiele takich tekstur - chociażby tutaj: <a href="https://www.freepik.com/free-photos-vectors/paper-texture">https://www.freepik.com/free-photos-vectors/paper-texture</a>.<br>
+    Ja ściągnąłem jedną z nich i przeskalowałem na nasze potrzeby. Gotowe tło znajdziesz <a href="./paint/canvas-bg.png">tutaj</a>.
+    Jeżeli jest ono dla Ciebie zbyt smutne, albo zwyczajnie nieciekawe, użyj swojego.<br>
+    Pozostaje je użyć i po wczytaniu zacząć wykonywać akcje. Podobne działania już robiliśmy w <a href="./canvas-images.php">poprzednich rozdziałach</a>.
+</p>
+
+<pre><code class="language-js">
+class Paint {
+    constructor() {
+        this.img = new Image();
+        this.img.addEventListener('load', () => { //funkcja strzałkowa by nie zgubić this
+
+            ...
+
+        });
+        this.img.src = 'canvas-bg.png';
+    }
+}
+</code></pre>
+
+<p>Żeby mieć dostęp do obiektu paint wewnątrz eventu load użyliśmy <a href="../obiekty/obiekty-zaawansowane-this.php">funkcji strzałkowej</a>.</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="tworzenie-canvas">Tworzenie canvas</h2>
+<p>Pobierzmy teraz miejsce na wrzucenie canvasu i wrzućmy tam dynamicznie tworzony canvas, który za chwilę wygenerujemy</p>
+
+<pre data-line="6-7"><code class="language-js">
+class Paint {
+    constructor() {
+        this.img = new Image();
+        this.img.addEventListener('load', () => {
+            //kontener dla canvasu
+            this.canvasCnt = document.querySelector('.paint-canvas-cnt');
+            this.createCanvas();
+        });
+        this.img.src = 'canvas-bg.png';
+    }
+}
+</code></pre>
+
+<p>Do utworzenia canvasu skorzystamy z metody <strong>createCanvas()</strong> naszej klasy. Napiszmy ją:</p>
+
+<pre data-line="6,11-19"><code class="language-js">
+class Paint {
+    constructor() {
+        this.img = new Image();
+        this.img.addEventListener('load', () => {
+            this.canvasCnt = document.querySelector('.paint-canvas-cnt');
+            this.createCanvas();
+        });
+        this.img.src = 'canvas-bg.png';
+    }
+
+    createCanvas() {
+        const canvas = document.createElement('canvas');
+        canvas.width = this.canvasCnt.offsetWidth;
+        canvas.height = this.canvasCnt.offsetHeight;
+
+        this.canvas = this.createCanvas();
+        this.canvasCnt.appendChild(this.canvas);
+        this.ctx = this.canvas.getContext('2d');
+    }
+}
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="pobieranie-elementow">Pobieranie elementów</h2>
+<p>Kolejnym krokiem będzie pobranie reszty elementów na których będziemy działać: input:range do pobierania wielkości pędzla,
+input:color do pobierania koloru:</p>
+
+<pre data-line="9,18-28"><code class="language-js">
+class Paint {
+    constructor() {
+        this.img = new Image();
+        this.img.addEventListener('load', () => {
+            //elementy belki
+            this.canvasCnt = document.querySelector('.paint-canvas-cnt');
+
+            this.createCanvas();
+            this.setControls();
+        });
+        this.img.src = 'canvas-bg.png';
+    }
+
+    createCanvas() {
+        ...
+    },
+
+    setControls() {
+        //element pobierania wielkości pędzla
+        this.sizeElem = document.querySelector('.paint-size');
+
+        //element pokazujący wielkość pędzla
+        this.sizeElemVal = document.querySelector('.paint-size-val');
+        this.sizeElemVal.innerText = this.sizeElem.value;
+
+        //element do pobierania koloru
+        this.colorElem = document.querySelector('.paint-color');
+    }
+}
+</code></pre>
+
+<p>Dodatkowo pobierzmy buttony do przełączania trybu rysowania. Buttony pobieramy jako kolekcja elementów. Żeby łatwiej na takiej kolekcji działać, zamieńmy ją na tablicę. Dzięki temu będziemy mogli na niej wykonywać takie metody jak filter, forEach itp:</p>
+
+<pre data-line="29-35"><code class="language-js">
+class Paint {
+    constructor() {
+        this.img = new Image();
+        this.img.addEventListener('load', () => {
+            //elementy belki
+            this.canvasCnt = document.querySelector('.paint-canvas-cnt');
+
+            this.createCanvas();
+            this.setupControls();
+        });
+        this.img.src = 'canvas-bg.png';
+    }
+
+    createCanvas() {
+        ...
+    },
+
+    setupControls() {
+        //element pobierania wielkości pędzla
+        this.sizeElem = document.querySelector('.paint-size');
+
+        //element pokazujący wielkość pędzla
+        this.sizeElemVal = document.querySelector('.paint-size-val');
+        this.sizeElemVal.innerText = this.sizeElem.value;
+
+        //element do pobierania koloru
+        this.colorElem = document.querySelector('.paint-color');
+
+        //przyciski akcji - zamieniamy je na tablicę by łatwiej działać
+        this.btnsMode = [...document.querySelectorAll('.paint-buttons-cnt .button-mode')];
+
+        //dla przycisku z trybem draw dodajemy klasę active
+        this.btnsMode.filter(function(el) {
+            return el.dataset.mode === 'draw'
+        })[0].classList.add('active');
+    }
+}
+</code></pre>
+
+<p>Po pobraniu wszystkich elementów ustawiamy aktualny tryb rysowania na <strong>draw</strong> oraz czy można rysować. Nasza aplikacja będzie reagować na myszkę. Jeżeli lewy klawisz myszki będzie wciśnięty, oznacza to, że można rysować. Jeżeli będzie można rysować, wtedy wykryjemy pozycję myszki (mousemove) na canvasie i wykonamy odpowiednią akcję. </p>
+
+<pre data-line="7-9"><code class="language-js">
+class Paint {
+    contructor() {
+        this.img = new Image();
+        this.img.addEventListener('load', function() {
+            ...
+
+            //czy mozemy rysowac
+            this.canDraw = false;
+            this.mode = 'draw';
+        });
+        this.img.src = 'canvas-bg.png';
+    }
+
+    ...
+}
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="wstepne-ustawienia">Wstępne ustawienia dla canvas</h2>
+<p>Zanim to wszystko napiszemy, musimy zająć się wstępnym ustawieniem właściwości canvas - np. ustawieniem wielkości i koloru początkowego pędzla, tła canvasu itp.</p>
+
+<pre data-line="8,15-24"><code class="language-js">
+class Paint {
+    constructor() {
+        this.img = new Image();
+        this.img.addEventListener('load', function() {
+            ...
+            this.canDraw = false;
+            this.mode = 'draw';
+            this.setupInitialCtx();
+        });
+        this.img.src = 'canvas-bg.png';
+    },
+
+    ...
+
+    setupInitialCtx() {
+        //tło canvasu
+        this.ctx.drawImage(this.canvasBg, 0, 0);
+
+        //początkowe ustawienia pędzla
+        this.ctx.lineWidth = this.sizeElem.value;
+        this.ctx.lineJoin = "round";
+        this.ctx.lineCap = "round";
+        this.ctx.strokeStyle = this.colorElem.value;
+    }
+}
+
+paint.init();
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="podpiecie-elementow">Podpięcie elementów</h2>
+<p>Kolejną metodą, którą napiszemy będzie metoda podpinająca wszystkie elementy w naszej aplikacji:</p>
+
+<pre id="bindElements" data-line="10,17-44"><code class="language-js">
+class Paint {
+    constructor() {
+        this.img = new Image();
+        this.img.addEventListener('load', function() {
+            ...
+            this.canDraw = false;
+            this.mode = 'draw';
+            this.setupInitialCtx();
+            this.setupControls();
+            this.bindControls();
+        });
+        this.img.src = 'canvas-bg.png';
+    },
+
+    ...
+
+    bindControls() {
+        //dla każdego elementu przypinamy metody bindem
+        //bo chcemy w nich mieć dostęp do naszego obiektu paint
+        this.sizeElem.addEventListener('change', this.changeSize.bind(this));
+        this.sizeElem.addEventListener('input', this.changeSize.bind(this));
+
+        this.colorElem.addEventListener('change', this.changeColor.bind(this))
+
+        this.canvasCnt.addEventListener('mousemove', this.mouseMove.bind(this));
+        this.canvasCnt.addEventListener('mouseup', this.mouseDisable.bind(this));
+        this.canvasCnt.addEventListener('mousedown', this.mouseEnable.bind(this));
+
+        //po kliknięciu w przycisk zmiany trybu rysowania
+        //wszystkim jego braciom wyłączamy klasę .active, a włączamy tylko temu klikniętemu
+        //dodatkowo ustawiamy tryb rysowania na pobrany z dataset.mode klikniętego przycisku
+        for (const el of this.btnsMode) {
+            el.addEventListener('click', (e) => {
+                e.currentTarget.classList.add('active');
+                this.mode = e.currentTarget.dataset.mode;
+
+                for (const el of this.btnsMode) {
+                    if (el !== e.currentTarget) {
+                        el.classList.remove('active');
+                    }
+                };
+            });
+        }
+    }
+}
+</code></pre>
+
+<p>Jak widzisz metoda ta podpina do wcześniej pobranych elementów różne metody - <strong>changeSize()</strong> - do zmiany wielkości pędzla, <strong>changeColor()</strong> - do zmiany koloru, oraz najważniejsze - obsługę myszy dla płótna.</p>
+<p>W kolejnych krokach zajmiemy się właśnie tymi metodami.</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="zmiana-wielkosci-i-koloru">Zmiana wielkości i koloru pędzla</h2>
+<p>Kolejnym krokiem jest napisanie metod do zmiany wielkości i koloru pędzla:</p>
+
+<pre data-line="4-15"><code class="language-js">
+class Paint {
+    ...
+
+    changeSize : function(e) {
+        //wartość wyświetlana przy input:range
+        this.sizeElemVal.innerText = e.target.value;
+        //zmieniamy wielkość rysowania
+        this.ctx.lineWidth = e.target.value;
+    },
+
+    changeColor : function(e) {
+        //zmieniamy kolor rysowania
+        const color = this.colorElem.value;
+        this.ctx.strokeStyle = color;
+    },
+}
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="przelaczanie-trybu">Przełączanie trybu rysowania</h2>
+<p>Po kliknięciu w przyciski zmieniające tryb rysowania odpalamy metodę <strong>enableMode</strong>, która przełącza aktualny tryb. Tryb taki pobieramy z atrybutu <strong>data-mode</strong> za pomocą <a href="../dom/dom-wlasciwosci.php#dataset">dataset</a> klikniętego przycisku (robimy to w powyżej napisanej metodzie <a href="#bindElements">bindElements</a>). Żeby się zabezpieczyć przed błędami (albo i celowym działaniem - np. ręczną zmianą tych atrybutów), zróbmy dodatkowe sprawdzanie, czy włączany tryb pasuje do zadeklarowanych przez nas:</p>
+
+<pre data-line="3,13-18"><code class="language-js">
+class Paint {
+    constructor() {
+        this.avaibleMode = ['draw', 'line', 'rectangle'];
+        this.img = new Image();
+        this.img.addEventListener('load', function() {
+            ...
+        });
+        this.img.src = 'canvas-bg.png';
+    },
+
+    ...
+
+    enableMode : function(mode) {
+        //sprawdzamy czy włączany tryb jest poprawny
+        if (this.avaibleMode.indexOf(mode) !== -1) {
+            this.mode = mode;
+        }
+    },
+}
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="rysowanie">Rysowanie</h2>
+<p>Przejdźmy teraz do najważniejszych metod służących do rysowania po płótnie.<br> Jak takie rysowanie wygląda w praktyce? Będąc kursorem na płótnie użytkownik naciska klawisz myszki (mousedown). Trzymając go wciśniętego rusza kursorem (mousemove) co powoduje rysowanie. Gdy puści klawisz myszy (mouseup) rysowanie jest przerywane.</p>
+<p>W naszym przypadku wykorzystamy trzy zdarzenia: mousedown, mousemove i mouseup. Gdy użytkownik naciśnie na płótnie lewy klawisz myszy, wtedy ustawimy zmienną <strong>canDraw</strong> na true. Jeżeli taki klawisz puści, <strong>canDraw</strong> zostanie ustawione na false.<br>
+W zdarzeniu <strong>mousemove</strong> będziemy sprawdzać, czy zmienna <strong>canDraw</strong> jest ustawiona na true. Jeżeli tak, znaczy to że użytkownik właśnie rysuje. Jeżeli nie - nie rysuje. Proste.<br>
+
+<p>Pseudokod mógłby wyglądać tak:</p>
+
+<pre><code class="language-js">
+let canDraw = false;
+
+canvas.mouseDown = function() {
+    canDraw = true;
+}
+
+canvas.mouseUp = function() {
+    canDraw = false;
+}
+
+canvas.mouseMove = function() {
+    if (canDraw) {
+        //rysujemy
+    } else {
+        //nie rysujemy
+    }
+}
+</code></pre>
+
+<p>Odpowiednie zdarzenia już podpięliśmy w metodzie <strong>bindElements</strong>.</p>
+<p>W naszym przypadku po kliknięciu klawisza myszki wywołujemy metodę <strong>mouseEnable</strong>, która rozpoczyna <a href="./canvas.php#path">path w danym punkcie</a>. Potem następuje przesuwanie kursora (metoda <strong>mouseMove</strong>) w której używana jest metoda lineTo() i stroke() - zupełnie tak jak w rozdziale o canvas. Po zakończeniu rysowania przestawiamy zmienną <strong>canDraw</strong> na false:</p>
+
+<pre data-line="27-29"><code class="language-js">
+class Paint {
+    ...
+
+    mouseEnable : function(e) {
+        this.canDraw = true;
+        this.ctx.beginPath();
+        this.ctx.moveTo(this.startX, this.startY);
+    },
+
+    mouseDisable : function(e) {
+        this.canDraw = false;
+    },
+
+    mouseMove : function(e) {
+        if (this.canDraw) {
+            const mousePos = this.getMousePosition(e);
+
+            if (this.mode === 'draw') {
+                this.ctx.lineTo(mousePos.x, mousePos.y);
+                this.ctx.stroke();
+            }
+        }
+    },
+
+    bindControls() {
+        ...
+        this.canvasCnt.addEventListener('mousemove', this.mouseMove.bind(this));
+        this.canvasCnt.addEventListener('mouseup', this.mouseDisable.bind(this));
+        this.canvasCnt.addEventListener('mousedown', this.mouseEnable.bind(this));
+
+        for (const el of this.btnsMode) {
+            ...
+        }
+    },
+}
+</code></pre>
+
+<p>Zauważ, że w metodzie <strong>mouseMove()</strong> do pobrania pozycji kursora na canvasie wykorzystujemy metodę <strong>getMousePosition()</strong>, której jeszce nie mamy. Napiszmy ją teraz:</p>
+
+<pre data-line="4-12"><code class="language-js">
+class Paint {
+    ...
+
+    getMousePosition(e) {
+        const mouseX = e.pageX - this.getElementPos(this.canvas).left;
+        const mouseY = e.pageY - this.getElementPos(this.canvas).top;
+
+        return {
+            x: mouseX,
+            y: mouseY
+        };
+    },
+
+    ...
+}
+</code></pre>
+
+<p>Tak jak to robiliśmy w rozdziale o <a href="../events/events-mouse.php#pozycja">myszce</a> za pomocą <strong>e.pageX</strong> i <strong>e.pageY</strong> pobieramy pozycję kursora od lewego górnego narożnika strony.
+</p>
+<p>
+Aby obliczyć pozycję kursora na naszym obszarze rysowania, od takiej pozycji myszki musimy odjąć aktualną pozycję elementu canvas.</p>
+<p>Do wyliczenia takiej pozycji canvasu musimy użyć właściwości <strong>offsetLeft</strong> i <strong>offsetTop</strong>, które zwracają pozycję względem <strong>rodzica</strong> danego elementu. Taki rodzic też może być odsunięty od swojego rodzica, a ten z kolei od swojego itp. Dlatego prawdziwą pozycję canvas musimy wyliczyć w pętli while, w której pobieramy kolejnych rodziców (aż do body) i sumujemy ich przesunięcia.</p>
+
+<pre data-line="5-6,14-26"><code class="language-js">
+class Paint {
+    ...
+
+    getMousePosition(e){
+        const mouseX = e.pageX - this.getElementPos(this.canvas).left;
+        const mouseY = e.pageY - this.getElementPos(this.canvas).top;
+
+        return {
+            x: mouseX,
+            y: mouseY
+        };
+    },
+
+    getElementPos(obj) {
+        let top = 0;
+        let left = 0;
+        while (obj && obj.tagName != "BODY") {
+            top += obj.offsetTop - obj.scrollTop;
+            left += obj.offsetLeft - obj.scrollLeft;
+            obj = obj.offsetParent;
+        }
+        return {
+            top: top,
+            left: left
+        };
+    },
+
+    ...
+}
+</code></pre>
+
+<p>W tym momencie nasza aplikacja ma już zaimplementowane podstawowe rysowanie:</p>
+
+<a href="./paint/paint-demo-1.html" class="button">Demo 1</a>
+
+<!-- ### -->
+<h2 class="subtitle" id="rysowanie">Rysowanie linii</h2>
+
+<p>Kolejnym trybem, który zaprogramujemy będzie rysowanie linii.</p>
+<p>Chcemy by takie rysowanie działało tak jak w popularnych programach graficznych (np. Adobe Photoshop).</p>
+<p>Użytkownik naciska lewy klawisz myszy. Następnie nie puszczając go i przeciągając kursorem rysuje linię. Gdy puści klawisz myszy linia zostanie narysowana.</p>
+
+<p>Poniżej nagrałem jak takie rysowanie wygląda w Photoshopie:</p>
+
+<img src="./animationfix.gif" alt="animacja rysowania linii" class="border">
+
+<p>Powiedzmy, że my robimy wersję z Photoshopa CS6, więc ten pomocniczy Tooltip, który lata przy kursorze nas nie interesuje.</p>
+
+<p>Aby stworzyć takie "dynamiczne" rysowanie linii musielibyśmy w każdej klatce przerysowywać cały canvas. W przeciwnym razie rysowana w każdej klatce nowa pozycja linii zamazała by nasz canvas, bo w każdej klatce rysowalibyśmy nową linię.</p>
+
+<p>Moglibyśmy spróbować tutaj użyć dodatkowej zmiennej, do której przenosilibyśmy obecny stan canvasu, po czym rysowalibyśmy linię, przenosilibyśmy zapisany stan ze zmiennej na canvas itp. Działanie takie było by dla nas jednak mało wygodne, a i mało wydajne, bo oznaczało by całościowe przenoszenie całego canvasu przy każdej klatce rysowania.</p>
+
+<p>W większości programów graficznych, jeżeli chcesz rysować coś, co nie wpłynie na resztę grafiki, tworzysz nową warstwę i właśnie na niej zaczynasz swoje rysowanie. Dzięki temu możesz po niej mazać, czyścić ją itp, a całość nie ma wpływu na resztę grafiki. W naszym przypadku taką warstwą będzie kolejny canvas, który za pomocą pozycjonowania absolutnego umieścimy bezpośrednio na obecnym canvasie. Po zakończeniu rysowania przeniesiemy jego zawartość na canvas właściwy.</p>
+
+<img src="./canvas-paint-warstwy.png" alt="warstwy canvas">
+
+<p>
+Zanim przejdziemy do właściwego rysowania linii, musimy stworzyć drugi canvas.
+Zrobimy go tak samo jak pierwszy czyli w metodzie createCanvas():
+</p>
+
+<pre data-line="11-15"><code class="language-js">
+class Paint {
+    ...
+
+    createCanvas() {
+        this.canvas = document.createElement('canvas');
+        this.canvas.width = this.canvasCnt.offsetWidth;
+        this.canvas.height = this.canvasCnt.offsetHeight;
+        this.canvasCnt.appendChild(this.canvas);
+        this.ctx = this.canvas.getContext('2d');
+
+        this.canvas2 = document.createElement('canvas');
+        this.canvas2.width = this.canvasCnt.offsetWidth;
+        this.canvas2.height = this.canvasCnt.offsetHeight;
+        this.canvasCnt.appendChild(this.canvas2);
+        this.ctx2 = this.canvas2.getContext('2d');
+    }
+
+    ...
+}
+</code></pre>
+
+<p>Podobnie jak dla pierwszego canvas musimy ustawić podstawowe ustawienia tego canvasu:</p>
+
+<pre data-line="14-16"><code class="language-js">
+class Paint {
+    ...
+
+    setupInitialCtx() {
+        //tło canvasu
+        this.ctx.drawImage(this.canvasBg, 0, 0);
+
+        //początkowe ustawienia pędzla
+        this.ctx.lineWidth = this.sizeElem.value;
+        this.ctx.lineJoin = "round";
+        this.ctx.lineCap = "round";
+        this.ctx.strokeStyle = this.colorElem.value;
+
+        //zaokrąglenia nie musimy tutaj ustawiać
+        this.ctx2.lineWidth = this.sizeElem.value;
+        this.ctx2.strokeStyle = this.colorElem.value;
+    },
+
+    ...
+}
+</code></pre>
+
+<p>Oraz obsłużyć zmianę wielkości pędzla i jego koloru:</p>
+
+<pre data-line="9,16"><code class="language-js">
+class Paint {
+    ...
+
+    changeSize : function(e) {
+        //wartość wyświetlana przy input:range
+        this.sizeElemVal.innerText = e.target.value;
+        //zmieniamy wielkość rysowania
+        this.ctx.lineWidth = e.target.value;
+        this.ctx2.lineWidth = e.target.value;
+    },
+
+    changeColor : function(e) {
+        //zmieniamy kolor rysowania
+        const color = this.colorElem.value;
+        this.ctx.strokeStyle = color;
+        this.ctx2.strokeStyle = color;
+    },
+
+    ...
+}
+</code></pre>
+
+<p>Aby narysować linię musimy przerobić nasze funkcje służące do obsługi myszki.</p>
+<p>Pierwszą, którą się zajmiemy to <strong>mouseEnable()</strong>. Aby rysować dynamicznie linię, musimy ją rysować od pozycji pierwszego kliknięcia (początkowej), do aktualnej pozycji kursora gdy trzymany jest lewy klawisz myszki. Tą początkową pozycję musimy zapamiętać pod jakimiś zmiennymi, które będą dostępne dla pozostałych metod:</p>
+
+<pre data-line="7-9"><code class="language-js">
+class Paint {
+    ...
+
+    mouseEnable : function(e) {
+        this.canDraw = true;
+
+        const mousePos = this.getMousePosition(e);
+        this.startX  = mousePos.x;
+        this.startY = mousePos.y;
+
+        this.ctx.beginPath();
+        this.ctx.moveTo(this.startX, this.startY);
+    },
+
+    ...
+}
+</code></pre>
+
+<p>Mając pozycję pierwszego kliknięcia możemy zacząć rysować linie. Nie będziemy jej rysować po naszym pierwszym płótnie, a po drugim. Przerabiamy więc metodę <strong>mouseMove()</strong>:</p>
+
+<pre data-line="12-22"><code class="language-js">
+class Paint {
+    ...
+
+    mouseMove : function(e) {
+        if (this.canDraw) {
+            const mousePos = this.getMousePosition(e);
+
+            if (this.mode === 'draw') {
+                this.ctx.lineTo(mousePos.x, mousePos.y);
+                this.ctx.stroke();
+            }
+            if (this.mode === 'line') {
+                //w każdej klatce czyścimy canvas2
+                this.ctx2.clearRect(0, 0, this.canvas2.width, this.canvas2.height);
+                this.ctx2.beginPath();
+                //rysujemy linię od początkowej pozycji
+                this.ctx2.moveTo(this.startX, this.startY);
+                //do aktualnej pozycji kursora
+                this.ctx2.lineTo(mousePos.x, mousePos.y);
+                this.ctx2.closePath();
+                this.ctx2.stroke();
+            }
+        }
+    },
+
+    ...
+}
+</code></pre>
+
+<p>Ostatnia metoda którą przerobimy to <strong>mouseDisable()</strong>. Właśnie skończyliśmy rysować linię na 2 canvasie. Po zakończeniu rysowania - czyli właśnie w tej metodzie musimy cały 2 canvas przenieść na pierwszy. Po takim przeniesieniu 2 canvas wyczyścimy.</p>
+
+<pre data-line="7-12"><code class="language-js">
+class Paint {
+    ...
+
+    mouseDisable : function(e) {
+        this.canDraw = false;
+
+        if (this.mode === 'line') {
+            //klonujemy canvas2 na 1
+            this.ctx.drawImage(this.canvas2, 0, 0);
+            //czyścimy 2 canvas
+            this.ctx2.clearRect(0, 0, this.canvas2.width, this.canvas2.height);
+        }
+
+    },
+
+    ...
+}
+</code></pre>
+
+<p>W tej chwili nasza aplikacja zyskała możliwość rysowania linii:</p>
+
+<a href="./paint/paint-demo-2.html" class="button">Demo 2</a>
+
+<!-- ### -->
+<h2 class="subtitle" id="kwadrat">Rysowanie kwadratu</h2>
+<p>Rysowanie kwadratu będzie podlegać takim samym zasadom jak rysowanie linii.
+Znowu - rysujemy dynamicznie na 2 canvasie. Po narysowaniu, całość przenosimy na pierwszy canvas.</p>
+<p>Canvas mamy już stworzony, wszystkie metody są gotowe, wystarczy tylko wprowadzić małe poprawki.<br>
+W metodzie <strong>mouseMove()</strong> dodajemy dodatkowy wariant dla rysowania kwadratu, a w przypadku <strong>mouseDisable()</strong> dodajemy kolejny wariant dla czyszczenia drugiego canvas:</p>
+
+<pre data-line="20-27,34"><code class="language-js">
+class Paint {
+    ...
+
+    mouseMove(e) {
+        if (this.canDraw) {
+            const mousePos = this.getMousePosition(e);
+
+            if (this.mode === 'draw') {
+                this.ctx.lineTo(mousePos.x, mousePos.y);
+                this.ctx.stroke();
+            }
+            if (this.mode === 'line') {
+                this.ctx2.clearRect(0, 0, this.canvas2.width, this.canvas2.height);
+                this.ctx2.beginPath();
+                this.ctx2.moveTo(this.startX, this.startY);
+                this.ctx2.lineTo(mousePos.x, mousePos.y);
+                this.ctx2.closePath();
+                this.ctx2.stroke();
+            }
+            if (this.mode === 'rectangle') {
+                this.ctx2.clearRect(0, 0, this.canvas2.width, this.canvas2.height);
+                this.ctx2.beginPath();
+                this.ctx2.moveTo(this.startX, this.startY);
+                this.ctx2.rect(this.startX, this.startY, mousePos.x-this.startX, mousePos.y-this.startY);
+                this.ctx2.closePath();
+                this.ctx2.stroke();
+            }
+        }
+    },
+
+    mouseDisable(e) {
+        this.canDraw = false;
+
+        if (this.mode === 'line' || this.mode === "rectangle") {
+            //klonujemy canvas2 na 1
+            this.ctx.drawImage(this.canvas2, 0, 0);
+            //czyścimy 2 canvas
+            this.ctx2.clearRect(0, 0, this.canvas2.width, this.canvas2.height);
+        }
+    },
+
+    ...
+}
+</code></pre>
+
+<p>I to wszystko. Nasza aplikacja może nie równa się Photoshopowi, ale kwadrat narysuje:</p>
+
+<a href="./paint/paint-final.html" class="button">Demo 3</a>
+
+<p>Paczkę z gotową aplikacją możesz pobrać <a href="./paint/paint-final.zip">tutaj</a>.</p>
+
+<!-- ### -->
+<div class="tasks-for-you-cnt">
+<h2 class="subtitle" id="zadania">Trening czyni mistrza</h2>
+<p>
+    Poniżej zamieszczam kilka zadań, które w ramach ćwiczenia możesz wykonać:
+</p>
+<ol class="tasks-for-you">
+    <li>
+        <p>
+        Do naszego painta dodaj rysowanie kół i trójkątów.
+        Całość będzie bardzo podobna do rysowania kwadratów.<br>
+        Dodatkowo będziesz musiał stworzyć 2 przyciski z odpowiednimi ikonami.
+        </p>
+        <img src="./paint/icons2.png" alt="ikony dodatkowe" class="space border">
+        <p>W przypadku trójkąta możesz wykorzystać path (rysowanie linii) i podobne podejście co w przypadku prostokąta:</p>
+
+        <img src="./triangle.png" alt="trójkąt" class="border">
+    </li>
+</ol>
+			</div><!-- e: page-content-text -->
+			<footer class="page-footer">
+				<p>
+				Wszelkie prawa zastrzeżone. Jeżeli chcesz używać jakiejś części tego kursu, skontaktuj się z <a href="/kurs/autor.php">autorem</a>.
+				Aha - i ta strona korzysta z <a href="/kurs/polityka-prywatnosci.php">ciasteczek</a>.
+				</p>
+			</footer>
+							<div class="rekl-cnt">
+					<ins
+					class="adsbygoogle" style="margin-top:40px; display:block"
+					data-ad-client="ca-pub-6843603045703750"
+					data-ad-slot="4690777640"
+					data-ad-format="auto"
+					data-full-width-responsive="true"
+					></ins>
+				</div>
+				<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+	(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+					</main><!-- e: page-content -->
+			</div><!-- e: page-content-wrapper -->
+    <aside id="page-sidebar-cnt" class="page-sidebar-cnt">
+	<div id="page-sidebar" class="page-sidebar">
+		<button aria-label="Pokaż/ukryj Menu" aria-expanded="false" aria-controls="page-sidebar" type="button" id="pageSidebarBurger" class="page-sidebar-burger">
+			<span></span>
+		</button>
+
+		<h2 class="visuallyhidden">
+			Menu
+		</h2>
+
+		<button class="sidebar-toggle-btn" title="Pokaż/schowaj menu" aria-hidden="true">
+			<strong>Pokaż/ukryj menu</strong>
+			<span></span>
+			<span></span>
+			<span></span>
+		</button>
+
+		<div class="page-sidebar-title">
+			<a href="/kurs/kontakt.php" title="Nawrzucaj autorowi" class="mail-to-author" id="mailToAuthor">Napisz do mnie</a>
+			<a href="#popupOptions" class="page-setup-link popupOpen" title="Ustawienia strony" id="showOptions">Ustawienia</a>
+			<a href="/index.php" aria-label="Strona główna" class="page-sidebar-title-link">Kurs Javascript</a>
+		</div>
+
+        <form aria-label="Wyszukiwarka" class="search-sidebar" action="/search.php" method="post">
+            <label for="search" class="search-sidebar-label">Szukaj</label>
+            <div class="search-sidebar-input-cnt">
+                <svg class="search-sidebar-input-icon" xmlns="http://www.w3.org/2000/svg" width="26" height="28" viewBox="0 0 26 28" aria-hidden="true">
+                    <path d="M18 13c0-3.859-3.141-7-7-7s-7 3.141-7 7 3.141 7 7 7 7-3.141 7-7zm8 13c0 1.094-.906 2-2 2a1.96 1.96 0 0 1-1.406-.594l-5.359-5.344a10.971 10.971 0 0 1-6.234 1.937c-6.078 0-11-4.922-11-11s4.922-11 11-11 11 4.922 11 11c0 2.219-.672 4.406-1.937 6.234l5.359 5.359c.359.359.578.875.578 1.406z"></path>
+                </svg>
+                <input type="text" id="search" autocomplete="off" name="q" class="search-sidebar-input">
+            </div>
+            <button type="submit" class="search-sidebar-button">Szukaj</button>
+        </form>
+
+		<div class="page-sidebar-table-of-content">
+			<h2 class="visuallyhidden">Spis treści</h2>
+            <div class="page-sidebar-section">
+				<h3 class="page-sidebar-section-title noopen">
+                    <a href="/index.php">Strona główna</a>
+                </h3>
+            </div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Słowem wstępu</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/wstep/wstep.php">Wstęp</a>
+						</li>
+						<li >
+							<a href="/kurs/wstep/co-to-jest-javascript.php">Co to jest JavaScript i z czym go się je?</a>
+						</li>
+						<li >
+							<a href="/kurs/wstep/wymagania.php">Wymagania</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Super podstawy</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/debuger/debuger.php">Debuger</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/pierwszy-skrypt.php">Wstawiamy skrypty na naszą stronę</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/strict-mode.php">Strict mode</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/typy-danych.php">Typy danych i konwersja danych</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/zmienne.php">Zmienne</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/operatory.php">Operatory</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/math.php">Obiekt Math</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/string.php">String - teksty</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/instrukcje-warunkowe.php">Instrukcje warunkowe</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/petle.php">Pętle</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/funkcje.php">Funkcje</a>
+						</li>
+                        <li >
+							<a href="/kurs/super-podstawy/funkcje-tematy-dodatkowe.php">Funkcje - tematy dodatkowe</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/tablice.php">Tablice</a>
+						</li>
+                        <li >
+							<a href="/kurs/super-podstawy/tablice-iteracje.php">Tablice pętle</a>
+						</li>
+						<li >
+							<a href="/kurs/debuger/debugowanie.php">Debugowanie kodu</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+            			<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Obiekty</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+                        <li >
+							<a href="/kurs/obiekty/obiekty.php">Obiekty i this</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-jak-to-dziala.php">Jak to działa</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-konstruktor.php">Konstruktor</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-zaawansowane-this.php">Zaawansowane this</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-dziedziczenie.php">Dziedziczenie w Javascript</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-inne-sposoby-tworzenia.php">Inne sposoby tworzenia obiektów</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-instanceof-hasownproperty.php">instanceof i hasOwnProperty</a>
+						</li>
+                    </ul>
+                </div>
+            </div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">DOM i zdarzenia</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/dom/dom.php">Document Object Model</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-wlasciwosci.php">Właściwości elementów</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-relacje.php">Relacje między elementami</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-tworzenie-i-usuwanie.php">Tworzenie i usuwanie elementów</a>
+						</li>
+                        <li >
+                            <a href="/kurs/dom/style.php">Style w CSS</a>
+                        </li>
+						<li >
+							<a href="/kurs/events/events.php">Zdarzenia</a>
+						</li>
+						<li >
+							<a href="/kurs/events/events-keys.php">Zdarzenia - klawisze</a>
+						</li>
+						<li >
+							<a href="/kurs/events/events-mouse.php">Zdarzenia - myszka</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/projekt-todo.php">Projekt TODO</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/slider.php">Tworzymy slider</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Prawie podstawy</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/grafika/grafika-na-stronie.php">Grafika na stronie</a>
+						</li>
+						<li >
+							<a href="/kurs/intervals/intervals.php">setTimeout i setInterval</a>
+						</li>
+						<li >
+							<a href="/kurs/match-media.php">Praca z RWD</a>
+						</li>
+						<li >
+							<a href="/kurs/okna-dialogowe.php">Okienka dialogowe</a>
+						</li>
+						<li >
+							<a href="/kurs/okna.php">Tworzenie nowych okien</a>
+						</li>
+						<li >
+							<a href="/kurs/date/date.php">Obiekt Date</a>
+						</li>
+						<li >
+							<a href="/kurs/date/date-calendar.php">Tworzymy kalendarz</a>
+						</li>
+						<li >
+							<a href="/kurs/cookies/cookie.php">Obiekt Cookie</a>
+						</li>
+						<li >
+							<a href="/kurs/storage/storage.php">Storage</a>
+						</li>
+						<li >
+							<a href="/kurs/regular.php">Wyrażenia regularne</a>
+						</li>
+						<li >
+							<a href="/kurs/formularze/formularze.php">Formularze</a>
+						</li>
+						<li >
+							<a href="/kurs/formularze/formularze-walidacja.php">Formularze - walidacja</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Ajax</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/ajax/ajax.php">AJAX, REST, JSON</a>
+						</li>
+						<li >
+							<a href="/kurs/ajax/xmlhttprequest.php">XMLHttpRequest</a>
+						</li>
+            			<li >
+							<a href="/kurs/ajax/fetch.php">Fetch API</a>
+						</li>
+						<li >
+							<a href="/kurs/ajax/formularz-kontaktowy.php">Dynamiczny formularz kontaktowy</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Nowy Javascript</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/es6/ecma-script-2015.php">ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/webpack.php">Webpack</a>
+						</li>
+                        <li >
+            				<a href="/kurs/es6/obiekty-w-es6.php">Obiekty w ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/funkcja-strzalkowa.php">Funkcja strzałkowa</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/spread-rest.php">Spread i rest</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/template-strings.php">Template strings</a>
+						</li>
+						<li >
+            				<a href="/kurs/es6/destructuring.php">Dekompozycja</a>
+        				</li>
+						<li >
+							<a href="/kurs/es6/class.php">Klasy w ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/promises.php">Promises</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/async-await.php">Async/Await</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/symbole.php">Symbole</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">jQuery</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/jquery/jquery.php">jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/animacje-w-jquery.php">Animacje w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/jquery-ajax.php">Ajax w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/tabs.php">Taby w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/plugin.php">Karuzela w jQuery</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section show has-active-element">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Canvas</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/canvas/canvas.php">Canvas</a>
+						</li>
+						<li >
+							<a href="/kurs/canvas/canvas-images.php">Grafika w canvas</a>
+						</li>
+						<li class="active">
+						<a href="/kurs/canvas/canvas-paint.php">Praktycznie : Paint w canvas</a>
+						</li>
+
+						<li >
+							<a href="/kurs/canvas/canvas-animacja.php">Animacja w canvas</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Gry</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/gry/hangman/hangman.php">Szubienica</a>
+						</li>
+						<li >
+							<a href="/kurs/gry/memory/memory.php">Memory</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+            			<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Inne</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/dodatkowe-materialy.php">Dodatkowe materiały</a>
+						</li>
+						<li >
+							<a href="/kurs/faq.php">FAQ</a>
+						</li>
+						<li >
+							<a href="/kurs/polityka-prywatnosci.php">Polityka prywatności</a>
+						</li>
+						<li >
+							<a href="/kurs/autor.php">O autorze</a>
+						</li>
+						<li >
+							<a href="/kurs/kontakt.php">Kontakt</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="page-sidebar-section">
+                <a class="special-link" href="/kurs/autor.php#donate">Wesprzyj kurs</a>
+            </div>
+		</div>
+	</div>
+</aside></div><!-- e: page-container -->
+
+<div class="popup" id="popupOptions">
+	<div class="popup-inside">
+        <div class="popup-container-cnt">
+            <div class="popup-container">
+                <button class="popup-close">Zamknij</button>
+
+                <h2 class="popup-title">
+                    Opcje
+                </h2>
+
+                <div class="popup-content">
+                    <form class="form-options">
+                        <div class="form-option">
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <label for="optionsThemeSelect">Wybierz skórkę dla listingów</label>
+                                    <select id="optionsThemeSelect"></select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <pre><code class="language-js">
+                                //tak będzie wyglądał kod
+
+                                function test() {
+                                    for (let i=0; i&lt;10; i++) {
+                                        console.log("Tekst numer ", 1);
+                                    }
+                                }
+
+                                test();
+                                </code></pre>
+                            </div>
+                            <div class="form-row" id="themeLightModeRow">
+                                <div class="form-col">
+                                    <label for="themeLightMode">
+                                        Tryb dzienny / nocny
+                                    </label>
+
+                                    <div class="light-mode-el">
+                                        <input type="checkbox" id="themeLightMode">
+                                        <span class="light-mode"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+	</div>
+</div>
+<script async defer src="https://www.googletagmanager.com/gtag/js?id=UA-38558970-5"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-38558970-5');
+</script>
+
+	<script src="/js/ads.js"></script>
+	<script src="/js/script.min.js?v=0.13" defer></script>
+</body>
+</html>

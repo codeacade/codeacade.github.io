@@ -1,0 +1,1214 @@
+<!doctype html>
+<html lang="pl-PL">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kurs Javascript - Document Object Model</title>
+	<meta name="description" content="Kurs Javascript dla superbohaterów, artykuły, tutoriale, porady, zadania do wykonania" />
+    <link rel="canonical" href="https://kursjs.pl/kurs/dom/dom.php" />
+	<link rel="stylesheet" href="./css.css" />
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,700&display=swap&subset=latin-ext" rel="stylesheet">
+	<meta name="image" content="https://kursjs.pl/kursjs.png">
+<meta name="twitter:card" content="product">
+<meta name="twitter:site" content="@publisher_handle">
+<meta name="twitter:title" content="Kurs Javascript">
+<meta name="twitter:description" content="Kurs Javascript dla superbohaterów">
+<meta name="twitter:creator" content="@kartofelek007">
+<meta name="twitter:image" content="https://kursjs.pl/kursjs.png">
+<meta property="og:title" content="Kurs Javascript">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.kursjs.com/">
+<meta property="og:image" content="https://kursjs.pl/kursjs.png">
+<meta property="og:description" content="Kurs Javascript dla superbohaterów">
+<meta property="og:site_name" content="Kurs Javascript">
+<link rel="apple-touch-icon" sizes="57x57" href="/favicons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/favicons/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/favicons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/favicons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/favicons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/favicons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/favicons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/favicons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="/manifest.json">
+<meta name="msapplication-TileColor" content="#FF6347">
+<meta name="msapplication-TileImage" content="/mstile-144x144.png">
+    <script src="/js/jquery.min.js"></script>
+</head>
+<body>
+
+<div class="page-container" id="pageContainer">
+	<div class="page-content-wrapper">
+        <main class="page-content" id="mainContent"  data-text-for-print="Kurs Javascript dla superbohaterów">
+                        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <div class="rekl-cnt">
+                <ins
+                class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-6843603045703750"
+                data-ad-slot="4690777640"
+                data-ad-format="auto"
+                data-full-width-responsive="true"
+                ></ins>
+            </div>
+                        <div class="page-content-text">
+
+
+<h1 class="page-title">Document Object Model</h1>
+<p>W tym rozdziale przejdziemy już do bardziej praktycznych rzeczy, czyli odskoczymy od konsoli debuggera, na rzecz manipulowania elementami na stronie.</p>
+
+<p>
+    Do odzwierciedlenia struktury elementów na stronie JavaScript korzysta z <a href="https://developer.mozilla.org/pl/docs/Dokumentacja_Gecko_DOM/Wprowadzenie">DOM</a> czyli Document Object Model.<br>
+    Jest to model, interfejs, który za pomocą metod i właściwości odzwierciedla dokument HTML.
+    Przeglądarka czyta nasz HTML, a następnie na jego podstawie tworzy tak zwane drzewo DOM, które odzwierciedla nasz dokument.
+</p>
+
+<p><strong>Naciskamy F12</strong> i zależnie od przeglądarki w zakładce HTML/Elements widzimy drzewo naszego dokumentu HTML składające się z różnych elementów.</p>
+
+<p>Dzięki interfejsowi DOM każdy taki element dokumentu jest reprezentowany przez odpowiedni obiekt w JavaScript, który ma swoje właściwości i metody. Dodatkowo taki interfejs udostępnia nam masę odpowiednich metod i właściwości, które pozwalają nam na takim dokumencie działać.</p>
+
+<div class="kartofel-informuje">
+    Dodatkowy ciekawy artykuł o DOM możesz znaleźć pod adresem:
+    <a href="https://bitsofco.de/what-exactly-is-the-dom/">https://bitsofco.de/what-exactly-is-the-dom/</a>
+    i oczywiście pod <a href="https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model/Introduction">https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model/Introduction</a>
+</div>
+
+
+<!-- ### -->
+
+<h2 class="subtitle" id="odwolywanie">Odwoływanie się do elementów</h2>
+<p>DOM to połączenie wielu bardziej wyspecjalizowanych <a href="https://developer.mozilla.org/en-US/docs/Web/API#Interfaces">interfejsów</a>, które same w sobie służą do bardziej szczegółowej manipulacji danymi elementami.<br>
+W większości przypadków wystarczają ogólne metody, które pozwalą nam działać na większości elementów na stronie.</p>
+
+<p>
+    Aby działać na elementach, musimy je wcześniej stworzyć lub pobrać. Zacznijmy od pobierania. Do odwoływania się do jakiegoś elementu na stronie skorzystamy z jednej z kilku funkcji:
+</p>
+
+<ul>
+    <li><a href="#getElementById">getElementById()</a> - pobiera jeden element o danym id</li>
+    <li><a href="#getElementsByTagName">getElementsByTagName()</a> - pobiera elementy o danym znaczniku</li>
+    <li><a href="#getElementsByClassName">getElementsByClassName()</a> - pobiera elementy o danej klasie</li>
+    <li><a href="#getElementsByName">getElementsByName()</a> - pobiera elementy o danym atrybucie name (w sumie mało użyteczne)</li>
+    <li><a href="#querySelector-queryselectorall">querySelector()</a> - pobiera pierwszy element pasujący do selektora css</li>
+    <li><a href="#querySelector-queryselectorall">querySelectorAll()</a>- pobiera elementy pasujące do selektora css</li>
+</ul>
+
+
+
+<!-- ### -->
+<h2 class="subtitle" id="eventReady">Zanim zaczniemy...</h2>
+<p>
+O <a href="../events/events.php">eventach</a> jeszcze się nie uczyliśmy i ich nie używaliśmy, ale w tym wypadku zrobimy wyjątek.<br>
+Żeby móc pobierać elementy ze strony, powinny być one już dostępne dla skryptu, czyli powinny być już wczytane przez przeglądarkę.<br>
+Aby mieć pewność, że kod, który odwołuje się do elementów w kodzie HTML poczeka na ich wczytanie, powinniśmy użyć
+zdarzenia <a href="https://developer.mozilla.org/en-US/docs/Web/Events/DOMContentLoaded">DOMContentLoaded</a>.
+Wszystkie skrypty operujące na elementach DOM powinny korzystać z tego eventu. W przykładach pomijam ten zapis.
+</p>
+
+<p>Ogólna konstrukcja użycia tego eventu ma postać:</p>
+
+<pre><code class="language-js">
+document.addEventListener("DOMContentLoaded", function() {
+
+    ...tutaj pobieramy elementy...
+
+});
+</code></pre>
+
+<div class="kartofel-informuje">
+    <p>
+    Jeżeli zagłębisz się w temat, prędzej czy później odnajdziesz w internecie skrypty, które
+    zamiast z powyższego eventu korzystają z <strong>window.onload</strong>
+    (lub jego odpowiednika <a href="https://developer.mozilla.org/en-US/Add-ons/Code_snippets/On_page_load">window.addEventListener('load', ...)</a>).<br>
+    Jest to błąd. Event ten jest odpalany po całkowitym wczytaniu strony - także grafiki. Zazwyczaj wczytanie samego dokumentu DOM trwa kilkadziesiąc milisekund,
+    natomiast czekanie na wgranie grafiki czasami może trwać baaardzo długo. Może to powodować zauważalne "dziury" na stronie.
+    </p>
+</div>
+
+
+
+<!-- ### -->
+<h2 class="subtitle" id="getElementById">Pobieranie elementu za pomocą getElementById</h2>
+<p>
+Metoda <strong>getElementById(id)</strong> pobiera element o danym ID.
+</p>
+
+<pre><code class="language-html">
+&lt;button type="button" id="btn">
+    Kliknij mnie
+&lt;/button>
+</code></pre>
+
+<pre><code class="language-js">
+document.addEventListener("DOMContentLoaded", function() {
+
+    const btn = document.getElementById('btn');
+    console.log(btn.innerText); //Kliknij mnie
+
+});
+</code></pre>
+
+<div class="kartofel-informuje" id="elementy-pod-zmienne">
+    Pobraliśmy element za pomocą selektora, a następnie podstawiliśmy go do zmiennej.
+    Pobierając jakiś element ze strony, JavaScript musi przeszukiwać za każdym razem całe drzewo DOM. W naszych prostych skryptach raczej nie zauważymy różnicy, ale ogólnie takie wyszukiwania nie są optymalne. Jeżeli wyszukany element podstawimy pod zmienną przeszukiwanie drzewa już nie będzie konieczne, bo zmienna wskazuje dokładne miejsce gdzie ten element się znajduje. Zyskujemy więc na wydajności.<br>
+    Ogólnie jeżeli w kodzie używasz danego elementu tylko w jednej linijce, nie musisz podstawiać go do zmiennej. Jeżeli jednak element ten pojawia się w 2 i więcej linijkach kodu - warto podstawić go pod zmienną.
+</div>
+
+<!-- ### -->
+<h2 class="subtitle" id="getElementsByTagName">Pobieranie elementów za pomocą getElementsByTagName</h2>
+<p>
+Metoda <strong>getElementsByTagName(tag)</strong> pobiera kolekcję elementów o danym znaczniku:
+</p>
+
+<pre><code class="language-html">
+&lt;table id="tabelka">
+    &lt;tr>
+        &lt;td>1&lt;/td>2&lt;td class="czerwone">3&lt;/td>
+    &lt;/tr>
+    &lt;tr>
+        &lt;td>4&lt;/td>5&lt;td class="czerwone">6&lt;/td>
+    &lt;/tr>
+&lt;/table>
+</code></pre>
+
+<pre><code class="language-js">
+document.addEventListener("DOMContentLoaded", function() {
+    const tab = document.getElementById('tabelka');
+
+    const td = tab.getElementsByTagName('td'); //pobieramy wszystkie td z tabeli
+    console.log(td.length); //wypisuje sobie ilość elementów w kolekcji
+
+    for (let i=0; i&lt;td.length; i++) { //pętla po wszystkich td
+        td[i].style.backgroundColor = 'red'; //ustawiamy tło komórek na czerwone
+    }
+});
+</code></pre>
+
+<p>Zauważ, żę metodę getElementsByTagName wywołaliśmy nie dla dokumentu, ale dla już wcześniej pobranego elementu tab. Wszystkie z omawianych metod możemy wywoływać dla dokumentu, ale też właśnie dla pobranych wcześniej elementów. Dzięki temu szukanie elementów wykonujemy nie dla całego dokumentu, a tylko w danym elemencie.</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="getElementsByClassName">Pobieranie elementów za pomocą getElementsByClassName</h2>
+<p>
+Trzecia metoda <strong>getElementsByClassName(tag)</strong> pobiera kolekcję elementów po klasie:
+</p>
+
+<pre><code class="language-js">
+document.addEventListener("DOMContentLoaded", function() {
+    const buttons = document.getElementsByClassName('btn');
+
+    for (let i=0; i&lt;buttons.length; i++) { //pętla po wszystkich buttonach o klasie .btn
+        buttons[i].style.color = "white";
+    }
+});
+</code></pre>
+
+
+<!-- ### -->
+<h2 class="subtitle" id="querySelector-queryselectorall">Pobieranie elementu za pomocą querySelector()  i querySelectorAll()</h2>
+<p>
+W dzisiejszych czasach najwygodniej jest korzystać z metod <strong>querySelector(selector)</strong> i <strong>querySelectorAll(selector)</strong>.
+</p>
+<p>
+Obie te metody jako parametr wymagają <strong>podania selektora CSS</strong> (!!!), który wyłapie nam dane elementy.
+</p>
+
+<p>Metoda querySelector zwraca pierwszy pasujący do selektora element, lub <strong>null</strong>, gdy nic nie znajdzie:</p>
+
+<pre><code class="language-js">
+//pobieramy pierwszy element .btn-primary w elemencie .module
+const btn = document.querySelector('.module .btn-primary');
+
+//pobieramy pierwszy .btn w pierwszym li listy ul
+const btnInFirstLi = document.querySelector('ul li:fist-of-type .btn');
+
+//pobieram tytuł w module
+const module = document.querySelector('.module');
+const title = module.querySelector('.module-title');
+
+//pobieram element .module który nie jest divem
+const module = document.querySelector('.module:not(div)');
+
+//pobieram paragrafy, ale te które nie są pierwszym dzieckiem swojego rodzica
+const p = document.querySelector('p:not(:first-child)');
+</code></pre>
+
+<p>
+Druga metoda <strong>querySelectorAll(selector)</strong> ma bardzo podobne działanie,
+z tą różnicą, że zwraca kolekcję elementów lub pustą kolekcję gdy nic nie znajdzie:
+</p>
+
+<pre><code class="language-js">
+const btns = document.querySelectorAll('.list .btn');
+
+for (const btn of btns) { //inny rodzaj pętli
+    console.log(btn); //wypisuje dany przycisk
+}
+</code></pre>
+
+<pre><code class="language-js">
+const btns = document.querySelectorAll('.module .btn');
+
+for (const btn of btns) {
+    //podpinam pod każdy przycisk zdarzenie click, które po kliknięciu pokaże text przycisku
+    btn.addEventListener('click', function() {
+        console.log(this.innerText);
+    });
+}
+</code></pre>
+
+<pre><code class="language-js">
+//pobieram moduły
+const modules = document.querySelectorAll('.module');
+
+for (const module of modules) {
+    //pobieramy pojedynczy przycisk danego modulu
+    const moduleToggle = module.querySelector('.module-toggle');
+
+    //dodajemy mu klik
+    moduleToggle.addEventListener('click', function() {
+        const title = module.querySelector('.module-title').innerText;
+        console.log(title);
+    });
+}
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="petle-po-kolekcjach">Pętle po kolekcjach</h2>
+<p>
+        Spójrz w powyższe kody. Po pobraniu elementów za pomocą metod getElementsByTagName, getElementsByClassName, querySelectorAll robiliśmy po nich pętlę - zupełnie jak po zwykłej tablicy. A jednak zamiast "tablica" notorycznie używam słowa kolekcja.<br>
+        Czemu? Bo kolekcja mimo, że przypomina tablicę nią nie jest. Jak po pobraniu zbadasz taką kolekcję w debugerze okaże się, że ma sporo metod i właściwości, ale i niektórych brak.<br><br>
+</p>
+<p>
+        I dla przykładu pętlę <a href="../super-podstawy/petle.php#for">for</a>, <a href="../super-podstawy/petle.php#for-of">for of</a> spokojnie po takiej kolekcji możemy robić (co powyżej już robiliśmy), ale np. <a href="../super-podstawy/tablice-iteracje.php#map">map</a>, czy <a href="../super-podstawy/tablice-iteracje.php#filter">filter</a> już nie zadziałają, bo kolekcje mimo, że podobne do tablic, tablicami nie są.
+</p>
+<p>
+Aby wykonać pętlę po elementach kolekcji możemy skorzystać z tradycyjnych pętli takich jak <a href="../super-podstawy/petle.php#for">for</a> czy <a href="../super-podstawy/petle.php#for-of">for of</a>:
+</p>
+
+<pre><code class="language-js">
+const divs = document.querySelectorAll('.module');
+
+for (let i=0; i&lt;divs.length; i++) {
+    divs[i].style.color = "red";
+}
+</code></pre>
+
+<p>Dla nowych przeglądarek warto używać pętli <strong>for of</strong>, która jest o wiele przyjemniejsza w użyciu:</p>
+
+<pre><code class="language-js">
+const divs = document.querySelectorAll('.module');
+
+for (const div of divs) {
+    div.style.color = "red";
+}
+</code></pre>
+
+    <p>Metod typowych dla tablic takich jak (<a href="../super-podstawy/tablice-iteracje.php#filter">filter</a>, <a href="../super-podstawy/tablice-iteracje.php#some">some</a>, <a href="../super-podstawy/tablice-iteracje.php#map">map</a> itp) nie będziemy mogli użyć:</p>
+
+<pre><code class="language-js">
+//to nie zadziała, bo map jest metodą dla tablic
+document.querySelectorAll('.module').map(function(el) {
+    el.style...
+});
+</code></pre>
+
+<p>chyba, że wcześniej zamienimy taką kolekcję na typową tablicę chociażby za pomocą
+    <a href="../es6/spread-rest.php">spread operatora</a>:</p>
+
+<pre><code class="language-js">
+const buttons = document.querySelectorAll('button');
+const texts = [...buttons].filter(el => el.innerText.length >= 5); //tylko buttony, których tekst jest dłuższy niż 5 liter
+</code></pre>
+
+<p>Wyjątkiem jest tutaj <a href="../super-podstawy/petle.php#forEach">forEach</a>, która została w nowych przeglądarkach dodana także dla kolekcji elementów:</p>
+
+<pre><code class="language-js">
+//to zadziała tylko w nowych przeglądarkach więc uważaj
+document.querySelectorAll('.module').forEach(function(el) {
+    el.style.color = "blue";
+});
+</code></pre>
+
+<p id="forEach">Aby móc użyć forEach w starszych przeglądarkach musimy skorzystać z triku, który już <a href="../obiekty/obiekty-dziedziczenie.php#call-apply">wcześniej poznaliśmy</a>:</p>
+
+<pre><code class="language-js">
+const divs = document.querySelectorAll('div.module');
+
+[].forEach.call(divs, function(el) {
+    el.style.background = "red"
+});
+</code></pre>
+
+<p>Poza zamianą kolekcji na tablicę za pomocą spread operatora, możemy też użyć funkcji <a href="https://developer.mozilla.org/pl/docs/Web/JavaScript/Referencje/Obiekty/Array/from">Array.from()</a>, która zamienia element iterowalny na tablicę:</p>
+
+<pre><code class="language-js">
+const divs = document.querySelectorAll('div.module');
+
+Array.from(divs).forEach(el => {
+    console.log(el);
+});
+
+Array.from(divs).filter(el => {
+    console.log(el);
+});
+</code></pre>
+
+<p>W moim odczuciu pętla for of wydaje się najsensowniejszym rozwiązaniem. Oczywiście jeżeli nie wspierasz starych przeglądarek...</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="scope">:scope</h2>
+<p>
+Załóżmy, że mamy taki HTML:
+</p>
+<pre><code class="language-html">
+&lt;div class="module">
+    &lt;div>
+        &lt;div class="inside">lorem ipsum sit dolor&lt;/div>
+    &lt;/div>
+&lt;/div>
+</code></pre>
+
+<p>Pobieramy dany element:</p>
+
+<pre><code class="language-js">
+const module = document.querySelector('.module');
+</code></pre>
+
+<p>Teraz chcielibyśmy wyszukać elementy w jego wnętrzu. Odpalamy więc dla niego querySelector:</p>
+
+<pre data-line="3"><code class="language-js">
+const module = document.querySelector('.module');
+
+const div = module.querySelector('.module div div');
+</code></pre>
+
+<p>Jaki wynik będzie miała stała div?</p>
+
+<p>
+    Teoretycznie nie powinna wskazywać na nic, bo przecież w elemencie .module nie mamy kolejnego .module z 2 divami.
+</p>
+
+<p>
+Okazuje się, że będzie wskazywać na <strong>div.inside</strong>.
+Pamiętaj, że w przypadku querySelector i querySelectorAll w nawiasach podajemy <strong>selektory CSS</strong>, które wskażą na dany element. W powyższym przykładzie selektor <strong>.module div div</strong> jak najbardziej wyłapał by w css diva o którego nam chodziło.
+</p>
+<p>
+Metody querySelector i querySelectorAll wykorzystują selektory CSS do złapania odpowiednich elementów, a następnie JavaScript odfiltrowuje te, które pasują w danym momencie. W powyższym przykładzie selektor <strong>.module div div</strong> złapał wszystkie elementy pasujące do tego selektora, a następnie JavaScript odfiltrował w tej kolekcji te elementy, które znajdują się w zmiennej module..
+</p>
+
+<p>Czasami niestety takie działanie może powodować nieoczekiwane wyniki:</p>
+
+<pre><code class="language-js">
+&lt;div class="module">
+    &lt;div data-id="one">
+        &lt;div data-id="two"> &lt;!-- tego chcemy złapać -->
+        &lt;/div>
+    &lt;/div>
+&lt;/div>
+</code></pre>
+
+<pre><code class="language-js">
+const module = document.querySelector('.module');
+
+const divTwo = module.querySelector('div div');
+console.log(divTwo); //&lt;div data-id="one">&lt;/div>
+</code></pre>
+
+<p>Jeżeli chcemy by działanie tych selektorów odbywało się od danego rodzica (u nas .module)
+musimy użyć specjalnego selektora :scope
+</p>
+
+<pre><code class="language-js">
+const module = document.querySelector('.module');
+
+const div = module.querySelector(':scope div div');
+console.log(divTwo); //&lt;div data-id="two">&lt;/div>
+</code></pre>
+
+<p>Ale to też przypomina nam o innej rzeczy. W CSS powinniśmy jak najmniej używać stylowania po znacznikach (
+<a href="mailto:kontakt@kursjs.pl?subject=A_czemu?">a czemu?</a>). Zamiast tego powinniśmy kochać klasy. Sprawy stylowania to temat na całkiem długi oddzielny artykuł, ale zasada ta tyczy się i powyższego przykładu. Zamiast łapać div div, powinniśmy łapać elementy albo po ich ID, albo po ich klasach (ewentualnie jakieś customowe atrybuty). Łapanie poprzez <strong>div div</strong> nawet jak domyślnie działało by tak jak tego chcemy jest dość niepewnym manewrem (bo nie możemy zapewnić, że w przyszłości nie pojawi się tam jakiś inny div).</p>
+
+<p>Wiecej na ten temat przeczytasz na stronie
+<a href="https://developer.rackspace.com/blog/using-querySelector-on-elements/">https://developer.rackspace.com/blog/using-querySelector-on-elements/</a> i
+<a href="https://johnresig.com/blog/thoughts-on-queryselectorall/">https://johnresig.com/blog/thoughts-on-queryselectorall/</a>.
+</p>
+
+
+<div class="kartofel-informuje">
+    <p>
+        Z używaniem :scope trzeba uważać, bo selektor ten nie jest wspierany w <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/:scope#Browser_compatibility">każdej przeglądarce</a>.
+        Na moim komputerze większość przeglądarek nie miała z nim problemu, ale już IE go nie obsługiwało.
+        W większości przypadków nie będzie to miało znaczenia jeżeli będziesz działał na ładnej strukturze HTML i będziesz używał w HTML klas albo ID. Zamiast więc wyłapywać div div div, nadaj odpowiedniemu elementowi klasę css i złap go po tej klasie.
+    </p>
+</div>
+
+<!-- ### -->
+<h2 class="subtitle" id="zywe-kolekcje">Żywe kolekcje</h2>
+<p>
+    Jest jeszcze jedna istotna różnica między metodami <strong>getElementsByClassName</strong> i <strong>getElementByTagName</strong> a metodą <strong>querySelectorAll</strong>.
+</p>
+<style>
+.test {
+    border:1px solid #ddd;
+    padding:10px;
+    margin:20px 0;
+}
+.test span {
+    margin-bottom:10px;
+    color:#333;
+    padding:10px;
+}
+.test span {
+    margin:0;
+}
+</style>
+
+<p>
+    Poniżej stworzyłem diva z kilkoma spanami w środku. Po kliknięciu na guzik pobieram te spany na dwa sposoby: za pomocą querySelectorAll i getElementsByTagName, po czym wypisuję je w konsoli.
+    Kliknij na przycisk i sprawdź wynik.
+</p>
+
+<pre><code class="language-html">
+&lt;div class="test">
+    &lt;span>1&lt;/span>
+    &lt;span>2&lt;/span>
+    &lt;span>3&lt;/span>
+    &lt;span>4&lt;/span>
+    &lt;span>5&lt;/span>
+&lt;/div>
+</code></pre>
+
+<pre><code class="language-js">
+const parent = document.querySelector("#test");
+const span1 = parent.querySelectorAll("span");
+const span2 = parent.getElementsByTagName("span");
+
+console.log("querySelectorAll:");
+console.log(span1);
+
+console.log("getElementsByTagName:");
+console.log(span2);
+</code></pre>
+
+<div id="collectionTest">
+    <div class="test">
+        <span>1</span>
+        <span>2</span>
+        <span>3</span>
+        <span>4</span>
+        <span>5</span>
+    </div>
+    <button id="collectionTestBtn" class="button">Sprawdź</button>
+</div>
+
+<script>
+{
+    const btn = document.querySelector("#collectionTestBtn");
+    btn.addEventListener("click", function() {
+        const parent = document.querySelector("#collectionTest .test");
+        const span1 = parent.querySelectorAll("span");
+        const span2 = parent.getElementsByTagName("span");
+        console.log("querySelectorAll:");
+        console.log(span1);
+        console.log("getElementsByTagName:");
+        console.log(span2);
+    })
+}
+</script>
+
+<p>Jak zauważysz niby zwracane są podobne elementy, ale pod postacią innych kolekcji. I tak querySelector zwraca NodeList, natomiast getElementsByTagName zwraca HTMLCollection.</p>
+
+<p>
+    Czy się one różnią? Ta druga metoda zwraca tak zwane żywe kolekcje.
+    Podobne żywe kolekcje zwracane są przez inne metody getElementsBy<i>Coś</i> ale także przez właściwości, które poznamy przy <a href="./dom-relacje.php">poruszaniu się po drzewie</a>.
+</p>
+
+<p>Wyobraź sobie, że za pomocą getElementsByClassName pobierzesz wszystkie elementy o klasie .module, po czym wynik takiej operacji podstawisz pod zmienną modules. Jeżeli teraz w którymkolwiek momencie zostanie usunięty jakiś element .module ze strony (nie tylko za pomocą JavaScript, ale np. w debugerze), zmienna ta automatycznie się zaktualizuje (zmieni się jej zawartość, length itp).</p>
+
+<p>Przeprowadźmy testy.</p>
+
+<p><strong>Html dla testów:</strong></p>
+<pre><code class="language-html">
+&lt;span class="element">&lt;/span>
+&lt;span class="element">&lt;/span>
+</code></pre>
+
+<p><strong>getElementsByClassName:</strong></p>
+
+<pre><code class="language-js">
+const elements = document.getElementsByClassName('element');
+console.log(elements.length); //2
+
+//dynamicznie dodaję jeden .element
+const elem = document.createElement('span');
+elem.classList.add('element');
+document.querySelector('body').appendChild(elem);
+
+//nie ustawiam ponownie zmiennej, a mimo to jej wartość się zmieniła
+console.log(elements.length); //3 - dynamicznie zwiększyła się liczba elementów
+</code></pre>
+
+<p><strong>getElementsByTagName:</strong></p>
+<pre><code class="language-js">
+const elements = document.getElementsByTagName('span');
+console.log(elements.length); //3
+
+const elem = document.createElement('span');
+elem.classList.add('element');
+document.querySelector('body').appendChild(elem);
+
+console.log(elements.length); //4 - dynamicznie zwiększyła się liczba elementów
+</code></pre>
+
+<p><strong>querySelectorAll:</strong></p>
+<pre><code class="language-js">
+const elements = document.querySelectorAll('.element');
+console.log(elements.length); //4
+
+//dynamicznie tworzę kolejny element
+const elem = document.createElement('span');
+elem.classList.add('element');
+document.querySelector('body').appendChild(elem);
+
+console.log(elements.length); //4 - tutaj się dynamicznie nie aktualizuje
+</code></pre>
+
+<p>Zastosowanie tego w praktyce możesz zobaczyć np. <a href="./slider.php#generateSlider">przy generowaniu struktury slidera</a>, gdzie zastosowaliśmy to przy przenoszeniu slajdów z jednego miejsca na drugie, ale też można to wykorzystać np. do czyszczenia elementów:</p>
+
+<pre><code class="language-js">
+const elements = document.getElementsByTagName("li");
+while (elements[0]) {
+    elements[0].remove();
+}
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="gotowe-kolekcje">Gotowe kolekcje</h2>
+<p>Nie każdy element na którym będziemy pracować musimy pobierać za pomocą powyższych metod.</p>
+<p>Wiele elementów mamy już podstawione pod stosowne zmienne.</p>
+<p>Zanim przejdziemy dalej, <a href="dom-window-document.html">odpal tą stronę.</a> i włącz debugera.</p>
+
+<p>
+    Najwyżej usytuowany jest element - window. Wpisz w konsoli debugera:
+</p>
+
+<pre><code class="language-js">
+console.log(window);
+</code></pre>
+
+<p>Jak zobaczysz, obiekt ten ma masę różnych właściwości z których już korzystaliśmy, czy będziemy korzystali. <a href="../intervals/intervals.php">settInterval() i setTimeout()</a>, <a href="../okna-dialogowe.php">alert(), prompt() i confirm()</a> czy innerWidth, innerHeight czy <a href="../match-media.php">matchMedia</a> to tylko niektóre z nich.</p>
+
+<p>Wśród tych właściwości jest właściwość <strong>document</strong></p>
+
+<img src="./window-document.png" alt="window - właściwość document" class="space">
+
+<p>
+    Wskazuje ona na obiekt <strong>document</strong>, który jest naszym dokumentem html, a który non stop wykorzystywaliśmy. Jeżeli więc chciałbyś podpiąć event pod dokument, wystarczy, że wpiszesz:
+</p>
+
+<pre><code class="language-js">
+window.document.addEventListener("click", function() {...});
+
+//lub krócej - tak normalnie piszemy!:
+
+document.addEventListener("click", function() {...});
+</code></pre>
+
+<p>Ale to już robiliśmy stosując event DOMContentLoaded.<br>
+Wypiszmy w konsoli ten obiekt za pomocą console.dir:</p>
+
+<pre><code class="language-js">
+console.log(document);
+</code></pre>
+
+<p>Jak zobaczysz, obiekt ten także zawiera masę różnych właściwości. Wśród nich znajdują się "HTMLCollection" - czyli kolekcje elementów. Niektóre z nich to:</p>
+
+<pre><code class="language-js">
+document.forms - formularze na stronie
+document.images - grafiki img na stronie
+document.links - linki na stronie
+document.anchors - linki będące kotwicami
+document.body - element body
+</code></pre>
+
+<p>Są to gotowe kolekcje zawierające dane elementy. Spróbuj w konsoli je wypisać, czy ich pojedyncze elementy:</p>
+
+<pre><code class="language-js">
+document.all[0] - pierwszy element na stronie (html)
+document.forms[0] - pierwszy formularz na stronie
+
+document.images[0] - pierwsza grafika img na stornie
+document.images[document.images.length-1] - ostatnia img na stronie
+
+document.links[0] - pierwszy link na stronie
+</code></pre>
+
+<p>Ale nie są to jedyne kolekcje gotowe do użycia. Gdy dla przykładu pobierzemy ze strony jakiś formularz i wypiszemy go w konsoli, okaże się że, obiekt taki też ma swoje gotowe kolekcje np. elements, która zawiera wszystkie elementy formularza. Podobnie element select, który zawiera kolekcję options, która wskazuje na elementy options danego selekta.</p>
+
+<p>Czy musisz znać te kolekcje? Nie. Zawsze możesz pobrać dane elementy korzystając z querySelectorAll czy podobnych, ale czasami warto sobie skrócić swój kod korzystając z gotowców. </p>
+
+<!-- ### -->
+<h2 class="subtitle" id="gotowe-kolekcje">Ciekawostka</h2>
+<p>Ostatnia ciekawostka na dzisiaj. JavaScript ma kilka naleciałości, które po dzień dziś gdzieś tam się ukrywają. Jednym z takich dziwactw jest to, że jeżeli stworzymy w html jakiś element z atrybutem ID, w JavaScript zostanie dla nas stworzona zmienna o takiej samej nazwie, która będzie wskazywała na ten element:</p>
+
+<pre><code class="language-js">
+&lt;div id="test">&lt;/div>
+</code></pre>
+
+<pre><code class="language-js">
+console.log(test);
+</code></pre>
+
+<p>Kolejny powód by stylować za pomocą klas...</p>
+
+<div class="tasks-for-you-cnt">
+	<h2 class="subtitle" id="zadania">Trening czyni mistrza</h2>
+	<p>
+		Poniżej zamieszczam kilka zadań, które w ramach ćwiczenia możesz wykonać:
+	</p>
+	<ol class="tasks-for-you">
+		<li>
+			<div class="question">
+				Otwórz konsolę debugera i korzystając z powyżej opisanych komend znajdź h2 w elemencie o klasie <strong>.tasks-for-you-cnt</strong>.<br>
+				Wypisz ten element za pomocą console.log(), najedź kursorem na tekst w konsoli. Powinien się podświetlić stosowny element na stronie.<br>
+				Następnie wypisz to h2 za pomocą console.dir(). Rozwiń wypisany obiekt i spróbuj znaleźć właściwości, za pomocą których możesz zmienić tekst w tym elemencie. Szukaj po wartościach. Wykorzystaj je by zmienić tekst w tytule.
+			</div>
+			<div class="solution">
+				<pre><code class="language-js">
+				const h2 = document.querySelector('.tasks-for-you-cnt h2);
+	
+				console.log(h2);
+				console.dir(h2);
+	
+				h2.innerText = "Popsułem stronę";
+				//lub
+				h2.innerHTML = "Popsułem stronę";
+				</code></pre>
+			</div>
+		</li>
+		<li>
+			<div class="question">
+				Ściągnij sobie <a href="dom-zadanie1.html">przykładową stronę</a> klikając prawym przyciskiem na link i wybierając zapisz jako.<br>
+				Wykonaj w kodzie poniższe zadania:<br><br>
+	
+				<ol>
+					<li>Wypisz w konsoli pierwszy (jeden) element o klasie <strong>.module</strong></li>
+					<li>Wypisz w konsoli kolekcję elementów o klasie <strong>.module</strong></li>
+					<li>Wypisz w konsoli ostatni element o klasie <strong>.module</strong></li>
+					<li>Wypisz w konsoli wszystkie li w liście o klasie <strong>.list</strong></li>
+					<li>Wypisz w konsoli środkowe li w liście o klasie <strong>.list</strong></li>
+					<li>Wypisz w konsoli wszystkie buttony typu button</li>
+					<li>Wypisz w konsoli jeden button typu submit</li>
+					<li>Wypisz w konsoli kolekcję wszystkich elementów w body</li>
+				</ol>
+			</div>
+			<div class="solution">
+				<pre><code class="language-js">
+					console.log( document.querySelector(".module") );
+	
+					const modules = document.querySelectorAll(".module");
+					console.log( modules );
+					console.log( modules[modules.length-1] );
+	
+					const li = document.querySelectorAll(".list li");
+					console.log( li[li.length / 2] );
+	
+					console.log( document.querySelectorAll("button[type='button']") );
+					console.log( document.querySelector("button[type='submit']") );
+	
+					console.log( document.querySelectorAll("body *") );
+				</code></pre>
+			</div>
+		</li>
+		<li>
+			<div class="question">
+				Przejdź do zakładki Elements w debugerze. Wybierz jakiś element z tej strony. Przejdź następnie do zakładki console.
+				Wpisz $0. Następnie wpisz console.dir($0);
+			</div>
+		</li>
+	</ol>
+	</div>
+	
+			</div><!-- e: page-content-text -->
+			<footer class="page-footer">
+				<p>
+				Wszelkie prawa zastrzeżone. Jeżeli chcesz używać jakiejś części tego kursu, skontaktuj się z <a href="/kurs/autor.php">autorem</a>.
+				Aha - i ta strona korzysta z <a href="/kurs/polityka-prywatnosci.php">ciasteczek</a>.
+				</p>
+			</footer>
+							<div class="rekl-cnt">
+					<ins
+					class="adsbygoogle" style="margin-top:40px; display:block"
+					data-ad-client="ca-pub-6843603045703750"
+					data-ad-slot="4690777640"
+					data-ad-format="auto"
+					data-full-width-responsive="true"
+					></ins>
+				</div>
+				<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+	(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+					</main><!-- e: page-content -->
+			</div><!-- e: page-content-wrapper -->
+    <aside id="page-sidebar-cnt" class="page-sidebar-cnt">
+	<div id="page-sidebar" class="page-sidebar">
+		<button aria-label="Pokaż/ukryj Menu" aria-expanded="false" aria-controls="page-sidebar" type="button" id="pageSidebarBurger" class="page-sidebar-burger">
+			<span></span>
+		</button>
+
+		<h2 class="visuallyhidden">
+			Menu
+		</h2>
+
+		<button class="sidebar-toggle-btn" title="Pokaż/schowaj menu" aria-hidden="true">
+			<strong>Pokaż/ukryj menu</strong>
+			<span></span>
+			<span></span>
+			<span></span>
+		</button>
+
+		<div class="page-sidebar-title">
+			<a href="/kurs/kontakt.php" title="Nawrzucaj autorowi" class="mail-to-author" id="mailToAuthor">Napisz do mnie</a>
+			<a href="#popupOptions" class="page-setup-link popupOpen" title="Ustawienia strony" id="showOptions">Ustawienia</a>
+			<a href="/index.php" aria-label="Strona główna" class="page-sidebar-title-link">Kurs Javascript</a>
+		</div>
+
+        <form aria-label="Wyszukiwarka" class="search-sidebar" action="/search.php" method="post">
+            <label for="search" class="search-sidebar-label">Szukaj</label>
+            <div class="search-sidebar-input-cnt">
+                <svg class="search-sidebar-input-icon" xmlns="http://www.w3.org/2000/svg" width="26" height="28" viewBox="0 0 26 28" aria-hidden="true">
+                    <path d="M18 13c0-3.859-3.141-7-7-7s-7 3.141-7 7 3.141 7 7 7 7-3.141 7-7zm8 13c0 1.094-.906 2-2 2a1.96 1.96 0 0 1-1.406-.594l-5.359-5.344a10.971 10.971 0 0 1-6.234 1.937c-6.078 0-11-4.922-11-11s4.922-11 11-11 11 4.922 11 11c0 2.219-.672 4.406-1.937 6.234l5.359 5.359c.359.359.578.875.578 1.406z"></path>
+                </svg>
+                <input type="text" id="search" autocomplete="off" name="q" class="search-sidebar-input">
+            </div>
+            <button type="submit" class="search-sidebar-button">Szukaj</button>
+        </form>
+
+		<div class="page-sidebar-table-of-content">
+			<h2 class="visuallyhidden">Spis treści</h2>
+            <div class="page-sidebar-section">
+				<h3 class="page-sidebar-section-title noopen">
+                    <a href="/index.php">Strona główna</a>
+                </h3>
+            </div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Słowem wstępu</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/wstep/wstep.php">Wstęp</a>
+						</li>
+						<li >
+							<a href="/kurs/wstep/co-to-jest-javascript.php">Co to jest JavaScript i z czym go się je?</a>
+						</li>
+						<li >
+							<a href="/kurs/wstep/wymagania.php">Wymagania</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Super podstawy</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/debuger/debuger.php">Debuger</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/pierwszy-skrypt.php">Wstawiamy skrypty na naszą stronę</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/strict-mode.php">Strict mode</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/typy-danych.php">Typy danych i konwersja danych</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/zmienne.php">Zmienne</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/operatory.php">Operatory</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/math.php">Obiekt Math</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/string.php">String - teksty</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/instrukcje-warunkowe.php">Instrukcje warunkowe</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/petle.php">Pętle</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/funkcje.php">Funkcje</a>
+						</li>
+                        <li >
+							<a href="/kurs/super-podstawy/funkcje-tematy-dodatkowe.php">Funkcje - tematy dodatkowe</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/tablice.php">Tablice</a>
+						</li>
+                        <li >
+							<a href="/kurs/super-podstawy/tablice-iteracje.php">Tablice pętle</a>
+						</li>
+						<li >
+							<a href="/kurs/debuger/debugowanie.php">Debugowanie kodu</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+            			<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Obiekty</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+                        <li >
+							<a href="/kurs/obiekty/obiekty.php">Obiekty i this</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-jak-to-dziala.php">Jak to działa</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-konstruktor.php">Konstruktor</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-zaawansowane-this.php">Zaawansowane this</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-dziedziczenie.php">Dziedziczenie w Javascript</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-inne-sposoby-tworzenia.php">Inne sposoby tworzenia obiektów</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-instanceof-hasownproperty.php">instanceof i hasOwnProperty</a>
+						</li>
+                    </ul>
+                </div>
+            </div>
+
+						<div class="page-sidebar-section show has-active-element">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">DOM i zdarzenia</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li class="active">
+							<a href="/kurs/dom/dom.php">Document Object Model</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-wlasciwosci.php">Właściwości elementów</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-relacje.php">Relacje między elementami</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-tworzenie-i-usuwanie.php">Tworzenie i usuwanie elementów</a>
+						</li>
+                        <li >
+                            <a href="/kurs/dom/style.php">Style w CSS</a>
+                        </li>
+						<li >
+							<a href="/kurs/events/events.php">Zdarzenia</a>
+						</li>
+						<li >
+							<a href="/kurs/events/events-keys.php">Zdarzenia - klawisze</a>
+						</li>
+						<li >
+							<a href="/kurs/events/events-mouse.php">Zdarzenia - myszka</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/projekt-todo.php">Projekt TODO</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/slider.php">Tworzymy slider</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Prawie podstawy</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/grafika/grafika-na-stronie.php">Grafika na stronie</a>
+						</li>
+						<li >
+							<a href="/kurs/intervals/intervals.php">setTimeout i setInterval</a>
+						</li>
+						<li >
+							<a href="/kurs/match-media.php">Praca z RWD</a>
+						</li>
+						<li >
+							<a href="/kurs/okna-dialogowe.php">Okienka dialogowe</a>
+						</li>
+						<li >
+							<a href="/kurs/okna.php">Tworzenie nowych okien</a>
+						</li>
+						<li >
+							<a href="/kurs/date/date.php">Obiekt Date</a>
+						</li>
+						<li >
+							<a href="/kurs/date/date-calendar.php">Tworzymy kalendarz</a>
+						</li>
+						<li >
+							<a href="/kurs/cookies/cookie.php">Obiekt Cookie</a>
+						</li>
+						<li >
+							<a href="/kurs/storage/storage.php">Storage</a>
+						</li>
+						<li >
+							<a href="/kurs/regular.php">Wyrażenia regularne</a>
+						</li>
+						<li >
+							<a href="/kurs/formularze/formularze.php">Formularze</a>
+						</li>
+						<li >
+							<a href="/kurs/formularze/formularze-walidacja.php">Formularze - walidacja</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Ajax</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/ajax/ajax.php">AJAX, REST, JSON</a>
+						</li>
+						<li >
+							<a href="/kurs/ajax/xmlhttprequest.php">XMLHttpRequest</a>
+						</li>
+            			<li >
+							<a href="/kurs/ajax/fetch.php">Fetch API</a>
+						</li>
+						<li >
+							<a href="/kurs/ajax/formularz-kontaktowy.php">Dynamiczny formularz kontaktowy</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Nowy Javascript</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/es6/ecma-script-2015.php">ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/webpack.php">Webpack</a>
+						</li>
+                        <li >
+            				<a href="/kurs/es6/obiekty-w-es6.php">Obiekty w ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/funkcja-strzalkowa.php">Funkcja strzałkowa</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/spread-rest.php">Spread i rest</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/template-strings.php">Template strings</a>
+						</li>
+						<li >
+            				<a href="/kurs/es6/destructuring.php">Dekompozycja</a>
+        				</li>
+						<li >
+							<a href="/kurs/es6/class.php">Klasy w ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/promises.php">Promises</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/async-await.php">Async/Await</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/symbole.php">Symbole</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">jQuery</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/jquery/jquery.php">jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/animacje-w-jquery.php">Animacje w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/jquery-ajax.php">Ajax w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/tabs.php">Taby w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/plugin.php">Karuzela w jQuery</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Canvas</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/canvas/canvas.php">Canvas</a>
+						</li>
+						<li >
+							<a href="/kurs/canvas/canvas-images.php">Grafika w canvas</a>
+						</li>
+						<li >
+						<a href="/kurs/canvas/canvas-paint.php">Praktycznie : Paint w canvas</a>
+						</li>
+
+						<li >
+							<a href="/kurs/canvas/canvas-animacja.php">Animacja w canvas</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Gry</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/gry/hangman/hangman.php">Szubienica</a>
+						</li>
+						<li >
+							<a href="/kurs/gry/memory/memory.php">Memory</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+            			<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Inne</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/dodatkowe-materialy.php">Dodatkowe materiały</a>
+						</li>
+						<li >
+							<a href="/kurs/faq.php">FAQ</a>
+						</li>
+						<li >
+							<a href="/kurs/polityka-prywatnosci.php">Polityka prywatności</a>
+						</li>
+						<li >
+							<a href="/kurs/autor.php">O autorze</a>
+						</li>
+						<li >
+							<a href="/kurs/kontakt.php">Kontakt</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="page-sidebar-section">
+                <a class="special-link" href="/kurs/autor.php#donate">Wesprzyj kurs</a>
+            </div>
+		</div>
+	</div>
+</aside></div><!-- e: page-container -->
+
+<div class="popup" id="popupOptions">
+	<div class="popup-inside">
+        <div class="popup-container-cnt">
+            <div class="popup-container">
+                <button class="popup-close">Zamknij</button>
+
+                <h2 class="popup-title">
+                    Opcje
+                </h2>
+
+                <div class="popup-content">
+                    <form class="form-options">
+                        <div class="form-option">
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <label for="optionsThemeSelect">Wybierz skórkę dla listingów</label>
+                                    <select id="optionsThemeSelect"></select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <pre><code class="language-js">
+                                //tak będzie wyglądał kod
+
+                                function test() {
+                                    for (let i=0; i&lt;10; i++) {
+                                        console.log("Tekst numer ", 1);
+                                    }
+                                }
+
+                                test();
+                                </code></pre>
+                            </div>
+                            <div class="form-row" id="themeLightModeRow">
+                                <div class="form-col">
+                                    <label for="themeLightMode">
+                                        Tryb dzienny / nocny
+                                    </label>
+
+                                    <div class="light-mode-el">
+                                        <input type="checkbox" id="themeLightMode">
+                                        <span class="light-mode"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+	</div>
+</div>
+<script async defer src="https://www.googletagmanager.com/gtag/js?id=UA-38558970-5"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-38558970-5');
+</script>
+
+	<script src="/js/ads.js"></script>
+	<script src="/js/script.min.js?v=0.13" defer></script>
+</body>
+</html>

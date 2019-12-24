@@ -1,0 +1,932 @@
+<!doctype html>
+<html lang="pl-PL">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kurs Javascript - Debugowanie kodu</title>
+	<meta name="description" content="Kurs Javascript dla superbohaterów, artykuły, tutoriale, porady, zadania do wykonania" />
+    <link rel="canonical" href="https://kursjs.pl/kurs/debuger/debugowanie.php" />
+	<link rel="stylesheet" href="./css.css" />
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,700&display=swap&subset=latin-ext" rel="stylesheet">
+	<meta name="image" content="https://kursjs.pl/kursjs.png">
+<meta name="twitter:card" content="product">
+<meta name="twitter:site" content="@publisher_handle">
+<meta name="twitter:title" content="Kurs Javascript">
+<meta name="twitter:description" content="Kurs Javascript dla superbohaterów">
+<meta name="twitter:creator" content="@kartofelek007">
+<meta name="twitter:image" content="https://kursjs.pl/kursjs.png">
+<meta property="og:title" content="Kurs Javascript">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.kursjs.com/">
+<meta property="og:image" content="https://kursjs.pl/kursjs.png">
+<meta property="og:description" content="Kurs Javascript dla superbohaterów">
+<meta property="og:site_name" content="Kurs Javascript">
+<link rel="apple-touch-icon" sizes="57x57" href="/favicons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/favicons/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/favicons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/favicons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/favicons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/favicons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/favicons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/favicons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="/manifest.json">
+<meta name="msapplication-TileColor" content="#FF6347">
+<meta name="msapplication-TileImage" content="/mstile-144x144.png">
+    <script src="/js/jquery.min.js"></script>
+</head>
+<body>
+
+<div class="page-container" id="pageContainer">
+	<div class="page-content-wrapper">
+        <main class="page-content" id="mainContent"  data-text-for-print="Kurs Javascript dla superbohaterów">
+                        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <div class="rekl-cnt">
+                <ins
+                class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-6843603045703750"
+                data-ad-slot="4690777640"
+                data-ad-format="auto"
+                data-full-width-responsive="true"
+                ></ins>
+            </div>
+                        <div class="page-content-text">
+
+<h1 class="page-title">Debugowanie kodu</h1>
+<p>
+    Pisząc kod co chwila będziemy natrafiać na różnego rodzaju błędy. Aby sobie z nimi radzić powinniśmy umieć debugować nasz kod. Poniżej zajmiemy się kilkoma metodami podejścia do takiego debugowania.
+</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="console">console</h2>
+
+<p>To chyba najprostsza metoda do debugowania kodu, którą już trochę omawialiśmy w rozdziale o <a href="./debuger.php#zakladka-console">debugerze</a> a i którą non stop używam w listingach.</p>
+
+<pre><code class="language-js">
+//wypisanie tekstu
+const text = "Moja mała świnka";
+console.log(text);
+
+//wypisywanie całego obiektu
+console.log(window);
+
+//wypisanie wielu rzeczy po przecinku
+const a = 10;
+const b = 20;
+console.log('a: ', a, 'b: ', b);
+</code></pre>
+
+<p>Tutaj mała uwaga. Używajmy przecinka jeżeli chcemy wypisać coś z tekstem. Dzięki temu wypisywany element nie będzie konwertowany na tekst i nie dostaniemy w konsoli głupot.</p>
+
+<pre><code class="language-js">
+const obj = { name: "test" }
+
+//zamiast
+console.log("Wynik: " + obj); //"Wynik: [object Object]"
+
+//użyj
+console.log("Wynik:", obj); //"Wynik:", {name: "test"}
+</code></pre>
+
+<p>Ciekawą sztuczką jest wypisywanie obiektu z kluczem o danej nazwie. Dzięki temu łatwiej się można odnaleźć na co patrzymy w konsoli:</p>
+
+<pre><code class="language-js">
+const myObj = { }
+console.log({myObj : myObj});
+</code></pre>
+
+<div class="kartofel-informuje">
+    W edytorze Visual Studio Code Warto zainstalować dodatek <a href="https://marketplace.visualstudio.com/items?itemName=xabikos.JavaScriptSnippets" target="_blank">ES6 Code Snippets</a>, który dodaje nam skróty takie jak pokazał autor na
+    <a href="https://stackoverflow.com/questions/40177331/what-is-the-shortcut-in-visual-studio-code-for-console-log#answer-50075828" target="_blank">StackOverflow</a>.
+    <br>
+    Natomiast w Webstormie idealnie sprawdza się skrót <strong>.log</strong>. Piszemy coś co chcemy wypisać, dopisujemy .log i naciskamy klawisz tab. Tekst zostanie okryty console.log().<br>
+    W innych edytorach nawet jeżeli nie znajdziemy odpowiedniego dodatku (a pewnie znajdziemy), to zawsze można użyć <a href="https://www.youtube.com/watch?v=JIqk9UxgKEc">snippetów</a>.
+</div>
+
+<p>
+    Obiekt console udostępnia nam też kilka innych - równie przydatnych metod, które opisane są na stronie <a href="https://developer.mozilla.org/pl/docs/Web/API/Console">https://developer.mozilla.org/pl/docs/Web/API/Console</a>.
+</p>
+
+<p>Jeżeli zapomnimy ich listę, wystarczy w konsoli debugera wpisać słowo <code>console</code> i zbadać wypisany obiekt. W pracy codziennej w większości przypadków wystarczą:</p>
+
+<pre><code class="language-js">
+console.log() //klasyk
+console.dir() //do bardziej szczegółowego wypisywania obiektów. Szczególnie przydatna przy wypisywaniu elementów DOM
+console.table() //wypisuje ładnie sformatowaną kopię danej tabeli
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="debugind-with-debuger">Debugowanie za pomocą debugera</h2>
+<p>Debugowanie za pomocą console sprawdza się w wielu sytuacjach, i wcale nie trzeba się go wstydzić. Nie zawsze jest jednak najbardziej optymalną metodą odpluskwiania kodu.</p>
+
+<p>Gdy pojawi się jakiś komunikat w konsoli, błąd lub informacja, po prawej stronie będziemy mieli pokazaną linię w kodzie, z której nastąpiło wypisanie danej informacji. Gdy ją klikniemy zostaniemy przeniesieni do zakładki Sources, którą omawialiśmy w rozdziale o <a href="./debuger.php#zakladka-sources">debugerze</a>.</p>
+
+<img src="./debuger-console-line.png" alt="debuger console nr linii" class="space border">
+
+<img src="./debugowanie-sources.png" alt="debugowanie zakładka sources" class="space border">
+
+<p>
+Aby debugować kod, musimy zatrzymać nasz skrypt w danym miejscu. Możemy to zrobić na kilka sposobów.
+</p>
+
+<p>Możemy użyć w kodzie słowa kluczowego <strong>debugger</strong>:</p>
+
+<pre><code class="language-js">
+const ob1 = { ... }
+const ob2 = { ... }
+debugger; //zatrzymujemy wykonywanie kodu
+
+const ob3 = {...ob1, ...ob2};
+debugger; //znowu zatrzymujemy - a co!
+</code></pre>
+
+<p>Kolejnym sposobem, który daje podobne efekty jest użycie tak zwanych breakpointów. Po kliknięciu w numer danej linii, stawiamy w niej breakpoint (niebieski znacznik). Jeżeli skrypt ponownie się wykona (np. strona zostanie przeładowana, dana funkcja zostanie odpalona itp.), skrypt zostanie zatrzymany w danej linii (dana linijka jeszcze się nie wykona, a kursor stanie na jej początku).</p>
+
+<img src="./debugowanie-breakpoint.png" alt="breakpoint" class="border space">
+
+<p>Po zatrzymaniu skryptu (dowolną metodą) najeżdżając na zmienne możemy badać ich aktualny stan:</p>
+
+<img src="./debugowanie-breakpoint2.png" alt="breakpoint badanie zmiennej" class="border space">
+
+<p>
+W niektórych przypadkach możemy chcieć zatrzymywać kod na danym breakpoincie tylko w określonym warunku. Powiedzmy, że chcemy zbadać poniższych użytkowników, ale tylko w sytuacji, gdy ich punkty wynoszą poniżej 50:
+</p>
+
+<pre><code class="language-js">
+const users = [
+    { name : "Marcin", points : 51 },
+    { name : "Weronika", points : 87 },
+    { name : "Piotr", points : 65 },
+    { name : "Monika", points : 46 },
+    { name : "Anna", points : 98 },
+]
+
+users.forEach(function(user) {
+    console.log(user.name, user.points);
+})
+</code></pre>
+
+<p>Jeżeli teraz postawimy breakpoint w linijce z console.log(), skrypt będzie się zatrzymywać w tej linii przy każdej iteracji naszej pętli. Czasami (szczególnie w przypadku pętli po długich tablicach) może to być mocno problematyczne. Możemy jednak kliknąć na taki niebieski breakpoint prawym przyciskiem i wybrać "Edit breakpoint".</p>
+
+<img src="./debugowanie-breakpoint3.png" alt="" class="border">
+
+<p>Pojawi się okienko, do ktorego możemy dodać dodatkowy warunek, który jeżeli będzie spełniony, aktywuje breakpoint.</p>
+
+<img src="./debugowanie-breakpoint4.png" alt="" class="border">
+
+<p>Breakpoint zmieni kolor na pomarańczowy i od tej pory będzie aktywny tylko w przypadku gdy nasz warunek będzie spełniony.</p>
+
+<p>Aby wznowić działanie skryptów kliknij ikonkę play po prawej stronie zakładki:</p>
+
+<img src="./breakpoint-icons.png" alt="ikony breakpointów" class="space border">
+
+<p>lub naciśnij klawisz <kbd>F8</kbd>. Skrypt się wznowi i ewentualnie zatrzyma na kolejnym breakpoincie.</p>
+
+<p>Jak widzisz poza ikonką wznawiającą działanie skryptów po prawej stronie mamy też kilka innych.</p>
+
+<table class="tab">
+    <tr>
+        <td style="width:70px;"><img src="./debuger-icon-play.png" alt=""></td>
+        <td>Wznawia działanie kodu</td>
+    </tr>
+    <tr>
+        <td><img src="./debuger-icon-next-line.png" alt=""></td>
+        <td>Jeżeli w danej linii znajduje się wywołanie funkcji, debuger wykona ją, ale nie przeniesie kursora do jej wnętrza, a przeskoczy nim do następnej instrukcji w kodzie. Jeżeli nie ma takiego wywołania, ikonka zachowa się jak przejście do następnego kroku.</td>
+    </tr>
+    <tr>
+        <td><img src="./debuger-icon-into.png" alt=""></td>
+        <td>Przechodzi kursorem do wnętrza funkcji, lub zachowuje się jak przejście do kolejnego kroku</td>
+    </tr>
+    <tr>
+        <td><img src="./debuger-icon-out.png" alt=""></td>
+        <td>Wychodzi z danej funkcji i przechodzi do kolejnej linii kodu (czyli poza linię, gdzie dana funkcja została wywołana)</td>
+    </tr>
+    <tr>
+        <td><img src="./debuger-icon-disable.png" alt=""></td>
+        <td>Wyłącza na chwilę breakpointy. Pomocne gdy mamy nastawiane naście takich breakpointów i chcemy na chwilę sprawdzić jak się strona zachowuje bez zatrzymywania</td>
+    </tr>
+    <tr>
+        <td><img src="./debuger-icon-pause.png" alt=""></td>
+        <td>Czy kod ma się zatrzymywać na błędach. Jeżeli włączymy tą opcję, kod będzie zatrzymywał się tuż przed pokazaniem czerwonych błędów w konsoli</td>
+    </tr>
+</table>
+
+<p>Zauważ, że po ustawieniu breakpointów, pojawiają się one nie tylko jako niebieskie punkty na numerycznej linii, ale też jako lista w prawej części zakładki Sources:
+</p>
+
+<img src="./breakpoints-list.png" alt="breakpoints lista" class="space border">
+
+<p>Sekcja ta ma jeszcze kilka ciekawych rzeczy do zaoferowania, które są bardzo przydatne podczas debugowania.</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="watch-callstack-scope">Watch, CallStack, Scope i XHR</h2>
+<p>Pierwsza z góry to sekcja <strong>Watch</strong>.</p>
+
+<img src="./debuger-watch.png" alt="debuger watch" class="border space">
+
+<p>Służy ona do obserwowania zmiennych. Za pomocą plusa możemy tam podać nazwę zmiennej, którą chcemy nasłuchiwać, a dzięki temu właśnie w tym miejscu będziemy mogli w wygodny sposób sprawdzić jej stan w określonym momencie.</p>
+
+<p>Kolejna sekcja - <strong>CallStack</strong> - pokazuje kolejność odpalanych funkcji. Funkcje w JavaScript (jak i w innych językach) mogą być odpalane z wnętrza innych funkcji itp. Tutaj możemy podejrzeć właśnie taką kolejność.</p>
+
+<p>Bardzo użyteczna sekcja <strong>Scope</strong> pozwala nam łatwo sprawdzać zmienne w danym scope. Co to oznacza? Powiedzmy, że postawimy breakpoint wewnątrz danej funkcji. Dzięki tej sekcji w wygodny sposób sprawdzimy, jakie zmienne są używane wewnątrz tej funkcji.</p>
+
+<p>
+    Jeżeli chcesz sprawdzić jej działanie, kliknij w poniższy przycisk. Za pomocą instrukcji debuger postawiłem dla ciebie breakpoint w przykładowej funkcji. Po jego kliknięciu sprawdź gdzie zatrzymał się skrypt i co znajduje się w sekcji Scope.
+</p>
+
+<button class="button" id="testScope">Testuj scope</button>
+
+<script>
+{
+    function testScope(hero1, hero2) {
+        console.log(hero1.points + hero2.points);
+        debugger;
+    }
+
+    const button = document.querySelector('#testScope');
+    button.addEventListener("click", function() {
+        const hero1 = {
+            name : "Szamson",
+            type : "dog",
+            skill : "ultra speed",
+            energy : "Infinite",
+            points : 1000
+        }
+        const hero2 = {
+            name : "Fanthomas",
+            type : "human",
+            skill : "stealth",
+            energy : "medium",
+            points : 100
+        }
+        testScope(hero1, hero2)
+    })
+}
+</script>
+
+<p>
+Kolejną sekcją jest XHR/fetch Breakpoints. Możemy w niej ustawiać breakpointy dla requestów, które będą miały w adresie szukaną frazę.
+</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="dom-breakpoints">DOM Breakpoints</h2>
+<p>Poza breakpointami i instrukcją debugger istnieją też inne sposoby na zatrzymanie skryptu w odpowiednim momencie.</p>
+
+<p>Po pierwsze możemy nakazać przeglądarce zatrzymanie wykonywania skryptów, jeżeli zostanie zmodyfikowany dany element w drzewie DOM. Aby to zrobić wystarczy w zakładce debugera Elements kliknąć prawym przyciskiem myszy wybrany element, i z menu kontekstowego wybrać opcję <strong>Break on</strong>.</p>
+
+<img src="debuger-el-subtree.png" alt="Menu kontekstowe po kliknięciu na element" class="space border">
+
+<p>Poszczególne opcje oznaczają:</p>
+
+<table class="tab">
+    <tr>
+        <th>
+            <strong>subtree modification</strong>
+        </th>
+        <td>zatrzymaj działanie skryptów, gdy zmieni się struktura html danego elementu i jego zawartości (dzieci i zagnieżdżonych elementów)</td>
+    </tr>
+    <tr>
+        <th>
+            <strong>attribute modifications</strong>
+        </th>
+        <td>zatrzymaj skrypty, jeżeli zmieni się zawartość atrybutów danego elementu (np. skrypt zmieni style danego elementu)</td>
+    </tr>
+    <tr>
+        <th>
+            <strong>node removal</strong>
+        </th>
+        <td>     - zatrzymaj skrypt jeżeli dany element zostanie usunięty
+
+        </td>
+    </tr>
+</table>
+
+<p>
+Sprawdźmy to na przykładzie.<br>
+Poniżej mamy 3 przyciski. Pierwszy po kliknięciu zmienia tło (czyli dodaje atrybut style). Drugi zmienia swoją zawartość html, a trzeci po kliknięciu jest usuwany.<br> Ustaw im odpowiednie "Break on". Zauważ, że po ustawieniu "Break on" dla danego elementu, pojawi się przy nim w zakładce Elements niebieska kropka.
+</p>
+
+<img src="debuger-blue-dot.png" alt="niebieskie kropki przy oznaczonych elementach" class="border space">
+
+<p>
+<button class="button" id="btnTest1">Zmień tło</button>
+<button class="button" id="btnTest2">Zmień zawartość (<span>0</span>)</button>
+<button class="button" id="btnTest3">Usuń mnie</button>
+</p>
+
+<script>
+    //ukryty super skrypt
+    {
+        const btn = document.querySelector('#btnTest1');
+        btn.addEventListener('click', function() {
+            const color = Math.floor(Math.random()*360);
+            console.info(`Kolor przycisku to: hsl(${color}, 80%, 60%)`);
+            this.style.background = `hsl(${color}, 80%, 60%)`;
+            this.style.color = `hsl(${color}, 80%, 100%)`;
+        });
+    }
+    {
+        const btn = document.querySelector('#btnTest2');
+        btn.addEventListener('click', function() {
+            const span = this.querySelector('span');
+            let number = +span.textContent;
+            span.innerHTML = ++number;
+        });
+    }
+    {
+        const btn = document.querySelector('#btnTest3');
+        btn.addEventListener('click', function() {
+            this.remove();
+        });
+    }
+</script>
+
+<p>Jeżeli takie breakpointy bazujące na zmianach html ustawimy w zakładce Elements, pojawią się one też jako lista z prawej strony w zakładce Source.</p>
+
+<img src="./debuger-breakon.png" alt="debuger zadkładka breakon" class="border space">
+
+<!-- ### -->
+<h2 class="subtitle" id="event-listener">Event Listener</h2>
+<p>
+    Wracamy do zakładki Source. Poniżej sekcji Breakpoints znajduje się przydatna sekcja <strong>Event Listener Breakpoinst</strong>, która służy do ustawiania breakpointów na dane zdarzenia. Wyobraź sobie, że po kliknięciu, najechaniu kursorem czy dowolnej innej czynności wykonywany jest jakiś kod JavaScript. Skąd mamy jednak wiedzieć, gdzie dana funkcja się znajduje? Wystarczy w sekcji tej znaleźć event Click (znajduje się w grupie Mouse) i go zaznaczyć. Od tej pory jeżeli pod dane zdarzenie podpięty jest jakiś kod, nasz kod zostanie w tym miejscu zatrzymany.
+</p>
+
+<img src="./debuger-breakpoint-on-click.png" alt="breakpoint on click" class="space border">
+
+<p>Sprawdźmy to. Włącz breakpoint dla zdarzeń click i kliknij w poniższy przycisk. Dzięki temu kod zostanie zatrzymany w super tajnej funkcji, której miejsca nikt nigdy nie odkrył (a warto)...</p>
+
+<button id="clickBpTest" class="button">Kliknij</button>
+
+<script>
+{
+    const superHiddenFunction = function() {
+        //-----------------------------------
+        //a wiesz, że na tej stronie można użyć "konami code", by odkryć super tajną niespodziankę?
+        //-----------------------------------
+        console.log("Jestem super tajną funkcją nie do znalezienia");
+    }
+
+    const btn = document.querySelector("#clickBpTest");
+    btn.addEventListener("click", superHiddenFunction);
+}
+</script>
+
+<p>Opcja ta jest mega przydatna na obcych stronach, gdzie zaciekawi nas jakiś efekt. Wystarczy włączyć breakpoint na dane zdarzenie i zacząć badać...</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="debugowanie-za-pomoca-vsc">Debugowanie w Visual Studio Code</h2>
+<p>
+Jeżeli używamy edytora Visual Studio Code, debugowanie naszego kodu możemy sobie dodatkowo nieco umilić. Istnieje bowiem dodatek zwący się <a href="https://marketplace.visualstudio.com/items?itemName=msjsdiag.debugger-for-chrome">Debugger for Chrome</a>, który umożliwia debugowanie kodu bezpośrednio w edytorze.
+</p>
+
+<p>
+Gdy go zainstalujemy, wystarczy przejść w tryb debugowania (klawisz F5 lub wybranie z górnego menu opcji <strong>Debug->Start Debuging</strong>), a naszym oczom ukaże sie widok z oknami o znaczeniu podobnym do tego, co omawialiśmy powyżej:
+</p>
+
+<img src="./visual-studio-code.png" alt="debugowanie w vsc" class="space border">
+
+<p>na górze lewej sekcji znajdują się opcje służące do skonfigurowania połączenia oraz jego odpalenia:</p>
+
+<img src="./visual-studio-code2.png" alt="debugowanie w VSC - opcje do odpalenia" class="space border">
+
+<p>Po kliknięciu w trybik zostanie otwarty plik z przykładową konfiguracją.</p>
+
+<pre><code class="language-js">
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "chrome",
+            "request": "launch",
+            "name": "Launch Chrome against localhost",
+            "url": "http://127.0.0.6:8080",
+            "webRoot": "${workspaceFolder}"
+        }
+    ]
+}
+</code></pre>
+
+<p>Aby móc debugować w edytorze, musimy naszą stronę wcześniej odpalić na jakimś serwerze lokalnym.</p>
+
+<p>Jeżeli pracujemy z jakimś frameworkiem JS - np. Reactem, praktycznie zawsze będziemy mieli odpalony taki serwer (np. react-dev-server).</p>
+
+<p>Jeżeli pracujemy bardziej klasycznie, możemy skorzystać z jednego z wielu serwerów lokalnych. Serwerów jest multum. Osobiście polecam spróbować jedno z poniższych rozwiązań:</p>
+
+<ul>
+<li><a href="http://domanart.pl/browsersync-na-propsie/">browser sync</a></li>
+<li><a href="https://www.npmjs.com/package/http-server">http-server</a></li>
+<li><a href="https://fenixwebserver.com/">https://fenixwebserver.com/</a></li>
+</ul>
+
+<p>U mnie się sprawdza...</p>
+
+<p>Gdy już odpalimy naszą stronę, musimy adres na jakim została odpalona wpisać w powyższej konfiguracji w parametrze <strong>url</strong>.</p>
+
+<p>Po podaniu adresu i zapisaniu konfiguracji, możemy odpalić połączenie poprzez zieloną strzałkę. Gdy wszystko pójdzie dobrze, nasza strona powinna się otworzyć w nowym oknie przeglądarki.</p>
+
+<p>Od tej pory możemy zacząć debugować bezpośrednio w edytorze. Oznacza to, że breakpointy możemy stawiać nie tylko w Source, ale też klikając obok numerów linii bezpośrednio w edytorze (pojawią się czerwone kropki), a i boczne okna staną się dla nas pomocne.</p>
+
+<img src="./visual-studio-code3.png" alt="debugowanie w VSC" class="space border">
+
+<div class="kartofel-informuje">
+    W innych edytorach także istnieje możliwość debugowania kodu w edytorze. <a href="https://www.youtube.com/watch?v=YNNDMpoGV0w">Przykładowy film</a> pokazuje jak debugować w programie Webstorm.
+</div>
+
+<!-- ### -->
+<h2 class="subtitle" id="quokka">Quokka</h2>
+<p>
+Inne możliwości ułatwiające pracę z debugowaniem daje nam np. dodatek o nazwie <a href="https://quokkajs.com/">Quokka</a>. Po jego instalacji, będzie nam pokazywał wynik danego równania tuż obok linii.
+</p>
+
+<img src="./quokka.gif" alt="quokka" class="space border">
+
+<p>Nie sprawdzi się to w każdym rodzaju skryptu, ale dość często może być całkiem wygodnym rozwiązaniem.</p>
+
+
+			</div><!-- e: page-content-text -->
+			<footer class="page-footer">
+				<p>
+				Wszelkie prawa zastrzeżone. Jeżeli chcesz używać jakiejś części tego kursu, skontaktuj się z <a href="/kurs/autor.php">autorem</a>.
+				Aha - i ta strona korzysta z <a href="/kurs/polityka-prywatnosci.php">ciasteczek</a>.
+				</p>
+			</footer>
+							<div class="rekl-cnt">
+					<ins
+					class="adsbygoogle" style="margin-top:40px; display:block"
+					data-ad-client="ca-pub-6843603045703750"
+					data-ad-slot="4690777640"
+					data-ad-format="auto"
+					data-full-width-responsive="true"
+					></ins>
+				</div>
+				<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+	(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+					</main><!-- e: page-content -->
+			</div><!-- e: page-content-wrapper -->
+    <aside id="page-sidebar-cnt" class="page-sidebar-cnt">
+	<div id="page-sidebar" class="page-sidebar">
+		<button aria-label="Pokaż/ukryj Menu" aria-expanded="false" aria-controls="page-sidebar" type="button" id="pageSidebarBurger" class="page-sidebar-burger">
+			<span></span>
+		</button>
+
+		<h2 class="visuallyhidden">
+			Menu
+		</h2>
+
+		<button class="sidebar-toggle-btn" title="Pokaż/schowaj menu" aria-hidden="true">
+			<strong>Pokaż/ukryj menu</strong>
+			<span></span>
+			<span></span>
+			<span></span>
+		</button>
+
+		<div class="page-sidebar-title">
+			<a href="/kurs/kontakt.php" title="Nawrzucaj autorowi" class="mail-to-author" id="mailToAuthor">Napisz do mnie</a>
+			<a href="#popupOptions" class="page-setup-link popupOpen" title="Ustawienia strony" id="showOptions">Ustawienia</a>
+			<a href="/index.php" aria-label="Strona główna" class="page-sidebar-title-link">Kurs Javascript</a>
+		</div>
+
+        <form aria-label="Wyszukiwarka" class="search-sidebar" action="/search.php" method="post">
+            <label for="search" class="search-sidebar-label">Szukaj</label>
+            <div class="search-sidebar-input-cnt">
+                <svg class="search-sidebar-input-icon" xmlns="http://www.w3.org/2000/svg" width="26" height="28" viewBox="0 0 26 28" aria-hidden="true">
+                    <path d="M18 13c0-3.859-3.141-7-7-7s-7 3.141-7 7 3.141 7 7 7 7-3.141 7-7zm8 13c0 1.094-.906 2-2 2a1.96 1.96 0 0 1-1.406-.594l-5.359-5.344a10.971 10.971 0 0 1-6.234 1.937c-6.078 0-11-4.922-11-11s4.922-11 11-11 11 4.922 11 11c0 2.219-.672 4.406-1.937 6.234l5.359 5.359c.359.359.578.875.578 1.406z"></path>
+                </svg>
+                <input type="text" id="search" autocomplete="off" name="q" class="search-sidebar-input">
+            </div>
+            <button type="submit" class="search-sidebar-button">Szukaj</button>
+        </form>
+
+		<div class="page-sidebar-table-of-content">
+			<h2 class="visuallyhidden">Spis treści</h2>
+            <div class="page-sidebar-section">
+				<h3 class="page-sidebar-section-title noopen">
+                    <a href="/index.php">Strona główna</a>
+                </h3>
+            </div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Słowem wstępu</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/wstep/wstep.php">Wstęp</a>
+						</li>
+						<li >
+							<a href="/kurs/wstep/co-to-jest-javascript.php">Co to jest JavaScript i z czym go się je?</a>
+						</li>
+						<li >
+							<a href="/kurs/wstep/wymagania.php">Wymagania</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section show has-active-element">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Super podstawy</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/debuger/debuger.php">Debuger</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/pierwszy-skrypt.php">Wstawiamy skrypty na naszą stronę</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/strict-mode.php">Strict mode</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/typy-danych.php">Typy danych i konwersja danych</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/zmienne.php">Zmienne</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/operatory.php">Operatory</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/math.php">Obiekt Math</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/string.php">String - teksty</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/instrukcje-warunkowe.php">Instrukcje warunkowe</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/petle.php">Pętle</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/funkcje.php">Funkcje</a>
+						</li>
+                        <li >
+							<a href="/kurs/super-podstawy/funkcje-tematy-dodatkowe.php">Funkcje - tematy dodatkowe</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/tablice.php">Tablice</a>
+						</li>
+                        <li >
+							<a href="/kurs/super-podstawy/tablice-iteracje.php">Tablice pętle</a>
+						</li>
+						<li class="active">
+							<a href="/kurs/debuger/debugowanie.php">Debugowanie kodu</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+            			<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Obiekty</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+                        <li >
+							<a href="/kurs/obiekty/obiekty.php">Obiekty i this</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-jak-to-dziala.php">Jak to działa</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-konstruktor.php">Konstruktor</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-zaawansowane-this.php">Zaawansowane this</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-dziedziczenie.php">Dziedziczenie w Javascript</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-inne-sposoby-tworzenia.php">Inne sposoby tworzenia obiektów</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-instanceof-hasownproperty.php">instanceof i hasOwnProperty</a>
+						</li>
+                    </ul>
+                </div>
+            </div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">DOM i zdarzenia</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/dom/dom.php">Document Object Model</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-wlasciwosci.php">Właściwości elementów</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-relacje.php">Relacje między elementami</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-tworzenie-i-usuwanie.php">Tworzenie i usuwanie elementów</a>
+						</li>
+                        <li >
+                            <a href="/kurs/dom/style.php">Style w CSS</a>
+                        </li>
+						<li >
+							<a href="/kurs/events/events.php">Zdarzenia</a>
+						</li>
+						<li >
+							<a href="/kurs/events/events-keys.php">Zdarzenia - klawisze</a>
+						</li>
+						<li >
+							<a href="/kurs/events/events-mouse.php">Zdarzenia - myszka</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/projekt-todo.php">Projekt TODO</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/slider.php">Tworzymy slider</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Prawie podstawy</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/grafika/grafika-na-stronie.php">Grafika na stronie</a>
+						</li>
+						<li >
+							<a href="/kurs/intervals/intervals.php">setTimeout i setInterval</a>
+						</li>
+						<li >
+							<a href="/kurs/match-media.php">Praca z RWD</a>
+						</li>
+						<li >
+							<a href="/kurs/okna-dialogowe.php">Okienka dialogowe</a>
+						</li>
+						<li >
+							<a href="/kurs/okna.php">Tworzenie nowych okien</a>
+						</li>
+						<li >
+							<a href="/kurs/date/date.php">Obiekt Date</a>
+						</li>
+						<li >
+							<a href="/kurs/date/date-calendar.php">Tworzymy kalendarz</a>
+						</li>
+						<li >
+							<a href="/kurs/cookies/cookie.php">Obiekt Cookie</a>
+						</li>
+						<li >
+							<a href="/kurs/storage/storage.php">Storage</a>
+						</li>
+						<li >
+							<a href="/kurs/regular.php">Wyrażenia regularne</a>
+						</li>
+						<li >
+							<a href="/kurs/formularze/formularze.php">Formularze</a>
+						</li>
+						<li >
+							<a href="/kurs/formularze/formularze-walidacja.php">Formularze - walidacja</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Ajax</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/ajax/ajax.php">AJAX, REST, JSON</a>
+						</li>
+						<li >
+							<a href="/kurs/ajax/xmlhttprequest.php">XMLHttpRequest</a>
+						</li>
+            			<li >
+							<a href="/kurs/ajax/fetch.php">Fetch API</a>
+						</li>
+						<li >
+							<a href="/kurs/ajax/formularz-kontaktowy.php">Dynamiczny formularz kontaktowy</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Nowy Javascript</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/es6/ecma-script-2015.php">ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/webpack.php">Webpack</a>
+						</li>
+                        <li >
+            				<a href="/kurs/es6/obiekty-w-es6.php">Obiekty w ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/funkcja-strzalkowa.php">Funkcja strzałkowa</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/spread-rest.php">Spread i rest</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/template-strings.php">Template strings</a>
+						</li>
+						<li >
+            				<a href="/kurs/es6/destructuring.php">Dekompozycja</a>
+        				</li>
+						<li >
+							<a href="/kurs/es6/class.php">Klasy w ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/promises.php">Promises</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/async-await.php">Async/Await</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/symbole.php">Symbole</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">jQuery</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/jquery/jquery.php">jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/animacje-w-jquery.php">Animacje w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/jquery-ajax.php">Ajax w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/tabs.php">Taby w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/plugin.php">Karuzela w jQuery</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Canvas</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/canvas/canvas.php">Canvas</a>
+						</li>
+						<li >
+							<a href="/kurs/canvas/canvas-images.php">Grafika w canvas</a>
+						</li>
+						<li >
+						<a href="/kurs/canvas/canvas-paint.php">Praktycznie : Paint w canvas</a>
+						</li>
+
+						<li >
+							<a href="/kurs/canvas/canvas-animacja.php">Animacja w canvas</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Gry</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/gry/hangman/hangman.php">Szubienica</a>
+						</li>
+						<li >
+							<a href="/kurs/gry/memory/memory.php">Memory</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+            			<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Inne</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/dodatkowe-materialy.php">Dodatkowe materiały</a>
+						</li>
+						<li >
+							<a href="/kurs/faq.php">FAQ</a>
+						</li>
+						<li >
+							<a href="/kurs/polityka-prywatnosci.php">Polityka prywatności</a>
+						</li>
+						<li >
+							<a href="/kurs/autor.php">O autorze</a>
+						</li>
+						<li >
+							<a href="/kurs/kontakt.php">Kontakt</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="page-sidebar-section">
+                <a class="special-link" href="/kurs/autor.php#donate">Wesprzyj kurs</a>
+            </div>
+		</div>
+	</div>
+</aside></div><!-- e: page-container -->
+
+<div class="popup" id="popupOptions">
+	<div class="popup-inside">
+        <div class="popup-container-cnt">
+            <div class="popup-container">
+                <button class="popup-close">Zamknij</button>
+
+                <h2 class="popup-title">
+                    Opcje
+                </h2>
+
+                <div class="popup-content">
+                    <form class="form-options">
+                        <div class="form-option">
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <label for="optionsThemeSelect">Wybierz skórkę dla listingów</label>
+                                    <select id="optionsThemeSelect"></select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <pre><code class="language-js">
+                                //tak będzie wyglądał kod
+
+                                function test() {
+                                    for (let i=0; i&lt;10; i++) {
+                                        console.log("Tekst numer ", 1);
+                                    }
+                                }
+
+                                test();
+                                </code></pre>
+                            </div>
+                            <div class="form-row" id="themeLightModeRow">
+                                <div class="form-col">
+                                    <label for="themeLightMode">
+                                        Tryb dzienny / nocny
+                                    </label>
+
+                                    <div class="light-mode-el">
+                                        <input type="checkbox" id="themeLightMode">
+                                        <span class="light-mode"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+	</div>
+</div>
+<script async defer src="https://www.googletagmanager.com/gtag/js?id=UA-38558970-5"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-38558970-5');
+</script>
+
+	<script src="/js/ads.js"></script>
+	<script src="/js/script.min.js?v=0.13" defer></script>
+</body>
+</html>

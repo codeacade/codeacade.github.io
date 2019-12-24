@@ -3,9 +3,9 @@
 <head>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Kurs Javascript - Wstęp</title>
+    <title>Kurs Javascript - ES6 - klasy</title>
 	<meta name="description" content="Kurs Javascript dla superbohaterów, artykuły, tutoriale, porady, zadania do wykonania" />
-    <link rel="canonical" href="https://kursjs.pl/kurs/wstep/wstep.php" />
+    <link rel="canonical" href="https://kursjs.pl/kurs/es6/class.php" />
 	<link rel="stylesheet" href="./css.css" />
     <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,700&display=swap&subset=latin-ext" rel="stylesheet">
 	<meta name="image" content="https://kursjs.pl/kursjs.png">
@@ -57,49 +57,524 @@
             </div>
                         <div class="page-content-text">
 
-
-<h1 class="page-title">Wstęp</h1>
+<h1 class="page-title">ES6 - klasy</h1>
 <p>
-Bardzo krótki wstęp ^^.<br /><br />
-Kurs ten jest o Javascripcie. Uhh...
-</p>
-<p>
-Wiedz, że nie staram się tutaj tworzyć największego i najlepszego kursu o JavaScript w internecie.<br>
-Ten kurs to twór jednego człowieka.
-Nie mam szans i nie chcę konkurować z molochami takimi jak <a href="https://developer.mozilla.org/pl/">MDN</a>, <a href="https://www.udemy.com/">Udemy</a>, <a href="https://eduweb.pl/">EduWeb</a> czy <a href="https://www.w3schools.com/js/default.asp">w3schools</a>.<br>
-<br><br>
-Nie znajdziesz tutaj wszystkiego z zakresu JavaScript. <br>
-Po jakimś czasie będziesz chciał wiele rzeczy tutaj pokazanych tworzyć inaczej - lepiej.<br>
-Im większy progres będziesz zdobywał stwierdzisz, że wiele rozdziałów można było napisać o wiele lepiej. I dobrze.<br><br>
-
-W każdym bądź razie - jeżeli ta strona jakoś ci posłuży - to tylko plus. Jeżeli nie - po prostu skorzystaj z innego kursu - na rynku jest tego od groma (niektóre wymieniłem <a href="../dodatkowe-materialy.php">tutaj</a>) i każdy znajdzie coś dla siebie. Ja sam mam kilka w swojej kolekcji i twierdzę, że są naprawdę dobre.
-<br><br>
+    W poprzednich wersjach JavaScript tworzenie obiektów o podobnych funkcjonalnościach oparte było (między innymi) <a href="../obiekty/obiekty-konstruktor.php">konstruktory</a>.<br>
+    Nie każdemu podobała się tamto podejście, dlatego w ES6 została wprowadzona nowa skłądnia czyli klasy.<br>
+    Klasy są tak naprawdę tak zwanym sugar code, czyli nakładką na starą funkcjonalność, dzięki czemu kod staje się zwyczajnie przyjemniejszy i czytelniejszy, a niektóre operacje się upraszczają.
 </p>
 
-<p>
-Jeszcze mała adnotacja, która siedzi mi w głowie.
-</p>
-<p>
-W internecie znajdziesz setki tutoriali pokazujących najnowsze techniki. A to funkcja strzałkowa, a to jak korzystać z async i await, a to jak robić połączenia fetchem czy chociażby zastosowanie modułów. Małe, konkretne, piękne - jak mój pies (a i od niedawna też kot).
-</p>
-<p>
-Na grupach facebookowych w dyskusjach znajdziesz jeszcze szybciej takie techniki.
-</p>
-<p>
-Tutaj pojawia pewna sprawa, który dotyczy nie tylko JavaScript, ale i całego frontendu. Bardzo często przy takich nowoczesnych tutorialach czy poradach autorzy nie zwracają uwagi na bardzo ważną rzecz - a mianowicie na to, że dobór techniki <strong>zawsze zależy od danego projektu</strong>. To są w końcu rzeczy oczywiste.<br>
-No właśnie nie do końca. To są rzeczy oczywiste - dla nas - osób, które w tej branży siedzą już kilkanaście lat. Ale czy dla osoby zaczynającej?
-</p>
-<p>
-Jeżeli robisz bloga o nowinkach z dziedziny frontentu, raczej możesz założyć, że większość użytkowników będzie korzystała z najnowszych przeglądarek, a więc i możesz używać najnowszych rozwiązań (chociaż najlepiej było by spojrzeć w statystyki Google Analitics które można podpiąć pod stronę).<br>
-Jeżeli jednak robisz stronę dla emerytowanych nauczycieli, czy dla przykładu olbrzymi sklep z którego będą korzystali różnorodni użytkownicy z różnorodnych krajów, wtedy rzucanie się na najnowsze rozwiązania będzie strzałem w stopę.
-</p>
-<p>
-Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie CSS Grid, a czasami nawet flexbox może okazać się czymś, czego użyć nie możesz. Czasami spokojnie będziesz mógł używać najnowszej wersji JavaScript, a czasami będziesz musiał pozostać przy starszej. A jeżeli będziesz musiał pozostać przy starszej, wtedy albo będziesz pisał JavaScript trzymając się klasycznych rozwiązań, albo skorzystasz z narzędzi zamieniających twój kod na starszy zapis.
-</p>
-<p>Autorzy tutoriali często zapominają o tym, że dla początkującej osoby istnieje po prostu JavaScript. Osoby takie często nie zdają sobie sprawy, że nie wszystko w JavaScript można dowolnie używać, nie wiedzą gdzie szukać informacji które przeglądarki co wspierają, jakich narzędzi używać do zamiany kodu i po co w ogóle to robić.</p>
-<p>W kursie tym staram się trzymać klasycznego JavaScript. Jasne - im więcej wiedzy zdobędziesz, im bardziej będziesz rozbudowywał swój warsztat, tym będziesz stosował coraz nowsze i lepsze techniki pisania kodu. A wtedy - tak jak to już pisałem powyżej - będziesz się śmiał z tego kursu. Póki co polecam po prostu uczyć się JavaScript.</p>
+<!-- ### -->
+<h2 class="subtitle" id="class">Deklaracja klasy</h2>
+<p>Ogólna deklaracja klasy ma postać:</p>
 
-<a href="./co-to-jest-javascript.php" class="button">To co? Zaczynamy?...</a>
+<pre><code class="language-js">
+class Animal {
+}
+</code></pre>
+
+<p>lub jako wyrażenie:</p>
+
+<pre><code class="language-js">
+const Animal = class {
+}
+</code></pre>
+
+<p>
+    Każda klasa posiada specjalną funkcję <strong>constructor()</strong>, która jest automatycznie odpalana przy tworzeniu nowej instancji za pomocą słowa <strong>new</strong>.
+</p>
+
+<pre><code class="language-js">
+class Animal {
+    constructor(name, age) {
+        this.name = name;
+        this.age = age;
+    }
+}
+
+const animal = new Animal("pies", 8);
+</code></pre>
+
+<p>Jeżeli tworząc naszą klasę pominiemy napisanie tej funkcji, zostanie użyta domyślna - pusta.</p>
+
+<p>Żeby teraz dodawać nowe metody do klasy, definiujemy je wewnątrz ciała klasy:</p>
+
+<pre><code class="language-js">
+class Animal {
+    constructor(name, age) {
+        this.name = name;
+        this.age = age;
+        this.type = "animal";
+        console.log(this.name);
+    }
+
+    eat() {
+        console.log(this.name + " jem");
+    }
+
+    sleep() {
+        console.log(this.name + " śpię");
+    }
+}
+</code></pre>
+
+<p>Tak jak w przypadku starszego zapisu, metody takie automatycznie trafią do prototypu danych obiektów, dzięki czemu wszystkie obiekty budowane na bazie danej klasy będą mogły z nich korzystać.</p>
+
+<img src="./class-metody.png" alt="Class metody" class="border">
+
+<div class="kartofel-informuje">
+    <p>W przeciwieństwie do starszego zapisu metody takie nie są iterowalne, czyli nie zostaną wylistowane gdy zrobimy pętlę po kluczach danego obiektu tworzonego na bazie danej klasy (<a href="class-klucze.html">otwórz i sprawdź w konsoli</a>).
+    </p>
+</div>
+
+<!-- ### -->
+<h2 class="subtitle" id="wlasciwosci">Właściwości</h2>
+<p>
+Właściwości dla danej instancji możemy dodawać tak jak powyżej wewnątrz konstruktora. Zapis ten w nowej wersji JavaScript został dodatkowo uproszczony, dzięki czemu możemy je definiować także poza konstruktorem:
+</p>
+
+<pre><code class="language-js">
+class Animal {
+    legs = 4;
+    type = "animal";
+}
+
+//równoznaczne jest z
+
+class Animal {
+    constructor(name) {
+        this.legs = 4;
+        this.type = "animal";
+    }
+}
+</code></pre>
+
+<pre><code class="language-js">
+class Animal {
+    legs = 4;
+    type = "animal";
+
+    constructor(name) {
+        this.name = name;
+    }
+}
+
+//równoznaczne jest z
+
+class Animal {
+    constructor(name) {
+        this.legs = 4;
+        this.type = "animal";
+        this.name = name;
+    }
+}
+</code></pre>
+
+
+<!-- ### -->
+<h2 class="subtitle" id="extends">Dziedziczenie</h2>
+<p>Aby rozszerzyć jakąś klasę (a tym samym dziedziczyć po niej jej funkcjonalności) skorzystamy z instrukcji <strong>extends</strong>:</p>
+
+<pre><code class="language-js">
+class Bird extends Animal {
+    constructor(name) {
+        super(name);
+        this.type = "bird";
+    }
+
+    eat() {
+        const text = super.eat();
+        return text + " - exactly seed!";
+    }
+
+    fly() {
+        return "I can fly";
+    }
+}
+</code></pre>
+
+<p>
+Nasza klasa rozszerza zarówno konstruktor jak i metodę eat.
+Zauważ, że w obydwu tych funkcjach pojawiła nam się instrukcja <strong>super()</strong>
+</p>
+
+<p>Służy ona do wywoływania kodu z klasy, którą dziedziczymy (coś jak <a href="../obiekty/obiekty-dziedziczenie.php#call-apply">call w starej składni</a>).<br>
+Jeżeli chcemy rozszerzać konstruktor klasy (w naszym przypadku chcemy, bo dodajemy this.type), pierwszą rzeczą, jaką musimy zrobić to użyć <strong>super()</strong> w nawiasach podając argumenty, jakie przyjmował konstruktor z klasy rozszerzanej:
+
+<pre><code class="language-js">
+class Shape {
+    constructor(x, y, side) { }
+}
+
+class Rectangle extends Shape {
+    constructor(x, y) {
+        super(x, y);
+        this.type = "rectangle"
+    }
+}
+</code></pre>
+
+<p>Jeżeli tego nie zrobimy, wtedy wyskoczy nam błąd:</p>
+
+<pre><code class="language-js">
+class Rectangle extends Shape {
+    constructor(x, y) {
+        this.type = "rectangle";
+        super(x, y); //błąd - Must call super constructor in derived class before accessing 'this'
+    }
+}
+
+const n = new Rectangle(10, 10, 30);
+</code></pre>
+
+<img src="./error-super.png" alt="błąd z super" class="border">
+
+<p>Jeżeli nie będziemy musieli w ogóle rozszerzać konstruktora, wtedy w ogóle go nie piszemy:</p>
+
+<pre><code class="language-js">
+class Shape {
+    constructor(x, y) { }
+    area() { }
+}
+
+class Triangle extends Shape {
+    //nie potrzebujemy rozszerzać konstruktora, więc go nie piszemy,
+    //pozostanie taki sam jak powyżej
+
+    area() { }
+}
+</code></pre>
+
+<p>Zasada z super() na początku danej funkcji nie obowiązuje przy rozszerzaniu poszczególnych metod:</p>
+
+<pre><code class="language-js">
+class Shape {
+    constructor(x, y) { }
+    area() { }
+}
+
+class Rectangle extends Shape {
+    constructor(x, y) {
+        super(x, y);
+        this.type = "rectangle";
+    }
+    area() {
+        const a = this.side;
+        super.area(); //tutaj już nie przeszkadza bycie drugą
+    }
+}
+</code></pre>
+
+<p>Jak widzisz na powyższym przykładzie, zaczynają nam się pojawiać
+powtórki parametrów dla konstruktorów. Jeżeli będzie ich więcej, takie wypisywanie wszystkiego po kolei będzie niewygodne. Możemy tutaj zastosować rest i spread:</p>
+
+<pre><code class="language-js">
+class Shape {
+    constructor(x, y) { }
+    area() { }
+}
+
+class Rectangle extends Shape {
+    //zbieramy za pomocą rest jako tablicę
+    constructor(...param) { //x, y, side
+        //którą poniżej rozbijamy na części
+        super(...param);
+        this.type = "rectangle";
+    }
+}
+
+const obRect = new Rectangle(10, 20, 30);
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="static">Metody statyczne</h2>
+<p>
+    Jeżeli stworzymy metody danej klasy tak jak powyżej, trafią one do prototypu obiektów tworzonych na bazie tej klasy:
+</p>
+
+<pre><code class="language-js">
+class Human {
+    constructor(name) {
+        this.name = name;
+    }
+    say() {
+        console.log("Jestem człowiek");
+    }
+}
+
+Human.say(); //błąd, bo say jest w prototypie
+Human.prototype.say(); //jestem człowiek
+
+const ob = new Human("Marcin");
+ob.say(); //Jestem człowiek
+</code></pre>
+
+<p>
+    Jak wiesz, dane metody możemy przypisywać nie tylko do prototypu obiektów, ale także bezpośrednio do instancji obiektu:
+</p>
+
+<pre><code class="language-js">
+const ob = new Human("Marcin");
+ob.say(); //Jestem człowiek
+ob.eat = function() {
+    console.log("Jem śniadanie");
+}
+ob.prototype.eat(); //nie ma, bo tylko powyższa instancja ma tą metodę
+</code></pre>
+
+<p>
+W JavaScript możemy też przypisać metody <strong>statyczne</strong>,które są przypięte do danej klasy, i które odpalamy za pośrednictwem tej klasy.<br>
+Metody te nie są dostępne dla nowych instancji, a tylko dla samych klas:
+</p>
+
+<pre data-line="8-10,14"><code class="language-js">
+//w ES5
+function Human {
+    this.name = name;
+}
+//metoda dla instancji
+Human.prototype.say = function() {
+    console.log("Jestem człowiek");
+}
+
+//metoda statyczna
+Human.create = function() {
+   console.log("Jem śniadanie");
+}
+
+const ob = new Human("Marcin");
+ob.create(); //błąd
+Human.create(); //ok
+</code></pre>
+
+<pre data-line="9-11,16"><code class="language-js">
+//w ES6
+class Human {
+    constructor(name) {
+        this.name = name;
+    }
+    say() {
+        console.log("Jestem człowiek");
+    }
+    static create() {
+        console.log("Jem śniadanie");
+    }
+}
+
+const ob = new Human("Marcin");
+ob.create(); //błąd
+Human.create(); //ok
+</code></pre>
+
+<p>Najczęściej wykorzystywane są do tworzenia użytecznych metod dla danej klasy. Można dzięki temu pogrupować funkcjonalności dotyczące danych klas w jednym miejscu:
+</p>
+
+<pre><code class="language-js">
+class User {
+    constructor(name, age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    static compareByName(a, b) {
+        if (a.name < b.name) return -1;
+        if (a.name > b.name) return 1;
+        return 0;
+    }
+
+    static compareByAge(a, b) {
+        return a.age - b.age;
+    }
+}
+
+const users = [
+    new User("Tomek", 10),
+    new User("Ania", 35),
+    new User("Beata", 20),
+    new User("Monika", 20),
+    new User("Karol", 22)
+];
+
+users.sort( User.compareByName );
+console.log( users[0].name ); // Ania
+
+users.sort( User.compareByAge );
+console.log( users[0].name ); // Tomek
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="wlasciwosci-prywatne">Właściwości prywatne</h2>
+<p>
+Przez wiele lat byliśmy skazani na "udawanie" właściwości prywatnych oznaczając je znakiem podłogi na początku. Dzięki temu oznaczaliśmy właściwości, które miały być w założeniu niedostępne na zewnątrz (a które niestety były dostępne):
+</p>
+
+<pre><code class="language-js">
+class Counter {
+    _count = 0;
+
+    get nr() {
+        return this._count;
+    }
+
+    increment() {
+        this._count++;
+    }
+}
+
+const c = new Counter();
+c.increment();
+c.increment();
+c.increment();
+console.log(c.nr); //3
+console.log(c._count); //3 - mimo oznaczenia mamy dostęp z zewnątrz
+</code></pre>
+
+<p>W ES7 pojawiły się już <a href="https://github.com/tc39/proposal-class-fields#private-fields">prawdziwe zmienne prywatne</a>, które poprzedzamy znakiem hash:</p>
+
+<pre><code class="language-js">
+class Counter {
+    #count = 0;
+
+    increment() {
+        this.#count++;
+    }
+
+    decrement() {
+        this.#count--;
+    }
+
+    showNr() {
+        return this.#count;
+    }
+}
+
+const c = new Counter();
+c.increment();
+console.log(c.showNr()); //1
+console.log(c.#count); //błąd - nie mamy dostępu
+</code></pre>
+
+<pre><code class="language-js">
+class Test {
+    #nr = 0;
+
+    set count(nr) {
+        this.#nr = nr;
+    }
+
+    get count() {
+        return this.#nr;
+    }
+}
+
+const t = new Test();
+t.count = 20;
+console.log(t.count)
+console.log(t.#nr) //błąd - Private field '#nr' must be declared in an enclosing class
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="abstract">Klasa abstrakcyjna</h2>
+<p>Klasa abstrakcyjna, to taka klasa, na bazie której nie powinniśmy tworzyć nowych instancji, a jedynie ją w przyszłości rozszerzać. Aby zapobiec tworzeniu nowych instancji na bazie danej klasy możemy posłużyć się zapisem:</p>
+
+<pre><code class="language-js">
+class Animal {
+    constructor(name) {
+        if (this.constructor === Animal) {
+            throw new Error("Nie możesz tworzyć obiektów z klasy abstrakcyjnej!");
+        }
+        this.type = "animal";
+        this.name = name;
+    }
+    eat() {
+        return "I eat food";
+    }
+}
+
+
+//lub
+class Animal {
+    constructor(name) {
+        if (new.target === Animal) {
+            throw new Error("Nie możesz tworzyć obiektów z klasy abstrakcyjnej!");
+        }
+        this.type = "animal";
+        this.name = name;
+    }
+    eat() {
+        return "I eat food";
+    }
+}
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="extend-default-class">Rozszerzanie wbudowanych klas</h2>
+<p>Rozszerzanie wbudowanych typów w ES5 nie było trywialną sprawą, co pokazują liczne <a href="https://stackoverflow.com/questions/11337849/ways-to-extend-array-object-in-javascript">wątki</a> i <a href="https://davidtang.io/2017/09/21/subclassing-arrays-in-es2015.html">artykuły</a>. Na szczęście wraz z wprowadzeniem klas, taka możliwość jest już bardzo prosta:</p>
+
+<pre><code class="language-js">
+class MyArray extends Array {
+    constructor(...param) {
+        super(...param)
+    }
+
+    sortNr() {
+        return this.sort((a, b) => a - b);
+    }
+}
+
+const tab = new MyArray();
+tab.push(4, 5, 1, 3);
+tab.sortNr();
+
+console.log(tab); //[1, 3, 4, 5]
+</code></pre>
+
+<div class="tasks-for-you-cnt">
+	<h2 class="subtitle" id="zadania">Trening czyni mistrza</h2>
+	<p>
+		Poniżej zamieszczam kilka zadań, które w ramach ćwiczenia możesz wykonać:
+	</p>
+	<ol class="tasks-for-you">
+		<li>
+			<p>
+			Stwórz klasę Brick, która będzie opisywać pojedynczy klocek w Arkanoid. Niech ma:<br>
+			- właściwości x, y<br>
+			- właściwość graphic<br>
+			- właściwości width, height<br>
+			- właściwość type<br>
+			- właściwość live<br>
+			- metodę print, która wypisze powyższe detale.<br>
+			- metodę init, która wypisze w konsoli "Dodano na planszę"<br><br>
+			</p>
+			<p>
+			Stwórz klasy <strong>BrickRed, BrickBlue, BrickGreen</strong>, które będą dziedziczyć po klasie Brick.<br>
+			Klasy powinny mieć:<br><br>
+	
+			<strong>BrickBlue powinien mieć:</strong><br>
+			- graphic ustawiony na "blue.png"<br>
+			- live ustawione na 10<br><br>
+	
+			<strong>BrickRed powinien mieć:</strong><br>
+			- graphic ustawiony na "red.png"<br>
+			- live ustawione na 15<br><br>
+	
+			<strong>BrickGreen powinien mieć:</strong><br>
+			- graphic ustawiony na "green.png"<br>
+			- live ustawione na 20<br>
+			</p>
+	
+			<p>
+			Dodatkowo stwórz klasę <strong>BrickAnim</strong>, która będzie dziedziczyć po klasie Brick.
+			Klasa ta powinna mieć metodę moveHorizontal, która będzie wypisywać w konsoli
+			"poruszam się poziomo z szybkością ...". W miejsce kropek wstaw właściwość
+			speed, którą będzie miała ta klasa.
+			</p>
+			<p>
+			Stwórz kilka obiektów na bazie powyższych klas. Zainicjuj im metody init() i print().
+			</p>
+		</li>
+	</ol>
+	</div>
 
 			</div><!-- e: page-content-text -->
 			<footer class="page-footer">
@@ -165,13 +640,13 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
                 </h3>
             </div>
 
-						<div class="page-sidebar-section show has-active-element">
+						<div class="page-sidebar-section ">
 				<h3 class="page-sidebar-section-title">
 					<a href="#">Słowem wstępu</a>
 				</h3>
 				<div class="page-sidebar-list-cnt">
 					<ul class="page-sidebar-list">
-						<li class="active">
+						<li >
 							<a href="/kurs/wstep/wstep.php">Wstęp</a>
 						</li>
 						<li >
@@ -379,7 +854,7 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
 				</div>
 			</div>
 
-						<div class="page-sidebar-section ">
+						<div class="page-sidebar-section show has-active-element">
 				<h3 class="page-sidebar-section-title">
 					<a href="#">Nowy Javascript</a>
 				</h3>
@@ -406,7 +881,7 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
 						<li >
             				<a href="/kurs/es6/destructuring.php">Dekompozycja</a>
         				</li>
-						<li >
+						<li class="active">
 							<a href="/kurs/es6/class.php">Klasy w ES6</a>
 						</li>
 						<li >

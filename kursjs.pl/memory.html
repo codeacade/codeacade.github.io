@@ -1,0 +1,1195 @@
+<!doctype html>
+<html lang="pl-PL">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kurs Javascript - Gra memory</title>
+	<meta name="description" content="Kurs Javascript dla superbohaterów, artykuły, tutoriale, porady, zadania do wykonania" />
+    <link rel="canonical" href="https://kursjs.pl/kurs/gry/memory/memory.php" />
+	<link rel="stylesheet" href="./css.css" />
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,700&display=swap&subset=latin-ext" rel="stylesheet">
+	<meta name="image" content="https://kursjs.pl/kursjs.png">
+<meta name="twitter:card" content="product">
+<meta name="twitter:site" content="@publisher_handle">
+<meta name="twitter:title" content="Kurs Javascript">
+<meta name="twitter:description" content="Kurs Javascript dla superbohaterów">
+<meta name="twitter:creator" content="@kartofelek007">
+<meta name="twitter:image" content="https://kursjs.pl/kursjs.png">
+<meta property="og:title" content="Kurs Javascript">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.kursjs.com/">
+<meta property="og:image" content="https://kursjs.pl/kursjs.png">
+<meta property="og:description" content="Kurs Javascript dla superbohaterów">
+<meta property="og:site_name" content="Kurs Javascript">
+<link rel="apple-touch-icon" sizes="57x57" href="/favicons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/favicons/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/favicons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/favicons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/favicons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/favicons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/favicons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/favicons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="/manifest.json">
+<meta name="msapplication-TileColor" content="#FF6347">
+<meta name="msapplication-TileImage" content="/mstile-144x144.png">
+    <script src="/js/jquery.min.js"></script>
+</head>
+<body>
+
+<div class="page-container" id="pageContainer">
+	<div class="page-content-wrapper">
+        <main class="page-content" id="mainContent"  data-text-for-print="Kurs Javascript dla superbohaterów">
+                        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <div class="rekl-cnt">
+                <ins
+                class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-6843603045703750"
+                data-ad-slot="4690777640"
+                data-ad-format="auto"
+                data-full-width-responsive="true"
+                ></ins>
+            </div>
+                        <div class="page-content-text">
+
+<style>
+.tile-image-example {
+    clear:both;
+    overflow:hidden;
+    margin:20px 0;
+}
+
+.tile-image-example div {
+    background:#FFDE00;
+    border:2px solid #FFD127;
+    text-align:center;
+    margin:3px;
+    width:80px;
+    height:80px;
+    float:left;
+    vertical-align:middle;
+}
+
+.tile-image-example div img {
+    margin-top:7px;
+}
+</style>
+
+
+
+<h1 class="page-title">Gra memory</h1>
+<p>
+W tym rozdziale zajmiemy się stworzeniem prostej gry "memory".<br />
+Gra taka polega na odkrywaniu par obrazków.
+
+<p>
+    <a href="memory-game.html" class="demo-link">Zobacz DEMO naszej gry</a>
+</p>
+
+<!-- ### -->
+<h2 class="subtitle"><a id="zalozenia"></a>Podstawowe założenia gry</h2>
+<p>
+    Tradycyjnie rozpiszmy zasadę działania naszej gry:
+</p>
+<ol>
+    <li>Domyślnie plansza gry jest nieaktywna. Kliknięcie na start aktywuje planszę.</li>
+    <li>Plansza składa się z x na y kafelków</li>
+    <li>Kliknięcie na kafelek odsłania go.</li>
+    <li>Jeżeli drugi kliknięty kafelek jest taki sam jak pierwszy, wtedy oba tiles zostają usunięte z planszy.</li>
+    <li>Jeżeli drugi kliknięty kafelek jest różny od pierwszego, wtedy oba tiles są zasłaniane i zwiększany jest licznik prób.</li>
+    <li>Gra kończy się z chwilą usunięcia wszystkich kafelków z planszy</li>
+</ol>
+
+<!-- ### -->
+<h2 class="subtitle"><a id="html"></a>Szkielet aplikacji</h2>
+<p>
+    Szkielet aplikacji będzie bardzo prosty. Sprowadzać się będzie tylko do planszy, punktacji i przycisku startującego grę. Reszta to czysta dynamika napisana w JavaScript.
+</p>
+
+<pre><code class="language-html">
+&lt;div class="game">
+    &lt;div class="game-board">
+    &lt;/div>
+
+    &lt;div class="game-score">
+    &lt;/div>
+
+    &lt;button class="game-start">Rozpocznij grę&lt;/button>
+&lt;/div>
+</code></pre>
+
+<p>Aby widzieć rezultaty nadajmy naszym elementom przykładowe style:</p>
+
+<pre><code class="language-css">
+.game-board {
+    margin:30px auto;
+    position: relative;
+    background: #fff;
+    overflow: hidden;
+    width: 550px;
+    height: 444px;
+    border: 2px solid #ddd;
+}
+
+.game-tile {
+    position: absolute;
+    cursor: pointer;
+    width: 100px;
+    height: 100px;
+    background: #f6da17 url(images/title.png) center center no-repeat;
+}
+
+.game-tile:hover {
+    background-color:#F7C11A;
+}
+
+.game-score {
+    text-align:center;
+}
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle"><a id="js"></a>Piszemy silnik gry</h2>
+<p>
+Naszą grę stworzymy jako pojedynczy obiekt. Zaczniemy od stworzenia podstawowych zmiennych określających planszę i wygląd poszczególnych klocków.
+</p>
+
+<pre><code class="language-js">
+const memoryGame = {
+    tileCount : 20, //liczba klocków
+    tileOnRow : 5, //liczba klocków na rząd
+    divBoard : null, //div z planszą gry
+    divScore : null, //div z wynikiem gry
+    tiles : [], //tutaj trafi wymieszana tablica klocków
+    tilesChecked : [], //zaznaczone klocki
+    moveCount : 0, //liczba ruchów
+    tilesImg : [ //grafiki dla klocków
+        'title_1.png',
+        'title_2.png',
+        'title_3.png',
+        'title_4.png',
+        'title_5.png',
+        'title_6.png',
+        'title_7.png',
+        'title_8.png',
+        'title_9.png',
+        'title_10.png'
+    ]
+}
+</code></pre>
+
+<p>
+W tablicy <strong>tiles</strong> będziemy przechowywać "typ" poszczególnych kafelków. Typy te będą występowały parami i będą określać po prostu numer obrazka dla danego kafelka.
+</p>
+<p>W zmiennej tilesImg przechowujemy grafiki dla poszczególnych klocków. Przykładowe obrazki kafelków znajdziesz poniżej:</p>
+
+<div class="tile-image-example">
+    <div>
+        <img src="images/title_1.png" width="64" height="64" alt="" />
+    </div>
+    <div>
+        <img src="images/title_2.png" width="64" height="64" alt="" />
+    </div>
+    <div>
+        <img src="images/title_3.png" width="64" height="64" alt="" />
+    </div>
+    <div>
+        <img src="images/title_4.png" width="64" height="64" alt="" />
+    </div>
+    <div>
+        <img src="images/title_5.png" width="64" height="64" alt="" />
+    </div>
+    <div>
+        <img src="images/title_6.png" width="64" height="64" alt="" />
+    </div>
+    <div>
+        <img src="images/title_7.png" width="64" height="64" alt="" />
+    </div>
+    <div>
+        <img src="images/title_8.png" width="64" height="64" alt="" />
+    </div>
+    <div>
+        <img src="images/title_9.png" width="64" height="64" alt="" />
+    </div>
+    <div>
+        <img src="images/title_10.png" width="64" height="64" alt="" />
+    </div>
+</div>
+
+<!-- ### -->
+<h2 class="subtitle" id="startGame">metoda startGame()</h2>
+
+<p>
+Metodą jaką napiszemy na początku będzie <strong>startGame()</strong>.
+</p>
+
+<p>
+    Pierwszym zadaniem jaki musi zrobić nasza startująca funkcja to czyszczenie wszystkich zmiennych (nasza gra może rozpoczynać się kilka razy) i stworzenie
+    pomieszanej tablicy par numerów dla kafelków:
+</p>
+
+<pre><code class="language-js">
+const memoryGame = {
+    ...
+
+    startGame() {
+        //czyścimy planszę
+        this.divBoard = document.querySelector('.game-board');
+        this.divBoard.innerHTML = '';
+
+        //czyścimy planszę z ruchami
+        this.divScore = document.querySelector('.game-score');
+        this.divScore.innerHTML = '';
+
+        //czyścimy zmienne (bo gra może się zacząć ponownie)
+        this.tiles = [];
+        this.tilesChecked = [];
+        this.moveCount = 0;
+
+        //generujemy tablicę numerów kocków (parami)
+        for (let i=0; i&lt;tileCount; i++) {
+            this.tiles.push(Math.floor(i/2));
+        }
+
+        //i ją mieszamy
+        for (let i=this.tileCount-1; i>0; i--) {
+            const swap = Math.floor(Math.random()*i);
+            const tmp = this.tiles[i];
+            this.tiles[i] = this.tiles[swap];
+            this.tiles[swap] = tmp;
+        }
+    }
+}
+</code></pre>
+
+<p>
+    Po stworzeniu tablicy z numerami kafelków, możemy na jej podstawie wstawić tiles na planszę:
+</p>
+
+<pre data-line="29-41"><code class="language-js">
+const memoryGame = {
+    startGame() {
+        //czyścimy planszę
+        this.divBoard = document.querySelector('.game-board');
+        this.divBoard.innerHTML = '';
+
+        //czyścimy planszę z ruchami
+        this.divScore = document.querySelector('.game-score');
+        this.divScore.innerText = '';
+
+        //czyścimy zmienne (bo gra może się zacząć ponownie)
+        this.tiles = [];
+        this.tilesChecked = [];
+        this.moveCount = 0;
+
+        //generujemy tablicę numerów kocków (parami)
+        for (let i=0; i&lt;tileCount; i++) {
+            this.tiles.push(Math.floor(i/2));
+        }
+
+        //i ją mieszamy
+        for (let i=this.tileCount-1; i>0; i--) {
+            const swap = Math.floor(Math.random()*i);
+            const tmp = this.tiles[i];
+            this.tiles[i] = this.tiles[swap];
+            this.tiles[swap] = tmp;
+        }
+
+        for (let i=0; i&lt;this.tileCount; i++) {
+            const tile = document.createElement('div');
+            tile.classList.add("game-tile");
+            this.divBoard.appendChild(tile);
+
+            tile.dataset.cardType = this.tiles[i];
+            tile.dataset.index = i;
+
+            tile.style.left = 5 + (tile.offsetWidth+10) * (i%this.tileOnRow) + 'px'
+            tile.style.top = 5 + (tile.offsetHeight+10) * (Math.floor(i/this.tileOnRow)) + 'px';
+
+            tile.addEventListener('click', this.tileClick.bind(this));
+        }
+    }
+}
+</code></pre>
+
+<p>
+    Po kliknięciu na dany kafelek będziemy pobierać numer który został jemu przypisany. Numer taki musimy więc gdzieś przechować. Idealnie do tego celu
+    nadaje się metoda <a href="../../dom/dom-wlasciwosci.php#dataset">dataset</a>.
+</p>
+
+<p>
+    Nasze tiles pozycjonujemy absolutnie wykorzystując do tego prostą pętlę. Nie możemy dla nich zastosować float ponieważ po usunięciu z planszy kafelków, reszta by się przemieszczała na ich miejsce.
+</p>
+
+<p>
+Po kliknięciu na dany kafelek odpalamy metodę <strong>tileClick()</strong>, którą zaraz napiszemy. Żeby mieć w tej metodzie dostęp do obiektu gry, musimy jej wskazać, że this ma nie wskazywać na kliknięty kafelek, a na nasz obiekt. Używamy do tego metody <a href="../../obiekty/obiekty-zaawansowane-this.php#bind">bind()</a>.
+</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="tileClick">metoda tileClick()</h2>
+<p>Napiszmy teraz kod metody tileClick():</p>
+
+<pre data-line="4-19"><code class="language-js">
+const memoryGame = {
+    ...
+
+    tileClick(e) {
+        //jeżeli jeszcze nie pobraliśmy 1 elementu
+        //lub jeżeli index tego elementu nie istnieje w pobranych...
+        if (!this.tilesChecked[0] || (this.tilesChecked[0].dataset.index !== e.target.dataset.index)) {
+            this.tilesChecked.push(e.target);
+            e.target.style.backgroundImage = 'url(' + this.tilesImg[e.target.dataset.cardType] + ')';
+        }
+
+        if (this.tilesChecked.length === 2) {
+            if (this.tilesChecked[0].dataset.cardType === this.tilesChecked[1].dataset.cardType) {
+                setTimeout(this.deleteTiles.bind(this), 500);
+            } else {
+                setTimeout(this.resetTiles.bind(this), 500);
+            }
+        }
+    },
+
+    startGame() {
+        ...
+    }
+}
+</code></pre>
+
+<p>
+Na samym początku sprawdzamy, czy dany kafelek nie jest już wcześniej kliknięty (czyli czy nie jest wrzucony do tablicy <strong>tilesChecked</strong>).<br>
+
+Jeżeli nie jest, a index klikniętego elementu nie występuje już w tablicy (nasza tablica będzie mogła zawierać maksymalnie 2 elementy, więc wystarczy sprawdzić jej 1 element),
+wtedy możemy go do niej dodać (zapobiegnie to sytuacji, gdy 2x klikniemy ten sam element).<br />
+</p>
+<p>
+Dodatkowo przy dodawaniu elementu do tablicy ustawiamy mu odpowiednie tło, którego numer pobieramy z "data" danego kafelka.
+</p>
+<p>
+Następuje wybranie 2 kafelka. Jeżeli "cardType" obydwu elementów tablicy <strong>tilesChecked</strong> jest taki sam, znaczy to, że para kafelków została dopasowana. Odpalamy więc funkcję <strong>deleteTiles()</strong>. Jeżeli cardType jest różne, znaczy to że tiles są różne, więc musimy je ukryć na nowo. Służy do tego metoda <strong>resetTiles()</strong>. Obie metody musimy przypiąć za pomocą metody bind(), ponieważ domyślnie <a href="../../intervals/intervals.php#zmiana-this">setTimeout zmienia kontekst this</a>.<br />
+Obie metody odpalamy z opóźnieniem 500ms, tak by wybrane tiles nie ukrywały się od razu:
+</p>
+
+<p>
+    W postaci takiej jak powyższa nasz skrypt nie będzie działał prawidłowo. Wyobraź sobie sytuację: gracz wybiera 2 tiles, zostaje odpalona z opóźnieniem
+    funkcja deleteTiles() lub resetTiles(). Jednak w tym samym czasie
+    gracz może spokojnie klikać resztę kafelków i nasze działania zostają zakłócone.<br />
+    Aby to naprawić dodamy do naszego skryptu dodatkową zmienną <strong>canGet</strong>, która wyłączy możliwość klikania na czas usuwania lub resetowania kafelków:<br />
+</p>
+
+<pre data-line="3,6,15,32"><code class="language-js">
+const memoryGame = {
+    ...
+    canGet : true, //czy można klikać na kafelki
+
+    tileClick(element) {
+        if (this.canGet) {
+            //jeżeli jeszcze nie pobraliśmy 1 elementu
+            //lub jeżeli index tego elementu nie istnieje w pobranych...
+            if (!this.tilesChecked[0] || (this.tilesChecked[0].dataset.index !== e.target.dataset.index)) {
+                this.tilesChecked.push(e.target);
+                e.target.style.backgroundImage = 'url(' + this.tilesImg[e.target.dataset.cardType] + ')';
+            }
+
+            if (this.tilesChecked.length === 2) {
+                this.canGet = false;
+
+                if (this.tilesChecked[0].dataset.cardType === this.tilesChecked[1].dataset.cardType) {
+                    setTimeout(this.deleteTiles.bind(this), 500);
+                } else {
+                    setTimeout(this.resetTiles.bind(this), 500);
+                }
+            }
+        }
+    };
+
+    startGame() {
+        ...
+
+        //czyścimy zmienne (bo gra może się zacząć ponownie)
+        this.tiles = [];
+        this.tilesChecked = [];
+        this.canGet = true;
+
+        ...
+    };
+}
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="deleteTiles">metoda deleteTiles()</h2>
+
+<p>
+    Jak widać powyżej, jeżeli oba pobrane tiles mają taki sam "cartType", wtedy odpalamy funkcję deleteTiles.<br />
+    Kafelki do usunięcia znajdują się teraz w tablicy <strong>tilesChecked</strong>. Wystarczy je więc usunąć za pomocą metody <a href="../../dom/dom-tworzenie-i-usuwanie.php#remove">remove()</a>, po czym na nowo
+    ustawić tablicę <strong>tilesChecked</strong>. Po usunięciu kafelków włączamy na nowo możliwość pobrania nowej pary:
+</p>
+
+<pre><code class="language-js">
+const memoryGame = {
+    ...
+
+    deleteTiles() {
+        this.tilesChecked[0].remove();
+        this.tilesChecked[1].remove();
+
+        this.canGet = true;
+        this.tilesChecked = [];
+    },
+
+    ...
+}
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="resetTiles">metoda resetTiles()</h2>
+
+<p>
+    Funkcja resetująca tiles do stanu zakrytego jest jeszcze prostsza. Oba tiles wracają po prostu do stanu początkowego, po czym tak samo jak powyżej
+    ustawiamy na nowo tablicę <strong>tilesChecked</strong> i zmienną <strong>canGet</strong>.
+</p>
+
+<pre><code class="language-js">
+const memoryGame = {
+    ...
+
+    resetTiles() {
+        this.tilesChecked[0].style.backgroundImage = 'url(images/title.png)';
+        this.tilesChecked[1].style.backgroundImage = 'url(images/title.png)';
+
+        this.tilesChecked = [];
+        this.canGet = true;
+    },
+
+    ...
+}
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="liczba-ruchow">Pokazywanie liczby ruchów</h2>
+<p>
+    Ostatnimi rzeczami którymi się zajmiemy to pokazywanie graczowi liczby ruchów które wykonał oraz zakończenie gry.
+</p>
+<p>
+    Liczenie ruchów to nic trudnego. Przy każdym kliknięciu na kafelek po prostu zwiększamy zmienną <strong>moveCount</strong>, a wynik wypisujemy w elemencie <strong>divScore</strong>:
+</p>
+<pre data-line="22-23"><code class="language-js">
+const memoryGame = {
+    ...
+
+    tileClick(element) {
+        if (this.canGet) {
+            //jeżeli jeszcze nie pobraliśmy 1 elementu
+            //lub jeżeli index tego elementu nie istnieje w pobranych...
+            if (!this.tilesChecked[0] || (this.tilesChecked[0].dataset.index !== e.target.dataset.index)) {
+                this.tilesChecked.push(e.target);
+                e.target.style.backgroundImage = 'url(' + this.tilesImg[e.target.dataset.cardType] + ')';
+            }
+
+            if (this.tilesChecked.length === 2) {
+                this.canGet = false;
+
+                if (this.tilesChecked[0].dataset.cardType === this.tilesChecked[1].dataset.cardType) {
+                    setTimeout(this.deleteTiles.bind(this), 500);
+                } else {
+                    setTimeout(this.resetTiles.bind(this), 500);
+                }
+
+                this.moveCount++;
+                this.divScore.innerText = this.moveCount;
+            }
+        }
+    },
+
+    ...
+}
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="koniec-gry">Koniec gry</h2>
+
+<p>
+    Pozostało nam do wykonania sprawdzenie czy użytkownik nie odkrył wszystkich kafelków i tym samym nie zakończył gry. Wystarczy wprowadzić dodatkową zmienną,
+    w której będziemy
+    przechowywać liczbę odkrytych par. Jeżeli liczba ta będzie większa lub równa połowie wszystkich kafelków znaczy to, że gra została zakończona.<br />
+    Oczywiście sprawdzenie takie wykonujemy tylko przy usunięciu kafelków z planszy:
+</p>
+
+<pre data-line="3,12-15"><code class="language-js">
+const memoryGame = {
+    ...
+    tilePairs : 0, //liczba dopasowanych kafelków
+
+    deleteTiles() {
+        this.tilesChecked[0].remove();
+        this.tilesChecked[1].remove();
+
+        this.canGet = true;
+        this.tilesChecked = [];
+
+        this.tilePairs++;
+        if (this.tilePairs >= this.tileCount / 2) {
+            alert('gameOver!');
+        }
+    },
+
+    ...
+
+}
+</code></pre>
+
+<p>
+    Tak jak poprzednio, nie zapomnijmy wyzerować naszej zmiennej przy starcie gry
+</p>
+
+<pre data-line="18"><code class="language-js">
+const memoryGame = {
+    ...
+
+    startGame() {
+        //czyścimy planszę
+        this.divBoard = document.querySelector('.game-board');
+        this.divBoard.innerHTML = '';
+
+        //czyścimy planszę z ruchami
+        this.divScore = document.querySelector('.game-score');
+        this.divScore.innerHTML = '';
+
+        //czyścimy zmienne (bo gra może się zacząć ponownie)
+        this.tiles = [];
+        this.tilesChecked = [];
+        this.moveCount = 0;
+        this.canGet = true;
+        this.tilePairs = 0;
+
+        ...
+    }
+}
+</code></pre>
+
+<p>
+    Naszą pracę kończymy podpięciem pod przycisk rozpoczęcia gry:
+</p>
+
+<pre><code class="language-js">
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelector('.game-start').addEventListener('click', function() {
+        memoryGame.startGame();
+    });
+});
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle"><a id="all"></a>Cały kod</h2>
+<p>
+    Cały kod naszej aplikacji wygląda teraz tak:
+</p>
+
+<pre><code class="language-js">
+const memoryGame = {
+    tileCount : 20, //liczba klocków
+    tileOnRow : 5, //liczba klocków na rząd
+    divBoard : null, //div z planszą gry
+    divScore : null, //div z wynikiem gry
+    tiles : [], //tutaj trafi wymieszana tablica klocków
+    tilesChecked : [], //zaznaczone klocki
+    moveCount : 0, //liczba ruchów
+    tilesImg : [ //grafiki dla klocków
+        'images/title_1.png',
+        'images/title_2.png',
+        'images/title_3.png',
+        'images/title_4.png',
+        'images/title_5.png',
+        'images/title_6.png',
+        'images/title_7.png',
+        'images/title_8.png',
+        'images/title_9.png',
+        'images/title_10.png'
+    ],
+    canGet : true, //czy można klikać na kafelki
+    tilePairs : 0, //liczba dopasowanych kafelkow
+
+    tileClick(e) {
+        if (this.canGet) {
+            //jeżeli jeszcze nie pobraliśmy 1 elementu
+            //lub jeżeli index tego elementu nie istnieje w pobranych...
+            if (!this.tilesChecked[0] || (this.tilesChecked[0].dataset.index !== e.target.dataset.index)) {
+                this.tilesChecked.push(e.target);
+                e.target.style.backgroundImage = 'url(' + this.tilesImg[e.target.dataset.cardType] + ')';
+            }
+
+            if (this.tilesChecked.length === 2) {
+                this.canGet = false;
+
+                if (this.tilesChecked[0].dataset.cardType === this.tilesChecked[1].dataset.cardType) {
+                    setTimeout(this.deleteTiles.bind(this), 500);
+                } else {
+                    setTimeout(this.resetTiles.bind(this), 500);
+                }
+
+                this.moveCount++;
+                this.divScore.innerText = this.moveCount;
+            }
+        }
+    },
+
+    deleteTiles() {
+        this.tilesChecked[0].remove();
+        this.tilesChecked[1].remove();
+
+        this.canGet = true;
+        this.tilesChecked = [];
+
+        this.tilePairs++;
+        if (this.tilePairs >= this.tileCount / 2) {
+            alert('Udało ci się odgadnąć wszystkie obrazki');
+        }
+    },
+
+    resetTiles() {
+        this.tilesChecked[0].style.backgroundImage = 'url(images/title.png)';
+        this.tilesChecked[1].style.backgroundImage = 'url(images/title.png)';
+
+        this.tilesChecked = [];
+        this.canGet = true;
+    },
+
+    startGame() {
+        //czyścimy planszę
+        this.divBoard = document.querySelector('.game-board');
+        this.divBoard.innerHTML = '';
+
+        //czyścimy planszę z ruchami
+        this.divScore = document.querySelector('.game-score');
+        this.divScore.innerHTML = '';
+
+        //czyścimy zmienne (bo gra może się zacząć ponownie)
+        this.tiles = [];
+        this.tilesChecked = [];
+        this.moveCount = 0;
+        this.canGet = true;
+        this.tilePairs = 0;
+
+        //generujemy tablicę numerów kocków (parami)
+        for (let i=0; i&lt;this.tileCount; i++) {
+            this.tiles.push(Math.floor(i/2));
+        }
+
+        //i ją mieszamy
+        for (let i=this.tileCount-1; i>0; i--) {
+            const swap = Math.floor(Math.random()*i);
+            const tmp = this.tiles[i];
+            this.tiles[i] = this.tiles[swap];
+            this.tiles[swap] = tmp;
+        }
+
+        for (let i=0; i&lt;this.tileCount; i++) {
+            const tile = document.createElement('div');
+            tile.classList.add("game-tile");
+            this.divBoard.appendChild(tile);
+
+            tile.dataset.cardType = this.tiles[i];
+            tile.dataset.index = i;
+
+            tile.style.left = 5 + (tile.offsetWidth+10) * (i%this.tileOnRow) + 'px'
+            tile.style.top = 5 + (tile.offsetHeight+10) * (Math.floor(i/this.tileOnRow)) + 'px';
+
+            tile.addEventListener('click', this.tileClick.bind(this));
+        }
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const startBtn = document.querySelector('.game-start');
+    startBtn.addEventListener('click', () => memoryGame.startGame());
+});
+</code></pre>
+
+<p>
+    <a class="demo-link" href="memory-game.html">Gotową grę możesz zobaczyć tutaj</a>
+</p>
+
+			</div><!-- e: page-content-text -->
+			<footer class="page-footer">
+				<p>
+				Wszelkie prawa zastrzeżone. Jeżeli chcesz używać jakiejś części tego kursu, skontaktuj się z <a href="/kurs/autor.php">autorem</a>.
+				Aha - i ta strona korzysta z <a href="/kurs/polityka-prywatnosci.php">ciasteczek</a>.
+				</p>
+			</footer>
+							<div class="rekl-cnt">
+					<ins
+					class="adsbygoogle" style="margin-top:40px; display:block"
+					data-ad-client="ca-pub-6843603045703750"
+					data-ad-slot="4690777640"
+					data-ad-format="auto"
+					data-full-width-responsive="true"
+					></ins>
+				</div>
+				<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+	(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+					</main><!-- e: page-content -->
+			</div><!-- e: page-content-wrapper -->
+    <aside id="page-sidebar-cnt" class="page-sidebar-cnt">
+	<div id="page-sidebar" class="page-sidebar">
+		<button aria-label="Pokaż/ukryj Menu" aria-expanded="false" aria-controls="page-sidebar" type="button" id="pageSidebarBurger" class="page-sidebar-burger">
+			<span></span>
+		</button>
+
+		<h2 class="visuallyhidden">
+			Menu
+		</h2>
+
+		<button class="sidebar-toggle-btn" title="Pokaż/schowaj menu" aria-hidden="true">
+			<strong>Pokaż/ukryj menu</strong>
+			<span></span>
+			<span></span>
+			<span></span>
+		</button>
+
+		<div class="page-sidebar-title">
+			<a href="/kurs/kontakt.php" title="Nawrzucaj autorowi" class="mail-to-author" id="mailToAuthor">Napisz do mnie</a>
+			<a href="#popupOptions" class="page-setup-link popupOpen" title="Ustawienia strony" id="showOptions">Ustawienia</a>
+			<a href="/index.php" aria-label="Strona główna" class="page-sidebar-title-link">Kurs Javascript</a>
+		</div>
+
+        <form aria-label="Wyszukiwarka" class="search-sidebar" action="/search.php" method="post">
+            <label for="search" class="search-sidebar-label">Szukaj</label>
+            <div class="search-sidebar-input-cnt">
+                <svg class="search-sidebar-input-icon" xmlns="http://www.w3.org/2000/svg" width="26" height="28" viewBox="0 0 26 28" aria-hidden="true">
+                    <path d="M18 13c0-3.859-3.141-7-7-7s-7 3.141-7 7 3.141 7 7 7 7-3.141 7-7zm8 13c0 1.094-.906 2-2 2a1.96 1.96 0 0 1-1.406-.594l-5.359-5.344a10.971 10.971 0 0 1-6.234 1.937c-6.078 0-11-4.922-11-11s4.922-11 11-11 11 4.922 11 11c0 2.219-.672 4.406-1.937 6.234l5.359 5.359c.359.359.578.875.578 1.406z"></path>
+                </svg>
+                <input type="text" id="search" autocomplete="off" name="q" class="search-sidebar-input">
+            </div>
+            <button type="submit" class="search-sidebar-button">Szukaj</button>
+        </form>
+
+		<div class="page-sidebar-table-of-content">
+			<h2 class="visuallyhidden">Spis treści</h2>
+            <div class="page-sidebar-section">
+				<h3 class="page-sidebar-section-title noopen">
+                    <a href="/index.php">Strona główna</a>
+                </h3>
+            </div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Słowem wstępu</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/wstep/wstep.php">Wstęp</a>
+						</li>
+						<li >
+							<a href="/kurs/wstep/co-to-jest-javascript.php">Co to jest JavaScript i z czym go się je?</a>
+						</li>
+						<li >
+							<a href="/kurs/wstep/wymagania.php">Wymagania</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Super podstawy</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/debuger/debuger.php">Debuger</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/pierwszy-skrypt.php">Wstawiamy skrypty na naszą stronę</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/strict-mode.php">Strict mode</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/typy-danych.php">Typy danych i konwersja danych</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/zmienne.php">Zmienne</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/operatory.php">Operatory</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/math.php">Obiekt Math</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/string.php">String - teksty</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/instrukcje-warunkowe.php">Instrukcje warunkowe</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/petle.php">Pętle</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/funkcje.php">Funkcje</a>
+						</li>
+                        <li >
+							<a href="/kurs/super-podstawy/funkcje-tematy-dodatkowe.php">Funkcje - tematy dodatkowe</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/tablice.php">Tablice</a>
+						</li>
+                        <li >
+							<a href="/kurs/super-podstawy/tablice-iteracje.php">Tablice pętle</a>
+						</li>
+						<li >
+							<a href="/kurs/debuger/debugowanie.php">Debugowanie kodu</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+            			<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Obiekty</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+                        <li >
+							<a href="/kurs/obiekty/obiekty.php">Obiekty i this</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-jak-to-dziala.php">Jak to działa</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-konstruktor.php">Konstruktor</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-zaawansowane-this.php">Zaawansowane this</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-dziedziczenie.php">Dziedziczenie w Javascript</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-inne-sposoby-tworzenia.php">Inne sposoby tworzenia obiektów</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-instanceof-hasownproperty.php">instanceof i hasOwnProperty</a>
+						</li>
+                    </ul>
+                </div>
+            </div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">DOM i zdarzenia</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/dom/dom.php">Document Object Model</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-wlasciwosci.php">Właściwości elementów</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-relacje.php">Relacje między elementami</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-tworzenie-i-usuwanie.php">Tworzenie i usuwanie elementów</a>
+						</li>
+                        <li >
+                            <a href="/kurs/dom/style.php">Style w CSS</a>
+                        </li>
+						<li >
+							<a href="/kurs/events/events.php">Zdarzenia</a>
+						</li>
+						<li >
+							<a href="/kurs/events/events-keys.php">Zdarzenia - klawisze</a>
+						</li>
+						<li >
+							<a href="/kurs/events/events-mouse.php">Zdarzenia - myszka</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/projekt-todo.php">Projekt TODO</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/slider.php">Tworzymy slider</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Prawie podstawy</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/grafika/grafika-na-stronie.php">Grafika na stronie</a>
+						</li>
+						<li >
+							<a href="/kurs/intervals/intervals.php">setTimeout i setInterval</a>
+						</li>
+						<li >
+							<a href="/kurs/match-media.php">Praca z RWD</a>
+						</li>
+						<li >
+							<a href="/kurs/okna-dialogowe.php">Okienka dialogowe</a>
+						</li>
+						<li >
+							<a href="/kurs/okna.php">Tworzenie nowych okien</a>
+						</li>
+						<li >
+							<a href="/kurs/date/date.php">Obiekt Date</a>
+						</li>
+						<li >
+							<a href="/kurs/date/date-calendar.php">Tworzymy kalendarz</a>
+						</li>
+						<li >
+							<a href="/kurs/cookies/cookie.php">Obiekt Cookie</a>
+						</li>
+						<li >
+							<a href="/kurs/storage/storage.php">Storage</a>
+						</li>
+						<li >
+							<a href="/kurs/regular.php">Wyrażenia regularne</a>
+						</li>
+						<li >
+							<a href="/kurs/formularze/formularze.php">Formularze</a>
+						</li>
+						<li >
+							<a href="/kurs/formularze/formularze-walidacja.php">Formularze - walidacja</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Ajax</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/ajax/ajax.php">AJAX, REST, JSON</a>
+						</li>
+						<li >
+							<a href="/kurs/ajax/xmlhttprequest.php">XMLHttpRequest</a>
+						</li>
+            			<li >
+							<a href="/kurs/ajax/fetch.php">Fetch API</a>
+						</li>
+						<li >
+							<a href="/kurs/ajax/formularz-kontaktowy.php">Dynamiczny formularz kontaktowy</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Nowy Javascript</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/es6/ecma-script-2015.php">ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/webpack.php">Webpack</a>
+						</li>
+                        <li >
+            				<a href="/kurs/es6/obiekty-w-es6.php">Obiekty w ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/funkcja-strzalkowa.php">Funkcja strzałkowa</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/spread-rest.php">Spread i rest</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/template-strings.php">Template strings</a>
+						</li>
+						<li >
+            				<a href="/kurs/es6/destructuring.php">Dekompozycja</a>
+        				</li>
+						<li >
+							<a href="/kurs/es6/class.php">Klasy w ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/promises.php">Promises</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/async-await.php">Async/Await</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/symbole.php">Symbole</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">jQuery</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/jquery/jquery.php">jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/animacje-w-jquery.php">Animacje w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/jquery-ajax.php">Ajax w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/tabs.php">Taby w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/plugin.php">Karuzela w jQuery</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Canvas</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/canvas/canvas.php">Canvas</a>
+						</li>
+						<li >
+							<a href="/kurs/canvas/canvas-images.php">Grafika w canvas</a>
+						</li>
+						<li >
+						<a href="/kurs/canvas/canvas-paint.php">Praktycznie : Paint w canvas</a>
+						</li>
+
+						<li >
+							<a href="/kurs/canvas/canvas-animacja.php">Animacja w canvas</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section show has-active-element">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Gry</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/gry/hangman/hangman.php">Szubienica</a>
+						</li>
+						<li class="active">
+							<a href="/kurs/gry/memory/memory.php">Memory</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+            			<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Inne</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/dodatkowe-materialy.php">Dodatkowe materiały</a>
+						</li>
+						<li >
+							<a href="/kurs/faq.php">FAQ</a>
+						</li>
+						<li >
+							<a href="/kurs/polityka-prywatnosci.php">Polityka prywatności</a>
+						</li>
+						<li >
+							<a href="/kurs/autor.php">O autorze</a>
+						</li>
+						<li >
+							<a href="/kurs/kontakt.php">Kontakt</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="page-sidebar-section">
+                <a class="special-link" href="/kurs/autor.php#donate">Wesprzyj kurs</a>
+            </div>
+		</div>
+	</div>
+</aside></div><!-- e: page-container -->
+
+<div class="popup" id="popupOptions">
+	<div class="popup-inside">
+        <div class="popup-container-cnt">
+            <div class="popup-container">
+                <button class="popup-close">Zamknij</button>
+
+                <h2 class="popup-title">
+                    Opcje
+                </h2>
+
+                <div class="popup-content">
+                    <form class="form-options">
+                        <div class="form-option">
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <label for="optionsThemeSelect">Wybierz skórkę dla listingów</label>
+                                    <select id="optionsThemeSelect"></select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <pre><code class="language-js">
+                                //tak będzie wyglądał kod
+
+                                function test() {
+                                    for (let i=0; i&lt;10; i++) {
+                                        console.log("Tekst numer ", 1);
+                                    }
+                                }
+
+                                test();
+                                </code></pre>
+                            </div>
+                            <div class="form-row" id="themeLightModeRow">
+                                <div class="form-col">
+                                    <label for="themeLightMode">
+                                        Tryb dzienny / nocny
+                                    </label>
+
+                                    <div class="light-mode-el">
+                                        <input type="checkbox" id="themeLightMode">
+                                        <span class="light-mode"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+	</div>
+</div>
+<script async defer src="https://www.googletagmanager.com/gtag/js?id=UA-38558970-5"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-38558970-5');
+</script>
+
+	<script src="/js/ads.js"></script>
+	<script src="/js/script.min.js?v=0.13" defer></script>
+</body>
+</html>

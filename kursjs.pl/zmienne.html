@@ -1,0 +1,1119 @@
+<!doctype html>
+<html lang="pl-PL">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kurs Javascript - Zmienne i stałe</title>
+	<meta name="description" content="Kurs Javascript dla superbohaterów, artykuły, tutoriale, porady, zadania do wykonania" />
+    <link rel="canonical" href="https://kursjs.pl/kurs/super-podstawy/zmienne.php" />
+	<link rel="stylesheet" href="./css.css" />
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,700&display=swap&subset=latin-ext" rel="stylesheet">
+	<meta name="image" content="https://kursjs.pl/kursjs.png">
+<meta name="twitter:card" content="product">
+<meta name="twitter:site" content="@publisher_handle">
+<meta name="twitter:title" content="Kurs Javascript">
+<meta name="twitter:description" content="Kurs Javascript dla superbohaterów">
+<meta name="twitter:creator" content="@kartofelek007">
+<meta name="twitter:image" content="https://kursjs.pl/kursjs.png">
+<meta property="og:title" content="Kurs Javascript">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.kursjs.com/">
+<meta property="og:image" content="https://kursjs.pl/kursjs.png">
+<meta property="og:description" content="Kurs Javascript dla superbohaterów">
+<meta property="og:site_name" content="Kurs Javascript">
+<link rel="apple-touch-icon" sizes="57x57" href="/favicons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/favicons/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/favicons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/favicons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/favicons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/favicons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/favicons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/favicons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="/manifest.json">
+<meta name="msapplication-TileColor" content="#FF6347">
+<meta name="msapplication-TileImage" content="/mstile-144x144.png">
+    <script src="/js/jquery.min.js"></script>
+</head>
+<body>
+
+<div class="page-container" id="pageContainer">
+	<div class="page-content-wrapper">
+        <main class="page-content" id="mainContent"  data-text-for-print="Kurs Javascript dla superbohaterów">
+                        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <div class="rekl-cnt">
+                <ins
+                class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-6843603045703750"
+                data-ad-slot="4690777640"
+                data-ad-format="auto"
+                data-full-width-responsive="true"
+                ></ins>
+            </div>
+                        <div class="page-content-text">
+
+<h1 class="page-title">Zmienne i stałe</h1>
+
+<p>
+    <a href="https://pl.wikipedia.org/wiki/Zmienna_(informatyka)">Zmienne</a> to coś w rodzaju "pudełek", w których pod nazwami możemy przechowywać różne rzeczy.
+</p>
+
+<!--###-->
+<h2 class="subtitle" id="deklarowanie-zmiennych">Deklarowanie zmiennych</h2>
+<p>
+    Aby zadeklarować zmienną, powinniśmy posłużyć się jednym ze słów kluczowych.<br>
+    Do stworzenia zmiennej w JavaScript przez lata używało się słowa kluczowego <strong>var</strong>:
+</p>
+
+<pre><code class="language-js">
+var txt = "Ala ma kota";
+var nr = 20;
+var url = "kontakt.html";
+
+console.log(txt);
+console.log(nr);
+console.log(url);
+</code></pre>
+
+<p>JavaScript ewoluuje. Wraz z pojawieniem się ES6 (EcmaScript 2015) wprowadzono nowe sposoby deklaracji zmiennych za pomocą słów kluczowych <strong>let</strong> i <strong>const</strong>. Słowo <strong>let</strong> oznacza zmienną, natomiast <strong>const</strong> stałą (taką, do której po ustawieniu wartości, nie możemy przypisać jej nowej):
+</p>
+
+<pre><code class="language-js">
+let txt = "Przykładowy tekst"; //zmienna
+txt = "Inny tekst"; //zmieniamy wartość
+
+
+const nr = 102; //stała
+nr = 103; //błąd - nie można zmieniać stałej
+</code></pre>
+
+<p>W dzisiejszych czasach mimo tego, że w internecie spotkamy miliony skryptów wykorzystujących var, wielu programistów zaleca stosować już <strong>const</strong> i <strong>let</strong>. Dzięki nim nasze skrypty stają się nie tylko bardziej optymalne pod względem zarządzania pamięcią, ale i potencjalnie unikamy niektórych problematycznych sytuacji, które występowały przy var (a o których dowiesz się w dalszej części kursu). Przy czym demonizowanie var też nie jest dobre...</p>
+
+
+
+<!--###-->
+<h2 class="subtitle" id="po-co-stosowac">Po co stosować zmienne?</h2>
+<p>
+Po co w ogóle stosować zmienne? Rozpatrzmy prosty przykład dodawania liczb:
+</p>
+
+<pre><code class="language-js">
+console.log(6 + 5 + 1);
+console.log(4 + 5 + 2);
+console.log(1 * 5 + 5 - 2);
+console.log(8 + (5 * 10) + 5 + 9 + (5 * 10) + 5);
+...
+...
+</code></pre>
+
+<p>
+Przypuśćmy, że teraz chcielibyśmy zmienić cyfrę 5 tak, aby równanie miało postać 9 + 7 + 1 itp.<br>
+Dla tak małego skryptu zmiana tej cyfry nie jest wielkim problemem.
+Co by się stało gdybyśmy takich równań w naszym przykładzie mieli na przykład tysiąc lub nawet sto tysięcy?<br>
+Zmiana każdej linii była by dość uciążliwa. I tu przychodzą nam z pomocą zmienne:
+</p>
+
+<pre><code class="language-js">
+const nr = 5;
+
+console.log(6 + nr + 1);
+console.log(4 + nr + 2);
+console.log(1 * nr + nr - 2);
+console.log(7 + (nr * 10) + nr + 9 + (nr * 10) + nr);
+</code></pre>
+
+<p>
+Pod zmienne możemy podstawiać nie tylko liczby, ale teksty, funkcje, obiekty, tablice - czyli praktycznie dowolne rzeczy, na których będziemy pracować w naszych kodach:
+</p>
+
+<pre><code class="language-js">
+const btn = document.querySelector('.button');
+
+btn.classList.add('btn-important');
+btn.setAttribute('Kliknij mnie');
+console.log(btn.innerText);
+btn.innerText = "Kliknij mnie!"
+</code></pre>
+
+<p>Tutaj mała uwaga zanim przejdziemy dalej.</p>
+<p>Nie bójmy się tworzyć zmiennych.</p>
+<p>Spójrz na poniższy przykład generujący losową liczbę:</p>
+
+<pre><code class="language-js">
+const random = Math.floor(Math.random()*(max-min+1)+min);
+console.log(random);
+</code></pre>
+
+<p>Widzisz te min i max? To zmienne. Zamiast je ręcznie zamieniać na odpowiednie liczby, o wiele lepiej stworzyć dodatkowe zmienne.</p>
+
+<pre><code class="language-js" data-lines="">
+const min = 1;
+const max = 15;
+const random = Math.floor(Math.random()*(max-min+1)+min);
+console.log(random);
+</code></pre>
+
+<!--###-->
+<h2 class="subtitle" id="nazewnictwo-zmiennych">Nazewnictwo zmiennych</h2>
+<p>
+Nazwy zmiennych i stałych które deklarujemy nie mogą być byle jakie.
+Istnieją pewne zasady których musimy się trzymać. I tak:
+</p>
+<ul>
+    <li>wielkość liter ma znaczenie. Zmienna myTXT to nie to samo co mytxt</li>
+    <li>nazwa zmiennej nie może zaczynać się od cyfry,</li>
+    <li>nazwa zmiennej nie może zawierać spacji, kropki, przecinka ani myślnika (można natomiast używać podkreślenia),</li>
+    <li>nazwą zmiennej nie może być <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Lexical_grammar#Keywords">słowo kluczowe</a> zarezerwowane przez JavaScript</li>
+</ul>
+<p>
+    <strong>Po prostu nie zaczynaj nazw od cyfr i pisz nazwy zmiennych po angielsku.</strong>
+    Bardzo częstą praktyką jest stosowanie zapisu camelCase, czyli np. veryImportantThing, ale wiele osób stosuje też zapis z podłogą czyli very_important_thing.
+</p>
+<p>
+    Jest jednak ważniejsza sprawa, którą zapamiętaj.<br>
+    <strong>Nazywaj swoje zmienne tak, by dało się zrozumieć do czego się odnoszą</strong>.
+    Zmienna o nazwie <strong>elementsCount</strong> jest bardziej czytelna, niż <strong>xxx</strong>. W tym kursie czasami będę korzystał z mało czytelnych zmiennych (np. a), ale wynika to tylko z tego, że kod często jest bardzo, bardzo krótki, a i jestem leniem.
+</p>
+<p>
+    Dla ciekawskich - nazwy zmiennych mogą być bardzo różne.
+    <a href="https://mathiasbynens.be/notes/javascript-identifiers">Bardzo, bardzo różne</a>. Nie jest to oczywiście zalecane i trzeba to traktować jako ciekawostkę.
+</p>
+
+<pre><code class="language-js">
+    //dobre nazwy
+    const myAge = 10;
+    const my_age = 10;
+
+    //błędne nazwy
+    const my-age = 10;
+    const 2myAge = 10;
+    const my age  = 10;
+    const mójWiek = 10;
+</code></pre>
+
+<!--###-->
+<h2 class="subtitle" id="const">const</h2>
+<p>Jedną z głównych bolączek var od zawsze było to, że za pomocą tego słowa można tworzyć tylko zmienne. Oznacza to, że w każdym momencie mogę później taką zmienną zmienić:</p>
+
+<pre><code class="language-js">
+var superKey = "21389123718398"
+
+...
+
+superKey = 20;
+</code></pre>
+
+<p>W celu uniknięcia błędów w większych programach część programistów "stałe" nazywa w całości dużymi literami. Dzięki temu osoba pisząca kod wiedziała czy powinna czy nie powinna zmieniać danej zmiennej.</p>
+
+<p>
+    Wraz z wprowadzeniem nowych deklaracji dostaliśmy rozróżnienie na zmienne i stałe.<br>
+    Zmienne deklarowane za pomocą <strong>let/var</strong> można w przyszłości zmienić - czyli podstawić im nową wartość. Zmiennym stworzonym za pomocą <strong>const</strong> nie jesteśmy w stanie podstawić nowej wartości.
+</p>
+
+<pre><code class="language-js">
+var text = "ala";
+text = "ala ma kota"; // wszystko ok, bo var to zmienna
+
+let a = 0;
+a = 10; //wszystko ok, bo let
+
+const b = 0;
+b = 10; //błąd - do stałej nie możemy przypisać nowej wartości
+
+const name = "Ala";
+name = "Monika"; //błąd
+</code></pre>
+
+<p><strong>Ale teraz uwaga!</strong> Przy const chodzi o podstawienie nowych wartości pod daną zmienną, a nie zmianę składowych tych rzeczy (w przypadku obiektów). W praktyce oznacza to, że dla raz stworzonej stałej const, nie możemy ponownie użyć znaku równości:</p>
+
+<pre><code class="language-js">
+const apiUrl = 'https://jsonplaceholder.typicode.com';
+apiUrl = "http://kursjs.pl" //błąd - podstawiliśmy nową rzecz!
+
+const tab = [1,2,3];
+tab[3] = 4; //nie ma błędu, bo tylko zmieniłem składową obiektu (tablica to obiekt)
+
+const tab = [1,2,3];
+tab = [1,2,3,4]; //błąd - podstawiłem zupełnie nową tablicę
+
+const tab = [1,2,3];
+tab = [1,2,3]; //błąd - podstawiłem zupełnie nową tablicę, nie ważne że podobnie wygląda
+
+const currentUser = {name: "Piotr", age: 18}
+currentUser.age = "Marcin"; //nie ma błędu - zmieniłem tylko składową
+
+currentUser = {name: "Piotr", age: 20} //błąd - bo podstawiłem totalnie nowy obiekt
+
+const name = "marcin";
+name = name.toUpperCase(); //błąd bo podstawiłem nową wartość
+
+const tab2 = [];
+tab2.push(1, 2, 3); //wstawiam 3 elementy
+tab2.length = 0; //czyszczę tablicę
+tab2.push(1, 2, 3); //znowu wstawiam itp...
+tab2 = []; //błąd bo podstawiłem zupełnie nową wartość
+</code></pre>
+
+<p>
+Dlaczego tak się dzieje? Pamiętasz w rozdziale o typach jak działają przypisania wartości
+do zmiennych typu prostego, a jak działają dla obiektów?<br>
+Gdy przypisywałem wartość do typu prostego, robił się oddzielny "byt" danej wartości. Dwie oddzielne zmienne mimo, że miały tą samą wartość były oddzielnymi bytami.<br>
+Przy obiektach jest inaczej - tutaj działa tak zwana referencja. Zmienne wskazują tylko na dany obiekt, który sobie siedzi gdzieś tam w pamięci.<br>
+Jeżeli w powyższym skrypcie dodajemy tylko coś do obiektu, nie zmieniamy tego gdzie wskazuje dana zmienna. Ale jeżeli przypisujemy jej całkowicie nowy obiekt (znak = ) - jej wskaźnik się zmienia i mamy w rezultacie błąd.<br><br>
+<strong>Podsumowując. Dla stałych nie możemy na nowo przypisywać całkowicie nowych wartości za pomocą znaku równości. Ale jeżeli stała wskazuje na obiekt, spokojnie możemy w nim mieszać...</strong>
+</p>
+
+<p>
+    Czemu o tym piszę? Bo bardzo często w tym kursie będziesz widział takie zapisy jak poniżej:
+</p>
+
+<pre><code class="language-js">
+const tab = [1,2,3,4];
+tab.push(5); //dodaje do tablicy element
+</code></pre>
+<p>
+    I pojawiło by się zmieszanie - co to za stała, skoro możemy ją zmieniać. No ale to jak z nami. Jutro pójdę do fryzjera. Zmienię uczesanie. Ale to dalej ja. Więc stała "Marcin" nie wyrzuci błędu :)
+</p>
+<p>
+    Tutaj także kolejna mała uwaga. Mówi się, że w skryptach używających let/const 99% zmiennych powinna być zadeklarowana za pomocą const. Faktycznie coś w tym jest. Większość operacji jakie będziemy robić w tym kursie będzie modyfikować dane obiekty, a nie podstawiać im zupełnie nowe wartości. Ale zdarzać się będą też wyjątki - np. liczniki w pętlach czy zmienne "przełączniki".
+</p>
+
+<!--###-->
+<h2 class="subtitle" id="zasieg-zmiennych">Różnice między var a let/const</h2>
+<p>Deklaracje let/const nie tylko wprowadziły stałe, ale także kilka różnic w stosunku do var.</p>
+
+<p>Pierwsza i najważniejsza różnica między let/const a var to zasięg zmiennych.</p>
+
+<p>W przypadku let/const zmienne mają zasięg <a href="https://developer.mozilla.org/pl/docs/Web/JavaScript/Referencje/Polecenia/block">blokowy</a>, co w skrócie oznacza "od klamry do klamry":</p>
+
+<pre><code class="language-js">
+let a = 20; //zmienna globalna
+
+{
+    let a = 30; //zmienna lokalna
+    console.log(a); //30
+}
+
+console.log(a);    //20
+</code></pre>
+
+<pre><code class="language-js">
+{
+    let a = "Ala";
+    console.log(a); //Ala
+}
+{
+    console.log(a); //error - nie ma takiej zmiennej
+}
+{
+    let a = "Ola"; //zmienna lokalna w tym bloku
+    console.log(a); //Ola
+}
+console.log(a); //error: a is not defined
+</code></pre>
+
+<pre><code class="language-js">
+for (let i=0; i&lt;10; i++) {
+    console.log(i);
+}
+
+console.log(i); //error: i is not defined
+</code></pre>
+
+<pre><code class="language-js">
+{
+    let nr = 102;
+    console.log(nr); //102
+}
+{
+    console.log(nr); //błąd: nr is not defined
+}
+console.log(nr); //błąd: nr is not defined
+</code></pre>
+
+<p>
+    Zmienne deklarowane za pomocą <strong>var</strong> mają natomiast zasięg funkcyjny, czyli ich zasięg określa ciało funkcji.
+</p>
+
+<pre><code class="language-js">
+var a = 20; //zmienna globalna
+
+function test() {
+    var a = 30; //zmienna lokalna
+    console.log(a); //30
+}
+test();
+
+console.log(a);    //20
+</code></pre>
+
+<p>W nielicznych sytuacjach może to powodować niezamierzone działanie kodu.</p>
+
+<pre><code class="language-js">
+if (true) {
+    var myVar = 20;
+}
+
+console.log(myVar); //20
+</code></pre>
+
+<pre><code class="language-js">
+for (var i=0; i&lt;10; i++) {
+    console.log(i);
+}
+
+console.log(i); //10
+</code></pre>
+
+<p>W kolejnych rozdziałach natrafisz na <a href="./funkcje-tematy-dodatkowe.php">przykłady bardziej praktyczne</a>...</p>
+
+<p>Kolejna cecha rozróżniająca var od let/const jest taka, że zmienne var możemy ponownie deklarować, co jest niemożliwe w przypadku let i const:</p>
+
+<pre><code class="language-js">
+var name = "Marcin";
+var name = "Karol";
+console.log(name); //Karol
+</code></pre>
+
+<pre><code class="language-js">
+let name = "Marcin";
+let name = "Karol"; //błąd = Identifier 'name' has already been declared
+console.log(name);
+</code></pre>
+
+<p>W przypadku const/let musimy stosować inne bloki:</p>
+
+<pre><code class="language-js">
+{
+    let name = "Marcin";
+    console.log(name);
+}
+{
+    let name = "Karol";
+    console.log(name);
+}
+</code></pre>
+
+<p>
+    Kolejna różnica między starszą deklaracją a jej młodszymi braćmi to tak zwany <strong id="hoisting">hoisting</strong>.<br>
+    JavaScript lubi pomagać programiście. Jednym z takich przypadków pomocy jest niewidoczne dla programisty wynoszenie <strong>deklaracji funkcji</strong> i <strong>zmiennych</strong> na początek danego zasięgu (kodu lub funkcji).
+</p>
+
+<p>W wielu językach odpalenie kodu w postaci:</p>
+
+<pre><code class="language-js">
+console.log(a);
+
+var a = 20;
+</code></pre>
+
+<p>skutkowało by "czerwonym" błędem, ponieważ próbujemy odwołać się do zmiennej, której jeszcze nie stworzyliśmy.</p>
+
+<p>W przypadku var w powyższym kodzie w konsoli wypisał by się "undefined".</p>
+
+<p>
+    Deklaracja zmiennej var (bez wartości) wynoszona jest automatycznie na początek danego kodu (a w zasadzie na początek danego zakresu - np. na początek danej funkcji), w wyniku czego nasz powyższy skrypt w momencie wykonywania ma postać:
+</p>
+
+<pre><code class="language-js">
+var a; //js przeniósł tutaj deklarację zmiennej ale bez jej wartości!
+console.log(a); //wypisze undefined, ale błędu nie ma
+
+var a = 20;
+</code></pre>
+
+<p>Niektórzy programiści - szczególnie ci, którzy na co dzień używali innych języków, w których takie zjawisko nie występuje - dla uniknięcia takich niejawnych (a i niewidocznych dla nas) zachowań - stosowali konwencję deklaracji każdej zmiennej na początku kontekstu:</p>
+
+<pre><code class="language-js">
+var text, age; //jeżeli nie podstawiamy wartości to równe są undefined
+
+age = 20;
+text = "Ala ma " + age + " lat";
+</code></pre>
+
+<p>W przypadku let/const hoisting także istnieje, ale nie jesteśmy w stanie używać zmiennych przed ich zadeklarowaniem:</p>
+
+<pre><code class="language-js">
+console.log(a); //Error: Cannot access 'a' before initialization
+
+let a = 20;
+</code></pre>
+
+<p>Miejsce przed deklaracją zmiennej let/const zwie się <strong id="tdz">temporal dead zone</strong>, bo nie możemy odwoływać się do zmiennej, której jeszcze nie zadeklarowaliśmy. Dzięki takiemu zabiegowi nasz kod staje się bardziej logiczny - najpierw tworzymy wszystkie klocki (zmienne, funkcje), a dopiero potem ich używamy.</p>
+
+<div class="kartofel-informuje">
+    <p>
+    No to co to za hoisting, skoro nie mogę się do takiej zmiennej wcześniej odwołać? Poniższy przykład pokazuje działanie hoistingu:
+    </p>
+
+    <pre><code class="language-js">
+        let x = 30;
+
+        function test() {
+            //powinno się wypisać 30, ale mamy błąd,
+            //ponieważ poniższa zmienna x została wyniesiona na początek zasięgu
+            //ale nie możemy jej jeszcze użyć
+
+            console.log(x);
+            let x = 20;
+        }
+
+        test();
+    </code></pre>
+</div>
+
+<p id="nadpisywanie-glownego-obiektu">Ostatnią różnicą - dość mało znaną - jest to, że deklarując zmienną globalną var (poza ciałem funkcji), dodawana jest ona jako właściwość obiektu window. W przypadku let nic takiego się nie dzieje:</p>
+
+<pre><code class="language-js">
+var a = 20;
+let b = 30;
+
+console.log(window.a); //20
+console.log(window.b); //undefined
+</code></pre>
+
+<p>Gdy wypiszemy sobie w konsoli obiekt window, pokaże nam się masa różnych rzeczy, które możemy (i zapewne będziemy) używać:</p>
+
+<pre><code class="language-js">
+    console.log(window);
+</code></pre>
+<img class="space border" src="./window-nieumyslne-nadpisanie1.png" alt="Nieumyślne nadpisanie">
+
+<p>Tworząc w powyższy sposób globalne zmienne var, moglibyśmy przez przypadek nadpisać niektóre funkcjonalności, które w przyszłości chcielibyśmy użyć:
+</p>
+
+<pre><code class="language-js">
+var alert = "Tekst informacji";
+var fetch = "Pobieram dane";
+</code></pre>
+
+<img class="space border" src="./window-nieumyslne-nadpisanie2.png" alt="Nieumyślne nadpisanie">
+
+<pre><code class="language-js">
+alert("Wypełnij te pola"); //błąd
+fetch("https://jsonplaceholder.typicode.com/") //błąd
+</code></pre>
+
+<p>Przy czym nie powinienem tutaj demonizować. Jeżeli piszesz swoje skrypty cokolwiek ponad 0 poziom wtajemniczenia, to raczej nie powinieneś nigdy natrafić na takie błędy. Ale któż wie...</p>
+
+<p>To jak jesteśmy przy głupotach JS (o czym można by niezły art napisać), to jedną z kolejnych rzeczy jest fakt, że dla każdego elementu z ID tworzona jest zmienna o takiej samej nazwie, która wskazuje na dany element:</p>
+
+<pre><code class="language-js">
+//nie stworzyłem nigdzie takiej zmiennej ale mam do niej dostęp
+//bo na tej stronie jest element #mainContent (główna treść)
+
+console.log(mainContent);
+</code></pre>
+
+<script>
+window.addEventListener('load', function() {
+    console.log("element z głowną treścią:")
+    console.log(mainContent);
+});
+</script>
+
+<p>W odczuciu autora tego kursu jest to złe, ponieważ dostajemy zmienne, które powstają z nieba. Jeżeli będziemy pracować na elementach z ID, mimo że JavaScript stworzył dla nich zmienne, mimo wszystko lepszym wydaje się je jawnie pobrać za pomocą odpowiednich funkcji. Ale to już w rozdziale o DOM</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="podsumowanie">Podsumowanie</h2>
+<p>Ok podsumujmy powyższe rozważania.</p>
+<ul>
+<li>Zmienne to rodzaje pudełek, w których możemy trzymać różne rzeczy.</li>
+<li>Zmienne możemy tworzyć za pomocą słów kluczowych var/let/const, przy czym zalecane są te dwa ostatnie*</li>
+<li>Let/const różnią się od varów głównie zasięgiem oraz tym, że w jednym zasięgu (bloku) nie możemy ponownie tworzyć zmiennych o tej samej nazwie.</li>
+<li>Hoisting to zjawisko wynoszenia na początek skryptu zmiennych i deklaracji funkcji</li>
+<li>W naszych skryptach starajmy się używać jak najwięcej const. Jedynym wyjątkiem są liczniki oraz zmienne które wiemy, że zaraz zmienimy (np. toggle)</li>
+</ul>
+
+<p>I w zasadzie tyle. Cała reszta przyjdzie z praktyką. Nawet jeżeli na chwilę obecną powyższe rozważania wydają się dla ciebie dziwne, nie przejmuj się. Po 2-3 skryptach całość stanie się odruchem.</p>
+
+<div class="kartofel-informuje">
+    Poradniki pisania dobrego kodu zalecają by przy używaniu const/let w większości używać const.<br>
+    I autor kursu także tak robi.<br><br>
+
+    ...chociaż gdyby się nad tym zastanowić...<br>
+    W JavaScript istnieje mechanizm zwany <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Memory_Management">Garbage Collector</a>, który w założeniu ma oczyszczać już nie używane zmienne, tak by nie zalegały w pamięci.<br>
+    Niestety czasami mechanizm ten nie czyści danej zmiennej, ponieważ nie jest w stanie wykryć co autor miał na myśli, i że dana zmienna powinna być już pusta (np. w przypadku usuwania elementów z DOM).<br>
+    Aby mu pomóc czasami trzeba zmienne czyścić ręcznie ustawiając im wartość null. Ale jak to zrobić skoro używamy const?
+    Na szczęście takie sytuacji zdarzają się <a href="https://stackoverflow.com/questions/31686412/does-es6-const-affect-garbage-collection">bardzo rzadko</a>.
+</div>
+
+
+<div class="tasks-for-you-cnt">
+	<h2 class="subtitle" id="zadania">Trening czyni mistrza</h2>
+	<p>
+		Poniżej zamieszczam kilka zadań, które w ramach ćwiczenia możesz wykonać:
+	</p>
+	<ol class="tasks-for-you">
+		<li>
+			<div class="question">
+			Za pomocą <strong>var</strong> zadeklaruj 2 numeryczne zmienne <strong>myVar1</strong> i <strong>myVar2</strong>.<br>
+			Wypisz w konsoli wynik ich dodawania, odejmowania, mnożenie i dzielenia. Wypisz też ich typ.
+			</div>
+			<div class="solution">
+				<pre><code class="language-js">
+					var myVar1 = 3;
+					var myVar2 = 2;
+					console.log(myVar1 + myVar2); //5
+					console.log(myVar1 - myVar2); //1
+					console.log(myVar1 * myVar2); //6
+					console.log(myVar1 / myVar2); //1.5
+					console.log(typeof myVar1);
+					console.log(typeof myVar2);
+				</code></pre>
+			</div>
+		</li>
+		<li>
+			<div>
+			Za pomocą <strong>var</strong> zadeklaruj dwie stałe CVAR1 i CVAR2. W kolejnych liniach kodu zmień im wartości. Czy możesz to zrobić? Czemu tak się dzieje?
+			</div>
+			<div class="solution">
+				<pre><code class="language-js">
+					var CVAR1 = 100;
+					var CVAR2 = "http://youtube.com";
+	
+					CVAR1 = 200;
+					CVAR2 = "http://google.com";
+	
+					//możesz zmienić wartości zmiennych, bo to nie są stałe
+				</code></pre>
+			</div>
+		</li>
+		<li>
+			<div class="question">
+			Wypisz w konsoli zmienną text. W kolejnej linii zdefiniuj tą zmienną za pomocą linijki:<br>
+			<pre><code class="language-js">var text = "przykładowy tekst";</code></pre>
+			Co zobaczyłeś w konsoli? Czemu tak się dzieje?
+			</div>
+			<div class="solution">
+				<pre><code class="language-js">
+				console.log(text); //undefined
+				var text = "przykładowy tekst";
+	
+				//dzieje się tak, bo działa hoisting czyli powyższy kod zostaje zamieniony na:
+	
+				var text;
+				var text = "przykładowy tekst";
+				</code></pre>
+			</div>
+		</li>
+		<li>
+			<div class="question">
+			Za pomocą <strong>const</strong> zadeklaruj dwie stałe CONST1 i CONST2. W kolejnych liniach kodu zmień im wartości. Czy możesz to zrobić? Czemu tak się dzieje?
+			</div>
+			<div class="solution">
+				<pre><code class="language-js">
+					const CONST1 = 100;
+					const CONST2 = "http://youtube.com";
+	
+					CONST1 = 200; //błąd
+					CONST2 = "http://google.com"; //błąd
+	
+					//const deklaruje stałe. Stałe nie mogą przyjąć nowych wartości
+				</code></pre>
+			</div>
+		</li>
+		<li>
+			<div class="question">
+			Wypisz w konsoli zmienną text2. W kolejnej linii zdefiniuj tą zmienną za pomocą linijki:<br>
+			<pre><code class="language-js">let text2 = "przykładowy tekst";</code></pre>
+			Co zobaczyłeś w konsoli? Czemu tak się dzieje?
+			</div>
+			<div class="solution">
+				<pre><code class="language-js">
+					console.log(text2); //błąd
+					let text2 = "przykładowy tekst";
+	
+					//nie możesz używać zmiennych deklarowanych przez let i const
+					//przed ich deklaracją. Tylko przy var działa hoisting
+				</code></pre>
+			</div>
+		</li>
+	</ol>
+	</div>
+
+
+			</div><!-- e: page-content-text -->
+			<footer class="page-footer">
+				<p>
+				Wszelkie prawa zastrzeżone. Jeżeli chcesz używać jakiejś części tego kursu, skontaktuj się z <a href="/kurs/autor.php">autorem</a>.
+				Aha - i ta strona korzysta z <a href="/kurs/polityka-prywatnosci.php">ciasteczek</a>.
+				</p>
+			</footer>
+							<div class="rekl-cnt">
+					<ins
+					class="adsbygoogle" style="margin-top:40px; display:block"
+					data-ad-client="ca-pub-6843603045703750"
+					data-ad-slot="4690777640"
+					data-ad-format="auto"
+					data-full-width-responsive="true"
+					></ins>
+				</div>
+				<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+	(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+					</main><!-- e: page-content -->
+			</div><!-- e: page-content-wrapper -->
+    <aside id="page-sidebar-cnt" class="page-sidebar-cnt">
+	<div id="page-sidebar" class="page-sidebar">
+		<button aria-label="Pokaż/ukryj Menu" aria-expanded="false" aria-controls="page-sidebar" type="button" id="pageSidebarBurger" class="page-sidebar-burger">
+			<span></span>
+		</button>
+
+		<h2 class="visuallyhidden">
+			Menu
+		</h2>
+
+		<button class="sidebar-toggle-btn" title="Pokaż/schowaj menu" aria-hidden="true">
+			<strong>Pokaż/ukryj menu</strong>
+			<span></span>
+			<span></span>
+			<span></span>
+		</button>
+
+		<div class="page-sidebar-title">
+			<a href="/kurs/kontakt.php" title="Nawrzucaj autorowi" class="mail-to-author" id="mailToAuthor">Napisz do mnie</a>
+			<a href="#popupOptions" class="page-setup-link popupOpen" title="Ustawienia strony" id="showOptions">Ustawienia</a>
+			<a href="/index.php" aria-label="Strona główna" class="page-sidebar-title-link">Kurs Javascript</a>
+		</div>
+
+        <form aria-label="Wyszukiwarka" class="search-sidebar" action="/search.php" method="post">
+            <label for="search" class="search-sidebar-label">Szukaj</label>
+            <div class="search-sidebar-input-cnt">
+                <svg class="search-sidebar-input-icon" xmlns="http://www.w3.org/2000/svg" width="26" height="28" viewBox="0 0 26 28" aria-hidden="true">
+                    <path d="M18 13c0-3.859-3.141-7-7-7s-7 3.141-7 7 3.141 7 7 7 7-3.141 7-7zm8 13c0 1.094-.906 2-2 2a1.96 1.96 0 0 1-1.406-.594l-5.359-5.344a10.971 10.971 0 0 1-6.234 1.937c-6.078 0-11-4.922-11-11s4.922-11 11-11 11 4.922 11 11c0 2.219-.672 4.406-1.937 6.234l5.359 5.359c.359.359.578.875.578 1.406z"></path>
+                </svg>
+                <input type="text" id="search" autocomplete="off" name="q" class="search-sidebar-input">
+            </div>
+            <button type="submit" class="search-sidebar-button">Szukaj</button>
+        </form>
+
+		<div class="page-sidebar-table-of-content">
+			<h2 class="visuallyhidden">Spis treści</h2>
+            <div class="page-sidebar-section">
+				<h3 class="page-sidebar-section-title noopen">
+                    <a href="/index.php">Strona główna</a>
+                </h3>
+            </div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Słowem wstępu</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/wstep/wstep.php">Wstęp</a>
+						</li>
+						<li >
+							<a href="/kurs/wstep/co-to-jest-javascript.php">Co to jest JavaScript i z czym go się je?</a>
+						</li>
+						<li >
+							<a href="/kurs/wstep/wymagania.php">Wymagania</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section show has-active-element">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Super podstawy</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/debuger/debuger.php">Debuger</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/pierwszy-skrypt.php">Wstawiamy skrypty na naszą stronę</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/strict-mode.php">Strict mode</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/typy-danych.php">Typy danych i konwersja danych</a>
+						</li>
+						<li class="active">
+							<a href="/kurs/super-podstawy/zmienne.php">Zmienne</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/operatory.php">Operatory</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/math.php">Obiekt Math</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/string.php">String - teksty</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/instrukcje-warunkowe.php">Instrukcje warunkowe</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/petle.php">Pętle</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/funkcje.php">Funkcje</a>
+						</li>
+                        <li >
+							<a href="/kurs/super-podstawy/funkcje-tematy-dodatkowe.php">Funkcje - tematy dodatkowe</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/tablice.php">Tablice</a>
+						</li>
+                        <li >
+							<a href="/kurs/super-podstawy/tablice-iteracje.php">Tablice pętle</a>
+						</li>
+						<li >
+							<a href="/kurs/debuger/debugowanie.php">Debugowanie kodu</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+            			<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Obiekty</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+                        <li >
+							<a href="/kurs/obiekty/obiekty.php">Obiekty i this</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-jak-to-dziala.php">Jak to działa</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-konstruktor.php">Konstruktor</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-zaawansowane-this.php">Zaawansowane this</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-dziedziczenie.php">Dziedziczenie w Javascript</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-inne-sposoby-tworzenia.php">Inne sposoby tworzenia obiektów</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-instanceof-hasownproperty.php">instanceof i hasOwnProperty</a>
+						</li>
+                    </ul>
+                </div>
+            </div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">DOM i zdarzenia</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/dom/dom.php">Document Object Model</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-wlasciwosci.php">Właściwości elementów</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-relacje.php">Relacje między elementami</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-tworzenie-i-usuwanie.php">Tworzenie i usuwanie elementów</a>
+						</li>
+                        <li >
+                            <a href="/kurs/dom/style.php">Style w CSS</a>
+                        </li>
+						<li >
+							<a href="/kurs/events/events.php">Zdarzenia</a>
+						</li>
+						<li >
+							<a href="/kurs/events/events-keys.php">Zdarzenia - klawisze</a>
+						</li>
+						<li >
+							<a href="/kurs/events/events-mouse.php">Zdarzenia - myszka</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/projekt-todo.php">Projekt TODO</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/slider.php">Tworzymy slider</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Prawie podstawy</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/grafika/grafika-na-stronie.php">Grafika na stronie</a>
+						</li>
+						<li >
+							<a href="/kurs/intervals/intervals.php">setTimeout i setInterval</a>
+						</li>
+						<li >
+							<a href="/kurs/match-media.php">Praca z RWD</a>
+						</li>
+						<li >
+							<a href="/kurs/okna-dialogowe.php">Okienka dialogowe</a>
+						</li>
+						<li >
+							<a href="/kurs/okna.php">Tworzenie nowych okien</a>
+						</li>
+						<li >
+							<a href="/kurs/date/date.php">Obiekt Date</a>
+						</li>
+						<li >
+							<a href="/kurs/date/date-calendar.php">Tworzymy kalendarz</a>
+						</li>
+						<li >
+							<a href="/kurs/cookies/cookie.php">Obiekt Cookie</a>
+						</li>
+						<li >
+							<a href="/kurs/storage/storage.php">Storage</a>
+						</li>
+						<li >
+							<a href="/kurs/regular.php">Wyrażenia regularne</a>
+						</li>
+						<li >
+							<a href="/kurs/formularze/formularze.php">Formularze</a>
+						</li>
+						<li >
+							<a href="/kurs/formularze/formularze-walidacja.php">Formularze - walidacja</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Ajax</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/ajax/ajax.php">AJAX, REST, JSON</a>
+						</li>
+						<li >
+							<a href="/kurs/ajax/xmlhttprequest.php">XMLHttpRequest</a>
+						</li>
+            			<li >
+							<a href="/kurs/ajax/fetch.php">Fetch API</a>
+						</li>
+						<li >
+							<a href="/kurs/ajax/formularz-kontaktowy.php">Dynamiczny formularz kontaktowy</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Nowy Javascript</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/es6/ecma-script-2015.php">ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/webpack.php">Webpack</a>
+						</li>
+                        <li >
+            				<a href="/kurs/es6/obiekty-w-es6.php">Obiekty w ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/funkcja-strzalkowa.php">Funkcja strzałkowa</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/spread-rest.php">Spread i rest</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/template-strings.php">Template strings</a>
+						</li>
+						<li >
+            				<a href="/kurs/es6/destructuring.php">Dekompozycja</a>
+        				</li>
+						<li >
+							<a href="/kurs/es6/class.php">Klasy w ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/promises.php">Promises</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/async-await.php">Async/Await</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/symbole.php">Symbole</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">jQuery</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/jquery/jquery.php">jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/animacje-w-jquery.php">Animacje w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/jquery-ajax.php">Ajax w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/tabs.php">Taby w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/plugin.php">Karuzela w jQuery</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Canvas</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/canvas/canvas.php">Canvas</a>
+						</li>
+						<li >
+							<a href="/kurs/canvas/canvas-images.php">Grafika w canvas</a>
+						</li>
+						<li >
+						<a href="/kurs/canvas/canvas-paint.php">Praktycznie : Paint w canvas</a>
+						</li>
+
+						<li >
+							<a href="/kurs/canvas/canvas-animacja.php">Animacja w canvas</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Gry</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/gry/hangman/hangman.php">Szubienica</a>
+						</li>
+						<li >
+							<a href="/kurs/gry/memory/memory.php">Memory</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+            			<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Inne</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/dodatkowe-materialy.php">Dodatkowe materiały</a>
+						</li>
+						<li >
+							<a href="/kurs/faq.php">FAQ</a>
+						</li>
+						<li >
+							<a href="/kurs/polityka-prywatnosci.php">Polityka prywatności</a>
+						</li>
+						<li >
+							<a href="/kurs/autor.php">O autorze</a>
+						</li>
+						<li >
+							<a href="/kurs/kontakt.php">Kontakt</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="page-sidebar-section">
+                <a class="special-link" href="/kurs/autor.php#donate">Wesprzyj kurs</a>
+            </div>
+		</div>
+	</div>
+</aside></div><!-- e: page-container -->
+
+<div class="popup" id="popupOptions">
+	<div class="popup-inside">
+        <div class="popup-container-cnt">
+            <div class="popup-container">
+                <button class="popup-close">Zamknij</button>
+
+                <h2 class="popup-title">
+                    Opcje
+                </h2>
+
+                <div class="popup-content">
+                    <form class="form-options">
+                        <div class="form-option">
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <label for="optionsThemeSelect">Wybierz skórkę dla listingów</label>
+                                    <select id="optionsThemeSelect"></select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <pre><code class="language-js">
+                                //tak będzie wyglądał kod
+
+                                function test() {
+                                    for (let i=0; i&lt;10; i++) {
+                                        console.log("Tekst numer ", 1);
+                                    }
+                                }
+
+                                test();
+                                </code></pre>
+                            </div>
+                            <div class="form-row" id="themeLightModeRow">
+                                <div class="form-col">
+                                    <label for="themeLightMode">
+                                        Tryb dzienny / nocny
+                                    </label>
+
+                                    <div class="light-mode-el">
+                                        <input type="checkbox" id="themeLightMode">
+                                        <span class="light-mode"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+	</div>
+</div>
+<script async defer src="https://www.googletagmanager.com/gtag/js?id=UA-38558970-5"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-38558970-5');
+</script>
+
+	<script src="/js/ads.js"></script>
+	<script src="/js/script.min.js?v=0.13" defer></script>
+</body>
+</html>

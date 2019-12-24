@@ -1,0 +1,1215 @@
+<!doctype html>
+<html lang="pl-PL">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kurs Javascript - XMLHttpRequest</title>
+	<meta name="description" content="Kurs Javascript dla superbohaterów, artykuły, tutoriale, porady, zadania do wykonania" />
+    <link rel="canonical" href="https://kursjs.pl/kurs/ajax/xmlhttprequest.php" />
+	<link rel="stylesheet" href="./css.css" />
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,700&display=swap&subset=latin-ext" rel="stylesheet">
+	<meta name="image" content="https://kursjs.pl/kursjs.png">
+<meta name="twitter:card" content="product">
+<meta name="twitter:site" content="@publisher_handle">
+<meta name="twitter:title" content="Kurs Javascript">
+<meta name="twitter:description" content="Kurs Javascript dla superbohaterów">
+<meta name="twitter:creator" content="@kartofelek007">
+<meta name="twitter:image" content="https://kursjs.pl/kursjs.png">
+<meta property="og:title" content="Kurs Javascript">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.kursjs.com/">
+<meta property="og:image" content="https://kursjs.pl/kursjs.png">
+<meta property="og:description" content="Kurs Javascript dla superbohaterów">
+<meta property="og:site_name" content="Kurs Javascript">
+<link rel="apple-touch-icon" sizes="57x57" href="/favicons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/favicons/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/favicons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/favicons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/favicons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/favicons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/favicons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/favicons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="/manifest.json">
+<meta name="msapplication-TileColor" content="#FF6347">
+<meta name="msapplication-TileImage" content="/mstile-144x144.png">
+    <script src="/js/jquery.min.js"></script>
+</head>
+<body>
+
+<div class="page-container" id="pageContainer">
+	<div class="page-content-wrapper">
+        <main class="page-content" id="mainContent"  data-text-for-print="Kurs Javascript dla superbohaterów">
+                        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <div class="rekl-cnt">
+                <ins
+                class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-6843603045703750"
+                data-ad-slot="4690777640"
+                data-ad-format="auto"
+                data-full-width-responsive="true"
+                ></ins>
+            </div>
+                        <div class="page-content-text">
+
+<h1 class="page-title">XMLHttpRequest</h1>
+<p>Obiekt XMLHttpRequest istnieje w Javascript nierozerwalnie od momentu powstania Ajax i służy do nawiązywania dynamicznych połączeń XHR.</p>
+<p>W dzisiejszych czasach mamy dla niego nowszy zamiennik w postaci <a href="./fetch.php">Fetch</a> i prawdopodobnie to jego będziesz głównie używał, ale że między obydwoma bohaterami są <a href="https://stackoverflow.com/questions/35549547/fetch-api-vs-xmlhttprequest">pewne różnice</a> a i na starszych przeglądarkach Fetch nie będzie działał, warto zapoznać się z XMLHttpRequest, a przy okazji poznać też kilka dodatkowych informacji.</p>
+
+
+<!-- ### -->
+<h2 class="subtitle" id="polaczenie">Nawiązujemy połączenie</h2>
+<p>
+    Pierwszą czynnością jaką musimy wykonać to skonfigurowanie połączenia za pomocą metody <strong>open(typ, url, [async, login*, password*])</strong>.<br>
+    Metoda ta przyjmuje 3 atrybuty: typ połączenia (get, post, put, patch, delete), adres do którego się łączymy, oraz trzeci określający czy nasze połączenie ma być asynchroniczne czy synchroniczne. Dodatkowo możemy tutaj podać login i hasło w przypadku
+    <a href="https://en.wikipedia.org/wiki/Basic_access_authentication">Basic HTTP Authentication</a>.
+</p>
+
+<p>
+    Po wstępnej konfiguracji wysyłamy nasze połączenie za pomocą metody <strong>send()</strong>.
+</p>
+
+<pre><code class="language-js">
+const xhr = new XMLHttpRequest();
+
+//typ połączenia, url, czy połączenie asynchroniczne
+xhr.open("GET", "https://jsonplaceholder.typicode.com/posts", true);
+
+xhr.send();
+</code></pre>
+
+<p>Metoda <strong>send()</strong> służy do wysyłania połączenia na serwer. Jeżeli w danym połączeniu wysyłamy dane, musimy je podać jako atrybut tej metody. W przypadku gdy nie wysyłamy żadnych danych nie podajemy nic, a domyślnie zostanie użyta wartość null. Niektórzy programiści wizualnie wstawiają tutaj null dla zabezpieczenia w przypadku starych przeglądarek (<a href="https://stackoverflow.com/questions/15123839/why-do-we-pass-null-to-xmlhttprequest-send#answer-15148424">1</a>):</p>
+
+<pre><code class="language-js">
+//GET
+xhr.send(null);
+
+//POST
+xhr.send(formData);
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="odpowiedz">Czekamy na odpowiedź</h2>
+<p>
+    Powyższe połączenie za pomocą 3 parametru ustawiliśmy na asynchroniczne. Połączenie jest nawiązywane, skrypt wykonuje się dalej, natomiast działać na danych z serwera możemy dopiero w momencie, gdy zostaną one nam zwrócone. Oznacza to, że nie możemy bezpośrednio pod linijką <strong>xhr.send()</strong> pobrać wyniku naszego połączenia.
+</p>
+
+<pre><code class="language-js">
+xhr.send()
+console.log(xhr.response); //brak danych
+</code></pre>
+
+<p>
+Aby wykryć moment kiedy dane połączenie się zakończyło, musimy podłączyć do obiektu nasłuchiwanie odpowiedniego <a href="../events/events.php">zdarzenia</a>.
+</p>
+
+<p>Obiekt XMLHttpRequest udostępnia nam kilka takich zdarzeń. Trzy najważniejsze to:</p>
+
+<table class="tab">
+    <tr>
+        <th>load</th>
+        <td>Połączenie zakończone powodzeniem</td>
+    </tr>
+    <tr>
+        <th>error</th>
+        <td>Błąd nawiązywania połączenia (np. przerwało połączenie)</td>
+    </tr>
+    <tr>
+        <th>progress</th>
+        <td>Postęp wczytywania</td>
+    </tr>
+</table>
+
+<p>
+    Mamy też zdarzenia <strong>abort</strong> (anulowanie połączenia), <strong>timoeout</strong> (przekroczony maksymalny czas połączenia), <strong>loadstart/loadend</strong> (rozpoczęcie i zakończenie połączenia - nie ważne czy pozytywne) - ale nie są one aż tak często wykorzystywane.
+</p>
+
+<p id="load-event">
+Każde połączenie może zakończyć się sukcesem (zostały pobrane dane) lub się nie udać (np. internet przestał działać). W tym pierwszym przypadku zadziała zdarzenie load, a w tym drugim zdarzenie error.
+</p>
+
+<p>
+Zdarzenie <strong>load</strong> oznacza tylko to, że nasze połączenie zakończyło się pozytywnie i dostaliśmy w odpowiedzi jakieś dane. Zwrócone dane mogą zawierać odpowiedź której oczekiwaliśmy (np. dane o psach), ale też odpowiedź ze strony jakiegoś błędu (np. status 404, 500, czy 301 w przypadku przekierowania). Przed przystąpieniem do operowania na danych, dobrą manierą jest sprawdzić, czy status naszego połączenia wynosi 200 i czy mamy realne dane:</p>
+
+<pre><code class="language-js">
+const xhr = new XMLHttpRequest();
+
+xhr.addEventListener("load", function() {
+    if (xhr.status === 200) {
+        console.log("Wynik połączenia:");
+        console.log(xhr.response);
+    }
+});
+
+xhr.addEventListener("error", function() {
+    alert("Niestety nie udało się nawiązać połączenia");
+});
+
+xhr.open("GET", "https://jsonplaceholder.typicode.com/posts", true);
+xhr.send();
+</code></pre>
+
+<p>Po pozytywnym zakończeniu połączenia (load) możemy skorzystać z jednej z trzech głównych właściwości:</p>
+
+<table class="tab">
+    <tr><th>response</th><td>zawiera właściwą treść odpowiedzi</td></tr>
+    <tr><th>status</th><td>zawiera <a href="./ajax.php#status">status połączenia</a>. Status 200 oznacza pozytywne zwrócenie danych, 400 brak strony, 500 błąd serwera itp.</td></tr>
+    <tr><th>statusText</th><td>zawiera status połączenia w formie tekstowej. Dla 200 będzie to OK, dla 404 "Not Found", dla 403 "Forbidden" itp.</td></tr>
+</table>
+
+<p>
+    <button id="buttonTest1" class="button">Kliknij i sprawdź w konsoli</button>
+</p>
+
+<script>
+{
+    const btn = document.querySelector('#buttonTest1');
+    btn.addEventListener('click', function() {
+        let xhr = new XMLHttpRequest();
+
+        xhr.addEventListener("load",  function() {
+            if (xhr.status === 200) {
+                console.log(xhr.response);
+            }
+        });
+
+        xhr.open("GET", "https://jsonplaceholder.typicode.com/posts", true);
+        xhr.send();
+    });
+}
+</script>
+
+<p>Właściwość <strong>response</strong> zawiera zwrócone dane. Domyślnie są one w formacie tekstowym. Takie dane możemy konwertować ręcznie za pomocą odpowiednich metod:</p>
+
+<pre data-line="5"><code class="language-js">
+const xhr = new XMLHttpRequest();
+
+xhr.addEventListener("load",  function() {
+    if (xhr.status === 200) {
+        const json = JSON.parse(xhr.response);
+        console.log(json);
+    }
+});
+
+xhr.open("GET", "https://jsonplaceholder.typicode.com/posts", true);
+xhr.send();
+</code></pre>
+
+<p>Możemy też przed wykonaniem połączenia ustawić typ danych jakich oczekujemy, dzięki czemu unikniemy ręcznej konwersji. Służy do tego właściwość <strong>responseType</strong>, która przyjmuje wartości:</p>
+
+<table class="tab" id="dataType">
+<tr><th>""</th><td> (domyślnie) zwraca dane w formacie string</td></tr>
+<tr><th>"text"</th><td> zwraca dane w formacie string</td></tr>
+<tr><th>"arraybuffer"</th><td> zwraca dane jako ArrayBuffer</td></tr>
+<tr><th>"blob"</th><td> zwraca dane jako Blob</td></tr>
+<tr><th>"document"</th><td> zwraca dane jako dokument XML</td></tr>
+<tr><th>"json"</th><td> zwraca dane jako JSON</td></tr>
+</table>
+
+<pre data-line="3"><code class="language-js">
+const xhr = new XMLHttpRequest();
+
+xhr.responseType = "json"
+
+xhr.addEventListener("load, function() {
+    if (xhr.status === 200) {
+        console.log(xhr.response);
+
+        for (const el of xhr.response) {
+            console.log(el.title);
+        }
+    }
+});
+
+xhr.open("GET", "https://jsonplaceholder.typicode.com/posts", true);
+xhr.send();
+</code></pre>
+
+<p>
+    <button id="buttonTestReadyData" class="button">Kliknij i sprawdź w konsoli</button>
+</p>
+<script>
+{
+    const btn = document.querySelector('#buttonTestReadyData');
+    btn.addEventListener('click', function() {
+        const xhr = new XMLHttpRequest();
+
+        xhr.responseType = "json";
+
+        xhr.addEventListener("load", function() {
+            if (xhr.status === 200) {
+                console.log(xhr.response);
+
+                for (const el of xhr.response) {
+                    console.log(el.title);
+                }
+            }
+        });
+
+        xhr.open("GET", "https://jsonplaceholder.typicode.com/posts", true);
+        xhr.send();
+    });
+}
+</script>
+
+
+<!-- ### -->
+<h2 class="subtitle" id="wysylanych-danych">Wysyłanie danych</h2>
+<p>W przypadku wysyłania danych na serwer, podajemy je jako odpowiednio zakodowana wartość dla funkcji <strong>send()</strong>.</p>
+
+<pre><code class="language-js">
+xhr.addEventListener("load", function() {...});
+xhr.open("POST", "...", true);
+xhr.send(`name=Szamson&speed=10000&power=9001`);
+</code></pre>
+
+<p>
+    Dane mogą być wysyłane w różnych formatach i kodowaniu. Dla przykładu jeżeli wysyłamy formularz w HTML, dane są wysyłane w formacie zależnym od ustawionego atrybutu <strong>enctype</strong> tego formularza.</p>
+
+<pre><code class="language-html">
+&lt;form action="..." method="post" enctype="multipart/form-data">
+&lt;/form>
+</code></pre>
+
+<p>Dla takiego atrybutu mamy kilka możliwości:</p>
+
+<table class="tab">
+    <tr>
+        <th><strong>application/x-www-form-urlencoded</strong></th>
+        <td>domyślny typ kodowania używany jeżeli nie użyjemy atrybutu enctype. Dane w tym przypadku są kodowane do postaci adresu URL.</td>
+    </tr>
+    <tr>
+        <th><strong>multipart/form-data</strong></th>
+        <td>multipart form. Ten typ używany jest w przypadku gdy chcemy wysyłać pliki, lub większe ilości danych</td>
+    </tr>
+    <tr>
+        <th><strong>text/plain</strong></th>
+        <td>dane nie są w żaden sposób kodowane. Nadaje się tylko do debugowania</td>
+    </tr>
+</table>
+
+<p>Pierwszy typ kodowania wysyła dane w postaci ciągu przypominającego URL. Wykorzystywany jest najczęściej w przypadku przesyłania danych tekstowych. Dane tutaj muszą być zakodowane do ciągu przypominającego query string (np. za pomocą encodeURI()). Przykładowa postać wysyłanych danych może wyglądać następująco:</p>
+
+<pre><code class="language-text">
+POST /test HTTP/1.1
+Host: foo.example
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 27
+
+field1=value1&field2=value2
+</code></pre>
+
+<p>Drugi typ używany jest w przypadku wysyłania danych bardziej złożonych - np. dużych obiektów, czy plików, ale też może być użyty przy wysyłaniu krótszych tekstów. Dane tutaj są wysyłane w postaci bloków (body part). Przykładowa postać:</p>
+
+<pre><code class="language-text">
+POST /test HTTP/1.1
+Host: foo.example
+Content-Type: multipart/form-data;boundary="boundary"
+
+--boundary
+Content-Disposition: form-data; name="field1"
+
+value1
+--boundary
+Content-Disposition: form-data; name="field2"; filename="example.txt"
+
+value2
+--boundary--
+</code></pre>
+
+<p>Trzeciego typu nikt nie używa. Chyba, że do debugowania połączeń...</p>
+
+<p>
+Zanim przejdziemy dalej, przejdź na chwilę na <a href="./formularz-test.html">przygotowaną przeze mnie stronę</a> i sprawdź działanie formularzy. Zobaczy jak realnie wygląda przesyłanie takich danych.
+</p>
+
+<p>Powyższe nagłówki używane są w przypadku formularzy HTML. W przypadku połączeń realizowanych za pomocą Javascript, możemy ustawiać też inne nagłówki za pomocą funkcji <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/setRequestHeader">setRequestHeader()</a>.</p>
+
+<p>Przypuśćmy, że podobny formularz jak na powyższej stronie chcielibyśmy wysłać za pomocą XMLHttpRequest.</p>
+
+<pre><code class="language-html">
+&lt;form action="./odbierz.php" method="post" class="form">
+    &lt;label for="formAjaxName">Wpisz imię&lt;/label>
+    &lt;input type="text" required name="name" id="formAjaxName">
+
+    &lt;label for="formAjaxSurname">Wpisz imię&lt;/label>
+    &lt;input type="text" required name="surname" id="formAjaxSurname">
+
+    &lt;button type="submit" class="button">Wyślij&lt;/button>
+&lt;/form>
+</code></pre>
+
+<p>Możemy to zrobić na kilka sposobów - zależnych od wybranej metody kodowania.</p>
+
+<p>Przy wysyłaniu danych domyslą metodą powinniśmy wykonać 2 czynności. Po pierwsze powinniśmy ustawić odpowiedni nagłówek za pomocą metody <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/setRequestHeader">setRequestHeader()</a>, a po drugie powinniśmy odpowiednio zakodować i przekazać do funkcji send() nasze dane. Ważne, że obie czynności musimy wykonać po skonfigurowaniu połączenia za pomocą open().</p>
+
+<pre data-line="17-18"><code class="language-js">
+const form = document.querySelector('form');
+const inputName = form.querySelector('input[name="name"]');
+const inputSurname = form.querySelector('input[name="surname"]');
+
+form.addEventListener("submit", function(e) {
+    e.preventDefault(); //przerywamy domyślną akcję formularza
+
+    const xhr = new XMLHttpRequest();
+
+    xhr.addEventListener("load", function() {
+        if (xhr.status === 200) {
+            console.log(xhr.response);
+        }
+    });
+
+    xhr.open("POST", "./odbierz.php", true);
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr.send(encodeURI(`name=${inputName.value}&surname=${inputSurname.value}`));
+});
+</code></pre>
+
+<div class="kartofel-informuje" id="indelible-header">
+    Podczas tworzenia połączenia, niektóre nagłówki są zarządzanie przez przeglądarkę (np. Host). <a href="https://developer.mozilla.org/en-US/docs/Glossary/Forbidden_header_name">Nie jesteśmy</a> w stanie ich ustawić za pomocą powyższej funkcji. Dodatkowo po ustawieniu nagłówków nie jesteśmy w stanie usunąć, a dodatkowo nagłówków nie da się nadpisać, ponieważ są one dodawane:
+
+    <pre><code class="language-js">
+    xhr.setRequestHeader("Content-type", "application/json; charset=utf-8");
+    xhr.setRequestHeader("Content-type", "audio/mpeg; charset=utf-8");
+
+    xhr.setRequestHeader('X-Auth', '123');
+    xhr.setRequestHeader('X-Auth', '456');
+    </code></pre>
+
+    <img src="./headers-add.png" alt="dodające się nagłówki">
+</div>
+
+<form action="./odbierz.php" method="post" class="form" id="formSend1">
+    <div class="form-row">
+        <label for="formName1">Wpisz imię</label>
+        <input value="Przykładowe imię" type="text" required name="name" id="formName1">
+    </div>
+    <div class="form-row">
+        <label for="formSurname1">Wpisz imię</label>
+        <input value="Przykładowe nazwisko" type="text" required name="surname" id="formSurname1">
+    </div>
+    <div class="form-row">
+        <button type="submit" class="button">Wyślij</button>
+    </div>
+</form>
+
+<script>
+{
+    const form = document.querySelector('#formSend1');
+    const inputName = form.querySelector('input[name=name]');
+    const inputSurname = form.querySelector('input[name=surname]');
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault(); //przerywamy domyślną akcję formularza
+
+        const xhr = new XMLHttpRequest();
+
+        xhr.addEventListener("load", function() {
+            if (xhr.status === 200) {
+                console.log(xhr.response);
+            }
+        });
+
+        xhr.open("POST", "./odbierz.php", true);
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhr.send(encodeURI(`name=${inputName.value}&surname=${inputSurname.value}`));
+    });
+}
+</script>
+
+<p>Dość często będziemy chcieli wysyłać dane w formacie JSON. Tyczy się to sytuacji, gdy musimy na serwer przesłać bardziej złożone obiekty, a dane nie mogą być tak "płaskie" jak na powyższym przykładzie. W takim przypadku znowu - musimy ustawić odpowiedni nagłówek dla wysyłanej treści oraz zakodować nasz obiekt do odpowiedniej postaci za pomocą <a href="./ajax.php#obiekt-json">JSON.stringify()</a>:</p>
+
+<pre data-line="20-21"><code class="language-js">
+const ob = {
+    name : "Piotrek",
+    age : 10,
+    pet : {
+        type : "ultra dog",
+        speed: 1000,
+        power : 9001
+    }
+}
+
+const xhr = new XMLHttpRequest();
+
+xhr.addEventListener("load", function() {
+    if (xhr.status === 200) {
+        console.log(xhr.response);
+    }
+});
+
+xhr.open("POST", "...", true);
+xhr.setRequestHeader("Content-type", "application/json; charset=utf-8");
+xhr.send(JSON.stringify(ob));
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="formData">FormData</h2>
+<p id="formData">W dzisiejszych czasach do dodawania danych dla wysyłki możemy też skorzystać z interfejsu <strong>FormData()</strong>.</p>
+
+<p>Interfejs ten dzięki zbudowanym metodom bardzo ułatwia zarządzanie danymi jakie chcemy wysłać.</p>
+
+<table class="tab">
+    <tr>
+        <th>append(key, value)</th>
+        <td>Dodaje nową wartość o danym kluczu do wysyłanych zmiennych</td>
+    </tr>
+    <tr>
+        <th>delete(key)</th>
+        <td>Usuwa wartość o danym kluczu</td>
+    </tr>
+    <tr>
+        <th>entries()</th>
+        <td>Zwraca iterator, który umożliwia zrobienie pętli po wszystkich parach klucz/wartość</td>
+    </tr>
+    <tr>
+        <th>get(key)</th>
+        <td>Zwraca pierwszą wartość o danym kluczu</td>
+    </tr>
+    <tr>
+        <th>getAll(key)</th>
+        <td>Zwraca tablicę wszystkich wartości o danym kluczu</td>
+    </tr>
+    <tr>
+        <th>has(key)</th>
+        <td>Sprawdza czy w FormData istnieje wartość o danym kluczu</td>
+    </tr>
+    <tr>
+        <th>set(key)</th>
+        <td>Ustawia nową wartość dla danego klucza</td>
+    </tr>
+    <tr>
+        <th>keys()</th>
+        <td>Zwraca listę kluczy z danego FormData</td>
+    </tr>
+    <tr>
+        <th>values()</th>
+        <td>Zwraca listę wartości z danego FormData</td>
+    </tr>
+</table>
+
+<p>Dzięki FormData bardzo prosto dodaje się dane, które chcemy wysłać, a dodatkowo nie musimy ustawiać nagłówka ponieważ dane zawsze są tutaj wysyłane za pomocą kodowania <strong>multipart/form-data</strong>.</p>
+
+<pre data-line="21-24"><code class="language-js">
+const form = document.querySelector('form');
+const inputName = form.querySelector('input[name="name"]');
+const inputSurname = form.querySelector('input[name="surname"]');
+
+form.addEventListener("submit", function(e) {
+    e.preventDefault(); //przerywamy domyślną akcję formularza
+
+    ...
+
+    const formData = new FormData();
+    formData.append("name", inputName.value);
+    formData.append("surname", inputSurname.value);
+
+    xhr.send(formData);
+});
+</code></pre>
+
+<p>Plusem tego podejścia jest to, że w bardzo prosty sposób możemy tutaj dołączać także pliki:</p>
+
+<pre data-line="4,14"><code class="language-js">
+const form = document.querySelector('form');
+const inputName = form.querySelector('input[name="name"]');
+const inputSurname = form.querySelector('input[name="surname"]');
+const inputFile = form.querySelector('input[name="file"]');
+
+form.addEventListener("submit", function(e) {
+    e.preventDefault(); //przerywamy domyślną akcję formularza
+
+    ...
+
+    const formData = new FormData();
+    formData.append("name", inputName.value);
+    formData.append("surname", inputSurname.value);
+    formData.append("file", inputFile.files[0]);
+
+    xhr.send(formData);
+});
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="postep-wysylania-i-pobierania">Postęp pobierania i wysyłania danych</h2>
+<p>Jedną z cech odróżniającą XMLHttpRequest od jego młodszego brata - <a href="./fetch.php">Fetch</a> - jest to, że w przypadku XMLHttpRequest możemy reagować na zmianę postępu wysyłania i pobierania danych.</p>
+
+<p>
+Obie czynności są do siebie bardzo podobne. Różnicą jest to, że w przypadku wysyłania danych odwołujemy się do właściwości <strong>upload</strong> obiektu XMLHttpRequest, natomiast w przypadku ściągania danych odwołujemy się bezpośrednio do tego obiektu.
+</p>
+<p>
+    Sprawdzanie postępu przy wysyłaniu danych jest raczej proste, ponieważ przeglądarka zna wielkość wysyłanego pliku a i bez problemu może sprawdzić, ile danych zostało wysłanych. Jedyną rzeczą, którą musimy zrobić to podłączyć się pod zdarzenie <strong>progress</strong> właściwości <strong>upload</strong>. Dla zabezpieczenia czy rzeczywiście przeglądarka ma dostęp do tych danych stosujemy właściwość <strong>lengthComputable</strong>:
+</p>
+
+<p>
+<img src="./XMLHttpRequestUpload.png" alt="" class="border space">
+</p>
+
+<pre><code class="language-js">
+...
+xhr.upload.addEventListener("progress", function(e) {
+    if (e.lengthComputable) {
+        const progress = (e.loaded / e.total) * 100;
+        console.log(progress);
+    } else {
+        //nie da się wyliczyć postępu
+    }
+});
+
+xhr.open(...);
+...
+</code></pre>
+
+<p>Stosowny przykład <a href="./form-upload.html">znajdziesz na tej stronie</a>.</p>
+
+<p>W przypadku postępu ściągania danych wykonujemy podobne działanie jak powyżej. Tym razem w odwołaniu pomijamy właściwość upload:</p>
+
+<pre><code class="language-js">
+...
+xhr.addEventListener("progress", function(e) {
+    if (e.lengthComputable) {
+        const progress = (e.loaded / e.total) * 100;
+        console.log(progress)
+    } else {
+        //nie da się wyliczyć postępu
+    }
+});
+
+xhr.open(...);
+...
+</code></pre>
+
+<p>
+Niestety takie wyliczenie ściąganych danych nie zawsze będzie możliwe, ponieważ dość często przeglądarka nie wie dokładnie ile danych zostanie wysłanych z serwera. Żeby takie wyliczenie było możliwe, serwer powinien zwrócić nam długość odpowiedzi w nagłówku <strong>Content-Length</strong>:
+</p>
+
+<img src="content-length.png" alt="content length" class="space border">
+
+<p>Stosowny przykład wrzuciłem <a href="./form-download.html">znajdziesz na tej stronie</a>.</p>
+
+<p>Dodatkowo ściągnięte dane automatycznie nie pojawią się automatycznie na stronie, a i nie będziemy mogli za pomocą javascriptu zapisać ich na dysk użytkownika. Rozwiązaniem może tutaj być ściągnięcie danych pod postacią <a href="#dataType">"blob"</a>, a następnie stworzenie na ich podstawie linku, który będzie otwierał dynamicznie stworzony plik.</p>
+
+
+
+<!-- ### -->
+<h2 class="subtitle" id="readystatechange">Zdarzenie readystatechange</h2>
+<p>
+    W powyższych skryptach używaliśmy zdarzeń load oraz error. Istnieje też starsza metoda reakcji na aktualny stan połączenia, która polega na skorzystaniu ze zdarzenia <strong>readystatechange</strong>. Omówimy ją, ponieważ dość często pojawia się w innych tutorialach:
+</p>
+
+<pre><code class="language-js">
+const xhr = new XMLHttpRequest();
+
+xhr.addEventListener("readystatechange", function() {
+    console.log(xhr);
+});
+
+xhr.open("GET", "https://jsonplaceholder.typicode.com/posts", true);
+xhr.send();
+</code></pre>
+
+<p>
+    <button id="buttonTestReadyStateChange" class="button">Kliknij i sprawdź w konsoli</button>
+</p>
+<script>
+{
+    const btn = document.querySelector('#buttonTestReadyStateChange');
+    btn.addEventListener('click', function() {
+        let xhr = new XMLHttpRequest();
+
+        xhr.addEventListener("readystatechange", function() {
+            console.log(xhr);
+        });
+
+        xhr.open("GET", "https://jsonplaceholder.typicode.com/posts", true);
+        xhr.send();
+    });
+}
+</script>
+
+<p>
+Zdarzenie <strong>readystatechange</strong> odpalane jest dla różnych stanów połączenia. Żeby sprawdzić dany stan musimy sprawdzić właściwość <strong>readyState</strong>, która może przyjąć następujące wartości:
+</p>
+
+<table class="tab">
+    <tr>
+        <th>Wartość</th>
+        <th>Opis</th>
+    </tr>
+    <tr>
+        <th><strong>0</strong></th>
+        <td> połączenie nie nawiązane</td>
+    </tr>
+    <tr>
+        <th><strong>1</strong></th>
+        <td> połączenie nawiązane</td>
+    </tr>
+    <tr>
+        <th><strong>2</strong></th>
+        <td> żądanie odebrane</td>
+    </tr>
+    <tr>
+        <th><strong>3</strong></th>
+        <td> przetwarzanie</td>
+    </tr>
+    <tr>
+        <th><strong>4</strong></th>
+        <td> dane zwrócone i gotowe do użycia</td>
+    </tr>
+</table>
+
+<pre><code class="language-js">
+xhr.addEventListener("readystatechange", function() {
+    if (xhr.readyState === 0) {
+        console.log('Połączenie nienawiązane');
+    }
+    if (xhr.readyState === 1) {
+        console.log('Połączenie z serwerem nawiązane');
+    }
+    if (xhr.readyState === 2) {
+        console.log('Połączenie odebrane');
+    }
+    if (xhr.readyState === 3) {
+        console.log('Połączenie przetwarzane');
+    }
+    if (xhr.readyState === 4) {
+        console.log('Połączenie gotowe do użycia');
+        console.groupCollapsed('Treść odpowiedzi');
+        console.log(xhr.response);
+        console.groupEnd();
+    }
+});
+</code></pre>
+
+<p>
+    <button id="buttonTestReadyState" class="button">Kliknij i sprawdź w konsoli</button>
+</p>
+<script>
+{
+    const btn = document.querySelector('#buttonTestReadyState');
+    btn.addEventListener('click', function() {
+        let xhr = new XMLHttpRequest();
+
+        xhr.addEventListener("readystatechange", function() {
+            if (xhr.readyState === 0) {
+                console.log('Połączenie nienawiązane');
+            }
+            if (xhr.readyState === 1) {
+                console.log('Połączenie z serwerem nawiązane');
+            }
+            if (xhr.readyState === 2) {
+                console.log('Połączenie odebrane');
+            }
+            if (xhr.readyState === 3) {
+                console.log('Połączenie przetwarzane');
+            }
+            if (xhr.readyState === 4) {
+                console.log('Połączenie gotowe do użycia');
+                console.groupCollapsed('Treść odpowiedzi');
+                console.log(xhr.response);
+                console.groupEnd();
+            }
+        });
+
+        xhr.open("GET", "https://jsonplaceholder.typicode.com/posts", true);
+        xhr.send();
+    });
+}
+</script>
+
+<p>W praktyce najczęściej interesuje nas <strong>readyState</strong> równe 4.<br>
+Dodatkowo by mieć pewność, że połączenie  zakończyło się powodzeniem, tak jak w poprzednich przykładach powinniśmy sprawdzić status połączenia:</p>
+
+<pre><code class="language-js">
+xhr.addEventListener("readystatechange", function() {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+        console.log(xhr.response);
+    }
+});
+</code></pre>
+
+
+			</div><!-- e: page-content-text -->
+			<footer class="page-footer">
+				<p>
+				Wszelkie prawa zastrzeżone. Jeżeli chcesz używać jakiejś części tego kursu, skontaktuj się z <a href="/kurs/autor.php">autorem</a>.
+				Aha - i ta strona korzysta z <a href="/kurs/polityka-prywatnosci.php">ciasteczek</a>.
+				</p>
+			</footer>
+							<div class="rekl-cnt">
+					<ins
+					class="adsbygoogle" style="margin-top:40px; display:block"
+					data-ad-client="ca-pub-6843603045703750"
+					data-ad-slot="4690777640"
+					data-ad-format="auto"
+					data-full-width-responsive="true"
+					></ins>
+				</div>
+				<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+	(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+					</main><!-- e: page-content -->
+			</div><!-- e: page-content-wrapper -->
+    <aside id="page-sidebar-cnt" class="page-sidebar-cnt">
+	<div id="page-sidebar" class="page-sidebar">
+		<button aria-label="Pokaż/ukryj Menu" aria-expanded="false" aria-controls="page-sidebar" type="button" id="pageSidebarBurger" class="page-sidebar-burger">
+			<span></span>
+		</button>
+
+		<h2 class="visuallyhidden">
+			Menu
+		</h2>
+
+		<button class="sidebar-toggle-btn" title="Pokaż/schowaj menu" aria-hidden="true">
+			<strong>Pokaż/ukryj menu</strong>
+			<span></span>
+			<span></span>
+			<span></span>
+		</button>
+
+		<div class="page-sidebar-title">
+			<a href="/kurs/kontakt.php" title="Nawrzucaj autorowi" class="mail-to-author" id="mailToAuthor">Napisz do mnie</a>
+			<a href="#popupOptions" class="page-setup-link popupOpen" title="Ustawienia strony" id="showOptions">Ustawienia</a>
+			<a href="/index.php" aria-label="Strona główna" class="page-sidebar-title-link">Kurs Javascript</a>
+		</div>
+
+        <form aria-label="Wyszukiwarka" class="search-sidebar" action="/search.php" method="post">
+            <label for="search" class="search-sidebar-label">Szukaj</label>
+            <div class="search-sidebar-input-cnt">
+                <svg class="search-sidebar-input-icon" xmlns="http://www.w3.org/2000/svg" width="26" height="28" viewBox="0 0 26 28" aria-hidden="true">
+                    <path d="M18 13c0-3.859-3.141-7-7-7s-7 3.141-7 7 3.141 7 7 7 7-3.141 7-7zm8 13c0 1.094-.906 2-2 2a1.96 1.96 0 0 1-1.406-.594l-5.359-5.344a10.971 10.971 0 0 1-6.234 1.937c-6.078 0-11-4.922-11-11s4.922-11 11-11 11 4.922 11 11c0 2.219-.672 4.406-1.937 6.234l5.359 5.359c.359.359.578.875.578 1.406z"></path>
+                </svg>
+                <input type="text" id="search" autocomplete="off" name="q" class="search-sidebar-input">
+            </div>
+            <button type="submit" class="search-sidebar-button">Szukaj</button>
+        </form>
+
+		<div class="page-sidebar-table-of-content">
+			<h2 class="visuallyhidden">Spis treści</h2>
+            <div class="page-sidebar-section">
+				<h3 class="page-sidebar-section-title noopen">
+                    <a href="/index.php">Strona główna</a>
+                </h3>
+            </div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Słowem wstępu</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/wstep/wstep.php">Wstęp</a>
+						</li>
+						<li >
+							<a href="/kurs/wstep/co-to-jest-javascript.php">Co to jest JavaScript i z czym go się je?</a>
+						</li>
+						<li >
+							<a href="/kurs/wstep/wymagania.php">Wymagania</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Super podstawy</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/debuger/debuger.php">Debuger</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/pierwszy-skrypt.php">Wstawiamy skrypty na naszą stronę</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/strict-mode.php">Strict mode</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/typy-danych.php">Typy danych i konwersja danych</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/zmienne.php">Zmienne</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/operatory.php">Operatory</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/math.php">Obiekt Math</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/string.php">String - teksty</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/instrukcje-warunkowe.php">Instrukcje warunkowe</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/petle.php">Pętle</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/funkcje.php">Funkcje</a>
+						</li>
+                        <li >
+							<a href="/kurs/super-podstawy/funkcje-tematy-dodatkowe.php">Funkcje - tematy dodatkowe</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/tablice.php">Tablice</a>
+						</li>
+                        <li >
+							<a href="/kurs/super-podstawy/tablice-iteracje.php">Tablice pętle</a>
+						</li>
+						<li >
+							<a href="/kurs/debuger/debugowanie.php">Debugowanie kodu</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+            			<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Obiekty</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+                        <li >
+							<a href="/kurs/obiekty/obiekty.php">Obiekty i this</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-jak-to-dziala.php">Jak to działa</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-konstruktor.php">Konstruktor</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-zaawansowane-this.php">Zaawansowane this</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-dziedziczenie.php">Dziedziczenie w Javascript</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-inne-sposoby-tworzenia.php">Inne sposoby tworzenia obiektów</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-instanceof-hasownproperty.php">instanceof i hasOwnProperty</a>
+						</li>
+                    </ul>
+                </div>
+            </div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">DOM i zdarzenia</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/dom/dom.php">Document Object Model</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-wlasciwosci.php">Właściwości elementów</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-relacje.php">Relacje między elementami</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-tworzenie-i-usuwanie.php">Tworzenie i usuwanie elementów</a>
+						</li>
+                        <li >
+                            <a href="/kurs/dom/style.php">Style w CSS</a>
+                        </li>
+						<li >
+							<a href="/kurs/events/events.php">Zdarzenia</a>
+						</li>
+						<li >
+							<a href="/kurs/events/events-keys.php">Zdarzenia - klawisze</a>
+						</li>
+						<li >
+							<a href="/kurs/events/events-mouse.php">Zdarzenia - myszka</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/projekt-todo.php">Projekt TODO</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/slider.php">Tworzymy slider</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Prawie podstawy</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/grafika/grafika-na-stronie.php">Grafika na stronie</a>
+						</li>
+						<li >
+							<a href="/kurs/intervals/intervals.php">setTimeout i setInterval</a>
+						</li>
+						<li >
+							<a href="/kurs/match-media.php">Praca z RWD</a>
+						</li>
+						<li >
+							<a href="/kurs/okna-dialogowe.php">Okienka dialogowe</a>
+						</li>
+						<li >
+							<a href="/kurs/okna.php">Tworzenie nowych okien</a>
+						</li>
+						<li >
+							<a href="/kurs/date/date.php">Obiekt Date</a>
+						</li>
+						<li >
+							<a href="/kurs/date/date-calendar.php">Tworzymy kalendarz</a>
+						</li>
+						<li >
+							<a href="/kurs/cookies/cookie.php">Obiekt Cookie</a>
+						</li>
+						<li >
+							<a href="/kurs/storage/storage.php">Storage</a>
+						</li>
+						<li >
+							<a href="/kurs/regular.php">Wyrażenia regularne</a>
+						</li>
+						<li >
+							<a href="/kurs/formularze/formularze.php">Formularze</a>
+						</li>
+						<li >
+							<a href="/kurs/formularze/formularze-walidacja.php">Formularze - walidacja</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section show has-active-element">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Ajax</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/ajax/ajax.php">AJAX, REST, JSON</a>
+						</li>
+						<li class="active">
+							<a href="/kurs/ajax/xmlhttprequest.php">XMLHttpRequest</a>
+						</li>
+            			<li >
+							<a href="/kurs/ajax/fetch.php">Fetch API</a>
+						</li>
+						<li >
+							<a href="/kurs/ajax/formularz-kontaktowy.php">Dynamiczny formularz kontaktowy</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Nowy Javascript</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/es6/ecma-script-2015.php">ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/webpack.php">Webpack</a>
+						</li>
+                        <li >
+            				<a href="/kurs/es6/obiekty-w-es6.php">Obiekty w ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/funkcja-strzalkowa.php">Funkcja strzałkowa</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/spread-rest.php">Spread i rest</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/template-strings.php">Template strings</a>
+						</li>
+						<li >
+            				<a href="/kurs/es6/destructuring.php">Dekompozycja</a>
+        				</li>
+						<li >
+							<a href="/kurs/es6/class.php">Klasy w ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/promises.php">Promises</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/async-await.php">Async/Await</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/symbole.php">Symbole</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">jQuery</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/jquery/jquery.php">jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/animacje-w-jquery.php">Animacje w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/jquery-ajax.php">Ajax w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/tabs.php">Taby w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/plugin.php">Karuzela w jQuery</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Canvas</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/canvas/canvas.php">Canvas</a>
+						</li>
+						<li >
+							<a href="/kurs/canvas/canvas-images.php">Grafika w canvas</a>
+						</li>
+						<li >
+						<a href="/kurs/canvas/canvas-paint.php">Praktycznie : Paint w canvas</a>
+						</li>
+
+						<li >
+							<a href="/kurs/canvas/canvas-animacja.php">Animacja w canvas</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Gry</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/gry/hangman/hangman.php">Szubienica</a>
+						</li>
+						<li >
+							<a href="/kurs/gry/memory/memory.php">Memory</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+            			<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Inne</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/dodatkowe-materialy.php">Dodatkowe materiały</a>
+						</li>
+						<li >
+							<a href="/kurs/faq.php">FAQ</a>
+						</li>
+						<li >
+							<a href="/kurs/polityka-prywatnosci.php">Polityka prywatności</a>
+						</li>
+						<li >
+							<a href="/kurs/autor.php">O autorze</a>
+						</li>
+						<li >
+							<a href="/kurs/kontakt.php">Kontakt</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="page-sidebar-section">
+                <a class="special-link" href="/kurs/autor.php#donate">Wesprzyj kurs</a>
+            </div>
+		</div>
+	</div>
+</aside></div><!-- e: page-container -->
+
+<div class="popup" id="popupOptions">
+	<div class="popup-inside">
+        <div class="popup-container-cnt">
+            <div class="popup-container">
+                <button class="popup-close">Zamknij</button>
+
+                <h2 class="popup-title">
+                    Opcje
+                </h2>
+
+                <div class="popup-content">
+                    <form class="form-options">
+                        <div class="form-option">
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <label for="optionsThemeSelect">Wybierz skórkę dla listingów</label>
+                                    <select id="optionsThemeSelect"></select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <pre><code class="language-js">
+                                //tak będzie wyglądał kod
+
+                                function test() {
+                                    for (let i=0; i&lt;10; i++) {
+                                        console.log("Tekst numer ", 1);
+                                    }
+                                }
+
+                                test();
+                                </code></pre>
+                            </div>
+                            <div class="form-row" id="themeLightModeRow">
+                                <div class="form-col">
+                                    <label for="themeLightMode">
+                                        Tryb dzienny / nocny
+                                    </label>
+
+                                    <div class="light-mode-el">
+                                        <input type="checkbox" id="themeLightMode">
+                                        <span class="light-mode"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+	</div>
+</div>
+<script async defer src="https://www.googletagmanager.com/gtag/js?id=UA-38558970-5"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-38558970-5');
+</script>
+
+	<script src="/js/ads.js"></script>
+	<script src="/js/script.min.js?v=0.13" defer></script>
+</body>
+</html>

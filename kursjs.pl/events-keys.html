@@ -3,9 +3,9 @@
 <head>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Kurs Javascript - Wstęp</title>
+    <title>Kurs Javascript - Events - klawisze</title>
 	<meta name="description" content="Kurs Javascript dla superbohaterów, artykuły, tutoriale, porady, zadania do wykonania" />
-    <link rel="canonical" href="https://kursjs.pl/kurs/wstep/wstep.php" />
+    <link rel="canonical" href="https://kursjs.pl/kurs/events/events-keys.php" />
 	<link rel="stylesheet" href="./css.css" />
     <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,700&display=swap&subset=latin-ext" rel="stylesheet">
 	<meta name="image" content="https://kursjs.pl/kursjs.png">
@@ -57,49 +57,293 @@
             </div>
                         <div class="page-content-text">
 
+<style>
+.test-block {
+    height:200px;
+    background-color:#E6E6FF;
+    border:1px solid #000080;
+    color:#000080;
+    text-align:center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+</style>
 
-<h1 class="page-title">Wstęp</h1>
+<h1 class="page-title">Events - klawisze</h1>
 <p>
-Bardzo krótki wstęp ^^.<br /><br />
-Kurs ten jest o Javascripcie. Uhh...
-</p>
-<p>
-Wiedz, że nie staram się tutaj tworzyć największego i najlepszego kursu o JavaScript w internecie.<br>
-Ten kurs to twór jednego człowieka.
-Nie mam szans i nie chcę konkurować z molochami takimi jak <a href="https://developer.mozilla.org/pl/">MDN</a>, <a href="https://www.udemy.com/">Udemy</a>, <a href="https://eduweb.pl/">EduWeb</a> czy <a href="https://www.w3schools.com/js/default.asp">w3schools</a>.<br>
-<br><br>
-Nie znajdziesz tutaj wszystkiego z zakresu JavaScript. <br>
-Po jakimś czasie będziesz chciał wiele rzeczy tutaj pokazanych tworzyć inaczej - lepiej.<br>
-Im większy progres będziesz zdobywał stwierdzisz, że wiele rozdziałów można było napisać o wiele lepiej. I dobrze.<br><br>
-
-W każdym bądź razie - jeżeli ta strona jakoś ci posłuży - to tylko plus. Jeżeli nie - po prostu skorzystaj z innego kursu - na rynku jest tego od groma (niektóre wymieniłem <a href="../dodatkowe-materialy.php">tutaj</a>) i każdy znajdzie coś dla siebie. Ja sam mam kilka w swojej kolekcji i twierdzę, że są naprawdę dobre.
-<br><br>
+Jak powiedzieliśmy sobie w poprzednim rozdziale, różnych eventów jest <a href="https://developer.mozilla.org/en-US/docs/Web/Events">bardzo dużo</a>.
+Część z nich używana jest częściej, inne rzadziej. Wśród tej pierwszej grupy z pewnością znajdują się
+eventy związane z klawiaturą.
 </p>
 
-<p>
-Jeszcze mała adnotacja, która siedzi mi w głowie.
-</p>
-<p>
-W internecie znajdziesz setki tutoriali pokazujących najnowsze techniki. A to funkcja strzałkowa, a to jak korzystać z async i await, a to jak robić połączenia fetchem czy chociażby zastosowanie modułów. Małe, konkretne, piękne - jak mój pies (a i od niedawna też kot).
-</p>
-<p>
-Na grupach facebookowych w dyskusjach znajdziesz jeszcze szybciej takie techniki.
-</p>
-<p>
-Tutaj pojawia pewna sprawa, który dotyczy nie tylko JavaScript, ale i całego frontendu. Bardzo często przy takich nowoczesnych tutorialach czy poradach autorzy nie zwracają uwagi na bardzo ważną rzecz - a mianowicie na to, że dobór techniki <strong>zawsze zależy od danego projektu</strong>. To są w końcu rzeczy oczywiste.<br>
-No właśnie nie do końca. To są rzeczy oczywiste - dla nas - osób, które w tej branży siedzą już kilkanaście lat. Ale czy dla osoby zaczynającej?
-</p>
-<p>
-Jeżeli robisz bloga o nowinkach z dziedziny frontentu, raczej możesz założyć, że większość użytkowników będzie korzystała z najnowszych przeglądarek, a więc i możesz używać najnowszych rozwiązań (chociaż najlepiej było by spojrzeć w statystyki Google Analitics które można podpiąć pod stronę).<br>
-Jeżeli jednak robisz stronę dla emerytowanych nauczycieli, czy dla przykładu olbrzymi sklep z którego będą korzystali różnorodni użytkownicy z różnorodnych krajów, wtedy rzucanie się na najnowsze rozwiązania będzie strzałem w stopę.
-</p>
-<p>
-Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie CSS Grid, a czasami nawet flexbox może okazać się czymś, czego użyć nie możesz. Czasami spokojnie będziesz mógł używać najnowszej wersji JavaScript, a czasami będziesz musiał pozostać przy starszej. A jeżeli będziesz musiał pozostać przy starszej, wtedy albo będziesz pisał JavaScript trzymając się klasycznych rozwiązań, albo skorzystasz z narzędzi zamieniających twój kod na starszy zapis.
-</p>
-<p>Autorzy tutoriali często zapominają o tym, że dla początkującej osoby istnieje po prostu JavaScript. Osoby takie często nie zdają sobie sprawy, że nie wszystko w JavaScript można dowolnie używać, nie wiedzą gdzie szukać informacji które przeglądarki co wspierają, jakich narzędzi używać do zamiany kodu i po co w ogóle to robić.</p>
-<p>W kursie tym staram się trzymać klasycznego JavaScript. Jasne - im więcej wiedzy zdobędziesz, im bardziej będziesz rozbudowywał swój warsztat, tym będziesz stosował coraz nowsze i lepsze techniki pisania kodu. A wtedy - tak jak to już pisałem powyżej - będziesz się śmiał z tego kursu. Póki co polecam po prostu uczyć się JavaScript.</p>
+<!-- ### -->
+<h2 class="subtitle" id="events">keyDown, keyUp, keyPress i input</h2>
+<p>Najczęściej używanymi eventami w przypadku klawiatury są:</p>
 
-<a href="./co-to-jest-javascript.php" class="button">To co? Zaczynamy?...</a>
+<table class="tab">
+    <tr>
+        <td>keyDown</td>
+        <td>naciśnięcie klawisza</td>
+    </tr>
+    <tr>
+        <td>keyUp</td>
+        <td>puszczenie klawisza</td>
+    </tr>
+    <tr>
+        <td>keyPress</td>
+        <td>naciśnięcie i puszczenie klawisza</td>
+    </tr>
+</table>
+
+
+<p>Zdarzenie keyUp odpalane jest tylko jeden raz - przy puszczeniu klawisza.</p>
+
+<p>Najwięcej problemów zawsze sprawia rozróżnienie, kiedy mamy używać keyDown a kiedy keyPress.</p>
+
+<p>
+    Podstawowa różnica między tymi eventami jest taka, że zdarzenie <strong>keyPress</strong> odpalane jest cyklicznie tylko kiedy przytrzymujemy klawisz znakowy (litery, cyfry itp).<br>
+    Oznacza to, że keyPress nie zadziała dla przykładu dla klawiszy Backspace, Delete czy Home.
+</p>
+
+
+<p>Drugą różnicą jest nieco inny efekt finałowy. W przypadku zdarzenia <strong>keyPress</strong>, gdy naciśniemy dwa klawisze równocześnie - np. Shift + A,
+zdarzenie to zostanie odpalone cyklicznie dla trzymanego klawisza A wraz z ustawioną flagą <strong>isShift</strong> na true.</p>
+
+<p>W przypadku <strong>keyDown</strong>, po naciśnięciu klawisza Shift zdarzenie to zacznie być odpalane dla tego klawisza. Gdy następnie naciśniemy A, zdarzenie to będzie dalej odpalane dla klawisza A wraz z włączoną flagą isShift na true.</p>
+
+<p>Dość opisów. Po prostu przetestujmy to w praktyce:</p>
+
+<div class="key-test">
+    <form class="form">
+        Przetestuj w konsoli
+        <div class="row">
+            <div class="col">
+                <label>KeyUp: <input type="text" class="el1"></label>
+            </div>
+            <div class="col">
+                <label>Keydown: <input type="text" class="el2"></label>
+            </div>
+            <div class="col">
+                <label>Keypress: <input type="text" class="el3"></label>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+{
+    const inp = document.querySelector(".el1");
+    inp.addEventListener("keyup", function(e) {
+        console.log(e, this);
+    })
+}
+{
+    const inp = document.querySelector(".el2");
+    inp.addEventListener("keydown", function(e) {
+        console.log(e, this);
+    })
+}
+{
+    const inp = document.querySelector(".el3");
+    inp.addEventListener("keypress", function(e) {
+        console.log(e, this);
+    })
+}
+</script>
+
+<!-- ### -->
+<h2 class="subtitle" id="input">Input</h2>
+<p>Na szczególną uwagę zasługuje event <strong>input</strong>. Nie jest on bezpośrednio związany z klawiszami (dlatego nie pobierzemy tutaj wszystkich dodatkowych informacji za pomocą event), ale jest też bardzo często używany w przypadku reakcji na wpisywane rzeczy do formularzy. Event ten jest odpalany w reakcji na zmianę wartości inputa przez użytkownika i może być użyty dla każdego rodzaju pola.
+</p>
+<p>Mamy też event change, ale ten odpalany jest dla inputów dopiero po zawtwierdzeniu zmian (opuszczenie pola input, zmiana optiona w select, kliknięcie w radio).</p>
+
+<form class="form" id="testInput">
+<input type="text">
+<input type="radio" name="radioTest" value="radio1">
+<input type="radio" name="radioTest" value="radio2">
+<input type="checkbox" value="checkbox1">
+<select>
+    <option value="option-1">Option 1</option>
+    <option value="option-2">Option 2</option>
+    <option value="option-3">Option 3</option>
+</select>
+</form>
+<script>
+    {
+        const form = document.querySelector("#testInput");
+        [...form.elements].forEach(function(el) {
+            el.addEventListener("input", function() {
+                console.log(`Wartość pola: ${this.value}`);
+            })
+        })
+    }
+</script>
+
+<pre><code class="language-js">
+const form = document.querySelector("#testInput");
+[...form.elements].forEach(function(el) {
+    el.addEventListener("input", function() {
+        console.log(`Wartość pola: ${this.value}`);
+    })
+})
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="klawisz">Który klawisz został naciśnięty</h2>
+<p>
+Wartość naciśniętego klawisza jest przechowywana w właściwości <a href="https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key">key</a> zdarzenia związanego z klawiszami.
+</p>
+
+<pre><code class="language-js">
+document.addEventListener('keyup', function(e) {
+    console.log('Klawisz: ' + e.key);
+});
+</code></pre>
+
+<form class="form">
+    <div class="row">
+        <div class="col">
+            <input type="text" id="keyTestEvent">
+        </div>
+    </div>
+</form>
+
+<script>
+{
+    const input = document.querySelector("#keyTestEvent")
+    input.addEventListener('keyup', function(e) {
+        console.log('Klawisz: ' + e.key);
+    });
+}
+
+</script>
+
+<p>Aby wykryć czy dodatkowo został naciśnięty jeden z funkcyjnych klawiszy możemy skorzystać z dodatkowych właściwości:
+
+<table class="tab">
+<tr>
+    <th>e.altKey</th>
+    <td>Czy klawisz Alt jest naciśnięty</td>
+</tr>
+<tr>
+    <th>e.ctrlKey</th>
+    <td>Czy klawisz Ctrl jest naciśnięty</td>
+</tr>
+<tr>
+    <th>e.shiftKey</th>
+    <td>Czy klawisz Shift jest naciśnięty</td>
+</tr>
+<tr>
+    <th>e.keyCode</th>
+    <td>Zwraca kod klawisza. Przydatne przy sprawdzaniu zakresów klawiszy - np. klawisz to liczba</td>
+</tr>
+</table>
+
+<pre><code class="language-js">
+const textarea = document.querySelector('#keyTest');
+
+textarea.addEventListener('keyup', function(e) {
+    const keys = [];
+
+    if (e.shiftKey) {
+        keys.push("shift");
+    }
+    if (e.altKey) {
+        keys.push("alt");
+    }
+    if (e.ctrlKey) {
+        keys.push("ctrl");
+    }
+    keys.push(e.key);
+
+    console.log("Naciśnięte klawisze: " + keys.join(" + "));
+
+    if (e.keyCode >= 48 && e.keyCode <= 57) {
+        console.log('klawisz to cyfra');
+    }
+});
+</code></pre>
+
+<form class="form">
+    <fieldset>
+        <label for="keyTest">Wpisz jakiś tekst i sprawdź w konsoli:</label>
+        <input type="text" value="" id="keyTest" />
+    </fieldset>
+</form>
+
+<script>
+{
+    const input = document.querySelector('#keyTest');
+
+    input.addEventListener('keyup', function(e) {
+        const keys = [];
+
+        if (e.shiftKey) {
+            keys.push("shift");
+        }
+        if (e.altKey) {
+            keys.push("alt");
+        }
+        if (e.ctrlKey) {
+            keys.push("ctrl");
+        }
+        keys.push(e.key);
+
+        console.log("Naciśnięte klawisze: " + keys.join(" + "));
+
+        if (e.keyCode >= 48 && e.keyCode <= 57) {
+            console.log('klawisz to cyfra');
+        }
+    });
+}
+</script>
+
+<p>
+Używany w powyższych przykładach <a href="https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent#Properties">keyCode</a> jest uznany za depreaced, czyli nie zaleca się go stosować na rzecz e.code lub e.key. Niestety nie jest to takie proste, ponieważ żadna z tych właściwości nie zwraca kodu klawisza a tylko słowny opis. Możemy to obejść poprzez zastosowanie konstrukcji:
+</p>
+
+<pre><code class="language-js">
+const keyCode = e.key.charCodeAt(0);
+</code></pre>
+
+<p>Instrukcja ta sprawdzi się jednak tylko w przypadku klawiszy, dla których e.key zwraca tylko jedną wartość. W przypadku innych klawiszy (np. strzałka w górę, backspace itp), trzeba będzie dodać dodatkowe warunki. Czasami będzie to oznaczało użycie bardziej <a href="https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key#Example">skomplikowanych warunków</a>.</p>
+
+<p>Możliwych zastosować dla powyższych funkcjonalności jest cała masa. Niektóre strony za pomocą klawiszy odpalają niektóre funkcjonalności - dla <a href="https://www.facebook.com/help/156151771119453">przykładu facebook</a>. W takim przypadku nasze zdarzenie powinniśmy podpiąć pod document:</p>
+
+<pre><code class="language-js">
+document.addEventListener("keyup", function(e) {
+    if (e.key.toUpperCase() === "?") {
+        showHelpPopup();
+    }
+    if (e.key.toUpperCase() === "P") {
+        newPost();
+    }
+})
+</code></pre>
+
+<p>Podobne działanie jest robione i na tej stronie. Przy czym tutaj reaguję nie na pojedyncze klawisze, a na całe ciągi.</p>
+
+<pre><code class="language-js">
+const code = [];
+const hiddenPass = "ala ma kota";
+
+document.addEventListener("keyup", function(e) {
+    code.push(e.key);
+
+    if (code.length > hiddenPass.length) {
+        code.shift();
+    }
+
+    if (code.join("") === hiddenPass) {
+        code.length = 0;
+        console.log("Wpisałeś prawidłowy ciąg znaków. Sejf zostaje otwarty");
+    }
+});
+</code></pre>
+
+<p>Przy czym przy takich zabawach też trzeba uważać i raczej nie uzależniać od nich działania naszej całej strony. Na Firefoxie naciśnięcie dowolnego klawisza <a href="https://support.mozilla.org/en-US/questions/1042093">rozpoczyna automatyczne wpisywanie wyszukiwanego tekstu</a>. Możemy to niby takie klawisze przechwycić i zablokować, ale wtedy pozbawiamy użytkownika domyślnego zachowania przeglądarki.</p>
+
+
 
 			</div><!-- e: page-content-text -->
 			<footer class="page-footer">
@@ -165,13 +409,13 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
                 </h3>
             </div>
 
-						<div class="page-sidebar-section show has-active-element">
+						<div class="page-sidebar-section ">
 				<h3 class="page-sidebar-section-title">
 					<a href="#">Słowem wstępu</a>
 				</h3>
 				<div class="page-sidebar-list-cnt">
 					<ul class="page-sidebar-list">
-						<li class="active">
+						<li >
 							<a href="/kurs/wstep/wstep.php">Wstęp</a>
 						</li>
 						<li >
@@ -270,7 +514,7 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
                 </div>
             </div>
 
-						<div class="page-sidebar-section ">
+						<div class="page-sidebar-section show has-active-element">
 				<h3 class="page-sidebar-section-title">
 					<a href="#">DOM i zdarzenia</a>
 				</h3>
@@ -294,7 +538,7 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
 						<li >
 							<a href="/kurs/events/events.php">Zdarzenia</a>
 						</li>
-						<li >
+						<li class="active">
 							<a href="/kurs/events/events-keys.php">Zdarzenia - klawisze</a>
 						</li>
 						<li >

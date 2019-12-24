@@ -1,0 +1,1400 @@
+<!doctype html>
+<html lang="pl-PL">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kurs Javascript - Tworzenie i usuwanie elementów</title>
+	<meta name="description" content="Kurs Javascript dla superbohaterów, artykuły, tutoriale, porady, zadania do wykonania" />
+    <link rel="canonical" href="https://kursjs.pl/kurs/dom/dom-tworzenie-i-usuwanie.php" />
+	<link rel="stylesheet" href="./css.css" />
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,700&display=swap&subset=latin-ext" rel="stylesheet">
+	<meta name="image" content="https://kursjs.pl/kursjs.png">
+<meta name="twitter:card" content="product">
+<meta name="twitter:site" content="@publisher_handle">
+<meta name="twitter:title" content="Kurs Javascript">
+<meta name="twitter:description" content="Kurs Javascript dla superbohaterów">
+<meta name="twitter:creator" content="@kartofelek007">
+<meta name="twitter:image" content="https://kursjs.pl/kursjs.png">
+<meta property="og:title" content="Kurs Javascript">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.kursjs.com/">
+<meta property="og:image" content="https://kursjs.pl/kursjs.png">
+<meta property="og:description" content="Kurs Javascript dla superbohaterów">
+<meta property="og:site_name" content="Kurs Javascript">
+<link rel="apple-touch-icon" sizes="57x57" href="/favicons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/favicons/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/favicons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/favicons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/favicons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/favicons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/favicons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/favicons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="/manifest.json">
+<meta name="msapplication-TileColor" content="#FF6347">
+<meta name="msapplication-TileImage" content="/mstile-144x144.png">
+    <script src="/js/jquery.min.js"></script>
+</head>
+<body>
+
+<div class="page-container" id="pageContainer">
+	<div class="page-content-wrapper">
+        <main class="page-content" id="mainContent"  data-text-for-print="Kurs Javascript dla superbohaterów">
+                        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <div class="rekl-cnt">
+                <ins
+                class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-6843603045703750"
+                data-ad-slot="4690777640"
+                data-ad-format="auto"
+                data-full-width-responsive="true"
+                ></ins>
+            </div>
+                        <div class="page-content-text">
+
+<h1 class="page-title">Tworzenie i usuwanie elementów</h1>
+<p>
+Potrafimy już poruszać się po elementach, potrafimy je pobrać, przechodzić z jednego na drugi itp. Czas zacząć je tworzyć a potem usuwać.
+Nie jest to wcale takie trudne. Wystarczy, że skorzystamy z kilku podstawowych metod oferowanych przez JavaScript.
+</p>
+
+<p>Zanim przejdziemy dalej, mikro powtórka. HTML składa się z węzłów, czyli powiedzmy kawałków. Część z nich jest elementami html (tagami - np. span, strong), inna część najczęściej jest tekstem (np. lorem ipsum).</p>
+
+<p>Aby stworzyć pojedynczy element (np. span) skorzystamy z funkcji createElement. Do tworzenia węzłów tekstowych możemy użyć między innymi funkcji createTextNode (ale też i właściwości np. innerText).</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="createElement">Tworzenie obiektu za pomocą createElement</h2>
+<p>
+Aby utworzyć nowy element na stronie korzystamy z metody <strong>document.createElement(typ)</strong>. Po utworzeniu nowego elementu możemy na nim działać tak jakbyśmy go wcześniej pobrali za pomocą querySelector, czyli obowiązują nas te same zasady co wcześniej. Taki element jest totalnie pusty, dlatego przed wstawieniem dodajmy mu kilka rzeczy:
+
+<pre><code class="language-js">
+const el = document.createElement("div");
+
+el.id = "myDiv";
+el.innerText = "Tekst w divie";
+el.setAttribute("title", "To jest tekst w dymku");
+el.classList.add("module");
+el.style.setProperty("background-color", "#FF6633");
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="appendChild">Wstawianie elementu za pomocą appendChild</h2>
+<p>
+Ale to nie wszystko. Utworzony w powyższy sposób element jest dostępny dla skryptu,
+ale nie ma go jeszcze w drzewie dokumentu. Musimy go tam wstawić. Jedną z możliwości jest użycie metody:
+<strong>parentElement.appendChild(nowyElement)</strong>:
+</p>
+
+<pre><code class="language-js">
+const el = document.createElement("div");
+
+el.id = "myDiv";
+el.innerText = "Tekst w divie";
+el.setAttribute("title", "To jest tekst w dymku");
+el.classList.add("module");
+el.style.backgroundColor = "#FF6633";
+
+const div = document.querySelector(".test-first"); //pobieramy miejsce docelowe
+div.appendChild(el); //wstawiamy element do drzewa dokumentu
+</code></pre>
+
+<style>
+.test-first {
+    border:1px solid #ddd;
+    padding:10px;
+    margin:20px 0;
+}
+.test-first .element {
+    margin-bottom:10px;
+    color:#fff;
+    padding:10px;
+}
+.test-first .element:last-of-type {
+    margin:0;
+}
+</style>
+
+<div class="test-first"></div>
+<button class="button" id="btnFirst" type="button">Wstaw element</button>
+
+<script>
+document.querySelector("#btnFirst").addEventListener("click", function() {
+    const el = document.createElement("div");
+    el.id = "bloczek";
+    el.innerText = "Tekst w divie";
+    el.setAttribute("title", "To jest tekst w dymku");
+    el.classList.add("element");
+    el.style.backgroundColor = "#FF6633";
+    document.querySelector(".test-first").appendChild(el);
+})
+</script>
+
+<p id="usuwanie-innerHTML">
+No dobrze. Ale po co takie dzikie kombinowanie, skoro mogę po prostu użyć innerHTML
+i wszystko wpisać z palca, tak jakbym pisał html?
+</p>
+<pre><code class="language-js">
+const elHtml = '&lt;div id="bloczek" title="To jest tekst w dymku" class="uber-element" style="background-color:#FF6633">Tekst w divie&lt;/div>';
+
+const div = document.querySelector("parent");
+div.innerHTML = elHtml
+</code></pre>
+<p>
+Faktycznie za pomocą innerHTML wstawiasz kod html w dany element. Ale czy właściwość ta
+daje ci referencję do elementów we wstawianym html? Bardzo często będziesz chciał
+za chwilę zrobić jakąś akcję na wstawianych elementach - np. podpiąć im kliknięcie, zmienić im tekst itp.
+Jeżeli będziesz korzystał wyłącznie z innerHTML, będziesz musiał te elementy po wstawieniu
+dodatkowo pobrać - np. za pomocą querySelector. Nie zawsze jest to wygodniejsze, a czasami wręcz niemożliwe.
+</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="insertBefore">Wstawianie elementu za pomocą insertBefore</h2>
+<p>
+Do wstawiania nodów w drzewo strony możemy też skorzystać z metody <strong>parentNode.insertBefore(newElement, element)</strong>, która wstawia nowy element przed wskazanym:
+</p>
+
+<pre><code class="language-html">
+&lt;p id="beforeTest">
+    &lt;strong>Jestem pierwszym elementem&lt;/strong>
+&lt;/p>
+</code></pre>
+
+<pre data-line="11"><code class="language-js">
+let counter = 0;
+const btn = document.querySelector("button");
+
+btn.addEventListener("click", function() {
+    const p = document.querySelector("#beforeTestP");
+    const strong = p.firstElementChild;
+
+    const newEl = document.createElement("span"); //tworzymy nowy nod z tekstem
+    newEl.innerText = `Inny element ${++counter}`;
+
+    p.insertBefore(newEl, strong); //wstawiamy go przed pierwszym elementem
+});
+</code></pre>
+
+<style>
+#beforeTestP {
+    padding:20px;
+    border:1px solid #ddd;
+}
+#beforeTestP span, #beforeTestP strong {
+    display: inline-block;
+    padding:10px 20px;
+    border-radius: 5px;
+    margin:0 5px;
+    border:1px solid #ddd;
+}
+#beforeTestP span {
+    background: #FF6633;
+    color:#fff;
+    border:1px solid #F53E00;
+}
+</style>
+
+<p id="beforeTestP">
+<strong>Jestem pierwszym elementem</strong>
+</p>
+
+<button class="button" type="button" id="beforeTest">
+Wstaw element przed
+</button>
+
+<script>
+let counter = 0;
+
+document.addEventListener("DOMContentLoaded", function() {
+    document.querySelector("#beforeTest").addEventListener("click", function() {
+        const p = document.querySelector("#beforeTestP"); //pobieramy element &lt;p>
+        const strong = p.firstElementChild; //pobieramy pierwsze dziecko p czyli element &lt;strong>
+        const newNode = document.createElement("span"); //tworzymy nowy nod z tekstem
+        newNode.innerText = `Inny element ${++counter}`;
+        p.insertBefore(newNode, strong); //wstawiamy go przed &lt;strong>
+    })
+});
+</script>
+
+
+<!-- ### -->
+<h2 class="subtitle" id="createTextNode">Tworzenie tekstu za pomocą createTextNode</h2>
+<p>Wspomnieliśmy powyżej, że html składa się głównie z 2 bytów: elementów html i tekstów (ale też np. atrybutów).</p>
+<p>Aby dodać tekst na stronę możemy tak jak powyżej używać właściwości innerText/textContent, innerHTML, ale też możemy utworzyć pojedynczy węzeł tekstowy za pomocą funkcji <strong>createTextNode</strong></p>
+
+<pre><code class="language-js">
+const text = document.createTextNode("Lubię placki");
+element.appendChild(text);
+
+//lub
+element.innerText = "Lubię placki";
+</code></pre>
+
+<p>Ale po co takie kombinowanie, skoro użycie innerText jest zwyczajnie wygodniejsze? Już biegnę z wyjaśnieniami.</p>
+<p>Spójrzmy na poniższy przykład:</p>
+
+<pre><code class="language-html">
+&lt;p>
+Psy &lt;strong>są&lt;/strong> fajne
+&lt;/p>
+</code></pre>
+
+<p>Strong jest elementem. Słowo "Psy" jest węzłem tekstowym, tak samo jak słowo "fajne". Podobnie zresztą węzłem tekstowym jest słowo "są", które znajduje się w strong.</p>
+
+<p>W powyższych przykładach gdy tworzyliśmy elementy, ich tekst ustawialiśmy za pomocą właściwości innerHTML lub innerText. Takie podejście jest super wygodne, ale czasami może nie wystarczyć. Co gdybyśmy w powyższym przykładzie chcieli dynamicznie zmieniać słowa "Psy" i "fajne"? Rozwiązań jest oczywiście kilka. Możemy je wygenerować jako spany i używać na nich innerText.</p>
+
+<pre><code class="language-js">
+&lt;p>
+&lt;span>Psy&lt;/span> &lt;strong>są&lt;/strong> &lt;span>fajne&lt;/span>
+&lt;/p>
+</code></pre>
+
+   <p>A co jeżeli nie moglibyśmy dodać żadnego nowych elementów, bo zaburzyły by stylowanie?<br> Możemy też utworzyć te węzły za pomocą <strong>createTextNode()</strong>, a dzięki referencji (bo tworzymy je jako zmienne) bez problemu będziemy zmieniać ich zawartość:</p>
+
+<pre><code class="language-js">
+const p = document.querySelector("p");
+const btn = document.querySelector('.button');
+
+const word1 = document.createTextNode("Psy");
+p.appendChild(word1);
+
+const strong = document.createElement("strong");
+strong.innerText = " są "; //tu nie potrzebujemy referencji pod zmienną
+p.appendChild(strong);
+
+const word2 = document.createTextNode("fajne");
+p.appendChild(word2);
+
+btn.addEventListener("click", function() {
+    console.dir(word1); //wypiszemy sobie by zobaczyć co możemy użyć
+
+    word1.nodeValue = "Koty też";
+    word2.nodeValue = "super!";
+});
+</code></pre>
+
+<style>
+    .textNodeTest {
+        border: 1px solid tomato;
+        padding: 10px;
+        cursor: pointer;
+    }
+</style>
+
+<p>
+    Zbadaj poniższy paragraf, a następnie kliknij w przycisk:
+</p>
+
+<p class="textNodeTest">
+
+</p>
+<button class="button btn-textNodeTest">Zmień teksty</button>
+
+<script>
+    {
+        const p = document.querySelector(".textNodeTest");
+        const btn = document.querySelector('.btn-textNodeTest');
+
+        const word1 = document.createTextNode("Psy");
+        p.appendChild(word1);
+
+        const strong = document.createElement("strong");
+        strong.innerText = " są "; //tu nie potrzebujemy referencji pod zmienną
+        p.appendChild(strong);
+
+        const word2 = document.createTextNode("fajne");
+        p.appendChild(word2);
+
+        btn.addEventListener("click", function() {
+            console.dir(word1); //wypiszemy sobie by zobaczyć co możemy użyć
+
+            word1.nodeValue = "Koty też";
+            word2.nodeValue = "super!";
+        });
+    }
+</script>
+
+<!-- ### -->
+<h2 class="subtitle" id="append-prepend-before-after">append, prepend, before i after</h2>
+<p>jQuery - jedna z najlepszych rzeczy jaką wymyślił człowiek udoskonaliła wiele mechanizmów jakie występują w czystym JavaScript - chociażby dopiero co omawiany przez nas dataset (<a href="./dom-wlasciwosci.php#dataset">1</a>,
+<a href="../jquery/jquery.php#data">2</a>), ale i wiele innych takich jak parents, closest itp.</p>
+
+<p>Podobnie jeżeli chodzi o wstawianie elementów do dokumentu. Od dawien dawna występowały tam metody <a href="../jquery/jquery.php#dolaczanie-elementow">append(), prepend(), before() i after().</a>, których używa się zwyczajnie o wiele wygodniej niż jakiś appendChild czy insertBeforów.
+
+<p>W ostatnim czasie JavaScript kilka z takich pomysłów wchłonął i do siebie. Mamy więc typowy odpowiednik <a href="#remove">remove()</a>, <a href="./dom-relacje.php#closest">closest()</a> czy właśnie omawiane metody, które możemy użyć do wstawiania elementów ale i całych tekstów na stronę:</p>
+
+<table class="tab">
+    <tr>
+        <th><a href="https://developer.mozilla.org/en-US/docs/Web/API/ParentNode/append">append()</a></th>
+        <td>wstawia treść/element na koniec danego elementu</td>
+    </tr>
+    <tr>
+        <th><a href="https://developer.mozilla.org/en-US/docs/Web/API/ParentNode/prepend">prepend()</a></th>
+        <td>wstawia treść/element na początku danego elementu</td>
+    </tr>
+    <tr>
+        <th><a href="https://developer.mozilla.org/en-US/docs/Web/API/ChildNode/before">before()</a></th>
+        <td>wstawia treść/element przed danym elementem</td>
+    </tr>
+    <tr>
+        <th><a href="https://developer.mozilla.org/en-US/docs/Web/API/ChildNode/after">after()</a></th>
+        <td>wstawia treść/element za danym elementem</td>
+    </tr>
+</table>
+
+<style>
+    .test-append-prepend {
+        border: 2px solid red;
+        display: flex;
+        padding: 10px;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+    .test-append-prepend .test-inside {
+        margin:10px;
+    }
+    .element-append-prepend {
+        padding: 5px 10px;
+        background: dodgerblue;
+        display: inline-block;
+        margin: 2px;
+        color: #fff;
+        border-radius: 5px;
+    }
+</style>
+
+<div class="test test-append-prepend">
+    <button type="button" class="button test-inside" id="test-before">Before</button>
+    <button type="button" class="button test-inside" id="test-after">After</button>
+    <button type="button" class="button test-inside" id="test-prepend">Prepend</button>
+    <button type="button" class="button test-inside" id="test-append">Append</button>
+</div>
+
+<pre data-line="8,16,24,32"><code class="language-js">
+const cnt = document.querySelector(".container");
+let counter = 0;
+
+const btnBefore = document.querySelector("#test-before");
+btnBefore.addEventListener("click", function() {
+    const strong = document.createElement("strong");
+    strong.innerHTML = "Przed " + ++counter;
+    strong.classList.add('element');
+    cnt.before(strong);
+});
+
+const btnAfter = document.querySelector("#test-after");
+btnAfter.addEventListener("click", function() {
+    const strong = document.createElement("strong");
+    strong.innerHTML = "Za " + ++counter;
+    strong.classList.add('element');
+    cnt.after(strong);
+});
+
+const btnPrepend = document.querySelector("#test-prepend");
+btnPrepend.addEventListener("click", function() {
+    const strong = document.createElement("strong");
+    strong.innerHTML = "Na początku " + ++counter;
+    strong.classList.add('element');
+    cnt.prepend(strong);
+});
+
+const btnAppend = document.querySelector("#test-append");
+btnAppend.addEventListener("click", function() {
+    const strong = document.createElement("strong");
+    strong.innerHTML = "Na końcu " + ++counter;
+    strong.classList.add('element');
+    cnt.append(strong);
+});
+</code></pre>
+
+<script>
+    {
+        const cnt = document.querySelector(".test-append-prepend");
+
+        const btnBefore = document.querySelector("#test-before");
+        btnBefore.addEventListener("click", function() {
+            const strong = document.createElement("strong");
+            strong.innerHTML = "Przed " + ++counter;
+            strong.classList.add('element-append-prepend');
+            cnt.before(strong);
+        });
+
+        const btnAfter = document.querySelector("#test-after");
+        btnAfter.addEventListener("click", function() {
+            const strong = document.createElement("strong");
+            strong.innerHTML = "Za " + ++counter;
+            strong.classList.add('element-append-prepend');
+            cnt.after(strong);
+        });
+
+        const btnAppend = document.querySelector("#test-append");
+        btnAppend.addEventListener("click", function() {
+            const strong = document.createElement("strong");
+            strong.innerHTML = "Na końcu " + ++counter;
+            strong.classList.add('element-append-prepend');
+            cnt.append(strong);
+        });
+
+        const btnPrepend = document.querySelector("#test-prepend");
+        btnPrepend.addEventListener("click", function() {
+            const strong = document.createElement("strong");
+            strong.innerHTML = "Na początku " + ++counter;
+            strong.classList.add('element-append-prepend');
+            cnt.prepend(strong);
+        });
+
+    }
+</script>
+
+<p>W przeciwieństwie do insertBefore i appendChild powyższe metody możemy też użyć do wstawiania tekstów. Przekazany w ten sposób html będzie wstaiony także jako tekst:</p>
+
+<pre><code class="language-js">
+    element.append("Ten span - o ten: &lt;span>&lt;/span> będzie zapisany jak tekst");
+</code></pre>
+
+<p>
+    Ostatnia mini różnica rozróżniająca appendChild i insertBefore od nowszych braci to to, że te pierwsze zwracają w rezultacie element, co daje nam możliwość używania <a href="../super-podstawy/tablice-iteracje.php#method-chaining">method chaining</a>. Te nowsze (append, prepend, before, after) zwracają undefined, co powoduje, że pisanie "na skróty" nie zadziała:
+</p>
+
+<pre><code class="language-js">
+const newEl = document.createElement("div");
+document.body.appendChild(newEl).classList.add("element");
+
+const newEl = document.createElement("div");
+document.body.append(newEl).classList.add("element"); //błąd - Cannot read property 'classList' of undefined
+</code></pre>
+
+<p>
+Osobiście nie zawracał bym sobie tym głowy, bo pamięć nasza jest ograniczona, a i takie chodzenie na skróty często nie kończy się dobrze. Zamiast tego piszmy ładny - może i ciut dłuższy - ale i czytelniejszy kod:
+</p>
+
+<pre><code class="language-js">
+const newEl = document.createElement("div");
+document.body.appendChild(newEl);
+newEl.classList.add("element");
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="cloneNode">Klonowanie elementów</h2>
+<p>Za pomocą funkcji <strong>cloneNode(deep)</strong> możemy wykonać kopię danego elementu.</p>
+
+<pre><code class="language-html">
+&lt;div class="to-clone">
+    &lt;strong>Testowy&lt;/strong>
+&lt;/div>
+</code></pre>
+
+<pre><code class="language-js">
+const el = document.querySelector(".to-clone");
+
+const cloneEl1 = el.cloneNode();
+console.log(cloneEl1); //&lt;div class="to-clone">&lt;/div>
+
+const cloneEl2 = el.cloneNode(true);
+console.log(cloneEl2); //&lt;div class="to-clone">&lt;strong>Testowy&lt;/strong>&lt;/div>
+</code></pre>
+
+<p>Po sklonowaniu elementu możemy na nim działa tak samo jakbyśmy go stworzyli od nowa, albo pobrani za pomocą dowolnej metody.</p>
+
+<pre data-line="8"><code class="language-js">
+const btn = document.querySelector("button");
+const targetDiv = document.querySelector(".target");
+let nr = 0;
+
+btn.addEventListener("click", function() {
+    nr++;
+    const el = document.querySelector('.to-clone');
+    const clone = el.cloneNode(true);
+    clone.style.background = "dodgerblue";
+    clone.querySelector('.element-name').innerText = `Element ${nr}`
+    targetDiv.appendChild(clone);
+})
+</code></pre>
+
+<style>
+    .clone-node-test-cnt {
+        display: flex;
+        margin-bottom: 20px;
+    }
+    .clone-node-test-cnt .cnt {
+        border: 1px solid #ddd;
+        padding: 20px;
+        flex: 1 1 0;
+    }
+    .clone-node-test-cnt .cnt + .cnt {
+        margin-left: 20px;
+    }
+    .clone-node-test-cnt .element {
+        padding:5px 20px;
+        border-radius: 5px;
+        margin: 5px;
+        display: inline-flex;
+        align-items: center;
+        background: tomato;
+        color: #fff;
+    }
+    .clone-node-test-cnt .element-icon {
+        margin-right: 20px;
+        display: flex;
+        align-items: center;
+        max-width: 30px;
+    }
+    .clone-node-test-cnt .element-icon svg {
+        stroke: #fff;
+    }
+</style>
+
+<div class="clone-node-test">
+    <div class="clone-node-test-cnt">
+        <div class="cnt source">
+            <div class="element to-clone">
+                <div class="element-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8l4 4-4 4M8 12h7"/></svg>
+                </div>
+                <div class="element-name">
+                    Element
+                </div>
+            </div>
+        </div>
+        <div class="cnt target">
+
+        </div>
+    </div>
+
+    <button class="button" id="cloneNodeBtn">Sklonuj element</button>
+</div>
+
+<script>
+    {
+        const btn = document.querySelector('#cloneNodeBtn');
+        const targetDiv = document.querySelector('.target');
+        let nr = 0;
+
+        btn.addEventListener("click", function() {
+            nr++;
+            const el = document.querySelector('.to-clone');
+            const clone = el.cloneNode(true);
+            clone.style.background = "dodgerblue";
+            clone.querySelector('.element-name').innerText = `Element ${nr}`;
+            targetDiv.appendChild(clone);
+        })
+    }
+</script>
+
+<p>Niestety klonowany za pomocą cloneNode() jest tylko kod html elementu - bez podpiętych pod niego eventów. Powoduje to, że nie da się tej metody swobodnie stosować na dowolnym elemencie, bo potencjalnie stracimy podpiętą pod niego logikę.</p>
+<p>Niestety nie ma łatwego sposobu na obejście tego. Albo napiszemy dodatkową logikę, albo podepniemy eventy raz jeszcze, albo... użyjemy jQuerowego odpowiednika <a href="http://jqapi.com/#p=clone">clone()</a>, który pozwala klonować elementy wraz z eventami.</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="remove">Usuwanie elementów</h2>
+<p>
+Element, który istnieje w drzewie dom, możemy z niego usunąć na kilka sposobów.
+Możemy skorzystać z <strong>element.remove()</strong>, która usuwa element lub <strong>parentNode.removeChild(element)</strong>
+</p>
+
+<pre><code class="language-html">
+&lt;div class="div-test-remove">
+    &lt;span>Element do usunięcia&lt;/span>
+&lt;/div>
+</code></pre>
+
+<pre><code class="language-js">
+const div = document.querySelector("div")
+const element = div.querySelector("span");
+
+div.removeChild(element);
+
+//lub
+element.parentElement.removeChild(element);
+
+//lub
+element.remove();
+</code></pre>
+
+<style>
+.div-test-remove {
+    margin-bottom:1.5rem;
+    padding:1.5rem;
+    border:1px solid #ddd;
+}
+.div-test-remove span {
+    display: inline-block;
+    padding:10px 20px;
+    border-radius: 5px;
+    margin:0 5px;
+    border:1px solid #ddd;
+}
+</style>
+<div class="div-test-remove">
+    <span>Element do usunięcia</span>
+</div>
+<button type="button" class="button" id="removeTest">Usuń powyższy element</button>
+<script>
+{
+    const div = document.querySelector(".div-test-remove");
+    const btn = document.querySelector("#removeTest");
+    btn.addEventListener("click", function() {
+        const elementToDelete = div.querySelector("span");
+        elementToDelete.parentElement.removeChild(elementToDelete);
+    });
+}
+</script>
+
+<p>
+Aby usunąć wszystkie dzieci danego elementu - czyli go wyczyścić, powinniśmy wykonać pętlę po jego dzieciach i wszystkie pousuwać:
+</p>
+
+<pre><code class="language-js">
+const ul = document.querySelector("#list");
+
+while (ul.firstChild) {
+    ul.removeChild(ul.firstChild); //lub div.firstChild.remove()
+}
+</code></pre>
+
+<p>Jeżeli chcemy usuwać elementy za pomocą pętli for, wtedy róbmy ją od końca, ponieważ po usunięciu danego elementu, może nam się przestawić indeks w kolekcji.</p>
+
+<pre><code class="language-js">
+const li = document.querySelectorAll("#list li");
+for (let i=li.length-1; i<=0; i++) {
+    li[i].remove();
+}
+</code></pre>
+
+<p>...można też nieco prościej:</p>
+
+<pre><code class="language-js">
+const ul = document.querySelector("#list");
+ul.innerHTML = "";
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="usuwanie-i-eventy">Usuwanie z html i wycieki pamięci</h2>
+<p>Metody <strong>removeChild()</strong> i <strong>remove()</strong> usuwają elementy z HTML, ale jeżeli taki element jest podstawiony pod zmienną, po usunięciu dalej będzie ona przetrzymywać dany element w pamięci.</p>
+<p>Przy pojedynczych usuwanych elementach nie powinno to być raczej problemem.</p>
+<p>Problem pojawi się jednak, gdy takich elementów będziemy pobierać/tworzyć i usuwać bardzo wiele  (np. w <a href="../intervals/intervals.php">setInterval</a>).</p>
+
+<style>
+.memory-test {
+    margin-bottom:1.5rem;
+    padding:1.5rem;
+    border:1px solid #ddd;
+}
+.memory-test div {
+    margin-bottom: 20px;
+}
+.memory-test span {
+    display: inline-block;
+    padding:10px 20px;
+    border-radius: 5px;
+    margin:0 5px;
+    border:1px solid #ddd;
+}
+</style>
+
+<div class="memory-test">
+    <div>
+        <span class="el-to-delete">Element 1</span>
+        <span class="el-to-delete">Element 2</span>
+        <span class="el-to-delete">Element 3</span>
+        <span class="el-to-delete">Element 4</span>
+    </div>
+
+    <p>
+        Otwórz konsolę by kliknąć i usunąć powyższe elementy
+    </p>
+    <button type="button" class="button" id="deleteTestMemory">Usuń</button>
+</div>
+
+<script>
+    {
+        const btn = document.querySelector("#deleteTestMemory");
+        const elToDelete = document.querySelectorAll('.el-to-delete');
+        btn.addEventListener("click", function() {
+            for (const el of elToDelete) {
+                el.remove(); //usuwamy tylko z HTML
+            }
+
+            //element wciąż jest w pamięci pod zmienną elToDelete
+            console.log(elToDelete);
+        })
+    }
+</script>
+
+<pre><code class="language-js">
+const btn = document.querySelector("button");
+const elToDelete = document.querySelectorAll('.el-to-delete');
+
+btn.addEventListener("click", function() {
+    for (const el of elToDelete) {
+        el.remove(); //usuwamy tylko z HTML
+    }
+
+    //elementy wciąż są w pamięci pod zmienną elToDelete
+    console.log(elToDelete);
+})
+</code></pre>
+
+<p>Sprawdź też omawiany problem na przykładowej stronie: <a href="delete-element-memory-test.html">delete-element-memory-test.html</a></p>
+
+<p>Rozwiązaniem jest pozbywać się takich referencji. Możemy dane zmienne ustawić na null, czyścić tablice w których się znajdują (np. poprzez ustawienie ich na pustą tablicę [] lub ich length na 0) itp.</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="replace">Zastępowanie elementów</h2>
+<p>
+    Do zastępowania jednego elementu drugim użyjemy metody <strong>parent.replaceChild(newChild, oldChild)</strong>:
+</p>
+
+<pre><code class="language-html">
+&lt;div class="div-test-replace">
+    &lt;span>Jestem starym elementem&lt;/span>
+&lt;/div>
+&lt;button type="button" class="button" id="replaceTest">Zastąp spana nowym elementem&lt;/button>
+</code></pre>
+
+<pre data-line="10"><code class="language-js">
+const div = document.querySelector(".div-test-replace")
+const btn = document.querySelector("#replaceTest");
+
+btn.addEventListener("click", function() {
+    const oldItem = div.querySelector("span");
+
+    const newItem = document.createElement("strong");
+    newItem.innerText = "Jestem nowym elementem";
+
+    div.replaceChild(newItem, oldItem);
+});
+</code></pre>
+
+<style>
+.div-test-replace {
+    margin-bottom:1.5rem;
+    padding:1.5rem;
+    border:1px solid #ddd;
+}
+.div-test-replace span,
+.div-test-replace strong {
+    display: inline-block;
+    padding:10px 20px;
+    border-radius: 5px;
+    margin:0 5px;
+    border:1px solid #ddd;
+}
+.div-test-replace strong {
+    background: #0F81D1;
+    color:#fff;
+    border:1px solid #0F81D1;
+}
+
+</style>
+<div class="div-test-replace">
+    <span>Jestem starym elementem</span>
+</div>
+<button type="button" class="button" id="replaceTest">Zastąp spana nowym elementem</button>
+
+<script>
+{
+    const div = document.querySelector(".div-test-replace");
+    const btn = document.querySelector("#replaceTest");
+    btn.addEventListener("click", function() {
+        const oldItem = div.querySelector("span");
+        const newItem = document.createElement("strong");
+        newItem.innerText = "Jestem nowym elementem";
+        div.replaceChild(newItem, oldItem);
+    });
+}
+</script>
+
+<!-- ### -->
+<h2 class="subtitle" id="fragment">Tworzenie fragmentów dokumentu</h2>
+<p>
+Korzystając z powyższych metod z łatwością możemy tworzyć różne skomplikowane kawałki drzewa.
+Możemy do tego celu wykorzystać także metodę <strong>createDocumentFragment()</strong>,
+która tworzy fragment dokumentu. Fragment taki jest "zbiornikiem", podobnym do zwykłego
+diva, jednak przy wstawianiu go do dokumentu, wstawiane zostają tylko jego dzieci.
+</p>
+
+<p>
+Ale po co to komu? Komu to potrzebne? Wydajności. Gdy wstawiasz do html nowy element, drzewo DOM musi zostać przebudowane.
+Gdy wstawiasz takich elementów wiele, za każdym razem to drzewo będzie przebudowywane. Jeżeli w danej chwili
+zależy ci bardzo na wydajności (bo na przykład robisz szybką grę), powinieneś raczej wstawiać dane elementy "paczkami".
+</p>
+
+<pre><code class="language-js">
+const fragment = document.createDocumentFragment();
+
+for (let i=0; i&lt;10; i++ ) {
+    const p = document.createElement("p");
+    p.appendChild(document.createTextNode("Akapit "+(i+1)));
+    fragment.appendChild(p);
+}
+
+document.body.appendChild(fragment); //wstawiamy 10 paragrafów
+</code></pre>
+
+<p>
+I teraz pytanie do ciebie? <br>
+Czy znasz inną technikę wstawiania wielu elementów na raz?<br>
+A <a href="./dom-wlasciwosci.php#innerHTML">innerHTML</a> znasz?
+Spokojnie możesz wykorzystać tą właściwość by do elementu wstawiać
+skomplikowany kod.<br>
+Pamiętaj tylko o tym, że używając tej metody
+wstawiasz html do strony, ale metoda ta nie utworzy ci automatycznie
+referencji...
+</p>
+
+<div class="tasks-for-you-cnt">
+    <h2 class="subtitle" id="zadania">Trening czyni mistrza</h2>
+    <p>
+    Poniżej zamieszczam kilka zadań, które w ramach ćwiczenia możesz wykonać:
+    </p>
+    <ol class="tasks-for-you">
+        <li>
+            <div class="question">
+                <p>
+                <a href="./dom-test-tworzenie.html"> Pobierz sobie stronę stąd </a>(prawy klawisz na linku, zapisz jako).
+                </p>
+                <p>
+                Skrypty pisz inline w kodzie strony - na końcu body.
+                </p>
+            </div>
+        </li>
+        <li>
+            <div class="question">
+                <p>
+                Pobierz element .list i podstaw go pod zmienną.<br>
+                Za pomocą pętli stwórz 5 elementów div i wstaw je do pobranej listy.
+                </p>
+                <p>
+                Każdy stworzony div powinien mieć:<br>
+                - klasę .element<br>
+                - atrybut title ustawiony na "jestem divem numer ..."<br>
+                - tekst w środku "Element ..."
+                </p>
+                <p>
+                W miejsce kropek wpisz kolejne numery divów
+                </p>
+            </div>
+            <div class="solution">
+                <pre><code class="language-js">
+                    const list = document.querySelector(".list");
+                    for (let i=0; i&lt;5; i++) {
+                        const div = document.createElement("div");
+                        const nr = i+1;
+                        div.classList.add("element");
+                        div.setAttribute("title", "Jestem divem numer " + nr);
+                        div.innerText = "Element " + nr;
+    
+                        list.appendChild(div);
+                    }
+                </code></pre>
+            </div>
+        </li>
+        <li>
+            <div class="question">
+                <p>
+                W kodzie masz przygotowane zdarzenie click dla buttona .delete.<br>
+                Napisz w nim treść skryptu, która usunie elementy dodane w 2 zadaniu.<br>
+                Jeżeli nie ma elementów w liście, niech wyskoczy w konsoli tekst "Nie mam co usunąć"
+                </p>
+            </div>
+            <div class="solution">
+                <pre><code class="language-js">
+                document.querySelector("#delete").addEventListener("click", function() {
+                    //tutaj napisz usuwanie elementów w liście
+                    const list = document.querySelector(".list");
+                    const div =  list.querySelectorAll("div");
+                    for (let i=div.length-1; i&gt;=0; i--) {
+                        div.remove();
+                        //lub
+                        //list.removeChild(div);
+                    }
+                })
+                </code></pre>
+            </div>
+        </li>
+    </ol>
+    </div>
+
+			</div><!-- e: page-content-text -->
+			<footer class="page-footer">
+				<p>
+				Wszelkie prawa zastrzeżone. Jeżeli chcesz używać jakiejś części tego kursu, skontaktuj się z <a href="/kurs/autor.php">autorem</a>.
+				Aha - i ta strona korzysta z <a href="/kurs/polityka-prywatnosci.php">ciasteczek</a>.
+				</p>
+			</footer>
+							<div class="rekl-cnt">
+					<ins
+					class="adsbygoogle" style="margin-top:40px; display:block"
+					data-ad-client="ca-pub-6843603045703750"
+					data-ad-slot="4690777640"
+					data-ad-format="auto"
+					data-full-width-responsive="true"
+					></ins>
+				</div>
+				<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+	(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+					</main><!-- e: page-content -->
+			</div><!-- e: page-content-wrapper -->
+    <aside id="page-sidebar-cnt" class="page-sidebar-cnt">
+	<div id="page-sidebar" class="page-sidebar">
+		<button aria-label="Pokaż/ukryj Menu" aria-expanded="false" aria-controls="page-sidebar" type="button" id="pageSidebarBurger" class="page-sidebar-burger">
+			<span></span>
+		</button>
+
+		<h2 class="visuallyhidden">
+			Menu
+		</h2>
+
+		<button class="sidebar-toggle-btn" title="Pokaż/schowaj menu" aria-hidden="true">
+			<strong>Pokaż/ukryj menu</strong>
+			<span></span>
+			<span></span>
+			<span></span>
+		</button>
+
+		<div class="page-sidebar-title">
+			<a href="/kurs/kontakt.php" title="Nawrzucaj autorowi" class="mail-to-author" id="mailToAuthor">Napisz do mnie</a>
+			<a href="#popupOptions" class="page-setup-link popupOpen" title="Ustawienia strony" id="showOptions">Ustawienia</a>
+			<a href="/index.php" aria-label="Strona główna" class="page-sidebar-title-link">Kurs Javascript</a>
+		</div>
+
+        <form aria-label="Wyszukiwarka" class="search-sidebar" action="/search.php" method="post">
+            <label for="search" class="search-sidebar-label">Szukaj</label>
+            <div class="search-sidebar-input-cnt">
+                <svg class="search-sidebar-input-icon" xmlns="http://www.w3.org/2000/svg" width="26" height="28" viewBox="0 0 26 28" aria-hidden="true">
+                    <path d="M18 13c0-3.859-3.141-7-7-7s-7 3.141-7 7 3.141 7 7 7 7-3.141 7-7zm8 13c0 1.094-.906 2-2 2a1.96 1.96 0 0 1-1.406-.594l-5.359-5.344a10.971 10.971 0 0 1-6.234 1.937c-6.078 0-11-4.922-11-11s4.922-11 11-11 11 4.922 11 11c0 2.219-.672 4.406-1.937 6.234l5.359 5.359c.359.359.578.875.578 1.406z"></path>
+                </svg>
+                <input type="text" id="search" autocomplete="off" name="q" class="search-sidebar-input">
+            </div>
+            <button type="submit" class="search-sidebar-button">Szukaj</button>
+        </form>
+
+		<div class="page-sidebar-table-of-content">
+			<h2 class="visuallyhidden">Spis treści</h2>
+            <div class="page-sidebar-section">
+				<h3 class="page-sidebar-section-title noopen">
+                    <a href="/index.php">Strona główna</a>
+                </h3>
+            </div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Słowem wstępu</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/wstep/wstep.php">Wstęp</a>
+						</li>
+						<li >
+							<a href="/kurs/wstep/co-to-jest-javascript.php">Co to jest JavaScript i z czym go się je?</a>
+						</li>
+						<li >
+							<a href="/kurs/wstep/wymagania.php">Wymagania</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Super podstawy</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/debuger/debuger.php">Debuger</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/pierwszy-skrypt.php">Wstawiamy skrypty na naszą stronę</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/strict-mode.php">Strict mode</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/typy-danych.php">Typy danych i konwersja danych</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/zmienne.php">Zmienne</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/operatory.php">Operatory</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/math.php">Obiekt Math</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/string.php">String - teksty</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/instrukcje-warunkowe.php">Instrukcje warunkowe</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/petle.php">Pętle</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/funkcje.php">Funkcje</a>
+						</li>
+                        <li >
+							<a href="/kurs/super-podstawy/funkcje-tematy-dodatkowe.php">Funkcje - tematy dodatkowe</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/tablice.php">Tablice</a>
+						</li>
+                        <li >
+							<a href="/kurs/super-podstawy/tablice-iteracje.php">Tablice pętle</a>
+						</li>
+						<li >
+							<a href="/kurs/debuger/debugowanie.php">Debugowanie kodu</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+            			<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Obiekty</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+                        <li >
+							<a href="/kurs/obiekty/obiekty.php">Obiekty i this</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-jak-to-dziala.php">Jak to działa</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-konstruktor.php">Konstruktor</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-zaawansowane-this.php">Zaawansowane this</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-dziedziczenie.php">Dziedziczenie w Javascript</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-inne-sposoby-tworzenia.php">Inne sposoby tworzenia obiektów</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-instanceof-hasownproperty.php">instanceof i hasOwnProperty</a>
+						</li>
+                    </ul>
+                </div>
+            </div>
+
+						<div class="page-sidebar-section show has-active-element">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">DOM i zdarzenia</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/dom/dom.php">Document Object Model</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-wlasciwosci.php">Właściwości elementów</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-relacje.php">Relacje między elementami</a>
+						</li>
+						<li class="active">
+							<a href="/kurs/dom/dom-tworzenie-i-usuwanie.php">Tworzenie i usuwanie elementów</a>
+						</li>
+                        <li >
+                            <a href="/kurs/dom/style.php">Style w CSS</a>
+                        </li>
+						<li >
+							<a href="/kurs/events/events.php">Zdarzenia</a>
+						</li>
+						<li >
+							<a href="/kurs/events/events-keys.php">Zdarzenia - klawisze</a>
+						</li>
+						<li >
+							<a href="/kurs/events/events-mouse.php">Zdarzenia - myszka</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/projekt-todo.php">Projekt TODO</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/slider.php">Tworzymy slider</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Prawie podstawy</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/grafika/grafika-na-stronie.php">Grafika na stronie</a>
+						</li>
+						<li >
+							<a href="/kurs/intervals/intervals.php">setTimeout i setInterval</a>
+						</li>
+						<li >
+							<a href="/kurs/match-media.php">Praca z RWD</a>
+						</li>
+						<li >
+							<a href="/kurs/okna-dialogowe.php">Okienka dialogowe</a>
+						</li>
+						<li >
+							<a href="/kurs/okna.php">Tworzenie nowych okien</a>
+						</li>
+						<li >
+							<a href="/kurs/date/date.php">Obiekt Date</a>
+						</li>
+						<li >
+							<a href="/kurs/date/date-calendar.php">Tworzymy kalendarz</a>
+						</li>
+						<li >
+							<a href="/kurs/cookies/cookie.php">Obiekt Cookie</a>
+						</li>
+						<li >
+							<a href="/kurs/storage/storage.php">Storage</a>
+						</li>
+						<li >
+							<a href="/kurs/regular.php">Wyrażenia regularne</a>
+						</li>
+						<li >
+							<a href="/kurs/formularze/formularze.php">Formularze</a>
+						</li>
+						<li >
+							<a href="/kurs/formularze/formularze-walidacja.php">Formularze - walidacja</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Ajax</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/ajax/ajax.php">AJAX, REST, JSON</a>
+						</li>
+						<li >
+							<a href="/kurs/ajax/xmlhttprequest.php">XMLHttpRequest</a>
+						</li>
+            			<li >
+							<a href="/kurs/ajax/fetch.php">Fetch API</a>
+						</li>
+						<li >
+							<a href="/kurs/ajax/formularz-kontaktowy.php">Dynamiczny formularz kontaktowy</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Nowy Javascript</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/es6/ecma-script-2015.php">ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/webpack.php">Webpack</a>
+						</li>
+                        <li >
+            				<a href="/kurs/es6/obiekty-w-es6.php">Obiekty w ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/funkcja-strzalkowa.php">Funkcja strzałkowa</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/spread-rest.php">Spread i rest</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/template-strings.php">Template strings</a>
+						</li>
+						<li >
+            				<a href="/kurs/es6/destructuring.php">Dekompozycja</a>
+        				</li>
+						<li >
+							<a href="/kurs/es6/class.php">Klasy w ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/promises.php">Promises</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/async-await.php">Async/Await</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/symbole.php">Symbole</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">jQuery</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/jquery/jquery.php">jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/animacje-w-jquery.php">Animacje w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/jquery-ajax.php">Ajax w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/tabs.php">Taby w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/plugin.php">Karuzela w jQuery</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Canvas</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/canvas/canvas.php">Canvas</a>
+						</li>
+						<li >
+							<a href="/kurs/canvas/canvas-images.php">Grafika w canvas</a>
+						</li>
+						<li >
+						<a href="/kurs/canvas/canvas-paint.php">Praktycznie : Paint w canvas</a>
+						</li>
+
+						<li >
+							<a href="/kurs/canvas/canvas-animacja.php">Animacja w canvas</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Gry</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/gry/hangman/hangman.php">Szubienica</a>
+						</li>
+						<li >
+							<a href="/kurs/gry/memory/memory.php">Memory</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+            			<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Inne</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/dodatkowe-materialy.php">Dodatkowe materiały</a>
+						</li>
+						<li >
+							<a href="/kurs/faq.php">FAQ</a>
+						</li>
+						<li >
+							<a href="/kurs/polityka-prywatnosci.php">Polityka prywatności</a>
+						</li>
+						<li >
+							<a href="/kurs/autor.php">O autorze</a>
+						</li>
+						<li >
+							<a href="/kurs/kontakt.php">Kontakt</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="page-sidebar-section">
+                <a class="special-link" href="/kurs/autor.php#donate">Wesprzyj kurs</a>
+            </div>
+		</div>
+	</div>
+</aside></div><!-- e: page-container -->
+
+<div class="popup" id="popupOptions">
+	<div class="popup-inside">
+        <div class="popup-container-cnt">
+            <div class="popup-container">
+                <button class="popup-close">Zamknij</button>
+
+                <h2 class="popup-title">
+                    Opcje
+                </h2>
+
+                <div class="popup-content">
+                    <form class="form-options">
+                        <div class="form-option">
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <label for="optionsThemeSelect">Wybierz skórkę dla listingów</label>
+                                    <select id="optionsThemeSelect"></select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <pre><code class="language-js">
+                                //tak będzie wyglądał kod
+
+                                function test() {
+                                    for (let i=0; i&lt;10; i++) {
+                                        console.log("Tekst numer ", 1);
+                                    }
+                                }
+
+                                test();
+                                </code></pre>
+                            </div>
+                            <div class="form-row" id="themeLightModeRow">
+                                <div class="form-col">
+                                    <label for="themeLightMode">
+                                        Tryb dzienny / nocny
+                                    </label>
+
+                                    <div class="light-mode-el">
+                                        <input type="checkbox" id="themeLightMode">
+                                        <span class="light-mode"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+	</div>
+</div>
+<script async defer src="https://www.googletagmanager.com/gtag/js?id=UA-38558970-5"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-38558970-5');
+</script>
+
+	<script src="/js/ads.js"></script>
+	<script src="/js/script.min.js?v=0.13" defer></script>
+</body>
+</html>

@@ -3,9 +3,9 @@
 <head>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Kurs Javascript - Wstęp</title>
+    <title>Kurs Javascript - Typy danych</title>
 	<meta name="description" content="Kurs Javascript dla superbohaterów, artykuły, tutoriale, porady, zadania do wykonania" />
-    <link rel="canonical" href="https://kursjs.pl/kurs/wstep/wstep.php" />
+    <link rel="canonical" href="https://kursjs.pl/kurs/super-podstawy/typy-danych.php" />
 	<link rel="stylesheet" href="./css.css" />
     <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,700&display=swap&subset=latin-ext" rel="stylesheet">
 	<meta name="image" content="https://kursjs.pl/kursjs.png">
@@ -57,49 +57,333 @@
             </div>
                         <div class="page-content-text">
 
-
-<h1 class="page-title">Wstęp</h1>
-<p>
-Bardzo krótki wstęp ^^.<br /><br />
-Kurs ten jest o Javascripcie. Uhh...
-</p>
-<p>
-Wiedz, że nie staram się tutaj tworzyć największego i najlepszego kursu o JavaScript w internecie.<br>
-Ten kurs to twór jednego człowieka.
-Nie mam szans i nie chcę konkurować z molochami takimi jak <a href="https://developer.mozilla.org/pl/">MDN</a>, <a href="https://www.udemy.com/">Udemy</a>, <a href="https://eduweb.pl/">EduWeb</a> czy <a href="https://www.w3schools.com/js/default.asp">w3schools</a>.<br>
-<br><br>
-Nie znajdziesz tutaj wszystkiego z zakresu JavaScript. <br>
-Po jakimś czasie będziesz chciał wiele rzeczy tutaj pokazanych tworzyć inaczej - lepiej.<br>
-Im większy progres będziesz zdobywał stwierdzisz, że wiele rozdziałów można było napisać o wiele lepiej. I dobrze.<br><br>
-
-W każdym bądź razie - jeżeli ta strona jakoś ci posłuży - to tylko plus. Jeżeli nie - po prostu skorzystaj z innego kursu - na rynku jest tego od groma (niektóre wymieniłem <a href="../dodatkowe-materialy.php">tutaj</a>) i każdy znajdzie coś dla siebie. Ja sam mam kilka w swojej kolekcji i twierdzę, że są naprawdę dobre.
-<br><br>
-</p>
+<h1 class="page-title">Typy danych</h1>
+<!--###-->
 
 <p>
-Jeszcze mała adnotacja, która siedzi mi w głowie.
+    W JavaScript dane dzielą się na 2 typy: typy <strong>proste</strong> oraz <strong>złożone/referencyjne</strong>.
 </p>
-<p>
-W internecie znajdziesz setki tutoriali pokazujących najnowsze techniki. A to funkcja strzałkowa, a to jak korzystać z async i await, a to jak robić połączenia fetchem czy chociażby zastosowanie modułów. Małe, konkretne, piękne - jak mój pies (a i od niedawna też kot).
-</p>
-<p>
-Na grupach facebookowych w dyskusjach znajdziesz jeszcze szybciej takie techniki.
-</p>
-<p>
-Tutaj pojawia pewna sprawa, który dotyczy nie tylko JavaScript, ale i całego frontendu. Bardzo często przy takich nowoczesnych tutorialach czy poradach autorzy nie zwracają uwagi na bardzo ważną rzecz - a mianowicie na to, że dobór techniki <strong>zawsze zależy od danego projektu</strong>. To są w końcu rzeczy oczywiste.<br>
-No właśnie nie do końca. To są rzeczy oczywiste - dla nas - osób, które w tej branży siedzą już kilkanaście lat. Ale czy dla osoby zaczynającej?
-</p>
-<p>
-Jeżeli robisz bloga o nowinkach z dziedziny frontentu, raczej możesz założyć, że większość użytkowników będzie korzystała z najnowszych przeglądarek, a więc i możesz używać najnowszych rozwiązań (chociaż najlepiej było by spojrzeć w statystyki Google Analitics które można podpiąć pod stronę).<br>
-Jeżeli jednak robisz stronę dla emerytowanych nauczycieli, czy dla przykładu olbrzymi sklep z którego będą korzystali różnorodni użytkownicy z różnorodnych krajów, wtedy rzucanie się na najnowsze rozwiązania będzie strzałem w stopę.
-</p>
-<p>
-Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie CSS Grid, a czasami nawet flexbox może okazać się czymś, czego użyć nie możesz. Czasami spokojnie będziesz mógł używać najnowszej wersji JavaScript, a czasami będziesz musiał pozostać przy starszej. A jeżeli będziesz musiał pozostać przy starszej, wtedy albo będziesz pisał JavaScript trzymając się klasycznych rozwiązań, albo skorzystasz z narzędzi zamieniających twój kod na starszy zapis.
-</p>
-<p>Autorzy tutoriali często zapominają o tym, że dla początkującej osoby istnieje po prostu JavaScript. Osoby takie często nie zdają sobie sprawy, że nie wszystko w JavaScript można dowolnie używać, nie wiedzą gdzie szukać informacji które przeglądarki co wspierają, jakich narzędzi używać do zamiany kodu i po co w ogóle to robić.</p>
-<p>W kursie tym staram się trzymać klasycznego JavaScript. Jasne - im więcej wiedzy zdobędziesz, im bardziej będziesz rozbudowywał swój warsztat, tym będziesz stosował coraz nowsze i lepsze techniki pisania kodu. A wtedy - tak jak to już pisałem powyżej - będziesz się śmiał z tego kursu. Póki co polecam po prostu uczyć się JavaScript.</p>
 
-<a href="./co-to-jest-javascript.php" class="button">To co? Zaczynamy?...</a>
+<style>
+.data-type {
+    display: flex;
+}
+.data-type-box {
+    flex: 1;
+    border: 2px solid tomato;
+    background: rgba(100,100,100,0.1);
+    padding: 30px;
+}
+.data-type-box + .data-type-box {
+    margin-left: 20px;
+}
+.data-type-title {
+    margin-top:0;
+    text-transform: uppercase;
+    font-size: 1.7rem;
+    font-weight: 700;
+}
+.data-type-list {
+    list-style: none;
+}
+@media (max-width: 700px) {
+    .data-type {
+        flex-direction: column;
+    }
+    .data-type-box + .data-type-box {
+        margin:0;
+        margin-top: 20px;
+    }
+}
+</style>
+
+<div class="data-type">
+    <div class="data-type-box">
+        <h3 class="data-type-title">Typy proste / prymitywne</h3>
+        <ol class="data-type-list">
+            <li>Number</li>
+            <li>String</li>
+            <li>Boolean</li>
+            <li>Undefined</li>
+            <li>Null</li>
+            <li>Symbol</li>
+        </ol>
+    </div>
+    <div class="data-type-box">
+        <h3 class="data-type-title">Typy złożone</h3>
+        <ol class="data-type-list">
+            <li>Object</li>
+        </ol>
+    </div>
+</div>
+
+<!--###-->
+<h2 class="subtitle" id="typy-proste">Typy proste</h2>
+<p>
+    Dane typu prostego reprezentują proste typy danych -
+    liczby, teksty, wartości boolowskie (prawda/fałsz),
+    niezdefiniowane (undefined) oraz null.
+</p>
+
+<pre><code class="language-js">
+//przykład danych typu prostego
+const varNr = 20; //prosta liczba
+const text = 'To jest tekst'; //prosty łańcuch znaków
+const bol = true; //logiczny - prawda/fałsz
+const myNul = null; //nic
+
+const x; //zmienna z nieokreśloną wartością, lub w ogóle nie istniejąca
+</code></pre>
+
+<p>
+    Powyższe typy danych jak sama nazwa wskazuje są prostymi bytami,
+    które poza wartością nic w sobie nie mają.
+    Żeby wykonywać na nich jakieś operacje (np. pobrać długość tekstu)
+    musiałbyś albo za każdym razem używać na nich osobnych <a href="funkcje.php">funkcji</a>
+    które konwertują proste byty na coś bardziej złożonego (czytaj obiekty),
+    które dawały by dostęp do odpowiednich metod i właściwości.<br>
+</p>
+<p>
+    W JavaScript nie musimy czegoś takiego robić. JavaScript ułatwia nam pracę i gdy chcemy zrobić jakąś rzecz na typie prostym (pobrać długość tekstu, zamienić liczbę na zmienno przecinkową itp.) w tle dokonuje automatycznej tymczasowej konwersji typu prostego na obiekt, odpala użytą właściwość lub metodę, a następnie przywraca daną zmienną do typu prostego:
+</p>
+
+<pre><code class="language-js">
+    const ourText = 'Przykładowy tekst'; //deklarujemy prostą zmienną
+    ourText.length //js poza sceną skonwertuje ourText na obiekt String, zwróci jego długość i przywróci zmienną do typu prostego
+
+    const nr = 23;
+    nr.toFixed(2); //znowu to samo działanie - numer został na chwilę zamieniony na obiekt, została użyta metoda toFixed po czym przywrócono go do typu prostego
+</code></pre>
+
+<p>Dzięki powyższej konwersji w javascript wszystko zachowuje się jak obiekt. Zasada ta nie dotyczy się tylko undefined i null, które nie potrzebują mieć właściwości i metod.</p>
+
+<p>Powyższe wymienione typy mają też odpowiedniki w konstruktorach, które od razu robią z nich pełnoprawne obiekty:</p>
+
+<pre><code class="language-js">
+const varNr = new Number(20); //liczba
+const text = new String('To jest tekst'); //łańcuch znaków
+const varBol = new Boolean(true); //logiczny - prawda/fałsz
+</code></pre>
+
+<p>
+<a href="../obiekty/obiekty-konstruktor.php">Czym są konstruktory i z czym to się je</a> nauczysz się później. W powyższych przypadkach nie zaleca się stosować konstruktorów do tworzenia takich obiektów. Chcesz utworzyć tekst, napisz po prostu w cudzysłowach. Chcesz utworzyć liczbę, napisz po prostu liczbę.
+</p>
+
+<pre><code class="language-js">
+const varA = "lorem ipsum";
+const varB = new String("lorem ipsum"); //tutaj chciałem zaszpanować i użyłem konstruktora
+
+console.log( varA.length ); //11
+console.log( varB.length ); //11
+
+console.log( typeof varA ); //string - prawidłowo
+console.log( typeof varB ); //object - niby prawidłowo, ale...
+    </code></pre>
+
+<p>
+    Zmienne typu prostego charakteryzują się tym, że ich <strong>wartości</strong> są przypisane bezpośrednio do zmiennych (są oddzielnymi bytami). Zobaczmy przykład:
+</p>
+
+<pre><code class="language-js">
+let ourVar1 = 12;
+let ourVar2 = ourVar1; //do zmiennej ourVar2 przypisujemy wartość 12
+
+ourVar1 = 15; //zmieniam tylko ourVar1
+
+console.log(ourVar1); //15
+console.log(ourVar2); //12
+</code></pre>
+
+<p>Powyższe równanie zachowuje się zupełnie tak, jak nas uczyli na matematyce. Czyli taki totalny klasyk.</p>
+
+
+<!--###-->
+<h2 class="subtitle" id="typy-zlozone">Typy złożone</h2>
+<p>
+    <strong>Wszystkie zmienne nie będące typem prostym</strong> są obiektami i są typu referencyjnego.<br>
+    Ten typ danych charakteryzuje się tym,
+    że <strong>zmienne nie mają przypisanej bezpośrednio wartości, a tylko wskazują na miejsce w pamięci, gdzie te dane są przetrzymywane</strong>.
+</p>
+
+<pre><code class="language-js">
+let arr1 = [1, 2, 3];
+let arr2 = arr1; //zmienna arr2 wskazuje na tablicę [1, 2, 3]
+
+arr1.push(4);
+console.log(arr1); //1, 2, 3, 4
+console.log(arr2); //1, 2, 3, 4
+</code></pre>
+
+<p>W powyższym przykładzie po zmianie jednej zmiennej, zmieniają się obie. Dzieje się tak właśnie dlatego, że obie zmienne wskazują na ten sam obiekt. Żeby zadziałało to tak jak w typach prostych, druga zmienna musiałaby mieć kopię tablicy.
+</p>
+
+<pre><code class="language-js">
+let arr1 = [1, 2, 3];
+let arr2 = arr1.slice(); //kopiuje całą tablicę za pomocą metody slice()
+
+arr1.push(4);
+console.log(arr1); //1, 2, 3, 4
+console.log(arr2); //1, 2, 3
+</code></pre>
+
+<p>
+    Możliwe, że w tej chwili masz tak zwany "mindfuck". Spokojnie - z czasem wszystkie te rzeczy staną się dla ciebie automatem i nawet nie będziesz się za bardzo nad tym zastanawiał.
+</p>
+
+<p>
+    <strong>Podsumowując:</strong><br>
+    Typy proste są proste. Mają wartość przypisaną do siebie. To co nie jest typem prostym jest obiektem. Zmienne obiektowe nie mają przypisanej bezpośrednio wartości, a wskazują tylko na miejsce w pamięci. Przy pracy z typami prostymi za naszymi plecami są one konwertowane na bardziej złożone obiekty, a zaraz potem znowu przywracane na typy proste. Uff...
+</p>
+
+<h2 class="subtitle" id="spradzanie_typu">Sprawdzanie typu danych</h2>
+<p>
+    Do sprawdzenia typu danych korzystamy z instrukcji typeof:
+</p>
+<pre><code class="language-js">
+const num = 10;
+const str = 'przykładowy tekst';
+const arr = [];
+const obj = {};
+const nul = null;
+//zmiennej und specjalnie nie zadeklarowałem
+
+//wypisujemy typy zmiennych
+console.log( typeof num ); //"number"
+console.log( typeof str ); //"string"
+console.log( typeof arr ); //"object" hmm?
+console.log( typeof obj ); //"object"
+console.log( typeof und ); //"undefined"
+console.log( typeof nul ); //"object" hmm?
+
+//sprawdzamy typy zmiennych
+if (typeof num === "number") {...}
+if (typeof str === "string") {...}
+if (Array.isArray(arr)) {...}
+if (typeof obj === "object") {...}
+if (typeof und === "undefined") {...}
+if (nul === null) {...}
+</code></pre>
+
+<p>
+    Zwróć uwagę, jaki typ zwróciła tablica. Tak! Tablica w JavaScript też jest obiektem.<br>
+
+    Żeby sprawdzić jej typ, albo musielibyśmy sprawdzać jej konstruktor (poznasz to później),
+    albo skorzystamy z zapisu <strong>Array.isArray(tab)</strong>.
+    Więcej na ten temat możesz dowiedzieć się <a href="http://www.shamasis.net/2011/08/infinite-ways-to-detect-array-in-javascript/">tutaj</a>.<br>
+    Inną kluczową rzeczą którą powinieneś tutaj zapamiętać to sposób sprawdzania nieistniejących zmiennych. Nie raz będziesz tego używał.
+</p>
+<p>
+    Podobne "dziwy" dzieją się dla typu null, który w js zwraca "object". Jest to <a href="https://stackoverflow.com/questions/18808226/why-is-typeof-null-object">błąd javascriptu</a>.
+    Na szczęście bardzo to nie przeszkadza, bo wystarczy taką zmienną przyrównać do null. W końcu null to null...
+</p>
+
+<!--###-->
+<h2 class="subtitle" id="automatyczna-konwersja-typow">Automatyczna konwersja typów</h2>
+<p>
+JavaScript nie wymaga od ciebie abyś deklarował typ zmiennych.
+Przykładowo możesz utworzyć zmienną typu liczbowego o nazwie np. someVar, a następnie przypisać jej wartość znakową:
+</p>
+
+<pre><code class="language-js">
+let someVar = 10;
+someVar = "to jest napis";
+</code></pre>
+
+<p>Z jednej strony jest to fajne, bo upraszcza sprawę. Z drugiej może powodować błędy w bardziej skompilowanych skryptach. Dlatego też w każdym większym języku (np. C++) konieczne jest określanie typów danych. Dlatego też powstały dla JavaScript takie nakładki jak <a href="https://pl.wikipedia.org/wiki/TypeScript">TypeScript</a>
+</p>
+
+<p id="automatyczna-pomoc-js">
+    JavaScript lubi być automatyczny. Tak jest w przypadku operacji na typach prostych i kilku innych momentach (np. w przypadku hoistingu zmiennych czy deklaracji funkcji).<br>
+    Ta automatyczność przejawia się tym, że w wielu momentach JavaScript chce nam ułatwić życie automatycznie konwertując danych tym zmiennej na inny. Przykładowo dodając liczbę do stringa, liczba zostanie skonwertowana na string. Podobnie dodając string do tablicy (ale nie pushując do niej) tablica zostanie skonwertowana na string.
+</p>
+<p>
+    JavaScript nie jest w stanie dodać do siebie tablic czy obiektów (bo nie robi się tego +, a specjalnymi metodami), ale potrafi dodawać numery czy stringi do siebie. Dlatego podczas operacji często stara się skonwertować "niedodawalne" typy danych na typy, które potrafi dodać - najczęściej są to stringi, ale czasami też numbery czy inne wymagane w danej sytuacji typy danych.
+</p>
+
+<p>Poniżej zamieszczam przykłady konwersji, które w rezultacie dają string. Żeby je sprawdzić realnie, możesz wpisać je w konsoli debugera.</p>
+
+<pre><code class="language-js">
+"kot" + "kot" //"kotkot"
+20 + 1  //21
+"20" + 1  //"201"
+"kot" + 20  //"kot20"
+[1,2,3] + "kot" //1,2,3kot, bo tablica została skonwertowana na 1,2,3
+[] + "kot"  //"kot", bo tablica została skonwertowana na ""
+[]  + []  //"", bo obie tablice zostały skonwertowane na "" czyli mamy "" + ""
+[] + false  //"false"
+23 + "" + false  //"23false"
+"" + {}  //"[object Object]" bo obiekt został skonwertowany na zapis [object Object]
+[1,2,3] + {}  //1,2,3[object Object]
+{} + {}  //[object Object][object Object]
+"23" + [1,2,3] + {} + true + false + !true  //"231,2,3[object Object]truefalsefalse"
+</code></pre>
+
+<p>Ale nie tylko na stringi dokonywana jest automatyczna konwersja. Czasami lepszym wyborem będzie number:</p>
+
+<pre><code class="language-js">
+23 + true  //24, bo true zostało skonwertowane na 1
+true + true + true  //3
+true + false  //1, bo false zostało skonwertowane na 0
+true + {}  //"true[object Object]" - konwersja true na 1 i tak by nic nie dała, bo 1 do obiektu nie da się dodać. Dlatego zostało skonwertowane na "true"
+23 + 2 * []  //23 - bo tablica została skownerowana na 0
+</code></pre>
+
+<p>Podobnych smaczków w JavaScript jest więcej. O ciekawych przypadkach dowiesz się z artykułu pod linkiem: <a href="https://kot-zrodlowy.pl/javascript/2018/07/17/absurdy-js.html">https://kot-zrodlowy.pl/javascript/2018/07/17/absurdy-js.html</a>.</p>
+
+<!--###-->
+<h2 class="subtitle" id="konwersja-na-liczby">Manualna konwersja na liczby</h2>
+
+<p>W przypadku dodawania typów złożonych (tablice, obiekty) raczej nie będziemy chcieli wykonywać operacji takich jak powyżej.</p>
+
+<p>W przypadku dokonywania do siebie kilku liczb chcielibyśmy mieć pewność, że dane zmienne są liczbami, a nie stringiem.</p>
+
+<p>Żeby dokonać takiej konwersji, skorzystamy z jednej z dostępnych do tego metod:</p>
+
+<pre><code class="language-js">
+Number(str); //konwertuje tekst na liczbę
+
+parseInt(str, system_liczbowy); //parsuje tekst na liczbę całkowitą
+parseFloat(str); //parsuje tekst na liczbę
+</code></pre>
+
+<p>Powyższe metody różnią się tym, że <strong>parseInt</strong> i <strong>parseFloat</strong> próbują skonwertować tekst, który może w sobie zawierać litery (ale który musi się zaczynać od liczb).<br>
+W przypadku funkcji Number str może zawierać tylko liczby:
+</p>
+
+<pre><code class="language-js">
+console.log( Number("100")); //100
+console.log( Number("50.5")); //50.5
+console.log( Number("50px")); //NaN
+
+console.log( parseInt("24px", 10)); //24
+console.log( parseInt("26.5", 10)); //26
+console.log( parseInt("100kot", 10)); //100
+console.log( parseInt("Ala102", 10)); //NaN - zaczyna się od liter
+console.log( parseInt("Hello", 10)); //NaN
+
+console.log( "20px" + "20px"); //20px20px
+console.log( parseInt("20px", 10) + parseInt("20px", 10) + "px"); //40px
+</code></pre>
+
+<p>
+Ważne jest, by przy wykorzystaniu metody parseInt podawać system na jaki chcemy konwertować (drugi parametr). Najczęściej będzie to system 10. Jeżeli tego nie zrobimy, czasami wyniki mogą nas zaskoczyć:
+</p>
+
+<pre><code class="language-js">
+console.log( parseInt("0x200")); //512
+console.log( parseInt("0x200", 10)); //0
+</code></pre>
+
+<p>Istnieją też inne, mniej znane metody konwersji tekstu na liczby:</p>
+
+<pre><code class="language-js">
+console.log( +"20" ); //20
+console.log( "20" * 1 ); //20
+console.log( "20" / 1 ); //20
+console.log( ~~"20" ); //20
+</code></pre>
+
+
 
 			</div><!-- e: page-content-text -->
 			<footer class="page-footer">
@@ -165,13 +449,13 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
                 </h3>
             </div>
 
-						<div class="page-sidebar-section show has-active-element">
+						<div class="page-sidebar-section ">
 				<h3 class="page-sidebar-section-title">
 					<a href="#">Słowem wstępu</a>
 				</h3>
 				<div class="page-sidebar-list-cnt">
 					<ul class="page-sidebar-list">
-						<li class="active">
+						<li >
 							<a href="/kurs/wstep/wstep.php">Wstęp</a>
 						</li>
 						<li >
@@ -184,7 +468,7 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
 				</div>
 			</div>
 
-						<div class="page-sidebar-section ">
+						<div class="page-sidebar-section show has-active-element">
 				<h3 class="page-sidebar-section-title">
 					<a href="#">Super podstawy</a>
 				</h3>
@@ -199,7 +483,7 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
 						<li >
 							<a href="/kurs/super-podstawy/strict-mode.php">Strict mode</a>
 						</li>
-						<li >
+						<li class="active">
 							<a href="/kurs/super-podstawy/typy-danych.php">Typy danych i konwersja danych</a>
 						</li>
 						<li >
@@ -575,7 +859,66 @@ function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'UA-38558970-5');
 </script>
-
+<div class="tasks-for-you-cnt">
+	<h2 class="subtitle" id="zadania">Trening czyni mistrza</h2>
+	<p>
+		Poniżej zamieszczam kilka zadań, które w ramach ćwiczenia możesz wykonać:
+	</p>
+	<ol class="tasks-for-you">
+		<li>
+			Wymień z pamięci wszystkie typy proste i referencyjne występujące w js.
+		</li>
+		<li>
+			<div class="question">
+				Stwórz <a href="zmienne.php">zmienne</a> każdego typu. Wypisz w konsoli ich typy.
+				Spróbuj wykonać na nich proste działania dodawania, odejmowania, mnożenia i dzielenia.
+			</div>
+			<div class="solution">
+				<pre><code class="language-js">
+				let nr = 23;
+				let txt = "ala ma kota";
+				let undef;
+				let nul = null;
+				let obj = {};
+	
+				console.log(nr + txt);
+				console.log(nr + undef);
+				console.log(nul + obj);
+				...
+				</code></pre>
+			</div>
+		</li>
+		<li>
+			<div class="question">
+				Masz przykładową zmienną:<br>
+				<pre><code class="language-js">let width = "20px";</code></pre>
+				Dodaj do niej wartość <strong>30</strong>. Wynik wypisz w konsoli.
+			</div>
+			<div class="solution">
+				<pre><code class="language-js">
+				let width = "20px";
+				let sum = parseInt(width, 10) + 30;
+				console.log(sum);
+				</code></pre>
+			</div>
+		</li>
+		<li>
+			<div class="question">
+				<a href="./instrukcje-warunkowe.php">Sprawdź</a> czy zmienna age istnieje. Jeżeli nie istnieje, stwórz
+				taką zmienną i wypisz ją w konsoli.
+			</div>
+	
+			<div class="solution">
+				<pre><code class="language-js">
+				if (typeof age === "undefined") {
+					let age = 23;
+					console.log(age);
+				}
+				</code></pre>
+			</div>
+		</li>
+	</ol>
+	</div>
 	<script src="/js/ads.js"></script>
 	<script src="/js/script.min.js?v=0.13" defer></script>
 </body>

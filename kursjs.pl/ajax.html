@@ -1,0 +1,1122 @@
+<!doctype html>
+<html lang="pl-PL">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kurs Javascript - AJAX</title>
+	<meta name="description" content="Kurs Javascript dla superbohaterów, artykuły, tutoriale, porady, zadania do wykonania" />
+    <link rel="canonical" href="https://kursjs.pl/kurs/ajax/ajax.php" />
+	<link rel="stylesheet" href="./css.css" />
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,700&display=swap&subset=latin-ext" rel="stylesheet">
+	<meta name="image" content="https://kursjs.pl/kursjs.png">
+<meta name="twitter:card" content="product">
+<meta name="twitter:site" content="@publisher_handle">
+<meta name="twitter:title" content="Kurs Javascript">
+<meta name="twitter:description" content="Kurs Javascript dla superbohaterów">
+<meta name="twitter:creator" content="@kartofelek007">
+<meta name="twitter:image" content="https://kursjs.pl/kursjs.png">
+<meta property="og:title" content="Kurs Javascript">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.kursjs.com/">
+<meta property="og:image" content="https://kursjs.pl/kursjs.png">
+<meta property="og:description" content="Kurs Javascript dla superbohaterów">
+<meta property="og:site_name" content="Kurs Javascript">
+<link rel="apple-touch-icon" sizes="57x57" href="/favicons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/favicons/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/favicons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/favicons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/favicons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/favicons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/favicons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/favicons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="/manifest.json">
+<meta name="msapplication-TileColor" content="#FF6347">
+<meta name="msapplication-TileImage" content="/mstile-144x144.png">
+    <script src="/js/jquery.min.js"></script>
+</head>
+<body>
+
+<div class="page-container" id="pageContainer">
+	<div class="page-content-wrapper">
+        <main class="page-content" id="mainContent"  data-text-for-print="Kurs Javascript dla superbohaterów">
+                        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <div class="rekl-cnt">
+                <ins
+                class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-6843603045703750"
+                data-ad-slot="4690777640"
+                data-ad-format="auto"
+                data-full-width-responsive="true"
+                ></ins>
+            </div>
+                        <div class="page-content-text">
+
+
+
+<h1 class="page-title">AJAX</h1>
+<p>
+Ajax czyli <strong>Asynchronous JavaScript and XML</strong> to technika, wzorzec, który umożliwia nam ściąganie i wysyłanie części danych bez potrzeby przeładowania całej strony.
+</p>
+<p>
+    Widzisz ten pierwszy człon nazwy? <strong>Asynchroniczny</strong> oznacza, że wiele operacji może wykonywać się równocześnie, bez potrzeby czekania na zakończenie poprzedniego kodu.
+    Dzięki temu możemy pobierać dynamicznie dane z wielu miejsc na raz, ale i równocześnie możemy wiele danych wysyłać.
+</p>
+<p>
+    Zanim przejdziemy do pracy z Ajaxem, musimy przejść przez trochę teorii, która będzie nam się non stop przewijać przy pracy z asyncrhonicznymi połączeniami (zwanymi też XHR).
+</p>
+
+<h2 class="subtitle" id="http">Protokół HTTP</h2>
+<p>
+Komunikacja w Internecie bazuje na jakiś protokołach. Z pewnością o nich słyszałeś i bardzo często używałeś. Mamy więc dla przykładu smtp, imap, ftp, itp (<a href="https://pl.wikipedia.org/wiki/Protok%C3%B3%C5%82_komunikacyjny">1</a>). Ten odpowiedzialny za przesyłanie danych na stronach
+Działanie internetu w większości opiera się o protokół HTTP (przy czym już można trafić na protokół <a href="https://pl.wikipedia.org/wiki/HTTP/2">HTTP2</a> a już w planach jest <a href="https://en.wikipedia.org/wiki/HTTP/3">HTTP3</a>).<br>
+HTTP2 i HTTP3 będą usprawniały działanie HTTP, który jest obecnie używany najczęściej. A właściwie co one mają usprawniać?
+</p>
+<p>
+Gdy robimy zapytanie o jakiś zasób (np. wchodzimy na daną stronę, pobieramy jakąś grafikę, plik CSS itp.), przeglądarka wysyła w internet żądanie. Od razu włącz debugera i przejdź na <a href="../debuger/debuger.php#zakladka-network">zakładkę Network</a>. Następnie odśwież tą stronę by wczytać ponownie requesty. Jak zauważysz, pierwszym requestem na liście będzie żądanie o wyświetlenie tej właśnie strony.
+</p>
+
+<p>
+Twoja przeglądarka wysłała zapytanie o adres "/kurs/ajax/ajax.php" oraz kilka nagłówków informacyjnych.
+Kliknij na pierwszy request i zbadaj jego postać. Zobaczysz tam sekcję <strong>Request headers</strong>.
+Wśród tych nagłówków są informacje takie jak rodzaj przeglądarki, jakie typy danych ona obsługuje, rodzaj cache itp.<br>
+</p>
+
+<img src="./request.png" alt="nagłówki request" class="border space">
+
+<p>
+Takie zapytanie leci w Internet, ale nie trafia ono bezpośrednio do serwera na którym znajduje się żądana strona. Każdy komputer w internecie ma swój numer IP. Jeżeli chcesz znaleźć swój, możesz skorzystać ze strony <a href="http://www.howtofindmyipaddress.com/">http://www.howtofindmyipaddress.com/</a>.
+W każdym bądź razie - my wysłaliśmy zapytanie o adres "/kurs/ajax/ajax.php" (czyli na stronę, która leży na konkretnej domenie), a w internecie komputery istnieją pod postacią adresów IP. Zapytanie to trafia na serwer <a href="https://pl.wikipedia.org/wiki/Domain_Name_System">DNS</a>, które mapuje dany "ludzki" adres na odpowiedni numer IP. Zapytanie wędruje do odpowiedniego serwera w Internecie. Ten opis jest mocno uproszczony.
+</p>
+
+<p>Po dotarciu do docelowego serwera, ten analizuje dane zapytanie, po czym zwraca nam odpowiedź, która składa się z:</p>
+
+<ul>
+    <li>Statusu odpowiedzi</li>
+    <li>0 lub więcej nagłówków (np. jakiego typu jest dana odpowiedź, jej długości, ważności itp.)</li>
+    <li>Ciała odpowiedzi - body - (które nie zawsze występuje)</li>
+</ul>
+
+<p>
+Nagłówki odpowiedzi (response headers) jak i ciało odpowiedzi możesz sobie przejrzeć w zakładce Network w tym samym miejscu co powyżej. Taka odpowiedź może wyglądać jak tak z poniższego screenu:
+</p>
+
+<img src="./response.png" alt="nagłowki request" class="border space">
+
+<p>
+Gdy przeglądarka dostatnie taką odpowiedź, zaczyna czytać ciało odpowiedzi.<br>
+Dochodzi do momentu, gdzie np. za pomocą znacznika link dołączone są style do strony, czy np. grafika img. Przeglądarka wysyła kolejne żądanie (wraz z nagłówkami request headers), serwer je przetwarza i odsyła stosowną odpowiedź.<br>
+W dołączonych stylach autor użył <a href="https://developer.mozilla.org/pl/docs/Web/CSS/@import">@import</a>, które służy do dołączania innych plików css, lub dla danego elementu użył background-image. Przeglądarka natrafia na takie zapisy i
+znowu wysyła odpowiednie żądanie do odpowiedniego serwera. Ale co to. Autor w swoim HTML wrzucił film z Youtube. Przeglądarka natrafia na taki zapis i ponownie wykonuje żądanie. Coś jak przy grze w pingponga. Przeglądarka robi zagranie, serwer odpowiada...
+</p>
+
+<div class="video-cnt">
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/Bb5JFTYxDfo?start=67" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
+<p>W powyższym opisie kilka rzeczy ma dla nas szczególne znaczenie.</p>
+<p>Pierwszą z nich jest <strong>status</strong>, czyli oznaczenie, czy dane połączenie się zakończyło sukcesem (200) lub np. niepowodzeniem, bo dany adres nie istnieje (404).</p>
+
+<p id="status">Najczęściej spotykane statusy odpowiedzi to:</p>
+
+<table class="tab">
+    <tr><th>200</th><td>Wszystko ok, połączenie zakończyło się sukcesem</td></tr>
+    <tr><th>301</th><td>Strona została przeniesiona na inny adres</td></tr>
+    <tr><th>404</th><td>Nie ma takiej strony</td></tr>
+    <tr><th>500</th><td>Błąd serwera</td></tr>
+</table>
+
+<p>Wśród nagłówków "response headers" warto zwrócić uwagę na kilka z nich.</p>
+
+<p>
+Nagłówek <strong>content/type</strong>, określa typ <a href="https://pl.wikipedia.org/wiki/Typ_MIME">MIME danych</a>. Jest to typ, rodzaj danego pliku czy dokumentu. Dla przykładu dokument HTML ma typ text/html, filmy mp4 mają typ video/mp4, a pliki dźwiękowe WAV mają audio/x-wav. Mime type nie jest jakąś specyficzną rzeczą dla protokołu HTTP. Każdy plik jaki używamy na naszych komputerach ma swój typ który określany jest właśnie przez MIME type.
+</p>
+<p>
+Tu pojawia się mała ciekawostka. Jeżeli serwer wyśle nam dokument HTML (stronę, o którą prosiliśmy), ale jako typ ustawi text/plain, wtedy w naszej przeglądarce strona wyświetli się jako plik tekstowy. Podobnie z całą resztą zasobów - gdy serwer wyśle grafikę png jako text/plain, w naszej przeglądarce zobaczymy tekstowy śmietnik, bo tak właśnie wyglądała by ta grafika gdybyśmy otworzyli ją za pomocą edytora tekstowego.</p>
+
+<div class="kartofel-informuje">
+Raz od święta może się zdarzyć, że uda ci się w wyszukiwarce znaleźć grafiki jpg, które mają przezroczyste tło. Stosownego przykładu z głowy ci nie podam, ale sam natrafiałem na takie twory. Wynika to właśnie z tego, że serwer, który wysłał ci dany zasób pomylił się i wysłał plik png z content/type ustawionym na jpg. Podobnie może się dziać z wieloma innymi zasobami - dla przykładu można wysyłać skrypty php które podszywają się pod grafiki...
+</div>
+
+<p>Kolejną bardzo ważną właściwością każdego połączenia jest jego typ. Jeżeli wejdziesz do debugera i zakładki Network, a następnie odświeżysz tą stronę,  zobaczysz, że większość połączeń będzie typu GET. Dlatego, że pobieramy dane. Takich typów jest kilka:</p>
+
+<table class="tab">
+    <tr>
+        <th>GET</th>
+        <td>Ten typ połączenia służy do pobieranie danych. Można wykorzystać go też do przekazywania (wysyłania) danych, które to stosujemy przy formularzach w kodzie HTML lub dość często do komunikacji między podstronami danego portalu. Dane te są dołączane do adresu strony. Tego typu przekazywania danych używa się do pracy na stosunkowo małej ilości danych, ponieważ <a href="https://stackoverflow.com/questions/417142/what-is-the-maximum-length-of-a-url-in-different-browsers">liczba liter w adresie wynosi ok 2000</a>, więc i dane nie mogą być bardzo długie. Z pewnością spotkałeś się z takim przesyłaniem danych. Wystarczy skorzystać z praktycznie każdej strony w Internecie by zobaczyć jak doklejane są dane do adresu strony (Facebook, GMail, Google Maps itp.)</td>
+    </tr>
+    <tr>
+        <th>POST</th>
+        <td>wykorzystywany do wysyłania danych. Ten typ danych jest dołączany do ciała requestu, a nie do adresu strony. Można go podejrzeć w zakładce Network na samym dole danego requestu, który wysłał dane.</td>
+    </tr>
+    <tr>
+        <th>PUT</th>
+        <td>typ połączenia używany do zamiany rekordu w bazie danych. Stosowany przy edycjach rekordów.</td>
+    </tr>
+    <tr>
+        <th>PATCH</th>
+        <td>Podobny do PUT, z tym że wykorzystuje się do edycji/aktualizacji pojedynczej właściwości obiektu w bazie danych - np. nazwiska użytkownika</td>
+    </tr>
+    <tr>
+        <th>DELETE</th>
+        <td>Określa typ połączenia służący do usuwania danych</td>
+    </tr>
+</table>
+
+<p>Połączenia typu <strong>GET</strong> i <strong>POST</strong> mogą być przez nas wykorzystywane przy tworzeniu formularzy w HTML.</p>
+<p>Cała reszta połączeń (włącznie z GET i POST) wykorzystywana jest przy połączeniach asynchronicznych wykonywanych za pomocą Javascript.</p>
+
+<div class="kartofel-informuje">
+    PUT można traktować jak zastąpienie starej wartości nową. Można więc porównać to do ustawienia danej zmiennej zupełnie nowej wartości z nowymi danymi. PATCH natomiast zmienia tylko składowe, czyli porównując zmienia tylko jakieś dane w tej tablicy.<br>
+    Ale to tylko teoria. W praktyce do edycji danych na serwerze używa się tego i tego (przy czym put o wiele częściej).
+</div>
+
+
+
+<!-- ### -->
+<h2 class="subtitle" id="rest">RESTful API</h2>
+<p>Jak na początku sobie powiedzieliśmy - wysyłając czy pobierając dane zawsze będziesz się łączył do jakiegoś serwera. Stamtąd możesz pobierać czy wysyłać dane w zasadzie w dowolnym formacie. Chcesz ściągnąć plik tekstowy? Proszę bardzo. A może kawałek HTML? Też nie ma problemu. Zresztą na co dzień nie raz z tym się spotykamy - czy to przez wysyłanie zdjęcia znajomemu na Messengerze, czy pobieraniu jakiegoś pliku z internetu.</p>
+
+<p>I tutaj pojawia się pewna rzecz. Gdybyśmy tylko robili pojedyncze połączenie na naszej stronie - np. pobierali dane dla tabeli, moglibyśmy sobie to zaplanować dokładnie tak jakbyśmy chcieli. Gdy takich adresów i czynności nam przybywa, także możemy to zrobić tak jak nam pasuje (no bo kto ma nam zabronić...), ale warto wtedy posłużyć się jakimś przepisem, jak to zrobić.</p>
+
+<p>I tutaj właśnie pojawia się on - cały ubrany na niebiesko-czerwono -  <strong>REST</strong> czyli Representational State Transfer.</p>
+<p>Co to takiego? Pewna konwencja, wzór, a w zasadzie <a href="https://pl.wikipedia.org/wiki/Representational_State_Transfer">cytując wikipedię</a> styl architektury.</p>
+
+<p>Wyobraź sobie, że w celu pobierania/wysyłania danych będziemy dynamicznie łączyć się na adres:</p>
+
+<pre><code>
+const ourApiUrl = "http://kursjs.pl/bohaterowie";
+</code></pre>
+
+<p>To co powyżej to główny adres naszej "aplikacji na serwerze" (a właściwie miejsca do którego możemy się łączyć by pobierać czy wysyłać dane). <br>
+Architektura REST to zbiór dobrych zasad, które określają, jak powinieneś zbudować odpowiednie endpointy (adresy na które się będziemy łączyć), by inni programiści mogli się w nich odnaleźć.</p>
+
+<p>Spójrzmy na adresy w przykładowym REST API:</p>
+
+<table class="tab">
+    <tr>
+        <th>Metoda HTTP</th>
+        <th>Adres</th>
+        <td>Opis</td>
+    </tr>
+    <tr>
+        <th>GET</th>
+        <th>http://kursjs.pl/bohaterowie</th>
+        <td>Pobranie całej listy bohaterów</td>
+    </tr>
+    <tr>
+        <th>POST</th>
+        <th>http://kursjs.pl/bohaterowie</th>
+        <td>Wysłanie/dodanie nowego bohatera</td>
+    </tr>
+    <tr>
+        <th>GET</th>
+        <th>http://kursjs.pl/bohaterowie/1</th>
+        <td>Pobranie danych bohatera o id 1</td>
+    </tr>
+    <tr>
+        <th>PUT / PATCH</th>
+        <th>http://kursjs.pl/bohaterowie/1</th>
+        <td>Aktualizacja/edycja bohatera o id 1</td>
+    </tr>
+    <tr>
+        <th>DELETE</th>
+        <th>http://kursjs.pl/bohaterowie/1</th>
+        <td>Usunięcie bohatera o id 1</td>
+    </tr>
+</table>
+
+<p>Teraz jeżeli dasz mi adres "http://kursjs.pl/bohaterowie" to ja wiedząc, że stosujesz REST mogę założyć, że gdy chcę dodać nowego użytkownika, dane powinienem wysłać za pomocą połączenia typu POST na adres ""http://kursjs.pl/bohaterowie". Ale już edytując dane jakiegoś użytkownika, pewnie wyślę dane za pomocą PUT na adres "http://kursjs.pl/bohaterowie/10". Jasne - bez opisu takiego API pewnie bym nie podchodził, ale przynajmniej jakieś założenia mogę zrobić...</p>
+
+<p>Bardzo fajny artykuł na ten temat znajduje się pod adresem <a href="https://www.smashingmagazine.com/2018/01/understanding-using-rest-api/">https://www.smashingmagazine.com/2018/01/understanding-using-rest-api/</a>.</p>
+
+<p>Przykładowych API do których możemy się łączyć jest mnóstwo i bardzo łatwo je w necie znaleźć. Wystarczy wpisać w google "public api". Nasa ma swoje, jakieś ministerstwa pogody itp. Tutaj masz <a href="https://github.com/toddmotto/public-apis#animals">przykładową listę</a> darmowych api z których będziesz mógł pobierać dane. Nie zawsze jest to proste. Dość często trzeba się dodatkowo rejestrować, a i część z takich darmowych API jest dość średnia w wyglądzie i trzeba się przeczesywać przez ich nierzadko dość toporne opisy.</p>
+
+<p>Zanim przejdziesz dalej, spróbuj przyjrzeć się przykładowemu api: <a href="https://jsonplaceholder.typicode.com/">https://jsonplaceholder.typicode.com/</a>. Gdy przewiniesz stronę w dół, zobaczysz adresy na które będziesz mógł wykonywać połączenia. Widzisz adres <a href="https://jsonplaceholder.typicode.com/posts">/posts</a>? Podobnie do powyższych bohaterów. Gdy będziesz chciał pobrać wszystkie posty wykonasz zapytanie na https://jsonplaceholder.typicode.com/posts. Gdy będziesz chciał pobrać konkretny post, wykonasz zapytanie na https://jsonplaceholder.typicode.com/posts/<strong>id</strong>. Gdy będziesz chciał edytować treść danego posta, wyślesz PUT na adres https://jsonplaceholder.typicode.com/posts/<strong>id</strong>.</p>
+<p>Wejdź sobie na przykładowy ROUTE na ich stronie i spróbuj pobrać sobie wybrane posty dodając ID do adresu strony.</p>
+<p>Dobrze też do takich testów użyć <a href="#postman">PostMana</a>, czyli aplikację służącą do testowania połączeń. Opisuję go na dole tej strony...</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="xml">XML</h2>
+<p>
+<strong>Asynchronous JavaScript and XML</strong> - tym razem spójrzmy na końcówkę tej nazwy. Oznacza ona, że nasze dynamiczne połączenia będą operować głównie na danych w formacie XML.<br>
+Faktycznie - gdy powstawał Ajax, głównym formatem przesyłanych danych był XML.
+</p>
+<p>
+Problem (a w zasadzie nie problem, co cecha) z tym formatem  jest taki, że po pierwsze jego zapis jest dość długi, co czasami może sprawić, że sama składnia będzie dłuższa od realnych danych:
+</p>
+
+<pre><code class="language-xml">
+&lt;?xml version="1.0"?>
+&lt;catalog>
+   &lt;book id="bk101">
+      &lt;author>Gambardella, Matthew&lt;/author>
+      &lt;title>XML Developer's Guide&lt;/title>
+      &lt;genre>Computer&lt;/genre>
+      &lt;price>44.95&lt;/price>
+      &lt;description>An in-depth look at creating applications
+      with XML.&lt;/description>
+   &lt;/book>
+   &lt;book id="bk102">
+      &lt;author>Ralls, Kim&lt;/author>
+      &lt;title>Midnight Rain&lt;/title>
+      &lt;genre>Fantasy&lt;/genre>
+      &lt;price>5.95&lt;/price>
+      &lt;description>A former architect battles corporate zombies&lt;/description>
+   &lt;/book>
+&lt;/catalog>
+</code></pre>
+
+<p>Dodatkowo poza długim zapisem pobieranie takich danych przypomina <a href="https://stackoverflow.com/questions/1199180/read-xml-file-using-javascript">spacerowanie po drzewie dom</a>, co też nie jest najprzyjemniejszą rzeczą na świecie. Poniżej bardzo prosty przykład, a już musimy stosować dość skomplikowane zapisy:</p>
+
+<pre data-line="16-23"><code class="language-js">
+function loadDoc() {
+    const xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState === 4 && this.status === 200) {
+            myFunction(this);
+        }
+    };
+    xhttp.open("GET", "books.xml", true);
+    xhttp.send();
+}
+
+function myFunction(text) {
+    const parser = new DOMParser();
+    const xmlDoc = parser.parseFromString(text.response, "text/xml");
+    const books = xmlDoc.querySelectorAll('book');
+    [].forEach.call(books, function(book) {
+        const title = book.querySelector('title').firstChild.nodeValue;
+        const author = book.querySelector('author').firstChild.nodeValue;
+        const genre = book.querySelector('genre').firstChild.nodeValue;
+        const price = Number(book.querySelector('price').firstChild.nodeValue);
+        const description = book.querySelector('description').firstChild.nodeValue;
+        console.log(title, author, gender, price, description);
+    });
+}
+
+loadDoc();
+</code></pre>
+
+<script>
+function loadDoc() {
+    const xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState === 4 && this.status === 200) {
+            myFunction(this);
+        }
+    };
+    xhttp.open("GET", "books.xml", true);
+    xhttp.send();
+}
+
+function myFunction(text) {
+    const parser = new DOMParser();
+    const xmlDoc = parser.parseFromString(text.response, "text/xml");
+    const books = xmlDoc.querySelectorAll('book');
+    [].forEach.call(books, function(book) {
+        const title = book.querySelector('title').firstChild.nodeValue;
+        const author = book.querySelector('author').firstChild.nodeValue;
+        const genre = book.querySelector('genre').firstChild.nodeValue;
+        const price = Number(book.querySelector('price').firstChild.nodeValue);
+        const description = book.querySelector('description').firstChild.nodeValue;
+        console.log(title, author, gender, price, description);
+    });
+}
+
+loadDoc();
+</script>
+
+<div class="kartofel-informuje">
+I nie, XML wcale nie jest złem wcielonym. Autor przez długi czas korzystał z tego formatu i żyło się z tym całkiem fajnie. Potem pojawił się poniżej opisywany bohater i w pierwszych momentach <a href="https://www.youtube.com/watch?v=gPq5EY1O09g">oczywiście zdziwienie</a> - bo przecież XML jest całkiem fajny.</div>
+
+<!-- ### -->
+<h2 class="subtitle" id="json">JSON</h2>
+<p>XML działa całkiem dobrze, ale można i lepiej. Dość szybko wymyślony został inny format - JSON, który bardzo uprościł prace na przesyłanych danych.</p>
+<p>Format JSON do złudzenia przypomina <a href="../obiekty/obiekty.php#literal">klasyczne obiekty</a> w JavaScript:</p>
+
+<pre><code class="language-json">
+{
+    "catalog" : [
+        {
+            "id" : "bg101",
+            "author" : "Gambardella, Matthew",
+            "title" : "XML Developer's Guide",
+            "genre" : "Computer",
+            "price" : 44.95,
+            "description" : "An in-depth look at creating applications with XML."
+        },
+        {
+            "id" : "bg102",
+            "author" : "Ralls, Kim",
+            "title" : "Midnight Rain",
+            "genre" : "Fantasy",
+            "price" : 5.95,
+            "description" : "A former architect battles corporate zombies"
+        }
+    ]
+}
+</code></pre>
+
+<p><strong>Jest jednak kilka różnic, które go odróżnia od obiektów:</strong></p>
+
+<ul>
+    <li>Oczywiście żadnych funkcji - to tylko dane, więc mają mieć tylko dane</li>
+    <li>Nazwy kluczy piszemy w cudzysłowach</li>
+    <li>Żadnych komentarzy</li>
+    <li>Żadnych pojedynczych cudzysłowów - tylko podwójne</li>
+    <li>Żadnego brakującego i nadmiarowego przecinka. Wszystko ma być tip-top jak w wojsku.</li>
+    <li>Teksty piszemy w jednej linii - nawet te na wiele linii. Musimy tutaj zastosować jakieś znaki nowej linii, które potem odpowiednio skonwertujemy.</li>
+</ul>
+
+<p>Skoro JSON tak przypomina obiekty JavaScript, to czy praca na nich też przypomina pracę na obiektach JavaScript? Jak najbardziej.</p>
+
+<pre><code class="language-js">
+//pobieram dane drugiej książki z powyższego JSON
+const el = catalog[0];
+
+const id = el.id;
+const author = el.author;
+const title = el.title;
+const genre = el.genre;
+const price = el.price;
+const description = el.description;
+
+//lub za pomocą destrukturyzacji w ES6
+{id, author, title, genre, price, description} = catalog[0];
+</code></pre>
+
+<p>
+Format json najczęściej zapisuje się w plikach z rozszerzeniem .json.
+W dzisiejszych czasach możesz go spotkać na każdym kroku. I mamy go w każdym projekcie Node (package.json), a i praktycznie każda nowa aplikacja korzysta z takich plików. Ot chociażby Visual Studio Code gdzie wszelkie ustawienia trzymane są właśnie w tym formacie (ciut zmodyfikowanym, bo ma komentarze), ale i podobne aplikacje korzystają właśnie z JSON.
+</p>
+<p>
+Aby sprawdzić poprawność naszego JSON, wystarczy skorzystać z narzędzia <a href="https://jsonlint.com/">https://jsonlint.com/</a>.
+</p>
+
+<p>W ramach mini treningu użyj tego narzędzia i popraw poniższy JSON:</p>
+
+<pre><code>
+{
+    "data" : {
+            "id" : 1000,
+            'name' : "Marcin",
+            "surname" : "Nowak",
+            "user_type" : "admin",
+            "privileges" : [
+                "edit_post",
+                "add_post",
+                "delete_post"
+                'delete_user',
+            ]
+        },
+}
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="obiekt-json">Obiekt JSON</h2>
+<p>
+W pracy z formatem JSON w JavaScript bardzo pomocny okaże się obiekt JSON. Nie jest to klasa obiektów (więc nie używamy go z new), a pojedynczy obiekt, który udostępnia nam 2 metody: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify">stringify</a> i <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify">parse</a>.
+</p>
+
+<p>
+Pierwsza z nich zamienia dany obiekt na tekstowy zapis w formacie JSON. Druga z nich zamienia zakodowany wcześniej tekst na obiekt JavaScript:</p>
+
+<pre><code class="language-js">
+const ob = {
+    name : "Piotr",
+    surname : "Nowak"
+}
+
+const obStr = JSON.stringify(ob);
+console.log(obStr); //"{"name":"Piotr","subname":"Nowak"}"
+
+console.log( JSON.parse(obStr) ); //nasz wcześniejszy obiekt
+</code></pre>
+
+<p>Do czego to może się przydać? W przypadku Ajax będziemy go wykorzystywać do <a href="./fetch.php#use-stringify">wysyłania danych na serwer w formacie JSON</a>.
+</p>
+
+<p>
+Wysłanie prostych nie zagnieżdżonych danych nie jest problemem - będziemy wykonywać go tradycyjnie. Jeżeli jednak chcemy wysłać dane które są zagnieżdżone (np. obiekt w obiekcie), wtedy bez JSON.stringify się nie obejdzie.
+</p>
+
+<p>Innym praktycznym zastosowaniem obiektu JSON jest praca z <a href="../dom/dom-wlasciwosci.php#stringfity">dataset</a>, gdzie dane są przechowywane jako string, dlatego gdy chcemy przechować tam obiekt, musimy go zamienić na zapis tekstowy.</p>
+
+<pre><code class="language-js">
+const ob = {
+    name : "Piotr",
+    surname : "Nowak",
+    car : {
+        brand : "Fiat",
+        color: "red"
+    }
+}
+
+
+//przykład z dataset
+element.dataset.info = ob; //nie zrobiliśmy konwersji
+console.log(element.dataset.info); //[object Object]
+
+element.dataset.info = JSON.stringify(ob);
+console.log(JSON.parse(element.dataset.info)); //powyższy obiekt
+
+
+//przykład z ajax
+
+//tak nie wyślemy
+$.ajax({
+    url : '...',
+    data : ob
+});
+
+//tak jak najbardziej
+$.ajax({
+    url : '...',
+    contentType : 'application/json',
+    data : JSON.stringify(ob);
+});
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="czym-sie-laczyc">Czym się łączyć</h2>
+<p>
+    W czystym JavaScript do obsługi dynamicznych połączeń XHR możemy skorzystać z 2 rzeczy: obiektu <a href="./xmlhttprequest.php">XMLHttpRequest</a>oraz <a href="./fetch.php">Fetch</a>.<br>
+    Ten pierwszy istnieje nierozłączenie od początku istnienia Ajax. Mnogość opcji, ale i nieco kodu, który musimy napisać przy realnych problemach sprawia, że sporo osób uważa go za mocno niewygodne narzędzie do łączenia się.
+</p>
+<p>
+    Ten drugi to nowsze rozwiązanie, które w wielu sytuacjach jest o wiele prostsze w użyciu, a to dzięki domyślnej obsłudze <a href="promise.php">obietnic</a>, a i kilku nowym interfejsom takim jak <a href="https://developer.mozilla.org/en-US/docs/Web/API/Headers">Headers</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/API/Response">Response</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/API/Request">Request</a>.
+</p>
+
+<p>
+Przy najprostszych skryptach użycie obydwu sposobów jest całkiem proste. Problem pojawia się w bardziej zaawansowanych aplikacjach, gdzie musimy pobierać i wysyłać wiele danych, musimy dbać o autoryzację, obsługę błędów, wyjątków i reagować na różne nieprzewidziane sytuacje. Okazuje się, że oba te rozwiązania przydało by się okryć dodatkowymi funkcjami i stosownymi warunkami - czyli stworzyć pewną abstrakcję, która ułatwi nam późniejsze ich używanie (<a href="https://css-tricks.com/using-fetch/">1</a>, <a href="https://gomakethings.com/why-i-still-use-xhr-instead-of-the-fetch-api/">2</a>).
+</p>
+
+<p>Między innymi dlatego właśnie dość często jeżeli mówimy o realnych projektach, wybierane są gotowe biblioteki, które dają nam swoistą nakładkę na cały kod, który i tak musielibyśmy napisać. Nie jest to rzecz, którą używać musimy, ale może nam to po prostu ułatwić pracę z przyszłym projektem.</p>
+
+<p>
+Jedną z najczęściej wybieranych metod jest użycie <a href="../jquery/jquery-ajax.php">Ajax w jQuery</a>, która jest bajecznie prosta w użyciu.
+</p>
+
+<p>
+Jeżeli nie używasz jQuery, możesz pokusić się o wypróbowanie dość popularnych <a href="https://github.com/axios/axios">Axios</a> lub <a href="https://github.com/visionmedia/superagent">Superagent</a>.
+</p>
+
+<p>Ale dalej - nie są to rzeczy, których używać musimy, a podejście do przesyłania danych zależy głównie od nas.</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="cors">Pobieranie danych i CORS</h2>
+<p>Jak dowiedzieliśmy się na wstępie - żeby pobrać i wysyłać dane, musimy mieć naszą aplikację (skrypt) i serwer - miejsce do którego będziemy takie połączenia wykonywać.</p>
+
+<p>Jeżeli robisz swoje strony jako pliki html na dysku, które otwierasz 2x klikniem i chcesz dynamicznie pobrać na stronę plik, który leży tuż obok naszego pliku html (a może gdzieś indziej na dysku), to niestety ci się to nie uda, a zamiast pobranych danych dostaniesz w konsoli debugera długi czerwony błąd.</p>
+
+<p>Ale czemu właściwie się nie uda?</p>
+<p>Rozchodzi się o zabezpieczenia typu <strong>CORS - Cross-Origin Resource Sharing</strong>.</p>
+<p>
+Klasyczne połączenia, które na co dzień robimy za pomocą naszej przeglądarki (czyli wpisujemy np. w adresie przeglądarki dany adres) możemy wykonywać w dowolne miejsca w internecie. Najwyżej dostaniemy 404 i cofniemy się do poprzedniej strony.
+</p>
+<p>
+Sytuacja zmienia się w przypadku dynamicznych połączeń XHR, które wykonujemy za pomocą Javascript. Ze względów bezpieczeństwa takie połączenia domyślnie możemy wykonywać tylko w obrębie własnej domeny, lub do serwerów, które dadzą ci znać, że możesz od nich pobierać dane.<br> A jak dadzą znać? Wysyłając odpowiedni nagłówek:</p>
+
+<pre><code>
+Access-Control-Allow-Origin "*"
+Access-Control-Allow-Methods: "GET,POST,OPTIONS,DELETE,PUT"
+</code></pre>
+
+<p>Pierwszy nagłówek wskazuje na domeny, które mogą wykonywać dynamiczne połączenia na ten serwer. Gwiazdka oznacza dowolną domenę. Drugi nagłówek określa możliwe typy połączeń.</p>
+
+<p>Poniżej przykładowa odpowiedź z <a href="https://dog.ceo/dog-api/">jednego z publicznych api</a>:</p>
+
+<img src="./cors-header.png" alt="Nagłówki cors" class="border space">
+
+<p>W bardzo wielu przypadkach gdy się połączysz z jakimś serwisem by pobrać dane, w twojej konsoli pojawi się wspomniany złowieszczy komunikat: </p>
+
+<img src="./cors-error.png" alt="Cors error" class="border space">
+
+<p>Oznacza on, że nie możesz się dynamicznie łączyć z tym serwerem. Jeżeli wiesz dobrze, że adres jest poprawny i powinieneś móc się połączyć, od razu męcz administratorów danego serwera, bo prawdopodobnie dali ciała i nie wysyłają ci odpowiednich nagłówków...</p>
+
+<p>
+Istnieją też nieco inne - mniej oficjalne rozwiązania tego problemu. Można na przykład spróbować skorzystać ze strony <a href="https://cors-anywhere.herokuapp.com/">https://cors-anywhere.herokuapp.com/</a>, która pozwala omijać CORS. Wystarczy do jej adresu dodać adres serwera, który ma problem z CORS:
+</p>
+
+<pre><code class="language-js">
+const apiUrl = "http://my-bad-server.com/movies";
+const corsAnywhereUrl = "https://cors-anywhere.herokuapp.com/";
+const url = corsAnywhereUrl + apiUrl;
+
+fetch(url).then(...)
+</code></pre>
+
+<p>
+Dla niektórych przeglądarek istnieją też dodatki, które pozwalają wyłączyć te zabezpieczenia.<br>
+Dla Chrome to np. <a href="https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi">ten</a> a dla Firefoxa np. <a href="https://addons.mozilla.org/pl/firefox/addon/cors-everywhere/">ten</a>.
+Dla reszty przeglądarek łatwo coś odnaleźć szukając "nazwa przeglądarki disable cors plugin".<br>
+Czy polecam to podejście? Gdy trzeba coś na szybko przetestować - pewnie da radę. Ale pamiętaj, że użytkownik nie będzie miał zainstalowanego takiego rozszerzenia, więc tak naprawdę problemu nie rozwiązujesz. Osobiście wolę metodę pierwszą - męczenie administratorów. A nawet tak dla zasady - co będą fikać do nas frontendowców 😁...
+</p>
+
+<p>Innym rozwiązaniem CORS jest stworzenie pośredniego serwera agregującego. Problem CORS dotyczy tylko przeglądarek. Strona backendowa spokojnie może takie połączenia wykonywać. Wystarczy stworzyć mini serwer (np. w <a href="./server-easy.zip">Express</a>), który będzie łączył się z danym serwerem, pobierał stamtąd dane, a my będziemy się łączyć z naszym.</p>
+
+<p>Tak czy siak, przy pracy z Ajaxem nie unikniemy jednej rzeczy - pracy z <a href="./server-lokalny.php">własnym serwerem</a>.</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="postman">Postman</h2>
+<p>Zanim przejdziemy do właściwej pracy ostatnie mini narzędzie, które może nam się przydać. W powyższym przykładzie zrobiłem testowe pobieranie użytkowników z json-servera za pomocą mini skryptu.</p>
+<p>Często zamiast ręcznie pisać skrypt do testowania połączeń, lepiej skorzystać z jakiegoś programu, który umożliwi nam szybkie przetestowanie takiego połączenia. Po co pisać cokolwiek skoro można zrobić test naciskając pojedynczy przycisk.</p>
+<p>Jednym z bardziej znanych programów służących do testowania requestów jest <a href="https://www.getpostman.com/">Postman</a>.</p>
+
+<p>
+<img src="./postman.png" alt="">
+</p>
+
+<p>Jego podstawowe użycie jest tak proste, że w zasadzie po odpaleniu wystarczy zacząć testować dane połączenia.</p>
+
+<p>Alternatywą dla Postmana jest użycie waszych edytorów. Webstorm ma swoje własne narzędzia do <a href="https://www.jetbrains.com/help/webstorm/testing-restful-web-services.html">testowania połączeń</a>, a i dla <a href="https://marketplace.visualstudio.com/items?itemName=humao.rest-client">VSC coś się znajdzie</a> (chociaż nie testowałem).</p>
+
+<p>
+<img src="./webstorm-rest-test.png" alt="webstorm restful tester">
+</p>
+
+<p>A jeżeli powyższe rozwiązania nam nie pasują, zawsze znajdzie się stosowna <a href="https://alternativeto.net/software/postman/">alternatywa</a>.</p>
+
+
+<div class="tasks-for-you-cnt">
+	<h2 class="subtitle" id="zadania">Trening czyni mistrza</h2>
+	<p>
+		Poniżej zamieszczam kilka zadań, które w ramach ćwiczenia możesz wykonać:
+	</p>
+	<ol class="tasks-for-you">
+		<li>
+			<p>Zainstaluj na komputerze <a href="https://web.archive.org/web/20180815081237/https://github.com/typicode/json-server">json-server</a>. Stwórz plik z prostą bazą danych 5-10 użytkowników, który wygenerujesz za pomocą a <a href="https://web.archive.org/web/20180815081237/https://www.json-generator.com/">https://www.json-generator.com/</a>. Pamiętaj, by tabela użytkowników w takim pliku była przypisana do jakiejś właściwości np:
+			</p>
+			<pre><code class="language-js">
+				{
+					"users" : [
+						...
+					]
+				}
+			</code></pre>
+		</li>
+		<li>
+			<p>
+			Sprawdź powyższy json za pomocą narzędzia <a href="https://web.archive.org/web/20180815081237/https://jsonlint.com/">https://jsonlint.com/</a>
+			</p>
+		</li>
+		<li>
+			<p>
+			Po odpaleniu serwera (sprawdź czy wypisał w konsoli odpowiednie adresy do łączenia)
+			stwórz plik html na pulpicie, i za pomocą poniższego kodu pobierz dane:
+			</p>
+	
+			<pre><code class="language-js">
+			fetch('http://localhost:3000/users')
+				.then(res = &gt; res.json())
+				.then(res =&gt; {
+					console.log(res)
+				})
+			</code></pre>
+		</li>
+		<li>
+			<p>
+			Dla chętnych: zainstaluj sobie <a href="https://web.archive.org/web/20180815081237/https://www.apachefriends.org/pl/index.html">xampp</a>. W katalogu htdocs umieść plik z json, który wygenerowałeś w powyższych zadaniach.<br>
+			Stwórz na pulpicie plik html i za pomocą poniższego listingu spróbuj pobrać plik json, który właśnie stworzyłeś:
+			</p>
+	
+			<pre><code class="language-js">
+			fetch('http://localhost/plik.json')
+				.then(res = &gt; res.json())
+				.then(res =&gt; {
+					console.log(res)
+				})
+			</code></pre>
+	
+			<p>
+			Jeżeli połączenie sie nie uda, dodaj do katalogu z json plik .htaccess, w którym zamieścisz zapis, który doda stosowne nagłówki CORS
+			</p>
+		</li>
+	</ol>
+	</div>
+
+			</div><!-- e: page-content-text -->
+			<footer class="page-footer">
+				<p>
+				Wszelkie prawa zastrzeżone. Jeżeli chcesz używać jakiejś części tego kursu, skontaktuj się z <a href="/kurs/autor.php">autorem</a>.
+				Aha - i ta strona korzysta z <a href="/kurs/polityka-prywatnosci.php">ciasteczek</a>.
+				</p>
+			</footer>
+							<div class="rekl-cnt">
+					<ins
+					class="adsbygoogle" style="margin-top:40px; display:block"
+					data-ad-client="ca-pub-6843603045703750"
+					data-ad-slot="4690777640"
+					data-ad-format="auto"
+					data-full-width-responsive="true"
+					></ins>
+				</div>
+				<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+	(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+					</main><!-- e: page-content -->
+			</div><!-- e: page-content-wrapper -->
+    <aside id="page-sidebar-cnt" class="page-sidebar-cnt">
+	<div id="page-sidebar" class="page-sidebar">
+		<button aria-label="Pokaż/ukryj Menu" aria-expanded="false" aria-controls="page-sidebar" type="button" id="pageSidebarBurger" class="page-sidebar-burger">
+			<span></span>
+		</button>
+
+		<h2 class="visuallyhidden">
+			Menu
+		</h2>
+
+		<button class="sidebar-toggle-btn" title="Pokaż/schowaj menu" aria-hidden="true">
+			<strong>Pokaż/ukryj menu</strong>
+			<span></span>
+			<span></span>
+			<span></span>
+		</button>
+
+		<div class="page-sidebar-title">
+			<a href="/kurs/kontakt.php" title="Nawrzucaj autorowi" class="mail-to-author" id="mailToAuthor">Napisz do mnie</a>
+			<a href="#popupOptions" class="page-setup-link popupOpen" title="Ustawienia strony" id="showOptions">Ustawienia</a>
+			<a href="/index.php" aria-label="Strona główna" class="page-sidebar-title-link">Kurs Javascript</a>
+		</div>
+
+        <form aria-label="Wyszukiwarka" class="search-sidebar" action="/search.php" method="post">
+            <label for="search" class="search-sidebar-label">Szukaj</label>
+            <div class="search-sidebar-input-cnt">
+                <svg class="search-sidebar-input-icon" xmlns="http://www.w3.org/2000/svg" width="26" height="28" viewBox="0 0 26 28" aria-hidden="true">
+                    <path d="M18 13c0-3.859-3.141-7-7-7s-7 3.141-7 7 3.141 7 7 7 7-3.141 7-7zm8 13c0 1.094-.906 2-2 2a1.96 1.96 0 0 1-1.406-.594l-5.359-5.344a10.971 10.971 0 0 1-6.234 1.937c-6.078 0-11-4.922-11-11s4.922-11 11-11 11 4.922 11 11c0 2.219-.672 4.406-1.937 6.234l5.359 5.359c.359.359.578.875.578 1.406z"></path>
+                </svg>
+                <input type="text" id="search" autocomplete="off" name="q" class="search-sidebar-input">
+            </div>
+            <button type="submit" class="search-sidebar-button">Szukaj</button>
+        </form>
+
+		<div class="page-sidebar-table-of-content">
+			<h2 class="visuallyhidden">Spis treści</h2>
+            <div class="page-sidebar-section">
+				<h3 class="page-sidebar-section-title noopen">
+                    <a href="/index.php">Strona główna</a>
+                </h3>
+            </div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Słowem wstępu</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/wstep/wstep.php">Wstęp</a>
+						</li>
+						<li >
+							<a href="/kurs/wstep/co-to-jest-javascript.php">Co to jest JavaScript i z czym go się je?</a>
+						</li>
+						<li >
+							<a href="/kurs/wstep/wymagania.php">Wymagania</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Super podstawy</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/debuger/debuger.php">Debuger</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/pierwszy-skrypt.php">Wstawiamy skrypty na naszą stronę</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/strict-mode.php">Strict mode</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/typy-danych.php">Typy danych i konwersja danych</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/zmienne.php">Zmienne</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/operatory.php">Operatory</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/math.php">Obiekt Math</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/string.php">String - teksty</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/instrukcje-warunkowe.php">Instrukcje warunkowe</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/petle.php">Pętle</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/funkcje.php">Funkcje</a>
+						</li>
+                        <li >
+							<a href="/kurs/super-podstawy/funkcje-tematy-dodatkowe.php">Funkcje - tematy dodatkowe</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/tablice.php">Tablice</a>
+						</li>
+                        <li >
+							<a href="/kurs/super-podstawy/tablice-iteracje.php">Tablice pętle</a>
+						</li>
+						<li >
+							<a href="/kurs/debuger/debugowanie.php">Debugowanie kodu</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+            			<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Obiekty</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+                        <li >
+							<a href="/kurs/obiekty/obiekty.php">Obiekty i this</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-jak-to-dziala.php">Jak to działa</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-konstruktor.php">Konstruktor</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-zaawansowane-this.php">Zaawansowane this</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-dziedziczenie.php">Dziedziczenie w Javascript</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-inne-sposoby-tworzenia.php">Inne sposoby tworzenia obiektów</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-instanceof-hasownproperty.php">instanceof i hasOwnProperty</a>
+						</li>
+                    </ul>
+                </div>
+            </div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">DOM i zdarzenia</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/dom/dom.php">Document Object Model</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-wlasciwosci.php">Właściwości elementów</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-relacje.php">Relacje między elementami</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-tworzenie-i-usuwanie.php">Tworzenie i usuwanie elementów</a>
+						</li>
+                        <li >
+                            <a href="/kurs/dom/style.php">Style w CSS</a>
+                        </li>
+						<li >
+							<a href="/kurs/events/events.php">Zdarzenia</a>
+						</li>
+						<li >
+							<a href="/kurs/events/events-keys.php">Zdarzenia - klawisze</a>
+						</li>
+						<li >
+							<a href="/kurs/events/events-mouse.php">Zdarzenia - myszka</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/projekt-todo.php">Projekt TODO</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/slider.php">Tworzymy slider</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Prawie podstawy</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/grafika/grafika-na-stronie.php">Grafika na stronie</a>
+						</li>
+						<li >
+							<a href="/kurs/intervals/intervals.php">setTimeout i setInterval</a>
+						</li>
+						<li >
+							<a href="/kurs/match-media.php">Praca z RWD</a>
+						</li>
+						<li >
+							<a href="/kurs/okna-dialogowe.php">Okienka dialogowe</a>
+						</li>
+						<li >
+							<a href="/kurs/okna.php">Tworzenie nowych okien</a>
+						</li>
+						<li >
+							<a href="/kurs/date/date.php">Obiekt Date</a>
+						</li>
+						<li >
+							<a href="/kurs/date/date-calendar.php">Tworzymy kalendarz</a>
+						</li>
+						<li >
+							<a href="/kurs/cookies/cookie.php">Obiekt Cookie</a>
+						</li>
+						<li >
+							<a href="/kurs/storage/storage.php">Storage</a>
+						</li>
+						<li >
+							<a href="/kurs/regular.php">Wyrażenia regularne</a>
+						</li>
+						<li >
+							<a href="/kurs/formularze/formularze.php">Formularze</a>
+						</li>
+						<li >
+							<a href="/kurs/formularze/formularze-walidacja.php">Formularze - walidacja</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section show has-active-element">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Ajax</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li class="active">
+							<a href="/kurs/ajax/ajax.php">AJAX, REST, JSON</a>
+						</li>
+						<li >
+							<a href="/kurs/ajax/xmlhttprequest.php">XMLHttpRequest</a>
+						</li>
+            			<li >
+							<a href="/kurs/ajax/fetch.php">Fetch API</a>
+						</li>
+						<li >
+							<a href="/kurs/ajax/formularz-kontaktowy.php">Dynamiczny formularz kontaktowy</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Nowy Javascript</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/es6/ecma-script-2015.php">ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/webpack.php">Webpack</a>
+						</li>
+                        <li >
+            				<a href="/kurs/es6/obiekty-w-es6.php">Obiekty w ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/funkcja-strzalkowa.php">Funkcja strzałkowa</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/spread-rest.php">Spread i rest</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/template-strings.php">Template strings</a>
+						</li>
+						<li >
+            				<a href="/kurs/es6/destructuring.php">Dekompozycja</a>
+        				</li>
+						<li >
+							<a href="/kurs/es6/class.php">Klasy w ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/promises.php">Promises</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/async-await.php">Async/Await</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/symbole.php">Symbole</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">jQuery</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/jquery/jquery.php">jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/animacje-w-jquery.php">Animacje w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/jquery-ajax.php">Ajax w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/tabs.php">Taby w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/plugin.php">Karuzela w jQuery</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Canvas</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/canvas/canvas.php">Canvas</a>
+						</li>
+						<li >
+							<a href="/kurs/canvas/canvas-images.php">Grafika w canvas</a>
+						</li>
+						<li >
+						<a href="/kurs/canvas/canvas-paint.php">Praktycznie : Paint w canvas</a>
+						</li>
+
+						<li >
+							<a href="/kurs/canvas/canvas-animacja.php">Animacja w canvas</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Gry</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/gry/hangman/hangman.php">Szubienica</a>
+						</li>
+						<li >
+							<a href="/kurs/gry/memory/memory.php">Memory</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+            			<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Inne</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/dodatkowe-materialy.php">Dodatkowe materiały</a>
+						</li>
+						<li >
+							<a href="/kurs/faq.php">FAQ</a>
+						</li>
+						<li >
+							<a href="/kurs/polityka-prywatnosci.php">Polityka prywatności</a>
+						</li>
+						<li >
+							<a href="/kurs/autor.php">O autorze</a>
+						</li>
+						<li >
+							<a href="/kurs/kontakt.php">Kontakt</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="page-sidebar-section">
+                <a class="special-link" href="/kurs/autor.php#donate">Wesprzyj kurs</a>
+            </div>
+		</div>
+	</div>
+</aside></div><!-- e: page-container -->
+
+<div class="popup" id="popupOptions">
+	<div class="popup-inside">
+        <div class="popup-container-cnt">
+            <div class="popup-container">
+                <button class="popup-close">Zamknij</button>
+
+                <h2 class="popup-title">
+                    Opcje
+                </h2>
+
+                <div class="popup-content">
+                    <form class="form-options">
+                        <div class="form-option">
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <label for="optionsThemeSelect">Wybierz skórkę dla listingów</label>
+                                    <select id="optionsThemeSelect"></select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <pre><code class="language-js">
+                                //tak będzie wyglądał kod
+
+                                function test() {
+                                    for (let i=0; i&lt;10; i++) {
+                                        console.log("Tekst numer ", 1);
+                                    }
+                                }
+
+                                test();
+                                </code></pre>
+                            </div>
+                            <div class="form-row" id="themeLightModeRow">
+                                <div class="form-col">
+                                    <label for="themeLightMode">
+                                        Tryb dzienny / nocny
+                                    </label>
+
+                                    <div class="light-mode-el">
+                                        <input type="checkbox" id="themeLightMode">
+                                        <span class="light-mode"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+	</div>
+</div>
+<script async defer src="https://www.googletagmanager.com/gtag/js?id=UA-38558970-5"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-38558970-5');
+</script>
+
+	<script src="/js/ads.js"></script>
+	<script src="/js/script.min.js?v=0.13" defer></script>
+</body>
+</html>

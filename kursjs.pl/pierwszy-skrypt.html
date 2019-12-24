@@ -3,9 +3,9 @@
 <head>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Kurs Javascript - Wstęp</title>
+    <title>Kurs Javascript - Pierwszy skrypt</title>
 	<meta name="description" content="Kurs Javascript dla superbohaterów, artykuły, tutoriale, porady, zadania do wykonania" />
-    <link rel="canonical" href="https://kursjs.pl/kurs/wstep/wstep.php" />
+    <link rel="canonical" href="https://kursjs.pl/kurs/super-podstawy/pierwszy-skrypt.php" />
 	<link rel="stylesheet" href="./css.css" />
     <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,700&display=swap&subset=latin-ext" rel="stylesheet">
 	<meta name="image" content="https://kursjs.pl/kursjs.png">
@@ -58,48 +58,191 @@
                         <div class="page-content-text">
 
 
-<h1 class="page-title">Wstęp</h1>
-<p>
-Bardzo krótki wstęp ^^.<br /><br />
-Kurs ten jest o Javascripcie. Uhh...
-</p>
-<p>
-Wiedz, że nie staram się tutaj tworzyć największego i najlepszego kursu o JavaScript w internecie.<br>
-Ten kurs to twór jednego człowieka.
-Nie mam szans i nie chcę konkurować z molochami takimi jak <a href="https://developer.mozilla.org/pl/">MDN</a>, <a href="https://www.udemy.com/">Udemy</a>, <a href="https://eduweb.pl/">EduWeb</a> czy <a href="https://www.w3schools.com/js/default.asp">w3schools</a>.<br>
-<br><br>
-Nie znajdziesz tutaj wszystkiego z zakresu JavaScript. <br>
-Po jakimś czasie będziesz chciał wiele rzeczy tutaj pokazanych tworzyć inaczej - lepiej.<br>
-Im większy progres będziesz zdobywał stwierdzisz, że wiele rozdziałów można było napisać o wiele lepiej. I dobrze.<br><br>
+<h1 class="page-title">Pierwszy skrypt</h1>
+<p>Do umieszczenia skryptów na stronie służy znacznik <strong>&lt;script></strong>:</p>
 
-W każdym bądź razie - jeżeli ta strona jakoś ci posłuży - to tylko plus. Jeżeli nie - po prostu skorzystaj z innego kursu - na rynku jest tego od groma (niektóre wymieniłem <a href="../dodatkowe-materialy.php">tutaj</a>) i każdy znajdzie coś dla siebie. Ja sam mam kilka w swojej kolekcji i twierdzę, że są naprawdę dobre.
-<br><br>
+<pre data-line="12-14"><code class="language-xml">
+&lt;!DOCTYPE html>
+&lt;html>
+&lt;head>
+    &lt;meta charset="UTF-8">
+    &lt;title>Document&lt;/title>
+&lt;/head>
+&lt;body>
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+    Odit quia aspernatur optio recusandae, atque, reiciendis
+    tempore doloremque temporibus aliquid nemo vitae sint?
+
+    &lt;script>
+        console.log("Nasz pierwszy skrypt!");
+    &lt;/script>
+&lt;/body>
+&lt;/html>
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="umieszczanie_skryptow_w_oddzielnym_pliku">Umieszczanie skryptów w oddzielnym pliku</h2>
+<p>
+Skrypty możemy wstawiać na stronę na 2 sposoby:
 </p>
+<ul>
+    <li>bezpośrednio w kodzie html (jak na powyższym przykładzie)</li>
+    <li>w oddzielnych plikach .js</li>
+</ul>
 
 <p>
-Jeszcze mała adnotacja, która siedzi mi w głowie.
-</p>
-<p>
-W internecie znajdziesz setki tutoriali pokazujących najnowsze techniki. A to funkcja strzałkowa, a to jak korzystać z async i await, a to jak robić połączenia fetchem czy chociażby zastosowanie modułów. Małe, konkretne, piękne - jak mój pies (a i od niedawna też kot).
-</p>
-<p>
-Na grupach facebookowych w dyskusjach znajdziesz jeszcze szybciej takie techniki.
-</p>
-<p>
-Tutaj pojawia pewna sprawa, który dotyczy nie tylko JavaScript, ale i całego frontendu. Bardzo często przy takich nowoczesnych tutorialach czy poradach autorzy nie zwracają uwagi na bardzo ważną rzecz - a mianowicie na to, że dobór techniki <strong>zawsze zależy od danego projektu</strong>. To są w końcu rzeczy oczywiste.<br>
-No właśnie nie do końca. To są rzeczy oczywiste - dla nas - osób, które w tej branży siedzą już kilkanaście lat. Ale czy dla osoby zaczynającej?
-</p>
-<p>
-Jeżeli robisz bloga o nowinkach z dziedziny frontentu, raczej możesz założyć, że większość użytkowników będzie korzystała z najnowszych przeglądarek, a więc i możesz używać najnowszych rozwiązań (chociaż najlepiej było by spojrzeć w statystyki Google Analitics które można podpiąć pod stronę).<br>
-Jeżeli jednak robisz stronę dla emerytowanych nauczycieli, czy dla przykładu olbrzymi sklep z którego będą korzystali różnorodni użytkownicy z różnorodnych krajów, wtedy rzucanie się na najnowsze rozwiązania będzie strzałem w stopę.
-</p>
-<p>
-Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie CSS Grid, a czasami nawet flexbox może okazać się czymś, czego użyć nie możesz. Czasami spokojnie będziesz mógł używać najnowszej wersji JavaScript, a czasami będziesz musiał pozostać przy starszej. A jeżeli będziesz musiał pozostać przy starszej, wtedy albo będziesz pisał JavaScript trzymając się klasycznych rozwiązań, albo skorzystasz z narzędzi zamieniających twój kod na starszy zapis.
-</p>
-<p>Autorzy tutoriali często zapominają o tym, że dla początkującej osoby istnieje po prostu JavaScript. Osoby takie często nie zdają sobie sprawy, że nie wszystko w JavaScript można dowolnie używać, nie wiedzą gdzie szukać informacji które przeglądarki co wspierają, jakich narzędzi używać do zamiany kodu i po co w ogóle to robić.</p>
-<p>W kursie tym staram się trzymać klasycznego JavaScript. Jasne - im więcej wiedzy zdobędziesz, im bardziej będziesz rozbudowywał swój warsztat, tym będziesz stosował coraz nowsze i lepsze techniki pisania kodu. A wtedy - tak jak to już pisałem powyżej - będziesz się śmiał z tego kursu. Póki co polecam po prostu uczyć się JavaScript.</p>
+Wyobraź sobie, że tak jak w tym kursie chcesz za pomocą JavaScript obsłużyć menu strony.<br>
+Gdybyś wstawiał ten skrypt w kod każdej podstrony z osobna, trochę by ci to zajęło.<br><br>
+Gorzej, gdy za jakiś czas ktoś wyśle tobie maila, że masz w tym skrypcie literówkę.
+Musiałbyś na nowo przeglądać kod wszystkich podstron, poprawiać i dłubać. Da się? Da - tylko po co.<br><br>
 
-<a href="./co-to-jest-javascript.php" class="button">To co? Zaczynamy?...</a>
+Rozwiązaniem tego problemu jest <strong>trzymanie skryptów w oddzielnych plikach .js</strong>, a następnie dołączanie ich do strony (czyli podobnie jak w przypadku np. plików css).<br><br>
+
+Gdy dołączasz skrypt z pliku, wszystko masz w jednym miejscu. Poprawiasz literówkę i  poprawione będzie na każdej podstronie, na której ten plik jest dołączany.<br>
+Co więcej, od razu wiadomo w jakim miejscu ten skrypt jest - co nie zawsze jest wiadome, gdy kawałki skryptów są
+rozrzucone po bardzo długich HTML.
+</p>
+<p>
+Aby przyłączyć plik ze skryptami do naszej strony powinniśmy zastosować dodatkowy atrybut <strong>src</strong>. Cała treść skryptu powinna trafić do dołączanego pliku js:
+</p>
+
+<pre><code class="language-xml">
+&lt;!DOCTYPE html>
+&lt;html>
+&lt;head>
+    &lt;meta charset="UTF-8">
+    &lt;title>Document&lt;/title>
+&lt;/head>
+&lt;body>
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+    Odit quia aspernatur optio recusandae, atque, reiciendis
+    tempore doloremque temporibus aliquid nemo vitae sint?
+
+    &lt;script src="plik_ze_skryptem.js">&lt;/script>
+&lt;/body>
+&lt;/html>
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="ktora-lepsza">Która metoda jest lepsza?</h2>
+<p>
+    W większości przypadków raczej ta z zewnętrznym plikiem. Tak robi większość stron.<br>
+    Ale nie jest to wcale 100% normą. Część stron, którym bardzo zależy na optymalizacji i liczy się dla nich pozbycie się każdego dodatkowego requestu (<a href="../debuger/debuger.php#network">1</a>) wstawia swoje całe skrypty inline w kod html strony. Dzięki temu przeglądarka nie musi dociągać dodatkowych plików.
+</p>
+<p>
+    Osobiście został bym przy skryptach w oddzielnych plikach. Ewentualnie szybkie, krótkie zadania gdzie skrypty to tylko kilka linii kodu spokojnie możemy pisać bezpośrednio w html.
+</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="gdzie-wstawiac">Gdzie wstawiać nasze skrypty</h2>
+<p>
+    Skrypty możesz wrzucać w różne miejsca na stronie.  Najczęściej spotykanymi miejscami są sekcja HEAD i koniec sekcji BODY:
+</p>
+
+<pre data-line="7,12"><code class="language-html">
+&lt;!DOCTYPE html>
+&lt;html>
+    &lt;head>
+        &lt;meta charset="UTF-8">
+        &lt;title>Document&lt;/title>
+
+        &lt;script src="modernizr.js">&lt;/script>
+    &lt;/head>
+    &lt;body>
+        ..treść strony...
+
+        &lt;script src="super-script.js">&lt;/script>
+    &lt;/body>
+&lt;/html>
+</code></pre>
+
+<p>
+    Wybór miejsca wiąże się z dwiema kwestiami.<br>
+    Pierwsza z nich tyczy się zasady, która mówi o tym, by użytkownik dostawał w pierwszej chwili treść strony.<br>
+    Cała interakcja (JavaScript), graficzne dodatki itp. powinny być wysyłane w drugiej kolejności. Główna treść dokumentu nie powinna być blokowana przed jak najszybszym wyświetleniem, stąd koniec strony to dobry wybór na umieszczenie skryptów.
+</p>
+<p>
+    Druga sprawa tyczy się samych skryptów. Bardzo często będziesz chciał w nich działać na konkretnych elementach strony. Przykładowo zapragniesz pokazać przycisk, ukryć formularz, pokazać użytkownikowi jakieś okienko itp. Jeżeli twój skrypt zostanie wczytany przed takim elementem (czyli w kodzie HTML będzie się znajdował przed takim elementem HTML),
+    a <a href="../dom/dom.php#domcontentloaded">nie posiada żadnych metod do wykrywania czy cała strona została już wczytana</a>, to dostaniesz błąd wynikający z tego, że skrypt ten nie widzi elementu, który zostanie wczytany dopiero po nim.
+</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="async-defer">Atrybuty async i defer</h2>
+<p>
+    Do znacznika script możesz dodać dwa atrybuty: <strong>async</strong> lub <strong>defer</strong> (lub oba naraz):
+</p>
+
+<pre><code class="language-html">
+&lt;script src="..." defer>&lt;/script>
+&lt;script src="..." async>&lt;/script>
+&lt;script src="..." async defer>&lt;/script>
+</code></pre>
+
+<p>Przeglądarka czyta kod strony od góry do dołu. Gdy natrafi na dołączony skrypt, wstrzymuje
+ładowanie reszty strony aż do momentu całkowitego wczytania i wykonania skryptu.<br>
+Przy malutkich skryptach nie ma to raczej znaczenia, ale przy większych skryptach może to powodować zauważalne blokowanie wczytywania strony.</p>
+
+<p>Aby zapobiec takiemu blokowaniu stosuje się właśnie atrybuty defer lub async.</p>
+<p>Atrybut <strong>async</strong> powoduje, że jeżeli przeglądarka czytając kod strony natrafi na plik ze skryptem
+zacznie go wczytywać w tle, równocześnie czytając dalszą część kodu strony. Jeżeli cały plik ze skryptem się wczyta, wtedy kod zostanie odpalony.</p>
+
+<p>Atrybut <strong>defer</strong> działa w miarę podobnie. Plik ze skryptem też będzie wczytywany w tle. Różnica jest taka, że jeżeli przeglądarka wczyta już cały plik ze skryptem, odpali go po załadowaniu całego dokumentu (ale tuż przed odpaleniem zdarzenia <a href="../dom/dom.php#domcontentloaded">DOMContentLoaded</a>).</p>
+
+<p>Różnica między tymi atrybutami jest też taka, że skrypty z atrybutem defer będą odpalane w kolejności w jakiej zostały wstawione do dokumentu. W przypadku async skrypty będą odpalane w kolejności "kto pierwszy ten lepszy", czyli który skrypt wczyta się wcześniej, ten zostanie wcześniej odpalony.</p>
+
+<p>Niektóre starsze przeglądarki różnie <a href="https://stackoverflow.com/questions/10808109/script-tag-async-defer">implementują te atrybuty.</a> Z tego też powodu <a href="https://github.com/h5bp/html5-boilerplate/blob/master/dist/index.html#L35">czasami spotkasz</a> się ze znacznikami script, które nie tylko posiadają async i defer, ale też umieszczone są na końcu pliku. Są to skrypty, które nie mają istotnego znaczenia dla działania strony, więc nie muszą się szybko wczytywać.</p>
+
+<p><strong>Gdzie więc umieszczać swoje skrypty?</strong> W dzisiejszych czasach większość osób zaleca wstawianie skryptów do HEAD dokumentu (lub gdzieś na górę dokumentu) i dodawanie im atrybutu defer.</p>
+
+<pre data-line="7"><code class="language-html">
+&lt;!DOCTYPE html>
+&lt;html>
+    &lt;head>
+        &lt;meta charset="UTF-8">
+        &lt;title>Document&lt;/title>
+
+        &lt;script src="super-script.js" defer>&lt;/script>
+    &lt;/head>
+    &lt;body>
+        ..treść strony...
+    &lt;/body>
+&lt;/html>
+</code></pre>
+
+<p>Dzięki temu przeglądarka będzie mogła wcześniej zacząć wczytywać twoje skrypty równocześnie czytając resztę strony.</p>
+<p>Jeżeli będziesz robił stronę, która ma wspierać mocno stare przeglądarki, wtedy zastosuj omawiane powyżej klasyczne podejście czyli umieszczaj skrypty przed zamknięciem BODY. W przeciwnym razie polecam miejsce w HEAD i skorzystanie z atrybutu defer.</p>
+
+<p>Bardzo dobry artykuł na temat tych atrybutów znajdziesz pod adresem <a href="http://www.growingwiththeweb.com/2014/02/async-vs-defer-attributes.html">http://www.growingwiththeweb.com/2014/02/async-vs-defer-attributes.html</a> oraz <a href="https://addyosmani.com/blog/script-priorities/">https://addyosmani.com/blog/script-priorities/</a></p>
+
+<!-- ### -->
+<h2 class="subtitle" id="komentarze">Komentarze</h2>
+<p>W javascript istnieją 2 rodzaje komentarzy: komentarze zajmujące jedną i wiele linii:</p>
+
+<pre><code class="language-js">
+/*
+Przykład komentarza składającego się z wielu linii.
+Taki komentarz może zawierać wiele linii.
+*/
+console.log('To jest mój pierwszy skrypt');
+
+//To jest przykład komentarza 1-liniowego
+console.log('To jest mój pierwszy skrypt')
+</code></pre>
+
+<pre><code class="language-js">
+/*
+Skrypt wypisujący różne rzeczy w konsoli
+Wykorzystuje do tego celu console debugera
+*/
+
+console.log('To jest mój pierwszy skrypt'); //to jest pierwsza linia
+console.log('To jest mój pierwszy skrypt'); //to jest druga linia
+</code></pre>
+
+<p>
+    Nie bój się komentować swój kod. Dzisiaj może będziesz wiedział do czego dany kod służy. Ale za pół roku do niego wrócisz i będziesz musiał się zastanawiać czemu służyła dana funkcja...
+</p>
+
 
 			</div><!-- e: page-content-text -->
 			<footer class="page-footer">
@@ -165,13 +308,13 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
                 </h3>
             </div>
 
-						<div class="page-sidebar-section show has-active-element">
+						<div class="page-sidebar-section ">
 				<h3 class="page-sidebar-section-title">
 					<a href="#">Słowem wstępu</a>
 				</h3>
 				<div class="page-sidebar-list-cnt">
 					<ul class="page-sidebar-list">
-						<li class="active">
+						<li >
 							<a href="/kurs/wstep/wstep.php">Wstęp</a>
 						</li>
 						<li >
@@ -184,7 +327,7 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
 				</div>
 			</div>
 
-						<div class="page-sidebar-section ">
+						<div class="page-sidebar-section show has-active-element">
 				<h3 class="page-sidebar-section-title">
 					<a href="#">Super podstawy</a>
 				</h3>
@@ -193,7 +336,7 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
 						<li >
 							<a href="/kurs/debuger/debuger.php">Debuger</a>
 						</li>
-						<li >
+						<li class="active">
 							<a href="/kurs/super-podstawy/pierwszy-skrypt.php">Wstawiamy skrypty na naszą stronę</a>
 						</li>
 						<li >
@@ -575,7 +718,29 @@ function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'UA-38558970-5');
 </script>
-
+<div class="tasks-for-you-cnt">
+	<h2 class="subtitle" id="zadania">Trening czyni mistrza</h2>
+	<p>
+		Poniżej zamieszczam kilka zadań, które w ramach ćwiczenia możesz wykonać:
+	</p>
+	<ol class="tasks-for-you">
+		<li>
+			Wstaw na stronę skrypt inline (skrypt pisany bezpośrednio w kodzie strony).
+			W skrypcie wypisz w konsoli "To mój pierwszy skrypt"
+		</li>
+		<li>
+			Stwórz plik <strong>first_script.js</strong> i dołącz go do strony (na końcu body). W pliku tym wypisz w konsoli debugera "To mój drugi skrypt".
+		</li>
+		<li>
+			Będąc w debugerze przejdź do konsoli i wpisz<br>
+			<code>console.log("Witaj świecie!");</code><br>
+			i naciśnij enter. Co się stało?
+		</li>
+		<li>
+			Stwórz w swoim skrypcie 2 rodzaje komentarzy.
+		</li>
+	</ol>
+	</div>
 	<script src="/js/ads.js"></script>
 	<script src="/js/script.min.js?v=0.13" defer></script>
 </body>

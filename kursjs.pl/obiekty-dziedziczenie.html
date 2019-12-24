@@ -3,9 +3,9 @@
 <head>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Kurs Javascript - Wstęp</title>
+    <title>Kurs Javascript - Obiekty - dziedziczenie</title>
 	<meta name="description" content="Kurs Javascript dla superbohaterów, artykuły, tutoriale, porady, zadania do wykonania" />
-    <link rel="canonical" href="https://kursjs.pl/kurs/wstep/wstep.php" />
+    <link rel="canonical" href="https://kursjs.pl/kurs/obiekty/obiekty-dziedziczenie.php" />
 	<link rel="stylesheet" href="./css.css" />
     <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,700&display=swap&subset=latin-ext" rel="stylesheet">
 	<meta name="image" content="https://kursjs.pl/kursjs.png">
@@ -57,49 +57,474 @@
             </div>
                         <div class="page-content-text">
 
+<h1 class="page-title">Obiekty - dziedziczenie</h1>
+<!-- ### -->
+<h2 class="subtitle" id="dziedziczenie">Dziedziczenie</h2>
+<p>
+    Jak już wiemy z poprzednich rozdziałów, w JavaScript dziedziczenie opiera się o prototypy.<br>
+    Jeżeli dana instancja obiektu nie ma metody lub właściwości, JavaScript szuka go w jej prototypie, na który wskazuje właściwość __proto__. Jeżeli jej tam nie znajdzie przechodzi do kolejnego obiektu, i tak w górę do czasu, aż znajdzie szukaną metodę, lub dojdzie do najwyższego prototypu obiektów wszelakich, który już __proto__ nie ma.
+</p>
+<p>
+    No tak - dziedziczenie. A co to właściwie jest?
+</p>
+<p>
+    Gdybym zapytał ciebie czym jest dziedziczenie w realnym świecie co byś powiedział?<br>
+    Dzieci dziedziczą po rodzicach pewne cechy. Może to kolor włosów, może kolor oczu, a może talent do rysowania.<br>
+    Część takich właściwości sobie pobierają od rodziców, ale i też mają swoje własne.<br>
+    Tata był przystojny. Syn też jest. Ale syn jest o wiele wyższy od ojca. Córka po mamie odziedziczyła spojrzenie, ale dodała swoje wyjątkowe różowe policzki.<br>
+    Niektóre właściwości też nadpisują, bo na przykład córka ma włosy rude po rodzicu, ale jakieś takie nie za bardzo.<br>
+    Co ważne w drugą stronę to nie działa. Rodzice nigdy nie dziedziczą po dzieciach (w realnym świecie czasami tak, ale to temat dla prawników).
+</p>
+<p>
+    Wracamy do JavaScript. Wyobraź sobie, że masz konstruktor Animal:
+</p>
 
-<h1 class="page-title">Wstęp</h1>
-<p>
-Bardzo krótki wstęp ^^.<br /><br />
-Kurs ten jest o Javascripcie. Uhh...
-</p>
-<p>
-Wiedz, że nie staram się tutaj tworzyć największego i najlepszego kursu o JavaScript w internecie.<br>
-Ten kurs to twór jednego człowieka.
-Nie mam szans i nie chcę konkurować z molochami takimi jak <a href="https://developer.mozilla.org/pl/">MDN</a>, <a href="https://www.udemy.com/">Udemy</a>, <a href="https://eduweb.pl/">EduWeb</a> czy <a href="https://www.w3schools.com/js/default.asp">w3schools</a>.<br>
-<br><br>
-Nie znajdziesz tutaj wszystkiego z zakresu JavaScript. <br>
-Po jakimś czasie będziesz chciał wiele rzeczy tutaj pokazanych tworzyć inaczej - lepiej.<br>
-Im większy progres będziesz zdobywał stwierdzisz, że wiele rozdziałów można było napisać o wiele lepiej. I dobrze.<br><br>
+<pre><code class="language-js">
+function Animal(name) {
+    this.name = name;
+    console.log("Tworzę zwierzę: " + this.name);
+}
 
-W każdym bądź razie - jeżeli ta strona jakoś ci posłuży - to tylko plus. Jeżeli nie - po prostu skorzystaj z innego kursu - na rynku jest tego od groma (niektóre wymieniłem <a href="../dodatkowe-materialy.php">tutaj</a>) i każdy znajdzie coś dla siebie. Ja sam mam kilka w swojej kolekcji i twierdzę, że są naprawdę dobre.
-<br><br>
-</p>
+Animal.prototype.eat = function() {
+    return this.name + " właśnie je";
+}
+</code></pre>
 
 <p>
-Jeszcze mała adnotacja, która siedzi mi w głowie.
-</p>
-<p>
-W internecie znajdziesz setki tutoriali pokazujących najnowsze techniki. A to funkcja strzałkowa, a to jak korzystać z async i await, a to jak robić połączenia fetchem czy chociażby zastosowanie modułów. Małe, konkretne, piękne - jak mój pies (a i od niedawna też kot).
-</p>
-<p>
-Na grupach facebookowych w dyskusjach znajdziesz jeszcze szybciej takie techniki.
-</p>
-<p>
-Tutaj pojawia pewna sprawa, który dotyczy nie tylko JavaScript, ale i całego frontendu. Bardzo często przy takich nowoczesnych tutorialach czy poradach autorzy nie zwracają uwagi na bardzo ważną rzecz - a mianowicie na to, że dobór techniki <strong>zawsze zależy od danego projektu</strong>. To są w końcu rzeczy oczywiste.<br>
-No właśnie nie do końca. To są rzeczy oczywiste - dla nas - osób, które w tej branży siedzą już kilkanaście lat. Ale czy dla osoby zaczynającej?
-</p>
-<p>
-Jeżeli robisz bloga o nowinkach z dziedziny frontentu, raczej możesz założyć, że większość użytkowników będzie korzystała z najnowszych przeglądarek, a więc i możesz używać najnowszych rozwiązań (chociaż najlepiej było by spojrzeć w statystyki Google Analitics które można podpiąć pod stronę).<br>
-Jeżeli jednak robisz stronę dla emerytowanych nauczycieli, czy dla przykładu olbrzymi sklep z którego będą korzystali różnorodni użytkownicy z różnorodnych krajów, wtedy rzucanie się na najnowsze rozwiązania będzie strzałem w stopę.
-</p>
-<p>
-Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie CSS Grid, a czasami nawet flexbox może okazać się czymś, czego użyć nie możesz. Czasami spokojnie będziesz mógł używać najnowszej wersji JavaScript, a czasami będziesz musiał pozostać przy starszej. A jeżeli będziesz musiał pozostać przy starszej, wtedy albo będziesz pisał JavaScript trzymając się klasycznych rozwiązań, albo skorzystasz z narzędzi zamieniających twój kod na starszy zapis.
-</p>
-<p>Autorzy tutoriali często zapominają o tym, że dla początkującej osoby istnieje po prostu JavaScript. Osoby takie często nie zdają sobie sprawy, że nie wszystko w JavaScript można dowolnie używać, nie wiedzą gdzie szukać informacji które przeglądarki co wspierają, jakich narzędzi używać do zamiany kodu i po co w ogóle to robić.</p>
-<p>W kursie tym staram się trzymać klasycznego JavaScript. Jasne - im więcej wiedzy zdobędziesz, im bardziej będziesz rozbudowywał swój warsztat, tym będziesz stosował coraz nowsze i lepsze techniki pisania kodu. A wtedy - tak jak to już pisałem powyżej - będziesz się śmiał z tego kursu. Póki co polecam po prostu uczyć się JavaScript.</p>
+Chcielibyśmy stworzyć nowy typ obiektów - np. "Psa", który miałby powyższe właściwości i metodę eat(), ale równocześnie dodawał by coś swojego:</p>
 
-<a href="./co-to-jest-javascript.php" class="button">To co? Zaczynamy?...</a>
+<pre><code class="language-js">
+function Dog(name) {
+    this.name = name;
+    this.type = "dog";
+}
+
+Dog.prototype.bark = function() {
+    return this.name + " wof! wof!";
+}
+
+const dog1 = new Dog("Pies");
+console.log(dog1.bark()); //Pies wof! wof!
+console.log(dog1.eat()); //błąd - nie ma takiej metody
+</code></pre>
+
+<img src="./dog-eat.png" alt="obiekt dog" class="border space">
+
+<p>
+    No tak, błąd. Nasz obiekt dog1 nie ma swojej indywidualnej metody eat(), jego prototyp także nie ma, a __proto__ w tym prototypie wskazuje na główny Object, w którym także jej brakuje (i dobrze, bo raczej nie chcemy by każdy obiekt w JavaScript mógł jeść).
+</p>
+<p>
+    Naszym celem jest zrobić tak, by __proto__ prototypu Dog wskazywało na prototyp Animal. Dzięki temu obiekty Dog będą mogły używać metod ze swojego prototypu ale i prototypu Animal.<br>
+    Skoro obiekty Animal mają swój prototyp, który definiuje ich wygląd,
+    wystarczyło by, że dla Dog ustawilibyśmy ten sam prototyp:
+</p>
+
+<pre data-line="6"><code class="language-js">
+function Dog(name) {
+    this.name = name;
+    this.type = "dog";
+}
+
+Dog.prototype = Animal.prototype;
+
+Dog.prototype.bark = function() {
+    return this.name + " wof! wof!";
+}
+
+const dog = new Dog("Pies");
+console.log(dog.bark()); //Pies wof! wof!
+console.log(dog.eat()); //Pies właśnie je;
+</code></pre>
+
+<p>
+    Problem tutaj jest taki, że skoro zrównaliśmy do siebie obydwa prototypy, stały się one tym samym obiektem. Jeżeli dla Dog dodaliśmy teraz metodę bark(), trafiła by ona też do obiektów tworzonych na bazie Animal, a przecież nie wszystkie zwierzęta szczekają.
+</p>
+
+<pre><code class="language-js">
+const horse = new Animal("Koń");
+horse.bark(); //Koń wof! wof!
+</code></pre>
+
+<p>
+    Rozwiązaniem nie jest równanie prototypów, a stworzenie nowego obiektu prototypu na bazie innego prototypu. Można to zrobić na kilka sposobów:
+</p>
+
+<pre><code class="language-js">
+Dog.prototype = Object.create(Animal.prototype);
+//lub
+Dog.prototype = Object.assign({}, Animal.prototype);
+//lub
+Dog.prototype = Object.create(...Animal.prototype);
+</code></pre>
+
+<pre data-line="6"><code class="language-js">
+function Dog(name) {
+    this.name = name;
+    this.type = "dog";
+}
+
+Dog.prototype = Object.create(Animal.prototype);
+
+Dog.prototype.bark = function() {
+    return this.name + " wof! wof!";
+}
+
+const dog = new Dog("Pies");
+console.log(dog.bark()); //Pies wof! wof!
+console.log(dog.eat()); //Pies właśnie je;
+
+const animal = new Animal('Pingwin');
+animal.eat(); //Pingwin właśnie je
+animal.bark(); //błąd, bo Animal nie ma metody bark()
+</code></pre>
+
+<p>
+Wszystko działa praktycznie idealnie, ale została malutka rzecz.
+<a href="obiekty-konstruktor.php#prototype-almost-empty">Pamiętasz jak wyglądały "puste" prototypy</a>, które wypisywaliśmy gdy tworzyliśmy nasze pierwsze konstruktory? Znajdowały się w nich 2 rzeczy: <code>__proto__</code> i <code>constructor</code>.<br>
+Właściwość constructor wskazywała na funkcję na bazie której są tworzone obiekty.<br>
+W powyższym kodzie stworzyliśmy prototyp Dog na bazie prototypu Animal.
+Tym samym wzięliśmy tamten konstruktor, który wskazuje na Animal. Dla Dog powinien to być Dog. Naprawmy to:</p>
+
+<pre data-line="7"><code class="language-js">
+function Dog(name) {
+    this.name = name;
+    this.type = "dog";
+}
+
+Dog.prototype = Object.create(Animal.prototype);
+Dog.prototype.constructor = Dog;
+</code></pre>
+
+<p>Of tej pory typ obiektów Dog dziedziczy po obiektach typu Animal. A Animal już po samym Object.</p>
+
+<pre><code class="language-js">
+function Animal(name) {
+    this.name = name;
+    console.log("Tworzę zwierzę: " + this.name);
+}
+
+Animal.prototype.eat = function() {
+    return this.name + " właśnie je";
+}
+
+
+function Dog(name) {
+    this.name = name;
+    this.type = "dog";
+}
+
+Dog.prototype = Object.create(Animal.prototype);
+Dog.prototype.constructor = Dog;
+
+Dog.prototype.bark = function() {
+    return this.name + " wof! wof!";
+}
+
+
+const animal1 = new Animal("Kot", 10);
+animal1.eat(); //Kot właśnie je!
+animal1.bark(); //błąd - nie ma takiej metody
+
+const dog1 = new Dog("Pies");
+dog1.eat(); //Pies właśnie je!
+dog1.bark(); //Pies wof! wof!
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="oswolywanie-sie">Odwoływanie się do konstruktora ojca</h2>
+<p>
+    W powyższym kodzie rozszerzyliśmy prototyp obiektów Dog. Podobnie moglibyśmy chcieć rozszerzyć konstruktor Animal. Oznacza to, że we wnętrzu konstruktora Dog powinien być wykonany kod konstruktora Animal plus ewentualnie coś dodatkowego.
+</p>
+
+<pre><code class="language-js">
+function Animal(name) {
+    this.name = name;
+    console.log("Tworzę zwierzę: " + this.name);
+}
+
+function Dog(name) {
+    //tutaj kod funkcji Animal
+    //plus coś dodatkowego np.
+    this.type = "dog";
+}
+</code></pre>
+
+<p>
+    Jak to zrobić? Wystarczyłoby w naszym konstruktorze Dog odpalić kod tamtej funkcji Animal, zmieniając jej tylko odpowiednio <strong>this</strong> by wskazywało na Dog...
+</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="call-apply">Call i apply</h2>
+<p>Użyjemy do tego metody <strong>call()</strong></p>
+
+<p>
+    Metoda call() jest dostępna <strong>dla każdej funkcji</strong> i służy do wołania danej funkcji.<br>
+    Powiedzmy, że mamy prostą funkcję:
+</p>
+
+<pre><code class="language-js">
+function myFunc() {
+    console.log('Jestem funkcją');
+}
+</code></pre>
+
+<p>Żeby ją teraz wywołać możemy napisać:</p>
+
+<pre><code class="language-js">
+myFunc();
+
+//lub
+
+myFunc.call();
+</code></pre>
+
+<p>
+    Poza wywołaniem funkcji, metoda call() daje nam jedną bardzo ważną funkcjonalność.
+    Jako pierwszy jej parametr podajemy wartość, która zostanie podstawiona pod <strong>this</strong> wewnątrz wywoływanej funkcji:
+</p>
+
+<pre><code class="language-js">
+const ob = {
+    name : "Marcin",
+    print : function() {
+        console.log("Mam na imię " + this.name);
+    }
+}
+
+ob.print(); //Mam na imię Marcin
+
+const ob2 = {
+    name : "Roman"
+}
+ob.print.call(ob2); //Mam na imię Roman
+
+ob.print.call({name : "Patryk"}); //Mam na imię Patryk
+</code></pre>
+
+<p>
+    Jak widzisz więc metoda call() idealnie nadaje się do "zapożyczania" funkcji z innych obiektów w sytuacjach, gdy chcemy
+    taką metodę użyć dla konkretnego obiektu, a on jej nie ma.
+</p>
+<p>
+    Jeżeli taka pożyczona funkcja wymagała by jakiś parametrów, możemy je podać jako kolejne parametry metody call().
+</p>
+
+<pre><code class="language-js">
+const ob = {
+    name : "x-wing",
+    print: function(shotCount) {
+        console.log(`Statek ${this.name} strzela ${shotCount} razy`);
+    }
+}
+
+const tie = {
+    name : "Tie fighter"
+}
+
+ob.print.call(tie, 5); //Statek Tie fighter strzela 5 razy
+</code></pre>
+
+<p>
+Jeżeli wiemy, że w funkcji nie jest obsługiwane this, wtedy jako pierwszy parametr możemy przekazać null, undefined, lub inną rzecz - nie ma to znaczenia, bo i tak nie będzie obsługiwane w danej funkcji.</p>
+</p>
+
+<pre><code class="language-js">
+const ob = {
+    sayHiToPet : function(pet) {
+        console.log("Cześć " + pet + '!') ;
+    }
+}
+
+ob.sayHiToPet.call(null, "Świnka"); //Cześć Świnka!
+</code></pre>
+
+<p id="forEach">
+    W rozdziale o <a href="../dom/dom.php#forEach">DOM</a> poznasz technikę, która umożliwia zastosowanie forEach dla kolekcji. W odróżnieniu do nowych przeglądarek, w starych funkcja forEach istniała tylko dla tablic. Żeby użyć jej dla kolekcji musieliśmy posłużyć się trikiem:
+</p>
+
+<pre><code class="language-js">
+const divs = document.querySelectorAll('div');
+
+[].forEach.call(divs, function(el) {
+    el.style.color = "red";
+});
+</code></pre>
+
+<p>
+    Czyli tłumacząc: zawołaj z pojedynczego obiektu typu Array metodę forEach, przekazując jej pod this kolekcję divów które właśnie pobrałeś. Ale przecież tablice nie mają takiej metody w sobie - ona istnieje ale w ich prototypie. I znowu wracamy do <a href="./obiekty-jak-to-dziala.php#mega-siatka">mega siatki</a>. Jeżeli JavaScript nie znajdzie jej w pojedynczej instancji, poszuka jej w prototypie tablic.
+</p>
+
+<pre><code class="language-js">
+//podobny do powyższego, ale ciut dłuższy zapis
+const divs = document.querySelectorAll('div');
+Array.prototype.forEach.call(divs, function(el) {
+    console.log(el);
+});
+</code></pre>
+
+<p>W dzisiejszych czasach na szczęście nie musimy tak mącić, bo forEach działa dla kolekcji należycie...</p>
+
+<p>
+    Bardzo podobna w działaniu do call jest metoda <strong>apply()</strong>.
+    Różni ją od call to, że poza obiektem dla this przyjmuje tylko jeden atrybut - tablicę, która zawiera w sobie parametry. Po wywołaniu funkcji za pomocą apply(), składowe tej tablicy są przekazywane jako kolejne parametry danej funkcji:
+</p>
+
+<pre><code class="language-js">
+const ob = {
+    name : "nikt",
+
+    print : function(pet1, pet2) {
+        console.log(`Nazywam się ${this.name} i mam 2 zwierzaki: ${pet1} i ${pet2}`);
+    }
+}
+
+const user = {
+    name : "Marcin"
+}
+const tab = ["pies", "kot"];
+
+ob.print.apply(user, tab); //Nazywam się Marcin i mam dwa zwierzaki: pies i kot
+</code></pre>
+
+<pre><code class="language-js">
+Math.max(1, 2, 3, 4, 5, 2, 4); //5
+Math.max.call(Math, 1, 2, 3, 4, 5, 2, 4);
+Math.max.apply(Math, [1, 2, 3, 4, 5, 2, 4]);
+</code></pre>
+
+<p>Co kiedy używać? Wszystko zależy od sytuacji. Czasami mamy dane "parametry" zebrane pod postacią tablicy, czasami możemy użyć oddzielnych zmiennych.</p>
+
+<div class="kartofel-informuje">
+    Przy czym w dzisiejszych czasach wydaje się, że wręcz o apply można zapomnieć, ponieważ nawet jak mamy tablicę, bez problemu zamienimy ją na pojedyncze atrybuty za pomocą <a href="../es6/spread-rest.php">sread operatora</a>:
+
+    <pre><code class="language-js">
+    Math.max.call(Math, ...[1, 5, 3, 2, 3]);
+    </code></pre>
+</div>
+
+<!-- ### -->
+<h2 class="subtitle" id="rozszerzamy-konstruktor">Rozszerzamy konstruktor</h2>
+
+<p>Po tym długim wywodzie, wracamy do naszych obiektów:</p>
+
+<pre><code class="language-js">
+function Animal(name) {
+    this.name = name;
+    console.log("Tworzę zwierzę: " + this.name);
+}
+
+Animal.prototype.eat = function() {
+    return this.name + " właśnie je";
+}
+</code></pre>
+
+<p>Aby teraz wywołać wewnątrz konstruktora Dog funkcję Animal, wystarczy ją zawołać za pomocą call():</p>
+
+<pre data-line="2"><code class="language-js">
+function Dog(name) {
+    Animal.call(this, name);
+    this.type = "dog";
+}
+
+Dog.prototype = Object.create(Animal.prototype);
+Dog.prototype.constructor = Dog;
+
+Dog.prototype.bark = function() {
+    return this.name + " wof! wof!";
+}
+
+const dog = new Dog("Pies"); //Tworzę zwierzę: Pies (to tekst z konstruktora Animal)
+console.log(dog.bark()); //Pies - wof! wof!
+console.log(dog.eat()); //Pies właśnie je
+</code></pre>
+
+<p>
+    Idąc za ciosem, podobnie chcielibyśmy nadpisać dla Dog funkcję eat(), tak,
+    by początkowo był wykonywany kod z funkcji eat() z Animal, a następnie ten przeznaczony tylko dla Psów:
+</p>
+
+<pre data-line="10"><code class="language-js" >
+function Dog(name) {
+    Animal.call(this, name);
+    this.type = "dog";
+}
+
+Dog.prototype = Object.create(Animal.prototype);
+Dog.prototype.constructor = Dog;
+
+Dog.prototype.eat = function() {
+    const text = Animal.prototype.eat.call(this); //tamta funkcja nie ma parametrów
+    return text + " kości";
+}
+
+Dog.prototype.bark = function() {
+    return this.name + " wof! wof!";
+}
+
+const dog = new Dog("Pies");
+console.log(dog.eat()); //Pies właśnie je kości
+</code></pre>
+
+<div class="kartofel0informuje">
+    Ciekawy tutorial na powyższe tematy znajdziesz pod adresem:
+    <a href="https://www.youtube.com/watch?v=MiKdRJc4ooE">https://www.youtube.com/watch?v=MiKdRJc4ooE</a>
+</div>
+
+<!-- ### -->
+<h2 class="subtitle" id="class">Klasy</h2>
+<p>
+
+</p>
+
+<pre><code class="language-js">
+class Animal {
+    constructor() {
+        this.name = name;
+        console.log("Tworzę zwierzę: " + this.name);
+    }
+
+    eat() {
+        return this.name + " właśnie je";
+    }
+}
+
+class Dog extends Animal {
+    constructor(name) {
+        super(name);
+        this.type = "dog";
+    }
+    eat() {
+        const text = super.eat();
+        return text + " kości";
+    }
+    bark() {
+        return this.name + " wof! wof!";
+    }
+}
+
+const dog = new Dog("Pies");
+console.log(dog.eat()); //"Pies właśnie je kości";
+</code></pre>
+
+<p>Każda z klas ma konstruktor, czyli funkcję, która jest automatycznie odpalana przy tworzeniu nowej instancji za pomocą new.</p>
+<p>Jeżeli chcemy jakąś klasę rozszerzyć, używamy słowa kluczowego <code>extends</code>.</p>
+<p>Jeżeli chcemy wywołać kod z rozszerzanej klasy, zamiast sięgać po jakieś call/apply, podobnie do języka Java używamy składni super(). Podobnie zresztą robimy przy rozszerzaniu danej metody.</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="gamemaker">Game Maker</h2>
+<p>Mala odskocznia od głównego tematu.</p>
+<p>
+Gdy uczyłem się obiektów, nie do końca czułem te wszystkie zagadnienia. Obiekty, konstruktory, jakieś dziedziczenie itp - teoria, której nie widziałem w zastosowaniu praktycznym.<br>
+Dopiero zabawa z programem <strong>GameMaker</strong> - służącym do tworzenia gier - wyjaśniła mi sens tych rzeczy. Darmowa wersja tego programu jest do ściągnięcia <a href="https://www.yoyogames.com/get">tutaj</a>.
+</p>
+<p>
+Poniżej zamieszczam screen. Po prawej stronie mamy belkę z obiektami, które tworzymy. Opisujemy jakiej grafiki ma używać, co ma robić gdy zostanie stworzony, gdy wyjdzie poza planszę, jak będzie z nim kolizja itp. Każdy taki obiekt to tak naprawdę konstruktor, na bazie którego tworzymy (przeciągamy) potem pojedyncze instancje na planszy naszej gry.
+</p>
+
+<a href="./gamemaker.png" target="_blank"><img src="./gamemaker.png" alt="game maker"></a>
+
+<p>Jeżeli do tej pory nie czujesz obiektów, spróbuj stworzyć w tym programie jakąś prostą grę - np. Arkanoida. Szybko poczujesz idee użyteczności obiektów, dziedziczenia itp. A może i tworzenie gier ci się spodoba...</p>
+
 
 			</div><!-- e: page-content-text -->
 			<footer class="page-footer">
@@ -165,13 +590,13 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
                 </h3>
             </div>
 
-						<div class="page-sidebar-section show has-active-element">
+						<div class="page-sidebar-section ">
 				<h3 class="page-sidebar-section-title">
 					<a href="#">Słowem wstępu</a>
 				</h3>
 				<div class="page-sidebar-list-cnt">
 					<ul class="page-sidebar-list">
-						<li class="active">
+						<li >
 							<a href="/kurs/wstep/wstep.php">Wstęp</a>
 						</li>
 						<li >
@@ -239,7 +664,7 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
 				</div>
 			</div>
 
-            			<div class="page-sidebar-section ">
+            			<div class="page-sidebar-section show has-active-element">
 				<h3 class="page-sidebar-section-title">
 					<a href="#">Obiekty</a>
 				</h3>
@@ -257,7 +682,7 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
                         <li >
 							<a href="/kurs/obiekty/obiekty-zaawansowane-this.php">Zaawansowane this</a>
 						</li>
-                        <li >
+                        <li class="active">
 							<a href="/kurs/obiekty/obiekty-dziedziczenie.php">Dziedziczenie w Javascript</a>
 						</li>
                         <li >

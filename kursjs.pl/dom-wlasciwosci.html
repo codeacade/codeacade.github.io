@@ -1,0 +1,1310 @@
+<!doctype html>
+<html lang="pl-PL">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kurs Javascript - właściwości elementów</title>
+	<meta name="description" content="Kurs Javascript dla superbohaterów, artykuły, tutoriale, porady, zadania do wykonania" />
+    <link rel="canonical" href="https://kursjs.pl/kurs/dom/dom-wlasciwosci.php" />
+	<link rel="stylesheet" href="./css.css" />
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,700&display=swap&subset=latin-ext" rel="stylesheet">
+	<meta name="image" content="https://kursjs.pl/kursjs.png">
+<meta name="twitter:card" content="product">
+<meta name="twitter:site" content="@publisher_handle">
+<meta name="twitter:title" content="Kurs Javascript">
+<meta name="twitter:description" content="Kurs Javascript dla superbohaterów">
+<meta name="twitter:creator" content="@kartofelek007">
+<meta name="twitter:image" content="https://kursjs.pl/kursjs.png">
+<meta property="og:title" content="Kurs Javascript">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.kursjs.com/">
+<meta property="og:image" content="https://kursjs.pl/kursjs.png">
+<meta property="og:description" content="Kurs Javascript dla superbohaterów">
+<meta property="og:site_name" content="Kurs Javascript">
+<link rel="apple-touch-icon" sizes="57x57" href="/favicons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/favicons/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/favicons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/favicons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/favicons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/favicons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/favicons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/favicons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="/manifest.json">
+<meta name="msapplication-TileColor" content="#FF6347">
+<meta name="msapplication-TileImage" content="/mstile-144x144.png">
+    <script src="/js/jquery.min.js"></script>
+</head>
+<body>
+
+<div class="page-container" id="pageContainer">
+	<div class="page-content-wrapper">
+        <main class="page-content" id="mainContent"  data-text-for-print="Kurs Javascript dla superbohaterów">
+                        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <div class="rekl-cnt">
+                <ins
+                class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-6843603045703750"
+                data-ad-slot="4690777640"
+                data-ad-format="auto"
+                data-full-width-responsive="true"
+                ></ins>
+            </div>
+                        <div class="page-content-text">
+
+<style>
+.test-cnt {
+    padding:20px;
+    border:1px solid #ddd;
+    margin:20px 0;
+}
+</style>
+
+<h1 class="page-title">właściwości elementów</h1>
+
+<p>
+    Jeżeli pobierzesz jakikolwiek element ze strony, będziesz mógł w konsoli
+    wyświetlić jego właściwości i metody.<br>
+    Najlepiej od razu odpal debuggera (F12) i zostaw konsole widoczną, bo jeszcze nam się przyda.
+</p>
+
+<p>
+    <button class="button" type="button">Kliknij mnie</button>
+</p>
+
+<p id="test-button">Pobrałem za ciebie powyższy przycisk. Otwórz debugger i rozwiń wypisany element.</p>
+
+<pre><code class="language-js">
+const btn = document.querySelector('.button');
+console.dir( btn );
+</code></pre>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('%c Pobrany przycisk:', 'color:tomato; font-weight:bold;');
+    console.dir(document.querySelector('.button'));
+});
+</script>
+
+<img src="./btn-in-debuger.png" alt="" class="border space">
+
+<p>
+Powyższy screen to tylko urywek całości.<br>
+Obiekt taki ma bardzo dużo właściwości i metod. Część z nich przechowuje pozycję na stronie, typ elementu, jego rozmiary, inne są wykorzystywane dla eventów itp.<br>
+Nie wszystkie będziesz non stop używał. Jeżeli trafi się taka konieczność, wiedz po prostu gdzie szukać tego co cię interesuje (rozwijając pobrany element i wypisując go w konsoli).
+</p>
+<p>
+    Poniżej skupimy się na właściwościach i metodach, które są wykorzystywane najczęściej.
+</p>
+
+<table class="tab left">
+    <tr><th>innerHTML</th><td>zwraca lub ustawia kod HTML danego element</td></tr>
+    <tr><th>outerHTML</th><td>zwraca lub ustawia kod HTML wraz z tagiem</td></tr>
+    <tr><th>innerText</th><td>zwraca lub ustawia tekst znajdujący się w elemencie (bez html)</td></tr>
+    <tr><th>tagName</th><td>zwraca nazwę tagu</td></tr>
+    <tr><th>getAttribute</th><td>pobiera atrybut elementu</td></tr>
+    <tr><th>setAttribute</th><td>ustawia atrybut elementu</td></tr>
+    <tr><th>hasAttribute</th><td>sprawdza czy element ma dany atrybut</td></tr>
+    <tr><th>dataset</th><td>zwraca (obiekt) dataset, który przetrzymuje customowe atrybuty (data-...).</td></tr>
+</table>
+
+
+<!-- ### -->
+<h2 class="subtitle" id="innerHTML">innerHTML i outerHTML</h2>
+<p>
+    Właściwość <strong>innerHTML</strong> umożliwia odczyt i ustawianie html, jaki jest we wnętrzu danego elementu:
+</p>
+
+<pre><code class="language-js">
+const btn = document.querySelector('.btn');
+
+console.log( btn.innerHTML ); //&lt;span>Kliknij mnie!&lt;/span>
+
+btn.innerHTML = "&lt;span>Nie klikaj mnie!&lt;/span>"
+</code></pre>
+
+<p>
+<button class="button" type="button" id="test1"><span>Kliknij mnie!</span></button>
+</p>
+
+<script>
+{
+    document.querySelector('#test1').addEventListener('click', function() {
+        console.log('%c Kliknięty przycisk: ', 'font-weight:bold; color:blue');
+        console.dir(this);
+        console.log('innerHTML: ', this.innerHTML);
+        this.innerHTML = '<span>Nie klikaj mnie!</span>';
+        console.log('innerHTML po zmianie: ', this.innerHTML);
+    })
+}
+</script>
+
+<p>
+    Za pomocą innerHTML możemy wstawiać całe kawałki html dynamicznie:
+</p>
+
+<pre><code class="language-html">
+&lt;div class="test-cnt">Tutaj zaraz coś wstawimy&lt;/div>
+
+&lt;button class="button" type="button">Stwórz dynamicznie html&lt;/button>
+</code></pre>
+
+<pre><code class="language-js">
+document.querySelector('.button').addEventListener('click', function() {
+    let html = `
+        &lt;div class="module">
+        &lt;div>To jest &lt;strong>dynamicznie wstawiony html&lt;/strong>:&lt;/div>
+        &lt;button class="button">Klik!&lt;/button>
+        &lt;button class="button">Inny klik!&lt;/button>
+        &lt;/div>
+    `;
+
+    document.querySelector('.test-cnt').innerHTML = html;
+});
+</code></pre>
+
+<div id="test3div" class="test-cnt">Tutaj zaraz coś wstawimy</div>
+
+<p>
+<button class="button" type="button" id="test3">Stwórz dynamicznie html</button>
+</p>
+
+<script>
+    document.querySelector('#test3').addEventListener('click', function() {
+        let html = `
+            <div class="module">
+               <div>To jest <strong>dynamicznie wstawiony html</strong>:</div>
+               <button class="button">Klik!</button>
+               <button class="button">Inny klik!</button>
+            </div>
+        `;
+
+        document.querySelector('#test3div').innerHTML = html;
+    });
+</script>
+
+<p>
+    Podobną do innerHTML jest właściwość <strong>outerHTML</strong>, z tym, że zwraca także kod html samego elementu:
+</p>
+
+<pre><code class="language-js">
+const btn = document.querySelector('.btn');
+console.log(btn.outerHTML); //&lt;button class="button" type="button">&lt;span>Kliknij mnie&lt;/span>&lt;/button>
+</code></pre>
+
+<div class="kartofel-informuje">
+    Obie metody trzeba używać z rozwagą, bo mogą stać się punktem zaczepnym dla potencjalnych ataków.
+    Temat niestety jest bardzo rozległy - jeżeli chcesz się więcej dowiedzieć na jego temat, wyszukaj w necie "innerHTML xss".
+    Pomocne mogą się tutaj okazać biblioteki, które odpowiednio sprawdzają wstawiany na stronę kod. Jedną z takich bibliotek jest np.
+    <a href="https://github.com/cure53/DOMPurify">https://github.com/cure53/DOMPurify</a>
+</div>
+
+<!-- ### -->
+<h2 class="subtitle" id="innerHTML">innerText i textContent</h2>
+<p>Właściwości innerText i textContent działają podobnie do powyższej innerHTML, z tym że zwracają sam tekst, bez znaczników html:</p>
+
+<pre><code class="language-js">
+const btn = document.querySelector('.btn');
+
+console.log(btn.innerHTML); //&lt;span>Kliknij mnie&lt;/span>
+
+console.log(btn.innerText); //Kliknij mnie
+console.log(btn.textContent); //Kliknij mnie
+</code></pre>
+
+<p>
+    Podstawowa różnica między innerText a textContent jest taka,
+    że innerText zwraca tekst po zaaplikowaniu stylów, a textContent pomija style.
+</p>
+<p>
+Co to oznacza? Jeżeli na jakiś element w tekście zostanie poprzez style nadaje visibility:hidden lub display:none, wtedy innerText nie zwróci ukrytych części:</p>
+
+<pre><code class="language-css">
+.button-text-none {
+    display:none;
+}
+
+.button-text-hide {
+    visibility:hidden;
+}
+</code></pre>
+
+<pre><code class="language-html">
+&lt;div class="test">
+    &lt;span class="button-text-none">Ukryty&lt;/span>
+    &lt;span>Obok mnie są dwa niewidoczne spany&lt;/span>
+    &lt;span class="button-text-hide">Niewidoczny&lt;/span>
+&lt;/div>
+
+&lt;button class="button" type="button">
+    Kliknij
+&lt;/button>
+</code></pre>
+
+<pre><code class="language-js">
+const btn = document.querySelector('.button');
+const divTest = document.querySelector('.test');
+
+btn.addEventListener('click', function() {
+    console.log('innerHTML: ', divTest.innerHTML);
+    console.log('innerText: ', divTest.innerText);
+    console.log('textContent: ', divTest.textContent);
+});
+</code></pre>
+
+<style>
+.button-text-hide {
+    visibility:hidden;
+}
+.button-text-none {
+    display:none;
+}
+</style>
+
+<div id="testTextContent" class="test-cnt">
+    <span class="button-text-none">Ukryty</span>
+    <span>Obok mnie są dwa niewidoczne spany</span>
+    <span class="button-text-hide">Niewidoczny</span>
+</div>
+
+<button class="button" type="button" id="btnTextContent">
+    Kliknij i sprawdź w konsoli
+</button>
+
+<script>
+const btn = document.querySelector('#btnTextContent');
+const divTest = document.querySelector('#testTextContent');
+
+btn.addEventListener('click', function() {
+    console.log('%c innerHTML: ', 'font-weight:bold');
+    console.log(divTest.innerHTML);
+    console.log('');
+    console.log('%c innerText: ', 'font-weight:bold');
+    console.log(divTest.innerText);
+    console.log('%c textContent: ', 'font-weight:bold');
+    console.log(divTest.textContent);
+})
+</script>
+
+<p>
+    Dodatkowo jeżeli wewnątrz tekstu są znaczniki &lt;br>, wtedy innerText zwróci tekst z nową linią tam gdzie te znaczniki występują:
+</p>
+
+<pre><code class="language-html">
+&lt;p>To jest tekst &lt;br>złamany&lt;/p>
+</code></pre>
+
+<pre><code class="language-js">
+const p = document.querySelector("p");
+
+console.log(p.innerText);
+//To jest tekst
+//złamany
+
+console.log(p.textContent);
+//To jest tekst złamany
+</code></pre>
+
+<p>Z racji tego, że textContent nie sprawdza czy dane znaczniki są ukryte czy też nie, jest też nieco <a href="https://jsperf.com/textcontent-vs-innertext2/1">szybszy od swego brata</a>. A to akurat tylko ciekawostka, bo w realnych aplikacjach takie różnice totalnie nie mają znaczenia...</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="tagName">tagName</h2>
+<p>Właściwość <strong>tagName</strong> zwraca nam nazwę elementu np. h2, a, p itp.</p>
+
+<pre><code class="language-js">
+const btn = document.querySelector('.button');
+console.log(btn.tagName);
+</code></pre>
+
+<p>
+<button type="button" class="button" id="testType">Pokaż typ</button>
+</p>
+
+<script>
+    const btnTestType = document.querySelector('#testType');
+    btnTestType.addEventListener('click', function() {
+        console.log(this.tagName);
+    });
+</script>
+
+<p>Do czego to może się przydać? Przykładowo można pobrać wiele elementów na raz, a następnie tylko dla określonych coś zmeniać:</p>
+
+<pre><code class="language-js">
+const elements = document.querySelector('body *');
+    elements.forEach(function(el) {
+        if (el.tagName.toLowerCase() === "STRONG") {
+            console.log(el.innerText);
+            el.style.border = "1px solid red";
+        }
+    })
+}
+</code></pre>
+
+<p>W powyższym skrypcie pobraną nazwę znacznika dodatkowo zamieniłem na małe litery. Dla HTML nie trzeba tego robić bo nazwy znaczników zwracane są dużymi literami. To dodatkowe zabezpieczenie może nam jednak pomóc gdy nasz skrypt używamy dla dokumentów w innym formacie - np. <a href="https://stackoverflow.com/questions/27223756/is-element-tagname-always-uppercase">xhtml</a>.<br>
+Żeby to sprawdzić, wejdź na stronę <a href="http://www.powiatzaganski.pl/">http://www.powiatzaganski.pl/</a> i otwórz debuggera. Wpisz w konsoli `document.body.tagName`. Dodatkowo otwórz zakładkę Network, odśwież stronę i sprawdź pierwszy z góry request (www.powiatzaganski.pl) - a dokłądniej przyjrzyj się nagłówkowi contentType</p>
+
+<img src="./tagname.png" alt="tagName" class="space border">
+
+<!-- ### -->
+<h2 class="subtitle" id="getAttribute-setAttribute">getAttribute, setAttribute, hasAttribute i removeAttribute</h2>
+<p>
+    Metody <strong>getAttribute(nazwaAtrybutu)</strong> i <strong>setAttribute(nazwaAtrybutu, wartość)</strong> służą do pobierania i
+    ustawiania atrybutów HTML danego znacznika.<br><br>
+    Metoda <strong>removeAttribute(nazwaAtrybutu)</strong> służy do usunięcia atrybutu.
+</p>
+
+<p>Metoda <strong>getAttribute(nazwaAtrybutu)</strong> wymaga tylko jednego parametru,
+    którym jest nazwa pobieranego atrybutu. Jeżeli dany atrybut nie zostanie odnaleziony,
+    metoda zwróci <strong>null</strong>:</p>
+
+<pre><code class="language-html">
+&lt;a href="http://google.pl"> Wyszukaj &lt;/a>
+</code></pre>
+
+<pre><code class="language-js">
+const a = document.querySelector('a');
+const href = a.getAttribute('href'); //http://google.pl
+const target = a.getAttribute('target'); //null
+</code></pre>
+
+<p>Metoda <strong>setAttribute(nazwaAtrybutu, wartość)</strong> wymaga podania zarówno nazwy atrybutu, jak i jego nowej wartości:</p>
+
+<pre><code class="language-js">
+const a = document.querySelector('a');
+a.setAttribute('href', 'https://kursjs.pl');
+</code></pre>
+
+<p>Aby usunąć atrybut, skorzystamy z metody <strong>removeAttribute()</strong>:</p>
+
+<pre><code class="language-js">
+const inputs = document.querySelector('input[readonly]'); //pobieram pola readonly
+for (const el of inputs) {
+    el.removeAttribute('readonly');
+}
+</code></pre>
+
+<p>Jeżeli chcemy sprawdzić czy dany element ma konkretny atrybut, wtedy możemy skorzystać z metody <strong>hasAttribute(nazwaAtrybutu)</strong>. Metoda ta sprawdza czy dany atrybut istnieje zwracając true/false:</p>
+
+<pre><code class="language-js">
+const img = document.querySelectorAll('img');
+let count = 0;
+
+for (const el of img) {
+    if (!el.hasAttribute('alt')) {
+        el.style.border = "2px solid red";
+        count++;
+    }
+}
+if (count) {
+    console.warn(`${} zdjęć nie ma atrybutu alt!`);
+}
+</code></pre>
+
+
+<!-- ### -->
+<h2 class="subtitle" id="dataset">dataset</h2>
+<p>
+    Atrybuty mogą być domyślne (np. src, alt, tooltip, class itp), oraz nasze własne. Te drugie powinny zaczynać się od słowa <strong>data-</strong> np. data-text.<br>
+    Atrybuty takie możemy obsługiwać za pomocą powyższych metod tak samo jak wszystkie atrybuty, ale też możemy dla nich skorzystać z właściwości <strong>dataset</strong>.
+</p>
+
+<pre><code class="language-html">
+&lt;span class="tooltip" data-default-text="Lubie koty i psy" data-position="top">
+    lorem ipsum
+&lt;/span>
+</code></pre>
+
+<p>
+    W powyższym przykładzie mamy 2 customowe atrybuty: <strong>data-default-text</strong> i <strong>data-position</strong>
+</p>
+<p>
+    Jeżeli teraz chcielibyśmy je odczytać użyjemy konstrukcji:
+</p>
+
+<pre><code class="language-js">
+const tooltip = document.querySelector('.tooltip');
+console.log(tooltip.dataset.defaultText);
+console.log(tooltip.dataset.position);
+</code></pre>
+
+<p>
+    Zauważ, jak odwołaliśmy się do nazw naszych parametrów.<br>
+    Początek <strong>data-</strong> został pominięty, a zapis <strong>default-text</strong> zmieniliśmy na pisany camelCase czyli <strong>defaultText</strong>.
+</p>
+
+<pre><code class="language-js">
+&lt;div class="module"
+    data-my-custom-data="..."
+    data-style="..."
+    data-module-type="..."
+>
+   ...
+&lt;/div>
+</code></pre>
+
+<pre><code class="language-js">
+const tooltip = document.querySelector('.module');
+console.log(tooltip.dataset.myCustomData);
+console.log(tooltip.dataset.style);
+console.log(tooltip.dataset.moduleType);
+</code></pre>
+
+<p>Jeżeli teraz chcielibyśmy ustawić jakiś własny customowy atrybut,
+lub zmienić istniejący, wystarczy że ustawimy im nową wartość:</p>
+
+<pre><code class="language-js">
+tooltip.dataset.myCustomData = "nowa wartość"; //utworzy w elemencie atrybut data-my-custom-data="nowa wartość"
+tooltip.dataset.style = "primary"; //utworzy atrybut data-style="primary"
+tooltip.dataset.moduleType = "big" //utworzy atrybut data-module-type="big"
+
+//to samo możemy uzyskać za pomocą getAttribute i setAttribute
+tooltip.getAttribute('data-custom-data');
+tooltip.setAttribute('data-style', "primary");
+tooltip.setAttribute('data-module-type', "big");
+</code></pre>
+
+
+<p id="dataset-obiekty">
+Charakterystyczną rzeczą jest to, że atrybuty w znacznikach html są stringami.
+Tak więc cokolwiek byśmy nie przetrzymywali w dataset, staje się to stringiem:
+</p>
+
+<pre><code class="language-html">
+&lt;div data-nr1="16" data-nr2="30">
+    Kliknij mnie
+&lt;/button>
+</code></pre>
+
+<pre><code class="language-js">
+console.log(typeof div.dataset.nr1, typeof div.dataset.nr2) //"string", "string"
+console.log(div.dataset.nr1 + div.dataset.nr2); //"1630"
+</code></pre>
+
+<p>Z tego powodu nie za wygodne jest tutaj przetrzymywanie każdego typu danych. Customowe atrybuty idealnie nadają się do przechowywania tekstów dynamicznie wstawianych na stronę, kawałków html, które zaraz wmontujemy w stronę, czy dodatkowych wartości służących do stylowania za pomocą atrybutów.
+
+<pre><code class="language-js">
+div.dataset.type = "error";
+</code></pre>
+
+<pre><code class="language-js">
+div[data-type="error"] {
+    color: red;
+}
+</code></pre>
+
+<p>Nawet przy liczbach nie powinno być większych problemów, ponieważ łatwo możemy je konwertować:</p>
+
+<pre><code class="language-js">
+Number(div.dataset.nr1) + Number(div.dataset.nr2)
+</code></pre>
+
+<p>Problem pojawia się, gdy w dataset chcemy przetrzymywać inne typy danych - np. tablice i obiekty:</p>
+
+<pre><code class="language-js">
+div.dataset.table = [1,2,3,4,5];
+div.dataset.ob = {name : "Marcin"};
+
+console.log(div.dataset.table); //"1,2,3,4,5"
+console.log(div.dataset.ob); //"[object Object]"
+</code></pre>
+
+<img src="./dataset.png" alt="dataset" class="space border">
+
+<p>Aby przetrzymywać takie rzeczy w atrybutach, możemy posłużyć się obiektem JSON, który udostępnia nam 2 metody: <strong>stringify()</strong> - do konwersji obiektu na tekstowy zapis, oraz <strong>parse()</strong> - do odkodowania takiego zapisu:</p>
+
+<pre><code class="language-js">
+div.dataset.table = JSON.stringify( [1,2,3,4,5] );
+div.dataset.ob = JSON.stringify( {name : "Marcin"} );
+
+console.log( JSON.parse(div.dataset.table) ); //["1,2,3,4,5"]
+console.log( JSON.parse(div.dataset.ob) ); //{name : "Marcin"}
+</code></pre>
+
+<img src="./dataset2.png" alt="dataset" class="space border">
+
+<!-- ### -->
+<h2 class="subtitle" id="wlasciwosci-atrybuty">Atrybuty kontra właściwości</h2>
+<p>
+Jeżeli za pomocą JS pobieramy (ale i gdy go tworzymy) jakikolwiek element ze strony, JavaScript za pomocą <a href="./dom.php">DOM</a> tworzy dla nas <strong>jego odpowiednik</strong> w JavaScript:
+</p>
+
+<pre><code class="language-js">
+&lt;a id="link" href="https://google.pl"> było - zamykam temat &lt;/a>
+</code></pre>
+
+<pre><code class="language-js">
+const link = document.querySelector("#link");
+console.dir(link)
+</code></pre>
+
+<p>
+Obiekt taki automatycznie dostał wiele właściwości. Wśród nich są te, które odpowiadają atrybutom z html - np. id, href ale też takie które element danego typu potencjalnie może mieć. W powyższym przykładzie mamy link, więc potencjalnie może mieć atrybut target. Nasz obiekt w JS też ma taką właściwość.
+</p>
+
+<img src="./html-vs-js.png" alt="html i js">
+
+<p>
+Początkowa wartość takich właściwości tworzona jest na bazie wartości atrybutów danego elementu:
+</p>
+
+<pre><code class="language-js" data-lines="">
+&lt;img src="obrazek.jpg" alt="obrazek" tooltip="Fajny obrazek">
+</code></pre>
+
+<pre><code class="language-js">
+const img = document.querySelector('img');
+
+img.src //"obrazek.jpg"
+img.alt //"obrazek"
+img.tooltip //"Fajny obrazek"
+</code></pre>
+
+<p>Gdy JavaScript tworzy taki obiekt, niektóre początkowe wartości są dodatkowo przeliczane:</p>
+
+<pre><code class="language-js">
+&lt;a id="link1" href="./kontakt.html"> kontakt &lt;/a>
+&lt;a id="link2" href="https://google.pl"> było - zamykam temat &lt;/a>
+</code></pre>
+
+<pre><code class="language-js">
+const link1 = document.querySelector("#link1");
+console.log( link1.href ); //file:///C:/Users/kartofelek/Desktop/kontakt.html
+
+const link2 = document.querySelector("#link1");
+console.log( link2.href ); //https://google.pl
+</code></pre>
+
+<p>Widzisz jak wygląda wartość dla pierwszego linku? To link do relatywnej strony na moim dysku, ponieważ nie zaczyna się od żadnego protokołu (np. http, https). JavaScript tworząc dla nas odpowiednik naszego elementu, przeliczył sobie właściwość href.</p>
+
+<p>Tu pojawia się pierwsza różnica między atrybutami a właściwościami. Atrybuty to rzeczy, które wpisaliśmy do HTML. Właściwości, to właściwości obiektu, który został dla nas stworzony gdy pobieraliśmy dany element za pomocą JavaScript.<br>
+Atrybuty mają wartość dokładnie taką jaka jest wpisana przez nas w HTML i zawsze są w formacie string - ponieważ HTML to pisany przez nas tekst. Wartości w większości swoją początkową wartość mają taką samą jak atrybuty ponieważ budowana jest na ich podstawie. Ale czasami dodatkowo może ona być przeliczona.</p>
+
+<p>Druga różnica jest taka, że wartości dynamicznie reagują na zmiany w obiekcie, natomiast atrybuty dalej są takie same jak wpisaliśmy je w html. Sprawdźmy to na poniższym przykładzie:</p>
+
+<pre><code class="language-html">
+&lt;input type="text" id="testValue" value="Jakaś wartość" />
+</code></pre>
+
+<pre><code class="language-js">
+const input = document.querySelector('input');
+
+console.log("input.getAttribute('value'):", input.getAttribute('value'));
+console.log("input.value:", input.value);
+</code></pre>
+
+<p>
+    Zmień wartość poniższego inputa i sprawdź w konsoli obie wartości:
+</p>
+
+<style>
+.test-value-get,
+.test-value-set {
+    display: flex;
+}
+.test-value-input {
+    margin-right: 20px;
+}
+</style>
+
+<div class="test-value-get">
+    <input type="text" class="test-value-input" value="Jakaś wartość" />
+    <button class="button test-value-btn">Sprawdź</button>
+</div>
+
+<script>
+{
+    const btn = document.querySelector(".test-value-get .test-value-btn");
+    const input = document.querySelector(".test-value-get .test-value-input");
+
+    btn.addEventListener("click", function() {
+        console.log("%c input.getAttribute(\"value\"):", "color: #888", input.getAttribute('value'));
+        console.log("%c input.value:", "color: #888", input.value);
+    })
+
+}
+</script>
+
+<p>Podobnie będzie to działać w przypadku ustawiania. Ustawiając właściwości ustawiamy je dla odpowiednika stworzonego dla nas przez JavaScript. Nie oznacza to jednak, że automatycznie będą się zmieniały atrybuty w HTML. Aby to zrobić musimy użyć powyżej omawianych metod do tego służących:</p>
+
+<pre><code class="language-js">
+&lt;div class="test-value-set">
+    &lt;input type="text" class="test-value-input" value="Jakaś wartość" />
+    &lt;input type="text" class="test-value-input" value="Jakaś wartość" />
+    &lt;button class="button test-value-btn">Zmień wartości&lt;/button>
+&lt;/div>
+</code></pre>
+
+<pre><code class="language-js">
+const inputs = document.querySelectorAll(".test-value-input");
+const input1 = inputs[0];
+const input2 = inputs[1];
+
+input1.value = "Nowa wartość 1";
+input2.setAttribute("value", "Nowa wartość 2");
+</code></pre>
+
+<p>Ponownie po zmianie sprawdź wygląd obydwu inputów w zakładce Elements debuggera.</p>
+
+<div class="test-value-set">
+    <input type="text" class="test-value-input" value="Jakaś wartość" />
+    <input type="text" class="test-value-input" value="Jakaś wartość" />
+    <button class="button test-value-btn">Zmień wartości</button>
+</div>
+
+<script>
+{
+    const btn = document.querySelector(".test-value-set .test-value-btn");
+    const inputs = document.querySelectorAll(".test-value-set .test-value-input");
+    const input1 = inputs[0];
+    const input2 = inputs[1];
+
+    btn.addEventListener("click", function() {
+        input1.value = "Nowa wartość 1";
+        input2.setAttribute("value", "Nowa wartość 2");
+    })
+
+}
+</script>
+
+<p>Co to dla nas oznacza? Jeżeli chcesz mieć pewność, że pobierasz dokładnie to co zostało wpisane w HTML, używaj get/setAttribute. Jeżeli działasz na dynamicznych wartościach (np. zmieniająca się wartość pola, jego pozycja itp) - używaj właściwości obiektu.</p>
+<p>W praktyce najczęściej będziemy obijać się o 2 właściwości - href i value. Tą pierwszą zawsze pobieraj za pomocą getAttribute, bo inaczej dostaniesz dziwną przeliczoną wartość. W przypadku value interesuje nas to co wpisuje użytkownik - więc używamy właściwości value.</p>
+
+<div class="tasks-for-you-cnt">
+	<h2 class="subtitle" id="zadania">Trening czyni mistrza</h2>
+	<p>
+		Poniżej zamieszczam kilka zadań, które w ramach ćwiczenia możesz wykonać:
+	</p>
+	<ol class="tasks-for-you">
+		<li>
+			<div class="question">
+				<p>
+					<a href="dom-wlasciwosci-zadanie-1.html">Przygotowałem dla ciebie stronę</a>, na której zrób to zadanie.
+					Na stronie jest lista użytkowników. Twoim zadaniem jest:
+				</p>
+	
+				<p>
+					Zrób pętlę po elementach listy sprawdzając ich atrybut data-status:<br>
+					- jeżeli ma on wartość "up": ustaw element .status na kolor "springgreen" i wstaw do niego tekst "wzrost"<br>
+					- jeżeli ma on wartość "down": ustaw element .status na kolor "orangered" i wstaw do niego tekst "spadek"<br>
+					- jeżeli ma on wartość "no-change": ustaw element .status na kolor "mediumslateblue" i wstaw do niego tekst "bez zmian"<br>
+				</p>
+			</div>
+			<div class="solution">
+				<pre><code class="language-js">
+					const list = document.querySelector(".list");
+					const li = list.querySelectorAll("li");
+	
+					for (const el of li) {
+						let statusText = "";
+						let color = "";
+	
+						el.classList.add("list-element");
+	
+						if (el.dataset.status === "up") {
+							statusText = "wzrost";
+							color = "Limegreen";
+						}
+						if (el.dataset.status === "down") {
+							statusText = "spadek";
+							color = "orangered";
+						}
+						if (el.dataset.status === "no-change") {
+							statusText = "bez zmian";
+							color = "mediumslateblue";
+						}
+	
+						const status = el.querySelector(".status");
+						status.style.background = color;
+						status.innerHTML = statusText;
+					}
+				</code></pre>
+			</div>
+		</li>
+		<li>
+			<div class="question">
+				<a href="dom-wlasciwosci-zadanie-2.html">Kolejna strona dla ciebie</a>.
+																					  Ściągnij ją a następnie wykonaj poniższe polecenia rozwiązując zadania w skrypcie, który znajduje się w kodzie strony (na dole).<br>
+	
+				<ol>
+					<li>Dodaj jej klasę .preety</li>
+					<li>pierwszemu LI w tym ul dodaj klasę .first</li>
+					<li>ostatniemu LI w tym ul dodaj klasę .last</li>
+					<li>trzeciemu LI w tym ul ustaw klasę .active</li>
+					<li>trzeciemu LI w tym ul ustaw za pomocą JS kolor tekstu na #ffffff</li>
+					<li>każdemu linkowi w tym menu ustaw atrybut title="Przejdź na stronę ..." gdzie ... pobierzesz z środka linka. Dla przykładu <code>&lt;a href=""&gt;Start&lt;/a&gt;</code> powinien zmienić się w <code>&lt;a href="" title="Przejdź na stronę Start"&gt;Start&lt;/a&gt;</code></li>
+					<li>za pomocą JS każdemu linkowi w tym ul ustaw atrybut href na #. Po co to robimy? Czy jest alternatywna metoda?</li>
+				</ol>
+			</div>
+			<div class="solution">
+				<pre><code class="language-js">
+					const menu = document.querySelector(".list");
+					const li = menu.querySelector("li");
+					const links = menu.querySelectorAll("a");
+	
+					menu.classList.add("preety");
+					li[0].classList.add("first");
+					li[li.length-1].classList.add("last");
+					li[2].classList.add("active");
+					li[2].style.color = "#fff";
+	
+					for (const el of links) {
+						el.setAttribute("title", "Przejdź na stronę " + el.innerText);
+						el.href = "#";
+					}
+				</code></pre>
+			</div>
+		</li>
+		<li>
+			<div class="question">
+				Napisz konstruktor "HTMLInfo" który będzie miał 2 początkowe właściwości:<br>
+				- <strong>selector</strong> - string podawany przy tworzeniu instancji. Oznacza selektor użyty do pobrania elementów  np. ".btn"<br>
+				- <strong>elements</strong> - pseudo tablica elementów pobranych ze strony przy wykorzystaniu powyższego selektora<br>
+					np. document.querySelectorAll(this.selector)<br>
+				Załóżmy, że zawsze pobieramy wiele elementów - nawet jak wiemy, że będzie tylko jeden.<br><br>
+				
+				Niech konstruktor ma dodatkowe wspólne dla wszystkich instancji metody:<br>
+				- <strong>showElements()</strong> - wypisuje w konsoli wszystkie elementy "elements"<br>
+				- <strong>showTags()</strong> - wypisuje w konsoli tagi elementów "elements"<br>
+				- <strong>showCount()</strong> - wypisuje liczbę elementów "elements"<br>
+				- <strong>showClass()</strong> - wypisuje klasy wszystkich elementów "elements"<br>
+				- <strong>showHtml()</strong> - wypisuje html z wszystkich elementów "elements"<br>
+				- <strong>showData()</strong> - wypisuje wszystkie atrybuty data- z wszystkich elementów "elements"<br>
+			</div>
+			<div class="solution">
+				function HTMLInfo(selector) {
+					this.selector = selector;
+					this.elements = document.querSelectorAll(this.selector);
+				}
+				HTMLInfo.prototype.showElements = function() {
+					for (const el of this.elements) {
+						console.log(el);
+					}
+				}
+				HTMLInfo.prototype.showTags = function() {
+					for (const el of this.elements) {
+						console.log(el.tagName);
+					}
+				}
+				HTMLInfo.prototype.showCount = function() {
+					console.log("Liczba elementów: ", this.elements.length);
+				}
+				HTMLInfo.prototype.showClass = function() {
+					for (const el of this.elements) {
+						console.log(el.className);
+					}
+				}
+				HTMLInfo.prototype.showHtml = function() {
+					for (const el of this.elements) {
+						console.log(el.innerHTML);
+					}
+				}
+				HTMLInfo.prototype.showData = function() {
+					for (const el of this.elements) {
+						console.log(el.dataset);
+					}
+				}
+			</div>
+		</li>
+		<li>
+			<div class="question">
+				Stwórz pustą stronę html, i dodaj jej przykładowy html. Jeżeli używasz Emmeta, wtedy wstaw do niej poniższą linijkę:
+				<code>button.btn.btn-primary.btn-nr$$[data-text="lorem $$"][data-nr="$$"]{Kliknij $$}*10</code>, postaw kursor na jej końcu i naciśnij tab.<br>
+				Stwórz obiekt na bazie konstruktora z zadania pierwszego i odpal dla niego wszystkie metody pobierając buttony.
+			</div>
+			<div class="solution">
+				const tester = new HTMLInfo("button");
+				tester.showElements();
+				tester.showTags();
+				tester.showCount();
+				tester.showClass();
+				tester.showHtml();
+				tester.showData();
+			</div>
+		</li>
+	</ol>
+	</div>
+
+			</div><!-- e: page-content-text -->
+			<footer class="page-footer">
+				<p>
+				Wszelkie prawa zastrzeżone. Jeżeli chcesz używać jakiejś części tego kursu, skontaktuj się z <a href="/kurs/autor.php">autorem</a>.
+				Aha - i ta strona korzysta z <a href="/kurs/polityka-prywatnosci.php">ciasteczek</a>.
+				</p>
+			</footer>
+							<div class="rekl-cnt">
+					<ins
+					class="adsbygoogle" style="margin-top:40px; display:block"
+					data-ad-client="ca-pub-6843603045703750"
+					data-ad-slot="4690777640"
+					data-ad-format="auto"
+					data-full-width-responsive="true"
+					></ins>
+				</div>
+				<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+	(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+					</main><!-- e: page-content -->
+			</div><!-- e: page-content-wrapper -->
+    <aside id="page-sidebar-cnt" class="page-sidebar-cnt">
+	<div id="page-sidebar" class="page-sidebar">
+		<button aria-label="Pokaż/ukryj Menu" aria-expanded="false" aria-controls="page-sidebar" type="button" id="pageSidebarBurger" class="page-sidebar-burger">
+			<span></span>
+		</button>
+
+		<h2 class="visuallyhidden">
+			Menu
+		</h2>
+
+		<button class="sidebar-toggle-btn" title="Pokaż/schowaj menu" aria-hidden="true">
+			<strong>Pokaż/ukryj menu</strong>
+			<span></span>
+			<span></span>
+			<span></span>
+		</button>
+
+		<div class="page-sidebar-title">
+			<a href="/kurs/kontakt.php" title="Nawrzucaj autorowi" class="mail-to-author" id="mailToAuthor">Napisz do mnie</a>
+			<a href="#popupOptions" class="page-setup-link popupOpen" title="Ustawienia strony" id="showOptions">Ustawienia</a>
+			<a href="/index.php" aria-label="Strona główna" class="page-sidebar-title-link">Kurs Javascript</a>
+		</div>
+
+        <form aria-label="Wyszukiwarka" class="search-sidebar" action="/search.php" method="post">
+            <label for="search" class="search-sidebar-label">Szukaj</label>
+            <div class="search-sidebar-input-cnt">
+                <svg class="search-sidebar-input-icon" xmlns="http://www.w3.org/2000/svg" width="26" height="28" viewBox="0 0 26 28" aria-hidden="true">
+                    <path d="M18 13c0-3.859-3.141-7-7-7s-7 3.141-7 7 3.141 7 7 7 7-3.141 7-7zm8 13c0 1.094-.906 2-2 2a1.96 1.96 0 0 1-1.406-.594l-5.359-5.344a10.971 10.971 0 0 1-6.234 1.937c-6.078 0-11-4.922-11-11s4.922-11 11-11 11 4.922 11 11c0 2.219-.672 4.406-1.937 6.234l5.359 5.359c.359.359.578.875.578 1.406z"></path>
+                </svg>
+                <input type="text" id="search" autocomplete="off" name="q" class="search-sidebar-input">
+            </div>
+            <button type="submit" class="search-sidebar-button">Szukaj</button>
+        </form>
+
+		<div class="page-sidebar-table-of-content">
+			<h2 class="visuallyhidden">Spis treści</h2>
+            <div class="page-sidebar-section">
+				<h3 class="page-sidebar-section-title noopen">
+                    <a href="/index.php">Strona główna</a>
+                </h3>
+            </div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Słowem wstępu</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/wstep/wstep.php">Wstęp</a>
+						</li>
+						<li >
+							<a href="/kurs/wstep/co-to-jest-javascript.php">Co to jest JavaScript i z czym go się je?</a>
+						</li>
+						<li >
+							<a href="/kurs/wstep/wymagania.php">Wymagania</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Super podstawy</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/debuger/debuger.php">Debuger</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/pierwszy-skrypt.php">Wstawiamy skrypty na naszą stronę</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/strict-mode.php">Strict mode</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/typy-danych.php">Typy danych i konwersja danych</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/zmienne.php">Zmienne</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/operatory.php">Operatory</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/math.php">Obiekt Math</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/string.php">String - teksty</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/instrukcje-warunkowe.php">Instrukcje warunkowe</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/petle.php">Pętle</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/funkcje.php">Funkcje</a>
+						</li>
+                        <li >
+							<a href="/kurs/super-podstawy/funkcje-tematy-dodatkowe.php">Funkcje - tematy dodatkowe</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/tablice.php">Tablice</a>
+						</li>
+                        <li >
+							<a href="/kurs/super-podstawy/tablice-iteracje.php">Tablice pętle</a>
+						</li>
+						<li >
+							<a href="/kurs/debuger/debugowanie.php">Debugowanie kodu</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+            			<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Obiekty</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+                        <li >
+							<a href="/kurs/obiekty/obiekty.php">Obiekty i this</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-jak-to-dziala.php">Jak to działa</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-konstruktor.php">Konstruktor</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-zaawansowane-this.php">Zaawansowane this</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-dziedziczenie.php">Dziedziczenie w Javascript</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-inne-sposoby-tworzenia.php">Inne sposoby tworzenia obiektów</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-instanceof-hasownproperty.php">instanceof i hasOwnProperty</a>
+						</li>
+                    </ul>
+                </div>
+            </div>
+
+						<div class="page-sidebar-section show has-active-element">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">DOM i zdarzenia</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/dom/dom.php">Document Object Model</a>
+						</li>
+						<li class="active">
+							<a href="/kurs/dom/dom-wlasciwosci.php">Właściwości elementów</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-relacje.php">Relacje między elementami</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-tworzenie-i-usuwanie.php">Tworzenie i usuwanie elementów</a>
+						</li>
+                        <li >
+                            <a href="/kurs/dom/style.php">Style w CSS</a>
+                        </li>
+						<li >
+							<a href="/kurs/events/events.php">Zdarzenia</a>
+						</li>
+						<li >
+							<a href="/kurs/events/events-keys.php">Zdarzenia - klawisze</a>
+						</li>
+						<li >
+							<a href="/kurs/events/events-mouse.php">Zdarzenia - myszka</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/projekt-todo.php">Projekt TODO</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/slider.php">Tworzymy slider</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Prawie podstawy</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/grafika/grafika-na-stronie.php">Grafika na stronie</a>
+						</li>
+						<li >
+							<a href="/kurs/intervals/intervals.php">setTimeout i setInterval</a>
+						</li>
+						<li >
+							<a href="/kurs/match-media.php">Praca z RWD</a>
+						</li>
+						<li >
+							<a href="/kurs/okna-dialogowe.php">Okienka dialogowe</a>
+						</li>
+						<li >
+							<a href="/kurs/okna.php">Tworzenie nowych okien</a>
+						</li>
+						<li >
+							<a href="/kurs/date/date.php">Obiekt Date</a>
+						</li>
+						<li >
+							<a href="/kurs/date/date-calendar.php">Tworzymy kalendarz</a>
+						</li>
+						<li >
+							<a href="/kurs/cookies/cookie.php">Obiekt Cookie</a>
+						</li>
+						<li >
+							<a href="/kurs/storage/storage.php">Storage</a>
+						</li>
+						<li >
+							<a href="/kurs/regular.php">Wyrażenia regularne</a>
+						</li>
+						<li >
+							<a href="/kurs/formularze/formularze.php">Formularze</a>
+						</li>
+						<li >
+							<a href="/kurs/formularze/formularze-walidacja.php">Formularze - walidacja</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Ajax</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/ajax/ajax.php">AJAX, REST, JSON</a>
+						</li>
+						<li >
+							<a href="/kurs/ajax/xmlhttprequest.php">XMLHttpRequest</a>
+						</li>
+            			<li >
+							<a href="/kurs/ajax/fetch.php">Fetch API</a>
+						</li>
+						<li >
+							<a href="/kurs/ajax/formularz-kontaktowy.php">Dynamiczny formularz kontaktowy</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Nowy Javascript</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/es6/ecma-script-2015.php">ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/webpack.php">Webpack</a>
+						</li>
+                        <li >
+            				<a href="/kurs/es6/obiekty-w-es6.php">Obiekty w ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/funkcja-strzalkowa.php">Funkcja strzałkowa</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/spread-rest.php">Spread i rest</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/template-strings.php">Template strings</a>
+						</li>
+						<li >
+            				<a href="/kurs/es6/destructuring.php">Dekompozycja</a>
+        				</li>
+						<li >
+							<a href="/kurs/es6/class.php">Klasy w ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/promises.php">Promises</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/async-await.php">Async/Await</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/symbole.php">Symbole</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">jQuery</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/jquery/jquery.php">jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/animacje-w-jquery.php">Animacje w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/jquery-ajax.php">Ajax w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/tabs.php">Taby w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/plugin.php">Karuzela w jQuery</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Canvas</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/canvas/canvas.php">Canvas</a>
+						</li>
+						<li >
+							<a href="/kurs/canvas/canvas-images.php">Grafika w canvas</a>
+						</li>
+						<li >
+						<a href="/kurs/canvas/canvas-paint.php">Praktycznie : Paint w canvas</a>
+						</li>
+
+						<li >
+							<a href="/kurs/canvas/canvas-animacja.php">Animacja w canvas</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Gry</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/gry/hangman/hangman.php">Szubienica</a>
+						</li>
+						<li >
+							<a href="/kurs/gry/memory/memory.php">Memory</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+            			<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Inne</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/dodatkowe-materialy.php">Dodatkowe materiały</a>
+						</li>
+						<li >
+							<a href="/kurs/faq.php">FAQ</a>
+						</li>
+						<li >
+							<a href="/kurs/polityka-prywatnosci.php">Polityka prywatności</a>
+						</li>
+						<li >
+							<a href="/kurs/autor.php">O autorze</a>
+						</li>
+						<li >
+							<a href="/kurs/kontakt.php">Kontakt</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="page-sidebar-section">
+                <a class="special-link" href="/kurs/autor.php#donate">Wesprzyj kurs</a>
+            </div>
+		</div>
+	</div>
+</aside></div><!-- e: page-container -->
+
+<div class="popup" id="popupOptions">
+	<div class="popup-inside">
+        <div class="popup-container-cnt">
+            <div class="popup-container">
+                <button class="popup-close">Zamknij</button>
+
+                <h2 class="popup-title">
+                    Opcje
+                </h2>
+
+                <div class="popup-content">
+                    <form class="form-options">
+                        <div class="form-option">
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <label for="optionsThemeSelect">Wybierz skórkę dla listingów</label>
+                                    <select id="optionsThemeSelect"></select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <pre><code class="language-js">
+                                //tak będzie wyglądał kod
+
+                                function test() {
+                                    for (let i=0; i&lt;10; i++) {
+                                        console.log("Tekst numer ", 1);
+                                    }
+                                }
+
+                                test();
+                                </code></pre>
+                            </div>
+                            <div class="form-row" id="themeLightModeRow">
+                                <div class="form-col">
+                                    <label for="themeLightMode">
+                                        Tryb dzienny / nocny
+                                    </label>
+
+                                    <div class="light-mode-el">
+                                        <input type="checkbox" id="themeLightMode">
+                                        <span class="light-mode"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+	</div>
+</div>
+<script async defer src="https://www.googletagmanager.com/gtag/js?id=UA-38558970-5"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-38558970-5');
+</script>
+
+	<script src="/js/ads.js"></script>
+	<script src="/js/script.min.js?v=0.13" defer></script>
+</body>
+</html>

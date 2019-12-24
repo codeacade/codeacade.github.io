@@ -1,0 +1,2964 @@
+<!doctype html>
+<html lang="pl-PL">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kurs Javascript - Canvas</title>
+	<meta name="description" content="Kurs Javascript dla superbohaterów, artykuły, tutoriale, porady, zadania do wykonania" />
+    <link rel="canonical" href="https://kursjs.pl/kurs/canvas/canvas.php" />
+	<link rel="stylesheet" href="./css.css" />
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,700&display=swap&subset=latin-ext" rel="stylesheet">
+	<meta name="image" content="https://kursjs.pl/kursjs.png">
+<meta name="twitter:card" content="product">
+<meta name="twitter:site" content="@publisher_handle">
+<meta name="twitter:title" content="Kurs Javascript">
+<meta name="twitter:description" content="Kurs Javascript dla superbohaterów">
+<meta name="twitter:creator" content="@kartofelek007">
+<meta name="twitter:image" content="https://kursjs.pl/kursjs.png">
+<meta property="og:title" content="Kurs Javascript">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.kursjs.com/">
+<meta property="og:image" content="https://kursjs.pl/kursjs.png">
+<meta property="og:description" content="Kurs Javascript dla superbohaterów">
+<meta property="og:site_name" content="Kurs Javascript">
+<link rel="apple-touch-icon" sizes="57x57" href="/favicons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/favicons/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/favicons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/favicons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/favicons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/favicons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/favicons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/favicons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="/manifest.json">
+<meta name="msapplication-TileColor" content="#FF6347">
+<meta name="msapplication-TileImage" content="/mstile-144x144.png">
+    <script src="/js/jquery.min.js"></script>
+</head>
+<body>
+
+<div class="page-container" id="pageContainer">
+	<div class="page-content-wrapper">
+        <main class="page-content" id="mainContent"  data-text-for-print="Kurs Javascript dla superbohaterów">
+                        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <div class="rekl-cnt">
+                <ins
+                class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-6843603045703750"
+                data-ad-slot="4690777640"
+                data-ad-format="auto"
+                data-full-width-responsive="true"
+                ></ins>
+            </div>
+                        <div class="page-content-text">
+
+<style>
+    .canvas-cnt {
+        display: flex;
+        align-items: flex-start;
+    }
+    canvas {
+        border: 1px solid #ddd;
+        max-width: 100%;
+        height: auto;
+        margin-bottom: 10px;
+        display: block;
+        background: #fff;
+    }
+    .btn-canvas-reload {
+        margin-left: 10px;
+        text-indent: -9999px;
+        width: 50px;
+        height: 50px;
+        border:0;
+        background: transparent;
+        color: #888;
+        position: relative;
+        background: tomato;
+        color: #fff;
+    }
+    .btn-canvas-reload::before {
+        content: "\f01e";
+        font-size: 20px;
+        font-family: "FontAwesome";
+        position: absolute;
+        text-indent: 0;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+</style>
+
+<script>
+const rand = function(min, max) {
+    return Math.floor(Math.random()*(max-min+1)+min);
+}
+
+const angleToRadian = function(angle) {
+    return Math.PI/180 * angle;
+}
+</script>
+
+<style>
+.title-bar {
+    margin-top: -30px;
+    color: #ccc;
+    font-size: 0.9rem;
+    margin-bottom: 30px;
+}
+</style>
+
+<h1 class="page-title">Canvas</h1>
+<p>
+Wraz z HTML 5 doszło nam kilkanaście nowych elementów. Jednym z nich jest Canvas - czyli po naszemu płótno.
+Element ten bardzo przypomina obszar roboczy znany praktycznie z każdego programu graficznego.
+Różnica jest taka, że tam rysujemy za pomocą dostępnych narzędzi (np. piórka), a tutaj - za pomocą JavaScriptu.
+</p>
+
+<pre><code class="language-html">
+&lt;canvas width="400" height="200">
+&lt;/canvas>
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="zanim-zaczniemy">Zanim zaczniemy</h2>
+<p>
+    Kilka słów na początek. Element taki zachowuje się zupełnie jak img na stronie. Możemy na niego wgrywać za pomocą JavaScriptu obrazki, rysować po nim różne kształty, pisać po nim, odczytywać z niego informacje o pikselach itp. Dodatkowo możemy to wszystko robić dynamicznie, dzięki czemu idealnie nadaje się do tworzenia różnych animacji czy np. gier. A na końcu gdy klikniemy na niego prawym guzikiem, możemy wybrać opcję "Zapisz grafikę jako..." - zupełnie jak przy innych grafikach na stronie.
+</p>
+<p>
+    Wyobraź sobie, że robisz dynamiczną platformówkę. W takiej grze powinno się zawrzeć wiele poruszających się i zależnych od siebie elementów. Gdybyśmy to robili za pomocą CSS i diwów (dać się da), to trzeba by ogarnąć jakoś problem ze skalowaniem (RWD), a i w naszym HTML zapewne byśmy mieli niezły śmietnik, który trzeba by mieć jakoś pod kontrolą. Dzięki canvasowi unikamy takich nieprzyjemnych sytuacji.
+</p>
+<p>
+    Z drugiej strony używanie canvasa nie należy do najprzyjemniejszych rzeczy na świecie. Zrobienie nawet najmniejszej głupotki - ot narysowania kilku kwadratów wiąże się z wyprodukowaniem dość pokaźnych ilości kodu. Do tego w klasycznych warunkach jeżeli chcemy dla elementu wprowadzić interakcję - np. najazd kursorem, przesunięcie itp. - w css użyjemy po prostu :hover, a w js np. mouseenter/mouseleave. W przypadku canvas - jako że to tylko rysowane rzeczy na innym elemencie - trzeba by taką interakcję programowo wyliczać obliczając pozycję kursora, elementu itp. Ogólnie więc czeka nas tutaj dużo zabawy.
+</p>
+<p>
+    Z tego też powodu jeżeli chcemy tutaj tworzyć coś bardziej skomplikowanego niż proste rzeczy, większość ludzi sięga raczej po gotowe biblioteki, które udostępniają nam setki przydatnych funkcjonalności. Jedną z najpopularniejszych jest <a href="https://dmitrybaranovskiy.github.io/raphael/">Raphael/</a> czy <a href="http://paperjs.org/">PaperJs</a>, które dają nam odpowiednią abstrakcję. Ale i wiele popularnych bibliotek - np. <a href="https://www.chartjs.org/">charjs</a> zbudowana jest właśnie w oparciu o canvas.
+</p>
+
+<p>
+Jeżeli chodzi o tworzenie gier w canvasie, raczej bym nie pisał tego totalnie od podstaw. Z jednej strony jest to naprawdę porządny trening. I mówię tutaj - porządny!. Żadna aplikacja TODO w Reakcje czy innym frameworku nie da wam takiego treningu jak napisanie dynamicznej strzelanki w canvasie. To nie zrobienie pętli po tablicy. Mówimy tutaj o wyliczaniu kątów, obliczaniu fizyki itp. Dodatkowo JavaScript nie jest najwydajniejszym językiem na świecie i dość szybko musielibyśmy się zmierzyć nie tylko z problemami takimi jak obrót rysowanego elementu w kierunku kursora ale i coś bardziej zaawansowanego jak buforowanie klatek, optymalizację objektów poza ekranem itp.
+</p>
+<p>Twórcy gier, którzy na co dzień działają w Unity, Godot, Phaser i podobnych środowiskach pewnie wiedzą o czym mówię. A i stare chłopy jak ja, które nie jedne dynamicznie twory kreowali we Flashu  i ActionScript wiedzą o jakich problemach do rozwiązania mówię. Jest ciężko, ale i jest duża satysfakcja gdy nam się uda. Polecam.</p>
+<p>
+W przypadku tworzenia gier o wiele lepiej więc sięgnąć po gotowe silniki. Najpopularniejszymi są <a href="https://www.yoyogames.com/gamemaker">Game Maker</a>, <a href="https://editor.construct.net/">Construct</a>, <a href="https://phaser.io/">Phaser</a>. Ten pierwszy daje możliwość tworzenia gier w Canvasie, a te dwa ostanie działają głównie w oparciu o Canvas. Ale znowu - nawet jeżeli użyjemy gotowych rozwiązań, wcale nie oznacza to, że nie czeka nas kodowanie. Sam bardzo często przeglądam <a href="https://www.emanueleferonato.com/2019/05/02/flappy-bird-html5-prototype-updated-to-phaser-3-16-2/">ten blog</a>, gdzie autor dzieli sie jak tworzyć różne gry w Phaser. Kodu i kombinowania tam co nie miara...</p>
+</p>
+
+<p>A co jeżeli nie umiem? Nic straconego. Wystarczy regularnie przeglądać strony takie jak np. <a href="http://codepen.io">codepen.io</a>, gdzie autorzy co chwila wrzucają wiele fajnych eksperymentów właście w Canvas (<a href="https://codepen.io/ivanodintsov/pen/KVgwRG">1</a>, <a href="https://codepen.io/thebabydino/pen/zGmdep">2</a>, <a href="https://codepen.io/GianlucaGuarini/pen/dxFba">3</a>, <a href="https://codepen.io/LeonGr/pen/fdCsI">4</a>, <a href="https://codepen.io/jasonhibbs/pen/jPypLV">5</a>, <a href="https://codepen.io/antishow/pen/sdAhz">6</a>, <a href="https://codepen.io/alexzaworski/pen/mEkvAG">7</a>, <a href="https://codepen.io/jackrugile/pen/BnDkc">8</a> i wiele innych) i po prostu analizować. Temat jest bardzo rozległy. Co ciekawe nawet popularny ostatnio <a href="https://threejs.org/">tree.js</a> też działa na canvasie.</p>
+
+<div class="kartofel-informuje">
+<p>
+Ściągawkę zawierającą zbiór metod elementu canvas możesz ściągnąć <a href="html5_canvas_cheat_sheet.pdf">tutaj</a>
+</p>
+</div>
+
+
+
+<!-- ### -->
+<h2 class="subtitle" id="canvas">Odwołanie się do canvasu</h2>
+<p>No dobrze. Ale od czegoś trzeba zacząć. Małe kroczki aż staniemy się mistrzami.</p>
+<p>
+Aby zacząć rysowanie po naszym canvasie, musimy pobrać jego zawartość. Służy do tego funkcja <strong>getContext('2d')</strong>.
+Tryb 2d służy do rysowania 2d. Pozostałe możliwości to webgl, webgl2 i bitmaprender, ale tych nie będę tutaj omawiał (niestety nie miałem z nimi styku).
+</p>
+
+<pre><code class="language-html">
+&lt;canvas width="400" height="200" id="canvas">
+&lt;/canvas>
+</code></pre>
+
+<pre><code class="language-js">
+const canvas = document.querySelector('#canvas');
+const ctx = canvas.getContext('2d');
+
+//...rysujemy
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="rysowanie-sciezek">Rysowanie ścieżek</h2>
+<p>Po pobraniu referencji do płutna zaczynamy nim manipulować. Możemy tutaj wgrywać grafiki (tym zajmiemy się później), ale też jak w każdym programie graficznym możemy po nim rysować kształty. Rysowanie takie przypomina rysowanie piórkiem np. w programie Adobe Photoshop czy ilustartorze. Jak to wygląda w praktyce? Wybieramy piórko, rysujemy niewidzialną linię, a następnie otrzymany kształt obrysowujemy lub wypełniamy.</p>
+
+<img src="./tworzenie-sciezki.gif" alt="Tworzenie sciezki" class="space border">
+
+<p>
+Podobnie jak w powyższej animacji rysowanie ścieżek po płótnie będziemy wykonywać w kilku krokach:
+</p>
+<ol>
+    <li>rozpoczynamy rysowanie nowej ścieżki za pomocą metody <strong>beginPath()</strong></li>
+    <li>Używamy metod do rysowania ścieżki - np. <strong>lineTo(x, y)</strong>, <strong>moveTo(x, y)</strong> itp.</li>
+    <li>obrysowujemy <strong>stroke()</strong> lub wypełniamy <strong>fill()</strong> naszą ścieżkę</li>
+</ol>
+
+<pre><code class="language-js">
+ctx.beginPath();
+ctx.moveTo(20, 20); //stawiamy piórko w punkcie x: 20 y: 20
+ctx.lineTo(30, 40); //zaczynamy rysować niewidzialną linię do x : 30, y: 40
+ctx.lineTo(35, 10); //kolejna linia
+ctx.lineTo(125, 30); //i kolejna
+ctx.stroke(); //po zakończeniu rysowania obrysowujemy linię
+</code></pre>
+
+<p>Jeżeli chcemy zacząć rysować kolejną ścieżkę, poprzednią obrysowujemy/wypełniamy i zaczynamy rysować kolejny path:</p>
+
+<pre><code class="language-js">
+ctx.beginPath();
+ctx.moveTo(20, 20);
+ctx.lineTo(125, 30);
+ctx.stroke();
+
+ctx.beginPath();
+ctx.moveTo(80, 70);
+ctx.lineTo(205, 40);
+ctx.stroke();
+</code></pre>
+
+<div class="kartofel-informuje" id="random">
+    <p>W kolejnych przykładach będziemy generować sporo losowych liczb z zakresu, dlatego napiszmy pomocą funkcję, która nam takie zwróci:</p>
+
+    <pre><code class="language-js">
+    const rand = function(min, max) {
+        return Math.floor(Math.random()*(max-min+1)+min);
+    }
+    </code></pre>
+</div>
+
+<p>Spróbujmy użyć powyższych funkcji w praktyce:</p>
+
+<pre><code class="language-js">
+const canvas = document.querySelector('canvas');
+const ctx = canvas.getContext('2d');
+
+ctx.beginPath();
+ctx.moveTo(0, canvas.height/2); //zaczniemy rysowanie od x: 0, y: polowaWysokosci
+const step = 10; //krok co 10
+const howMany = canvas.width / step; //ile kroków
+
+for (let i=1; i<=howMany; i++) {
+    const y = canvas.height / 2 + rand(-50, 50);
+    ctx.lineTo(i * step, y)
+}
+ctx.stroke();
+</code></pre>
+
+<div class="canvas-cnt" id="cnt2">
+    <canvas width="550" height="250"></canvas>
+    <button class="btn-canvas-reload">Odśwież</button>
+</div>
+<script>
+{
+    const parentCnt = document.querySelector("#cnt2");
+
+    const generate = function() {
+        const canvas = parentCnt.querySelector('canvas');
+        const ctx = canvas.getContext('2d');
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        ctx.beginPath();
+        ctx.moveTo(0, canvas.height / 2); //zaczniemy rysowanie od x: 0, y: polowaWysokosci
+        const step = 10; //krok co 10
+        const howMany = canvas.width / step; //ile krokow
+
+        for (let i=1; i<=howMany; i++) {
+            const y = canvas.height / 2 + rand(-50, 50);
+            ctx.lineTo(i * step, y)
+        }
+        ctx.stroke();
+    }
+    generate();
+
+    parentCnt.querySelector("button").addEventListener("click", function() {
+        generate();
+    })
+}
+</script>
+<p>
+Jeżeli dodatkowo chcielibyśmy połączyć początkowy i końcowy punkt ścieżki, możemy skorzystać z funkcji <strong>closePath()</strong>, która zamyka całą ścieżkę
+</p>
+
+<pre data-line="14-17,19"><code class="language-js">
+const canvas = document.querySelector('canvas');
+const ctx = canvas.getContext('2d');
+
+ctx.beginPath();
+ctx.moveTo(0, canvas.height / 2);
+const step = 10; //krok co 10
+const howMany = canvas.width / step;
+
+for (let i=1; i<=howMany; i++) {
+    const y = canvas.height / 2 + rand(-50, 50);
+    ctx.lineTo(i * step, y)
+}
+
+//dokańczam rysowanie ścieżki na dole canvasu
+ctx.lineTo(canvas.width, canvas.height);
+ctx.lineTo(0, canvas.height);
+ctx.closePath();
+
+ctx.fill();
+</code></pre>
+
+<div class="canvas-cnt" id="cnt3">
+    <canvas width="550" height="250"></canvas>
+    <button class="btn-canvas-reload">Odśwież</button>
+</div>
+<script>
+{
+    const parentCnt = document.querySelector("#cnt3");
+
+    const generate = function() {
+        const canvas = parentCnt.querySelector('canvas');
+        const ctx = canvas.getContext('2d');
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        ctx.beginPath();
+        ctx.moveTo(0, canvas.height / 2); //zaczniemy rysowanie od x: 0, y: polowaWysokosci
+        const step = 10; //krok co 10
+        const howMany = canvas.width / step; //ile krokow
+
+        for (let i=1; i<=howMany; i++) {
+            const y = canvas.height / 2 + rand(-50, 50);
+            ctx.lineTo(i * step, y)
+        }
+
+        ctx.lineTo(canvas.width, canvas.height);
+        ctx.lineTo(0, canvas.height);
+        ctx.closePath();
+
+        ctx.fill();
+    }
+    generate();
+
+    parentCnt.querySelector("button").addEventListener("click", function() {
+        generate();
+    })
+}
+</script>
+
+<!-- ### -->
+<h2 class="subtitle" id="rect">Rysowanie prostokątów</h2>
+<p>
+W powyższych przykładach rysowaliśmy niewidzialne ścieżki, a następnie albo je obrysowaliśmy,
+albo wypełnialiśmy kolorem. Jeżeli chcielibyśmy narysować prostokąt, możemy rysować każdy bok jako oddzielną kreskę:
+</p>
+
+<pre data-line="10-16"><code class="language-js">
+const canvas = parentCnt.querySelector('canvas');
+const ctx = canvas.getContext('2d');
+
+ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+const x = rand(10, canvas.width-100);
+const y = rand(10, canvas.height-100);
+const size = rand(10, 200);
+
+ctx.beginPath();
+ctx.moveTo(x, y);
+ctx.lineTo(x + size, y);
+ctx.lineTo(x + size, y + size);
+ctx.lineTo(x, y + size);
+ctx.closePath();
+ctx.stroke();
+</code></pre>
+
+<div class="canvas-cnt" id="cnt4">
+    <canvas width="550" height="250"></canvas>
+    <button class="btn-canvas-reload">Odśwież</button>
+</div>
+
+<script>
+{
+    const parentCnt = document.querySelector("#cnt4");
+
+    const generate = function() {
+        const canvas = parentCnt.querySelector('canvas');
+        const ctx = canvas.getContext('2d');
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        const x = rand(10, canvas.width-100);
+        const y = rand(10, canvas.height-100);
+        const size = rand(10, 200);
+
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+        ctx.lineTo(x + size, y);
+        ctx.lineTo(x + size, y + size);
+        ctx.lineTo(x, y + size);
+        ctx.closePath();
+        ctx.stroke();
+    }
+
+    generate();
+
+    parentCnt.querySelector("button").addEventListener("click", function() {
+        generate();
+    })
+}
+</script>
+
+<p>Zamiast rozpoczynać path, rysować ręcznie każdy bok, i zamykać path, możemy też użyć gotowych funkcji, które wykonają powyższe te za nas.</p>
+<p>Funkcje te to:</p>
+
+<table class="tab">
+    <tr>
+        <th style="width: 260px;"><strong>fillRect(x, y, width, height)</strong></th>
+        <td>rysuje wypełniony prostokąt</td>
+    </tr>
+    <tr>
+        <th><strong>strokeRect(x, y, width, height)</strong></th>
+        <td>rysuje obrysowany prostokąt</td>
+    </tr>
+    <tr>
+        <th><strong>clearRect(x, y, width, height)</strong></th>
+        <td>czyści określony obszar</td>
+    </tr>
+</table>
+
+<pre data-line="4,10,17"><code class="language-js">
+const canvas = parentCnt.querySelector('canvas');
+const ctx = canvas.getContext('2d');
+
+ctx.clearRect(0, 0, canvas.width, canvas.height); //czyścimy canvas
+
+{
+    const x = rand(10, canvas.width-100);
+    const y = rand(10, canvas.height-100);
+    const size = rand(10, 200);
+    ctx.fillRect(x, y, size, size); //wypełniony kwadrat
+}
+
+{
+    const x = rand(10, canvas.width-100);
+    const y = rand(10, canvas.height-100);
+    const size = rand(10, 200);
+    ctx.strokeRect(x, y, size, size); //obrysowany kwadrat
+}
+</code></pre>
+
+<div class="canvas-cnt" id="cnt5">
+    <canvas width="550" height="250"></canvas>
+    <button class="btn-canvas-reload">Odśwież</button>
+</div>
+
+<script>
+{
+    const parentCnt = document.querySelector("#cnt5");
+
+    const generate = function() {
+        const canvas = parentCnt.querySelector('canvas');
+        const ctx = canvas.getContext('2d');
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        {
+            const x = rand(10, canvas.width-100);
+            const y = rand(10, canvas.height-100);
+            const size = rand(10, 200);
+            ctx.fillRect(x, y, size, size);
+        }
+
+        {
+            const x = rand(10, canvas.width-100);
+            const y = rand(10, canvas.height-100);
+            const size = rand(10, 200);
+            ctx.strokeRect(x, y, size, size);
+        }
+    }
+
+    generate();
+
+    parentCnt.querySelector("button").addEventListener("click", function() {
+        generate();
+    })
+}
+</script>
+
+<p>Bardzo ważną dla nas będzie funkcja <strong>clearRect()</strong>, którą bardzo często będziemy wykorzystywać do czyszczenia całego canvasu:</p>
+
+<pre><code class="language-js">
+const canvas = parentCnt.querySelector('canvas');
+const ctx = canvas.getContext('2d');
+
+ctx.clearRect(0, 0, canvas.width, canvas.height);
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="submit_i_reset">Tekst</h2>
+<p>
+Aby wypisać tekst, możemy skorzystać z dwóch funkcji:
+</p>
+
+<table class="tab">
+<tr>
+    <th style="width: 240px;"><strong>fillText("tekst", x, y)</strong></th>
+    <td>która wypisuje wypełniony tekst w pozycji x, y</td>
+</tr>
+<tr>
+    <th><strong>strokeText("tekst", x, y)</strong></th>
+    <td>która wypisuje obrysowany tekst w pozycji x, y</td>
+</tr>
+</table>
+
+<pre><code class="language-js">
+const canvas = document.querySelector('canvas');
+const ctx = canvas.getContext('2d');
+
+ctx.font = "italic bold 50px Arial";
+ctx.fillText('Psy i koty są fajne', 10, 60);
+
+ctx.font = "italic bold 30px Arial";
+ctx.strokeText('Czasami koty są fajniejsze', 30, 140);
+
+ctx.font = "normal 40px Arial";
+ctx.fillText('a czasami psy', 230, 180);
+</code></pre>
+
+<canvas width="550" height="250" id="canvasTestText"></canvas>
+<script>
+{
+    const canvas = document.querySelector('#canvasTestText');
+    const ctx = canvas.getContext('2d');
+
+    ctx.font = "italic bold 50px Arial";
+    ctx.fillText('Psy i koty są fajne', 10, 60);
+
+    ctx.font = "italic bold 30px Arial";
+    ctx.strokeText('Czasami koty są fajniejsze', 30, 140);
+
+    ctx.font = "normal 40px Arial";
+    ctx.fillText('a czasami psy', 230, 180);
+
+}
+</script>
+
+<p>
+Dodatkowo możemy ustawić wygląd i pozycję pisanego tekstu za pomocą właściwości:
+</p>
+
+<table class="tab">
+<tr>
+    <th><strong>font</strong></th>
+    <td>opis wyglądu czcionki taki sam jaki stosujemy w CSS</td>
+</tr>
+<tr>
+    <th><strong>textAlign</strong></th>
+    <td>wyrównanie tekstu w poziomie. Możliwe wartości to: start, end, left, right, center. Domyślną wartością jest start.
+</tr>
+<tr>
+    <th><strong>textBaseline</strong></th>
+    <td>Określa pionowe wyrównanie tekstu względem danego punktu. Możliwe wartości to: top, hanging, middle, alphabetic, ideographic, bottom. Domyślną jest alphabetic.
+</tr>
+</table>
+
+<pre><code class="language-js">
+const canvas = parentCnt.querySelector('canvas');
+const ctx = canvas.getContext('2d');
+
+ctx.textAlign = "start";
+ctx.textBaseline = "alphabetic";
+ctx.fillText('Psy i koty są fajne', canvas.width/2, canvas.height/2);
+</code></pre>
+
+<div id="cnt6">
+    <canvas width="550" height="250"></canvas>
+    <select id="selectVertical">
+        <option value="alphabetic">alphabetic</option>
+        <option value="top">top</option>
+        <option value="hanging">hanging</option>
+        <option value="middle">middle</option>
+        <option value="ideographic">ideographic</option>
+        <option value="bottom">bottom</option>
+    </select>
+    <select id="selectHorizontal">
+        <option value="start">start</option>
+        <option value="end">end</option>
+        <option value="left">left</option>
+        <option value="right">right</option>
+        <option value="center">center</option>
+    </select>
+</div>
+
+<script>
+{
+    const parentCnt = document.querySelector("#cnt6");
+
+    const generate = function(alignH, alignV) {
+        const canvas = parentCnt.querySelector('canvas');
+        const ctx = canvas.getContext('2d');
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.beginPath();
+        ctx.moveTo(0, canvas.height/2);
+        ctx.lineTo(canvas.width, canvas.height/2);
+        ctx.moveTo(canvas.width/2, 0);
+        ctx.lineTo(canvas.width/2, canvas.height);
+        ctx.strokeStyle = "rgba(0,0,0,0.2)";
+        ctx.lineWidth = 0.5;
+        ctx.closePath();
+        ctx.stroke();
+
+        ctx.font = "italic bold 50px Arial";
+
+        ctx.textAlign = alignH;
+        ctx.textBaseline = alignV;
+        ctx.fillText('Psy i koty są fajne', canvas.width / 2, canvas.height / 2);
+    }
+
+    generate();
+
+    const selectH = parentCnt.querySelector("#selectHorizontal");
+    const selectV = parentCnt.querySelector("#selectVertical");
+
+    selectH.addEventListener("change", function() {
+        generate(selectH.value, selectV.value);
+    });
+    selectV.addEventListener("change", function() {
+        generate(selectH.value, selectV.value);
+    });
+}
+</script>
+
+<p>Jeżeli byśmy chcieli policzyć szerokość ile zajmuje wypisany tekst, możemy skorzystać z funkcji <strong>measureText()</strong>, która zwraca dane o tekście pisanym z danym formatowaniem:</p>
+
+<pre data-line="9,13"><code class="language-js">
+const canvas = document.querySelector("canvas");
+const ctx = canvas.getContext("2d");
+
+const str = "Psy i koty są fajne"
+
+ctx.font = "italic bold 40px Arial";
+ctx.fillText(str, 100, 100);
+
+const textMetrics  = ctx.measureText(str);
+
+ctx.beginPath();
+ctx.moveTo(100, 120);
+ctx.lineTo(100 + textMetrics.width, 120);
+ctx.stroke();
+</code></pre>
+
+<canvas width="550" height="250" id="canvasMetric"></canvas>
+<script>
+{
+    const canvas = document.querySelector("#canvasMetric");
+    const ctx = canvas.getContext("2d");
+
+    ctx.font = "italic bold 40px Arial";
+    const str = "Psy i koty są fajne"
+    ctx.fillText(str, 100, 100);
+
+    const textMetrics  = ctx.measureText(str);
+
+    ctx.beginPath();
+    ctx.moveTo(100, 120);
+    ctx.lineTo(100 + textMetrics.width, 120);
+    ctx.stroke();
+}
+</script>
+
+<p>W momencie pisania tego tekstu za pomocą measureText możemy pobrać tylko <a href="https://developer.mozilla.org/en-US/docs/Web/API/TextMetrics">szerokość</a> danego tekstu, ale w przyszłości będziemy mieli <a href="https://www.chromestatus.com/feature/5307344997056512">więcej możliwości</a>.</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="arc">Rysowanie łuków w ścieżkach</h2>
+<p>
+Kolejnym kształtem który możemy dołączyć do naszej ścieżki jest łuk:
+</p>
+<p>
+<strong>arc(x, y, radius, startAngle, endAngle, anticlockwise*)</strong>
+<p>
+<p>
+Atrybuty <strong>x</strong> i <strong>y</strong> określają miejsce postawienia igły cyrkla. Paramrtr <strong>radius</strong> określa promień. Parametry <strong>startAngle</strong> i <strong>endAngle</strong> podajemy w radianach i okreslają one początkowy i końcowy kąt rysowanego łuku. Ostatni parametr określa czy rysować z kierunkiem wskazówek czy w odwrotnym.
+</p>
+
+<p>
+Początkowy i końcowy kąt rysowanego łuku podane są w radianach, dlatego napiszmy funkcję, która przeliczy tradycyjne kąty na radiany:
+</p>
+
+<pre id="angleToRadian"><code class="language-js">
+const angleToRadian = function(angle) {
+    return Math.PI/180 * angle;
+}
+</code></pre>
+
+<pre><code class="language-js">
+const canvas = parentCnt.querySelector('canvas');
+const ctx = canvas.getContext('2d');
+
+ctx.beginPath();
+ctx.arc(canvas.width/2, canvas.height/2, 100, 0, angleToRadian(range));
+ctx.stroke();
+</code></pre>
+
+<div id="cnt7">
+    <canvas width="550" height="250"></canvas>
+    <input id="range" type="range" min="0" max="360" value="100">
+</div>
+
+<script>
+{
+
+    const parentCnt = document.querySelector("#cnt7");
+
+    const generate = function(range) {
+        range = Number(range)
+        const canvas = parentCnt.querySelector('canvas');
+        const ctx = canvas.getContext('2d');
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        ctx.beginPath();
+        ctx.arc(canvas.width / 2, canvas.height / 2, 70, 0, angleToRadian(range));
+        ctx.lineWidth = 3;
+        ctx.stroke();
+
+        ctx.font = "italic 14px Arial";
+        ctx.textAlign = "start";
+        ctx.textBaseline = "top";
+        ctx.fillText(`ctx.arc(canvas.width/2, canvas.height/2, 70, 0, angleToRadian(${range}))`, 20, 20);
+    }
+
+    const range = parentCnt.querySelector("input[type='range']");
+
+    generate(range.value);
+
+    range.addEventListener("input", function() {
+        generate(range.value);
+    });
+}
+</script>
+
+<p>Żeby narysować pełne kółko musimy narysować łuk o kącie 360 i go wypełnić:</p>
+
+<pre><code class="language-js">
+ctx.arc(100, 100, 70, 0, angleToRadian(360));
+ctx.fill();
+</code></pre>
+
+<p>Podobną w działaniu jest metoda <strong>ellipse(x, y, radiusX, radiusY, rotation, startAngle, endAngle, anticlockwise*)</strong>, która służy do rysowania elips.</p>
+<p>Funkcja ta ma podobne parametry do arc(), jedyną różnicą jest to, że podajemy tutaj 2 promienie zamiast pojedynczego a i dochodzi nam dodatkowy parametr rotation, który oznacza obrócenie elipsy.</p>
+
+<pre><code class="language-js">
+const canvas = parentCnt.querySelector('canvas');
+const ctx = canvas.getContext('2d');
+
+ctx.beginPath();
+const range = 200;
+ctx.ellipse(canvas.width/2, canvas.height/2, 100, 200, angleToRadian(30), 0, angleToRadian(range));
+ctx.stroke();
+</code></pre>
+
+<div id="cnt7b">
+    <canvas width="550" height="250"></canvas>
+    <input type="range" min="0" max="360" value="100">
+</div>
+
+<script>
+{
+
+    const parentCnt = document.querySelector("#cnt7b");
+
+    const generate = function(range) {
+        range = Number(range)
+        const canvas = parentCnt.querySelector('canvas');
+        const ctx = canvas.getContext('2d');
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        ctx.beginPath();
+        ctx.ellipse(canvas.width/2, canvas.height/2, 50, 90, angleToRadian(40), 0, angleToRadian(range));
+        ctx.lineWidth = 3;
+        ctx.stroke();
+
+        ctx.font = "italic 14px Arial";
+        ctx.textAlign = "start";
+        ctx.textBaseline = "top";
+        ctx.fillText(`ctx.ellipse(canvas.width/2, canvas.height/2, 50, 90, angleToRadian(40), 0, angleToRadian(${range}))`, 20, 20);
+    }
+
+    const range = parentCnt.querySelector("input[type='range']");
+
+    generate(range.value);
+
+    range.addEventListener("input", function() {
+        generate(range.value);
+    });
+}
+</script>
+
+<p>Poza powyższymi dwoma mamy też funkcję <strong>arcTo(x1, y1, x2, y2, radius))</strong>, która rysuje łuk połączony z resztą ścieżki:</p>
+
+<div id="arcTo">
+    <p>Kliknij na canvasie w jakieś miejsce by postawić punkt zakrzywienia. Prawym przyciskiem stawiasz drugi punkt. Dodatkowo pod canvasem input:range zmienia range rysowanego łuku.</p>
+    <canvas width="550" height="250"></canvas>
+    <input id="range" type="range" min="0" max="200" value="30">
+</div>
+
+<script>
+{
+
+    const parentCnt = document.querySelector("#arcTo");
+    const canvas = parentCnt.querySelector('canvas');
+    const ctx = canvas.getContext("2d");
+    const points = [];
+    const h = canvas.height - 60;
+    points.push({x : 400, y : h});
+    points.push({x: 300, y : h-150});
+
+    const generate = function(range) {
+        range = Number(range);
+
+        const cp1x = points[0].x;
+        const cp1y = points[0].y;
+        const cp2x = points[1].x;
+        const cp2y = points[1].y;
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        ctx.save();
+        ctx.beginPath();
+        ctx.setLineDash([5,5])
+        ctx.strokeStyle = "#aaa"
+        ctx.moveTo(200, h);
+        ctx.lineTo(cp1x, cp1y);
+        ctx.lineTo(cp2x, cp2y);
+        ctx.stroke();
+        ctx.restore();
+
+        ctx.beginPath();
+        ctx.moveTo(30, h);
+        ctx.lineTo(200, h);
+        ctx.arcTo(cp1x, cp1y, cp2x, cp2y, range);
+        ctx.stroke();
+
+        ctx.save();
+        ctx.fillStyle = "red";
+        ctx.beginPath();
+
+        ctx.textBaseline = "middle";
+        ctx.textAlign = "start";
+        ctx.font = "10px Arial";
+        ctx.fillText("x1,y1", cp1x + 15, cp1y);
+        ctx.arc(cp1x, cp1y, 10, 0, angleToRadian(360));
+        ctx.fill();
+        ctx.fillStyle = "blue";
+        ctx.beginPath();
+
+        ctx.textBaseline = "middle";
+        ctx.textAlign = "start";
+        ctx.font = "10px Arial";
+        ctx.fillText("x2,y2", cp2x + 15, cp2y);
+        ctx.arc(cp2x, cp2y, 10, 0, angleToRadian(360));
+        ctx.fill();
+        ctx.restore();
+    }
+
+    const range = parentCnt.querySelector("input[type='range']");
+
+    generate(range.value);
+
+    range.addEventListener("input", function() {
+        generate(range.value);
+    });
+
+    canvas.addEventListener("mousedown", function(e) {
+        const x = e.pageX - this.offsetLeft;
+        const y = e.pageY - this.offsetTop;
+
+        if (e.button === 0) {
+            points[0] = {x, y}
+        } else {
+            points[1] = {x, y}
+        }
+        generate();
+    })
+    canvas.addEventListener("contextmenu", function() {
+        return false;
+    })
+}
+</script>
+
+<!-- ### -->
+<h2 class="subtitle" id="curve">Rysowanie zakrzywionych ścieżek</h2>
+<p>
+Aby narysować zakrzywione linie skorzystamy z funkcji:
+</p>
+
+<table class="tab">
+<tr>
+    <th style="width: 300px;"><strong>quadraticCurveTo(cpx, cpy, x, y)</strong></th>
+    <td>rysuje kwadratową ścieżkę do punktu x, y. Atrybuty cp1x i cp1y określają położenie punktu kontrolnego wyginającego ścieżkę</td>
+</tr>
+</table>
+
+<pre data-line="5"><code class="language-js">
+const canvas = parentCnt.querySelector('canvas');
+
+ctx.beginPath();
+ctx.moveTo(10, 10);
+ctx.quadraticCurveTo(40, 200, canvas.width-10, canvas.height-10)
+ctx.stroke();
+</code></pre>
+
+<div id="cnt8">
+    <p>Kliknij na canvasie w jakieś miejsce by postawić punkt zakrzywienia:</p>
+    <canvas width="550" height="250"></canvas>
+</div>
+
+<script>
+{
+
+    const parentCnt = document.querySelector("#cnt8");
+    const canvas = parentCnt.querySelector('canvas');
+
+    const generate = function(cpx, cpy) {
+
+        const ctx = canvas.getContext('2d');
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        ctx.save();
+        ctx.setLineDash([3, 5]);
+        ctx.strokeStyle = "rgba(0,0,0,0.5)"
+        ctx.lineWidth = 1;
+
+        ctx.beginPath();
+        ctx.moveTo(10, 10);
+        ctx.lineTo(cpx, cpy);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.moveTo(canvas.width-10, canvas.height-10);
+        ctx.lineTo(cpx, cpy);
+        ctx.stroke();
+        ctx.restore();
+
+        ctx.beginPath();
+        ctx.moveTo(10, 10);
+        ctx.strokeStyle = "red"
+        ctx.quadraticCurveTo(cpx, cpy, canvas.width-10, canvas.height-10)
+        ctx.lineWidth = 5;
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.fillStyle = "black"
+        ctx.arc(cpx, cpy, 10, 0, angleToRadian(360));
+        ctx.fill();
+
+        ctx.font = "italic 14px Arial";
+        ctx.textAlign = "start";
+        ctx.textBaseline = "top";
+        ctx.fillStyle = "black"
+        ctx.fillText(`ctx.quadraticCurveTo(${cpx}, ${cpy}, canvas.width-10, canvas.height-10)`, 20, 20);
+        ctx.restore();
+    }
+
+    generate(40, 200);
+
+    canvas.addEventListener("mousedown", function(e) {
+        const x = e.pageX - this.offsetLeft;
+        const y = e.pageY - this.offsetTop;
+        generate(x, y);
+    })
+}
+</script>
+
+<table class="tab">
+<tr>
+    <th><strong>bezierCurveTo(cp1x, cp1y, cp2x, cp2y, x, y)</strong></th>
+    <td>rysuje ścieżkę Beziera do punktu x, y. Atrybuty cp1x, cp1y, cp2x, cp2y określają położenie punktów kontrolnych wyginających ścieżkę.</td>
+</tr>
+</table>
+
+<pre data-line="7"><code class="language-js">
+const canvas = parentCnt.querySelector('canvas');
+
+ctx.beginPath();
+ctx.moveTo(10, 10);
+const cp1x = {x : 100, y: canvas.height - 30}
+const cp2 = {x : canvas.width-60, y: 60}
+ctx.bezierCurveTo(cp1.x, cp1.y, cp2.x, cp2.y, canvas.width-10, canvas.height-10)
+ctx.stroke();
+</code></pre>
+
+<div id="cnt9">
+    <p>Klikaj na canvasie lewym przyciskiem by postawić pierwszy punkt. Prawym by postawić drugi punkt:</p>
+    <canvas width="550" height="250" oncontextmenu="return false;"></canvas>
+</div>
+
+<script>
+{
+
+    const parentCnt = document.querySelector("#cnt9");
+    const canvas = parentCnt.querySelector('canvas');
+
+    const points = [];
+
+    const generate = function() {
+        const ctx = canvas.getContext('2d');
+
+        const cp1x = points[0].x;
+        const cp1y = points[0].y;
+        const cp2x = points[1].x;
+        const cp2y = points[1].y;
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        ctx.save();
+        ctx.beginPath();
+        ctx.moveTo(10, 10);
+        ctx.strokeStyle = "red"
+        ctx.bezierCurveTo(cp1x, cp1y, cp2x, cp2y, canvas.width-10, canvas.height-10)
+        ctx.lineWidth = 5;
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.textAlign = "start";
+        ctx.textBaseline = "middle";
+        ctx.fillStyle = "black"
+
+        ctx.fillStyle = "black"
+        ctx.arc(cp1x, cp1y, 10, 0, angleToRadian(360));
+        ctx.fillText(`first`, cp1x + 15, cp1y);
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.fillStyle = "dodgerblue"
+        ctx.arc(cp2x, cp2y, 10, 0, angleToRadian(360));
+        ctx.fillText(`second`, cp2x + 15, cp2y);
+        ctx.fill();
+
+        ctx.font = "italic 14px Arial";
+        ctx.textAlign = "start";
+        ctx.textBaseline = "top";
+        ctx.fillStyle = "black";
+        ctx.fillText(`ctx.bezierCurveTo(${cp1x}, ${cp1y}, ${cp2x}, ${cp2y}, canvas.width-10, canvas.height-10)`, 20, 20);
+        ctx.restore();
+    }
+
+    points.push({x : 100, y: canvas.height - 30})
+    points.push({x : canvas.width - 60, y: 60})
+    generate();
+
+    canvas.addEventListener("mousedown", function(e) {
+        const x = e.pageX - this.offsetLeft;
+        const y = e.pageY - this.offsetTop;
+
+        if (e.button === 0) {
+            points[0] = {x, y}
+        } else {
+            points[1] = {x, y}
+        }
+        generate();
+    })
+    canvas.addEventListener("contextmenu", function() {
+        return false;
+    })
+}
+</script>
+
+
+<!-- ### -->
+<h2 class="subtitle" id="kolory_i_style">Kolory, przezroczystość</h2>
+<p>
+Do zmiany koloru obrysu lub wypełnienia służą własności
+<strong>strokeStyle</strong> i <strong>fillStyle</strong>. Aby zmienić kolor, przypisujemy im jego wartość
+podaną wartością CSS, składową RGB lub nazwą.
+</p>
+
+<pre><code class="language-js">
+ctx.fillStyle = "#6DCF00";
+ctx.fillStyle = "rgb(109,207,0)";
+ctx.strokeStyle = "green";
+</code></pre>
+
+<p>
+Aby ustawić przezroczystość rysowania, możemy wykorzystać dwa sposoby. Pierwszy z nich to użycie właściwości <strong>globalAlpha</strong>.
+Wartość tej własności zostanie zastosowana dla wszystkich następnie rysowanych kształtów na canvasie.
+Drugi sposób to używanie po prostu kolorów z przezroczystością (rgba, hsla):
+</p>
+
+<pre><code class="language-js">
+ctx.strokeStyle = "rgba(255, 0, 0, 0.5)";
+ctx.strokeRect(10, 10, 120, 120);
+
+ctx.fillStyle = "hsla(120, 80%, 60%, 0.5)";
+ctx.fillRect(10, 10, 120, 120);
+</code></pre>
+
+
+<div class="canvas-cnt" id="cnt10">
+    <canvas width="550" height="250"></canvas>
+    <button class="btn-canvas-reload">Odśwież</button>
+</div>
+
+<script>
+{
+    const parentCnt = document.querySelector("#cnt10");
+
+    const generate = function() {
+        const canvas = parentCnt.querySelector('canvas');
+        const ctx = canvas.getContext('2d');
+
+        const x = rand(10, canvas.width-100);
+        const y = rand(10, canvas.height-100);
+        const size = rand(10, 200);
+        ctx.fillStyle = `hsla(${Math.random()*360}, 80%, 60%, ${Math.random()})`
+        ctx.fillRect(x, y, size, size);
+        ctx.strokeRect(x, y, size, size)
+    }
+
+    generate();
+
+    parentCnt.querySelector("button").addEventListener("click", function() {
+        generate();
+    })
+}
+</script>
+
+<!-- ### -->
+<h2 class="subtitle" id="wyglad-linii">Wygląd linii</h2>
+<p>
+Wygląd linii ustawiamy wykorzystując metody:
+</p>
+
+<ul>
+<li>
+    <strong>lineWidth</strong> - określa grubość linii<br><br>
+    <canvas width="100" height="50" id="canvasW"></canvas>
+    <script>
+    {
+        const canvas = document.getElementById('canvasW');
+        const ctx = canvas.getContext('2d');
+
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(10,10); ctx.lineTo(10,40);
+        ctx.stroke();
+
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(20,10); ctx.lineTo(20,40);
+        ctx.stroke();
+
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.moveTo(30,10); ctx.lineTo(30,40);
+        ctx.stroke();
+
+        ctx.lineWidth = 4;
+        ctx.beginPath();
+        ctx.moveTo(40,10); ctx.lineTo(40,40);
+        ctx.stroke();
+
+        ctx.lineWidth = 6;
+        ctx.beginPath();
+        ctx.moveTo(52,10); ctx.lineTo(52,40);
+        ctx.stroke();
+
+        ctx.lineWidth = 8;
+        ctx.beginPath();
+        ctx.moveTo(66,10); ctx.lineTo(66,40);
+        ctx.stroke();
+
+        ctx.lineWidth = 10;
+        ctx.beginPath();
+        ctx.moveTo(84,10); ctx.lineTo(84,40);
+        ctx.stroke();
+    }
+</script>
+</li>
+<li>
+    <strong>lineCap</strong> - określa wygląd zakończenia rysowanej linii. Może przyjąć wartość <strong>butt</strong>, <strong>round</strong> lub <strong>square</strong>.<br><br>
+    <canvas width="100" height="50" id="canvasCap"></canvas>
+    <script>
+        {
+            const canvas = document.getElementById('canvasCap');
+            const ctx = canvas.getContext('2d');
+
+            ctx.lineWidth = 10;
+            ctx.beginPath();
+            ctx.lineCap = "butt";
+            ctx.moveTo(10,10); ctx.lineTo(10,40);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.lineCap = "round";
+            ctx.moveTo(30,10); ctx.lineTo(30,40);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.lineCap = "square";
+            ctx.moveTo(50,10); ctx.lineTo(50,40);
+            ctx.stroke();
+        }
+    </script>
+</li>
+<li>
+    <strong>lineJoin</strong> - określa sposób łączenia 2 linii. Może przyjąć wartość <strong>round</strong>, <strong>bevel</strong> lub <strong>miter</strong>.<br><br>
+    <canvas width="100" height="50" id="canvasJoin"></canvas>
+    <script>
+        {
+            const canvas = document.getElementById('canvasJoin');
+            const ctx = canvas.getContext('2d');
+
+            ctx.lineJoin = 'round';
+            ctx.beginPath();
+            ctx.lineWidth = 8;
+            ctx.moveTo(10,40);
+            ctx.lineTo(20,15);
+            ctx.lineTo(30,40);
+            ctx.stroke();
+            ctx.lineJoin = 'bevel';
+            ctx.beginPath();
+            ctx.moveTo(40,40);
+            ctx.lineTo(50,15);
+            ctx.lineTo(60,40);
+            ctx.stroke();
+            ctx.lineJoin = 'miter';
+            ctx.beginPath();
+            ctx.moveTo(70,40);
+            ctx.lineTo(80,15);
+            ctx.lineTo(90,40);
+            ctx.stroke();
+        }
+    </script>
+</li>
+<li>
+    <strong>miterLimit</strong> - określa jak daleko kąt połączenia 2 linii metodą miter może wychodzić.<br><br>
+    <canvas width="100" height="50" id="canvasMiter"></canvas>
+    <script>
+        {
+            const canvas = document.getElementById('canvasMiter');
+            const ctx = canvas.getContext('2d');
+
+            ctx.lineJoin = 'miter';
+            ctx.lineWidth = 8;
+            ctx.miterLimit = 2;
+            ctx.beginPath();
+            ctx.moveTo(10,40);
+            ctx.lineTo(20,15);
+            ctx.lineTo(30,40);
+            ctx.stroke();
+            ctx.miterLimit = 5;
+            ctx.beginPath();
+            ctx.moveTo(40,40);
+            ctx.lineTo(50,15);
+            ctx.lineTo(60,40);
+            ctx.stroke();
+            ctx.miterLimit = 20;
+            ctx.beginPath();
+            ctx.moveTo(70,40);
+            ctx.lineTo(80,15);
+            ctx.lineTo(90,40);
+            ctx.stroke();
+        }
+    </script>
+</li>
+</ul>
+
+<p>Dodatkowo możemy zdefiniować linię przerywaną za pomocą metody <strong>setLineDash()</strong>. Jako parametr przyjmuje ona tablicę 2 liczb. Pierwsza określa długość pojedyńczej linii, a druga odstęp pomiędzy kolejnymi liczbami:</p>
+
+<pre><code class="language-js">
+ctx.beginPath();
+ctx.setLineDash([2, 5]);
+ctx.strokeStyle = "red"
+ctx.lineWidth = 1;
+ctx.moveTo(10, 20);
+ctx.lineTo(canvas.width-10, 20);
+ctx.stroke();
+
+ctx.beginPath();
+ctx.setLineDash([10, 10]);
+ctx.strokeStyle = "dodgerblue"
+ctx.lineWidth = 3;
+ctx.moveTo(10, 50);
+ctx.lineTo(canvas.width-10, 50);
+ctx.stroke();
+
+ctx.beginPath();
+ctx.setLineDash([]);
+ctx.strokeStyle = "blue"
+ctx.lineWidth = 6;
+ctx.moveTo(10, 80);
+ctx.lineTo(canvas.width-10, 80);
+ctx.stroke();
+</code></pre>
+
+<canvas width="550" height="100" id="canvasDashLines"></canvas>
+
+<script>
+{
+    const canvas = document.getElementById('canvasDashLines');
+    const ctx = canvas.getContext('2d');
+
+    ctx.beginPath();
+    ctx.setLineDash([2, 5]);
+    ctx.strokeStyle = "red"
+    ctx.lineWidth = 1;
+    ctx.moveTo(10, 20);
+    ctx.lineTo(canvas.width-10, 20);
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.setLineDash([10, 10]);
+    ctx.strokeStyle = "dodgerblue"
+    ctx.lineWidth = 3;
+    ctx.moveTo(10, 50);
+    ctx.lineTo(canvas.width-10, 50);
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.setLineDash([]);
+    ctx.strokeStyle = "blue"
+    ctx.lineWidth = 6;
+    ctx.moveTo(10, 80);
+    ctx.lineTo(canvas.width-10, 80);
+    ctx.stroke();
+}
+</script>
+
+
+<!-- ### -->
+<h2 class="subtitle" id="gradients">Gradienty</h2>
+<p>
+Gradienty w Canvasie działają nieco inaczej niż te znane z CSS, a bardziej przypominają te używane np. w programie Adobe Ilustrator.<br>
+Tworząc gradient musimy określić jego początkową i końcową pozycję. Następnie rysujemy jakiś kształt, który jeżeli zostanie wypełniony, wybierze sobie odpowiedni
+kawałek z naszego gradientu.
+</p>
+<p>
+Do tworzenia gradientów korzystamy z metod:
+</p>
+<table class="tab">
+<tr>
+    <th style="width:350px;"><strong>createLinearGradient(x1, y1, x2, y2)</strong></th>
+    <td>tworzy gradient, który możemy wykorzystać do obrysowani albo wypełnienia (za pomocą powyżej opisanych fillStyle i strokeStyle).
+    Gradient liniowy biegnie z punktu x1, y1 do punktu x2, y2
+</tr>
+<tr>
+    <th><strong>createRadialGradient(x1, y1, r1, x2, y2, r2)</strong></th>
+    <td>ustawia gradient radialny. Atrybuty x1, y1, r1 - określają położenie i promień punktu początkowego okręgu, natomiast x2, y2, r2 - punktu końcowego okręgu</td>
+</tr>
+<tr>
+    <th><strong>addColorStop(pozycja, kolor)</strong></th>
+    <td>dodaje nowy kolor do gradientu w pozycji z przedziału 0.0 - 1.0. Możesz dodawać takich punktów do woli. Traktuj to jak dodatkowe suwaki np. w tym <a href="https://cssgradient.io/">generatorze</a></td>
+</tr>
+</table>
+
+<pre data-line="4-9,11"><code class="language-js">
+const canvas = document.querySelector('canvas');
+const ctx = canvas.getContext('2d');
+
+//tworze gradient na cala powierzchnie
+const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+gradient.addColorStop(0, "blue");
+gradient.addColorStop(0.2, "dodgerblue");
+gradient.addColorStop(0.5, "springgreen");
+gradient.addColorStop(1, "orangered");
+
+ctx.strokeStyle = gradient;
+
+for (let i=0; i&lt;50; i++) {
+    ctx.beginPath();
+    const x = rand(20, canvas.width - 20)
+    const y = rand(20, canvas.height - 20)
+    const r = rand(10, 100);
+    const lineW = rand(1, 10);
+    ctx.arc(x, y, r, 0, angleToRadian(360));
+    ctx.lineWidth = lineW;
+    ctx.stroke();
+}
+</code></pre>
+
+<div class="canvas-cnt" id="cntGradient1">
+    <canvas width="550" height="250"></canvas>
+    <button class="btn-canvas-reload">Odśwież</button>
+</div>
+
+<script>
+{
+    const parentCnt = document.querySelector("#cntGradient1");
+    const canvas = parentCnt.querySelector('canvas');
+    const ctx = canvas.getContext('2d');
+
+    const generate = function() {
+        //tworze gradient na cala powierzchnie
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+
+        gradient.addColorStop(0, "blue");
+        gradient.addColorStop(0.2, "dodgerblue");
+        gradient.addColorStop(0.5, "springgreen");
+        gradient.addColorStop(1, "orangered");
+
+        ctx.strokeStyle = gradient;
+
+        for (let i=0; i<50; i++) {
+            ctx.beginPath();
+            const x = rand(20, canvas.width - 20)
+            const y = rand(20, canvas.height - 20)
+            const r = rand(10, 100);
+            const lineW = rand(1, 10);
+            ctx.arc(x, y, r, 0, angleToRadian(360));
+            ctx.lineWidth = lineW;
+            ctx.stroke();
+        }
+    }
+
+    generate();
+
+    parentCnt.querySelector("button").addEventListener("click", function() {
+        generate();
+    })
+}
+</script>
+
+<p>Jeżeli byśmy chcieli, by gradient zaczynał się wraz z figurą, musimy rozpocząć go wraz z pozycją figury.</p>
+
+<pre data-line="9"><code class="language-js">
+const canvas = document.querySelector('canvas');
+const ctx = canvas.getContext('2d');
+
+for (let i=1; i&gt;50; i++) {
+    const size = rand(20, 80);
+    const x = rand(0, canvas.width - size);
+    const y = rand(0, canvas.height - size);
+
+    const gradient = ctx.createLinearGradient(x, y, x+size, y+size);
+    gradient.addColorStop(0, "gold");
+    gradient.addColorStop(1, "red");
+
+    ctx.fillStyle = gradient;
+
+    ctx.fillRect(x, y, size, size);
+    ctx.strokeRect(x, y, size, size);
+}
+</code></pre>
+
+<div class="canvas-cnt" id="cntGradient2">
+    <canvas width="550" height="250"></canvas>
+    <button class="btn-canvas-reload">Odśwież</button>
+</div>
+
+<script>
+{
+    const parentCnt = document.querySelector("#cntGradient2");
+    const canvas = parentCnt.querySelector('canvas');
+    const ctx = canvas.getContext('2d');
+
+    const generate = function() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        //tworze gradient na cala powierzchnie
+        for (let i=1; i<50; i++) {
+            const size = rand(20, 80);
+            const x = rand(0, canvas.width - size);
+            const y = rand(0, canvas.height - size);
+
+            const gradient = ctx.createLinearGradient(x, y, x+size, y+size);
+            gradient.addColorStop(0, "gold");
+            gradient.addColorStop(1, "red");
+
+            ctx.fillStyle = gradient;
+
+            ctx.fillRect(x, y, size, size);
+            ctx.strokeRect(x, y, size, size);
+        }
+    }
+
+    generate();
+
+    parentCnt.querySelector("button").addEventListener("click", function() {
+        generate();
+    })
+}
+</script>
+
+<!-- ### -->
+<h2 class="subtitle" id="saveandload">Zapisywanie i odczytywanie stanu</h2>
+<p>
+Na zakończenie poznamy jeszcze 2 bardzo przydatne metody. Metoda <strong>save()</strong> służy do zapisania stanu canvasu - w tym właśnie ustawień odnośnie rysowania.<br />
+Metoda <strong>restore()</strong> jak sama nazwa wskazuje służy do odczytania zapisanego wcześniej stanu.<br />
+Metoda save i restore działają na zasadzie stosu. Save() odkłada coś na stos, a restore() pobiera ostatni odłożony zapisany stan.
+</p>
+
+<pre><code class="language-js">
+ctx.save();
+
+...jakieś operacje...
+
+ctx.restore();
+</code></pre>
+
+<p>Wyobraź sobie, że masz w programie graficznym belkę z narzędziami, wyborem kolorów, możliwymi transformacjami, dodatkowymi narzędziami, które mają swoje funkcje, zmieniają położenie czy rotację canvasu itp. Metoda save() będzie służyć tutaj do zapamiętania stanu wybranych w danym momencie opcji. Restore przywróci wcześniej zapisany stan.</p>
+
+<p>W przypadku canvas zapisywane są następujące rzeczy:</p>
+
+<ul>
+<li>transformacje</li>
+<li>Obszar przycinania za pomocą clip()</li>
+<li>
+    Ustawienia właściwości:<br>
+    globalAlpha<br>
+    globalCompositeOperation<br>
+    strokeStyle<br>
+    textAlign, textBaseline<br>
+    lineCap, lineJoin, lineWidth, and miterLimit<br>
+    fillStyle<br>
+    font<br>
+    shadowBlur, shadowColor, shadowOffsetX, and shadowOffsetY<br>
+</li>
+</ul>
+
+<p>
+Jak to wygląda w praktyce? Przykładowo rysujemy sobie jakiś obrazek. Ustawiamy sobie kilka właściwości rysowania - np. grubość linii czy kolor.<br>
+Żeby nie popsuć obecnych ustawień odkładamy jest na stos za pomocą metody <strong>save()</strong>. Ustawiamy jakieś nowe parametry, zmieniamy kolor.<br>
+Po narysowaniu kształtów chcemy wrócić do początkowych ustawień więc odpalamy <strong>restore()</strong>.
+</p>
+
+<pre data-line="4,13"><code class="language-js">
+const canvas = document.querySelector('canvas')
+const ctx = canvas.getContext('2d');
+
+ctx.save() //zapisuje początkowy styl by nie musieć wszystkiego cofać do stanu początkowego
+
+ctx.beginPath();
+ctx.fillStyle = "red";
+ctx.lineWidth = 10;
+ctx.setLineDash([4,4]);
+ctx.strokeStyle = "#333";
+ctx.fillRect(100, 100, 200, 200);
+
+ctx.restore(); //wczytuje zapisany stan
+
+ctx.fillText("Kwadrat", 10, 20)
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="shadow">Cień</h2>
+<p>Aby do rysowanej figury dodać cień, możemy posłużyć się jedną z 4 metod:</p>
+
+<table class="tab">
+    <tr>
+        <th><strong>shadowOffsetX, shadowOffsetY</strong></th>
+        <td>pozycja cienia w osi x</td>
+    </tr>
+    <tr>
+        <th><strong>shadowBlur</strong></th>
+        <td>rozmycie cienia</td>
+    </tr>
+    <tr>
+        <th><strong>shadowColor</strong></th>
+        <td>kolor cienia</td>
+    </tr>
+</table>
+
+<pre><code class="language-js">
+ctx.shadowOffsetX = 10;
+ctx.shadowOffsetY = 10;
+ctx.shadowColor = "rgba(0,0,0,0.3)"
+ctx.shadowBlur = 5;
+ctx.fillRect(20, 20, 200, 200);
+
+ctx.shadowOffsetX = -5;
+ctx.shadowOffsetY = 5;
+ctx.shadowColor = "rgba(0,0,0,0.2)"
+ctx.shadowBlur = 3;
+ctx.fillStyle = "dodgerblue";
+ctx.font = "bold 40px Arial, sans-serif";
+ctx.fillText("Testowy", 300, 100);
+</code></pre>
+
+<div class="canvas-cnt" id="cntShadow">
+    <canvas width="550" height="250"></canvas>
+</div>
+
+<script>
+{
+    const parentCnt = document.querySelector("#cntShadow");
+    const canvas = parentCnt.querySelector('canvas');
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = "red";
+
+    ctx.shadowOffsetX = 10;
+    ctx.shadowOffsetY = 10;
+    ctx.shadowColor = "rgba(0,0,0,0.3)"
+    ctx.shadowBlur = 5;
+    ctx.fillRect(20, 20, 200, 200);
+
+    ctx.shadowOffsetX = -5;
+    ctx.shadowOffsetY = 5;
+    ctx.shadowColor = "rgba(0,0,0,0.2)"
+    ctx.shadowBlur = 3;
+    ctx.fillStyle = "dodgerblue";
+    ctx.font = "bold 40px Arial, sans-serif";
+    ctx.fillText("Testowy", 300, 100);
+}
+</script>
+
+<!-- ### -->
+<h2 class="subtitle" id="example">Przykład użycia poznanych wiadomości</h2>
+
+<pre><code class="language-js">
+const canvas = document.querySelector('canvas');
+const ctx = canvas.getContext('2d');
+
+const step = 50;
+const howMany = canvas.width / step;
+
+for (let i=1; i&lt;howMany; i++) {
+    ctx.save();
+
+    //rysuję pionową przerywaną linię
+    ctx.beginPath();
+    ctx.moveTo(i * step, 0);
+    ctx.lineTo(i * step, canvas.height);
+    ctx.lineWidth = 0.5;
+    ctx.setLineDash([4,4]);
+    ctx.strokeStyle = "#ddd";
+    ctx.stroke();
+
+    //zaczynam rysować koralik
+    ctx.beginPath();
+
+    //ustawiam styl cienia koralika
+    ctx.shadowOffsetX = 5;
+    ctx.shadowOffsetY = 5;
+    ctx.shadowColor = "rgba(0,0,0,0.3)"
+    ctx.shadowBlur = 6;
+
+    //pozycja Y koralika
+    const y = rand(20, canvas.height-20);
+
+    //rysuję koralik
+    ctx.arc(i * step, y, 15, 0, angleToRadian(360));
+
+    //ustawiam gradient dla koralika
+    const gx = i*step - 15;
+    const gStartY = y - 15;
+    const gEndY = y + 15;
+    const gradient = ctx.createLinearGradient(gx, gStartY, gx, gEndY);
+    gradient.addColorStop(0, "orange");
+    gradient.addColorStop(1, "orangered");
+
+    //wypełniam koralik
+    ctx.fillStyle = gradient;
+    ctx.fill();
+    ctx.stroke();
+
+    //cofam ustawiania rysowania do początku
+    ctx.restore();
+
+    ctx.font = "bold 55px Arial, sans-serif";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "medium";
+    ctx.fillStyle = "rgba(0,0,0,0.01)"
+    ctx.fillText("Koraliki", canvas.width / 2, canvas.height / 2 );
+}
+</code></pre>
+
+<div class="canvas-cnt" id="canvasExample">
+    <canvas width="550" height="250"></canvas>
+    <button class="btn-canvas-reload">Odśwież</button>
+</div>
+<script>
+{
+    const parentCnt = document.querySelector("#canvasExample");
+    const canvas = parentCnt.querySelector('canvas');
+    const ctx = canvas.getContext('2d');
+
+    const generate = function() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        const step = 50;
+        const howMany = canvas.width / step;
+
+        for (let i=1; i<howMany; i++) {
+            ctx.save();
+
+            ctx.beginPath();
+            ctx.moveTo(i * step, 0);
+            ctx.lineTo(i * step, canvas.height);
+            ctx.lineWidth = 0.5;
+            ctx.setLineDash([4,4]);
+            ctx.strokeStyle = "#ddd";
+            ctx.stroke();
+
+            const y = rand(20, canvas.height-20);
+
+            ctx.shadowOffsetX = 5;
+            ctx.shadowOffsetY = 5;
+            ctx.shadowColor = "rgba(0,0,0,0.3)"
+            ctx.shadowBlur = 6;
+
+            ctx.beginPath();
+            ctx.arc(i * step, y, 15, 0, angleToRadian(360));
+
+            const gx = i*step - 15;
+            const gStartY = y - 15;
+            const gEndY = y + 15;
+            const gradient = ctx.createLinearGradient(gx, gStartY, gx, gEndY);
+            gradient.addColorStop(0, "orange");
+            gradient.addColorStop(1, "orangered");
+
+            ctx.fillStyle = gradient;
+
+            ctx.fill();
+            ctx.stroke();
+
+            ctx.restore();
+
+            ctx.font = "bold 55px Arial, sans-serif";
+            ctx.textAlign = "center";
+            ctx.textBaseline = "medium";
+            ctx.fillStyle = "rgba(0,0,0,0.01)"
+            ctx.fillText("Koraliki", canvas.width / 2, canvas.height / 2 );
+        }
+    }
+
+    generate();
+
+    parentCnt.querySelector('button').addEventListener("click", function() {
+        generate();
+    })
+}
+</script>
+
+<!-- ### -->
+<h2 class="subtitle" id="clip">Wycinanie - clip</h2>
+<p>
+Jeżeli kiedykolwiek używałeś maski w svg, maski w dowolnym programie graficznym czy nawet strony <a href="https://bennettfeely.com/clippy/">https://bennettfeely.com/clippy/</a>, będziesz wiedział o czym mówimy.
+</p>
+<p>Metoda <strong>clip()</strong> sprawia, że aktualnie rysowany path staje się właśnie taką maską, która przycina dany obrazek do jej krawędzi.</p>
+
+<pre data-line="13"><code class="language-js">
+const canvas = document.querySelector('canvas');
+const ctx = canvas.getContext('2d');
+
+ctx.fillStyle = "black"
+ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+//rysuję trójkąt
+ctx.beginPath();
+ctx.moveTo(canvas.width/2, 20);
+ctx.lineTo(canvas.width-20, canvas.height-20);
+ctx.lineTo(20, canvas.height-20);
+//robię z niego maskę przycinającą
+ctx.clip();
+
+//rysuję coś co będzie przycinane przez maskę
+//w tym wypadku generuję losowe liczby
+for (let i=0; i&lt;400; i++) {
+    const x = rand(0, canvas.width);
+    const y = rand(0, canvas.height);
+    const size = rand(10, 30);
+    const color = `hsla(120, 80%, 60%, ${Math.random()})`;
+
+    ctx.fillStyle = color;
+    ctx.strokeStyle = "rgba(0,0,0,0.7)"
+
+    ctx.font = `bold ${size}px Arial, sans-serif`;
+    ctx.fillText(i, x, y);
+}
+</code></pre>
+
+<div class="canvas-cnt" id="canvasClip">
+    <canvas width="550" height="250"></canvas>
+    <button class="btn-canvas-reload">Odśwież</button>
+</div>
+<script>
+{
+    const parentCnt = document.querySelector("#canvasClip");
+    const canvas = parentCnt.querySelector('canvas');
+    const ctx = canvas.getContext('2d');
+
+    const generate = function() {
+        ctx.fillStyle = "black";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.beginPath();
+        ctx.moveTo(canvas.width/2, 20);
+        ctx.lineTo(canvas.width-20, canvas.height-20);
+        ctx.lineTo(20, canvas.height-20);
+        ctx.clip();
+
+        for (let i=0; i<400; i++) {
+            const x = rand(0, canvas.width);
+            const y = rand(0, canvas.height);
+            const size = rand(10, 30);
+            const color = `hsla(120, 80%, 60%, ${Math.random()})`;
+
+            ctx.fillStyle = color;
+            ctx.strokeStyle = "rgba(0,0,0,0.7)"
+
+            ctx.font = `bold ${size}px Arial, sans-serif`;
+            ctx.fillText(i, x, y);
+        }
+    }
+
+    generate();
+
+    parentCnt.querySelector('button').addEventListener("click", function() {
+        generate();
+    })
+}
+</script>
+
+<p>Gdy stworzymy maskę za pomocą clip() będzie ona oddziaływać na wszystko co po niej stworzymy.</p>
+<p>Aby wyłączyć coś z działania tego narzędzia, musimy ponownie posłużyć się zapisem i przywróceniem stanu:</p>
+
+<pre data-line="7,19"><code class="language-js">
+const canvas = parentCnt.querySelector('canvas');
+const ctx = canvas.getContext('2d');
+
+ctx.fillStyle = "black"
+ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+ctx.save();
+
+ctx.beginPath();
+ctx.moveTo(canvas.width/2, 20);
+ctx.lineTo(canvas.width-20, canvas.height-20);
+ctx.lineTo(20, canvas.height-20);
+ctx.clip();
+
+for (let i=0; i&lt;400; i++) {
+    ...
+}
+
+ctx.restore();
+
+ctx.textAlign = "center";
+ctx.textBaseline = "middle";
+ctx.font = `bold 150px Arial, sans-serif`;
+ctx.fillStyle = "hsla(120, 80%, 60%, 0.2)";
+ctx.fillText("MATRIX", canvas.width/2, canvas.height/2);
+</code></pre>
+
+<p>Bez save i restore:</p>
+<div class="canvas-cnt" id="canvasClip2a">
+    <canvas width="550" height="250"></canvas>
+    <button class="btn-canvas-reload">Odśwież</button>
+</div>
+<script>
+{
+    const parentCnt = document.querySelector("#canvasClip2a");
+    const canvas = parentCnt.querySelector('canvas');
+    const ctx = canvas.getContext('2d');
+
+    const generate = function() {
+        ctx.fillStyle = "black"
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.beginPath();
+        ctx.moveTo(canvas.width/2, 20);
+        ctx.lineTo(canvas.width-20, canvas.height-20);
+        ctx.lineTo(20, canvas.height-20);
+        ctx.clip();
+
+        for (let i=0; i<400; i++) {
+            const x = rand(0, canvas.width);
+            const y = rand(0, canvas.height);
+            const size = rand(10, 30);
+            const color = `hsla(120, 80%, 60%, ${Math.random()})`;
+
+            ctx.fillStyle = color;
+            ctx.strokeStyle = "rgba(0,0,0,0.7)"
+
+            ctx.font = `bold ${size}px Arial, sans-serif`;
+            ctx.fillText(i, x, y);
+        }
+
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.font = `bold 140px Arial, sans-serif`;
+        ctx.strokeStyle = "hsla(120, 80%, 60%, 1)";
+        ctx.strokeText("MATRIX", canvas.width/2, canvas.height/2);
+    }
+
+    generate();
+
+    parentCnt.querySelector('button').addEventListener("click", function() {
+        generate();
+    })
+}
+</script>
+
+<p>Z save i restore:</p>
+<div class="canvas-cnt" id="canvasClip2b">
+    <canvas width="550" height="250"></canvas>
+    <button class="btn-canvas-reload">Odśwież</button>
+</div>
+<script>
+{
+    const parentCnt = document.querySelector("#canvasClip2b");
+    const canvas = parentCnt.querySelector('canvas');
+    const ctx = canvas.getContext('2d');
+
+    const generate = function() {
+        ctx.fillStyle = "black"
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.save();
+        ctx.beginPath();
+        ctx.moveTo(canvas.width/2, 20);
+        ctx.lineTo(canvas.width-20, canvas.height-20);
+        ctx.lineTo(20, canvas.height-20);
+        ctx.clip();
+
+        for (let i=0; i<400; i++) {
+            const x = rand(0, canvas.width);
+            const y = rand(0, canvas.height);
+            const size = rand(10, 30);
+            const color = `hsla(120, 80%, 60%, ${Math.random()})`;
+
+            ctx.fillStyle = color;
+            ctx.strokeStyle = "rgba(0,0,0,0.7)"
+
+            ctx.font = `bold ${size}px Arial, sans-serif`;
+            ctx.fillText(i, x, y);
+        }
+
+        ctx.restore();
+
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.font = `bold 140px Arial, sans-serif`;
+        ctx.strokeStyle = "hsla(120, 80%, 60%, 1)";
+        ctx.strokeText("MATRIX", canvas.width/2, canvas.height/2);
+    }
+
+    generate();
+
+    parentCnt.querySelector('button').addEventListener("click", function() {
+        generate();
+    })
+}
+</script>
+
+<!-- ### -->
+<h2 class="subtitle" id="kompozycja">Kompozycja</h2>
+<p>
+    Canvas udostępnia nam 2 właściwości, które określają sposób rysowania po canvasie.
+</p>
+
+<table class="tab">
+    <tr>
+        <th><strong>globalAlpha</strong></th>
+        <td>Ustawia ogólną przezroczystość nowo rysowanych figur. Definiujemy ją z przedziału 0-1. Zamiast tego możemy spokojnie używać kolorów rgba lub hsla</td>
+    </tr>
+    <tr>
+        <th>globalCompositeOperation</th>
+        <td>Określa jak mają być nanoszone nowe kształty na płótno - sprawdź najlepiej na poniższym przykładzie</td>
+    </tr>
+</table>
+
+<p>Działanie <strong>globalCompositeOperation</strong> można przyrównać do operacji boolowskich znanych z programów graficznych (np. pathfinder z AdobeIllustrator lub modyfikator Boolean w Blender3d).</p>
+
+<img src="./adobe-ilustrator-path-finder.png" alt="pathfinder" class="space">
+
+<p>Wartości dla <strong>globalCompositeOperation</strong> to:</p>
+
+<table class="tab">
+<tr>
+    <th>copy</th>
+    <td>
+    Pokazuje rysowaną figurę oraz usuwa wszystko co się z nią zazębiało
+    </td>
+</tr>
+<tr>
+    <th>destination-atop</th>
+    <td>
+    Rysuje figurę oraz tą część canvasa, która zazębiała się z rysowaną figurą
+    </td>
+</tr>
+<tr>
+    <th>destination-in</th>
+    <td>
+    Pozostawia na canvasie tą część figur, które zazębiały się  z rysowaną figurą
+    </td>
+</tr>
+<tr>
+    <th>destination-out</th>
+    <td>Pozostawia na canvasie te części figur, które nie zazębiały się z rysowaną figurą.</td>
+</tr>
+<tr>
+    <th>destination-over</th>
+    <td>
+    Rysuje figurę pod figurami z canvasu
+    </td>
+</tr>
+<tr>
+    <th>lighter</th>
+    <td>
+    W miejscach zazębiania się sumuje kolory rysowanej figury i canvasu.
+    </td>
+</tr>
+<tr>
+    <th>source-atop</th>
+    <td>
+    Pokazuje część canvasa która kolidowała z rysowaną figurą nad nią
+    </td>
+</tr>
+<tr>
+    <th>source-in</th>
+    <td>
+    Rysuje figurę tylko w miejscach gdzie zazębiała się z figurami narysowanymi na canvasie.
+    </td>
+</tr>
+<tr>
+    <th>source-out</th>
+    <td>
+    Pokazuje rysowaną figurę w miejscach, gdzie canvas był transparenty. W innych miejscach pokazuje przezroczystość.
+    </td>
+</tr>
+<tr>
+    <th>source-over</th>
+    <td>
+    Domyślna wartość.
+    Pokazuje rysowaną figurę w miejscu rysowania. Źródło zostaje zachowane.
+    </td>
+</tr>
+</table>
+
+<pre><code class="language-js">
+ctx.fillStyle = "black"
+ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+//4 czarne kwadraty
+ctx.fillStyle = "#222"
+ctx.fillRect(100, 50, 90, 90);
+ctx.fillRect(200, 50, 90, 90);
+ctx.fillRect(100, 150, 90, 90);
+ctx.fillRect(200, 150, 90, 90);
+
+ctx.globalCompositeOperation = "source-over";
+
+//pomidorowy przyjaciel
+ctx.fillStyle = "tomato";
+ctx.fillRect(80, 80, 100, 100);
+</code></pre>
+
+<div id="cntComposition">
+    <canvas width="550" height="250"></canvas>
+    <select id="selectVertical">
+        <option value="source-over">source-over (domyślnie)</option>
+        <option value="copy">copy</option>
+        <option value="destination-atop">destination-atop</option>
+        <option value="destination-in">destination-in</option>
+        <option value="destination-out">destination-out</option>
+        <option value="destination-over">destination-over</option>
+        <option value="lighter">lighter</option>
+        <option value="source-atop">source-atop</option>
+        <option value="source-in">source-in</option>
+        <option value="source-out">source-out</option>
+    </select>
+</div>
+
+<script>
+{
+    const parentCnt = document.querySelector("#cntComposition");
+
+    const generate = function(value) {
+        const canvas = parentCnt.querySelector('canvas');
+        const ctx = canvas.getContext('2d');
+
+
+
+        ctx.save();
+
+        const w = canvas.width/2;
+        const h = canvas.height/2;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        ctx.fillStyle = "#222"
+        ctx.beginPath();
+        ctx.fillRect(100, 50, 90, 90);
+
+        ctx.beginPath();
+        ctx.fillRect(200, 50, 90, 90);
+
+        ctx.beginPath();
+        ctx.fillRect(100, 150, 90, 90);
+
+        ctx.beginPath();
+        ctx.fillRect(200, 150, 90, 90);
+
+        ctx.globalCompositeOperation = value;
+        ctx.beginPath();
+        ctx.fillStyle = "tomato";
+        ctx.fillRect(80, 80, 100, 100);
+        ctx.restore();
+
+        ctx.font = "italic 14px Arial";
+        ctx.textAlign = "start";
+        ctx.textBaseline = "top";
+        ctx.fillText(`ctx.globalCompositeOperation = "${value}"`, 20, 20);
+    }
+
+
+
+    const select = parentCnt.querySelector("select");
+    generate(select.value);
+
+    select.addEventListener("change", function() {
+        generate(select.value);
+    });
+}
+</script>
+
+
+<!-- ### -->
+<h2 class="subtitle" id="transform">Transformacje</h2>
+<p>
+Dla zawartości canvas możemy używać kilku podstawowych funkcji transformacji.
+</p>
+
+<p>Canvas jako powierzchnia to obszar, na który możemy nałożyć "macierz transformacji", która następnie go zmienia. Co to dla nas oznacza?</p>
+<p>Jeżeli przykładowo nałożę na canvas efekt rotate(), rysowane następnie figury będą obrócone - mimo tego, że rysuję je normalnie.</p>
+
+<p>Mamy kilka funkcji, które możemy tutaj wykorzystywać:</p>
+
+<table class="tab">
+<tr>
+    <th style="width: 250px;">setTransform(a, b, c, d, e, f)</th>
+    <td>Ustawia matrix transformacji. Kolejne parametry to:<br>
+    a - pozioma skala, b - pionowe pochylenie (skew), c - poziome pochylenie, d - pionowa skala, e - poziome przemieszczenie, f - pionowe przemieszczenie</td>
+</tr>
+<tr>
+    <th>rotate()</th>
+    <td>obraca płótno, co oznacza, że rysowane elementy będą pojawiać się w innej pozycji. Płótno obracane jest względem punkty 0,0</td>
+</tr>
+<tr>
+    <th>translate(x, y)</th>
+    <td>obraca płótno, co oznacza, że rysowane figury będą pojawiać się obrócone.</td>
+</tr>
+<tr>
+    <th>scale(x, y)</th>
+    <td>skaluje płótno, co oznacza, że rysowane figury będą pojawiać się przeskalowane. Płótno skalowane jest względem punktu 0,0</td>
+</tr>
+</table>
+
+<pre><code class="language-js">
+//czyszczę transformacje
+ctx.setTransform(1, 0, 0, 1, 0, 0);
+
+//obracam canvas
+ctx.save();
+ctx.rotate(angleToRadian(15));
+ctx.strokeRect(20, 20, 200, 200);
+ctx.fillRect(230, 20, 200, 200);
+ctx.restore();
+</code></pre>
+
+<div id="canvasRotateA">
+    <canvas width="550" height="250"></canvas>
+    0 <input id="range" type="range" min="0" max="100" value="0"> 100
+</div>
+
+<script>
+{
+
+    const parentCnt = document.querySelector("#canvasRotateA");
+
+    const generate = function(range) {
+        range = Number(range)
+        const canvas = parentCnt.querySelector('canvas');
+        const ctx = canvas.getContext('2d');
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+        ctx.save();
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.rotate(angleToRadian(range));
+        ctx.strokeRect(20, 20, 200, 200);
+        ctx.fillRect(230, 20, 200, 200);
+        ctx.restore();
+    }
+
+    const range = parentCnt.querySelector("input[type='range']");
+
+    generate(range.value);
+
+    range.addEventListener("input", function() {
+        generate(range.value);
+    });
+}
+</script>
+
+<p>Jak widzisz, transformacja rotate jest wykonywana względem punktu 0, 0.
+Niestety nie mamy tutaj znanej z css właściwości transform-origin, która w css zmienia taki punkt.<br>
+Żeby obracać dany element względem konkretnego punktu, musimy skorzystać z dodatkowych obliczeń.</p>
+<p>
+Kroki, które musimy wykonać są następujące:
+</p>
+<ol>
+    <li>Przesuwamy cały canvas (a więc i punkt transformacji) za pomocą translate() do punktu, w którym mamy obrócić dany element (czyli środka naszej przyszłej figury)</li>
+    <li>Obracamy płótno za pomocą rotate()</li>
+    <li>Rysujemy obiekt tak, by jego środek znajdował się w miejscu obrotu</li>
+</ol>
+
+<img src="./transform-anim.gif" alt="transformacje animacja" class="space">
+
+<pre><code class="language-js">
+const canvas = document.querySelector('canvas');
+const ctx = canvas.getContext('2d');
+
+const w = 100;
+const h = 100;
+
+ctx.save();
+ctx.setTransform(1, 0, 0, 1, 0, 0); //czyszczę transformacje
+ctx.beginPath();
+
+//powiedzmy że chce obrócić kwadrat w pozycji 250, 100
+ctx.translate(250 + w/2, 100 + h/2); //przesuwamy origin do srodka obrotu
+ctx.rotate(angleToRadian(range));
+ctx.strokeRect(-w/2, -h/2, w, h); //rysuje tak, by środek był w punkcie 0,0
+ctx.restore();
+</code></pre>
+
+<div id="canvasRotateB">
+    <canvas width="550" height="250"></canvas>
+    0 <input type="range" min="0" max="360" value="50"> 360
+</div>
+
+<script>
+{
+
+    const parentCnt = document.querySelector("#canvasRotateB");
+
+    const canvas = parentCnt.querySelector('canvas');
+    const ctx = canvas.getContext('2d');
+
+    const generate = function(range) {
+        range = Number(range)
+
+        const w = 100;
+        const h = 100;
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        //czyszczę transformacje
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+        ctx.save(); //zapisuje stan przed transformacjami
+        ctx.beginPath();
+        //powiedzmy że chce obrócić kwadrat w pozycji 250, 100
+        ctx.translate(250 + w/2, 100 + h/2); //przesuwamy origin do srodka obrotu
+        ctx.rotate(angleToRadian(range));
+        ctx.strokeRect(-w/2, -h/2, w, h); //rysuje tak, by środek był w punkcie 0, 0
+        ctx.restore(); //przywracam stan
+    }
+
+    const range = parentCnt.querySelector("input[type='range']");
+
+    generate(range.value);
+
+    range.addEventListener("input", function() {
+        generate(range.value);
+    });
+}
+</script>
+
+<p>W przypadku tekstów żeby narysować tekst z środkiem w punkcie obrotu możemy posłużyć się właściwościami wyrównującymi:</p>
+
+<pre><code class="language-js">
+const canvas = document.querySelector('canvas');
+const ctx = canvas.getContext('2d');
+
+//czyszczę transformacje
+ctx.setTransform(1, 0, 0, 1, 0, 0);
+
+ctx.save();
+//powiedzmy ze chcemy obracać tekst w punkcie 350, 200
+ctx.translate(350, 200);
+ctx.rotate(angleToRadian(range));
+ctx.textAlign = "center";
+ctx.textBaseline = "middle";
+ctx.font = `bold 60px Arial, sans-serif`;
+ctx.fillText("Hello word", 0, 0)
+ctx.restore();
+</code></pre>
+
+<div id="canvasRotateC">
+    <canvas width="550" height="250"></canvas>
+    0 <input id="range" type="range" min="0" max="360" value="0"> 360
+</div>
+
+<script>
+{
+
+    const parentCnt = document.querySelector("#canvasRotateC");
+    const canvas = parentCnt.querySelector('canvas');
+    const ctx = canvas.getContext('2d');
+
+    const generate = function(range) {
+        range = Number(range)
+
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+        ctx.save();
+        ctx.translate(350, 200);
+        ctx.rotate(angleToRadian(range));
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.font = `bold 60px Arial, sans-serif`;
+        ctx.fillText("Hello word", 0, 0)
+        ctx.restore();
+    }
+
+    const range = parentCnt.querySelector("input[type='range']");
+
+    generate(range.value);
+
+    range.addEventListener("input", function() {
+        generate(range.value);
+    });
+}
+</script>
+
+<p>Podobnie do rotate() będziemy działać w przypadku scale, która także działa względem punktu 0,0:</p>
+
+<pre data-line="7,14"><code class="language-js">
+//skalujemy kwadrat w pozycji 150x50
+const w = 100;
+const h = 100;
+ctx.save(); //zapisuje stan przed transformacjami
+ctx.beginPath();
+ctx.translate(150 + w/2, 50 + h/2);
+ctx.scale(-1, 1);
+ctx.strokeRect(-w/2, -h/2, w, h);
+ctx.restore();
+
+//obracamy tekst w pozycji 350x200
+ctx.save();
+ctx.translate(350, 200);
+ctx.scale(-1, 1);
+ctx.textAlign = "center";
+ctx.textBaseline = "middle";
+ctx.font = `bold 60px Arial, sans-serif`;
+ctx.fillText("Hello word", 0, 0)
+ctx.restore();
+</code></pre>
+
+<div id="canvasScale">
+    <canvas width="550" height="250"></canvas>
+    -1 <input id="range" type="range" min="-100" max="100" value="100"> 1
+</div>
+
+<script>
+{
+
+    const parentCnt = document.querySelector("#canvasScale");
+
+    const generate = function(range) {
+        range = Number(range) / 100;
+        const canvas = parentCnt.querySelector('canvas');
+        const ctx = canvas.getContext('2d');
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+
+        const w = 100;
+        const h = 100;
+
+        //skalujemy kwadrat w pozycji 150x50
+        ctx.save();
+        ctx.beginPath();
+        ctx.translate(150 + w/2, 50 + h/2);
+        ctx.scale(range, 1);
+        ctx.strokeRect(-w/2, -h/2, w, h);
+        ctx.restore();
+
+        //obracamy tekst w pozycji 350x200
+        ctx.save();
+        ctx.translate(350, 200);
+        ctx.scale(range, 1);
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.font = `bold 60px Arial, sans-serif`;
+        ctx.fillText("Hello word", 0, 0)
+        ctx.restore();
+    }
+
+    const range = parentCnt.querySelector("input[type='range']");
+
+    generate(range.value);
+
+    range.addEventListener("input", function() {
+        generate(range.value);
+    });
+}
+</script>
+
+<p>Oczywiście skale i obracanie możemy łączyć razem:</p>
+
+<pre data-line="4-5,12-13"><code class="language-js" data-lines="">
+ctx.save();
+ctx.beginPath();
+ctx.translate(150 + w/2, 50 + h/2);
+ctx.scale(scale, 1);
+ctx.rotate(angleToRadian(rotate));
+ctx.strokeRect(-w/2, -h/2, w, h);
+ctx.restore();
+
+//obracamy tekst w pozycji 350x200
+ctx.save();
+ctx.translate(350, 200);
+ctx.scale(scale, 1);
+ctx.rotate(angleToRadian(rotate));
+ctx.textAlign = "center";
+ctx.textBaseline = "middle";
+ctx.font = `bold 60px Arial, sans-serif`;
+ctx.fillText("Hello word", 0, 0)
+ctx.restore();
+</code></pre>
+
+<div id="canvasScaleAndRange">
+    <canvas width="550" height="250"></canvas>
+    Scale: -1 <input id="range" type="range" min="-100" max="100" value="100"> 1<br>
+    Rotate: 0 <input id="range" type="range" min="0" max="360" value="0"> 360<br>
+</div>
+
+<script>
+{
+
+    const parentCnt = document.querySelector("#canvasScaleAndRange");
+
+    const generate = function(scale, rotate) {
+        scale = Number(scale) / 100;
+        rotate = Number(rotate);
+
+        const canvas = parentCnt.querySelector('canvas');
+        const ctx = canvas.getContext('2d');
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+
+        const w = 100;
+        const h = 100;
+
+        //skalujemy kwadrat w pozycji 150x50
+        ctx.save();
+        ctx.beginPath();
+        ctx.translate(150 + w/2, 50 + h/2);
+        ctx.scale(scale, 1);
+        ctx.rotate(angleToRadian(rotate));
+        ctx.strokeRect(-w/2, -h/2, w, h);
+        ctx.restore();
+
+        //obracamy tekst w pozycji 350x200
+        ctx.save();
+        ctx.translate(350, 200);
+        ctx.scale(scale, 1);
+        ctx.rotate(angleToRadian(rotate));
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.font = `bold 60px Arial, sans-serif`;
+        ctx.fillText("Hello word", 0, 0)
+        ctx.restore();
+    }
+
+    const range1 = parentCnt.querySelector("input[type='range']");
+    const range2 = parentCnt.querySelector("input[type='range']:nth-of-type(2)");
+
+    generate(range1.value, range2.value);
+
+    range1.addEventListener("input", function() {
+        generate(range1.value, range2.value);
+    });
+
+    range2.addEventListener("input", function() {
+        generate(range1.value, range2.value);
+    });
+}
+</script>
+
+			</div><!-- e: page-content-text -->
+			<footer class="page-footer">
+				<p>
+				Wszelkie prawa zastrzeżone. Jeżeli chcesz używać jakiejś części tego kursu, skontaktuj się z <a href="/kurs/autor.php">autorem</a>.
+				Aha - i ta strona korzysta z <a href="/kurs/polityka-prywatnosci.php">ciasteczek</a>.
+				</p>
+			</footer>
+							<div class="rekl-cnt">
+					<ins
+					class="adsbygoogle" style="margin-top:40px; display:block"
+					data-ad-client="ca-pub-6843603045703750"
+					data-ad-slot="4690777640"
+					data-ad-format="auto"
+					data-full-width-responsive="true"
+					></ins>
+				</div>
+				<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+	(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+					</main><!-- e: page-content -->
+			</div><!-- e: page-content-wrapper -->
+    <aside id="page-sidebar-cnt" class="page-sidebar-cnt">
+	<div id="page-sidebar" class="page-sidebar">
+		<button aria-label="Pokaż/ukryj Menu" aria-expanded="false" aria-controls="page-sidebar" type="button" id="pageSidebarBurger" class="page-sidebar-burger">
+			<span></span>
+		</button>
+
+		<h2 class="visuallyhidden">
+			Menu
+		</h2>
+
+		<button class="sidebar-toggle-btn" title="Pokaż/schowaj menu" aria-hidden="true">
+			<strong>Pokaż/ukryj menu</strong>
+			<span></span>
+			<span></span>
+			<span></span>
+		</button>
+
+		<div class="page-sidebar-title">
+			<a href="/kurs/kontakt.php" title="Nawrzucaj autorowi" class="mail-to-author" id="mailToAuthor">Napisz do mnie</a>
+			<a href="#popupOptions" class="page-setup-link popupOpen" title="Ustawienia strony" id="showOptions">Ustawienia</a>
+			<a href="/index.php" aria-label="Strona główna" class="page-sidebar-title-link">Kurs Javascript</a>
+		</div>
+
+        <form aria-label="Wyszukiwarka" class="search-sidebar" action="/search.php" method="post">
+            <label for="search" class="search-sidebar-label">Szukaj</label>
+            <div class="search-sidebar-input-cnt">
+                <svg class="search-sidebar-input-icon" xmlns="http://www.w3.org/2000/svg" width="26" height="28" viewBox="0 0 26 28" aria-hidden="true">
+                    <path d="M18 13c0-3.859-3.141-7-7-7s-7 3.141-7 7 3.141 7 7 7 7-3.141 7-7zm8 13c0 1.094-.906 2-2 2a1.96 1.96 0 0 1-1.406-.594l-5.359-5.344a10.971 10.971 0 0 1-6.234 1.937c-6.078 0-11-4.922-11-11s4.922-11 11-11 11 4.922 11 11c0 2.219-.672 4.406-1.937 6.234l5.359 5.359c.359.359.578.875.578 1.406z"></path>
+                </svg>
+                <input type="text" id="search" autocomplete="off" name="q" class="search-sidebar-input">
+            </div>
+            <button type="submit" class="search-sidebar-button">Szukaj</button>
+        </form>
+
+		<div class="page-sidebar-table-of-content">
+			<h2 class="visuallyhidden">Spis treści</h2>
+            <div class="page-sidebar-section">
+				<h3 class="page-sidebar-section-title noopen">
+                    <a href="/index.php">Strona główna</a>
+                </h3>
+            </div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Słowem wstępu</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/wstep/wstep.php">Wstęp</a>
+						</li>
+						<li >
+							<a href="/kurs/wstep/co-to-jest-javascript.php">Co to jest JavaScript i z czym go się je?</a>
+						</li>
+						<li >
+							<a href="/kurs/wstep/wymagania.php">Wymagania</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Super podstawy</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/debuger/debuger.php">Debuger</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/pierwszy-skrypt.php">Wstawiamy skrypty na naszą stronę</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/strict-mode.php">Strict mode</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/typy-danych.php">Typy danych i konwersja danych</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/zmienne.php">Zmienne</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/operatory.php">Operatory</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/math.php">Obiekt Math</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/string.php">String - teksty</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/instrukcje-warunkowe.php">Instrukcje warunkowe</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/petle.php">Pętle</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/funkcje.php">Funkcje</a>
+						</li>
+                        <li >
+							<a href="/kurs/super-podstawy/funkcje-tematy-dodatkowe.php">Funkcje - tematy dodatkowe</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/tablice.php">Tablice</a>
+						</li>
+                        <li >
+							<a href="/kurs/super-podstawy/tablice-iteracje.php">Tablice pętle</a>
+						</li>
+						<li >
+							<a href="/kurs/debuger/debugowanie.php">Debugowanie kodu</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+            			<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Obiekty</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+                        <li >
+							<a href="/kurs/obiekty/obiekty.php">Obiekty i this</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-jak-to-dziala.php">Jak to działa</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-konstruktor.php">Konstruktor</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-zaawansowane-this.php">Zaawansowane this</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-dziedziczenie.php">Dziedziczenie w Javascript</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-inne-sposoby-tworzenia.php">Inne sposoby tworzenia obiektów</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-instanceof-hasownproperty.php">instanceof i hasOwnProperty</a>
+						</li>
+                    </ul>
+                </div>
+            </div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">DOM i zdarzenia</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/dom/dom.php">Document Object Model</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-wlasciwosci.php">Właściwości elementów</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-relacje.php">Relacje między elementami</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-tworzenie-i-usuwanie.php">Tworzenie i usuwanie elementów</a>
+						</li>
+                        <li >
+                            <a href="/kurs/dom/style.php">Style w CSS</a>
+                        </li>
+						<li >
+							<a href="/kurs/events/events.php">Zdarzenia</a>
+						</li>
+						<li >
+							<a href="/kurs/events/events-keys.php">Zdarzenia - klawisze</a>
+						</li>
+						<li >
+							<a href="/kurs/events/events-mouse.php">Zdarzenia - myszka</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/projekt-todo.php">Projekt TODO</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/slider.php">Tworzymy slider</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Prawie podstawy</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/grafika/grafika-na-stronie.php">Grafika na stronie</a>
+						</li>
+						<li >
+							<a href="/kurs/intervals/intervals.php">setTimeout i setInterval</a>
+						</li>
+						<li >
+							<a href="/kurs/match-media.php">Praca z RWD</a>
+						</li>
+						<li >
+							<a href="/kurs/okna-dialogowe.php">Okienka dialogowe</a>
+						</li>
+						<li >
+							<a href="/kurs/okna.php">Tworzenie nowych okien</a>
+						</li>
+						<li >
+							<a href="/kurs/date/date.php">Obiekt Date</a>
+						</li>
+						<li >
+							<a href="/kurs/date/date-calendar.php">Tworzymy kalendarz</a>
+						</li>
+						<li >
+							<a href="/kurs/cookies/cookie.php">Obiekt Cookie</a>
+						</li>
+						<li >
+							<a href="/kurs/storage/storage.php">Storage</a>
+						</li>
+						<li >
+							<a href="/kurs/regular.php">Wyrażenia regularne</a>
+						</li>
+						<li >
+							<a href="/kurs/formularze/formularze.php">Formularze</a>
+						</li>
+						<li >
+							<a href="/kurs/formularze/formularze-walidacja.php">Formularze - walidacja</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Ajax</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/ajax/ajax.php">AJAX, REST, JSON</a>
+						</li>
+						<li >
+							<a href="/kurs/ajax/xmlhttprequest.php">XMLHttpRequest</a>
+						</li>
+            			<li >
+							<a href="/kurs/ajax/fetch.php">Fetch API</a>
+						</li>
+						<li >
+							<a href="/kurs/ajax/formularz-kontaktowy.php">Dynamiczny formularz kontaktowy</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Nowy Javascript</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/es6/ecma-script-2015.php">ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/webpack.php">Webpack</a>
+						</li>
+                        <li >
+            				<a href="/kurs/es6/obiekty-w-es6.php">Obiekty w ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/funkcja-strzalkowa.php">Funkcja strzałkowa</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/spread-rest.php">Spread i rest</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/template-strings.php">Template strings</a>
+						</li>
+						<li >
+            				<a href="/kurs/es6/destructuring.php">Dekompozycja</a>
+        				</li>
+						<li >
+							<a href="/kurs/es6/class.php">Klasy w ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/promises.php">Promises</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/async-await.php">Async/Await</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/symbole.php">Symbole</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">jQuery</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/jquery/jquery.php">jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/animacje-w-jquery.php">Animacje w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/jquery-ajax.php">Ajax w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/tabs.php">Taby w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/plugin.php">Karuzela w jQuery</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section show has-active-element">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Canvas</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li class="active">
+							<a href="/kurs/canvas/canvas.php">Canvas</a>
+						</li>
+						<li >
+							<a href="/kurs/canvas/canvas-images.php">Grafika w canvas</a>
+						</li>
+						<li >
+						<a href="/kurs/canvas/canvas-paint.php">Praktycznie : Paint w canvas</a>
+						</li>
+
+						<li >
+							<a href="/kurs/canvas/canvas-animacja.php">Animacja w canvas</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Gry</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/gry/hangman/hangman.php">Szubienica</a>
+						</li>
+						<li >
+							<a href="/kurs/gry/memory/memory.php">Memory</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+            			<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Inne</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/dodatkowe-materialy.php">Dodatkowe materiały</a>
+						</li>
+						<li >
+							<a href="/kurs/faq.php">FAQ</a>
+						</li>
+						<li >
+							<a href="/kurs/polityka-prywatnosci.php">Polityka prywatności</a>
+						</li>
+						<li >
+							<a href="/kurs/autor.php">O autorze</a>
+						</li>
+						<li >
+							<a href="/kurs/kontakt.php">Kontakt</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="page-sidebar-section">
+                <a class="special-link" href="/kurs/autor.php#donate">Wesprzyj kurs</a>
+            </div>
+		</div>
+	</div>
+</aside></div><!-- e: page-container -->
+
+<div class="popup" id="popupOptions">
+	<div class="popup-inside">
+        <div class="popup-container-cnt">
+            <div class="popup-container">
+                <button class="popup-close">Zamknij</button>
+
+                <h2 class="popup-title">
+                    Opcje
+                </h2>
+
+                <div class="popup-content">
+                    <form class="form-options">
+                        <div class="form-option">
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <label for="optionsThemeSelect">Wybierz skórkę dla listingów</label>
+                                    <select id="optionsThemeSelect"></select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <pre><code class="language-js">
+                                //tak będzie wyglądał kod
+
+                                function test() {
+                                    for (let i=0; i&lt;10; i++) {
+                                        console.log("Tekst numer ", 1);
+                                    }
+                                }
+
+                                test();
+                                </code></pre>
+                            </div>
+                            <div class="form-row" id="themeLightModeRow">
+                                <div class="form-col">
+                                    <label for="themeLightMode">
+                                        Tryb dzienny / nocny
+                                    </label>
+
+                                    <div class="light-mode-el">
+                                        <input type="checkbox" id="themeLightMode">
+                                        <span class="light-mode"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+	</div>
+</div>
+<script async defer src="https://www.googletagmanager.com/gtag/js?id=UA-38558970-5"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-38558970-5');
+</script>
+
+	<script src="/js/ads.js"></script>
+	<script src="/js/script.min.js?v=0.13" defer></script>
+</body>
+</html>

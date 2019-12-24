@@ -3,9 +3,9 @@
 <head>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Kurs Javascript - Wstęp</title>
+    <title>Kurs Javascript - Funkcja strzałkowa</title>
 	<meta name="description" content="Kurs Javascript dla superbohaterów, artykuły, tutoriale, porady, zadania do wykonania" />
-    <link rel="canonical" href="https://kursjs.pl/kurs/wstep/wstep.php" />
+    <link rel="canonical" href="https://kursjs.pl/kurs/es6/funkcja-strzalkowa.php" />
 	<link rel="stylesheet" href="./css.css" />
     <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,700&display=swap&subset=latin-ext" rel="stylesheet">
 	<meta name="image" content="https://kursjs.pl/kursjs.png">
@@ -57,49 +57,478 @@
             </div>
                         <div class="page-content-text">
 
+<h1 class="page-title">Funkcja strzałkowa</h1>
+<p>Do tej pory stosowaliśmy dwie metody definiowania funkcji:</p>
 
-<h1 class="page-title">Wstęp</h1>
-<p>
-Bardzo krótki wstęp ^^.<br /><br />
-Kurs ten jest o Javascripcie. Uhh...
-</p>
-<p>
-Wiedz, że nie staram się tutaj tworzyć największego i najlepszego kursu o JavaScript w internecie.<br>
-Ten kurs to twór jednego człowieka.
-Nie mam szans i nie chcę konkurować z molochami takimi jak <a href="https://developer.mozilla.org/pl/">MDN</a>, <a href="https://www.udemy.com/">Udemy</a>, <a href="https://eduweb.pl/">EduWeb</a> czy <a href="https://www.w3schools.com/js/default.asp">w3schools</a>.<br>
-<br><br>
-Nie znajdziesz tutaj wszystkiego z zakresu JavaScript. <br>
-Po jakimś czasie będziesz chciał wiele rzeczy tutaj pokazanych tworzyć inaczej - lepiej.<br>
-Im większy progres będziesz zdobywał stwierdzisz, że wiele rozdziałów można było napisać o wiele lepiej. I dobrze.<br><br>
+<pre><code class="language-js">
+//wyrażenie
+const myF = function(a, b) {
+    return a + b
+}
 
-W każdym bądź razie - jeżeli ta strona jakoś ci posłuży - to tylko plus. Jeżeli nie - po prostu skorzystaj z innego kursu - na rynku jest tego od groma (niektóre wymieniłem <a href="../dodatkowe-materialy.php">tutaj</a>) i każdy znajdzie coś dla siebie. Ja sam mam kilka w swojej kolekcji i twierdzę, że są naprawdę dobre.
-<br><br>
-</p>
+//deklaracja
+function myF(a, b) {
+    return a + b
+}
+</code></pre>
 
 <p>
-Jeszcze mała adnotacja, która siedzi mi w głowie.
+ES6 wprowadza nowy sposób deklarowania funkcji zwący się
+funkcją strzałkową (lub też grubą strzałką, czyli <strong>fat arrow</strong>).
 </p>
-<p>
-W internecie znajdziesz setki tutoriali pokazujących najnowsze techniki. A to funkcja strzałkowa, a to jak korzystać z async i await, a to jak robić połączenia fetchem czy chociażby zastosowanie modułów. Małe, konkretne, piękne - jak mój pies (a i od niedawna też kot).
-</p>
-<p>
-Na grupach facebookowych w dyskusjach znajdziesz jeszcze szybciej takie techniki.
-</p>
-<p>
-Tutaj pojawia pewna sprawa, który dotyczy nie tylko JavaScript, ale i całego frontendu. Bardzo często przy takich nowoczesnych tutorialach czy poradach autorzy nie zwracają uwagi na bardzo ważną rzecz - a mianowicie na to, że dobór techniki <strong>zawsze zależy od danego projektu</strong>. To są w końcu rzeczy oczywiste.<br>
-No właśnie nie do końca. To są rzeczy oczywiste - dla nas - osób, które w tej branży siedzą już kilkanaście lat. Ale czy dla osoby zaczynającej?
-</p>
-<p>
-Jeżeli robisz bloga o nowinkach z dziedziny frontentu, raczej możesz założyć, że większość użytkowników będzie korzystała z najnowszych przeglądarek, a więc i możesz używać najnowszych rozwiązań (chociaż najlepiej było by spojrzeć w statystyki Google Analitics które można podpiąć pod stronę).<br>
-Jeżeli jednak robisz stronę dla emerytowanych nauczycieli, czy dla przykładu olbrzymi sklep z którego będą korzystali różnorodni użytkownicy z różnorodnych krajów, wtedy rzucanie się na najnowsze rozwiązania będzie strzałem w stopę.
-</p>
-<p>
-Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie CSS Grid, a czasami nawet flexbox może okazać się czymś, czego użyć nie możesz. Czasami spokojnie będziesz mógł używać najnowszej wersji JavaScript, a czasami będziesz musiał pozostać przy starszej. A jeżeli będziesz musiał pozostać przy starszej, wtedy albo będziesz pisał JavaScript trzymając się klasycznych rozwiązań, albo skorzystasz z narzędzi zamieniających twój kod na starszy zapis.
-</p>
-<p>Autorzy tutoriali często zapominają o tym, że dla początkującej osoby istnieje po prostu JavaScript. Osoby takie często nie zdają sobie sprawy, że nie wszystko w JavaScript można dowolnie używać, nie wiedzą gdzie szukać informacji które przeglądarki co wspierają, jakich narzędzi używać do zamiany kodu i po co w ogóle to robić.</p>
-<p>W kursie tym staram się trzymać klasycznego JavaScript. Jasne - im więcej wiedzy zdobędziesz, im bardziej będziesz rozbudowywał swój warsztat, tym będziesz stosował coraz nowsze i lepsze techniki pisania kodu. A wtedy - tak jak to już pisałem powyżej - będziesz się śmiał z tego kursu. Póki co polecam po prostu uczyć się JavaScript.</p>
 
-<a href="./co-to-jest-javascript.php" class="button">To co? Zaczynamy?...</a>
+<p>
+Funkcja strzałkowa ma dwie charakterystyczne cechy.
+Skraca zapis funkcji, oraz zmienia kontekst this.
+</p>
+
+
+<!-- ### -->
+<h2 class="subtitle" id="fat-arrow-short">Skrócony zapis</h2>
+<p>
+Przypuśćmy, że mamy prostą deklarację funkcji:
+</p>
+
+<pre><code class="language-js">
+const myF = function(a, b) {
+    return a + b
+}
+</code></pre>
+
+<p>Teraz chcielibyśmy tą samą funkcję zadeklarować za pomocą funkcji strzałkowej:</p>
+
+<pre><code class="language-js">
+const myF = (a, b) => { return a + b }
+</code></pre>
+
+<p>
+Aż tak wiele nam nie uprościło. Zamiast słowa function pojawiła się charakterystyczna "gruba strzałka" (fat arrow).<br>
+No to upraszczamy dalej.</p>
+
+<p>
+Jeżeli funkcja wymaga <strong>tylko jednego parametru</strong>, wtedy mogę pominąć nawiasy:
+</p>
+
+<pre><code class="language-js">
+const myF = function(a) { return a * a }
+
+const myF = a => { return a * a }
+</code></pre>
+
+<p>Jeżeli funkcja ma tylko jedną instrukcję (powyżej tylko ta z return) to mogę pominąć klamry:</p>
+
+<pre><code class="language-js">
+const myF = function(a) { console.log( a * a ) }
+
+const myF = a => console.log( a * a );
+</code></pre>
+
+<p>Jeżeli jedyną instrukcją funkcji jest ta zwracająca, możemy pominąć słowo return:</p>
+
+<pre><code class="language-js">
+const myF = function(a) { return a * a }
+
+const myF = a => a * a
+</code></pre>
+
+<p>Gdy funkcja nie ma atrybutów, lub ma ich więcej, nawiasy muszę podawać:</p>
+
+<pre><code class="language-js">
+const myF = function(a, b) { return a * b }
+const myF = (a, b) => a * b
+</code></pre>
+
+<pre><code class="language-js">
+const myF = function() { return "ala ma kota" }
+const myF = () => "ala ma kota"
+</code></pre>
+
+<p>Jeżeli funkcja ma więcej instrukcji, wtedy muszę użyć klamer:</p>
+
+<pre><code class="language-js">
+const myF = function(a, b) {
+    const ret = a * b;
+    console.log( ret );
+    return ret;
+}
+
+const myF = (a, b) => {
+    const ret = a * b;
+    console.log( ret );
+    return ret;
+}
+</code></pre>
+
+<pre><code class="language-js">
+const myF = function() {
+    const text = " ma kota";
+    console.log(result);
+    return "ala" + text;
+}
+
+const myF = () => {
+    const text = " ma kota";
+    console.log(result);
+    return "ala" + text;
+}
+
+const myF2 = a => {
+    const result = "Wynik: " + (a*a);
+    console.log(result);
+    return result;
+}
+</code></pre>
+
+<p>Jeżeli jedyną instrukcją jest zwracanie <a href="../obiekty/obiekty.php">literału obiektu</a>, wtedy zachodzi konflikt między redukcją klamer (co powyżej), a klamrami obiektu. W takim przypadku zwracany obiekt trzeba objąć nawiasami: </p>
+
+<pre><code class="language-js">
+const returnObj = name => ({ team : name, score : 0 })
+</code></pre>
+
+<!--###-->
+<h2 class="subtitle" id="przyklady-zapisu">Przykłady użyć</h2>
+<p>Poza skróceniem zapisu wyrażeń funkcyjnych, najczęściej funkcje strzałkowe pojawiają się tam, gdzie używaliśmy funkcji anonimowych czyli przy wszelakich eventach, sortach, forEach, fetch itp.</p>
+
+<p>W rozdziale o tablicach na samym dole pojawiło się kilka <a href="../super-podstawy/tablice.php">specyficznych funkcji do iteracji</a>.</p>
+
+<p>Funkcja strzałkowa bardzo upraszcza ich zapis:</p>
+
+<pre><code class="language-js">
+const tabUsers = [
+    { name : 'Marcin', age: 18 },
+    { name : 'Ania', age: 16 },
+    { name : 'Agnieszka', age: 16}
+];
+const tabNr = [1, 2, 3];
+</code></pre>
+
+<pre><code class="language-js">
+//wypisujemy nazwy użytkowników wielkimi literami
+
+//poprzednio
+tabUsers.forEach(function(el) {
+    console.log(el.name.toUpperCase());
+});
+
+//teraz
+tabUsers.forEach(el => console.log(el.name.toUpperCase()));
+</code></pre>
+
+<pre><code class="language-js">
+//Tworzymy nową tablicę z liczbami 2x większymi
+
+//poprzednio
+const tab2 = tabNr.map(function(el) {
+    return el * 2;
+});
+
+//teraz
+const tab2 = tabNr.map(el => el * 2);
+</code></pre>
+
+<pre><code class="language-js">
+//sprawdzamy czy wszyscy użytkownicy są pełnoletni
+
+//poprzednio
+const allMinors = tabUsers.every(function(el) {
+    return el.age > 18;
+});
+
+//teraz
+const allMinors = tabUsers.every(el => el.age > 18);
+</code></pre>
+
+
+<pre><code class="language-js">
+//sprawdzamy czy niektórzy użytkownicy są pełnoletni
+
+//poprzednio
+const isSomeOfAge = tabUsers.some(function(el) {
+    return el.age > 18
+});
+
+//teraz
+const isSomeOfAge = tabUsers.some(el => el.age > 18);
+</code></pre>
+
+<pre><code class="language-js">
+//sprawdzam czy ostatnia litera imienia to "a" (nędzne założenie że to kobiece imię, co jest nieprawdą...)
+
+//poprzednio
+const woman = tabUsers.filter(function(el) {
+    return el.charAt(el.length-1) === 'a';
+});
+
+//teraz
+const woman = tabUsers.filter(el => el.charAt(el.length-1) === 'a');
+</code></pre>
+
+<p>Dzięki takim uproszczeniom bardzo fajnie można
+łączyć dane konstrukcje we wspólne całości:</p>
+
+<pre><code class="language-js">
+if ( tabUsers.some(el => el.age > 18) ) {
+    console.log("W tabeli są użytkownicy pełnoletni");
+}
+
+
+const woman = tabUsers
+                .map(el => el.name.toUpperCase())
+                .filter(el => el.charAt(el.length-1) === 'A')
+                .join(" i ");
+
+console.log(namesOfWoman); //"ANIA i AGNIESZKA"
+</code></pre>
+
+<p>Podobne uproszczenia możemy stosowac przy innych sytuacjach np. <a href="../jquery/jquery-ajax.php">jQuerowym Ajaxie</a> czy <a href="../ajax/fetch.php">fetchu</a>:</p>
+
+<pre><code class="language-js">
+$.ajax({...})
+.done(function(result) {
+    console.log(result);
+})
+.fail(function(error) {
+    alert("wystąpił błąd");
+});
+
+//teraz
+$.ajax({...})
+.done(result => console.log(result))
+.fail(error => alert(error));
+</code></pre>
+
+<p>W ramach prostego ćwiczenia spróbuj odmienić poniższy zapis na klasyczne funkcje:</p>
+
+<pre><code class="language-js">
+fetch('https://jsonplaceholder.typicode.com/todos/1')
+    .then(response => response.json())
+    .then(json => console.log(json))
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="zmiana-kontekstu">Zmiana kontekstu dla this</h2>
+<p>
+Powyższe skracanie zapisu to jednak detale. Najwyżej będziemy stosować dłuższy zapis.
+</p>
+<p>
+<strong>Najważniejszą sprawą w funkcji strzałkowej jest to, że w odróżnieniu od klasycznych funkcj nie tworzy ona wiązania this.</strong>
+</p>
+<p>
+Jak pamiętasz z rozdziału o <a href="../obiekty/obiekty-zaawansowane-this.php">obiektach</a> wewnątrz funkcji zmienna <strong>this</strong> zazwyczaj wskazuje na obiekt, który daną metodę wywołał (czyli znajduje się przed kropką np. ob.print()):
+</p>
+
+<pre><code class="language-js">
+const ob = {
+    name : "Batman",
+    printName() { //następuje wiązanie this z obiektem ob
+        console.log(this.name);
+    }
+}
+
+ob.printName(); //this w printName wskaże na ob
+</code></pre>
+
+<p>
+W przypadku funkcji strzałkowych takie wiązanie this nie zachodzi. Oznacza to, że wewnątrz danej funkcji strzałkowej this ma taką samą wartość jak w otaczającym go środowisku. Osobiście lubię tłumaczyć, że "this brane jest z zewnątrz".
+</p>
+
+<pre><code class="language-js">
+const ob = {
+    name : "Batman",
+    printName : () => { //nie zachodzi wiązanie - this === window
+        console.log(this.name);
+    }
+}
+
+ob.printName();
+</code></pre>
+
+<p>
+W powyższym przykładzie nie ma to totalnie sensu, ale już na przykład w funkcjach zagnieżdżonych jest to całkiem fajnym rozwiązaniem:
+</p>
+
+<pre><code class="language-js">
+const ob = {
+    name : "Batman",
+
+    btn() {
+        const btn = document.querySelector('.btn');
+        btn.addEventListener('click', () => {
+            //normalnie this wskazywało by na kliknięty btn
+            //dzięki zastosowaniu funkcji strzałkowej, pod this
+            //trafił zewnętrzny kontekst, czyli nasz obiekt ob
+
+            console.log(this.name); //Batman
+        });
+    }
+}
+
+ob.btn();
+</code></pre>
+
+<p>Jak pamiętasz, problem zmiany kontekstu, <a href="../obiekty/obiekty-zaawansowane-this.php#kilka-sposobow">rozwiązywaliśmy na dwa sposoby</a> - albo poprzez użycie dodatkowej zmiennej that, albo poprzez zastosowanie bind():</p>
+
+<pre><code class="language-js">
+const ob = {
+    name : "Batman",
+
+    printDelay() {
+        const self = this;
+
+        window.setTimetout(() => {
+            console.log(self.name); //Batman
+        }, 500);
+    }
+}
+
+const ob = {
+    name : "Batman",
+
+    printDelay() {
+        window.setTimetout(() => {
+            console.log(this.name); //Batman
+        }.bind(this), 500);
+    }
+}
+</code></pre>
+
+<p>To samo możemy uzyskać za pomocą funkcji strzałkowej:</p>
+
+<pre><code class="language-js">
+const ob = {
+    name : "Batman",
+
+    printDelay() {
+        window.setTimetout(() => {
+            //normalnie this wskazywało by na window bo jest przed kropką
+            //dzięki funkcji strzałkowej this wskazuje na zewnętrzny kontekst
+            //czyli ob
+            console.log(this.name); //Batman
+        }, 500);
+    }
+}
+
+ob.printDelay();
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="kiedy-tak-kiedy-nie">Kiedy stosować a kiedy nie</h2>
+<p>Kiedy więc stosować funkcję strzałkową a kiedy nie?</p>
+<p>Jeżeli w danej funkcji nie używamy <a href="../obiekty/obiekty.php#this">this</a>, wtedy śmiało używajmy skróconego zapisu (jeżeli oczywiście nam pasuje, bo nic na siłę).</p>
+<p>Na pewno też przy funkcjach wyższego rzędu (forEach, map, filter, sort itp) będzie to dobry wybór.</p>
+<p><strong>Nigdy</strong> natomiast nie stosujmy strzałki przy tworzeniu metod danego obiektu czy metod prototypu (chyba że nie odwołują się do this):</p>
+
+<pre><code class="language-js">
+//w poniższych funkcjach nie używam this - śmiało strzałka
+const myPrint = (text, nr) => console.log(text.repeat(nr));
+const mixLetter = (text) => text.map((el,i) => (i%2 === 0) ? el.toUpperCase() : el.toLowerCase());   </code></pre>
+
+<pre><code class="language-js">
+//funkcja iterująca - śmiało strzałka
+[1,2,3,4].map(el => el * 2);
+
+const elements = document.querySelectorAll('button');
+elements.forEach(el => console.log(el.innerText));
+</code></pre>
+
+<pre><code class="language-js">
+const ob = {
+    name : "Marcin",
+
+    //metoda obiektu operująca na this - nie wolno strzałki, bo by zmieniło kontekst this
+    print() {
+        console.log(this.name);
+    },
+
+    //metoda nie odnosi się do this - może być strzałka, ale trzymajmy spójność
+    sayHello() {
+        console.log("Hello World!");
+    }
+}
+</code></pre>
+
+<pre><code class="language-js">
+const ob = {
+    name : "Marcin",
+    pet : "Szamson",
+
+    //metoda w której odwołuję się do this
+    buttons() {
+        console.log(this);
+
+        //nie chcę by this wskazywało na button tylko na ob
+        //dlatego tutaj koniecznie strzałka
+        document.querySelector('button').addEventListener('click', () => {
+            console.log(this.name, this.pet);
+
+            setTimeout(() => {
+                //normalnie w setTimeout this wskazuje na window
+                //czemu? Bo tak naprawdę powyżej napisaliśmy window.setTimeout
+                //my tego nie chcemy więc strzałka
+                console.log(this.name, this.pet);
+            }, 2000);
+        });
+    }
+}
+</code></pre>
+
+<div class="tasks-for-you-cnt">
+	<h2 class="subtitle" id="zadania">Trening czyni mistrza</h2>
+	<p>
+		Poniżej zamieszczam kilka zadań, które w ramach ćwiczenia możesz wykonać:
+	</p>
+	<ol class="tasks-for-you">
+		<li>
+			Ściągnij sobie plik <a href="./zadanie-funkcja-strzalkowa.html">zadanie-funkcja-strzalkowa.html</a> (prawy klik na link, zapisz jako...).<br>
+			Otwórz plik w edytorze.<br>
+			W pliku tym przygotowałem prosty skrypt, który pobiera dane z serwera. Twoim zdaniem jest popracować na tych danych. Reszta instrukcji znajduje się w kodzie html.
+		</li>
+		<li>
+			<div class="question">
+			stwórz obiekt ob, który będzie miał:<br><br>
+			- właściwość favoriteColors - tablica z kolorami (mogą być pisane słownie, mogą hexdecymalnie)<br>
+			- metodę bind, w której pobierzesz ze strony jakiś element ( np. przycisk - jak go nie masz, dorób).<br><br>
+	
+			Po kliknięciu na pobrany element, stwórz w pętli nowe elementy:<br><br>
+			- div o wymiarach 100x100<br>
+			- border: 1px solid #333<br>
+			- display:inline-block<br>
+			- tło pobrane z tablicy favouriteColors<br><br>
+	
+			Stworzone elementy wstaw na stronę
+			</div>
+			<div class="solution">
+				<pre><code class="language-js">
+					const ob = {
+						favoriteColors : ["red", "blue", "green", "yellow"],
+	
+						bind : function() {
+							document.querySelector("#button").addEventListener("click", () =&gt; {
+								//jeżeli nie użyjemy funkcji strzałkowej, wtedy
+								//this wskaże na #button a nie na ob
+								//inną metodą jest użycie .bind() lub dodatkowej zmiennej const that = this;
+								const body = document.querySelector("body");
+	
+								this.favoriteColors.forEach(color =&gt; {
+									const div = document.createElement("div");
+									div.style.width = "100px";
+									div.style.height = "100px";
+									div.style.border = "1px solid #333";
+									div.style.display = "inline-block";
+									div.style.backgroundColor = color;
+	
+									body.appendChild(div);
+								});
+							});
+						}
+					}
+	
+					ob.bind();
+				</code></pre>
+			</div>
+		</li>
+	</ol>
+	</div>
 
 			</div><!-- e: page-content-text -->
 			<footer class="page-footer">
@@ -165,13 +594,13 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
                 </h3>
             </div>
 
-						<div class="page-sidebar-section show has-active-element">
+						<div class="page-sidebar-section ">
 				<h3 class="page-sidebar-section-title">
 					<a href="#">Słowem wstępu</a>
 				</h3>
 				<div class="page-sidebar-list-cnt">
 					<ul class="page-sidebar-list">
-						<li class="active">
+						<li >
 							<a href="/kurs/wstep/wstep.php">Wstęp</a>
 						</li>
 						<li >
@@ -379,7 +808,7 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
 				</div>
 			</div>
 
-						<div class="page-sidebar-section ">
+						<div class="page-sidebar-section show has-active-element">
 				<h3 class="page-sidebar-section-title">
 					<a href="#">Nowy Javascript</a>
 				</h3>
@@ -394,7 +823,7 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
                         <li >
             				<a href="/kurs/es6/obiekty-w-es6.php">Obiekty w ES6</a>
 						</li>
-						<li >
+						<li class="active">
 							<a href="/kurs/es6/funkcja-strzalkowa.php">Funkcja strzałkowa</a>
 						</li>
 						<li >

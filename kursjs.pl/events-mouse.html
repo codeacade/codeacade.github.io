@@ -1,0 +1,1487 @@
+<!doctype html>
+<html lang="pl-PL">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kurs Javascript - Events - myszka</title>
+	<meta name="description" content="Kurs Javascript dla superbohaterów, artykuły, tutoriale, porady, zadania do wykonania" />
+    <link rel="canonical" href="https://kursjs.pl/kurs/events/events-mouse.php" />
+	<link rel="stylesheet" href="./css.css" />
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,700&display=swap&subset=latin-ext" rel="stylesheet">
+	<meta name="image" content="https://kursjs.pl/kursjs.png">
+<meta name="twitter:card" content="product">
+<meta name="twitter:site" content="@publisher_handle">
+<meta name="twitter:title" content="Kurs Javascript">
+<meta name="twitter:description" content="Kurs Javascript dla superbohaterów">
+<meta name="twitter:creator" content="@kartofelek007">
+<meta name="twitter:image" content="https://kursjs.pl/kursjs.png">
+<meta property="og:title" content="Kurs Javascript">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.kursjs.com/">
+<meta property="og:image" content="https://kursjs.pl/kursjs.png">
+<meta property="og:description" content="Kurs Javascript dla superbohaterów">
+<meta property="og:site_name" content="Kurs Javascript">
+<link rel="apple-touch-icon" sizes="57x57" href="/favicons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/favicons/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/favicons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/favicons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/favicons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/favicons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/favicons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/favicons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="/manifest.json">
+<meta name="msapplication-TileColor" content="#FF6347">
+<meta name="msapplication-TileImage" content="/mstile-144x144.png">
+    <script src="/js/jquery.min.js"></script>
+</head>
+<body>
+
+<div class="page-container" id="pageContainer">
+	<div class="page-content-wrapper">
+        <main class="page-content" id="mainContent"  data-text-for-print="Kurs Javascript dla superbohaterów">
+                        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <div class="rekl-cnt">
+                <ins
+                class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-6843603045703750"
+                data-ad-slot="4690777640"
+                data-ad-format="auto"
+                data-full-width-responsive="true"
+                ></ins>
+            </div>
+                        <div class="page-content-text">
+
+<style>
+.test-cnt {
+    margin:30px 0;
+}
+.btn-bar {
+    margin-bottom: 20px;
+}
+textarea {
+    width:90%;
+    height:100px;
+}
+.div-info {
+    border:1px solid #ddd;
+    padding:1rem;
+    margin:1rem 0;
+}
+.test-block {
+    width:350px;
+    min-height:200px;
+    background-color:#E6E6FF;
+    border:1px solid #000080;
+    color:#000080;
+    text-align:center;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    padding:10px;
+    margin: 1rem 0;
+}
+.test-block--small {
+    height: 100px;
+}
+.test-block > div {
+    width:80%;
+    background-color:#FF3333;
+    border:1px solid #CC0000;
+    color:#790808;
+    text-align:center;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding:10px;
+}
+.test-block > div > div {
+    width:70%;
+    height:70%;
+    background-color:#FFFFB1;
+    border:1px solid #FFFF0B;
+    color:#B99512;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin:auto;
+    min-height: 2rem;
+    text-align:center;
+    position: relative;
+    padding:10px;
+}
+.test-block-nr:before {
+    position: absolute;
+    left:6px;
+    top:0;
+    font-weight:bold;
+    content:'1';
+}
+.test-block-nr > div:before {
+    position: absolute;
+    left:6px;
+    top:0;
+    font-weight:bold;
+    content:'2';
+}
+.test-block-nr > div > div:before {
+    position: absolute;
+    left:6px;
+    top:0;
+    font-weight:bold;
+    content:'3';
+}
+.menu-context {
+    position: absolute;
+    left:-9999px;
+    background: #222;
+    color:#fff;
+    list-style:none;
+    margin:0;
+    width:300px;
+    padding:10px;
+    border-radius: 4px;
+    box-shadow:0 2px 4px rgba(0,0,0,0.3);
+    font-size:13px;
+}
+.menu-context li {
+    border-bottom:1px solid #444;
+    cursor: pointer;
+}
+.menu-context li a {
+    color:#fff;
+    text-decoration: none;
+    padding:5px 10px;
+    display: block;
+    transition:0.5s all;
+}
+.menu-context li a:hover {
+    background: #F15C5C;
+    color:#fff;
+}
+.menu-context li:last-child {
+    border:0;
+}
+</style>
+
+
+<h1 class="page-title">Events - myszka</h1>
+<p>
+Do zdarzeń, które wywołuje kursor myszki zaliczamy:
+</p>
+<ul>
+<li><strong>mousedown</strong> - przycisk myszki został naciśnięty</li>
+<li><strong>mouseup</strong> - przycisk myszki został puszczony</li>
+<li><strong>click</strong> - przycisk myszki został naciśnięty i puszczony (czyli normalne kliknięcie)</li>
+<li><strong>dblclick</strong> - podwójne kliknięcie</li>
+<li><strong>mousemove</strong> - kursor porusza się po...</li>
+<li><strong>mouseover</strong> - kursor znalazł się na elemencie</li>
+<li><strong>mouseout</strong> - kursor opuścił dany element</li>
+</ul>
+
+<!-- ### -->
+<h2 class="subtitle" id="mmc">Zdarzenia mousedown, mouseup, click</h2>
+<p>
+Zdarzenia te są związane z kliknięciem przyciskiem myszki na dany obiekt.<br />
+</p>
+
+<p>
+Istnieje pewna różnica miedzy <strong>click</strong> i <strong>mousedown</strong>. Przypuśćmy, że użytkownik nacisnął guzik na buttonie,
+następnie przesunął kursor poza ten button i puścił przycisk myszki. Button zarejestrował tylko zdarzenie <strong>mousedown</strong>.
+Podobnie - jeżeli użytkownik naciśnie guzik myszki poza buttonem, przesunie kursor na button i wtedy puści przycisk myszki, to button zarejestruje tylko zdarzenie <strong>mouseup</strong>.
+</p>
+
+<p>
+W Windows dla większości przycisków stosowane jest zdarzenie <strong>click</strong>. Sprawdź sam - kliknij na którymś z guzików w prawym górnym rogu
+dowolnego okna (np. na zamykającym [X]), a następnie nie puszczając przycisku zjedź kursorem z tego guzika. Okno się nie zamknie, bo nie zaistniało
+zdarzenia click, tylko zdarzenie mousedown.
+</p>
+
+<p>
+Ogólna składnia przypisania tych zdarzeń do obiektu jest następująca:
+</p>
+
+<pre><code class="language-js">
+function showMe() {
+    console.log(this);
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    element.addEventListener('mousedown', showMe);
+    element.addEventListener('mouseup', showMe);
+    element.addEventListener('click', showMe);
+});
+</code></pre>
+
+<p>
+Poniżej możesz sprawdzć opisane wyżej przypadki.
+</p>
+
+
+<div class="test-cnt" id="testClick">
+    <div class="btn-bar">
+        <button id="buttonTest" class="button" type="button">Kliknij i sprawdź</button>
+        <button id="buttonCzysc" class="button" type="button">Czyść textarea</button>
+    </div>
+
+    <textarea></textarea>
+</div>
+
+<script>
+{
+    const textarea = document.querySelector('#testClick textarea');
+    document.querySelector('#buttonTest').addEventListener('click', function() {
+        textarea.value += "click, "
+    });
+    document.querySelector('#buttonTest').addEventListener('mousedown', function() {
+        textarea.value += "mousedown, "
+    });
+    document.querySelector('#buttonTest').addEventListener('mouseup', function() {
+        textarea.value += "mouseup, "
+    });
+    document.querySelector('#buttonCzysc').addEventListener('click', function() {
+        textarea.value = "";
+    });
+}
+</script>
+
+
+<!-- ### -->
+<h2 class="subtitle" id="mouseover">Zdarzenia mouseover, mousemove, mouseout</h2>
+<p>
+Zdarzenia <strong>mouseover</strong>, <strong>mousemove</strong> i <strong>mouseout</strong> służą do sprawdzenia, czy użytkownik najechał kursorem na element, czy się po nim porusza lub czy z kursorem opuścił dany element.
+</p>
+
+<pre><code class="language-js">
+//włączamy mouseover
+element.addEventListener('mouseover', function() {...});
+
+//mousemove - poruszanie się po elemencie
+element.addEventListener('mousemove', function() {...});
+
+//mouseout - opuszczamy element
+element.addEventListener('mouseout', function() {...});
+</code></pre>
+
+<div class="test-block" id="testMouseOver">Najedź kursorem i sprawdź w konsoli</div>
+
+<script>
+{
+    const div = document.querySelector('#testMouseOver');
+    div.addEventListener('mouseover', function() {
+        console.log('%c mouseover', 'color:red');
+    });
+    div.addEventListener('mousemove', function() {
+        console.log("%c mousemove", 'color:blue');
+    });
+    div.addEventListener('mouseout', function() {
+        console.log("%c mouseout", 'color:green');
+    });
+}
+</script>
+
+<!-- ### -->
+<h2 class="subtitle" id="mouseover-vs-mouseenter">mouseover vs mouseenter, mouseout vs mouseleave</h2>
+<p>
+    Istnieją też bardzo podobne eventy do mouseover i mouseout - czyli <strong>mouseenter</strong> i <strong>mouseleave</strong>.
+    Różnią się one tym od swoich braci, że nie są odpalane dla dzieci danego elementu.
+    Wyobraź sobie, że robisz proste menu. Po najechaniu na to menu (mouseover) chcesz coś wykonać.
+    Zdarzenie to będzie się odpalać nie tylko przy krawędziach danego elementu, ale także przy każdym
+    najechaniu na każde dziecko danego elementu. W przypadku <strong>mouseenter</strong> i <strong>mouseleave</strong> takiego problemu nie ma:
+</p>
+
+<pre><code class="language-html">
+&lt;ul class="mouseenter-test">
+    &lt;li>&lt;a href="#">Testowy link przypadkowy&lt;/a>&lt;/li>
+    &lt;li>&lt;a href="#">Testowy link przypadkowy&lt;/a>&lt;/li>
+    &lt;li>&lt;a href="#">Testowy link przypadkowy&lt;/a>&lt;/li>
+    &lt;li>&lt;a href="#">Testowy link przypadkowy&lt;/a>&lt;/li>
+    &lt;li>&lt;a href="#">Testowy link przypadkowy&lt;/a>&lt;/li>
+&lt;/ul>
+</code></pre>
+
+<pre><code class="language-js">
+const ul = document.querySelector('.mouseenter-test');
+ul.addEventListener('mouseover', function(e) {
+    console.log('mouseover', e.target)
+});
+
+ul.addEventListener('mouseenter', function(e) {
+    console.log('mouseenter', e.target)
+});
+
+ul.addEventListener('mouseleave', function(e) {
+    console.log('mouseleave', e.target)
+});
+
+ul.addEventListener('mouseout', function(e) {
+    console.log('mouseout', e.target)
+});
+</code></pre>
+
+<style>
+.mouseenter-test {
+    padding:15px;
+    margin:30px 0;
+    min-width: 500px;
+    list-style:none;
+    display: inline-block;
+    background-color:#E6E6FF;
+    border:1px solid #000080;
+}
+.mouseenter-test li {
+    color:#fff;
+    padding:15px;
+    min-width: 200px;
+    background-color: rgba(0,0,128, 0.3);
+    border:1px solid #000080;
+    margin-bottom:5px;
+}
+.mouseenter-test li:last-child {
+    margin:0;
+}
+.mouseenter-test a {
+    display: block;
+    color: #fff;
+    background-color: rgba(0,0,128, 0.3);
+    border:1px solid #000080;
+    padding:5px;
+    font-family: sans-serif;
+    text-decoration: none;
+}
+</style>
+
+
+<ul class="mouseenter-test">
+    <li><a href="#">Testowy link przypadkowy</a></li>
+    <li><a href="#">Testowy link przypadkowy</a></li>
+    <li><a href="#">Testowy link przypadkowy</a></li>
+    <li><a href="#">Testowy link przypadkowy</a></li>
+    <li><a href="#">Testowy link przypadkowy</a></li>
+</ul>
+
+<script>
+{
+    const ul = document.querySelector('.mouseenter-test');
+    ul.addEventListener('mouseover', function(e) {
+        console.log('%c mouseover', 'color: red', 'Najechany element: ', e.target);
+    });
+
+    ul.addEventListener('mouseenter', function(e) {
+        console.log('%c mouseenter', 'color: blue', 'Najechany element: ', e.target);
+    });
+
+    ul.addEventListener('mouseleave', function(e) {
+        console.log('%c mouseleave', 'color: blue', 'Najechany element: ', e.target);
+    });
+
+    ul.addEventListener('mouseout', function(e) {
+        console.log('%c mouseout', 'color: red', 'Najechany element: ', e.target);
+    });
+}
+</script>
+
+
+<!-- ### -->
+<h2 class="subtitle" id="in-out">Wykrywanie skąd przybył kursor</h2>
+
+<p>
+No dobrze, ale skąd mamy wiedzieć, z którego bloku wjechał kursor na blok nr 2? Czy z bloku nr 1 czy z 3?
+</p>
+<p>
+Dla niektórych zdarzeń istnieje właściwość <strong>relatedTarget</strong>, która mówi nam z jakiego elementu wskaźnik przybył
+(dla zdarzenia mouseover) i na jaki element zdąża (dla zdarzenia mouseout).
+</p>
+
+<table class="tab">
+    <tr>
+        <th>Zdarzenie</th>
+        <th>e.target</th>
+        <th>e.relatedTarget</th>
+    </tr>
+    <tr>
+        <td><strong>focusin</strong></td>
+        <td>Element który <strong>dostał</strong> focus</td>
+        <td>Element który <strong>utracił</strong> focus</td>
+    </tr>
+    <tr>
+        <td><strong>focusout</strong></td>
+        <td>Element który <strong>utracił</strong> focus</td>
+        <td>Element który <strong>dostał</strong> focus</td>
+    </tr>
+    <tr>
+        <td><strong>mouseenter</strong></td>
+        <td>Na który element <strong>najechał</strong> wskaźnik/kursor</td>
+        <td>Który element <strong>opuścił</strong> wskaźnik/kursor</td>
+    </tr>
+    <tr>
+        <td><strong>mouseleave</strong></td>
+        <td>Który element <strong>opuścił</strong> wskaźnik/kursor</td>
+        <td>Na który element <strong>najechał</strong> wskaźnik/kursor</td>
+    </tr>
+    <tr>
+        <td><strong>mouseout</strong></td>
+        <td>Który element <strong>opuścił</strong> wskaźnik/kursor</td>
+        <td>Na który element <strong>najechał</strong> wskaźnik/kursor</td>
+    </tr>
+    <tr>
+        <td><strong>mouseover</strong></td>
+        <td>Na który element <strong>najechał</strong> wskaźnik/kursor</td>
+        <td>Który element <strong>opuścił</strong> wskaźnik/kursor</td>
+    </tr>
+    <tr>
+        <td><strong>dragenter</strong></td>
+        <td>Na który element <strong>najechał</strong> wskaźnik/kursor</td>
+        <td>Który element <strong>opuścił</strong> wskaźnik/kursor</td>
+    </tr>
+    <tr>
+        <td><strong>dragexit</strong></td>
+        <td>Który element <strong>opuścił</strong> wskaźnik/kursor</td>
+        <td>Na który element <strong>najechał</strong> wskaźnik/kursor</td>
+    </tr>
+</table>
+
+<p>Sprawdź poniższy kod w konsoli najeżdżając na bloki kursorem</p>
+
+<div class="test-block" id="blok_niebieski">
+    <div id="blok_czerwony">Najedź kursorem i przetestuj w konsoli</div>
+</div>
+
+<script>
+    {
+        const div = document.querySelector('#blok_czerwony');
+        div.addEventListener("mouseover", function(e) {
+            console.log('%c Mouseover:', 'color:red');
+            console.log('e.target - wskazany element:');
+            console.log(e.target);
+            console.log('e.relatedTarget - opuszczony element:');
+            console.log(e.relatedTarget);
+            console.log('')
+        });
+        div.addEventListener("mouseout", function(e) {
+            console.log('%c Mouseout:', 'color:blue');
+            console.log('e.target - opuszczony element:');
+            console.log(e.target);
+            console.log('e.relatedTarget - wskazany element:');
+            console.log(e.relatedTarget);
+            console.log('')
+        });
+    }
+</script>
+
+
+<!-- ### -->
+<h2 class="subtitle" id="pozycja">Pozycja kursora</h2>
+<p>
+Aby pobrać pozycję kursora na stronie możemy skorzystać z 2 par właściwości:
+</p>
+
+<table class="tab manual">
+    <tr>
+        <th><strong>e.pageX</strong></th>
+        <td>Zwraca pozycję kursora od lewej krawędzi dokumentu</td>
+    </tr>
+    <tr>
+        <th><strong>e.pageY</strong></th>
+        <td>Zwraca pozycję kursora od górnej krawędzi dokumentu</td>
+    </tr>
+    <tr>
+        <th><strong>e.clientX<br></strong></th>
+        <td>Zwraca pozycję kursora od lewej krawędzi widocznego obszaru strony (bez uwzględnienia pozycji przewinięcia strony)</td>
+    </tr>
+    <tr>
+        <th><strong>e.clientY</strong></th>
+        <td>Zwraca pozycję kursora od górnej krawędzi widocznego obszaru strony (bez uwzględnienia pozycji przewinięcia strony)</td>
+    </tr>
+    <tr>
+        <th><strong>e.screenX</strong></th>
+        <td>Zwraca pozycję kursora od lewej krawędzi ekranu</td>
+    </tr>
+    <tr>
+        <th><strong>e.screenY</strong></th>
+        <td>Zwraca pozycję kursora od górnej krawędzi ekranu</td>
+    </tr>
+</table>
+
+<p>Właściwości <strong>e.pageX</strong> i <strong>e.pageY</strong> zwracają realną pozycję kursora od początku strony, dlatego idealnie się nadają do "przyklejania" elementów do kursora - np. jakiś dymków, różnych menu itp.</p>
+
+<p>Właściwości <strong>e.clientX</strong> i <strong>e.clientY</strong> zwracają pozycję kursora od krawędzi widocznego obszaru strony (tego który aktualnie widać w oknie przeglądarki), dlatego używając ich
+powinniśmy do nich doliczać właściwości <strong>document.body.scrollLeft</strong> i <strong>document.body.scrollTop</strong>, ponieważ strona może być przewinięta.</p>
+
+<img src="./mouse-position.jpg" alt="Pozycja myszki" class="space">
+
+<pre><code class="language-js">
+element.addEventListener('mousemove', function(e) {
+    console.log('Pozycja myszki:');
+    console.log('x: ', e.pageX);
+    console.log('y: ', e.pageY);
+});
+
+//inny przykład
+
+element.addEventListener('click', function() {
+    console.log('Pozycja myszki:');
+    console.log('x: ', e.clientX + document.body.scrollLeft);
+    console.log('y: ', e.clientY + document.body.scrollTop);
+});
+</code></pre>
+
+<div class="test-block" id="blockMousePos">
+    Najedź by pokazać pozycję kursora
+</div>
+<div id="mousePosTextarea"></div>
+<style>
+    #mousePosTextarea {
+        margin:1rem 0;
+        padding:10px;
+        border:1px solid #ddd;
+    }
+    #mousePosTextarea .color {
+        color:#F15C5C;
+    }
+    #mousePosTextarea .color2 {
+        color:#3483FA;
+    }
+</style>
+<script>
+{
+    const element = document.querySelector('#blockMousePos');
+    const textarea = document.querySelector('#mousePosTextarea');
+    element.addEventListener('mousemove', function(e) {
+        let text = '<strong>Pozycja kursora:</strong><br>';
+        text += 'e.pageX : <strong class="color">' + e.pageX + '</strong><br>',
+        text += 'e.pageY : <strong class="color2">' + e.pageY + '</strong><br><br>',
+
+        text += 'e.clientX : <strong>' + (e.clientX + document.documentElement.scrollLeft) + '</strong><br>',
+        text += 'document.documentElement.scrollLeft : <strong>' + document.documentElement.scrollLeft + '</strong><br>',
+        text += 'e.clientX + document.documentElement.scrollLeft : <strong class="color">' + (e.clientX + document.documentElement.scrollLeft) + '</strong><br><br>',
+
+        text += 'e.clientY : <strong>' + e.clientY + '</strong><br>';
+        text += 'document.documentElement.scrollTop : <strong>' + document.documentElement.scrollTop + '</strong><br>';
+        text += 'e.clientY + document.documentElement.scrollTop : <strong class="color2">' + (e.clientY + document.documentElement.scrollTop) + '</strong>';
+        textarea.innerHTML = text;
+    });
+}
+</script>
+
+<p>A co gdybyś chciał sobie pobrać pozycję kursora nie na stronie, a na danym elemencie - powiedzmy na poniższym divie?</p>
+
+<div class="test-block test-block--small test-pos"></div>
+
+<p>Zanim to zrobimy, wypiszmy w konsoli ten element (wklej poniższy kod do konsoli debugera):</p>
+
+<pre><code class="language-js">
+const div = document.querySelector('.test-pos');
+console.log( div );
+console.dir( div );
+</code></pre>
+
+<p>Gdy rozwiniesz wypisany w ten sposób w konsoli element, pojawi ci się masa właściwości, z których możesz skorzystać.<br> Wśród nich znajdziesz takie jak <strong>offsetWidth</strong>, <strong>offsetHeight</strong> ale także <strong>offsetLeft</strong> i <strong>offsetTop</strong>. Te dwie ostatnie zawierają pozycję elementu od krawędzi strony. Pozostaje je wykorzystać odejmując je od pozycji kursora:</p>
+
+<pre data-line="4-5"><code class="language-js">
+const div = document.querySelector('.test');
+
+div.addEventListener('mousemove', function(e) {
+    const x = e.pageX - this.offsetLeft;
+    const y = e.pageY - this.offsetTop;
+
+    console.log(x, y);
+});
+
+div.addEventListener('click', function() {
+    console.clear();
+});
+</code></pre>
+
+<div class="test-block test-block--small test-pos-1">Najedź kursorem i sprawdź w konsoli. Kliknij na div by wyczyścić konsolę</div>
+
+<script>
+{
+    const div = document.querySelector('.test-pos-1');
+
+    div.addEventListener('mousemove', function(e) {
+        const x = e.pageX - this.offsetLeft;
+        const y = e.pageY - this.offsetTop;
+        console.log(x, y);
+    });
+
+    div.addEventListener('click', function() {
+        console.clear();
+    })
+}
+</script>
+
+<p>Alternatywą dla offsetLeft i offsetTop jest użycie funkcji <a href="https://developer.mozilla.org/pl/docs/Web/API/Element/getBoundingClientRect">getBoundingClientRect</a>, która zwraca pozycję i wymiary danego elementu względem górnego lewego rogu aktualnego okna.</p>
+
+<p>W wielu momentach metoda ta będzie wręcz wymagana, ponieważ offsetLeft i offsetTop nie uwzględniają w swoich wynikach transformacji (danego elementu ale i któregoś z rodziców).</p>
+
+<style>
+.test-transform {
+    transform: translate(150px);
+}
+</style>
+<div class="test-block test-transform" id="testTransform1">
+    Zostałem przesunięty w lewo o 150px za pomocą transformacji.<br><br>
+    Kliknij mnie i sprawdź w konsoli
+</div>
+<script>
+    {
+        const div = document.querySelector("#testTransform1");
+        div.addEventListener("click", function() {
+            console.log('div.offsetLeft: ', div.offsetLeft);
+
+            const rect = div.getBoundingClientRect();
+            console.log('div.getBoundingClientRect().left: ', rect.left);
+        });
+    }
+</script>
+
+<pre><code class="language-js">
+const div = document.querySelector('.test-pos-1');
+const rect = div.getBoundingClientRect();
+
+console.log(rect.left); //pozycja od lewej krawędzi okna
+console.log(rect.top); //pozycja od górnej krawędzi okna
+console.log(rect.right); //pozycja od lewej krawędzi okna
+console.log(rect.bottom); //pozycja od górnej krawędzi okna
+
+console.log(rect.right - rect.left); //szerokość elementu
+console.log(rect.bottom - rect.top); //wysokość elementu
+console.log(rect.left + window.scrollX); //pozycja left na stronie
+console.log(rect.top + window.scrollY); //pozycja top na stronie
+</code></pre>
+
+<p>I zastosowanie w powyższym przykładzie:</p>
+
+<div id="testTransform2" class="test-block test-transform test-block--small">Najedź kursorem i sprawdź w konsoli. Kliknij na div by wyczyścić konsolę</div>
+
+<script>
+{
+    const div = document.querySelector('#testTransform2');
+
+    div.addEventListener('mousemove', function(e) {
+        const rect = this.getBoundingClientRect();
+        const x = e.pageX - (rect.left + window.scrollX);
+        const y = e.pageY - (rect.top + window.scrollY);
+        console.log(x, y);
+    });
+
+    div.addEventListener('click', function() {
+        console.clear();
+    })
+}
+</script>
+
+<pre><code class="language-js">
+const div = document.querySelector('.test-pos-2');
+
+div.addEventListener('mousemove', function(e) {
+    const rect = this.getBoundingClientRect();
+    const x = e.pageX - (rect.left + window.scrollX);
+    const y = e.pageY - (rect.top + window.scrollY);
+    console.log(x, y);
+});
+
+div.addEventListener('click', function() {
+    console.clear();
+})
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="celownik">Celownik</h2>
+<p>Mając powyższe informacje, bez problemu moglibyśmy zrobić celownik na jakimś elemencie.</p>
+
+<pre><code class="language-css">
+.board {
+    height: 500px;
+    border: 1px solid #ddd;
+    overflow: hidden;
+    position: relative;
+    cursor: none;
+    box-shadow: inset 0 0 0 30px rgba(0,0,0,0.05);
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+}
+.cross {
+    width: 100px;
+    height: 100px;
+    border: 10px solid tomato;
+    border-radius: 50%;
+    box-sizing: border-box;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    position: absolute;
+    left: 0;
+    top: 0;
+    transform: translate(-50%, -50%);
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.3);
+}
+.cross::before {
+    content: "";
+    width: 10px;
+    height: 10px;
+    background: tomato;
+    border-radius: 50%;
+}
+</code></pre>
+
+<pre><code class="language-html">
+&lt;div class="board">
+    &lt;div class="cross">&lt;/div>
+&lt;/div>
+</code></pre>
+
+<pre><code class="language-js">
+const board = document.querySelector(".board");
+const cross = board.querySelector('.cross');
+
+board.addEventListener('mousemove', function(e) {
+    cross.style.left = `${e.pageX - board.offsetLeft}px`;
+    cross.style.top =  `${e.pageY - board.offsetTop}px`;
+})
+</code></pre>
+
+<style>
+.board {
+    height: 500px;
+    border: 1px solid #ddd;
+    overflow: hidden;
+    position: relative;
+    cursor: none;
+    box-shadow: inset 0 0 0 30px rgba(0,0,0,0.05);
+}
+.cross {
+    width: 100px;
+    height: 100px;
+    border: 10px solid tomato;
+    border-radius: 50%;
+    box-sizing: border-box;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    position: absolute;
+    left: 0;
+    top: 0;
+    transform: translate(-50%, -50%);
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.3);
+}
+.cross::before {
+    content: "";
+    width: 10px;
+    height: 10px;
+    background: tomato;
+    border-radius: 50%;
+}
+</style>
+
+<div class="board">
+    <div class="cross"></div>
+</div>
+
+<script>
+{
+    const board = document.querySelector(".board");
+    const cross = board.querySelector('.cross');
+
+    board.addEventListener('mousemove', function(e) {
+        cross.style.left = `${e.pageX - board.offsetLeft}px`;
+        cross.style.top =  `${e.pageY - board.offsetTop}px`;
+    })
+}
+</script>
+
+<p>Jedyny problem może się pojawić, jeżeli będziemy chcieli kliknąć w danym miejscu na planszy.
+Okaże się, że klikamy, ale nie w planszę, a w celownik. Aby uniknąć tego kłopotu, najłatwiej dla celownika
+dodać w css właściwość <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/pointer-events">pointer-events: none;</a></p>
+
+<pre><code class="language-css">
+.cross {
+    ...,
+    pointer-events: none;
+}
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="przycisk">Który przycisk myszki</h2>
+<p>
+Aby odczytać, który przycisk został naciśnięty skorzystamy z właściwości <strong>button</strong>.
+</p>
+
+<p>
+Guziki myszki zostały obdarowane odpowiednimi wartościami:
+</p>
+
+<ul>
+<li>lewy guzik - <strong>0</strong> </li>
+<li>środkowy guzik - <strong>1</strong> </li>
+<li>prawy guzik - <strong>2</strong> </li>
+</ul>
+
+<div class="test-block" id="blockBtn">
+    Kliknij RMB by pokazać który klawisz został naciśnięty
+</div>
+
+<script>
+    function buttonMouse(e) {
+    e.preventDefault();
+
+    alert('Numer klikniętego przycisku: '+ e.button);
+}
+
+const block = document.querySelector('#blockBtn');
+block.addEventListener('mousedown', buttonMouse);
+</script>
+
+<pre><code class="language-js">
+function buttonMouse(e) {
+    e.preventDefault();
+
+    alert('Numer klikniętego przycisku: '+ e.button);
+}
+
+const block = document.querySelector('#blockBtn');
+block.addEventListener('mousedown', buttonMouse);
+</code></pre>
+
+
+<!-- ### -->
+<h2 class="subtitle" id="prawy">Menu kontekstowe</h2>
+
+<p>Zbierzmy kilka powyższych informacji, i zróbmy własne kontekstowe menu.</p>
+
+<div class="test-block" id="blockRightBtn">
+    Kliknij prawym by pokazać menu kontekstowe
+</div>
+
+<p>Nasze menu to zwykła lista UL pozycjonowana absolutnie. Domyślnie
+wysuwamy ją totalnie za ekran ustawiając top i left na -9999:</p>
+
+<pre><code class="language-html">
+&lt;ul class="menu-context">
+    &lt;li>&lt;a href="">Element menu 1&lt;/a>&lt;/li>
+    &lt;li>&lt;a href="">Element menu 2&lt;/a>&lt;/li>
+    &lt;li>&lt;a href="">Element menu 3&lt;/a>&lt;/li>
+    &lt;li>&lt;a href="">Element menu 4&lt;/a>&lt;/li>
+&lt;/ul>
+</code></pre>
+
+<pre><code class="language-css">
+.menu-context {
+    position: absolute;
+    left:-9999px;
+    top:-9999px;
+    background: #222;
+    color:#fff;
+    list-style:none;
+    padding:0;
+    margin:0;
+    width:300px;
+    padding:10px;
+    border-radius: 4px;
+    box-shadow:0 2px 4px rgba(0,0,0,0.3);
+    font-size:13px;
+}
+.menu-context li {
+    border-bottom:1px solid #444;
+    cursor: pointer;
+}
+.menu-context li a {
+    color:#fff;
+    text-decoration: none;
+    padding:5px 10px;
+    display: block;
+    transition:0.5s all;
+}
+.menu-context li a:hover {
+    background: #F15C5C;
+    color:#fff;
+}
+.menu-context li:last-child {
+    border:0;
+}
+</code></pre>
+
+<p>
+    Dodajemy pokazywanie naszego menu po kliknięciu prawym przyciskiem na div:
+</p>
+
+<pre><code class="language-js" >
+const menu = document.querySelector('.menu-context');
+
+function rightButton(e) {
+    e.preventDefault();
+
+    if (e.button === 2) {
+        e.stopPropagation();
+        menu.style.left = e.pageX + 10 + 'px';
+        menu.style.top = e.pageY + 10 + 'px';
+    }
+}
+
+document.querySelector('#blockRightBtn').addEventListener('mousedown', rightButton);
+</code></pre>
+
+<p>
+    Jeżeli teraz klikniemy prawym przyciskiem myszy na div,
+    faktycznie nasze menu się pojawi, ale też pojawi się domyślne menu.<br>
+    Żeby domyślne menu się nie pokazywało, powinniśmy użyć pewnie
+<strong>e.preventDefault()</strong>.<br>
+    I faktycznie - tyle tylko, że musimy zatrzymać event <strong>contextmenu</strong>:
+</p>
+
+<pre><code class="language-js">
+document.querySelector('#blockRightBtn').addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+});
+</code></pre>
+
+<p>
+    Ostatnią rzeczą jaką musimy zrobić to możliwość schowania menu poprzez
+    kliknięcie lewym przyciskiem myszy w dowolne miejsce na stronie i podczas przewijania strony
+    (przynajmniej u mnie gdy zacznę przewijać stronę klasyczne menu się chowa):
+</p>
+
+<pre data-line="17-18"><code class="language-js" >
+const menu = document.querySelector('.menu-context');
+
+function removeMenu() {
+    menu.style.left = '-9999px';
+    menu.style.top = '-9999px';
+}
+
+function rightButton(e) {
+    ...
+}
+
+const block = document.querySelector('#blockRightBtn');
+block.addEventListener('mousedown', rightButton);
+block.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+});
+document.addEventListener('mousedown', removeMenu);
+document.addEventListener('scroll', removeMenu);
+</code></pre>
+
+<ul class="menu-context">
+    <li><a href="">Element menu 1</a></li>
+    <li><a href="">Element menu 2</a></li>
+    <li><a href="">Element menu 3</a></li>
+    <li><a href="">Element menu 4</a></li>
+</ul>
+
+<script>
+const menu = document.querySelector('.menu-context');
+
+function removeMenu() {
+    menu.style.left = '-9999px';
+    menu.style.top = '-9999px';
+}
+
+function rightButton(e) {
+    e.preventDefault();
+
+
+    if (e.button === 2) {
+        e.stopPropagation();
+        menu.style.left = e.pageX + 10 + 'px';
+        menu.style.top = e.pageY + 10 + 'px';
+    }
+}
+
+const blockRight = document.querySelector('#blockRightBtn');
+blockRight.addEventListener('mousedown', rightButton);
+blockRight.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+});
+document.addEventListener('mousedown', removeMenu);
+document.addEventListener('scroll', removeMenu);
+</script>
+
+<p>Powyższe rozwiązanie jest prostym przykładem. W większych projektach prawdopodobnie o wiele lepiej sprawdzi
+się gotowy plugin np. <a href="https://github.com/electerious/basicContext">https://github.com/electerious/basicContext</a></p>
+
+			</div><!-- e: page-content-text -->
+			<footer class="page-footer">
+				<p>
+				Wszelkie prawa zastrzeżone. Jeżeli chcesz używać jakiejś części tego kursu, skontaktuj się z <a href="/kurs/autor.php">autorem</a>.
+				Aha - i ta strona korzysta z <a href="/kurs/polityka-prywatnosci.php">ciasteczek</a>.
+				</p>
+			</footer>
+							<div class="rekl-cnt">
+					<ins
+					class="adsbygoogle" style="margin-top:40px; display:block"
+					data-ad-client="ca-pub-6843603045703750"
+					data-ad-slot="4690777640"
+					data-ad-format="auto"
+					data-full-width-responsive="true"
+					></ins>
+				</div>
+				<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+	(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+					</main><!-- e: page-content -->
+			</div><!-- e: page-content-wrapper -->
+    <aside id="page-sidebar-cnt" class="page-sidebar-cnt">
+	<div id="page-sidebar" class="page-sidebar">
+		<button aria-label="Pokaż/ukryj Menu" aria-expanded="false" aria-controls="page-sidebar" type="button" id="pageSidebarBurger" class="page-sidebar-burger">
+			<span></span>
+		</button>
+
+		<h2 class="visuallyhidden">
+			Menu
+		</h2>
+
+		<button class="sidebar-toggle-btn" title="Pokaż/schowaj menu" aria-hidden="true">
+			<strong>Pokaż/ukryj menu</strong>
+			<span></span>
+			<span></span>
+			<span></span>
+		</button>
+
+		<div class="page-sidebar-title">
+			<a href="/kurs/kontakt.php" title="Nawrzucaj autorowi" class="mail-to-author" id="mailToAuthor">Napisz do mnie</a>
+			<a href="#popupOptions" class="page-setup-link popupOpen" title="Ustawienia strony" id="showOptions">Ustawienia</a>
+			<a href="/index.php" aria-label="Strona główna" class="page-sidebar-title-link">Kurs Javascript</a>
+		</div>
+
+        <form aria-label="Wyszukiwarka" class="search-sidebar" action="/search.php" method="post">
+            <label for="search" class="search-sidebar-label">Szukaj</label>
+            <div class="search-sidebar-input-cnt">
+                <svg class="search-sidebar-input-icon" xmlns="http://www.w3.org/2000/svg" width="26" height="28" viewBox="0 0 26 28" aria-hidden="true">
+                    <path d="M18 13c0-3.859-3.141-7-7-7s-7 3.141-7 7 3.141 7 7 7 7-3.141 7-7zm8 13c0 1.094-.906 2-2 2a1.96 1.96 0 0 1-1.406-.594l-5.359-5.344a10.971 10.971 0 0 1-6.234 1.937c-6.078 0-11-4.922-11-11s4.922-11 11-11 11 4.922 11 11c0 2.219-.672 4.406-1.937 6.234l5.359 5.359c.359.359.578.875.578 1.406z"></path>
+                </svg>
+                <input type="text" id="search" autocomplete="off" name="q" class="search-sidebar-input">
+            </div>
+            <button type="submit" class="search-sidebar-button">Szukaj</button>
+        </form>
+
+		<div class="page-sidebar-table-of-content">
+			<h2 class="visuallyhidden">Spis treści</h2>
+            <div class="page-sidebar-section">
+				<h3 class="page-sidebar-section-title noopen">
+                    <a href="/index.php">Strona główna</a>
+                </h3>
+            </div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Słowem wstępu</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/wstep/wstep.php">Wstęp</a>
+						</li>
+						<li >
+							<a href="/kurs/wstep/co-to-jest-javascript.php">Co to jest JavaScript i z czym go się je?</a>
+						</li>
+						<li >
+							<a href="/kurs/wstep/wymagania.php">Wymagania</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Super podstawy</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/debuger/debuger.php">Debuger</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/pierwszy-skrypt.php">Wstawiamy skrypty na naszą stronę</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/strict-mode.php">Strict mode</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/typy-danych.php">Typy danych i konwersja danych</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/zmienne.php">Zmienne</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/operatory.php">Operatory</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/math.php">Obiekt Math</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/string.php">String - teksty</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/instrukcje-warunkowe.php">Instrukcje warunkowe</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/petle.php">Pętle</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/funkcje.php">Funkcje</a>
+						</li>
+                        <li >
+							<a href="/kurs/super-podstawy/funkcje-tematy-dodatkowe.php">Funkcje - tematy dodatkowe</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/tablice.php">Tablice</a>
+						</li>
+                        <li >
+							<a href="/kurs/super-podstawy/tablice-iteracje.php">Tablice pętle</a>
+						</li>
+						<li >
+							<a href="/kurs/debuger/debugowanie.php">Debugowanie kodu</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+            			<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Obiekty</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+                        <li >
+							<a href="/kurs/obiekty/obiekty.php">Obiekty i this</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-jak-to-dziala.php">Jak to działa</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-konstruktor.php">Konstruktor</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-zaawansowane-this.php">Zaawansowane this</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-dziedziczenie.php">Dziedziczenie w Javascript</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-inne-sposoby-tworzenia.php">Inne sposoby tworzenia obiektów</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-instanceof-hasownproperty.php">instanceof i hasOwnProperty</a>
+						</li>
+                    </ul>
+                </div>
+            </div>
+
+						<div class="page-sidebar-section show has-active-element">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">DOM i zdarzenia</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/dom/dom.php">Document Object Model</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-wlasciwosci.php">Właściwości elementów</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-relacje.php">Relacje między elementami</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-tworzenie-i-usuwanie.php">Tworzenie i usuwanie elementów</a>
+						</li>
+                        <li >
+                            <a href="/kurs/dom/style.php">Style w CSS</a>
+                        </li>
+						<li >
+							<a href="/kurs/events/events.php">Zdarzenia</a>
+						</li>
+						<li >
+							<a href="/kurs/events/events-keys.php">Zdarzenia - klawisze</a>
+						</li>
+						<li class="active">
+							<a href="/kurs/events/events-mouse.php">Zdarzenia - myszka</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/projekt-todo.php">Projekt TODO</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/slider.php">Tworzymy slider</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Prawie podstawy</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/grafika/grafika-na-stronie.php">Grafika na stronie</a>
+						</li>
+						<li >
+							<a href="/kurs/intervals/intervals.php">setTimeout i setInterval</a>
+						</li>
+						<li >
+							<a href="/kurs/match-media.php">Praca z RWD</a>
+						</li>
+						<li >
+							<a href="/kurs/okna-dialogowe.php">Okienka dialogowe</a>
+						</li>
+						<li >
+							<a href="/kurs/okna.php">Tworzenie nowych okien</a>
+						</li>
+						<li >
+							<a href="/kurs/date/date.php">Obiekt Date</a>
+						</li>
+						<li >
+							<a href="/kurs/date/date-calendar.php">Tworzymy kalendarz</a>
+						</li>
+						<li >
+							<a href="/kurs/cookies/cookie.php">Obiekt Cookie</a>
+						</li>
+						<li >
+							<a href="/kurs/storage/storage.php">Storage</a>
+						</li>
+						<li >
+							<a href="/kurs/regular.php">Wyrażenia regularne</a>
+						</li>
+						<li >
+							<a href="/kurs/formularze/formularze.php">Formularze</a>
+						</li>
+						<li >
+							<a href="/kurs/formularze/formularze-walidacja.php">Formularze - walidacja</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Ajax</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/ajax/ajax.php">AJAX, REST, JSON</a>
+						</li>
+						<li >
+							<a href="/kurs/ajax/xmlhttprequest.php">XMLHttpRequest</a>
+						</li>
+            			<li >
+							<a href="/kurs/ajax/fetch.php">Fetch API</a>
+						</li>
+						<li >
+							<a href="/kurs/ajax/formularz-kontaktowy.php">Dynamiczny formularz kontaktowy</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Nowy Javascript</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/es6/ecma-script-2015.php">ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/webpack.php">Webpack</a>
+						</li>
+                        <li >
+            				<a href="/kurs/es6/obiekty-w-es6.php">Obiekty w ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/funkcja-strzalkowa.php">Funkcja strzałkowa</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/spread-rest.php">Spread i rest</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/template-strings.php">Template strings</a>
+						</li>
+						<li >
+            				<a href="/kurs/es6/destructuring.php">Dekompozycja</a>
+        				</li>
+						<li >
+							<a href="/kurs/es6/class.php">Klasy w ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/promises.php">Promises</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/async-await.php">Async/Await</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/symbole.php">Symbole</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">jQuery</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/jquery/jquery.php">jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/animacje-w-jquery.php">Animacje w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/jquery-ajax.php">Ajax w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/tabs.php">Taby w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/plugin.php">Karuzela w jQuery</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Canvas</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/canvas/canvas.php">Canvas</a>
+						</li>
+						<li >
+							<a href="/kurs/canvas/canvas-images.php">Grafika w canvas</a>
+						</li>
+						<li >
+						<a href="/kurs/canvas/canvas-paint.php">Praktycznie : Paint w canvas</a>
+						</li>
+
+						<li >
+							<a href="/kurs/canvas/canvas-animacja.php">Animacja w canvas</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Gry</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/gry/hangman/hangman.php">Szubienica</a>
+						</li>
+						<li >
+							<a href="/kurs/gry/memory/memory.php">Memory</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+            			<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Inne</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/dodatkowe-materialy.php">Dodatkowe materiały</a>
+						</li>
+						<li >
+							<a href="/kurs/faq.php">FAQ</a>
+						</li>
+						<li >
+							<a href="/kurs/polityka-prywatnosci.php">Polityka prywatności</a>
+						</li>
+						<li >
+							<a href="/kurs/autor.php">O autorze</a>
+						</li>
+						<li >
+							<a href="/kurs/kontakt.php">Kontakt</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="page-sidebar-section">
+                <a class="special-link" href="/kurs/autor.php#donate">Wesprzyj kurs</a>
+            </div>
+		</div>
+	</div>
+</aside></div><!-- e: page-container -->
+
+<div class="popup" id="popupOptions">
+	<div class="popup-inside">
+        <div class="popup-container-cnt">
+            <div class="popup-container">
+                <button class="popup-close">Zamknij</button>
+
+                <h2 class="popup-title">
+                    Opcje
+                </h2>
+
+                <div class="popup-content">
+                    <form class="form-options">
+                        <div class="form-option">
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <label for="optionsThemeSelect">Wybierz skórkę dla listingów</label>
+                                    <select id="optionsThemeSelect"></select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <pre><code class="language-js">
+                                //tak będzie wyglądał kod
+
+                                function test() {
+                                    for (let i=0; i&lt;10; i++) {
+                                        console.log("Tekst numer ", 1);
+                                    }
+                                }
+
+                                test();
+                                </code></pre>
+                            </div>
+                            <div class="form-row" id="themeLightModeRow">
+                                <div class="form-col">
+                                    <label for="themeLightMode">
+                                        Tryb dzienny / nocny
+                                    </label>
+
+                                    <div class="light-mode-el">
+                                        <input type="checkbox" id="themeLightMode">
+                                        <span class="light-mode"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+	</div>
+</div>
+<script async defer src="https://www.googletagmanager.com/gtag/js?id=UA-38558970-5"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-38558970-5');
+</script>
+
+	<script src="/js/ads.js"></script>
+	<script src="/js/script.min.js?v=0.13" defer></script>
+</body>
+</html>

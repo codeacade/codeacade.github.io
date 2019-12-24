@@ -3,9 +3,9 @@
 <head>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Kurs Javascript - Wstęp</title>
+    <title>Kurs Javascript - Relacje między elementami</title>
 	<meta name="description" content="Kurs Javascript dla superbohaterów, artykuły, tutoriale, porady, zadania do wykonania" />
-    <link rel="canonical" href="https://kursjs.pl/kurs/wstep/wstep.php" />
+    <link rel="canonical" href="https://kursjs.pl/kurs/dom/dom-relacje.php" />
 	<link rel="stylesheet" href="./css.css" />
     <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,700&display=swap&subset=latin-ext" rel="stylesheet">
 	<meta name="image" content="https://kursjs.pl/kursjs.png">
@@ -57,49 +57,437 @@
             </div>
                         <div class="page-content-text">
 
+<style>
+#tabelka .mark td {
+    background: #C90000;
+    color:#fff;
+}
+</style>
 
-<h1 class="page-title">Wstęp</h1>
+<h1 class="page-title">Relacje między elementami</h1>
 <p>
-Bardzo krótki wstęp ^^.<br /><br />
-Kurs ten jest o Javascripcie. Uhh...
+Wiemy już, że elementy na stronie tworzą hierarchiczne drzewo.<br>
+Aby operować na takich obiektach, musimy dobrze opanować sztukę "spacerowania" po nich.<br>
+Możemy je wybierać a pomocą querySelector czy querySelectorAll (i podobnych), ale czasami to za mało.
 </p>
 <p>
-Wiedz, że nie staram się tutaj tworzyć największego i najlepszego kursu o JavaScript w internecie.<br>
-Ten kurs to twór jednego człowieka.
-Nie mam szans i nie chcę konkurować z molochami takimi jak <a href="https://developer.mozilla.org/pl/">MDN</a>, <a href="https://www.udemy.com/">Udemy</a>, <a href="https://eduweb.pl/">EduWeb</a> czy <a href="https://www.w3schools.com/js/default.asp">w3schools</a>.<br>
-<br><br>
-Nie znajdziesz tutaj wszystkiego z zakresu JavaScript. <br>
-Po jakimś czasie będziesz chciał wiele rzeczy tutaj pokazanych tworzyć inaczej - lepiej.<br>
-Im większy progres będziesz zdobywał stwierdzisz, że wiele rozdziałów można było napisać o wiele lepiej. I dobrze.<br><br>
-
-W każdym bądź razie - jeżeli ta strona jakoś ci posłuży - to tylko plus. Jeżeli nie - po prostu skorzystaj z innego kursu - na rynku jest tego od groma (niektóre wymieniłem <a href="../dodatkowe-materialy.php">tutaj</a>) i każdy znajdzie coś dla siebie. Ja sam mam kilka w swojej kolekcji i twierdzę, że są naprawdę dobre.
-<br><br>
+Każdy element na stronie tworzy tak zwany <strong>node</strong> czyli pojedynczy węzeł drzewa.
+Takimi nodami są nie tylko elementy, ale także tekst w nich zawarty. Nas głównie będą interesować nody, które są elementami - np. buttony, divy itp.<br>
 </p>
 
-<p>
-Jeszcze mała adnotacja, która siedzi mi w głowie.
-</p>
-<p>
-W internecie znajdziesz setki tutoriali pokazujących najnowsze techniki. A to funkcja strzałkowa, a to jak korzystać z async i await, a to jak robić połączenia fetchem czy chociażby zastosowanie modułów. Małe, konkretne, piękne - jak mój pies (a i od niedawna też kot).
-</p>
-<p>
-Na grupach facebookowych w dyskusjach znajdziesz jeszcze szybciej takie techniki.
-</p>
-<p>
-Tutaj pojawia pewna sprawa, który dotyczy nie tylko JavaScript, ale i całego frontendu. Bardzo często przy takich nowoczesnych tutorialach czy poradach autorzy nie zwracają uwagi na bardzo ważną rzecz - a mianowicie na to, że dobór techniki <strong>zawsze zależy od danego projektu</strong>. To są w końcu rzeczy oczywiste.<br>
-No właśnie nie do końca. To są rzeczy oczywiste - dla nas - osób, które w tej branży siedzą już kilkanaście lat. Ale czy dla osoby zaczynającej?
-</p>
-<p>
-Jeżeli robisz bloga o nowinkach z dziedziny frontentu, raczej możesz założyć, że większość użytkowników będzie korzystała z najnowszych przeglądarek, a więc i możesz używać najnowszych rozwiązań (chociaż najlepiej było by spojrzeć w statystyki Google Analitics które można podpiąć pod stronę).<br>
-Jeżeli jednak robisz stronę dla emerytowanych nauczycieli, czy dla przykładu olbrzymi sklep z którego będą korzystali różnorodni użytkownicy z różnorodnych krajów, wtedy rzucanie się na najnowsze rozwiązania będzie strzałem w stopę.
-</p>
-<p>
-Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie CSS Grid, a czasami nawet flexbox może okazać się czymś, czego użyć nie możesz. Czasami spokojnie będziesz mógł używać najnowszej wersji JavaScript, a czasami będziesz musiał pozostać przy starszej. A jeżeli będziesz musiał pozostać przy starszej, wtedy albo będziesz pisał JavaScript trzymając się klasycznych rozwiązań, albo skorzystasz z narzędzi zamieniających twój kod na starszy zapis.
-</p>
-<p>Autorzy tutoriali często zapominają o tym, że dla początkującej osoby istnieje po prostu JavaScript. Osoby takie często nie zdają sobie sprawy, że nie wszystko w JavaScript można dowolnie używać, nie wiedzą gdzie szukać informacji które przeglądarki co wspierają, jakich narzędzi używać do zamiany kodu i po co w ogóle to robić.</p>
-<p>W kursie tym staram się trzymać klasycznego JavaScript. Jasne - im więcej wiedzy zdobędziesz, im bardziej będziesz rozbudowywał swój warsztat, tym będziesz stosował coraz nowsze i lepsze techniki pisania kodu. A wtedy - tak jak to już pisałem powyżej - będziesz się śmiał z tego kursu. Póki co polecam po prostu uczyć się JavaScript.</p>
 
-<a href="./co-to-jest-javascript.php" class="button">To co? Zaczynamy?...</a>
+<!-- ### -->
+<h2 class="subtitle" id="relacje">Relacje między nodami</h2>
+<p>
+Rozpiszmy przykładowy html, który będziemy analizować:
+</p>
+
+
+<pre><code class="language-html">
+&lt;div class="text-cnt">
+    &lt;p id="text">
+        Mała
+        &lt;strong style="color:red">Ala&lt;/strong>
+        miała
+        &lt;span style="color:blue">kota&lt;/span>
+    &lt;/p>
+&lt;/div>
+</code></pre>
+
+<p>
+    Nasz html składa się ze składowych - nodów.<br>
+    Część z nich jest elementami html (div, p, strong i span).<br>
+    Wszystkie natomiast są nodami - div, p, tekst Mała, strong, tekst Ala, tekst mała, span, tekst kota.<br><br>
+
+    Znając hierarchiczne położenie obiektów,
+    możemy w łatwy sposób się po nich przemieszczać:
+</p>
+
+<pre><code class="language-js">
+const text = document.querySelector('#text');
+
+text.parentElement //wskazuje na nadrzędny nod będący elementem - div.text-cnt
+text.parentNode //wskazuje na nadrzędny nod - div.text-cnt
+
+text.firstChild //pierwszy node - w naszym przypadku to tekst "Mała "
+text.lastChild //ostatni node - "" - html jest sformatowany, wiec ostatnim nodem jest znak nowej linii
+
+text.firstElementChild //pierwszy element - &lt;strong style="color:red">Ala&lt;/strong>
+text.lastElementChild //ostatni element - &lt;span style="color:blue">kota&lt;/span>
+
+text.children; //[strong, span] - kolekcja elementów
+text.children[0] //wskazuje na 1 element - &lt;strong style="color:red">Ala&lt;/strong>
+
+text.childNodes //[text, strong, text] - kolekcja wszystkich dzieci - nodów
+text.childNodes[0] //"Mała"
+
+text.nextSibling //następny węzeł
+text.previousSibling //poprzedni węzeł
+text.nextElementSibling //następny brat-element
+text.previousElementSibling //poprzedni brat-element
+
+text.firstElementChild.nextElementSibling //kolejny brat-element pierwszego elementu - &lt;span style="color:blue">kota&lt;/span>
+text.firstElementChild.nextSibling //kolejny brat-node pierwszego elementu - "miała"
+
+text.firstElementChild.previousElementSibling //poprzedni brat-element pierwszego elementu - null, bo przed pierwszym stron nie ma elementów
+text.firstElementChild.previousSibling //poprzedni brat-node pierwszego elementu - "Mała"
+
+//powyższe możemy łączyć
+text.children[0].firstChild //pierwszy element i w nim pierwszy nod : "Ala"
+text.children[0].firstElementChild //null - w pierwszym strong nie mamy juz elementów
+
+text.firstChild.firstElementChild //null - nie ma elementu w pierwszym tekście
+text.firstElementChild.firstElementChild //null - nie ma elementy w strong
+text.firstElementChild.firstChild //"Ala"
+</code></pre>
+
+
+<div class="text-cnt">
+    <p id="text">Mała <strong style="color:red">Ala</strong> miała <span style="color:blue">kota</span></p>
+</div>
+
+<button class="button" type="button" id="testRelations">Pokaż relacje</button>
+
+<script>
+    document.querySelector('#testRelations').addEventListener('click', function() {
+        const p = document.querySelector('#text');
+        console.group('HTML elementu');
+        console.log(p.parentElement.outerHTML);
+        console.groupEnd();
+
+        console.groupCollapsed('Pojedyncze właściwości');
+        console.log('p.parentElement: ', p.parentElement);
+        console.log('p.parentNode: ', p.parentNode);
+
+        console.log('p.firstChild: ', p.firstChild);
+        console.log('p.lastChild: ', p.lastChild);
+
+        console.log('p.firstElementChild: ', p.firstElementChild);
+        console.log('p.lastElementChild: ', p.lastElementChild);
+
+        console.log('p.children: ', p.children);
+        console.log('p.children[0]: ', p.children[0]);
+
+        console.log('p.childNodes: ', p.childNodes);
+        console.log('p.childNodes[0]: ', p.childNodes[0]);
+
+	    console.log('p.nextSibling: ', p.nextSibling);
+	    console.log('p.previousSibling: ', p.previousSibling);
+	    console.log('p.nextElementSibling: ', p.nextElementibling);
+	    console.log('p.previousElementSibling: ', p.previousElementSibling);
+	    console.groupEnd();
+
+        console.groupEnd();
+
+        console.groupCollapsed('Przykłady połączonych właściwości');
+        console.log('p.firstElementChild.nextElementSibling: ', p.firstElementChild.nextElementSibling );
+        console.log('p.firstElementChild.nextSibling: ', p.firstElementChild.nextSibling );
+
+	    console.log('p.firstElementChild: ', p.firstElementChild);
+        console.log('p.firstElementChild.previousElementSibling: ', p.firstElementChild.previousElementSibling);
+	    console.log('p.firstElementChild.previousSibling: ', p.firstElementChild.previousSibling);
+	    console.log('p.lastElementChild: ', p.lastElementChild);
+	    console.log('p.lastElementChild.nextElementSibling: ', p.lastElementChild.nextElementSibling);
+	    console.log('p.children[1].previousElementSibling: ', p.children[1].previousElementSibling);
+	    console.log('p.children[1].previousElementSibling.firstChild: ', p.children[1].previousElementSibling.firstChild);
+	    console.log('p.children[1].previousElementSibling.innerText: ', p.children[1].previousElementSibling.innerText);
+        console.log('p.firstElementChild.previousSibling: ', p.firstElementChild.previousSibling );
+
+        console.log('p.children[0].firstChild: ', p.children[0].firstChild );
+
+        console.log('p.lastElementChild.firstChild: ', p.lastElementChild.firstChild );
+	    console.log('p.lastElementChild.innerText: ', p.lastElementChild.innerText );
+        console.log('p.firstElementChild.firstChild: ', p.firstElementChild.firstChild);
+        console.groupEnd();
+    })
+</script>
+
+<p>W większości przypadków będzie nas interesować odwoływanie się do elementów html, dlatego głównymi właściwościami, które nas interesują są:</p>
+
+<table class="tab">
+    <tr>
+        <th>element.parentElement</th>
+        <td>rodzic elementu lub null</td>
+    </tr>
+    <tr>
+        <th>element.nextElementSibling</th>
+        <td>następny element (brat) lub null</td>
+    </tr>
+    <tr>
+        <th>element.previousElementSibling</th>
+        <td>poprzedni element (brat) lub null</td>
+    </tr>
+    <tr>
+        <th>element.children</th>
+        <td>dzieci elementu lub pusta tablica</td>
+    </tr>
+    <tr>
+        <th>element.firstElementChild lub element.children[0]</th>
+        <td>pierwsze dziecko elementu lub null</td>
+    </tr>
+    <tr>
+        <th>element.lastElementChild lub  element.children[element.children.length-1]</th>
+        <td>ostatnie dziecko elementu lub null</td>
+    </tr>
+</table>
+
+
+<p>Ważną rzeczą jest to, że powyższe właściwości, które zwracają kolekcje elementów, zwracają je żywe, czyli takie, które
+automatycznie reagujące na zmiany w strukturze html:</p>
+
+<pre><code class="language-js">
+const divs = document.querySelector('div');
+const children = divs.children; //pobrałem kolekcję wszystkich dzieci czyli w css div > *
+
+console.log(children.length); //ilość dzieci 3
+children[0].remove(); //usuwam 1 dziecko
+console.log(children.length); //ilość dzieci 2
+</code></pre>
+
+<p>Temat ten podejmowaliśmy już <a href="./dom.php#zywe-kolekcje">tutaj</a>.</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="closest">closest()</h2>
+<p>Metoda <strong>element.closest(selektor)</strong> odnajduje najbliższy elementowi element który pasuje do selektora:</p>
+
+<pre><code class="language-html">
+&lt;div class="module">
+    &lt;div class="module-content">
+        &lt;div>
+            &lt;div class="module-text">
+                Lorem ipsum dolor sit amet...
+            &lt;/div>
+            &lt;button class="button">Kliknij&lt;/button>
+        &lt;/div>
+    &lt;/div>
+&lt;/div>
+</code></pre>
+
+<pre><code class="language-js">
+document.querySelector('.button').addEventListener('click', function() {
+    const module = this.closest('.module');
+})
+</code></pre>
+
+<p id="closest-ie">Metoda ta nie jest wspierana <a href="https://caniuse.com/#feat=element-closest">przez IE</a> (w Edge już działa), dlatego jeżeli chcesz wspierać starsze wersje
+przeglądarek Microsoftu, musisz użyć tak zwanego polyfilla (czyli zrobić nakładkę poprawiającą działanie przeglądarki):</p>
+
+<pre><code class="language-js">
+//polyfill dla przeglądarek nie obsługujących closest
+if (!Element.prototype.matches) {
+    Element.prototype.matches = Element.prototype.msMatchesSelector;
+}
+if (!Element.prototype.closest) {
+    Element.prototype.closest = function(selector) {
+        let el = this;
+        while (el) {
+            if (el.matches(selector)) {
+                return el;
+            }
+            el = el.parentElement;
+        }
+    }
+};
+
+
+document.querySelector('.button').addEventListener('click', function() {
+    const module = this.closest('.module');
+});
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="przyklady">Zastosowanie w praktyce</h2>
+<p>
+W ramach ćwiczeń zróbmy jakiś przykład.
+</p>
+<p>
+Zadanie możesz znaleźć w <a href="https://github.com/kartofelek007/kursjs-zadania">repozytorium</a> w katalogu <strong>dom/relacje</strong>.<br>
+W poniższych listingach nie będę się skupiał na CSS. Odpowiednie stylowanie możesz zobaczyć w powyższym pliku html.
+</p>
+<p>
+Wyobraź sobie, że mamy listę modułów. Każdy taki moduł to belka tytułowa z tekstem (Widoczne/Niewidoczne), tekst z jakąś treścią i przycisk pokazujący tą treść.
+</p>
+
+<pre><code class="language-html">
+&lt;div class="module-list">
+
+    &lt;div class="module" data-show="1">
+        &lt;div class="module-bar">
+            Przykładowy tytuł modułu
+            &lt;span class="module-bar-text">(Widoczne)&lt;/span>
+            &lt;button class="btn module-btn" type="button">Toggle&lt;/button>
+        &lt;/div>
+
+        &lt;div class="module-cnt">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+            Debitis enim nam dicta vitae excepturi, dolore sapiente ipsa
+            repudiandae voluptatem officia impedit unde ullam, animi.
+            Iusto tenetur impedit provident ea sapiente?
+        &lt;/div>
+    &lt;/div>
+
+    &lt;div class="module" data-show="0">...&lt;/div>
+    &lt;div class="module" data-show="0">...&lt;/div>
+    &lt;div class="module" data-show="0">...&lt;/div>
+&lt;/div>
+</code></pre>
+
+<p>
+    Po kliknięciu przycisków <strong>.module-btn</strong> chcemy schować tekst w danym module, a dodatkowo
+    zmienić tekst w <strong>.module-bar-text</strong>.<br><br>
+
+    Gdybyśmy tutaj polegali tylko na querySelectorAll, nie bylibyśmy w stanie wyłapać zależności między elementami.<br>
+    Klikamy na przycisk <strong>.module-btn</strong> i który tekst mielibyśmy pokazać? querySelectorAll zwróci nam wszystkie .module-cnt, querySelector tylko pierwszy. To za mało.<br>
+    W takich przypadkach właśnie musimy skorzystać z tego co poznaliśmy powyżej - zamiast pobierać elementy globalnie, po kliknięciu w przycisk pobierajmy rodziców i dzieci klikniętego elementu.<br>
+</p>
+
+<pre data-line="9-12"><code class="language-js">
+const list = document.querySelector('.module-list');
+const btn = list.querySelectorAll(':scope .module-btn');
+
+for (let i=0; i&lt;btn.length; i++) {
+    btn[i].addEventListener('click', function() {
+        const button = this; //kliknięty guzik
+
+        //żeby zrozumieć poniższy spacer, patrz na strukturę html
+        const module = button.parentElement.parentElement;
+        const moduleBar = button.parentElement;
+        const moduleBarText = button.previousElementSibling;
+        const moduleContent = moduleBar.nextElementSibling;
+    });
+}
+</code></pre>
+
+
+<p>
+    Dla sprawdzenia czy dany tekst jest widoczny czy nie, skorzystamy z customowego atrybutu <strong>data-show</strong>, który ustawiliśmy dla każdego .module.<br>
+    To jedno z rozwiązań. Spokojnie można by po prostu sprawdzać, czy .module-content ma klasę .show za pomocą <code>classList.contains('show')</code>.
+</p>
+
+<pre data-line="14"><code class="language-js">
+const list = document.querySelector('.module-list');
+const btn = list.querySelectorAll(':scope .module-btn');
+
+for (let i=0; i&lt;btn.length; i++) {
+    btn[i].addEventListener('click', function() {
+        const button = this; //kliknięty guzik
+
+        //żeby zrozumieć poniższy spacer, patrz na strukturę html
+        const module = button.parentElement.parentElement;
+        const moduleBar = button.parentElement;
+        const moduleBarText = button.previousElementSibling;
+        const moduleContent = moduleBar.nextElementSibling;
+
+        if (parseInt(module.dataset.show, 10) === 1) {
+            moduleBarText.innerText = '(Niewidoczne)';
+            moduleContent.classList.remove('show');
+            module.dataset.show = 0;
+        } else {
+            moduleBarText.innerText = '(Widoczne)';
+            moduleContent.classList.add('show');
+            module.dataset.show = 1;
+        }
+    });
+}
+</code></pre>
+
+<div class="module-list">
+    <div class="module" data-show="1">
+        <div class="module-bar">
+            Przykładowy tytuł modułu
+            <span class="module-bar-text">(Widoczne)</span>
+            <button class="btn module-btn" type="button">Toggle</button>
+        </div>
+        <div class="module-content show">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis enim nam dicta vitae excepturi, dolore sapiente ipsa repudiandae voluptatem officia impedit unde ullam, animi. Iusto tenetur impedit provident ea sapiente?
+        </div>
+    </div>
+    <div class="module" data-show="1">
+        <div class="module-bar">
+            Przykładowy tytuł modułu
+            <span class="module-bar-text">(Widoczne)</span>
+            <button class="btn module-btn" type="button">Toggle</button>
+        </div>
+        <div class="module-content show">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis enim nam dicta vitae excepturi, dolore sapiente ipsa repudiandae voluptatem officia impedit unde ullam, animi. Iusto tenetur impedit provident ea sapiente?
+        </div>
+    </div>
+</div>
+
+<style>
+    .module-list {
+        margin:30px 0;
+    }
+    .module {
+        padding:20px;
+        border:1px solid #aaa;
+        margin:20px 0;
+        background: #eee;
+        color: #333;
+        box-shadow: 0 3px 3px -2px rgba(0,0,0,0.3);
+    }
+    .module-bar {
+        display: flex;
+    }
+    .module-bar-text {
+        flex-grow: 1;
+        font-weight: bold;
+        color:#222;
+        padding-left:20px;
+    }
+    .module-btn {
+        border:0;
+        background: #252A34;
+        border-radius: 4px;
+        font-size:14px;
+        font-weight: bold;
+        padding:10px 20px;
+        color:#fff;
+        cursor: pointer;
+        transition:0.3s background;
+    }
+    .module-btn:hover {
+        background: #EC185D;
+    }
+    .module-content {
+        overflow: hidden;
+        max-height:0;
+        transition:0.5s all;
+        padding-top: 0;
+    }
+    .module-content.show {
+        max-height:300px;
+        padding-top:20px;
+    }
+</style>
+
+<script>
+    const list = document.querySelector('.module-list');
+    const btn = list.querySelectorAll(':scope .module-btn');
+
+    for (let i=0; i<btn.length; i++) {
+        btn[i].addEventListener('click', function() {
+            const button = this; //klikniety guzik
+
+            //rzeby zrozumiec ponizszy spacer, patrz na strukturę html
+            const module = button.parentElement.parentElement;
+            const moduleBar = button.parentElement;
+            const moduleBarText = button.previousElementSibling;
+            const moduleContent = moduleBar.nextElementSibling;
+
+            if (parseInt(module.dataset.show, 10) === 1) {
+                moduleBarText.innerText = '(Niewidoczne)';
+                moduleContent.classList.remove('show');
+                module.dataset.show = 0;
+            } else {
+                moduleBarText.innerText = '(Widoczne)';
+                moduleContent.classList.add('show');
+                module.dataset.show = 1;
+            }
+        });
+    }
+</script>
+
 
 			</div><!-- e: page-content-text -->
 			<footer class="page-footer">
@@ -165,13 +553,13 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
                 </h3>
             </div>
 
-						<div class="page-sidebar-section show has-active-element">
+						<div class="page-sidebar-section ">
 				<h3 class="page-sidebar-section-title">
 					<a href="#">Słowem wstępu</a>
 				</h3>
 				<div class="page-sidebar-list-cnt">
 					<ul class="page-sidebar-list">
-						<li class="active">
+						<li >
 							<a href="/kurs/wstep/wstep.php">Wstęp</a>
 						</li>
 						<li >
@@ -270,7 +658,7 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
                 </div>
             </div>
 
-						<div class="page-sidebar-section ">
+						<div class="page-sidebar-section show has-active-element">
 				<h3 class="page-sidebar-section-title">
 					<a href="#">DOM i zdarzenia</a>
 				</h3>
@@ -282,7 +670,7 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
 						<li >
 							<a href="/kurs/dom/dom-wlasciwosci.php">Właściwości elementów</a>
 						</li>
-						<li >
+						<li class="active">
 							<a href="/kurs/dom/dom-relacje.php">Relacje między elementami</a>
 						</li>
 						<li >

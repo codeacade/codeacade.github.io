@@ -3,9 +3,9 @@
 <head>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Kurs Javascript - Wstęp</title>
+    <title>Kurs Javascript - Obiekty - zaawansowany this</title>
 	<meta name="description" content="Kurs Javascript dla superbohaterów, artykuły, tutoriale, porady, zadania do wykonania" />
-    <link rel="canonical" href="https://kursjs.pl/kurs/wstep/wstep.php" />
+    <link rel="canonical" href="https://kursjs.pl/kurs/obiekty/obiekty-zaawansowane-this.php" />
 	<link rel="stylesheet" href="./css.css" />
     <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,700&display=swap&subset=latin-ext" rel="stylesheet">
 	<meta name="image" content="https://kursjs.pl/kursjs.png">
@@ -57,49 +57,562 @@
             </div>
                         <div class="page-content-text">
 
-
-<h1 class="page-title">Wstęp</h1>
+<h1 class="page-title">Obiekty - zaawansowany this</h1>
 <p>
-Bardzo krótki wstęp ^^.<br /><br />
-Kurs ten jest o Javascripcie. Uhh...
+    Na początku tego rozdziału poznaliśmy tworzenie własnych obiektów oraz słowo kluczowe <strong>this</strong>, które wskazuje na dany obiekt.
 </p>
 <p>
-Wiedz, że nie staram się tutaj tworzyć największego i najlepszego kursu o JavaScript w internecie.<br>
-Ten kurs to twór jednego człowieka.
-Nie mam szans i nie chcę konkurować z molochami takimi jak <a href="https://developer.mozilla.org/pl/">MDN</a>, <a href="https://www.udemy.com/">Udemy</a>, <a href="https://eduweb.pl/">EduWeb</a> czy <a href="https://www.w3schools.com/js/default.asp">w3schools</a>.<br>
-<br><br>
-Nie znajdziesz tutaj wszystkiego z zakresu JavaScript. <br>
-Po jakimś czasie będziesz chciał wiele rzeczy tutaj pokazanych tworzyć inaczej - lepiej.<br>
-Im większy progres będziesz zdobywał stwierdzisz, że wiele rozdziałów można było napisać o wiele lepiej. I dobrze.<br><br>
-
-W każdym bądź razie - jeżeli ta strona jakoś ci posłuży - to tylko plus. Jeżeli nie - po prostu skorzystaj z innego kursu - na rynku jest tego od groma (niektóre wymieniłem <a href="../dodatkowe-materialy.php">tutaj</a>) i każdy znajdzie coś dla siebie. Ja sam mam kilka w swojej kolekcji i twierdzę, że są naprawdę dobre.
-<br><br>
+    W większości przypadków tak właśnie jest, ale tak naprawdę this wskazuje na obiekt, który w danym momencie wywołał daną metodę, czyli znalazł się tuż przed kropką podczas wywołania:
 </p>
 
-<p>
-Jeszcze mała adnotacja, która siedzi mi w głowie.
-</p>
-<p>
-W internecie znajdziesz setki tutoriali pokazujących najnowsze techniki. A to funkcja strzałkowa, a to jak korzystać z async i await, a to jak robić połączenia fetchem czy chociażby zastosowanie modułów. Małe, konkretne, piękne - jak mój pies (a i od niedawna też kot).
-</p>
-<p>
-Na grupach facebookowych w dyskusjach znajdziesz jeszcze szybciej takie techniki.
-</p>
-<p>
-Tutaj pojawia pewna sprawa, który dotyczy nie tylko JavaScript, ale i całego frontendu. Bardzo często przy takich nowoczesnych tutorialach czy poradach autorzy nie zwracają uwagi na bardzo ważną rzecz - a mianowicie na to, że dobór techniki <strong>zawsze zależy od danego projektu</strong>. To są w końcu rzeczy oczywiste.<br>
-No właśnie nie do końca. To są rzeczy oczywiste - dla nas - osób, które w tej branży siedzą już kilkanaście lat. Ale czy dla osoby zaczynającej?
-</p>
-<p>
-Jeżeli robisz bloga o nowinkach z dziedziny frontentu, raczej możesz założyć, że większość użytkowników będzie korzystała z najnowszych przeglądarek, a więc i możesz używać najnowszych rozwiązań (chociaż najlepiej było by spojrzeć w statystyki Google Analitics które można podpiąć pod stronę).<br>
-Jeżeli jednak robisz stronę dla emerytowanych nauczycieli, czy dla przykładu olbrzymi sklep z którego będą korzystali różnorodni użytkownicy z różnorodnych krajów, wtedy rzucanie się na najnowsze rozwiązania będzie strzałem w stopę.
-</p>
-<p>
-Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie CSS Grid, a czasami nawet flexbox może okazać się czymś, czego użyć nie możesz. Czasami spokojnie będziesz mógł używać najnowszej wersji JavaScript, a czasami będziesz musiał pozostać przy starszej. A jeżeli będziesz musiał pozostać przy starszej, wtedy albo będziesz pisał JavaScript trzymając się klasycznych rozwiązań, albo skorzystasz z narzędzi zamieniających twój kod na starszy zapis.
-</p>
-<p>Autorzy tutoriali często zapominają o tym, że dla początkującej osoby istnieje po prostu JavaScript. Osoby takie często nie zdają sobie sprawy, że nie wszystko w JavaScript można dowolnie używać, nie wiedzą gdzie szukać informacji które przeglądarki co wspierają, jakich narzędzi używać do zamiany kodu i po co w ogóle to robić.</p>
-<p>W kursie tym staram się trzymać klasycznego JavaScript. Jasne - im więcej wiedzy zdobędziesz, im bardziej będziesz rozbudowywał swój warsztat, tym będziesz stosował coraz nowsze i lepsze techniki pisania kodu. A wtedy - tak jak to już pisałem powyżej - będziesz się śmiał z tego kursu. Póki co polecam po prostu uczyć się JavaScript.</p>
+<pre><code class="language-js">
+Math.max(...) //this w metodzie max() wskazuje na Math
 
-<a href="./co-to-jest-javascript.php" class="button">To co? Zaczynamy?...</a>
+myObj.draw() //this w metodzie draw() wskazuje myObj
+
+[1,2,3,4].push(5) //this w metodzie push() wskazuje na tablicę
+
+window.alert() //this w metodzie alert() wskazuje na window
+
+"Ala".toUpperCase() //this w toUpperCase() wskazuje na tekst "Ala"
+
+setTimeout(...) //this w setTimeout wskazuje na window, ponieważ tak naprawdę napisaliśmy window.setTimeout
+</code></pre>
+
+<p>Spójrzmy na kolejny przykład. Pojedynczą funkcję wskazujemy jako metodę obiektu car1 i car2. Jej kod się nie zmienia, ale this wskazuje na obiekt, który właśnie ją odpala:</p>
+
+<pre data-line="1-3,7,12"><code class="language-js">
+function printDrive() {
+    console.log(this.brand + " - właśnie jadę!");
+}
+
+const car1 = {
+    brand : "Mercedes",
+    drive : printDrive
+}
+
+const car2 = {
+    brand : "BMW",
+    drive : printDrive
+}
+
+car1.drive(); //Mercedes - właśnie jadę!
+car2.drive(); //BMW - właśnie jadę!
+</code></pre>
+
+<p>Podobnie będzie się dziać w przypadku funkcji czasu:</p>
+
+<pre><code class="language-js">
+window.setTimeout(function() {
+    console.log(this);
+});
+
+window.setInterval(function() {
+    console.log(this);
+});
+
+window.alert("lorem ipsum");
+</code></pre>
+
+<div class="kartofel-informuje">
+    Powyższe metody zazwyczaj będziesz widział w skróconych formach z pominięciem <strong>window</strong>. Niczego to nie zmienia, a jedynie skraca zapis.
+</div>
+
+<p>Podobnie jest z innymi metodami, które non stop będziemy używać. Przykładowo jeżeli dane nasłuchiwanie eventu wykona dany element (znajdzie się przed kropką przy wywołaniu), to w jej wnętrzu <a href="../events/events.php#this">this będzie wskazywać na ten obiekt/element</a>:</p>
+
+<pre><code class="language-js">
+const btn = document.querySelector('.btn');
+
+btn.addEventListener('click', function() {
+    console.log(this); //btn
+});
+</code></pre>
+
+<p>Wiedząc to przechodzimy do trudniejszego przykładu:</p>
+
+<pre><code class="language-js">
+const obj = {
+    pets : ["kot", "pies", "chomik"],
+    bindBtn : function() {
+        //tworzymy dynamicznie przycisk i dodajemy go do body
+        const button = document.createElement('button');
+        button.innerText = 'Kliknij';
+        button.type = 'button';
+        document.body.appendChild(button);
+
+        //this === obj
+        console.log(this.pets); //["kot", "pies", "żona"]
+
+        //dodajemy mu klikniecie
+        button.addEventListener('click', function() {
+            //this === button
+            console.log(this.innerText); //Kliknij
+            console.log(this.pets); //?????? - jak się odwołać do powyższej tablicy pets?
+        });
+    }
+}
+
+const obj = new MyObject();
+obj.bindBtn();
+</code></pre>
+
+<p>
+    Po wywołaniu metody <strong>bindBtn()</strong> tworzymy nowy guzik i podpinamy mu event click.<br> Po jego kliknięciu powinien on wypisać tablicę pets z obiektu MyObject. Jak jednak to zrobić, skoro instrukcja this wewnątrz eventu button wskazuje na niego samego (bo button znajduje się przed kropką addEventListener).
+</p>
+
+<p id="kilka-sposobow">
+    Jest na to kilka sposobów.
+</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="dodatkowa-zmienna">Dodatkowa zmienna wskazująca na this</h2>
+<p>
+    Pierwszym z nich (najstarszym) jest stworzenie dodatkowej zmiennej, która będzie wskazywała na obiekt. Dzięki temu możemy
+    się do niej odwoływać w funkcji, w której zmienione zostało this:
+</p>
+
+
+<pre data-line="4,8"><code class="language-js">
+const ob = {
+    name : "Marcin",
+    printDelay : function() {
+        const self = this;
+
+        setTimeout(function() {
+            console.log(this); //window
+            console.log(self.name); //Marcin
+        }, 2000);
+    }
+}
+
+ob.printDelay();
+</code></pre>
+
+<pre data-line="4,13"><code class="language-js">
+const obj = {
+    pets : ["kot", "pies", "chomik"],
+    bindBtn : function() {
+        const that = this;
+
+        const button = document.createElement('button');
+        button.innerText = 'Kliknij';
+        button.type = 'button';
+        document.body.appendChild(this.button);
+
+        button.addEventListener('click', function() {
+            console.log(this.innerText); //Kliknij
+            console.log(that.pets);
+        });
+    }
+}
+
+obj.bindBtn();
+</code></pre>
+
+<p>Sposób nie zawsze bezpieczny do użycia. W dziale obiekty - <a href="./obiekty-dziedziczenie.php#call-apply">dziedziczenie omawialiśmy metodę call i apply</a>, które służą do zmiany this w danej funkcji. Jeżeli w powyższej metodzie zmienilibyśmy this, to równocześnie zmieniła by się też zmienna self.</p>
+
+<pre data-line="12,19-22"><code class="language-js">
+const obj = {
+    pets : ["kot", "pies", "chomik"],
+    bindBtn : function() {
+        const that = this;
+
+        const button = document.createElement('button');
+        button.innerText = 'Kliknij';
+        button.type = 'button';
+        document.body.appendChild(this.button);
+
+        button.addEventListener('click', function() {
+            console.log(that.pets);
+        });
+    }
+}
+
+obj.bindBtn(); //po kliknięciu na button ["kot", "pies", "żona"]
+
+const ob2 = {
+    pets: "nie ma"
+}
+obj.prototype.bindBtn.call(ob2); //po kliknięciu na button "nie ma"
+</code></pre>
+
+<p>Przy małych skryptach raczej nie ma to znaczenia. Wszystko zależy od zaawansowania naszego kodu.</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="bind">bind()</h2>
+<p>
+    Drugim sposobem jest skorzystanie z instrukcji <strong>bind(newThis, *params)</strong>, za pomocą której możemy przekazać nowy kontekst dla this.<br>
+    Funkcja <strong>bind()</strong> zwraca nam nową funkcję ze zmienionym wiązaniem this (czyli zmienionym this).
+</p>
+
+<p>Jako pierwszy parametr podajemy to co będzie nowym this w nowej funkcji. Kolejne parametry to parametry, które przyjmuje dana funkcja - oczywiście jak przyjmuje.</p>
+
+<pre><code class="language-js">
+const myFn = function() {
+    console.log(this); //to nie jest metoda żadnego obiektu więc this === window
+}
+
+const myNewFn = myFn.bind({x : 10});
+myFn(); //window
+myNewFn(); //{x : 10}
+</code></pre>
+
+<pre><code class="language-js">
+const ob = {
+    name : "Marcin",
+    print : function(txt) {
+        console.log(this.name + " " + txt);
+    }
+}
+
+ob.print("jest ok"); //Marcin jest ok
+
+
+const print2 = ob.print.bind({name : "Leszek"}, "też jest ok");
+print2(); //Leszek też jest ok
+</code></pre>
+
+<p>
+    Skoro bind zwraca nam nową funkcję, to możemy to wykorzystać w kilku momentach.
+    Przy podawaniu do setTimeout funkcji anonimowej (czy przez referencję) możemy dzięki temu przekazać jej nową zmodyfikowaną wersję, w której ustawimy interesujące nas this, tym samym naprawiając
+    powyżej omawiany problem.
+</p>
+
+<pre data-line="7"><code class="language-js">
+const ob = {
+    name : "Marcin",
+    printDelay : function() {
+        setTimeout(function() {
+            console.log(this); //ob
+            console.log(this.name); //Marcin
+        }.bind(this), 2000);
+    }
+}
+
+ob.printDelay();
+</code></pre>
+
+<pre data-line="11"><code class="language-js">
+const obj = {
+    pets : ["kot", "pies", "chomik"],
+    bindBtn : function() {
+        const button = document.createElement('button');
+        button.innerText = 'Kliknij';
+        button.type = 'button';
+        document.body.appendChild(this.button);
+
+        button.addEventListener('click', function() {
+            console.log(this.pets);
+        }.bind(this));
+    }
+}
+
+obj.bindBtn();
+</code></pre>
+
+<p>Rozważmy zmianę this na jeszcze jednym przykładzie:</p>
+
+<pre><code class="language-js">
+const ob = {
+    name : "Marcin",
+    print : function() {
+        console.log(this.name);
+    }
+}
+
+ob.print(); //Marcin
+
+document.querySelector('#btn').addEventListener('click', ob.print); //co pokaże ob.print()?
+</code></pre>
+
+<p>Po kliknięciu w przycisk #btn this w wywołanej funkcji wskaże na ten przycisk, który nie ma funkcji print.
+   Znowu - musimy zmienić this na właściwy obiekt:</p>
+
+<pre><code class="language-js">
+const ob = {
+    name : "Marcin",
+    print : function() {
+        console.log(this.name);
+    }
+}
+
+ob.print(); //Marcin
+
+document.querySelector('#btn').addEventListener('click', ob.print.bind(ob));
+</code></pre>
+
+<p>Poza wskazaniem nowego this funkcja bind pozwala także przekazać parametry do danej funkcji.</p>
+
+<pre><code class="language-js">
+function showSomething(data) {
+    alert(data);
+}
+
+const element = document.querySelector('.show-text');
+element.addEventListener('click', showSomething.bind(element, "Ala ma kota"));
+</code></pre>
+
+<p>
+    <button class="show-text button">Pokaż tekst</button>
+</p>
+
+<script>
+{
+    function showSomething(data) {
+        alert(data);
+    }
+
+    const element = document.querySelector('.show-text');
+    element.addEventListener('click', showSomething.bind(element, "Ala ma kota"));
+}
+</script>
+
+<pre data-line="17"><code class="language-js">
+const ob = {
+    users : [
+        {name : "Marcin", age : 10},
+        {name : "Piotrek", age : 15},
+        ...
+    ],
+
+    printUserDetail : function(id) {
+        console.log(this.users[id]);
+    },
+
+    bindButtons : function() {
+        const buttons = document.querySelectorAll('.show-detail');
+
+        for (const btn of buttons) {
+            const id = btn.dataset.id; //pobieram atrybut data-id
+            btn.addEventListener("click", this.printUserDetail.bind(this, id));
+        }
+    }
+}
+
+ob.bindButtons();
+</code></pre>
+
+<p>
+    <button class="show-detail button" data-id="0">Pokaż usera 1</button>
+    <button class="show-detail button" data-id="1">Pokaż usera 1</button>
+</p>
+
+<script>
+    {
+        const ob = {
+            users : [
+                {name : "Marcin", age : 10},
+                {name : "Piotrek", age : 15},
+            ],
+
+            printUserDetail : function(id) {
+                console.log(this.users[id]);
+            },
+
+            bindButtons : function() {
+                const buttons = document.querySelectorAll('.show-detail');
+                for (const btn of buttons) {
+                    const id = btn.dataset.id; //pobieram atrybut data-id
+                    btn.addEventListener("click", this.printUserDetail.bind(this, id));
+                }
+            }
+        };
+
+        ob.bindButtons();
+    }
+</script>
+
+<!-- ### -->
+<h2 class="subtitle" id="funkcja-strzalkowa">Funkcja strzałkowa</h2>
+<p>
+    W wersji ES6 wprowadzono tak zwaną <a href="../es6/funkcja-strzalkowa.php">funkcję strzałkową</a>, która poza krótszym zapisem, nie zmienia w swoim wnętrzu kontekstu this biorąc je z otaczającego ją środowiska.<br>
+    Jeżeli więc w powyższym kodzie podepniemy zdarzenie za pomocą funkcji strzałkowej, we wnętrzu takiego zdarzenia
+    this się nie zmieni:
+</p>
+
+<pre><code class="language-js">
+const obj = {
+    pets : ["kot", "pies", "chomik"],
+    bindBtn : function() {
+        const button = document.createElement('button');
+        button.innerText = 'Kliknij';
+        button.type = 'button';
+        document.body.appendChild(this.button);
+
+        button.addEventListener('click', () => { //funkcja strzałkowa
+            console.log(this.pets);
+        });
+    }
+}
+
+obj.bindBtn();
+</code></pre>
+
+<p>
+    Funkcję strzałkową poznasz dokładniej w <a href="../es6/funkcja-strzalkowa.php">dziale omawiającym ES6</a>.
+</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="this-domyslne">Domyślne this</h2>
+<p>
+    W powyższych rozważaniach zajmowaliśmy się przypadkami, kiedy dane metody były odpalane przez jakieś konkretne obiekty.
+</p>
+
+<p>
+    Pamiętajmy, że cały JavaScript bazuje na obiektach. Domyślnie używanym obiektem jest <strong>window</strong>.<br>
+    Jeżeli dana funkcja nie jest odpalana przez żaden konkretny obiekt, wtedy <strong>this</strong> wskazuje właśnie na <strong>window</strong>:
+</p>
+
+<pre><code class="language-js">
+console.log(this); //window
+
+function text() {
+    console.log(this); //window
+}
+
+text();
+</code></pre>
+
+<div class="kartofel-informuje">
+    <p>
+    Ale nie zawsze tak się dzieje!<br>
+    Jeżeli w naszym skrypcie użyjemy <a href="../super-podstawy/strict-mode.php">strict mode</a>, wewnątrz odpalonej funkcji domyślnie this będzie wskazywało na <code>undefined</code>.
+    </p>
+    <pre><code class="language-js">
+    console.log(this); //window
+
+    function test() {
+        console.log(this); //undefined
+    }
+    test();
+    </code></pre>
+    <p>
+    Dodatkowo w Node.js będzie to już module.exports. Ta sama sytuacja będzie miała miejsce jeżeli nasz kod potraktujemy <a href="../es6/webpack.php">webpackiem</a>, gdzie this zmieni się domyślnie na undefined (ponieważ webpack używa domyślnie strict mode).
+    </p>
+</div>
+
+<p>Pamiętajmy, że powyżej opisana zasada z domyślnym obiektem będzie obowiązywać na każdym poziomie zagnieżdżania:</p>
+
+<pre data-line="7-12"><code class="language-js">
+const ob = {
+    hero : "Jacek Placek",
+
+    print() {
+        console.log(this.hero); //Jacek Placek
+
+        function text() {
+            console.log(this); //window
+            console.log(this.hero) //undefined
+        }
+
+        text(); //window.text()
+    }
+}
+
+ob.print();
+</code></pre>
+
+<p>Jeżeli chcielibyśmy naprawić powyższą sytuację, wtedy znowu możemy posłużyć się jednym z powyżej opisanych sposobów:</p>
+
+<pre data-line="8"><code class="language-js">
+const ob = {
+    hero : "Jacek Placek",
+    print() {
+        console.log(this.hero); //Jacek Placek
+
+        const text = function() {
+            console.log(this.hero) //Jacek Placek
+        }.bind(this);
+
+        text();
+    }
+}
+
+ob.print();
+</code></pre>
+
+<div class="tasks-for-you-cnt">
+    <h2 class="subtitle" id="zadania">Trening czyni mistrza</h2>
+    <p>
+        Poniżej zamieszczam kilka zadań, które w ramach ćwiczenia możesz wykonać:
+    </p>
+    <ol class="tasks-for-you">
+        <li>
+            <div class="question">
+                Stwórz obiekt który ma:<br><br>
+                - właściwość <strong>time</strong> - czas ok 2000<br>
+                - właściwość <strong>pets</strong>, która zawiera tablicę kilku zwierzaków<br>
+                - metodę <strong>print()</strong> - która po czasie "time" zrobi pętlę po tablicy pets
+                i wypisze w konsoli każde zwierzątko dużymi literami<br>
+
+                Odpal metodę print()
+            </div>
+            <div class="solution">
+                <pre><code class="language-js">
+                const ob = {
+                    time : 2000,
+                    pets : ["pies", "kot", "świnka"],
+                    print : function() {
+                        setTimeout(function() {
+                            for (const pet of this.pets) {
+                                console.log(pet.toUpperCase());
+                            }
+                        }.bind(this), this.time);
+                    }
+                }
+                ob.print();
+
+
+                //lub dodatkowa zmienna
+                const ob = {
+                    time : 2000,
+                    pets : ["pies", "kot", "świnka"],
+                    print : function() {
+                        const self = this;
+
+                        setTimeout(function() {
+                            for (const pet of self.pets) {
+                                console.log(pet.toUpperCase());
+                            }
+                        }, this.time);
+                    }
+                }
+                ob.print();
+
+
+                //lub ES6
+                const ob = {
+                    time : 2000,
+                    pets : ["pies", "kot", "świnka"],
+                    print : function() {
+                        setTimeout(() =&gt; {
+                            for (const pet of this.pets) {
+                                console.log(pet.toUpperCase());
+                            }
+                        }, this.time);
+                    }
+                }
+                ob.print();
+                </code></pre>
+            </div>
+        </li>
+        <li>
+            <div class="question">
+                Ściągnij <a href="./obiekty-this-zaawansowane-zadanie.html">stronę z tego adresu</a> (prawy i zapisz jako). W kodzie strony masz skrypt tworzący konstruktor i na jego bazie jeden obiekt. Po kliknięciu na kolejne buttony powinny się w konsoli wypisać zwierzęta - dużymi, małymi i niezmienioną wielkością liter. Kod niestety nie działa prawidłowo. Napraw go.
+            </div>
+            <div class="solution">
+                <pre><code class="language-js">
+                //cała reszta kodu zostaje bez zmian
+                MyObj.prototype.bindBtn = function() {
+                    document.querySelector('#button1').addEventListener("click", this.printBig.bind(this));
+                    document.querySelector('#button2').addEventListener("click", this.printSmall.bind(this));
+                    document.querySelector('#button3').addEventListener("click", this.printNormal.bind(this));
+                }
+                </code></pre>
+            </div>
+        </li>
+    </ol>
+</div>
 
 			</div><!-- e: page-content-text -->
 			<footer class="page-footer">
@@ -165,13 +678,13 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
                 </h3>
             </div>
 
-						<div class="page-sidebar-section show has-active-element">
+						<div class="page-sidebar-section ">
 				<h3 class="page-sidebar-section-title">
 					<a href="#">Słowem wstępu</a>
 				</h3>
 				<div class="page-sidebar-list-cnt">
 					<ul class="page-sidebar-list">
-						<li class="active">
+						<li >
 							<a href="/kurs/wstep/wstep.php">Wstęp</a>
 						</li>
 						<li >
@@ -239,7 +752,7 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
 				</div>
 			</div>
 
-            			<div class="page-sidebar-section ">
+            			<div class="page-sidebar-section show has-active-element">
 				<h3 class="page-sidebar-section-title">
 					<a href="#">Obiekty</a>
 				</h3>
@@ -254,7 +767,7 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
                         <li >
 							<a href="/kurs/obiekty/obiekty-konstruktor.php">Konstruktor</a>
 						</li>
-                        <li >
+                        <li class="active">
 							<a href="/kurs/obiekty/obiekty-zaawansowane-this.php">Zaawansowane this</a>
 						</li>
                         <li >

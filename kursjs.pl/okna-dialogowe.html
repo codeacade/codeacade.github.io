@@ -3,9 +3,9 @@
 <head>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Kurs Javascript - Wstęp</title>
+    <title>Kurs Javascript - Okna dialogowe</title>
 	<meta name="description" content="Kurs Javascript dla superbohaterów, artykuły, tutoriale, porady, zadania do wykonania" />
-    <link rel="canonical" href="https://kursjs.pl/kurs/wstep/wstep.php" />
+    <link rel="canonical" href="https://kursjs.pl/kurs/okna-dialogowe.php" />
 	<link rel="stylesheet" href="./css.css" />
     <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,700&display=swap&subset=latin-ext" rel="stylesheet">
 	<meta name="image" content="https://kursjs.pl/kursjs.png">
@@ -58,49 +58,179 @@
                         <div class="page-content-text">
 
 
-<h1 class="page-title">Wstęp</h1>
+<h1 class="page-title">Okna dialogowe</h1>
 <p>
-Bardzo krótki wstęp ^^.<br /><br />
-Kurs ten jest o Javascripcie. Uhh...
-</p>
-<p>
-Wiedz, że nie staram się tutaj tworzyć największego i najlepszego kursu o JavaScript w internecie.<br>
-Ten kurs to twór jednego człowieka.
-Nie mam szans i nie chcę konkurować z molochami takimi jak <a href="https://developer.mozilla.org/pl/">MDN</a>, <a href="https://www.udemy.com/">Udemy</a>, <a href="https://eduweb.pl/">EduWeb</a> czy <a href="https://www.w3schools.com/js/default.asp">w3schools</a>.<br>
-<br><br>
-Nie znajdziesz tutaj wszystkiego z zakresu JavaScript. <br>
-Po jakimś czasie będziesz chciał wiele rzeczy tutaj pokazanych tworzyć inaczej - lepiej.<br>
-Im większy progres będziesz zdobywał stwierdzisz, że wiele rozdziałów można było napisać o wiele lepiej. I dobrze.<br><br>
-
-W każdym bądź razie - jeżeli ta strona jakoś ci posłuży - to tylko plus. Jeżeli nie - po prostu skorzystaj z innego kursu - na rynku jest tego od groma (niektóre wymieniłem <a href="../dodatkowe-materialy.php">tutaj</a>) i każdy znajdzie coś dla siebie. Ja sam mam kilka w swojej kolekcji i twierdzę, że są naprawdę dobre.
-<br><br>
+JavaScript udostępnia nam trzy typy okien dialogowych:
 </p>
 
 <p>
-Jeszcze mała adnotacja, która siedzi mi w głowie.
+    <button class="button" type="button" id="alertTest">alert</button>
+    <button class="button" type="button" id="confirmTest">confirm</button>
+    <button class="button" type="button" id="promptTest">prompt</button>
 </p>
-<p>
-W internecie znajdziesz setki tutoriali pokazujących najnowsze techniki. A to funkcja strzałkowa, a to jak korzystać z async i await, a to jak robić połączenia fetchem czy chociażby zastosowanie modułów. Małe, konkretne, piękne - jak mój pies (a i od niedawna też kot).
-</p>
-<p>
-Na grupach facebookowych w dyskusjach znajdziesz jeszcze szybciej takie techniki.
-</p>
-<p>
-Tutaj pojawia pewna sprawa, który dotyczy nie tylko JavaScript, ale i całego frontendu. Bardzo często przy takich nowoczesnych tutorialach czy poradach autorzy nie zwracają uwagi na bardzo ważną rzecz - a mianowicie na to, że dobór techniki <strong>zawsze zależy od danego projektu</strong>. To są w końcu rzeczy oczywiste.<br>
-No właśnie nie do końca. To są rzeczy oczywiste - dla nas - osób, które w tej branży siedzą już kilkanaście lat. Ale czy dla osoby zaczynającej?
-</p>
-<p>
-Jeżeli robisz bloga o nowinkach z dziedziny frontentu, raczej możesz założyć, że większość użytkowników będzie korzystała z najnowszych przeglądarek, a więc i możesz używać najnowszych rozwiązań (chociaż najlepiej było by spojrzeć w statystyki Google Analitics które można podpiąć pod stronę).<br>
-Jeżeli jednak robisz stronę dla emerytowanych nauczycieli, czy dla przykładu olbrzymi sklep z którego będą korzystali różnorodni użytkownicy z różnorodnych krajów, wtedy rzucanie się na najnowsze rozwiązania będzie strzałem w stopę.
-</p>
-<p>
-Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie CSS Grid, a czasami nawet flexbox może okazać się czymś, czego użyć nie możesz. Czasami spokojnie będziesz mógł używać najnowszej wersji JavaScript, a czasami będziesz musiał pozostać przy starszej. A jeżeli będziesz musiał pozostać przy starszej, wtedy albo będziesz pisał JavaScript trzymając się klasycznych rozwiązań, albo skorzystasz z narzędzi zamieniających twój kod na starszy zapis.
-</p>
-<p>Autorzy tutoriali często zapominają o tym, że dla początkującej osoby istnieje po prostu JavaScript. Osoby takie często nie zdają sobie sprawy, że nie wszystko w JavaScript można dowolnie używać, nie wiedzą gdzie szukać informacji które przeglądarki co wspierają, jakich narzędzi używać do zamiany kodu i po co w ogóle to robić.</p>
-<p>W kursie tym staram się trzymać klasycznego JavaScript. Jasne - im więcej wiedzy zdobędziesz, im bardziej będziesz rozbudowywał swój warsztat, tym będziesz stosował coraz nowsze i lepsze techniki pisania kodu. A wtedy - tak jak to już pisałem powyżej - będziesz się śmiał z tego kursu. Póki co polecam po prostu uczyć się JavaScript.</p>
 
-<a href="./co-to-jest-javascript.php" class="button">To co? Zaczynamy?...</a>
+<script>
+    document.querySelector('#alertTest').addEventListener('click', function () {
+        alert('To jest okienko alert')
+    });
+    document.querySelector('#confirmTest').addEventListener('click', function () {
+        confirm('To jest okienko confirm')
+    });
+    document.querySelector('#promptTest').addEventListener('click', function () {
+        prompt('To jest okienko prompt')
+    });
+</script>
 
+<p>
+Z jednej strony okienka takie są łatwe we wdrożeniu i skuteczne (bo gdy się pojawią, nie pozwalają kliknąć niczego innego na stronie),
+z drugiej strony bardzo ładnie odciągają uwagę odwiedzającego od zawartości strony. Nie odradzam ich używania.
+Po prostu czasami trzeba się zastanowić, czy nie ma lepszej metody, by poinformować użytkownika o danym zdarzeniu.
+Przykładowo zamiast pokazywać alert z informacją o źle wpisanym mailu, lepiej jest wyświetlić obok takiego pola czerwony
+znaczek czy coś symbolizującego, że ów pole jest źle wypełnione. Użytkowanie strony będzie wtedy o wiele przyjemniejsze.
+</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="fomratowanie">Formatowanie tekstu w okienkach dialogowych</h2>
+<p>
+W oknach dialogowych można formatować tekst za pomocą znaków:
+</p>
+<p>
+<strong>\n</strong> - służący do łamania linii - jak użycie klawisza ENTER w edytorze tekstu.<br />
+<strong>\t</strong> - służący do wstawiania znaku tabulacji.
+</p>
+
+<pre><code class="language-js">
+alert("To są dwie linie \n pisane jedna pod drugą");
+
+console.log("Podobnie zresztą działamy \n w konsoli :)");
+</code></pre>
+
+<h2 class="subtitle" id="alert">Okienko typu alert()</h2>
+<p>
+Wywołanie okienka <strong>alert</strong> ma postać
+</p>
+
+<pre><code class="language-js">
+alert('treść komunikatu');
+</code></pre>
+
+<p>
+Po wywołaniu metody <strong>alert()</strong> zostaje wyświetlone okienko z komunikatem i przyciskiem <strong>OK</strong>.
+Po kliknięciu przycisku nie zostaje zwrócona żadna wartość, tak więc okno to nadaje się tylko do informowania użytkownika o pewnych zdarzeniach.
+Zaznaczyć trzeba, że nie ma możliwości zmiany tytułu tego okna (jest zależny od przeglądarki), a tylko treści jakie to okienko wyświetla.
+</p>
+
+<p>
+<button class="button" type="button" id="alert2">Okienko Alert</button>
+</p>
+
+<script>
+function oknoAlert() {
+    alert('To jest okienko alert');
+}
+document.querySelector('#alert2').addEventListener('click', function() {
+    oknoAlert();
+});
+</script>
+
+
+<!-- ### -->
+<h2 class="subtitle" id="confirm">Okienko typu confirm()</h2>
+<p>
+Wywołanie okienka <strong>confirm</strong> ma postać:
+</p>
+
+<pre><code class="language-js">
+confirm('treść komunikatu');
+</code></pre>
+
+<p>
+Okienko <strong>confirm</strong> służy do tego, aby użytkownik coś potwierdził (stąd nazwa confirm).<br>
+Do metody <strong>confirm()</strong> przekazywany jest tylko jeden parametr zawierający treść jaka będzie wyświetlana w okienku.
+Okienko to wyświetla dwa guziki: <strong>OK</strong> i <strong>ANULUJ</strong> (cancel).<br>
+W zależności od tego który guzik został kliknięty przez użytkownika, metoda ta zwróci <strong>true</strong> lub <strong>false</strong>.
+</p>
+
+<pre><code class="language-js">
+if (confirm('Czy jesteś pewien, że chcesz kontynuować?')) {
+    alert('No to kontynuuj...');
+} else {
+    alert('Przykro mi, że nie chcesz kontynuować...');
+}
+</code></pre>
+
+<p>
+    <button class="button" type="button" id="confirm2">Okienko Confirm</button>
+</p>
+
+<script>
+function oknoConfirm() {
+    if (confirm('Czy jesteś pewien, że chcesz kontynuować?')) {
+        alert('No to kontynuuj...');
+    } else {
+        alert('Przykro mi, że nie chcesz kontynuować...');
+    }
+}
+
+document.querySelector('#confirm2').addEventListener('click', function() {
+    oknoConfirm()
+});
+</script>
+
+
+<div class="kartofel-informuje">
+    <p>
+        Pewnie już nie raz spotkałeś się z bardzo podobnym okienkiem, które pojawia się np. na Facebooku i pyta Cię, czy aby na pewno chcesz
+        opuścić stronę. Z wyglądu podobne, jest to jednak zupełnie inne okienko. Przeglądarka pokazuje je w odpowiedzi na event
+        <a href="https://developer.mozilla.org/en-US/docs/Web/Events/beforeunload">beforeunload</a>. Event ten nie przyjmuje żadnych parametrów, a zwraca
+        tylko jedną wartość, która określa tekst pokazywany w okienku. Cała reszta - przyciski, tytuł okienka itp jest nie do ruszenia.
+    </p>
+</div>
+
+<!-- ### -->
+<h2 class="subtitle" id="prompt">Okienko typu prompt()</h2>
+
+<pre><code class="language-js">
+prompt('treść komunikatu', 'domyślna wartość');
+</code></pre>
+
+<p>
+Do funkcji <strong>prompt</strong> przekazujemy dwa parametry - jeden jest treścią, która będzie wyświetlana w okienku, a drugi jest domyślną wartością, która będzie wyświetlana w polu, w które wpisujemy tekst. Okienko to wyświetla dwa guziki: [OK] i [ANULUJ]. Jeżeli użytkownik kliknie [OK], to zostanie zwrócona
+wartość z pola tekstowego znajdującego się w tym okienku (lub też 'domyślna wartość', jeżeli użytkownik nie zmieniał zawartości tego pola). Jeżeli użytkownik kliknie [ANULUJ], to zostanie zwrócona wartość <strong>null</strong>.
+</p>
+
+<pre><code class="language-js">
+const name = prompt('Podaj swoje imię:', 'Marcin');
+
+if (name) {
+    alert('Witaj ' + name);
+} else {
+    alert('Anulowałeś akcję a okienko zwróciło ' + name);
+}
+
+document.querySelector('#prompt').addEventListener('click', function() {
+    oknoPrompt()
+});
+</code></pre>
+
+<p>
+    <button class="button" type="button" id="prompt2">Okienko Prompt</button>
+</p>
+
+<script>
+function oknoPrompt() {
+    const name = prompt('Podaj swoje imię:', 'Marcin');
+    if (name) {
+        alert('Witaj ' + name);
+    } else {
+        alert('Anulowałeś akcję a okienko zwróciło ' + name);
+    }
+}
+
+document.querySelector('#prompt2').addEventListener('click', function() {
+    oknoPrompt()
+});
+</script>
 			</div><!-- e: page-content-text -->
 			<footer class="page-footer">
 				<p>
@@ -165,13 +295,13 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
                 </h3>
             </div>
 
-						<div class="page-sidebar-section show has-active-element">
+						<div class="page-sidebar-section ">
 				<h3 class="page-sidebar-section-title">
 					<a href="#">Słowem wstępu</a>
 				</h3>
 				<div class="page-sidebar-list-cnt">
 					<ul class="page-sidebar-list">
-						<li class="active">
+						<li >
 							<a href="/kurs/wstep/wstep.php">Wstęp</a>
 						</li>
 						<li >
@@ -311,7 +441,7 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
 			</div>
 
 
-						<div class="page-sidebar-section ">
+						<div class="page-sidebar-section show has-active-element">
 				<h3 class="page-sidebar-section-title">
 					<a href="#">Prawie podstawy</a>
 				</h3>
@@ -326,7 +456,7 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
 						<li >
 							<a href="/kurs/match-media.php">Praca z RWD</a>
 						</li>
-						<li >
+						<li class="active">
 							<a href="/kurs/okna-dialogowe.php">Okienka dialogowe</a>
 						</li>
 						<li >

@@ -3,9 +3,9 @@
 <head>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Kurs Javascript - Wstęp</title>
+    <title>Kurs Javascript - Obiekty - instanceof i hasOwnProperty</title>
 	<meta name="description" content="Kurs Javascript dla superbohaterów, artykuły, tutoriale, porady, zadania do wykonania" />
-    <link rel="canonical" href="https://kursjs.pl/kurs/wstep/wstep.php" />
+    <link rel="canonical" href="https://kursjs.pl/kurs/obiekty/obiekty-instanceof-hasownproperty.php" />
 	<link rel="stylesheet" href="./css.css" />
     <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,700&display=swap&subset=latin-ext" rel="stylesheet">
 	<meta name="image" content="https://kursjs.pl/kursjs.png">
@@ -57,50 +57,244 @@
             </div>
                         <div class="page-content-text">
 
+<h1 class="page-title">Obiekty - instanceof i hasOwnProperty</h1>
+<!-- ### -->
+<h2 class="subtitle" id="instanceof">instanceof</h2>
+<p>
+    W poprzednich rozdziałach tworzyliśmy dwa typy obiektów - pojdedyncze "nie zrzeszone" oraz te należące do jakiejś grupy - budowane na bazie konstruktora.<br>
+    Jeżeli byśmy chcieli sprawdzić jakiego "typu" jest dany obiekt, wystarczy użyć operatora <strong>instanceof</strong>:
+</p>
+<pre data-line="36-43"><code class="language-js">
+    function Animal(name, age) {
+        this.name = name;
+        this.age = age;
+        this.type = 'animal';
+    }
 
-<h1 class="page-title">Wstęp</h1>
-<p>
-Bardzo krótki wstęp ^^.<br /><br />
-Kurs ten jest o Javascripcie. Uhh...
-</p>
-<p>
-Wiedz, że nie staram się tutaj tworzyć największego i najlepszego kursu o JavaScript w internecie.<br>
-Ten kurs to twór jednego człowieka.
-Nie mam szans i nie chcę konkurować z molochami takimi jak <a href="https://developer.mozilla.org/pl/">MDN</a>, <a href="https://www.udemy.com/">Udemy</a>, <a href="https://eduweb.pl/">EduWeb</a> czy <a href="https://www.w3schools.com/js/default.asp">w3schools</a>.<br>
-<br><br>
-Nie znajdziesz tutaj wszystkiego z zakresu JavaScript. <br>
-Po jakimś czasie będziesz chciał wiele rzeczy tutaj pokazanych tworzyć inaczej - lepiej.<br>
-Im większy progres będziesz zdobywał stwierdzisz, że wiele rozdziałów można było napisać o wiele lepiej. I dobrze.<br><br>
+    Animal.prototype.eat = function() {
+        return this.name + " właśnie je";
+    }
 
-W każdym bądź razie - jeżeli ta strona jakoś ci posłuży - to tylko plus. Jeżeli nie - po prostu skorzystaj z innego kursu - na rynku jest tego od groma (niektóre wymieniłem <a href="../dodatkowe-materialy.php">tutaj</a>) i każdy znajdzie coś dla siebie. Ja sam mam kilka w swojej kolekcji i twierdzę, że są naprawdę dobre.
-<br><br>
-</p>
+    function Dog(name, age) {
+        Animal.call(this, name, age);
+        this.name = name;
+        this.type = "dog";
+    }
 
-<p>
-Jeszcze mała adnotacja, która siedzi mi w głowie.
-</p>
-<p>
-W internecie znajdziesz setki tutoriali pokazujących najnowsze techniki. A to funkcja strzałkowa, a to jak korzystać z async i await, a to jak robić połączenia fetchem czy chociażby zastosowanie modułów. Małe, konkretne, piękne - jak mój pies (a i od niedawna też kot).
-</p>
-<p>
-Na grupach facebookowych w dyskusjach znajdziesz jeszcze szybciej takie techniki.
-</p>
-<p>
-Tutaj pojawia pewna sprawa, który dotyczy nie tylko JavaScript, ale i całego frontendu. Bardzo często przy takich nowoczesnych tutorialach czy poradach autorzy nie zwracają uwagi na bardzo ważną rzecz - a mianowicie na to, że dobór techniki <strong>zawsze zależy od danego projektu</strong>. To są w końcu rzeczy oczywiste.<br>
-No właśnie nie do końca. To są rzeczy oczywiste - dla nas - osób, które w tej branży siedzą już kilkanaście lat. Ale czy dla osoby zaczynającej?
-</p>
-<p>
-Jeżeli robisz bloga o nowinkach z dziedziny frontentu, raczej możesz założyć, że większość użytkowników będzie korzystała z najnowszych przeglądarek, a więc i możesz używać najnowszych rozwiązań (chociaż najlepiej było by spojrzeć w statystyki Google Analitics które można podpiąć pod stronę).<br>
-Jeżeli jednak robisz stronę dla emerytowanych nauczycieli, czy dla przykładu olbrzymi sklep z którego będą korzystali różnorodni użytkownicy z różnorodnych krajów, wtedy rzucanie się na najnowsze rozwiązania będzie strzałem w stopę.
-</p>
-<p>
-Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie CSS Grid, a czasami nawet flexbox może okazać się czymś, czego użyć nie możesz. Czasami spokojnie będziesz mógł używać najnowszej wersji JavaScript, a czasami będziesz musiał pozostać przy starszej. A jeżeli będziesz musiał pozostać przy starszej, wtedy albo będziesz pisał JavaScript trzymając się klasycznych rozwiązań, albo skorzystasz z narzędzi zamieniających twój kod na starszy zapis.
-</p>
-<p>Autorzy tutoriali często zapominają o tym, że dla początkującej osoby istnieje po prostu JavaScript. Osoby takie często nie zdają sobie sprawy, że nie wszystko w JavaScript można dowolnie używać, nie wiedzą gdzie szukać informacji które przeglądarki co wspierają, jakich narzędzi używać do zamiany kodu i po co w ogóle to robić.</p>
-<p>W kursie tym staram się trzymać klasycznego JavaScript. Jasne - im więcej wiedzy zdobędziesz, im bardziej będziesz rozbudowywał swój warsztat, tym będziesz stosował coraz nowsze i lepsze techniki pisania kodu. A wtedy - tak jak to już pisałem powyżej - będziesz się śmiał z tego kursu. Póki co polecam po prostu uczyć się JavaScript.</p>
+    Dog.prototype = Object.create(Animal.prototype);
+    Dog.prototype.constructor = Dog;
 
-<a href="./co-to-jest-javascript.php" class="button">To co? Zaczynamy?...</a>
+    Dog.prototype.eat = function() {
+        const text = Animal.prototype.eat.call(this); //tamta funkcja nie ma parametrów
+        return text + " kości";
+    }
 
+    Dog.prototype.bark = function() {
+        return "Wof! Wof!";
+    }
+
+    const dog = new Dog("dog", 8);
+    const animal = new Animal("Animal", 10);
+
+    const ob = {
+        name : "Marcin"
+    }
+
+    console.log(dog instanceof Dog); //true
+    console.log(dog instanceof Animal); //true
+    console.log(dog instanceof Object); //true
+    console.log(animal instanceof Animal); //true
+    console.log(animal instanceof Object); //true
+
+    console.log(ob instanceof Dog); //false
+    console.log(ob instanceof Animal); //false
+</code></pre>
+
+<p>Czemu obiekty dog i animal są instancjami Object? Z tego względu, że Animal i Dog
+   dziedziczą po Object. Ale już nasz obiekt literałowy ob nie ma żadnego powiązania z
+   obiektami typu Animal czy Dog więc instanceof zwraca false.</p>
+
+<p>W razie czego gdybyś chciał sprawdzić czy obiekt dog jest typu Dog, wtedy wystarczy sprawdzić jego konstruktor:</p>
+
+<pre><code class="language-js">
+dog.constructor === Dog;
+</code></pre>
+
+
+<!-- ### -->
+<h2 class="subtitle" id="hasOwnProperty">hasOwnProperty</h2>
+<p>Jeżeli chcemy sprawdzić, czy dana instancja obiektu ma konkretną właściwość lub metodę, użyjemy metody
+<strong>ob.hasOwnProperty(method)</strong>:</p>
+
+<pre><code class="language-js">
+const ob = {
+    name : "Marcin",
+    print : function() {}
+}
+
+console.log(ob.hasOwnProperty("print")); //true
+console.log(ob.hasOwnProperty("name")); //true
+console.log(ob.hasOwnProperty("surname")); //false
+</code></pre>
+
+<p>Metoda lub właściwość musi zawierać się w danej instancji - metody i właściwości z prototypów nie są brane pod uwagę:</p>
+
+<pre><code class="language-js">
+const MyObj = function(name) {
+    this.name = name,
+    this.sayName = function() {}
+}
+MyObj.prototype.print = function() {
+    ...
+}
+
+console.log(ob.hasOwnProperty("name")); //true
+console.log(ob.hasOwnProperty("sayName")); //true
+console.log(ob.hasOwnProperty("print")); //false
+</code></pre>
+
+<p>Do czego to może się przydać?</p>
+<p>Przede wszystkim do sprawdzenia, czy dana właściwość istnieje w konkretnej instancji:</p>
+<pre><code class="language-js">
+const myObj = {
+}
+console.log(myObj.toString); //pokaże kod funkcji dziedziczonej z Object
+
+console.log("toString" in myObj); //true
+console.log(myObj.hasOwnProperty("toString")); // false
+</code></pre>
+
+<p>W praktyce bardzo często będziesz robił pętle po obiektach i będziesz chciał mieć
+   pewność, że w takiej pętli nie pokaże się coś spoza danej instancji:</p>
+
+<pre><code class="language-js">
+const MyObj = function() {
+    this.data = null;
+}
+MyObj.prototype.name = "Marcin";
+MyObj.prototype.print = function() {
+    console.log(this.name);
+}
+
+const ob = new MyObj();
+ob.data = {
+    "2015-10-10" : { name: "Wycieczka za miasto", where: "Puszcza"},
+    "2015-11-10" : { name: "Zakupy w markecie", where: "Market"},
+    "2015-12-09" : { name: "Sprawy w szkole", where: "Szkoła"}
+}
+
+for (const i in ob) { //i to kolejne klucze czyli daty
+    console.log(ob[i]) //wypisze także "Marcin" i funkcje print
+}
+
+for (const i in ob) {
+    if (ob.hasOwnProperty(i)) {
+        console.log(ob[i]) //wypisze tylko obiekty z właściwości data
+    }
+}
+</code></pre>
+
+
+<button id="testHasOwnProperty" type="button" class="button">Sprawdź w konsoli hasOwnProperty</button>
+<script>
+    (function() {
+        document.querySelector('#testHasOwnProperty').addEventListener('click', function() {
+            console.groupCollapsed('Kod obiektu');
+            const text = `
+        const MyObj = function() {
+            this.data = null;
+        }
+        MyObj.prototype.name = "Marcin";
+        MyObj.prototype.print = function() {
+            console.log(this.name);
+        }
+
+        const ob = new MyObj();
+        ob.data = {
+            "2015-10-10" : { name: "Wycieczka za miasto", where: "Puszcza"},
+            "2015-11-10" : { name: "Zakupy w markecie", where: "Market"},
+            "2015-12-09" : { name: "Sprawy w szkole", where: "Szkoła"}
+        }`;
+
+            console.log(text);
+            console.groupEnd();
+
+            const MyObj = function() {
+                this.data = null;
+            };
+            MyObj.prototype.name = "Marcin";
+            MyObj.prototype.print = function() {
+                console.log(this.name);
+            };
+
+            const ob = new MyObj();
+            ob.data = {
+                "2015-10-10" : { name: "Wycieczka za miasto", where: "Puszcza"},
+                "2015-11-10" : { name: "Zakupy w markecie", where: "Market"},
+                "2015-12-09" : { name: "Sprawy w szkole", where: "Szkoła"}
+            };
+
+            console.groupCollapsed('Bez hasOwnProperty');
+
+            for (let i in ob) { //i to kolejne klucze czyli daty
+                console.log(ob[i]) //wypisze także "Marcin"
+            }
+
+            console.groupEnd();
+
+            console.groupCollapsed('Z hasOwnProperty');
+
+            for (const i in ob) {
+                if (ob.hasOwnProperty(i)) {
+                    console.log(ob[i]) //wypisze tylko obiekty z dat
+                }
+            }
+            console.groupEnd();
+        })
+    })();
+</script>
+
+<p>Ogólnie więc jeżeli będziesz robił pętlę po pobranych danych (np. <a href="../ajax/ajax.php#json">JSON</a>) które są w formie obiektu, zawsze dodawaj sprawdzenie hasOwnProperty:</p>
+
+<pre><code class="language-js">
+for (var i in data) {
+    if (data.hasOwnProperty(i)) {
+        console.log(data[i])
+    }
+}
+</code></pre>
+
+<p>lub zastosuj pętle po kluczach wyciągniętych za pomocą <code>Object.keys()</code>:</p>
+
+<pre><code class="language-js">
+const ob1 = {
+  a: 'lorem',
+  b: 100,
+  c: false
+};
+
+const keys = Object.keys(data); //['a', 'b', 'c']
+
+for (const key of keys) {
+    console.log(data[key]);
+}
+</code></pre>
+
+<p>Podobnie zresztą postępuj, jeżeli chcesz zrobić pętlę po wartościach. Użyj wtedy <strong>Object.values()</strong>:</p>
+
+<pre><code class="language-js">
+const ob1 = {
+  a: 'lorem',
+  b: 100,
+  c: false
+};
+
+const values = Object.values(ob1); //['lorem', 100, false]
+
+for (const value of values) {
+    console.log(value);
+}
+</code></pre>
 			</div><!-- e: page-content-text -->
 			<footer class="page-footer">
 				<p>
@@ -165,13 +359,13 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
                 </h3>
             </div>
 
-						<div class="page-sidebar-section show has-active-element">
+						<div class="page-sidebar-section ">
 				<h3 class="page-sidebar-section-title">
 					<a href="#">Słowem wstępu</a>
 				</h3>
 				<div class="page-sidebar-list-cnt">
 					<ul class="page-sidebar-list">
-						<li class="active">
+						<li >
 							<a href="/kurs/wstep/wstep.php">Wstęp</a>
 						</li>
 						<li >
@@ -239,7 +433,7 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
 				</div>
 			</div>
 
-            			<div class="page-sidebar-section ">
+            			<div class="page-sidebar-section show has-active-element">
 				<h3 class="page-sidebar-section-title">
 					<a href="#">Obiekty</a>
 				</h3>
@@ -263,7 +457,7 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
                         <li >
 							<a href="/kurs/obiekty/obiekty-inne-sposoby-tworzenia.php">Inne sposoby tworzenia obiektów</a>
 						</li>
-                        <li >
+                        <li class="active">
 							<a href="/kurs/obiekty/obiekty-instanceof-hasownproperty.php">instanceof i hasOwnProperty</a>
 						</li>
                     </ul>

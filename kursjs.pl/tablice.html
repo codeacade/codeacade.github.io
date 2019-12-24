@@ -1,0 +1,1479 @@
+<!doctype html>
+<html lang="pl-PL">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kurs Javascript - Tablice</title>
+	<meta name="description" content="Kurs Javascript dla superbohaterów, artykuły, tutoriale, porady, zadania do wykonania" />
+    <link rel="canonical" href="https://kursjs.pl/kurs/super-podstawy/tablice.php" />
+	<link rel="stylesheet" href="./css.css" />
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,700&display=swap&subset=latin-ext" rel="stylesheet">
+	<meta name="image" content="https://kursjs.pl/kursjs.png">
+<meta name="twitter:card" content="product">
+<meta name="twitter:site" content="@publisher_handle">
+<meta name="twitter:title" content="Kurs Javascript">
+<meta name="twitter:description" content="Kurs Javascript dla superbohaterów">
+<meta name="twitter:creator" content="@kartofelek007">
+<meta name="twitter:image" content="https://kursjs.pl/kursjs.png">
+<meta property="og:title" content="Kurs Javascript">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.kursjs.com/">
+<meta property="og:image" content="https://kursjs.pl/kursjs.png">
+<meta property="og:description" content="Kurs Javascript dla superbohaterów">
+<meta property="og:site_name" content="Kurs Javascript">
+<link rel="apple-touch-icon" sizes="57x57" href="/favicons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/favicons/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/favicons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/favicons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/favicons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/favicons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/favicons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/favicons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="/manifest.json">
+<meta name="msapplication-TileColor" content="#FF6347">
+<meta name="msapplication-TileImage" content="/mstile-144x144.png">
+    <script src="/js/jquery.min.js"></script>
+</head>
+<body>
+
+<div class="page-container" id="pageContainer">
+	<div class="page-content-wrapper">
+        <main class="page-content" id="mainContent"  data-text-for-print="Kurs Javascript dla superbohaterów">
+                        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <div class="rekl-cnt">
+                <ins
+                class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-6843603045703750"
+                data-ad-slot="4690777640"
+                data-ad-format="auto"
+                data-full-width-responsive="true"
+                ></ins>
+            </div>
+                        <div class="page-content-text">
+
+<h1 class="page-title">Tablice</h1>
+<p>
+Wyobraź sobie, że musisz przechować 10 jakiś wartości. Tworzysz więc 10 zmiennych.<br>
+I wszystko jest w porządku do czasu, gdy dostajesz zadanie, by każdą taką zmienną zwiększyć np. o 2. Zaczynają się schody.<br>
+A schody te zwiększają się gdy dochodzisz do momentu kiedy nie możesz z góry określić ile masz tych zmiennych, lub gdy tych zmiennych robi się nie 10, a na przykład 2000 razy tyle.
+</p>
+<p>
+Tutaj przychodzą z pomocą tablice, które są uporządkowanymi zbiorami zawierającymi jakieś dane. Dość klasycznym porównaniem jest szafa z bibliotecznymi kartami książek. Półka - tablica - przechowuje karty książek - u nas zmienne.
+</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="nowa_tablica">Tworzenie nowej tablicy</h2>
+<p>
+Aby stworzyć nową tablicę korzystamy z kwadratowych nawiasów:
+</p>
+
+<pre><code class="language-js">
+const tab = []; //pusta tablica
+
+const tab2 = [1, 2, 3, 4]; //tablica z 4 liczbami
+
+const tab3 = ['Marcin', 'Ania', 'Agnieszka']; //tablica z 3 elementami
+</code></pre>
+
+<pre><code class="language-js">
+const a = "ALA";
+const b = 234;
+const c = "PIES";
+
+const tab = [a, b, c, "KOT", {...}]; //tablica z 5 elementami. Mogą to być oddzielne zmienne, ale też wartości wpisane w tablicy
+</code></pre>
+
+<p>Drugim sposobem tworzenia tablic - o wiele rzadziej używanym jest użycie konstruktora:</p>
+
+<pre><code class="language-js">
+const tab = new Array(10);
+console.log(tab); //[blank x 10]
+
+const tab = new Array(10, "Ala", "Bala", "Cala");
+console.log(tab); //["Ala", "Bala", "Cala", blank x 7]
+</code></pre>
+
+<p>Metoda ta nie jest polecana na co dzień ze względu na niepotrzebne wydłużenie zapisu, ale przydaje się w kilku sytuacjach.</p>
+
+<img src="./tablica.png" alt="tablica" class="space">
+
+<p>
+Jak widzisz powyżej, tablica przetrzymuje kolejne elementy. Nie ma znaczenia jakie są to elementy.<br>
+Znaczenie ma to, że są one ponumerowane za pomocą tak zwanych <strong>indeksów</strong>, które numerowane są od 0.<br>
+Pierwsza wartość w tablicy ma indeks <strong>0</strong>, druga <strong>1</strong>, trzecia <strong>2</strong> i tak dalej, aż do ostatniego indeksu który wynosi długość tablicy - 1 czyli <strong>tab.length-1</strong>.
+</p>
+
+<p>
+Po stworzeniu tablicy aby pobrać dane elementy z tablicy wystarczy się do nich odwołać przez nazwę tablicy i indeks, który podajemy w kwadratowych nawiasach:
+</p>
+
+<pre><code class="language-js">
+const tab = ["Ala", "ma", "rudego", "kota"];
+
+console.log( tab[0] ); //Ala
+console.log( tab[1] ); //ma
+console.log( tab[2] ); //rudego
+console.log( tab[3] ); //kota
+</code></pre>
+
+<p>Pamiętaj, że jeżeli pobieramy dany element z tablicy, to to co właśnie pobraliśmy nie jest jakąś magiczną nieosiągalną rzeczą, a zwykłą wartością, do której odwołalibyśmy się normalnie przez nazwę.<br>
+Dlatego właśnie po pobraniu elementu z tablicy traktujemy go tak samo jak klasyczną zmienną (bo w zasadzie to to samo, tylko włożone do tablicy):</p>
+
+<pre><code class="language-js">
+const myVar = "Marcin";
+console.log(myVar + "!"); //Marcin!
+
+const tab = ["Marcin", "Ania"]
+console.log(tab[0] + "!"); //Marcin!
+
+const name = tab[1];
+console.log(name.toUpperCase() + " jest lepsza"); //ANIA jest lepsza
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="length">Właściwość length</h2>
+<p>
+Każda tablica udostępnia nam właściwość <strong>length</strong>, która określa jej długość (czyli ilość jej elementów).<br>
+Dzięki temu możemy poznać nie tylko długość tablicy, ale i indeks ostatniego elementu oraz w łatwy sposób przeprowadzać pętlę po wszystkich elementach naszej tablicy.
+</p>
+
+<pre><code class="language-js">
+//indeks:       0         1         2
+const tab = ['Marcin', 'Ania', 'Agnieszka'];
+
+console.log( tab.length ); //3
+console.log( tab[ tab.length-1 ] ); //Agnieszka
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="push">Dodawanie elementów do tablicy</h2>
+<p>
+Aby dodać do tablicy element na jej końcu, możemy użyć metody <strong>push(element1, element2, ...)</strong>:
+</p>
+
+<pre><code class="language-js">
+const tab = ["Marcin", "Ania", "Agnieszka"];
+tab.push("Piotrek");
+console.log(tab); //[Marcin, Ania, Agnieszka, Piotrek]
+
+tab.push("Y", "Z");
+console.log(tab); //[Marcin, Ania, Agnieszka, Piotrek, Y, Z]
+</code></pre>
+
+<p>
+Drugą metodą jest po prostu ustawianie elementu na danym indeksie:
+</p>
+
+<pre><code class="language-js">
+const tab = ["Marcin", "Ania", "Agnieszka"];
+
+tab[3] = "Piotrek";
+//lub
+tab[tab.length] = "Piotrek";
+
+console.log(tab); //[Marcin, Ania, Agnieszka, Piotrek]
+</code></pre>
+
+<p>
+Jest to mniej bezpieczna metoda, bo możemy nieumyślnie ustawić element w złym miejscu, co może spowodować, że w tabeli pojawią się puste miejsca:
+</p>
+
+<pre><code class="language-js">
+const tab = ["Marcin", "Ania"];
+
+tab[6] = "Piotrek";
+console.log(tab); //[Marcin, Ania, empty x 4, Piotrek]
+</code></pre>
+
+<p>lub przez przypadek nadpiszemy już istniejącą wartość:</p>
+
+<pre><code class="language-js">
+const tab = ["Marcin", "Ania", "Agnieszka"];
+
+tab[2] = "Piotrek";
+console.log(tab); //Marcin, Ania, Piotrek
+</code></pre>
+
+<p>
+Poza powyższymi podstawami, tablice udostępniają nam dużą liczbę metod, <a href="https://developer.mozilla.org/pl/docs/Web/JavaScript/Referencje/Obiekty/Array">które możemy na nich używać</a>.<br>
+Poniżej poznamy te najczęściej używane.
+</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="push-pop">push() i pop() - na końcu tablicy</h2>
+
+<p>
+    Metoda <strong>Array.push(el1, el2*...)</strong> wstawia nowy element (lub kilka) do tablicy na jej końcu i zwraca długość nowej tablicy. Elementów wstawianych można podać kilka lub jeden.
+</p>
+
+<pre><code class="language-js">
+const tab = ['Marcin', 'Ania', 'Agnieszka'];
+tab.push('Grzegorz');
+tab.push('Piotr', 'Karol');
+
+console.log(tab) //["Marcin", "Ania", "Agnieszka", "Grzegorz", "Piotr", "Karol"]
+</code></pre>
+
+<p>
+    Metoda <strong>pop()</strong> w przeciwieństwie do push() zabiera ostatni element z tablicy i go zwraca:
+</p>
+
+<pre><code class="language-js">
+const tab = ['Marcin', 'Ania', 'Agnieszka'];
+const last =  tab.pop();
+
+console.log(last); //Agnieszka
+console.log(tab); //[Marcin, Ania]
+</code></pre>
+
+
+<!-- ### -->
+<h2 class="subtitle" id="unshift-shift">unshift() i shift() - na początku tablicy</h2>
+
+<p>
+    Metoda <strong>unshift(el1, el2*...)</strong> wstawia nowy element do tablicy na jej początku, po czym zwraca nową długość tablicy. Elementów wstawianych można podać kilka, albo jeden.
+</p>
+
+<pre><code class="language-js">
+const tab = ['Marcin', 'Ania', 'Agnieszka'];
+tab.unshift('Bartek');
+tab.unshift('Piotrek', 'Paweł');
+
+console.log(tab); //[Piotrek, Paweł, Bartek, Marcin, Ania, Agnieszka]
+</code></pre>
+
+<p>
+    Metoda <strong>shift()</strong> natomiast usuwa pierwszy element z tablicy i zwraca jego wartość:
+</p>
+
+<pre><code class="language-js">
+const tab = ['Marcin', 'Ania', 'Agnieszka'];
+const elDeleted = tab.shift();
+
+console.log(tab); //[Ania, Agnieszka]
+console.log(elDeleted); //Marcin
+</code></pre>
+
+
+<!-- ### -->
+<h2 class="subtitle" id="join">join() - łączenie elementów tablicy</h2>
+<p>
+Metoda <strong>Array.join(separator)</strong> służy do łączenia kolejnych elementów w jeden wspólny string.<br>
+
+Opcjonalnym parametrem tej metody jest separator - tekst, który będzie oddzielał kolejne elementy w utworzonym tekście.
+Jeżeli go nie podamy będzie użyty domyślny znak przecinka:
+</p>
+
+<pre><code class="language-js">
+const ourTable = ["Marcin", "Ania", "Agnieszka"];
+
+console.log(ourTable.join()); //wypisze się "Marcin,Ania,Agnieszka"
+
+console.log(ourTable.join(" - ")); //wypisze się "Marcin - Ania - Agnieszka"
+
+console.log(ourTable.join(" <--> ")); //wypisze się "Marcin <--> Ania <--> Agnieszka"
+</code></pre>
+
+<p>Do czego to może się przydać?</p>
+<p>
+Wyobraź sobie, że masz kilka samochodów.
+Chciałbyś je wszystkie wypisać, stawiając między nimi przecinki. Wystarczy więc użyć pętli:
+</p>
+
+<pre><code class="language-js">
+const cars = ["Mercedes", "Audi", "BMW"];
+
+let str = '';
+for (let i=0; i&lt;cars.length; i++) {
+    str += cars[i] + ', ';
+}
+console.log(str); //"Mercedes, Audi, BMW, "
+</code></pre>
+
+<p>
+Problem z powyższym rozwiązaniem jest taki, że na końcu tekstu też dostajesz przecinek i spację.
+Musiałbyś więc w pętli sprawdzać czy dany element jest ostatni i w razie czego nie dodawać tych znaków.<br>
+Mógłbyś też po prostu użyć join:
+</p>
+
+<pre><code class="language-js">
+const cars = ["Mercedes", "Audi", "BMW"];
+console.log( cars.join(', ') ); //"Mercedes, Audi, BMW"
+</code></pre>
+
+<p>Niektórzy też wykorzystują join() do wypisywania tekstu, który ma wiele linii:</p>
+
+<pre><code class="language-js">
+//zamiast
+let text = "Ala ma kota&lt;br>"
+text += "a kot ma Alę&lt;br>"
+text += "Ala go kocha&lt;br>"
+text += "a kot ją wcale"
+console.log(text);
+
+//można
+const text = ["Ala ma kota", "a kot ma Alę", "Ala go kocha", "a kot ją wcale"];
+console.log(text.join("&lt;br>"));
+</code></pre>
+
+<p>Albo np. do liczenia liter w tekście:</p>
+
+<pre><code class="language-js">
+const cars = ["Mercedes", "Audi", "BMW"];
+console.log(cars.join("").length); //15
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="reverse">reverse() - odwracanie kolejności elementów tablicy</h2>
+<p>
+Dzięki metodzie <strong>reverse()</strong> możemy odwrócić elementy naszej tablicy:
+</p>
+
+<pre><code class="language-js">
+const tab = [1,2,3,4];
+
+console.log('Przed: ' + tab); //Przed: [1,2,3,4]
+tab.reverse()
+console.log('Po: ' + tab); //Po: [4,3,2,1]
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="sort">sort() - sortowanie tablicy</h2>
+<p>
+Metoda <strong>Array.sort(fn)</strong> służy do sortowania tablic.<br>
+Metoda ta przekształca równocześnie tablicę, na której została wykonana.<br><br>
+
+Powiedzmy, że mamy tablicę z niepoukładanymi wartościami, i chcemy ją posortować:
+</p>
+
+<pre><code class="language-js">
+const tab = ['Marcin', 'Ania', 'Piotrek', 'Grześ'];
+tab.sort();
+
+console.log( tab ); //wypisze się "Ania, Grześ, Marcin, Piotrek"
+</code></pre>
+
+<p>
+Standardowo JavaScript segreguje tablice leksykograficznie (alfabetycznie) traktując liczby jak litery.<br>
+Powoduje to w wielu przypadkach nieoczekiwane rezultaty:
+</p>
+
+<pre><code class="language-js">
+const tab = [1, 2, 21, 2.1, 32, 3.1];
+tab.sort();
+
+console.log(tab); //[ 1, 2, 2.1, 21, 3.1, 32 ]
+</code></pre>
+
+Aby móc posegregować naszą tablicę według własnych kryteriów,
+musimy skorzystać z <a href="https://developer.mozilla.org/pl/docs/Web/JavaScript/Referencje/Obiekty/Array/sort">dodatkowego parametru</a>, który będzie naszą funkcją sortującą.<br>
+Do funkcji tej przekazane zostaną 2 parametry - dwa kolejne porównywane ze sobą elementy.
+</p>
+
+<p>
+Pisząc taką funkcję musimy pamiętać o 3 warunkach:
+</p>
+
+<ul>
+    <li>Jeżeli <strong>funkcja(a, b)</strong> zwróci wartość mniejszą od <strong>0</strong>, to wartość <strong>a</strong> będzie miała <strong>mniejszy</strong> indeks od <strong>b</strong></li>
+    <li>Jeżeli <strong>funkcja(a, b)</strong> zwróci 0, to indeksy wartości a i b pozostaną bez zmian</li>
+    <li>Jeżeli <strong>funkcja(a, b)</strong> zwróci wartość większą od 0, to wartość <strong>a</strong> będzie miała <strong>większy</strong> indeks od <strong>b</strong></li>
+</ul>
+
+<p>
+Tak więc ogólna postać funkcji sortującej wygląda tak:
+</p>
+
+<pre><code class="language-js">
+function compare(a, b) {
+    if (a < B) {
+        return -1
+    } else if (a > b) {
+        return 1
+    }
+    //if (a === b)
+    return 0
+}
+
+tab.sort(compare);
+</code></pre>
+
+<p>
+Przykładowo aby posegregować wartości liczbowe musimy utworzyć funkcję:
+</p>
+
+<pre><code class="language-js">
+function compareNr(a, b) {
+    return a - b
+}
+
+const tab = [100, 320, 10, 25, 310, 1200, 400];
+
+const tab3 = tab.sort(compareNr);
+console.log( tab3 ); //[10, 25, 100, 310, 320, 400, 1200]
+</code></pre>
+
+<p>
+Oczywiście możemy sami wymyślać nasze własne kryteria segregacji (na przykład by cyfry były "mniejsze" od liter, lub też duże litery były "mniejsze" od małych liter...).
+</p>
+
+<pre><code class="language-js">
+const tab = [
+    { name: 'Marcin' , height : 183 },
+    { name: 'Ania' , height : 173 },
+    { name: 'Agnieszka' , height : 170 },
+]
+
+//dla sort spokojnie możemy używać funkcji anonimowej
+const tab2 = tab.sort(function(a, b) {
+    return a.height - b.height;
+});
+
+console.log(tab2);
+</code></pre>
+
+<p>W powyższych przykładach sortowaliśmy po liczbach. Jeżeli podczas takiego sortowania chcielibyśmy porównać 2 stringi, odejmowanie raczej tutaj nie zadziała. O wiele lepszym rozwiązaniem będzie użycie metody
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/localeCompare">localeCompare()</a>:
+</p>
+
+<pre><code class="language-js">
+const tab = [
+    { name: 'Marcin' , height : 183 },
+    { name: 'Ania' , height : 173 },
+    { name: 'Agnieszka' , height : 170 },
+]
+
+const tab2 = tab.sort(function(a, b) {
+    return a.name.localeCompare( b.name );
+})
+
+console.log(tab2);
+</code></pre>
+
+<p>Ale nie tylko proste tablice można sortować. Dzięki temu, że możemy przekazać własną funkcję, sortować możemy każdy rodzaj tablicy:</p>
+
+<pre><code class="language-js">
+const mails = [
+    "marcin@wp.pl",
+    "marcin@gmail.pl",
+    "marcin@onet.pl",
+    "marcin@interia.pl"
+]
+
+//sortuje po domenach
+//z użyciem funkcji strzałkowej
+mails.sort((a, b) => {
+    const aDomain =  a.substr(a.indexOf('@'));
+    const bDomain =  b.substr(b.indexOf('@'));
+    return aDomain.localeCompare(bDomain);
+})
+
+console.log(mails);
+</code></pre>
+
+<pre><code class="language-js">
+const users = [
+    {
+        name : "Marcin",
+        car : {
+            name : "Toyota",
+            age : 10
+        }
+    },
+    {
+        name : "Marcin",
+        car : {
+            name : "Fiat",
+            age : 15
+        }
+    },
+    {
+        name : "Monika",
+        car : {
+            name : "BMW",
+            age : 5
+        }
+    },
+]
+
+//sortuje po wieku samochodu
+users.sort((a, b) => {
+    return a.car.age - b.car.age
+});
+
+console.log(users);
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="merge">concat() - łączenie dwóch tablic</h2>
+<p>
+Do połączenia dwóch tablic nie możemy użyć zwykłego dodawania (tak samo nie możemy odejmować tablicy od tablicy):
+</p>
+
+<pre><code class="language-js">
+const tab1 = ["Ala", "Basia"];
+const tab2 = ["Piotr", "Marcin"];
+console.log(tab1 + tab2); //Ala,BasiaPiotr,Marcin
+</code></pre>
+
+<p>
+Wynikiem jest string. Zadziałała tutaj automatyczna konwersja typów z wykorzystaniem metody toString(). Tak czy siak wynik jest błędny.
+</p>
+
+<p>
+Aby połączyć ze sobą kilka tablic wykorzystamy metodę <strong>concat()</strong>, która jako parametr przyjmuje jedną lub kilka tablic:
+</p>
+
+<pre><code class="language-js">
+const anim1 = ["Pies", "Kot"];
+const anim2 = ["Słoń", "Wieloryb"];
+const anim3 = ["Chomik ninja", "Świnka morderca"];
+
+const table = anim1.concat(anim2);
+console.log(table); //wypisze ["Pies", "Kot", "Słoń", "Wieloryb"]
+
+const tableBig = anim1.concat(anim2, anim3);
+console.log(tableBig); //wypisze ["Pies", "Kot", "Słoń", "Wieloryb", "Chomik ninja", "Świnka morderca"];
+</code></pre>
+
+<p>W dzisiejszych czasach o wiele przyjemniejszą metodą jest użycie <a href="../es6/spread-rest.php">spread operatora</a>:</p>
+
+<pre><code class="language-js">
+const anim1 = ["Pies", "Kot"];
+const anim2 = ["Słoń", "Wieloryb"];
+const table = [...anim1, ...anim2];
+console.log(table)
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="slice">slice() - zwracanie kawałka tablicy</h2>
+<p>
+    Metoda <strong>Array.slice(od, do*)</strong> tak samo jak przy stringach,
+    zwraca nową tablicę zawierającą elementy z tablicy na której została wywołana.
+
+    Pierwszy parametr <strong>od</strong> wskazuje na indeks, od którego ma "wyciąć" elementy, a <strong>do</strong> analogicznie wskazuje indeks do jakiego będziemy ciąć.
+    Jeżeli go nie podamy, zostanie wycięty kawałek od danego indeksu do końca tablicy.
+</p>
+
+<pre><code class="language-js">
+const tab = ["Marcin", "Ania", "Agnieszka", "Monika", "Magda"];
+
+const tab2 = tab.slice(0, 1);
+console.log(tab2); //["Marcin"]
+console.log(tab); //["Marcin", "Ania", "Agnieszka", "Monika", "Magda"]
+
+const tab3 = tab.slice(2);
+console.log(tab3); //["Agnieszka", "Monika", "Magda"]
+
+const tab4 = tab.slice(0, 5);
+console.log(tab4); //["Marcin", "Ania", "Agnieszka", "Monika", "Magda"]
+
+const tab5 = tab.slice(-2); //od końca
+console.log(tab5); //["Monika", "Magda"]
+
+const tab6 = tab.slice(2, -1);
+console.log(tab6); //["Agnieszka", "Monika"]
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="splice_delete">splice() - usuwanie lub dodawanie elementów</h2>
+<p>
+    Metoda <strong>splice(index, ileUsunąć, noweElementy*...)</strong> służy zarówno do usuwania jak i wstawiania nowych elementów do tablicy.<br>
+    Parametr <strong>index</strong> określa miejsce w tablicy od którego zacznie się usuwanie elementów.<br>
+    Parametr <strong>ileUsunąć</strong> mówi ile elementów powinno być usuniętych z tablicy. Jeżeli podamy 0, wtedy nic nie zostanie z tablicy usunięte.<br>
+    Opcjonalne parametry <strong>elementyWstawiane</strong> to elementy, które będą wstawiane tuż przez usuwanymi elementami, lub tuż przed danym elementem, jeżeli nic nie usuwamy.
+</p>
+
+<pre><code class="language-js">
+const tab = ['Marcin', 'Ania', 'Agnieszka'];
+
+tab.splice(1, 1); //od indeksu 1 usuwam 1 element
+console.log(tab); //wypisze "Marcin, Agnieszka"
+
+tab.splice(1, 0, 'Monika', 'Magda') //nic nie usuwam i wstawiam nowe elementy przed indeks 1
+console.log(tab); //wypisze "Marcin, Monika, Magda, Agnieszka"
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="delete_element">Usuwanie dowolnego elementu tablicy</h2>
+<p>
+    Aby usunąć jakiś element w tablicy wykorzystamy powyżej opisaną metodę <strong>splice</strong>:
+</p>
+
+<pre><code class="language-js">
+const tab = ['Marcin', 'Ania', 'Agnieszka', 'Monika'];
+const delEl = tab.splice(2, 1);
+console.log(tab); //wypisze 'Marcin', 'Ania', 'Monika'
+console.log(delEl); //wypisze 'Agnieszka'
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="shift">Dodanie elementu do tablicy w dowolnym miejscu</h2>
+<p>
+    Tutaj tak samo musimy skorzystać z metody splice:
+</p>
+
+<pre><code class="language-js">
+const tab = ['Marcin', 'Ania', 'Agnieszka', 'Monika'];
+
+//1 - który indeks,
+//0 - ile elementów usunąć,
+//'Piotr' - element
+tab.splice(1, 0, 'Piotr');
+
+console.log(tab); //[Marcin, Piotr, Ania, Agnieszka, Monika]
+</code></pre>
+
+
+<!-- ### -->
+<h2 class="subtitle" id="fill">fill() - wypełnianie tablicy</h2>
+<p>Metoda fill() służy do wypełniania tablicy. Pierwszy jej parametr to wartość, którą zostanie wypełniona tablica.
+Dwa pozostałe opcjonalne parametry wskazują na indeks początku i końca wypełniania. Jeżeli nie podamy indeksu kończącego, tablica zostanie wypełniona od indeksu początkowego do swojego końca.</p>
+
+<pre><code class="language-js">
+const tab = new Array(20);
+console.log(tab); //[empty x 20]
+tab.fill("kot");
+console.log(tab); //["kot", "kot", "kot", ...]
+console.log("co" + tab.join("")) //"cokotkotkotkot..."
+
+
+const tab2 = [];
+tab2.length = 15;
+console.log(tab2); //[empty x 15]
+tab2.fill("kot", 2, 5);
+console.log(tab2); //[empty × 2, "kot", "kot", "kot", empty × 10]
+
+
+const tab3 = [1, 2, 3, 4, 5];
+tab3.fill("pies", 2);
+console.log(tab3); //[1, 2, "pies", "pies", "pies"]
+</code></pre>
+
+<p>Metoda ta ma dość ciekawe zastosowanie wraz z map lub forEach:</p>
+
+<pre><code class="language-js">
+const tab = new Array(10);
+
+//forEach i map pomijają puste miejsca, dlatego musimy tablicę wypełnić
+const nr = tab.fill(0).map((el, i) => i);
+console.log(nr); //[0,1,2,3,4,5,6,7,8,9];
+
+const randomTab = tab.fill(0).map(el => Math.floor(Math.random() * 10) + 1);
+console.log(randomTab);
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="for">Pętla po tablicy</h2>
+<p>
+    Jedną z najwspanialszych rzeczy, jakie dają nam tablice to możliwość
+    wykonywania na nich zbiorczych operacji za pomocą pętli.<br>
+    Aby zrobić pętlę po tablicy możemy skorzystać z kilku zapisów.
+    Jednym z nich jest użycie pętli for, w której za pomocą licznika
+    wskazujemy na dany element w tablicy:
+</p>
+
+<pre><code class="language-js">
+const tab = ['Marcin', 'Ania', 'Agnieszka'];
+
+for (let i=0; i&lt;tab.length; i++) {
+    console.log('licznik pętli: ' + i); //0, 1...
+    console.log('element: ' + tab[i]); //tab[0], tab[1]...
+}
+</code></pre>
+
+<p>Widzisz jak się odwołuję do danego elementu tablicy? Skoro licznik "i" zwiększa się
+od 0 do tab.length-1, to mogę za jego pomocą pobierać kolejne elementy tablicy czyli <strong>tab[0]</strong>, <strong>tab[1]</strong>... i tak do <strong>tab[tab.length-1]</strong></p>
+
+<p>Jest to dość uniwersalny sposób iterowania po tablicach spotykany w wielu językach. Jeżeli nauczysz się go w Javascripcie, to podobnie będziesz mógł iterować w innych środowiskach. Ale też nie jest to najwygodniejszy sposób na iterowanie po tablicach.</p>
+
+<p>W kolejnym rozdziale zajmiemy się przydatnymi <a href="./tablice-iteracje.php">funkcjami iteracyjnymi</a>, które będziemy stosować bardzo często.</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="tablice-wielowymiarowe">Tablice wielowymiarowe</h2>
+<p>
+Skoro tablice mogą w sobie trzymać dowolne wartości, mogą także przetrzymywać obiekty, lub... kolejne tablice.
+Taki twór zwie się <strong>tablicami wielowymiarowymi</strong>.<br><br>
+
+<pre><code class="language-js">
+const tab = [
+    ['Marcin' , 183, 'red', 'kot'],
+    ['Ania' , 173, 'blue', 'pies'],
+    ['Agnieszka' , 170, 'yellow', 'świnka']
+]
+
+console.log(`
+    imię:       ${tab[0][0]}
+    wzrost:     ${tab[0][1]}
+    kolor:      ${tab[0][2]}
+    zwierzak:   ${tab[0][1]}
+`);
+</code></pre>
+
+<p>Powyższy przykład nie jest idealny. Trzymanie w taki sposób danych tego typu to proszenie się o problemy.
+Po pierwsze musimy pamiętać kolejność indeksów dla każdej danej. Druga sprawa to potencjalna możliwość zmiany kolejności indeksów. Problemy te rozwiązują <a href="../obiekty/obiekty.php">obiekty</a>, o których sobie jeszcze porozmawiamy.</p>
+
+<p>Nie oznacza to jednak, że takie wielowymiarowe tablice nie mają zastosowania. Mają - i to całkiem duże.</p>
+
+<p>Wystarczy chociażby spojrzeć praktycznie na dowolną grę. Praktycznie każda mapa grafik czy kolizji w takich grach budowana jest na bazie właśnie tablic wielowymiarowych, gdzie każdy indeks zagnieżdżonej tablicy zawiera informację na temat użytej w danym miejscu grafiki czy wystąpienia ściany.</p>
+
+<img src="./level-mario.png" alt="level mario" class="space">
+
+<div class="kartofel-informuje">
+Takie tablice można oczywiście pisać ręcznie, ale najczęściej układane są przez artystów za pomocą specjalnych edytorów. Jednym ze znanych jest program <a href="https://www.mapeditor.org/">https://www.mapeditor.org/</a>, który służy właśnie do układania klocków na mapie, a tym samym tworzenia naszej wielowymiarowej tablicy indeksów.
+</div>
+
+<p>Spróbujmy wyświetlić jedną z takich przykładowych tablic na ekranie konsoli debugera:</p>
+
+<pre><code class="language-js">
+const level = [
+    [1, 1, 0, 0, 1, 1, 0, 0, 1, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 1, 1, 0, 0, 1, 1, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [0, 0, 0, 1, 0, 0, 1, 0, 0, 0],
+    [0, 0, 0, 1, 0, 0, 1, 0, 0, 0],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 1, 1, 0, 0, 1, 1, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 1, 0, 0, 1, 1, 0, 0, 1, 1]
+];
+
+
+let str = '';
+//robimy pętlę po tablicy
+for (let i=0; i&lt;level.length; i++) {
+
+    //pobieram podtablicę pod zmienną subTab
+    const subTab = level[i];
+    //i robię po niej pętlę
+    for (let j=0; j&lt;subTab.length; j++) {
+        switch (subTab[j]) {
+            case 0 : str += "  "; break;
+            case 1 : str += "▓▓"; break;
+        }
+    }
+    str += "\n";
+}
+
+console.log(str);
+</code></pre>
+
+<button id="levelTest" class="button">Sprawdź w konsoli</button>
+
+<script>
+    {
+        const btn = document.querySelector("#levelTest");
+        btn.addEventListener("click", function() {
+            const level = [
+                [1, 1, 0, 0, 1, 1, 0, 0, 1, 1],
+                [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+                [1, 0, 1, 1, 0, 0, 1, 1, 0, 1],
+                [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+                [0, 0, 0, 1, 0, 0, 1, 0, 0, 0],
+                [0, 0, 0, 1, 0, 0, 1, 0, 0, 0],
+                [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+                [1, 0, 1, 1, 0, 0, 1, 1, 0, 1],
+                [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+                [1, 1, 0, 0, 1, 1, 0, 0, 1, 1]
+            ];
+
+            let str = '';
+            //robimy pętlę po tablicy
+            for (let i=0; i<level.length; i++) {
+
+                //pobieram podtablicę pod zmienną subTab
+                const subTab = level[i];
+                //i robię po niej pętlę
+                for (let j=0; j<subTab.length; j++) {
+                    switch (subTab[j]) {
+                        case 0 : str+="  "; break;
+                        case 1 : str+="▓▓"; break;
+                    }
+                }
+                str += "\n";
+            }
+
+            console.log(str);
+        })
+    }
+</script>
+
+<p>W naszym przypadku w tablicy są tylko wartości 0/1.
+   W praktyce musiały by się tam znaleźć indeksy każdej grafiki użytej do zrobienia danej planszy.
+   I tu się pojawia smutek autora.<br>
+   Bo z jednej strony aż chciało by się pokazać jakiś realny przykład,
+   ale to wymagało by wiedzy o <a href="../dom/dom.php">DOM</a> albo <a href="../canvas/canvas.php">Canvas</a>.
+   Przyjdzie pora i na to.
+</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="flat">flat() - spłaszczanie tablicy wielowymiarowej</h2>
+<p>Jeżeli chcemy spłaszczyć wielowymiarową tablicę, zastosujemy funkcję <a href="https://developer.mozilla.org/pl/docs/Web/JavaScript/Referencje/Obiekty/Array/flat">flat()</a>. Jedyny jej parametr służy do określenia ile poziomów mamy spłaszczyć:</p>
+
+<pre><code class="language-js">
+const tab = [
+    1,
+    [2,3],
+    [4,5,[6,7]],
+    [[[8,9], [10,11]]]
+]
+
+console.log(tab.flat(1));
+</code></pre>
+
+<img src="./table-flat-1.png" alt="tablice flat 1 poziom" class="border">
+
+<pre><code class="language-js">
+const tab = [
+    1,
+    [2,3],
+    [4,5,[6,7]],
+    [[[8,9], [10,11]]]
+]
+
+console.log(tab.flat(2));
+</code></pre>
+
+<img src="./table-flat-2.png" alt="tablice flat 2 poziom" class="border">
+
+<p>Jeżeli chcemy mieć pewność, że uzyskamy płaską 1 wymiarową tablicę, jako liczbę poziomów podajmy <strong>Infinity</strong>:</p>
+
+<pre><code class="language-js">
+const tab = [
+    1,
+    [2,3],
+    [4,5,[6,7]],
+    [[[8,9], [10,11]]]
+]
+
+console.log(tab.flat(Infinity)); //[1,2,3,4,5,6,7,8,9,10,11]
+</code></pre>
+
+<div class="tasks-for-you-cnt">
+	<h2 class="subtitle" id="zadania">Trening czyni mistrza</h2>
+	<p>
+		Poniżej zamieszczam kilka zadań, które w ramach ćwiczenia możesz wykonać:
+	</p>
+	<ol class="tasks-for-you">
+		<li>
+			<div class="question">
+				Zadeklaruj tablicę tab z 5 tekstami. Wypisz w konsoli tą tablicę i jej długość.
+			</div>
+			<div class="solution">
+				<pre><code class="language-js">
+					const tab = ["Kot", "Pies", "Chomik", "Ninja", "Wiewiórka"];
+					console.table(tab);
+					console.log(tab.length);
+				</code></pre>
+			</div>
+		</li>
+		<li>
+			<div class="question">
+				Robiąc pętlę po tablicy z pierwszego zadania wypisz każdy element oraz jego długość. Skorzystaj z pętli
+				for, for of i forEach
+			</div>
+			<div class="solution">
+				<pre><code class="language-js">
+				for (let i=0; i&lt;tab.length; i++) {
+					console.log(tab[i], tab[i].length);
+				}
+	
+				for (const el of tab) {
+					console.log(el, el.length);
+				}
+	
+				tab.forEach(function(el) {
+					console.log(el, el.length);
+				});
+				</code></pre>
+			</div>
+		</li>
+		<li>
+			<div class="question">
+			Do tabeli z pierwszego zadania dodaj na końcu i początku po 1 nowym elemencie.
+			Wykorzystaj odpowiednie metody. Po dodaniu elementów wypisz długość tablicy.
+			</div>
+			<div class="solution">
+				<pre><code class="language-js">
+				tab.push("Kitket");
+				tab.unshift("Pet");
+	
+				console.log(tab.length);
+				</code></pre>
+			</div>
+		</li>
+		<li>
+			<div class="question">
+			Stwórz tablicę 10 losowych absolutnych liczb z przedziału 1-10.
+			Wykorzystaj do tego odpowiedni wzór ze strony <a href="https://web.archive.org/web/20181210212406/https://stackoverflow.com/questions/4959975/generate-random-number-between-two-numbers-in-javascript">strony</a>.
+	
+			Po utworzeniu tablicy wypisz w konsoli jej największy i najmniejszy element.
+			Uwaga! Nie stosuj do tego pętli for jak w przykładach powyżej, a metodę sort()
+			</div>
+			<div class="solution">
+				<pre><code class="language-js">
+				const tab = [];
+				for (var i=0; i&lt;10; i++) {
+					tab.push(  Math.floor(Math.random() * 10) + 1);
+				}
+	
+				tab.sort(function(a, b) {
+					return a-b;
+				});
+	
+				console.log("Tablica: ", tab);
+				console.log("Najmniejszy element: ", tab[0]);
+				console.log("Największy element: ", tab[tab.length-1]);
+				</code></pre>
+	
+				lub w ES6
+	
+				<pre><code class="language-js">
+				const tab = [];
+				for (var i=0; i&lt;10; i++) {
+					tab.push(  Math.floor(Math.random() * 10) + 1);
+				}
+	
+				console.log("Tablica: ", tab);
+				console.log("Najmniejszy element: ", Math.min(...tab));
+				console.log("Największy element: ", Math.max(...tab));
+				</code></pre>
+			</div>
+		</li>
+		<li>
+			<div class="question">
+			Masz tablicę użytkowników:
+			<pre><code class="language-js">
+				const tabUsers = [
+					{name : "Marcin", age: 14},
+					{name : "Piotr", age: 18},
+					{name : "Agnieszka", age: 13},
+					{name : "Weronika", age: 20}
+				]
+			</code></pre>
+			Wypisz w konsoli użytkowników, którzy są pełnoletni.
+			</div>
+			<div class="solution">
+				<pre><code class="language-js">
+				console.log(
+					tabUsers.filter(function(user) {
+						return user.age &gt;= 18
+					})
+				)
+				</code></pre>
+			</div>
+		</li>
+		<li>
+			<div class="question">
+				Ostatnie zadanie dla [prawdziwych webmasterów] tutaj:
+				<a href="./tablice-zadanie.html">tablice-zadanie.html</a>
+			</div>
+			<div class="solution">
+				<pre><code class="language-js">
+				let tekst = '';
+	
+				//tutaj zrób odpowiednie pętle - np. for:
+				for (let y=0; y&lt;tab.length; y++) {
+					const row = tab[y];
+					for (let x=0; x&lt;row.length; x++) {
+						const pobranyKolor = colors[row[x]];
+						tekst += '&lt;div style="background:' + pobranyKolor + '"&gt;&lt;/div&gt;';
+					}
+					tekst += '&lt;br&gt;';
+				}
+	
+				//tutaj wstawiamy do div wygenerowany html - nie ruszaj poniższej linijki
+				document.querySelector('.canvas').innerHTML = tekst;
+				</code></pre>
+			</div>
+		</li>
+	</ol>
+	</div>
+
+
+			</div><!-- e: page-content-text -->
+			<footer class="page-footer">
+				<p>
+				Wszelkie prawa zastrzeżone. Jeżeli chcesz używać jakiejś części tego kursu, skontaktuj się z <a href="/kurs/autor.php">autorem</a>.
+				Aha - i ta strona korzysta z <a href="/kurs/polityka-prywatnosci.php">ciasteczek</a>.
+				</p>
+			</footer>
+							<div class="rekl-cnt">
+					<ins
+					class="adsbygoogle" style="margin-top:40px; display:block"
+					data-ad-client="ca-pub-6843603045703750"
+					data-ad-slot="4690777640"
+					data-ad-format="auto"
+					data-full-width-responsive="true"
+					></ins>
+				</div>
+				<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+	(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+					</main><!-- e: page-content -->
+			</div><!-- e: page-content-wrapper -->
+    <aside id="page-sidebar-cnt" class="page-sidebar-cnt">
+	<div id="page-sidebar" class="page-sidebar">
+		<button aria-label="Pokaż/ukryj Menu" aria-expanded="false" aria-controls="page-sidebar" type="button" id="pageSidebarBurger" class="page-sidebar-burger">
+			<span></span>
+		</button>
+
+		<h2 class="visuallyhidden">
+			Menu
+		</h2>
+
+		<button class="sidebar-toggle-btn" title="Pokaż/schowaj menu" aria-hidden="true">
+			<strong>Pokaż/ukryj menu</strong>
+			<span></span>
+			<span></span>
+			<span></span>
+		</button>
+
+		<div class="page-sidebar-title">
+			<a href="/kurs/kontakt.php" title="Nawrzucaj autorowi" class="mail-to-author" id="mailToAuthor">Napisz do mnie</a>
+			<a href="#popupOptions" class="page-setup-link popupOpen" title="Ustawienia strony" id="showOptions">Ustawienia</a>
+			<a href="/index.php" aria-label="Strona główna" class="page-sidebar-title-link">Kurs Javascript</a>
+		</div>
+
+        <form aria-label="Wyszukiwarka" class="search-sidebar" action="/search.php" method="post">
+            <label for="search" class="search-sidebar-label">Szukaj</label>
+            <div class="search-sidebar-input-cnt">
+                <svg class="search-sidebar-input-icon" xmlns="http://www.w3.org/2000/svg" width="26" height="28" viewBox="0 0 26 28" aria-hidden="true">
+                    <path d="M18 13c0-3.859-3.141-7-7-7s-7 3.141-7 7 3.141 7 7 7 7-3.141 7-7zm8 13c0 1.094-.906 2-2 2a1.96 1.96 0 0 1-1.406-.594l-5.359-5.344a10.971 10.971 0 0 1-6.234 1.937c-6.078 0-11-4.922-11-11s4.922-11 11-11 11 4.922 11 11c0 2.219-.672 4.406-1.937 6.234l5.359 5.359c.359.359.578.875.578 1.406z"></path>
+                </svg>
+                <input type="text" id="search" autocomplete="off" name="q" class="search-sidebar-input">
+            </div>
+            <button type="submit" class="search-sidebar-button">Szukaj</button>
+        </form>
+
+		<div class="page-sidebar-table-of-content">
+			<h2 class="visuallyhidden">Spis treści</h2>
+            <div class="page-sidebar-section">
+				<h3 class="page-sidebar-section-title noopen">
+                    <a href="/index.php">Strona główna</a>
+                </h3>
+            </div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Słowem wstępu</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/wstep/wstep.php">Wstęp</a>
+						</li>
+						<li >
+							<a href="/kurs/wstep/co-to-jest-javascript.php">Co to jest JavaScript i z czym go się je?</a>
+						</li>
+						<li >
+							<a href="/kurs/wstep/wymagania.php">Wymagania</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section show has-active-element">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Super podstawy</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/debuger/debuger.php">Debuger</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/pierwszy-skrypt.php">Wstawiamy skrypty na naszą stronę</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/strict-mode.php">Strict mode</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/typy-danych.php">Typy danych i konwersja danych</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/zmienne.php">Zmienne</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/operatory.php">Operatory</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/math.php">Obiekt Math</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/string.php">String - teksty</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/instrukcje-warunkowe.php">Instrukcje warunkowe</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/petle.php">Pętle</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/funkcje.php">Funkcje</a>
+						</li>
+                        <li >
+							<a href="/kurs/super-podstawy/funkcje-tematy-dodatkowe.php">Funkcje - tematy dodatkowe</a>
+						</li>
+						<li class="active">
+							<a href="/kurs/super-podstawy/tablice.php">Tablice</a>
+						</li>
+                        <li >
+							<a href="/kurs/super-podstawy/tablice-iteracje.php">Tablice pętle</a>
+						</li>
+						<li >
+							<a href="/kurs/debuger/debugowanie.php">Debugowanie kodu</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+            			<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Obiekty</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+                        <li >
+							<a href="/kurs/obiekty/obiekty.php">Obiekty i this</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-jak-to-dziala.php">Jak to działa</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-konstruktor.php">Konstruktor</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-zaawansowane-this.php">Zaawansowane this</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-dziedziczenie.php">Dziedziczenie w Javascript</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-inne-sposoby-tworzenia.php">Inne sposoby tworzenia obiektów</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-instanceof-hasownproperty.php">instanceof i hasOwnProperty</a>
+						</li>
+                    </ul>
+                </div>
+            </div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">DOM i zdarzenia</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/dom/dom.php">Document Object Model</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-wlasciwosci.php">Właściwości elementów</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-relacje.php">Relacje między elementami</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-tworzenie-i-usuwanie.php">Tworzenie i usuwanie elementów</a>
+						</li>
+                        <li >
+                            <a href="/kurs/dom/style.php">Style w CSS</a>
+                        </li>
+						<li >
+							<a href="/kurs/events/events.php">Zdarzenia</a>
+						</li>
+						<li >
+							<a href="/kurs/events/events-keys.php">Zdarzenia - klawisze</a>
+						</li>
+						<li >
+							<a href="/kurs/events/events-mouse.php">Zdarzenia - myszka</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/projekt-todo.php">Projekt TODO</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/slider.php">Tworzymy slider</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Prawie podstawy</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/grafika/grafika-na-stronie.php">Grafika na stronie</a>
+						</li>
+						<li >
+							<a href="/kurs/intervals/intervals.php">setTimeout i setInterval</a>
+						</li>
+						<li >
+							<a href="/kurs/match-media.php">Praca z RWD</a>
+						</li>
+						<li >
+							<a href="/kurs/okna-dialogowe.php">Okienka dialogowe</a>
+						</li>
+						<li >
+							<a href="/kurs/okna.php">Tworzenie nowych okien</a>
+						</li>
+						<li >
+							<a href="/kurs/date/date.php">Obiekt Date</a>
+						</li>
+						<li >
+							<a href="/kurs/date/date-calendar.php">Tworzymy kalendarz</a>
+						</li>
+						<li >
+							<a href="/kurs/cookies/cookie.php">Obiekt Cookie</a>
+						</li>
+						<li >
+							<a href="/kurs/storage/storage.php">Storage</a>
+						</li>
+						<li >
+							<a href="/kurs/regular.php">Wyrażenia regularne</a>
+						</li>
+						<li >
+							<a href="/kurs/formularze/formularze.php">Formularze</a>
+						</li>
+						<li >
+							<a href="/kurs/formularze/formularze-walidacja.php">Formularze - walidacja</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Ajax</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/ajax/ajax.php">AJAX, REST, JSON</a>
+						</li>
+						<li >
+							<a href="/kurs/ajax/xmlhttprequest.php">XMLHttpRequest</a>
+						</li>
+            			<li >
+							<a href="/kurs/ajax/fetch.php">Fetch API</a>
+						</li>
+						<li >
+							<a href="/kurs/ajax/formularz-kontaktowy.php">Dynamiczny formularz kontaktowy</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Nowy Javascript</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/es6/ecma-script-2015.php">ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/webpack.php">Webpack</a>
+						</li>
+                        <li >
+            				<a href="/kurs/es6/obiekty-w-es6.php">Obiekty w ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/funkcja-strzalkowa.php">Funkcja strzałkowa</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/spread-rest.php">Spread i rest</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/template-strings.php">Template strings</a>
+						</li>
+						<li >
+            				<a href="/kurs/es6/destructuring.php">Dekompozycja</a>
+        				</li>
+						<li >
+							<a href="/kurs/es6/class.php">Klasy w ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/promises.php">Promises</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/async-await.php">Async/Await</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/symbole.php">Symbole</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">jQuery</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/jquery/jquery.php">jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/animacje-w-jquery.php">Animacje w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/jquery-ajax.php">Ajax w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/tabs.php">Taby w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/plugin.php">Karuzela w jQuery</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Canvas</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/canvas/canvas.php">Canvas</a>
+						</li>
+						<li >
+							<a href="/kurs/canvas/canvas-images.php">Grafika w canvas</a>
+						</li>
+						<li >
+						<a href="/kurs/canvas/canvas-paint.php">Praktycznie : Paint w canvas</a>
+						</li>
+
+						<li >
+							<a href="/kurs/canvas/canvas-animacja.php">Animacja w canvas</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Gry</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/gry/hangman/hangman.php">Szubienica</a>
+						</li>
+						<li >
+							<a href="/kurs/gry/memory/memory.php">Memory</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+            			<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Inne</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/dodatkowe-materialy.php">Dodatkowe materiały</a>
+						</li>
+						<li >
+							<a href="/kurs/faq.php">FAQ</a>
+						</li>
+						<li >
+							<a href="/kurs/polityka-prywatnosci.php">Polityka prywatności</a>
+						</li>
+						<li >
+							<a href="/kurs/autor.php">O autorze</a>
+						</li>
+						<li >
+							<a href="/kurs/kontakt.php">Kontakt</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="page-sidebar-section">
+                <a class="special-link" href="/kurs/autor.php#donate">Wesprzyj kurs</a>
+            </div>
+		</div>
+	</div>
+</aside></div><!-- e: page-container -->
+
+<div class="popup" id="popupOptions">
+	<div class="popup-inside">
+        <div class="popup-container-cnt">
+            <div class="popup-container">
+                <button class="popup-close">Zamknij</button>
+
+                <h2 class="popup-title">
+                    Opcje
+                </h2>
+
+                <div class="popup-content">
+                    <form class="form-options">
+                        <div class="form-option">
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <label for="optionsThemeSelect">Wybierz skórkę dla listingów</label>
+                                    <select id="optionsThemeSelect"></select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <pre><code class="language-js">
+                                //tak będzie wyglądał kod
+
+                                function test() {
+                                    for (let i=0; i&lt;10; i++) {
+                                        console.log("Tekst numer ", 1);
+                                    }
+                                }
+
+                                test();
+                                </code></pre>
+                            </div>
+                            <div class="form-row" id="themeLightModeRow">
+                                <div class="form-col">
+                                    <label for="themeLightMode">
+                                        Tryb dzienny / nocny
+                                    </label>
+
+                                    <div class="light-mode-el">
+                                        <input type="checkbox" id="themeLightMode">
+                                        <span class="light-mode"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+	</div>
+</div>
+<script async defer src="https://www.googletagmanager.com/gtag/js?id=UA-38558970-5"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-38558970-5');
+</script>
+
+	<script src="/js/ads.js"></script>
+	<script src="/js/script.min.js?v=0.13" defer></script>
+</body>
+</html>

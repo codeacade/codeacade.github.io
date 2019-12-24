@@ -1,0 +1,1219 @@
+<!doctype html>
+<html lang="pl-PL">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kurs Javascript - jQuery - własny plugin</title>
+	<meta name="description" content="Kurs Javascript dla superbohaterów, artykuły, tutoriale, porady, zadania do wykonania" />
+    <link rel="canonical" href="https://kursjs.pl/kurs/jquery/plugin.php" />
+	<link rel="stylesheet" href="./css.css" />
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,700&display=swap&subset=latin-ext" rel="stylesheet">
+	<meta name="image" content="https://kursjs.pl/kursjs.png">
+<meta name="twitter:card" content="product">
+<meta name="twitter:site" content="@publisher_handle">
+<meta name="twitter:title" content="Kurs Javascript">
+<meta name="twitter:description" content="Kurs Javascript dla superbohaterów">
+<meta name="twitter:creator" content="@kartofelek007">
+<meta name="twitter:image" content="https://kursjs.pl/kursjs.png">
+<meta property="og:title" content="Kurs Javascript">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.kursjs.com/">
+<meta property="og:image" content="https://kursjs.pl/kursjs.png">
+<meta property="og:description" content="Kurs Javascript dla superbohaterów">
+<meta property="og:site_name" content="Kurs Javascript">
+<link rel="apple-touch-icon" sizes="57x57" href="/favicons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/favicons/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/favicons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/favicons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/favicons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/favicons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/favicons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/favicons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="/manifest.json">
+<meta name="msapplication-TileColor" content="#FF6347">
+<meta name="msapplication-TileImage" content="/mstile-144x144.png">
+    <script src="/js/jquery.min.js"></script>
+</head>
+<body>
+
+<div class="page-container" id="pageContainer">
+	<div class="page-content-wrapper">
+        <main class="page-content" id="mainContent"  data-text-for-print="Kurs Javascript dla superbohaterów">
+                        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <div class="rekl-cnt">
+                <ins
+                class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-6843603045703750"
+                data-ad-slot="4690777640"
+                data-ad-format="auto"
+                data-full-width-responsive="true"
+                ></ins>
+            </div>
+                        <div class="page-content-text">
+
+<style>
+/* infinite carousel */
+.carousel {
+    margin:1rem 0;
+    clear: both;
+    background: #eee;
+    position: relative;
+    width: 730px;
+    height: 230px;
+    padding:0 20px;
+}
+
+.carousel .wrapper {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.carousel .wrapper ul {
+    list-style-type: none;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    width: 9999px;
+}
+
+.carousel .wrapper ul li {
+    float: left;
+    width: 220px;
+    margin: 5px;
+    text-align: center;
+    line-height:220px;
+    font-size:30px;
+    background: #fff;
+    height: 220px;
+    overflow: hidden;
+}
+
+.carousel .prev,
+.carousel .next {
+    cursor: pointer;
+    position: absolute;
+    overflow: hidden;
+    width: 50px;
+    height:50px;
+    border-radius:50%;
+    z-index: 2;
+    top:50%;
+    transform:translate(0, -50%);
+    font-size:2rem;
+    font-family:sans-serif;
+    text-align: center;
+    line-height: 50px;
+    color:#fff;
+    background: #F15C5C;
+}
+
+.carousel .prev {
+    left: -15px;
+}
+
+.carousel .next {
+    right: -15px;
+}
+</style>
+<script>
+$(function() {
+    $.fn.carousel = function(config) {
+        options = $.extend({
+            displayLi      : 3,
+            animateTime    : 700,
+            pauseTime      : 3000,
+            auto            : false,
+            onScroll        : function() {}
+        }, config);
+
+        return this.each(function() {
+            const $t = $(this);
+
+            const $ul = $('ul', this);
+            const $li = $ul.find('li');
+            const item_width = $li.first().outerWidth(true);
+            const $prev = $t.find('.prev');
+            const $next = $t.find('.next');
+            let interval = null;
+
+            const scrollPrev = function()
+            {
+                if (!$ul.is(':animated')) {
+                    const $li = $ul.find('li');
+                    $ul.css('margin-left',-item_width);
+                    $li.first().before($li.last());
+                    $ul.animate({'margin-left' : '0'}, options.animateTime, function(){
+                        options.onScroll();
+                    });
+
+                    if (options.auto) {
+                        clearInterval(interval);
+                        interval = setTimeout(function() {scrollNext()}, options.pauseTime);
+                    }
+                }
+            };
+
+            const scrollNext = function()
+            {
+                if (!$ul.is(':animated')) {
+                    const $li = $ul.find('li');
+                    $ul.animate({'margin-left' : '-=' + item_width}, options.animateTime, function(){
+                        $li.last().after($li.first());
+                        $ul.css({'margin-left' : 0});
+                        options.onScroll();
+                    });
+
+                    if (options.auto) {
+                        clearInterval(interval);
+                        interval = setTimeout(function() {scrollNext()}, options.pauseTime);
+                    }
+                }
+            };
+
+            $prev.bind('click', scrollPrev);
+            $next.bind('click', scrollNext);
+
+            if (options.auto) {
+                interval = setTimeout(function() {scrollNext()}, options.pauseTime);
+            }
+        });
+    }
+});
+
+$(function() {
+    $('.demo').carousel({
+        displayLi     : 3,
+        animateTime  : 700,
+        pauseTime    : 3000,
+        onScroll       : function() {}
+    });
+});
+</script>
+
+
+<h1 class="page-title">jQuery - własny plugin</h1>
+<p>
+    Korzystając z jQuery, nie raz używamy różnego rodzajów pluginów, czyli rozszerzeń do tej wspaniałej biblioteki.
+    W tym artykule nauczymy się sami tworzyć takie rozszerzenie pisząc naszą osobistą "nieskończoną karuzelę", czyli slider, który nie ma końca.
+</p>
+<p>
+    Rozszerzenia do jQuery można podzielić na dwie części. Jedne z nich rozszerzają jQuery nie operując na obiektach dokumentu:
+</p>
+
+<pre><code class="language-js">
+    $.fn.square = function(x) {
+        return x * x;
+    }
+
+    console.log($.square(5));
+</code></pre>
+
+<p>
+    Drugie - bardziej nas interesujące operują na zbiorach elementów, które są do nich przekazywane.
+    Przykładem takiej funkcji może myć np. <strong>fadeOut()</strong>, który powoduje zanikanie obiektów, które zostały do niego przekazane.
+</p>
+
+<pre><code class="language-js">
+    $('.someElements').fadeOut('slow');
+</code></pre>
+
+<p>
+    Jak widać powyżej, funkcja fadeOut akceptuje (opcjonalnie) atrybuty określające szybkość jej działania.
+    Nasz plugin powinien działać w taki sam sposób.
+</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="zaczynamy">Ogólny schemat pluginów</h2>
+<p>
+    Ogólny schemat większości pluginów ma postać:
+</p>
+
+<pre><code class="language-js">
+(function($){
+    $.fn.functionName = function(config) {
+        const options = $.extend({
+            //...parametry
+        }, config);
+
+        return this.each(function() {
+            //...metody, właściwości itp
+        });
+    }
+})(jQuery);
+</code></pre>
+
+<p>
+    Konstrukcja otaczająca nasz plugin (1 i 11 linijka) powoduje rzutowanie naszego kodu na jQuery. Dzięki temu unikamy niekompatybilności
+    naszego kodu z innymi bibliotekami wykorzystującymi znak dolara (np. biblioteka prototype). Takie zabezpieczenie.
+</p>
+
+<p>
+    Nasz plugin powinien mieć określone parametry swojego działania, które użytkownik powinien móc nadpisać własnymi wartościami.
+    Wykonujemy to w prosty sposób poprzez wykorzystanie instrukcji <strong>.extend</strong>:
+</p>
+
+<pre><code class="language-js">
+(function($){
+    $.fn.carousel = function(config) {
+
+        const options = $.extend({
+            displayElements : 3, //ile elementów będziemy pokazywać
+            animationTime   : 700, //czas animacji
+            pauseTime       : 3000, //przerwa między automatycznym przewijaniem
+            onScroll        : function() {} //opcjonalna funkcja zwrotna po przewinięciu jednego slajdu
+        }, config);
+
+    }
+})(jQuery);
+</code></pre>
+
+<p>
+    W powyższym przykładzie zdefiniowaliśmy domyślne parametry naszego pluginu. W naszym przypadku noszą one nazwę "options",
+    chociaż nazwa ta może być dowolna. Użytkownik wywołując nasz plugin ma możliwość nadpisania tych wartości np:
+</p>
+
+<pre><code class="language-js">$('....').carousel({ animateTime : 200 });
+</code></pre>
+
+<p>
+    Kolejną częścią każdego pluginu jest jego centralna część, która ma postać:
+</p>
+
+<pre><code class="language-js">
+return this.each(function() {
+    //...metody, właściwości ect = serce pluginu ;)
+    const $t = $(this);
+});
+</code></pre>
+
+<p>
+    Przechodzi ona po wszystkich elementach, które zostały przekazane do naszego pluginu i dla każdego z nich wywołuje nasz plugin.
+    Za każdą iteracją pod zmienną <strong>$t</strong> podstawiamy dany element strony. Tak więc:
+</p>
+
+<pre><code class="language-js">
+$(function() {
+    $('.superDiv').carousel()
+});
+</code></pre>
+
+<p>
+    spowoduje, że nasz plugin zostanie odpalony kolejno dla wszystkich .superDiv, a pod zmienną $t każdorazowo podstawione będą kolejne super divy.
+</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="szkieletKaruzeli">Ogólny szkielet slidera</h2>
+<p>
+    Stwórzmy teraz szkielet html naszej karuzeli, który potem potraktujemy naszym pluginem:
+</p>
+
+<pre><code class="language-html">
+&lt;div class="carousel">
+    &lt;span class="prev">
+        &amp;#x25C2;
+    &lt;/span>
+    &lt;div class="wrapper">
+        &lt;ul>
+            &lt;li>..1..&lt;/li>
+            &lt;li>..2..&lt;/li>
+            &lt;li>..3..&lt;/li>
+            &lt;li>..4..&lt;/li>
+        &lt;/ul>
+    &lt;/div>
+    &lt;span class="next">
+        &amp;#x25B8;
+    &lt;/span>
+&lt;/div>
+</code></pre>
+
+<pre><code class="language-css">
+/* infinite carousel */
+.carousel {
+    clear: both;
+    background: #eee;
+    position: relative;
+    width: 690px;
+    height: 230px;
+    padding:0 20px;
+}
+
+.carousel .wrapper {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.carousel .wrapper ul {
+    list-style-type: none;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    width: 9999px;
+}
+
+.carousel .wrapper ul li {
+    float: left;
+    width: 220px;
+    margin: 5px;
+    text-align: center;
+    line-height:220px;
+    font-size:30px;
+    background: #fff;
+    height: 220px;
+    overflow: hidden;
+}
+
+.carousel .prev,
+.carousel .next {
+    cursor: pointer;
+    position: absolute;
+    overflow: hidden;
+    width: 50px;
+    height:50px;
+    border-radius:50%;
+    z-index: 2;
+    top:50%;
+    transform:translate(0, -50%);
+    font-size:1rem;
+    font-family:sans-serif;
+    text-align: center;
+    line-height: 50px;
+    color:#fff;
+    background: #EC185D;
+}
+
+.carousel .prev {
+    left: -15px;
+}
+
+.carousel .next {
+    right: -15px;
+}
+</code></pre>
+
+<div class="carousel">
+    <span class="prev"> &#x25C2; </span>
+    <div class="wrapper">
+        <ul>
+            <li>..1..</li>
+            <li>..2..</li>
+            <li>..3..</li>
+            <li>..4..</li>
+        </ul>
+    </div>
+    <span class="next"> &#x25B8; </span>
+</div>
+
+<!-- ### -->
+<h2 class="subtitle" id="kodPluginu">Tworzymy kod pluginu</h2>
+<p>
+    Podstawmy powyższe elementy pod zmienne:
+</p>
+
+<pre><code class="language-js">
+return this.each(function() {
+    const $t = $(this);
+
+    const $ul = $t.find('ul');
+    const $li = $ul.find('li');
+    const $prev = $t.find('.prev');
+    const $next = $t.find('.next');
+    const itemWidth = $li.first().outerWidth(true); //szerokość elementu - o tyle będzie przesuwał się slider
+    const interval = null; //posłuży do automatycznego przewijania slidera
+
+});
+</code></pre>
+
+<p>
+    Podepnijmy teraz odpowiednie zdarzenia pod przyciski przesuwające (prev i next):
+</p>
+
+<pre><code class="language-js">
+    $prev.on('click', scrollPrev);
+    $next.on('click', scrollNext);
+</code></pre>
+
+<p>
+    Pozostało nam już tylko napisać te zdarzenia.<br>
+    Pierwsze na ostrzał pójdzie zdarzenie scrollPrev, które jak sama nazwa mówi będzie pokazywało wcześniejsze pozycje (LI).<br />
+</p>
+<p>
+    W tym momencie przyda się kawałek kartki. Rysujemy!<br />
+    Nasza karuzela będzie miała bardzo prostą zasadę. Jeżeli przewijamy listę w lewo, wtedy na pierwszą pozycję wrzucamy element z jej końca.
+    Jeżeli listę przesuwamy w prawo, wtedy wrzucimy na jej koniec element z jej początku.
+</p>
+<p>
+    <img src="slide_prev_anim.gif" width="" height="" alt="" />
+</p>
+<p>
+    Przy przesuwaniu listy w lewo wykonamy następujące czynności:
+</p>
+<ul>
+<li>Przesuniemy listę o 1 pole w lewo (0-item_width)</li>
+<li>Wstawimy ostatni element listy na jej początek</li>
+<li>Zaanimujemy przesunięcie listy z pozycji 0-item_width do pozycji 0</li>
+</ul>
+<p>
+    Aby zrealizować powyższe kroki musimy utworzyć lokalną metodę, która będzie przesuwać nasz scroller.
+</p>
+
+<pre><code class="language-js">
+const scrollPrev = function() {
+    if (!$ul.is(':animated')) {
+        const $li = $ul.find('li');
+        $ul.css('margin-left',-item_width);
+        $li.first().before($li.last());
+        $ul.animate({'margin-left' : 0}, options.animationTime, function(){
+            options.onScroll();
+        });
+    }
+}
+</code></pre>
+
+<p>
+    Nasze przesuwanie realizujemy tylko w momencie gdy nasza lista się nie przesuwa, stąd na początku sprawdzenie <strong>$ul.not(':animated')</strong>.
+</p>
+<p>
+    Na początku tej metody po raz kolejny pobieram wszystkie LI naszej listy. Czemu?<br />
+    Pobrane na początku pluginu LI podstawione są już pod zmienną, dlatego nie odzwierciedlają przerzucania z końca na początek i początku na koniec.
+    Stąd musimy za każdym razem pobrać nasze li na nowo - lokalnie.
+</p>
+<p>
+    Pozostał nam przeciwny kierunek:
+</p>
+<p>
+    <img src="slide_next_anim.gif" width="" height="" alt="" />
+</p>
+<ul>
+<li>Przesuwamy naszą listę w lewo (0-item_width)</li>
+<li>Po animacji wstawiamy po końcowym LI ten z początku</li>
+<li>ustawiamy pozycję UL na 0</li>
+</ul>
+
+<pre><code class="language-js">
+const scrollNext = function() {
+    if (!$ul.is(':animated')) {
+        const $li = $ul.find('li');
+        $ul.not(':animated').animate({'margin-left' : -itemWidth}, options.animationTime, function(){
+            $li.last().after($li.first());
+            $ul.css({'margin-left' : 0});
+            options.onScroll();
+        });
+    }
+}
+</code></pre>
+
+<p>
+    Nasz plugin ma teraz postać:
+</p>
+
+<pre><code class="language-js">
+(function($){
+    $.fn.carousel = function(config) {
+        const options = $.extend({
+            displayLi      : 3,
+            animateTime   : 700,
+            pauseTime     : 3000,
+            onScroll        : function() {}
+        }, config);
+
+        return this.each(function() {
+            const $t = $(this);
+
+            const $ul = $t.find('ul');
+            const $li = $ul.find('li');
+            const item_width = $li.first().outerWidth(true);
+            const $prev = $t.find('.prev');
+            const $next = $t.find('.next');
+            const interval = null;
+
+            const scrollPrev = function() {
+                if (!$ul.is(':animated')) {
+                    const $li = $ul.find('li');
+                    $ul.css('margin-left',-item_width);
+                    $li.first().before($li.last());
+                    $ul.animate({'margin-left' : 0}, options.animationTime, function(){
+                        options.onScroll();
+                    });
+                }
+            }
+
+            const scrollNext = function() {
+                if (!$ul.is(':animated')) {
+                    const $li = $ul.find('li');
+
+                    $ul.not(':animated').animate({'margin-left' : -item_width}, options.animationTime, function(){
+                        $li.last().after($li.first());
+                        $ul.css({'margin-left' : 0});
+                        options.onScroll();
+                    });
+                }
+            }
+
+            $prev.bind('click', scrollPrev);
+            $next.bind('click', scrollNext);
+        });
+    }
+})(jQuery);
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="automatyka">Poproszę automatycznie</h2>
+<p>
+    I tak doszliśmy do końca pisania pluginu. Wszystko zostało powiedziane, złe charaktery pokonane. W zasadzie pozostało nam
+    dorzucenie do naszego dzieła... automatyzacji. A tak - samotna zmienna interval nigdy nie <strong>została</strong> użyta.
+    Aby nasz slider dodatkowo automatycznie się przesuwał, wykorzystamy dobrze nam znaną metodę <strong>setTimeout()</strong>, którą podstawimy
+    pod naszą samotną zmienną. Na końcu naszego pluginu dopisujemy więc magiczną linijkę, która po określonym czasie (podanym w parametrach) odpali przesunięcie:
+</p>
+
+<pre><code class="language-js">
+if (options.auto) {
+    clearInterval(interval);
+    interval = setTimeout(function() {scrollNext()}, options.pauseTime);
+}
+</code></pre>
+
+<p>
+    Jak zauważyłeś, dodaliśmy także dodatkową opcję naszego pluginu.
+    Nie zawsze będziemy chcieli by nasza karuzela automatycznie się przewijała, dlatego zostawiamy sobie możliwość zmiany tej wartości:
+</p>
+
+<pre><code class="language-js">
+config options = $.extend({
+    displayLi      : 3,
+    animateTime    : 700,
+    pauseTime      : 3000,
+    auto           : false,
+    onScroll       : function() {}
+}, config);
+</code></pre>
+
+<p>
+    Automatyczne przesuwanie powinno być dodatkowo odpalane powtarzalnie, tak więc podobny kod musimy wstawić na końcu funkcji
+    scrollNext i scrollPrev. I w zasadzie to by wystarczyło, gdyby nie pewna ułomność tego rozwiązania. Podczas ręcznego przesuwania listy,
+    nasz interwał działa równocześnie. Aby pozbyć się tego mankamentu, wystarczy przy każdym odpaleniu tych metod ustawiać czas do automatycznego przejścia na nowo (czyli wpierw czyścić poprzednio ustawiony):
+</p>
+
+<pre><code class="language-js">
+const scrollPrev = function() {
+    //...
+    if (options.auto) {
+        clearInterval(interval);
+        interval = setTimeout(function() {
+            scrollNext()
+        }, options.pauseTime);
+    }
+}
+
+const scrollNext = function() {
+    //...
+    if (options.auto) {
+        clearInterval(interval);
+        interval = setTimeout(function() {
+            scrollNext()
+        }, options.pauseTime);
+    }
+}
+</code></pre>
+
+<p>Finito! Nasz totalnie gotowy w pełni automatyczny plugin ma postać:</p>
+
+<pre><code class="language-js">
+(function($){
+    $.fn.carousel = function(config) {
+        const options = $.extend({
+            displayLi      : 3,
+            animationTime  : 700,
+            pauseTime      : 3000,
+            auto            : false,
+            onScroll        : function() {}
+        }, config);
+
+        return this.each(function() {
+            const $t = $(this);
+
+            const $ul = $t.find('ul');
+            const $li = $ul.find('li');
+            const item_width = $li.first().outerWidth(true);
+            const $prev = $t.find('.prev');
+            const $next = $t.find('.next');
+            const interval = null;
+
+            const scrollPrev = function() {
+                if (!$ul.is(':animated')) {
+                    const $li = $ul.find('li');
+                    $ul.css('margin-left',-item_width);
+                    $li.first().before($li.last());
+                    $ul.animate({'margin-left' : 0}, options.animationTime, function(){
+                        options.onScroll();
+                    });
+
+                    if (options.auto) {
+                        clearInterval(interval);
+                        interval = setTimeout(function() {
+                            scrollNext()
+                        }, options.pauseTime);
+                    }
+                }
+            }
+
+            const scrollNext = function() {
+                if (!$ul.is(':animated')) {
+                    const $li = $ul.find('li');
+
+                    $ul.not(':animated').animate({'margin-left' : -item_width}, options.animationTime, function(){
+                        $li.last().after($li.first());
+                        $ul.css({'margin-left' : 0});
+                        options.onScroll();
+                    });
+
+                    if (options.auto) {
+                        clearInterval(interval);
+                        interval = setTimeout(function() {
+                            scrollNext()
+                        }, options.pauseTime);
+                    }
+                }
+            }
+
+            $prev.bind('click', scrollPrev);
+            $next.bind('click', scrollNext);
+
+            if (options.auto) {
+                interval = setTimeout(function() {scrollNext()}, options.pauseTime);
+            }
+        });
+    }
+})(jQuery);
+</code></pre>
+
+<p>
+Wystarczy teraz odpalić nasze dzieło i cieszyć się z wykonania dobrej roboty:
+</p>
+
+<pre><code class="language-js">
+$(function(){
+    $('.box').carousel({
+        displayLi     : 3,
+        animateTime   : 700,
+        pauseTime     : 3000,
+        auto           : true,
+        onScroll       : function() {}
+    });
+});
+</code></pre>
+
+<div class="carousel demo">
+    <span class="prev"> &#x25C2; </span>
+    <div class="wrapper">
+        <ul>
+            <li>..1..</li>
+            <li>..2..</li>
+            <li>..3..</li>
+            <li>..4..</li>
+        </ul>
+    </div>
+    <span class="next"> &#x25B8; </span>
+</div>
+
+<div class="carousel demo">
+    <span class="prev"> &#x25C2; </span>
+    <div class="wrapper">
+        <ul>
+            <li>..1..</li>
+            <li>..2..</li>
+            <li>..3..</li>
+            <li>..4..</li>
+        </ul>
+    </div>
+    <span class="next"> &#x25B8; </span>
+</div>
+
+			</div><!-- e: page-content-text -->
+			<footer class="page-footer">
+				<p>
+				Wszelkie prawa zastrzeżone. Jeżeli chcesz używać jakiejś części tego kursu, skontaktuj się z <a href="/kurs/autor.php">autorem</a>.
+				Aha - i ta strona korzysta z <a href="/kurs/polityka-prywatnosci.php">ciasteczek</a>.
+				</p>
+			</footer>
+							<div class="rekl-cnt">
+					<ins
+					class="adsbygoogle" style="margin-top:40px; display:block"
+					data-ad-client="ca-pub-6843603045703750"
+					data-ad-slot="4690777640"
+					data-ad-format="auto"
+					data-full-width-responsive="true"
+					></ins>
+				</div>
+				<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+	(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+					</main><!-- e: page-content -->
+			</div><!-- e: page-content-wrapper -->
+    <aside id="page-sidebar-cnt" class="page-sidebar-cnt">
+	<div id="page-sidebar" class="page-sidebar">
+		<button aria-label="Pokaż/ukryj Menu" aria-expanded="false" aria-controls="page-sidebar" type="button" id="pageSidebarBurger" class="page-sidebar-burger">
+			<span></span>
+		</button>
+
+		<h2 class="visuallyhidden">
+			Menu
+		</h2>
+
+		<button class="sidebar-toggle-btn" title="Pokaż/schowaj menu" aria-hidden="true">
+			<strong>Pokaż/ukryj menu</strong>
+			<span></span>
+			<span></span>
+			<span></span>
+		</button>
+
+		<div class="page-sidebar-title">
+			<a href="/kurs/kontakt.php" title="Nawrzucaj autorowi" class="mail-to-author" id="mailToAuthor">Napisz do mnie</a>
+			<a href="#popupOptions" class="page-setup-link popupOpen" title="Ustawienia strony" id="showOptions">Ustawienia</a>
+			<a href="/index.php" aria-label="Strona główna" class="page-sidebar-title-link">Kurs Javascript</a>
+		</div>
+
+        <form aria-label="Wyszukiwarka" class="search-sidebar" action="/search.php" method="post">
+            <label for="search" class="search-sidebar-label">Szukaj</label>
+            <div class="search-sidebar-input-cnt">
+                <svg class="search-sidebar-input-icon" xmlns="http://www.w3.org/2000/svg" width="26" height="28" viewBox="0 0 26 28" aria-hidden="true">
+                    <path d="M18 13c0-3.859-3.141-7-7-7s-7 3.141-7 7 3.141 7 7 7 7-3.141 7-7zm8 13c0 1.094-.906 2-2 2a1.96 1.96 0 0 1-1.406-.594l-5.359-5.344a10.971 10.971 0 0 1-6.234 1.937c-6.078 0-11-4.922-11-11s4.922-11 11-11 11 4.922 11 11c0 2.219-.672 4.406-1.937 6.234l5.359 5.359c.359.359.578.875.578 1.406z"></path>
+                </svg>
+                <input type="text" id="search" autocomplete="off" name="q" class="search-sidebar-input">
+            </div>
+            <button type="submit" class="search-sidebar-button">Szukaj</button>
+        </form>
+
+		<div class="page-sidebar-table-of-content">
+			<h2 class="visuallyhidden">Spis treści</h2>
+            <div class="page-sidebar-section">
+				<h3 class="page-sidebar-section-title noopen">
+                    <a href="/index.php">Strona główna</a>
+                </h3>
+            </div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Słowem wstępu</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/wstep/wstep.php">Wstęp</a>
+						</li>
+						<li >
+							<a href="/kurs/wstep/co-to-jest-javascript.php">Co to jest JavaScript i z czym go się je?</a>
+						</li>
+						<li >
+							<a href="/kurs/wstep/wymagania.php">Wymagania</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Super podstawy</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/debuger/debuger.php">Debuger</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/pierwszy-skrypt.php">Wstawiamy skrypty na naszą stronę</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/strict-mode.php">Strict mode</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/typy-danych.php">Typy danych i konwersja danych</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/zmienne.php">Zmienne</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/operatory.php">Operatory</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/math.php">Obiekt Math</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/string.php">String - teksty</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/instrukcje-warunkowe.php">Instrukcje warunkowe</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/petle.php">Pętle</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/funkcje.php">Funkcje</a>
+						</li>
+                        <li >
+							<a href="/kurs/super-podstawy/funkcje-tematy-dodatkowe.php">Funkcje - tematy dodatkowe</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/tablice.php">Tablice</a>
+						</li>
+                        <li >
+							<a href="/kurs/super-podstawy/tablice-iteracje.php">Tablice pętle</a>
+						</li>
+						<li >
+							<a href="/kurs/debuger/debugowanie.php">Debugowanie kodu</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+            			<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Obiekty</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+                        <li >
+							<a href="/kurs/obiekty/obiekty.php">Obiekty i this</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-jak-to-dziala.php">Jak to działa</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-konstruktor.php">Konstruktor</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-zaawansowane-this.php">Zaawansowane this</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-dziedziczenie.php">Dziedziczenie w Javascript</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-inne-sposoby-tworzenia.php">Inne sposoby tworzenia obiektów</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-instanceof-hasownproperty.php">instanceof i hasOwnProperty</a>
+						</li>
+                    </ul>
+                </div>
+            </div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">DOM i zdarzenia</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/dom/dom.php">Document Object Model</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-wlasciwosci.php">Właściwości elementów</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-relacje.php">Relacje między elementami</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-tworzenie-i-usuwanie.php">Tworzenie i usuwanie elementów</a>
+						</li>
+                        <li >
+                            <a href="/kurs/dom/style.php">Style w CSS</a>
+                        </li>
+						<li >
+							<a href="/kurs/events/events.php">Zdarzenia</a>
+						</li>
+						<li >
+							<a href="/kurs/events/events-keys.php">Zdarzenia - klawisze</a>
+						</li>
+						<li >
+							<a href="/kurs/events/events-mouse.php">Zdarzenia - myszka</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/projekt-todo.php">Projekt TODO</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/slider.php">Tworzymy slider</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Prawie podstawy</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/grafika/grafika-na-stronie.php">Grafika na stronie</a>
+						</li>
+						<li >
+							<a href="/kurs/intervals/intervals.php">setTimeout i setInterval</a>
+						</li>
+						<li >
+							<a href="/kurs/match-media.php">Praca z RWD</a>
+						</li>
+						<li >
+							<a href="/kurs/okna-dialogowe.php">Okienka dialogowe</a>
+						</li>
+						<li >
+							<a href="/kurs/okna.php">Tworzenie nowych okien</a>
+						</li>
+						<li >
+							<a href="/kurs/date/date.php">Obiekt Date</a>
+						</li>
+						<li >
+							<a href="/kurs/date/date-calendar.php">Tworzymy kalendarz</a>
+						</li>
+						<li >
+							<a href="/kurs/cookies/cookie.php">Obiekt Cookie</a>
+						</li>
+						<li >
+							<a href="/kurs/storage/storage.php">Storage</a>
+						</li>
+						<li >
+							<a href="/kurs/regular.php">Wyrażenia regularne</a>
+						</li>
+						<li >
+							<a href="/kurs/formularze/formularze.php">Formularze</a>
+						</li>
+						<li >
+							<a href="/kurs/formularze/formularze-walidacja.php">Formularze - walidacja</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Ajax</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/ajax/ajax.php">AJAX, REST, JSON</a>
+						</li>
+						<li >
+							<a href="/kurs/ajax/xmlhttprequest.php">XMLHttpRequest</a>
+						</li>
+            			<li >
+							<a href="/kurs/ajax/fetch.php">Fetch API</a>
+						</li>
+						<li >
+							<a href="/kurs/ajax/formularz-kontaktowy.php">Dynamiczny formularz kontaktowy</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Nowy Javascript</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/es6/ecma-script-2015.php">ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/webpack.php">Webpack</a>
+						</li>
+                        <li >
+            				<a href="/kurs/es6/obiekty-w-es6.php">Obiekty w ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/funkcja-strzalkowa.php">Funkcja strzałkowa</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/spread-rest.php">Spread i rest</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/template-strings.php">Template strings</a>
+						</li>
+						<li >
+            				<a href="/kurs/es6/destructuring.php">Dekompozycja</a>
+        				</li>
+						<li >
+							<a href="/kurs/es6/class.php">Klasy w ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/promises.php">Promises</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/async-await.php">Async/Await</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/symbole.php">Symbole</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section show has-active-element">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">jQuery</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/jquery/jquery.php">jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/animacje-w-jquery.php">Animacje w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/jquery-ajax.php">Ajax w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/tabs.php">Taby w jQuery</a>
+						</li>
+						<li class="active">
+							<a href="/kurs/jquery/plugin.php">Karuzela w jQuery</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Canvas</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/canvas/canvas.php">Canvas</a>
+						</li>
+						<li >
+							<a href="/kurs/canvas/canvas-images.php">Grafika w canvas</a>
+						</li>
+						<li >
+						<a href="/kurs/canvas/canvas-paint.php">Praktycznie : Paint w canvas</a>
+						</li>
+
+						<li >
+							<a href="/kurs/canvas/canvas-animacja.php">Animacja w canvas</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Gry</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/gry/hangman/hangman.php">Szubienica</a>
+						</li>
+						<li >
+							<a href="/kurs/gry/memory/memory.php">Memory</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+            			<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Inne</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/dodatkowe-materialy.php">Dodatkowe materiały</a>
+						</li>
+						<li >
+							<a href="/kurs/faq.php">FAQ</a>
+						</li>
+						<li >
+							<a href="/kurs/polityka-prywatnosci.php">Polityka prywatności</a>
+						</li>
+						<li >
+							<a href="/kurs/autor.php">O autorze</a>
+						</li>
+						<li >
+							<a href="/kurs/kontakt.php">Kontakt</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="page-sidebar-section">
+                <a class="special-link" href="/kurs/autor.php#donate">Wesprzyj kurs</a>
+            </div>
+		</div>
+	</div>
+</aside></div><!-- e: page-container -->
+
+<div class="popup" id="popupOptions">
+	<div class="popup-inside">
+        <div class="popup-container-cnt">
+            <div class="popup-container">
+                <button class="popup-close">Zamknij</button>
+
+                <h2 class="popup-title">
+                    Opcje
+                </h2>
+
+                <div class="popup-content">
+                    <form class="form-options">
+                        <div class="form-option">
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <label for="optionsThemeSelect">Wybierz skórkę dla listingów</label>
+                                    <select id="optionsThemeSelect"></select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <pre><code class="language-js">
+                                //tak będzie wyglądał kod
+
+                                function test() {
+                                    for (let i=0; i&lt;10; i++) {
+                                        console.log("Tekst numer ", 1);
+                                    }
+                                }
+
+                                test();
+                                </code></pre>
+                            </div>
+                            <div class="form-row" id="themeLightModeRow">
+                                <div class="form-col">
+                                    <label for="themeLightMode">
+                                        Tryb dzienny / nocny
+                                    </label>
+
+                                    <div class="light-mode-el">
+                                        <input type="checkbox" id="themeLightMode">
+                                        <span class="light-mode"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+	</div>
+</div>
+<script async defer src="https://www.googletagmanager.com/gtag/js?id=UA-38558970-5"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-38558970-5');
+</script>
+
+	<script src="/js/ads.js"></script>
+	<script src="/js/script.min.js?v=0.13" defer></script>
+</body>
+</html>

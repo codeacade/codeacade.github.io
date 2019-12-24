@@ -3,9 +3,9 @@
 <head>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Kurs Javascript - Wstęp</title>
+    <title>Kurs Javascript - Operatory</title>
 	<meta name="description" content="Kurs Javascript dla superbohaterów, artykuły, tutoriale, porady, zadania do wykonania" />
-    <link rel="canonical" href="https://kursjs.pl/kurs/wstep/wstep.php" />
+    <link rel="canonical" href="https://kursjs.pl/kurs/super-podstawy/operatory.php" />
 	<link rel="stylesheet" href="./css.css" />
     <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,700&display=swap&subset=latin-ext" rel="stylesheet">
 	<meta name="image" content="https://kursjs.pl/kursjs.png">
@@ -58,48 +58,407 @@
                         <div class="page-content-text">
 
 
-<h1 class="page-title">Wstęp</h1>
-<p>
-Bardzo krótki wstęp ^^.<br /><br />
-Kurs ten jest o Javascripcie. Uhh...
-</p>
-<p>
-Wiedz, że nie staram się tutaj tworzyć największego i najlepszego kursu o JavaScript w internecie.<br>
-Ten kurs to twór jednego człowieka.
-Nie mam szans i nie chcę konkurować z molochami takimi jak <a href="https://developer.mozilla.org/pl/">MDN</a>, <a href="https://www.udemy.com/">Udemy</a>, <a href="https://eduweb.pl/">EduWeb</a> czy <a href="https://www.w3schools.com/js/default.asp">w3schools</a>.<br>
-<br><br>
-Nie znajdziesz tutaj wszystkiego z zakresu JavaScript. <br>
-Po jakimś czasie będziesz chciał wiele rzeczy tutaj pokazanych tworzyć inaczej - lepiej.<br>
-Im większy progres będziesz zdobywał stwierdzisz, że wiele rozdziałów można było napisać o wiele lepiej. I dobrze.<br><br>
 
-W każdym bądź razie - jeżeli ta strona jakoś ci posłuży - to tylko plus. Jeżeli nie - po prostu skorzystaj z innego kursu - na rynku jest tego od groma (niektóre wymieniłem <a href="../dodatkowe-materialy.php">tutaj</a>) i każdy znajdzie coś dla siebie. Ja sam mam kilka w swojej kolekcji i twierdzę, że są naprawdę dobre.
-<br><br>
+<h1 class="page-title">Operatory</h1>
+<p>
+Operatory, ah operatory. Znamy je z matematyki.
+Gdy napiszesz <strong>4 + 5</strong>, znak <strong>+</strong> to właśnie operator.
+Większość z nich znamy z matematyki, dlatego dział ten będzie dość skrótowy.
+</p>
+<p>Poniżej zamieszczam przykłady dla <strong>y = 5</strong></p>
+
+<table class="tab no-auto">
+    <tr>
+        <th>Operator</th>
+        <th>Nazwa działania</th>
+        <th>Równanie</th>
+        <th colspan="2">Wynik</th>
+    </tr>
+    <tr class="fill">
+        <td>+</td>
+        <td>Dodawanie</td>
+        <td>x = y + 2</td>
+        <td>y = 5</td>
+        <td>x = 7</td>
+    </tr>
+    <tr>
+        <td>-</td>
+        <td>Odejmowanie</td>
+        <td>x = y - 2</td>
+        <td>y = 5</td>
+        <td>x = 3</td>
+    </tr>
+    <tr class="fill">
+        <td>*</td>
+        <td>Mnożenie</td>
+        <td>x = y * 2</td>
+        <td>y = 5</td>
+        <td>x = 10</td>
+    </tr>
+    <tr>
+        <td>/</td>
+        <td>Dzielenie</td>
+        <td>x = y / 2</td>
+        <td>y = 5</td>
+        <td>x = 2.5</td>
+    </tr>
+    <tr class="fill">
+        <td>%</td>
+        <td>Reszta z dzielenia</td>
+        <td>x = y % 2</td>
+        <td>y = 5</td>
+        <td>x = 1</td>
+    </tr>
+    <tr>
+        <td>**</td>
+        <td>Potęgowanie (to samo co Math.pow)</td>
+        <td>x = y ** y</td>
+        <td>y = 5</td>
+        <td>x = 3125</td>
+    </tr>
+    <tr class="fill">
+        <td rowspan="2">++</td>
+        <td rowspan="2">Inkrementacja</td>
+        <td>x = ++y</td>
+        <td>y = 6</td>
+        <td>x = 6</td>
+    </tr>
+    <tr class="fill">
+        <td>x = y++</td>
+        <td>y = 6</td>
+        <td>x = 5</td>
+    </tr>
+    <tr>
+        <td rowspan="2">--</td>
+        <td rowspan="2">Dekrementacja</td>
+        <td>x = --y</td>
+        <td>y = 4</td>
+        <td>x = 4</td>
+    </tr>
+    <tr>
+        <td>x = y--</td>
+        <td>y = 4</td>
+        <td>x = 5</td>
+    </tr>
+</table>
+
+<pre><code class="language-js">
+x = 5;
+y = x + 2; //y = 7
+y = x - 1; //y = 4
+y = x * 3; //y = 15
+y = x / 2; //y = 2.5
+y = x % 2; //1 bo % oznacza resztę z dzielenia
+x--; //to to samo co x = x - 1
+x++; //to to samo co x = x + 1
+y = x-- //y = 5, x = 4
+y = --x //y = 4, x = 4
+y = 2**4; //y = 16
+</code></pre>
+
+<p>Zwróć uwagę na operator inkrementacji, który może występować przed zmienną lub po zmiennej.</p>
+<p>Gdy występuje przed zmienną, zwiększenie jej wartości nastąpi w danej linijce. Jeżeli występuje po zmiennej, zwiększona wartość wystąpi dopiero w następnej linii:</p>
+
+<pre><code class="language-js">
+let i = 3;
+
+console.log(++i); //4
+
+let j = 3;
+console.log(j++); //3
+console.log(j); //4
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="operatory_przypisania">Operatory Przypisania</h2>
+<p>
+    Czyli operatory, które służą do przypisania do zmiennej jakiejś wartości, pola, obiektu itp.
+    Poniżej zamieszczamy przykłady dla <strong>x = 10</strong> i <strong> y = 5</strong>:
 </p>
 
-<p>
-Jeszcze mała adnotacja, która siedzi mi w głowie.
-</p>
-<p>
-W internecie znajdziesz setki tutoriali pokazujących najnowsze techniki. A to funkcja strzałkowa, a to jak korzystać z async i await, a to jak robić połączenia fetchem czy chociażby zastosowanie modułów. Małe, konkretne, piękne - jak mój pies (a i od niedawna też kot).
-</p>
-<p>
-Na grupach facebookowych w dyskusjach znajdziesz jeszcze szybciej takie techniki.
-</p>
-<p>
-Tutaj pojawia pewna sprawa, który dotyczy nie tylko JavaScript, ale i całego frontendu. Bardzo często przy takich nowoczesnych tutorialach czy poradach autorzy nie zwracają uwagi na bardzo ważną rzecz - a mianowicie na to, że dobór techniki <strong>zawsze zależy od danego projektu</strong>. To są w końcu rzeczy oczywiste.<br>
-No właśnie nie do końca. To są rzeczy oczywiste - dla nas - osób, które w tej branży siedzą już kilkanaście lat. Ale czy dla osoby zaczynającej?
-</p>
-<p>
-Jeżeli robisz bloga o nowinkach z dziedziny frontentu, raczej możesz założyć, że większość użytkowników będzie korzystała z najnowszych przeglądarek, a więc i możesz używać najnowszych rozwiązań (chociaż najlepiej było by spojrzeć w statystyki Google Analitics które można podpiąć pod stronę).<br>
-Jeżeli jednak robisz stronę dla emerytowanych nauczycieli, czy dla przykładu olbrzymi sklep z którego będą korzystali różnorodni użytkownicy z różnorodnych krajów, wtedy rzucanie się na najnowsze rozwiązania będzie strzałem w stopę.
-</p>
-<p>
-Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie CSS Grid, a czasami nawet flexbox może okazać się czymś, czego użyć nie możesz. Czasami spokojnie będziesz mógł używać najnowszej wersji JavaScript, a czasami będziesz musiał pozostać przy starszej. A jeżeli będziesz musiał pozostać przy starszej, wtedy albo będziesz pisał JavaScript trzymając się klasycznych rozwiązań, albo skorzystasz z narzędzi zamieniających twój kod na starszy zapis.
-</p>
-<p>Autorzy tutoriali często zapominają o tym, że dla początkującej osoby istnieje po prostu JavaScript. Osoby takie często nie zdają sobie sprawy, że nie wszystko w JavaScript można dowolnie używać, nie wiedzą gdzie szukać informacji które przeglądarki co wspierają, jakich narzędzi używać do zamiany kodu i po co w ogóle to robić.</p>
-<p>W kursie tym staram się trzymać klasycznego JavaScript. Jasne - im więcej wiedzy zdobędziesz, im bardziej będziesz rozbudowywał swój warsztat, tym będziesz stosował coraz nowsze i lepsze techniki pisania kodu. A wtedy - tak jak to już pisałem powyżej - będziesz się śmiał z tego kursu. Póki co polecam po prostu uczyć się JavaScript.</p>
+<table class="tab">
+    <tr>
+        <th>Operator</th>
+        <th>Przykład</th>
+        <th>Równoznaczne z</th>
+        <th>Wynik</th>
+    </tr>
+    <tr>
+        <td>=</td>
+        <td>x = y</td>
+        <td>x = y</td>
+        <td>x = 5</td>
+    </tr>
+    <tr>
+        <td>+=</td>
+        <td>x += y</td>
+        <td>x = x + y</td>
+        <td>x = 15</td>
+    </tr>
+    <tr>
+        <td>-=</td>
+        <td>x -= y</td>
+        <td>x = x - y</td>
+        <td>x = 5</td>
+    </tr>
+    <tr>
+        <td>*=</td>
+        <td>x *= y</td>
+        <td>x = x * y</td>
+        <td>x = 50</td>
+    </tr>
+    <tr>
+        <td>/=</td>
+        <td>x /= y</td>
+        <td>x = x / y</td>
+        <td>x = 2</td>
+    </tr>
+    <tr>
+        <td>%=</td>
+        <td>x %= y</td>
+        <td>x = x % y</td>
+        <td>x = 0</td>
+    </tr>
+</table>
+<pre><code class="language-js">
+let myVar =  'Przykładowy tekst';
+    myVar += ' który nie';
+    myVar += ' zmieścił by się w jednej linijce';
 
-<a href="./co-to-jest-javascript.php" class="button">To co? Zaczynamy?...</a>
+let x = 10;
+x -= 5;
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="operatory_porownania">Operatory Porównania</h2>
+<p>
+Operatory logiczne stosuje się w <a href="instrukcje-warunkowe.php">instrukcjach warunkowych</a>.
+Służą one do porównywania lewej strony równania do prawej.
+</p>
+
+<p>Poniżej zamieszczam przykłady dla <strong>x = 5</strong></p>
+
+<table class="tab  no-auto">
+    <tr>
+        <th>Operator</th>
+        <th>Opis</th>
+        <th>Równanie</th>
+        <th>Zwróci</th>
+    </tr>
+    <tr class="fill">
+        <td>==</td>
+        <td>równe</td>
+        <td>x == 8</td>
+        <td>false</td>
+    </tr>
+    <tr>
+        <td>!=</td>
+        <td>różne</td>
+        <td>x != 8</td>
+        <td>true</td>
+    </tr>
+    <tr class="fill">
+        <td rowspan="2">===</td>
+        <td rowspan="2">równa wartość i taki sam typ danych<span class="small">W naszym przykładzie x to numer,  a 5 po prawej stronie jest tekstem</span></td>
+        <td>x === 5</td>
+        <td>true</td>
+    </tr>
+    <tr class="fill">
+        <td>x === "5"</td>
+        <td>false</td>
+    </tr>
+    <tr>
+        <td rowspan="2">!==</td>
+        <td rowspan="2">różne wartości lub różny typ danych<span class="small">W naszym przykładzie x to numer,  a 5 po prawej stronie jest tekstem</span></td>
+        <td>x !== "5"</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>x !== 5</td>
+        <td>false</td>
+    </tr>
+    <tr class="fill">
+        <td>&gt;</td>
+        <td>większe od</td>
+        <td>x &gt; 8</td>
+        <td>false</td>
+    </tr>
+    <tr>
+        <td>&lt;</td>
+        <td>mniejsze od</td>
+        <td>x &lt; 8</td>
+        <td>true</td>
+    </tr>
+    <tr class="fill">
+        <td>&gt;=</td>
+        <td>większe bądź równe od</td>
+        <td>x &gt;= 8</td>
+        <td>false</td>
+    </tr>
+    <tr>
+        <td>&lt;=</td>
+        <td>mniejsze bądź równe od</td>
+        <td>x &lt;= 8</td>
+        <td>true</td>
+    </tr>
+</table>
+
+<pre><code class="language-js">
+const myVar = 8;
+if (myVar === 10) {
+    //ten kawałek kodu się nie wykona
+}
+
+if (myVar <= 10) {
+    //ten kawałek kodu się wykona
+}
+
+if (myVar !== 8) {
+    //ten kawałek kodu się nie wykona
+}
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="operatory_logiczne">Operatory Logiczne</h2>
+<p>
+    Za pomocą operatorów logicznych możemy łączyć kilka porównań w jedną całość. Poniżej przykłady
+    dla <strong>x = 6</strong> i <strong>y = 3</strong>:
+</p>
+
+<table class="tab">
+    <tr>
+        <th>Operator</th>
+        <th>Opis</th>
+        <th style="width:150px">Przykład</th>
+        <th>Wynik</th>
+    </tr>
+    <tr>
+        <td>&amp;&amp;</td>
+        <td>and (i)</td>
+        <td>(x &lt; 10 &amp;&amp; y &gt; 1)</td>
+        <td>Prawda, bo x jest mniejsze od 10 <strong>i</strong> y jest większe od 1</td>
+    </tr>
+    <tr>
+        <td>||</td>
+        <td>or (lub)</td>
+        <td>(x &gt; 8 || y &gt; 1)</td>
+        <td>Prawda, bo x nie jest większe od 8, ale y jest większe od 1</td>
+    </tr>
+    <tr>
+        <td>^</td>
+        <td>xor (jeden z, ale nie dwa równocześnie)</td>
+        <td>(x === 6 ^ y === 3)</td>
+        <td>Fałsz, bo obydwa są prawdziwe</td>
+    </tr>
+    <tr>
+        <td>!</td>
+        <td>not (negacja)</td>
+        <td>!(x === y)</td>
+        <td>Prawda, bo negujemy to, że x === y</td>
+    </tr>
+</table>
+
+<pre><code class="language-js">
+const myVar = 8;
+const myVar2 = 15;
+
+if (myVar === 8 && myVar2 === 10) {
+    //ten kawałek kodu się nie wykona bo mamy "i", oba muszą być spełnione, a nie są
+}
+
+if (myVar === 8 || myVar2 === 8) {
+    //ten kawałek się wykona bo mamy "lub" - jeden z warunków jest poprawny
+}
+
+if (myVar === 8 ^ myVar2 === 15) {
+    //ten kawałek się nie wykona bo mamy "xor", a oba są spełnione
+}
+
+if (!(myVar === 8)) {
+    //ten kawałek się nie wykona, bo mamy negację!
+    //powyższy warunek jest jednoznaczny z myVar !== 8
+}
+
+if ((myVar === 2) || 1) {
+    //ten kawałek zawsze się wykona, bo myVar nie jest 2,
+    //ale drugi fragment warunku zawsze zwróci true (1 jest rzutowana na true)
+}
+</code></pre>
+
+<div class="tasks-for-you-cnt">
+	<h2 class="subtitle" id="zadania">Trening czyni mistrza</h2>
+	<p>
+		Poniżej zamieszczam kilka zadań, które w ramach ćwiczenia możesz wykonać:
+	</p>
+	<ol class="tasks-for-you">
+		<li>
+			<div class="question">
+			Hej. Z operatorów będziesz tak czy siak non stop korzystał.<br>
+			Dla potrenowania zrób zmienne:
+			<pre><code class="language-js">
+				let var1 = 20;
+				let var2 = 33;
+				let var3 = "20";
+			</code></pre>
+			</div>
+		</li>
+		<li>
+			<div class="question">
+			Zwiększ zmienną <strong>var1</strong> i <strong>var2</strong> o 1. Spróbuj użyć skróconego zapisu.<br>
+			Wypisz następnie w konsoli:<br>
+			<strong>21 + 34 = 55</strong> (oczywiście nie z palca, a z użyciem zmiennych)<br>
+			</div>
+			<div class="solution">
+				<pre><code class="language-js">
+				let var1 = 20;
+				let var2 = 33;
+				let var3 = "20";
+	
+				var1++;
+				var2++;
+	
+				console.log(var1 + "+" + var2 + "=" + (var1 + var2));
+				</code></pre>
+			</div>
+		</li>
+		<li>
+			<div class="question">
+			Przyrównaj do siebie wartość i typ 2 zmiennych:
+			<pre><code class="language-js">
+			let a = 20;
+			let b = "20";
+			</code></pre>
+			Jeżeli są takie same, wypisz w konsoli "Zmienne var1 i var2 są takie same",<br>
+			w przeciwnym razie wypisz "Zmienne var1 i var3 nie są takie same"
+			</div>
+			<div class="solution">
+				<pre><code class="language-js">
+				if (a === b) {
+					console.log("Zmienne a i b są takie same");
+				} else {
+					console.log("Zmienne a i b nie są takie same");
+				}
+				</code></pre>
+			</div>
+		</li>
+		<li>
+			<div class="question">
+			Stwórz zmienną <strong>text</strong> z jedną linijką tekstu.<br>
+			Dodaj do niej kilka linijek tekstu. Użyj odpowiedniego operatora przypisania.
+			Całość wyświetl w konsoli.
+			</div>
+			<div class="solution">
+				<pre><code class="language-js">
+				let text = "";
+				text += "linijka tekstu";
+				text += "kolejna linijka tekstu";
+	
+				console.log(text);
+				</code></pre>
+			</div>
+		</li>
+	</ol>
+	</div>
 
 			</div><!-- e: page-content-text -->
 			<footer class="page-footer">
@@ -165,13 +524,13 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
                 </h3>
             </div>
 
-						<div class="page-sidebar-section show has-active-element">
+						<div class="page-sidebar-section ">
 				<h3 class="page-sidebar-section-title">
 					<a href="#">Słowem wstępu</a>
 				</h3>
 				<div class="page-sidebar-list-cnt">
 					<ul class="page-sidebar-list">
-						<li class="active">
+						<li >
 							<a href="/kurs/wstep/wstep.php">Wstęp</a>
 						</li>
 						<li >
@@ -184,7 +543,7 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
 				</div>
 			</div>
 
-						<div class="page-sidebar-section ">
+						<div class="page-sidebar-section show has-active-element">
 				<h3 class="page-sidebar-section-title">
 					<a href="#">Super podstawy</a>
 				</h3>
@@ -205,7 +564,7 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
 						<li >
 							<a href="/kurs/super-podstawy/zmienne.php">Zmienne</a>
 						</li>
-						<li >
+						<li class="active">
 							<a href="/kurs/super-podstawy/operatory.php">Operatory</a>
 						</li>
 						<li >

@@ -1,0 +1,1194 @@
+<!doctype html>
+<html lang="pl-PL">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kurs Javascript - String</title>
+	<meta name="description" content="Kurs Javascript dla superbohaterów, artykuły, tutoriale, porady, zadania do wykonania" />
+    <link rel="canonical" href="https://kursjs.pl/kurs/super-podstawy/string.php" />
+	<link rel="stylesheet" href="./css.css" />
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,700&display=swap&subset=latin-ext" rel="stylesheet">
+	<meta name="image" content="https://kursjs.pl/kursjs.png">
+<meta name="twitter:card" content="product">
+<meta name="twitter:site" content="@publisher_handle">
+<meta name="twitter:title" content="Kurs Javascript">
+<meta name="twitter:description" content="Kurs Javascript dla superbohaterów">
+<meta name="twitter:creator" content="@kartofelek007">
+<meta name="twitter:image" content="https://kursjs.pl/kursjs.png">
+<meta property="og:title" content="Kurs Javascript">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.kursjs.com/">
+<meta property="og:image" content="https://kursjs.pl/kursjs.png">
+<meta property="og:description" content="Kurs Javascript dla superbohaterów">
+<meta property="og:site_name" content="Kurs Javascript">
+<link rel="apple-touch-icon" sizes="57x57" href="/favicons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/favicons/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/favicons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/favicons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/favicons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/favicons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/favicons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/favicons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="/manifest.json">
+<meta name="msapplication-TileColor" content="#FF6347">
+<meta name="msapplication-TileImage" content="/mstile-144x144.png">
+    <script src="/js/jquery.min.js"></script>
+</head>
+<body>
+
+<div class="page-container" id="pageContainer">
+	<div class="page-content-wrapper">
+        <main class="page-content" id="mainContent"  data-text-for-print="Kurs Javascript dla superbohaterów">
+                        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <div class="rekl-cnt">
+                <ins
+                class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-6843603045703750"
+                data-ad-slot="4690777640"
+                data-ad-format="auto"
+                data-full-width-responsive="true"
+                ></ins>
+            </div>
+                        <div class="page-content-text">
+
+<h1 class="page-title">String</h1>
+W JavaScript tak samo jak w innych językach możemy operować nie tylko na liczbach, ale także na tekstach.
+Tak zwane stringi w JavaScript możemy tworzyć na kilka sposobów:
+
+<pre><code class="language-js">
+const text = "Ala ma kota, a kot ma Ale."; //podwójne cudzysłowy
+
+//lub
+
+const text = 'Ala ma kota'; //pojedyncze apostrofy
+</code></pre>
+
+<p>Kiedy którego używać? W zasadzie wybór zależy od naszych preferencji, chociaż zdarzają się przypadki, że dany zapis może być ciut wygodniejszy od swojego brata:</p>
+
+<pre><code class="language-js">
+//dzięki temu że zacząłem string od pojedynczych apostrofów
+//bez problemu pisałem w środku cudzysłowy
+const img = '&lt;div class="element" data-text="test">';
+
+//no to w drugą stronę
+const txt = "It's a big year";
+
+//ale w sumie nie ma to aż takiego znaczenia, bo zawsze możemy użyć znaku ucieczki
+const img = "&lt;div class=\"element\" data-text=\"test\">";
+const txt = 'It\'s a big year';
+</code></pre>
+
+<p>
+Od 2015 roku stringi możemy też tworzyć za pomocą tak zwanych <a href="../es6/template-strings.php">template string</a> używając przy tym backticków:
+</p>
+
+<pre><code class="language-js">
+const text = `Ala ma kota`;
+</code></pre>
+
+<p>
+Ich główną przewagą nad klasycznymi braćmi jest to, że unikamy tutaj problemów z cudzysłowami i apostrofami wewnątrz tekstu (ale już pisząc w ich wnętrzu backticki musimy stosowac <a href="https://pl.wikipedia.org/wiki/Znak_modyfikacji">znak ucieczki</a>),
+ale przede wszystkim bez problemu możemy tutaj pisać wielo liniowe teksty, oraz o wiele łatwiej możemy wstawiać do tekstu zmienne.
+Ale to za chwilę...
+</p>
+
+
+<div class="kartofel-informuje">
+<p>
+Tak samo jak w przypadku innych <a href="zmienne.php#typy-danych">typów prostych</a>, tak i w przypadku srtingów do tworzenia zmiennych tego typu możemy użyć konstruktora by uzyskać obiekt:
+</p>
+<pre><code class="language-js">
+const text = new String("Ala ma kota, a kot ma Ale");
+</code></pre>
+<p>
+Nie zaleca się jednak tej praktyki.
+Spowodowane jest to tym, że obiekty jak już było <a href="zmienne.php#typy-danych">wcześniej powiedziane</a> są typem referencyjnym, dlatego przy operacjach możemy dostawać dziwne wyniki:
+</p>
+<pre><code class="language-js">
+//deklaracja za pomocą literału
+const text1 = "abc";
+const text2 = "abc";
+console.log(text1 === text2); //true
+
+//deklaracja za pomocą konstruktora
+const text1 = new String("abc");
+const text2 = new String("abc");
+console.log(text1 === text2); //false, ponieważ porównujemy 2 obiekty, a nie wartości
+console.log(typeof text1); //object
+</code></pre>
+</div>
+
+<!-- ### -->
+<h2 class="subtitle" id="wiele-linii">Teksty na wiele linii</h2>
+<p>
+Tworząc wieloliniowe teksty możemy zastosować kilka technik.
+</p>
+
+<pre><code class="language-js">
+//poprzez operator przypisania
+let text = '';
+text += 'Stoi na stacji lokomotywa,&lt;br>';
+text += 'Ciężka, ogromna i pot z niej spływa:&lt;br>';
+text += 'Tłusta oliwa.';
+
+//poprzez dodawanie części tekstu
+let text = ''
++ 'Stoi na stacji lokomotywa,&lt;br>'
++ 'Ciężka, ogromna i pot z niej spływa:&lt;br>'
++ 'Tłusta oliwa.'
+
+//Poprzez zastosowanie znaku backslash na końcu linii
+let text = '\n
+Stoi na stacji lokomotywa,&lt;br>\
+Ciężka, ogromna i pot z niej spływa:&lt;br>\
+Tłusta oliwa.\
+'
+
+//Najlepsza metoda - użycie template strings
+let text = `
+Stoi na stacji lokomotywa,&lt;br>
+Ciężka, ogromna i pot z niej spływa:&lt;br>
+Tłusta oliwa.
+`
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="wstawianie-zmiennych">Wstawianie zmiennych do tekstu</h2>
+<p>
+Do wnętrza tekstu zmienne możemy wstawić na kilka sposobów. Dwa najpopularniejsze to dodawanie do stringa zmiennej oraz w przypadku
+<a href="../es6/template-strings.php">template strings</a> użycie tak zwanej interpolacji:
+</p>
+
+<pre><code class="language-js">
+const age = 10;
+const text = "Ten pies ma " + age + " lat";
+const text = 'Ten kot ma ' + age + ' lat';
+const text = `Ten chomik ma ${age} lat`;
+</code></pre>
+
+<pre><code class="language-js">
+const a = 112;
+const b = 120;
+const text = "Cena produktu A to " + a + "zł, cena produktu B to " + b + "zł, a suma to " + (a+b)+ "zł";
+const text = `Cena produktu A to ${a}zł, cena produktu B to ${b}zł, a suma to ${a+b}zł`;
+</code></pre>
+
+<p>Template strings wydaje się fantastyczną sprawą. Pamiętaj tylko, że trzeba uważać, bo <a href="https://caniuse.com/#search=template%20string">nie wszystkie przeglądarki obsługują tą składnię</a>.</p>
+<p>Dokładniej temat template strings omówimy w <a href="../es6/template-strings.php">jednym z kolejnych rozdziałów</a>.</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="length">Pobieranie długości tekstu</h2>
+<p>
+Aby odczytać długość naszego tekstu posłużymy się właściwością <strong>length</strong>.
+</p>
+
+<pre><code class="language-js">
+const text = "Ala";
+text.length; //3
+
+"Koty i psy są fajne".length //19
+</code></pre>
+
+<p>Przy pracy z normalnymi tekstami, właściwość length zwróci wynik jak należy.<br>
+Niestety <a href="#length-utf">nie zawsze</a> wartość ta będzie prawidłowa.
+</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="charat">Pobieranie znaku na danej pozycji</h2>
+<p>
+Do pobrania w tekście znaku na danej pozycji możemy zastosować 2 podejścia.
+Jedno z nich to użycie metody <strong>charAt()</strong>.
+Drugie - to odwoływanie się do liter tekstu jak do elementów <a href="./tablice.php">tablicy</a> - poprzez kwadratowe nawiasy.<br>
+Zasady są te same co przy tablicach. Pierwsza litera ma index 0, a ostatnia text.length-1
+</p>
+
+<pre><code class="language-js">
+const text = "Ala ma kota, a kot ma Ale";
+
+console.log(text.charAt(0)); //A
+console.log(text.charAt(4)); //m
+
+console.log(text[0]); //A
+console.log(text[4]); //m
+
+console.log(text.charAt(text.length-1)); //e
+console.log(text[text.length-1]); //e
+</code></pre>
+
+<p>
+Metoda z wykorzystaniem charAt() zadziała w każdej przeglądarce. Metoda z traktowaniem stringa jak tablicę zadziała w przeglądarkach od IE8 wzwyż, dlatego w skrajnych przypadkach (projekty które mają działać "wszędzie") warto uważać.
+</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="upperlower">toUpperCase() i toLowerCase() - zamiana wielkości liter</h2>
+<p>
+Metody <strong>toUpperCase()</strong> i <strong>toLowerCase()</strong> służą odpowiednio do zamieniania tekstu na duże i małe litery.
+</p>
+
+<pre><code class="language-js">
+const text = "Ala ma kota";
+
+console.log(text.toUpperCase()); //ALA MA KOTA
+console.log(text.toLowerCase()); //ala ma kota
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="indexOf">indexOf() i lastIndexOf() - zwracanie pozycji szukanego tekstu</h2>
+<p>
+Metoda <strong>indexOf</strong> służy do podawania pozycji szukanego fragmentu w tekście (ale także w tablicy, bo metoda ta dostępna jest dla stringów i tablic).<br>
+Jeżeli zwróconą wartością jest <strong>-1</strong>, to szukanego tekstu nie ma:
+</p>
+
+<pre><code class="language-js">
+"Ala ma kota".indexOf("kot"); //7
+</code></pre>
+
+<pre><code class="language-js">
+const text = "Ala ma kota";
+
+//sprawdzamy czy ciąg "psa" istnieje
+if (text.indexOf("psa") > -1) {
+    console.log("Ala ma psa" );
+} else {
+    console.log("Ala ma kota" );
+}
+
+
+if (~text.indexOf("psa")) {
+    console.log("Ala ma psa" );
+} else {
+    console.log("Ala ma kota" );
+}
+</code></pre>
+
+<div class="kartofel-informuje">
+    <p>Zastosowany w drugim przykładzie znak tyldy to <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Bitwise_Operators">operator bitowy</a>. Wykonuje on działanie <strong>-(x + 1)</strong>.</p>
+    <p>Zobaczmy jak zadziała dla indexOf:</p>
+
+    <pre><code class="language-js">
+        ~"lorem".indexOf("lo"); //0 ——> -(0 + 1) ——> -1 ——> true
+        ~"lorem".indexOf("re"); //2 ——> -(2 + 1) ——> -3 ——> true
+        ~"lorem".indexOf("kot"); //-1 ——> -(-1 + 1) —— -0 ——> 0 ——> false
+    </code></pre>
+
+    <p>
+    Ciekawy artykuł na ten temat znajduje się pod adresem
+    <a href="https://dreaminginjavascript.wordpress.com/2008/07/04/28/">https://dreaminginjavascript.wordpress.com/2008/07/04/28/</a>
+    </p>
+</div>
+
+<p>
+Podobne działanie ma metoda <strong>lastIndexOf</strong>, podaje ona jednak numer <strong>ostatniego</strong> wystąpienia podtekstu
+</p>
+
+<pre><code class="language-js">
+"Ala ma kota i tak już jest".lastIndexOf("a"); //15 - bo ostatnia litera występuje na pozycji 15
+
+const url = "http://nazwastrony.pl/przykladowaNazwaPliku.php";
+
+//korzystając z metod opisanych poniżej tniemy url na części
+console.log( url.slice(url.lastIndexOf(".")+1) ); //php
+console.log( url.slice(url.lastIndexOf("/")+1, url.lastIndexOf(".")) ); //przykladowaNazwaPliku
+</code></pre>
+
+<p id="includes">
+Przy nowych wersjach JavaScript (Ecmascript 2016) istnieje też metoda <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/includes">includes(str)</a>, która także służy do wyszukiwania podstringów. Różnica przy jej użyciu jest taka, że zamiast pozycji szukanego ciągu zwraca true/false:
+</p>
+
+<pre><code class="language-js">
+const text = "Ala ma kota";
+
+if (text.includes("psa")) {
+    console.log("Ala ma psa" );
+} else {
+    console.log("Ala ma kota" );
+}
+</code></pre>
+
+<p>Metoda ta i podobne opisałem w rozdziale o <a href="../es6/template-strings.php#dodatkowe-metody">template string</a>.</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="substr">substr() - zwracanie kawałka tekstu</h2>
+<p>
+Metoda <code>substr(start, dlugosc)</code> służy do pobierania kawałka tekstu. Pierwszym jej parametrem jest początek pobieranego kawałka tekstu, a drugi opcjonalny
+wskazuje długość pobieranego tekstu. Jeżeli drugi parametr nie zostanie podany, wówczas pobierany kawałek będzie pobierany do końca tekstu.
+</p>
+
+<pre><code class="language-js">
+const text = "Ala ma kota";
+
+console.log(text.substr(2)); //a ma kota
+console.log(text.substr(0, 3)); //Ala
+console.log(text.substr(7, 4)); //kota
+console.log(text.substr(4, text.length - 4)); //wypisze tekst od 4 litery do końca - "ma kota"
+
+const name = "marcin";
+console.log( name.charAt(0).toUpperCase() + text.slice(1) ); //Marcin
+</code></pre>
+
+<p>Tu też można zastosować ciekawą sztuczkę:</p>
+
+<pre><code class="language-js">
+const txt = "Marcin ma kota i psa";
+
+//chcę wyciąć napis "ma kota i psa";
+const restText = txt.substr("Marcin".length);
+console.log(restText); //" ma kota i psa";
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="substring">substring() - zwracanie kawałka tekstu</h2>
+<p>
+Metoda <code>substring(start, stop)</code> ma bardzo podobne działanie co powyższa. Różnicą jest drugi parametr, który zamiast długości wyznacza miejsce końca pobieranego kawałka.
+Jeżeli drugi parametr nie zostanie podany, wtedy kawałek będzie pobierany do końca tekstu. Jeżeli zostaną podane oba parametry, ale drugi będzie mniejszy od pierwszego, wtedy automatycznie
+zostaną one zamienione miejscami.
+</p>
+
+<pre><code class="language-js">
+const text = "Ala ma kota";
+
+console.log(text.substring(0, 3)); //Ala
+console.log(text.substring(3)); //ma kota
+console.log("Ala ma kota".substring(6, 4)); //ma
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="slice">slice() - zwracanie kawałka tekstu</h2>
+<p>
+Tekst jest uporządkowanym ciągiem znaków.<br>
+Tak samo jak w przypadku <a href="tablice.php#slice">tablic</a>, tak i w przypadku zmiennych tekstowych możemy skorzystać z metody <strong>slice(start, stop)</strong>, która "tnie" nasz tekst i tworzy w ten sposób nowy. Jej działanie jest praktycznie identyczne
+do działania metody <strong>substring()</strong>, jednak występują małe różnice. Jeżeli drugi argument będzie mniejszy od pierwszego, wtedy w przeciwieństwie do
+substring() argumenty nie zostaną zamienione miejscami.
+</p>
+
+<pre><code class="language-js">
+const txt = "Ala ma kota";
+
+const txt2 = txt.slice(0,3);
+console.log(txt2); //Ala
+
+const txt3 = txt.slice(1,5);
+console.log(txt3); //la m
+
+const txt4 = txt.slice(4,6);
+console.log(txt4); //ma
+
+const txt5 = txt.slice(4);
+console.log(txt5); //ma kota
+
+const txt6 = txt.slice(-4);
+console.log("Ala już nie ma " + txt6 + ", bo kocur jej zwiał..."); //Ala już nie ma kota, bo kocur jej zwiał...
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="split">split() - dzielenie tekstu</h2>
+<p>
+    Metoda <strong>split(znak, długość)</strong> dzieli tekst na części, w wyniku zwracając tablicę.
+    Miejsce podziału jest podawane w parametrze <strong>znak</strong>,
+    a maksymalna ilość zwracanych elementów w parametrze <strong>długość</strong>:
+</p>
+
+<pre><code class="language-js">
+const text = "Ala ma kota, a kot ma Alę, Ala go kocha, a Kot ją wcale ;("
+const parts = text.split(", ");
+
+parts.forEach(function(letter) {
+    console.log(letter.toUpperCase());
+});
+</code></pre>
+
+
+<!-- ### -->
+<h2 class="subtitle" id="replace">replace() - wyszukiwanie tekstu i jego zamiana</h2>
+<p>
+Metoda <strong>replace(ciag_szukany, zamieniony)</strong> służy do zamiany szukanych kawałków tekstu na inny tekst.
+</p>
+
+<pre><code class="language-js">
+const text = "Ala ma kota, a kot ma Alę, Ala go kocha, a Kot ją wcale ;("
+const textChanged = text.replace("Ala", "Ola");
+
+console.log(textChanged);
+</code></pre>
+
+<p>
+    W powyższym przykładzie, zamieniona zostanie tylko pierwsza Ala. Aby wszystkie Ale zamieniły się na Ole,
+    musimy zastosować <a href="../regular.php#replace">wyrażenie regularne</a>, nakazujące wyszukanie wszystkich Ali.
+</p>
+
+<pre><code class="language-js">
+const text = "Ala ma kota, a kot ma Alę, Ala go kocha, a Kot ją wcale ;("
+const textChanged = text.replace(/Al/g,"Ol");
+
+console.log(text);
+console.log(textChanged);
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="encodeURI">encodeURI() - kodowanie tekstu</h2>
+<p>
+Podobnie jak w JavaScript czy w HTML także i w adresach url pewne znaki mają specjalne znaczenie:
+</p>
+
+<p class="escape-chars">
+<strong>,</strong> <strong>spacja</strong> <strong>-</strong> <strong>#</strong> <strong>_</strong>
+<strong>&</strong> <strong>%</strong> <strong>[</strong> <strong>]</strong> <strong>&</strong>
+<strong>;</strong> <strong>:</strong> <strong>?</strong> <strong>"</strong> <strong>(</strong>
+<strong>)</strong> <strong>~</strong> <strong>|</strong> <strong>`</strong> <strong>!</strong>
+</p>
+
+<p>
+    Dlatego jeżeli chcielibyśmy ich użyć np. w <a href="../url.php">nazwach zmiennych</a> przekazywanych za pomocą adresu, wtedy musimy je zakodować.<br>
+    Do takiego zakodowania służy metoda <strong>encodeURI()</strong>
+</p>
+
+<pre><code class="language-js">
+const text = "Ala ma kota, a kot ma Alę...";
+
+console.log("Przed: " + text); //Ala ma kota, a kot ma Alę...
+console.log("Po: " + encodeURI(text)); //Ala%20ma%20kota%2C%20a%20kot%20ma%20Al%u0119...
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="unescape">decodeURI() - rozkodowanie tekstu</h2>
+<p>
+Jeżeli teraz chcemy odkodować zakodowany tekst, musimy użyć funkcji <strong>decodeURI()</strong>:
+</p>
+
+<pre><code class="language-js">
+let text = "Ala ma kota, a kot ma Alę...";
+
+text = encodeUrl(text);
+
+console.log("Przed: " + text); //Ala%20ma%20kota%2C%20a%20kot%20ma%20Al%u0119...
+console.log("Po: " + decodeURI(text)); //Ala ma kota, a kot ma Alę...
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="repeat">repeat() - powtarzanie tekstu</h2>
+<p>Aby powtórzyć tekst możemy posłużyć się funkcją repeat():</p>
+
+<pre><code class="language-js">
+    const text = "kot";
+    console.log(text.repeat(2)); //kotkot
+
+    let str = "";
+    for (let i=0; i&lt;2; i++) {
+        str += text;
+    }
+    console.log(str); //kotkot
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="utf-length">Length raz jeszcze</h2>
+<p>Jak sobie napisaliśmy <a href="#length">powyżej</a>, do pobrania długości tekstu używamy właściwości length.</p>
+
+<p>Sprawdźmy to na prostym przykładzie:</p>
+
+<pre><code class="language-js">
+"a".length //1
+"🐶".length //2 ????
+</code></pre>
+
+<p>
+Co za dziwo?!!<br>
+Żeby zrozumieć czemu tak się dzieje, odpalmy naszego DeLoreana i zróbmy mały powrót do przeszłości. Gdy zaczynałem tworzyć strony, normą było wpisywanie znaków za pomocą bocznej klawiatury. I tak jeżeli dla przykładu jeżeli chcieliśmy wpisać literkę ą, trzymając klawisz ALT wpisywaliśmy na klawiaturze numerycznej 0177, co w kodzie HTML dawało nam znak ±, a na stronie już właściwą literkę. Zabawa taka wynikała z tego, że powszechnie stosowanym kodowaniem było wtedy ISO-8859-2. Stare czasy gdy wśród edytorów królował Pajączek i podobne twory, które ułatwiały takie konwersje.</p>
+
+<p>Wraz z rozwojem HTML rozpowszechnił się standard kodowania UTF, który pozwala w dzisiejszych czasach pisać nam litery normalnie wpisując je na klawiaturze. Standard UTF charakteryzuje się tym, że każdej literze przypisany jest jakiś kod. Te wszystkie kody pogrupowane są grupy. Większość przez nas używanych znaków znajduje się w podstawowej przestrzeni (Basic Multilingual Plane) i posiada kody składające się z 4 heksadecymalnych znaków. Tablic z kodami w necie znajdziesz setki (wystarczy wpisać UTF char code) (<a href="https://www.utf8-chartable.de/">1</a>, <a href="https://unicode-table.com/en/#arabic">2</a>).</p>
+
+<p>
+W Javascript wszystkie stringi są kodowane za pomocą UTF-16. Litery w tekście możemy zapisać pisząc je na klawiaturze, ale też za pomocą odpowiadającego danemu znaku kodu UTF wpisując go na 3 różne sposoby:</p>
+
+<pre><code class="language-js">
+console.log("\u00BC"); //¼
+console.log("\u{BC}"); //¼
+console.log("\xBCb"); //¼
+
+console.log("\u00A9"); //©
+console.log("\u{A9}"); //©
+console.log("\xA9"); //©
+</code></pre>
+
+<p>
+Niestety wraz z rozwojem UTF, adaptacją coraz większej liczby języków a i wdrażaniem coraz wymyślniejszych znaków - pojawiły się takie, które nie mieszczą się w podstawowej powierzchni kodów (np. popularne w ostatnich czasach Emoji), a ich kod przekracza 4 cyfry.
+</p>
+
+<pre><code class="language-js">
+console.log("\u{1F691}"); //🚑
+console.log("\u{1F4A9}"); //💩
+</code></pre>
+
+<p>
+Każda taka ikonka może być opisana za pomocą swojego oryginalnego kodu, ale też za pomocą 2 4-znakowych kodów, które postawione obok siebie tworzą daną ikonkę (tak zwane surogatki).
+</p>
+
+<pre><code class="language-js">
+console.log("\u{1F4A9}"); //💩
+console.log("\uD83D\uDCA9"); //💩
+
+console.log("\u{1F691}"); //🚑
+console.log("\uD83D\uDE91"); //🚑
+</code></pre>
+
+<p>Sprawa jeszcze bardziej się gmatwa, jeżeli popatrzymy na emoji, które same w sobie składają się w kilku innych emocji:</p>
+
+<pre><code class="language-js">
+"👩‍❤️‍👩" === 👩 + ❤️‍ + 👩
+console.log("👩‍❤️‍👩");
+</code></pre>
+
+<p>Niestety idealnego 100% rozwiązania takich sytuacji nie ma. Na <a href="https://stackoverflow.com/questions/54369513/how-to-count-the-correct-length-of-a-string-with-emojis-in-javascript">stackoverflow</a> podają, by taki string zamienić na tablicę i pobierać jej długość. Ale i ta opcja nie zawsze zadziała.
+</p>
+
+<div class="kartofel-informuje">
+    Jednym z bardziej popularnych krojów używanych przez wielu programistów jest <a href="https://github.com/tonsky/FiraCode">FiraCode</a>, która zamienia niektóre znaki na odpowiednie ikony. Zasada działania jest podobna do powyższej. Gdy wpiszemy obok siebie jakieś znaki !==, zostaną one zamienione na odpowiedni znak zastępczy.
+</div>
+
+<p>Bardzo ciekawy artykuł na te tematy znajdziesz <a href="https://blog.jonnew.com/posts/poo-dot-length-equals-two">tutaj</a> i <a href="https://flaviocopes.com/javascript-unicode/#using-unicode-in-a-string">tutaj</a>.</p>
+
+
+<div class="tasks-for-you-cnt">
+	<h2 class="subtitle" id="zadania">Trening czyni mistrza</h2>
+	<p>
+		Poniżej zamieszczam kilka zadań, które w ramach ćwiczenia możesz wykonać:
+	</p>
+	<ol class="tasks-for-you">
+		<li>
+			<div class="question">
+			Stwórz zmienną <strong>text</strong> z dowolnym zdaniem.
+			Wypisz w konsoli to zdanie i jego długość.
+			</div>
+			<div class="solution">
+				<pre><code class="language-js">
+					const text = "Ala ma kota";
+					console.log(text, text.length);
+				</code></pre>
+			</div>
+		</li>
+		<li>
+			<div class="question">
+			Mamy tekst:
+			<pre><code class="language-js">
+				const text2 = "Bardzo lubię jeść marchewkę";
+			</code></pre>
+			Wypisz w konsoli liczbę wyrazów w tym zdaniu.
+			</div>
+			<div class="solution">
+				<pre><code class="language-js">
+					const words = text2.split(" ");
+					console.log(words.length);
+				</code></pre>
+			</div>
+		</li>
+		<li>
+			<div class="question">
+			Ktoś w formularzu wpisał imię z małej litery. Super bohater wkracza do akcji i musi je poprawić:
+			<pre><code class="language-js">
+				let name = "marcin"
+			</code></pre>
+			Popraw to imię tak by zaczynało się dużą literą.
+			</div>
+			<div class="solution">
+				<pre><code class="language-js">
+					let name = "marcin";
+					name = name.charAt(0).toUpperCase() + name.slice(1);
+					console.log(name);
+				</code></pre>
+			</div>
+		</li>
+		<li>
+			<div class="question">
+			Mamy zmienną:
+			<pre><code class="language-js">
+				const email = "loremimpsum@gmail.com";
+			</code></pre>
+			Sprawdź czy występuje w niej znak @. Jeżeli tak wypisz w konsoli
+			"email zawiera @", w przeciwnym razie wypisz "email nie zawiera @"
+			</div>
+			<div class="solution">
+				<pre><code class="language-js">
+				const email = "loremimpsum@gmail.com";
+	
+				if (email.indexOf('@') !== -1) {
+					console.log('email zawiera @');
+				} else {
+					console.log('email nie zawiera @');
+				}
+				</code></pre>
+			</div>
+		</li>
+		<li>
+			<div class="question">
+			<pre><code class="language-js">
+				const text = "Uczę się stringów w C++";
+			</code></pre>
+	
+			<p>Korzystając z indexOf, lastIndefOf, i którejkolwiek metody do wycinania fragmentów tekstu uzyskaj tekst:
+			"Uczę się stringów w Javascript". Nie wykorzystuj replace().</p>
+			</div>
+			<div class="solution">
+				<pre><code class="language-js">
+					const text = "Uczę się stringów w C++";
+	
+					const textPart = text.slice(0, text.indexOf('C++'));
+					const textFix = textPart + "Javascript";
+					console.log(textFix);
+				</code></pre>
+			</div>
+		</li>
+		<li>
+			<div class="question">
+			Powiedzmy, że mamy zmienną z adresem strony:
+	
+			<pre><code class="language-js">
+				let url = "http://mojastrona.pl"
+			</code></pre>
+	
+			<p>
+			Chcemy do tego adresu po znaku zapytania wstawić zmienną "text", którą potem ewentualnie mogła by odczytać inna podstrona.<br>
+			Zmienna ta powinna mieć wartość tekstu z 5 zadania:
+			</p>
+	
+			<pre><code class="language-js">
+				let url = "http://mojastrona.pl?text=Uczę się stringów w Javascript"
+			</code></pre>
+	
+			<p>
+				Jak wiesz, spacji i podobnych znaków nie może być w adresie strony.
+				Za pomocą odpowiednich zmiennych, dodawania i wykorzystując odpowiednie metody
+				uzyskaj prawidłowy odpowiednio zakodowany adres url.
+			</p>
+			</div>
+			<div class="solution">
+				<pre><code class="language-js">
+					let url = "http://mojastrona.pl";
+					const text = "Uczę się stringów w Javascript";
+					url = url + "?text=" + encodeURI(text);
+	
+					console.log(url);
+				</code></pre>
+			</div>
+		</li>
+		<li>
+			<div class="question">
+			Mamy zmienną:
+			<pre><code class="language-js">
+				const text = "ALA ma kota";
+			</code></pre>
+			<p>
+				Wypisz w konsoli:<br>
+				- tekst pisany małymi literami<br>
+				- tekst pisany dużymi literami<br>
+				- tekst pisany naprzemiennie dużymi i małymi literami<br>
+			</p>
+			<p>Zamień imię AlA na OLA i wypisz wynik w konsoli</p>
+			<p>Wypisz w konsoli fragment " ma Alę"</p>
+			</div>
+			<div class="solution">
+				<pre><code class="language-js">
+					const text = "ALA ma kota";
+					console.log(text.toLowerCase());
+					console.log(text.toUpperCase());
+	
+					let textMix = '';
+					for (let i=0; i&lt;text.length; i++) {
+						if (i%2===0) {
+							textMix += text.charAt(i).toLowerCase();
+						} else {
+							textMix += text.charAt(i).toUpperCase();
+						}
+					}
+					console.log(textMix);
+	
+					const text2 = text.replace("ALA", "OLA");
+					console.log(text2);
+				</code></pre>
+			</div>
+		</li>
+	</ol>
+	</div>
+			</div><!-- e: page-content-text -->
+			<footer class="page-footer">
+				<p>
+				Wszelkie prawa zastrzeżone. Jeżeli chcesz używać jakiejś części tego kursu, skontaktuj się z <a href="/kurs/autor.php">autorem</a>.
+				Aha - i ta strona korzysta z <a href="/kurs/polityka-prywatnosci.php">ciasteczek</a>.
+				</p>
+			</footer>
+							<div class="rekl-cnt">
+					<ins
+					class="adsbygoogle" style="margin-top:40px; display:block"
+					data-ad-client="ca-pub-6843603045703750"
+					data-ad-slot="4690777640"
+					data-ad-format="auto"
+					data-full-width-responsive="true"
+					></ins>
+				</div>
+				<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+	(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+					</main><!-- e: page-content -->
+			</div><!-- e: page-content-wrapper -->
+    <aside id="page-sidebar-cnt" class="page-sidebar-cnt">
+	<div id="page-sidebar" class="page-sidebar">
+		<button aria-label="Pokaż/ukryj Menu" aria-expanded="false" aria-controls="page-sidebar" type="button" id="pageSidebarBurger" class="page-sidebar-burger">
+			<span></span>
+		</button>
+
+		<h2 class="visuallyhidden">
+			Menu
+		</h2>
+
+		<button class="sidebar-toggle-btn" title="Pokaż/schowaj menu" aria-hidden="true">
+			<strong>Pokaż/ukryj menu</strong>
+			<span></span>
+			<span></span>
+			<span></span>
+		</button>
+
+		<div class="page-sidebar-title">
+			<a href="/kurs/kontakt.php" title="Nawrzucaj autorowi" class="mail-to-author" id="mailToAuthor">Napisz do mnie</a>
+			<a href="#popupOptions" class="page-setup-link popupOpen" title="Ustawienia strony" id="showOptions">Ustawienia</a>
+			<a href="/index.php" aria-label="Strona główna" class="page-sidebar-title-link">Kurs Javascript</a>
+		</div>
+
+        <form aria-label="Wyszukiwarka" class="search-sidebar" action="/search.php" method="post">
+            <label for="search" class="search-sidebar-label">Szukaj</label>
+            <div class="search-sidebar-input-cnt">
+                <svg class="search-sidebar-input-icon" xmlns="http://www.w3.org/2000/svg" width="26" height="28" viewBox="0 0 26 28" aria-hidden="true">
+                    <path d="M18 13c0-3.859-3.141-7-7-7s-7 3.141-7 7 3.141 7 7 7 7-3.141 7-7zm8 13c0 1.094-.906 2-2 2a1.96 1.96 0 0 1-1.406-.594l-5.359-5.344a10.971 10.971 0 0 1-6.234 1.937c-6.078 0-11-4.922-11-11s4.922-11 11-11 11 4.922 11 11c0 2.219-.672 4.406-1.937 6.234l5.359 5.359c.359.359.578.875.578 1.406z"></path>
+                </svg>
+                <input type="text" id="search" autocomplete="off" name="q" class="search-sidebar-input">
+            </div>
+            <button type="submit" class="search-sidebar-button">Szukaj</button>
+        </form>
+
+		<div class="page-sidebar-table-of-content">
+			<h2 class="visuallyhidden">Spis treści</h2>
+            <div class="page-sidebar-section">
+				<h3 class="page-sidebar-section-title noopen">
+                    <a href="/index.php">Strona główna</a>
+                </h3>
+            </div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Słowem wstępu</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/wstep/wstep.php">Wstęp</a>
+						</li>
+						<li >
+							<a href="/kurs/wstep/co-to-jest-javascript.php">Co to jest JavaScript i z czym go się je?</a>
+						</li>
+						<li >
+							<a href="/kurs/wstep/wymagania.php">Wymagania</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section show has-active-element">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Super podstawy</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/debuger/debuger.php">Debuger</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/pierwszy-skrypt.php">Wstawiamy skrypty na naszą stronę</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/strict-mode.php">Strict mode</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/typy-danych.php">Typy danych i konwersja danych</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/zmienne.php">Zmienne</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/operatory.php">Operatory</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/math.php">Obiekt Math</a>
+						</li>
+						<li class="active">
+							<a href="/kurs/super-podstawy/string.php">String - teksty</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/instrukcje-warunkowe.php">Instrukcje warunkowe</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/petle.php">Pętle</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/funkcje.php">Funkcje</a>
+						</li>
+                        <li >
+							<a href="/kurs/super-podstawy/funkcje-tematy-dodatkowe.php">Funkcje - tematy dodatkowe</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/tablice.php">Tablice</a>
+						</li>
+                        <li >
+							<a href="/kurs/super-podstawy/tablice-iteracje.php">Tablice pętle</a>
+						</li>
+						<li >
+							<a href="/kurs/debuger/debugowanie.php">Debugowanie kodu</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+            			<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Obiekty</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+                        <li >
+							<a href="/kurs/obiekty/obiekty.php">Obiekty i this</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-jak-to-dziala.php">Jak to działa</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-konstruktor.php">Konstruktor</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-zaawansowane-this.php">Zaawansowane this</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-dziedziczenie.php">Dziedziczenie w Javascript</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-inne-sposoby-tworzenia.php">Inne sposoby tworzenia obiektów</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-instanceof-hasownproperty.php">instanceof i hasOwnProperty</a>
+						</li>
+                    </ul>
+                </div>
+            </div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">DOM i zdarzenia</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/dom/dom.php">Document Object Model</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-wlasciwosci.php">Właściwości elementów</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-relacje.php">Relacje między elementami</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-tworzenie-i-usuwanie.php">Tworzenie i usuwanie elementów</a>
+						</li>
+                        <li >
+                            <a href="/kurs/dom/style.php">Style w CSS</a>
+                        </li>
+						<li >
+							<a href="/kurs/events/events.php">Zdarzenia</a>
+						</li>
+						<li >
+							<a href="/kurs/events/events-keys.php">Zdarzenia - klawisze</a>
+						</li>
+						<li >
+							<a href="/kurs/events/events-mouse.php">Zdarzenia - myszka</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/projekt-todo.php">Projekt TODO</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/slider.php">Tworzymy slider</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Prawie podstawy</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/grafika/grafika-na-stronie.php">Grafika na stronie</a>
+						</li>
+						<li >
+							<a href="/kurs/intervals/intervals.php">setTimeout i setInterval</a>
+						</li>
+						<li >
+							<a href="/kurs/match-media.php">Praca z RWD</a>
+						</li>
+						<li >
+							<a href="/kurs/okna-dialogowe.php">Okienka dialogowe</a>
+						</li>
+						<li >
+							<a href="/kurs/okna.php">Tworzenie nowych okien</a>
+						</li>
+						<li >
+							<a href="/kurs/date/date.php">Obiekt Date</a>
+						</li>
+						<li >
+							<a href="/kurs/date/date-calendar.php">Tworzymy kalendarz</a>
+						</li>
+						<li >
+							<a href="/kurs/cookies/cookie.php">Obiekt Cookie</a>
+						</li>
+						<li >
+							<a href="/kurs/storage/storage.php">Storage</a>
+						</li>
+						<li >
+							<a href="/kurs/regular.php">Wyrażenia regularne</a>
+						</li>
+						<li >
+							<a href="/kurs/formularze/formularze.php">Formularze</a>
+						</li>
+						<li >
+							<a href="/kurs/formularze/formularze-walidacja.php">Formularze - walidacja</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Ajax</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/ajax/ajax.php">AJAX, REST, JSON</a>
+						</li>
+						<li >
+							<a href="/kurs/ajax/xmlhttprequest.php">XMLHttpRequest</a>
+						</li>
+            			<li >
+							<a href="/kurs/ajax/fetch.php">Fetch API</a>
+						</li>
+						<li >
+							<a href="/kurs/ajax/formularz-kontaktowy.php">Dynamiczny formularz kontaktowy</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Nowy Javascript</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/es6/ecma-script-2015.php">ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/webpack.php">Webpack</a>
+						</li>
+                        <li >
+            				<a href="/kurs/es6/obiekty-w-es6.php">Obiekty w ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/funkcja-strzalkowa.php">Funkcja strzałkowa</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/spread-rest.php">Spread i rest</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/template-strings.php">Template strings</a>
+						</li>
+						<li >
+            				<a href="/kurs/es6/destructuring.php">Dekompozycja</a>
+        				</li>
+						<li >
+							<a href="/kurs/es6/class.php">Klasy w ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/promises.php">Promises</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/async-await.php">Async/Await</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/symbole.php">Symbole</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">jQuery</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/jquery/jquery.php">jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/animacje-w-jquery.php">Animacje w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/jquery-ajax.php">Ajax w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/tabs.php">Taby w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/plugin.php">Karuzela w jQuery</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Canvas</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/canvas/canvas.php">Canvas</a>
+						</li>
+						<li >
+							<a href="/kurs/canvas/canvas-images.php">Grafika w canvas</a>
+						</li>
+						<li >
+						<a href="/kurs/canvas/canvas-paint.php">Praktycznie : Paint w canvas</a>
+						</li>
+
+						<li >
+							<a href="/kurs/canvas/canvas-animacja.php">Animacja w canvas</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Gry</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/gry/hangman/hangman.php">Szubienica</a>
+						</li>
+						<li >
+							<a href="/kurs/gry/memory/memory.php">Memory</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+            			<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Inne</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/dodatkowe-materialy.php">Dodatkowe materiały</a>
+						</li>
+						<li >
+							<a href="/kurs/faq.php">FAQ</a>
+						</li>
+						<li >
+							<a href="/kurs/polityka-prywatnosci.php">Polityka prywatności</a>
+						</li>
+						<li >
+							<a href="/kurs/autor.php">O autorze</a>
+						</li>
+						<li >
+							<a href="/kurs/kontakt.php">Kontakt</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="page-sidebar-section">
+                <a class="special-link" href="/kurs/autor.php#donate">Wesprzyj kurs</a>
+            </div>
+		</div>
+	</div>
+</aside></div><!-- e: page-container -->
+
+<div class="popup" id="popupOptions">
+	<div class="popup-inside">
+        <div class="popup-container-cnt">
+            <div class="popup-container">
+                <button class="popup-close">Zamknij</button>
+
+                <h2 class="popup-title">
+                    Opcje
+                </h2>
+
+                <div class="popup-content">
+                    <form class="form-options">
+                        <div class="form-option">
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <label for="optionsThemeSelect">Wybierz skórkę dla listingów</label>
+                                    <select id="optionsThemeSelect"></select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <pre><code class="language-js">
+                                //tak będzie wyglądał kod
+
+                                function test() {
+                                    for (let i=0; i&lt;10; i++) {
+                                        console.log("Tekst numer ", 1);
+                                    }
+                                }
+
+                                test();
+                                </code></pre>
+                            </div>
+                            <div class="form-row" id="themeLightModeRow">
+                                <div class="form-col">
+                                    <label for="themeLightMode">
+                                        Tryb dzienny / nocny
+                                    </label>
+
+                                    <div class="light-mode-el">
+                                        <input type="checkbox" id="themeLightMode">
+                                        <span class="light-mode"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+	</div>
+</div>
+<script async defer src="https://www.googletagmanager.com/gtag/js?id=UA-38558970-5"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-38558970-5');
+</script>
+
+	<script src="/js/ads.js"></script>
+	<script src="/js/script.min.js?v=0.13" defer></script>
+</body>
+</html>

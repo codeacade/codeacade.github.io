@@ -1,0 +1,1358 @@
+<!doctype html>
+<html lang="pl-PL">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kurs Javascript - Wyrażenia regularne</title>
+	<meta name="description" content="Kurs Javascript dla superbohaterów, artykuły, tutoriale, porady, zadania do wykonania" />
+    <link rel="canonical" href="https://kursjs.pl/kurs/regular.php" />
+	<link rel="stylesheet" href="./css.css" />
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,700&display=swap&subset=latin-ext" rel="stylesheet">
+	<meta name="image" content="https://kursjs.pl/kursjs.png">
+<meta name="twitter:card" content="product">
+<meta name="twitter:site" content="@publisher_handle">
+<meta name="twitter:title" content="Kurs Javascript">
+<meta name="twitter:description" content="Kurs Javascript dla superbohaterów">
+<meta name="twitter:creator" content="@kartofelek007">
+<meta name="twitter:image" content="https://kursjs.pl/kursjs.png">
+<meta property="og:title" content="Kurs Javascript">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.kursjs.com/">
+<meta property="og:image" content="https://kursjs.pl/kursjs.png">
+<meta property="og:description" content="Kurs Javascript dla superbohaterów">
+<meta property="og:site_name" content="Kurs Javascript">
+<link rel="apple-touch-icon" sizes="57x57" href="/favicons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/favicons/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/favicons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/favicons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/favicons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/favicons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/favicons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/favicons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="/manifest.json">
+<meta name="msapplication-TileColor" content="#FF6347">
+<meta name="msapplication-TileImage" content="/mstile-144x144.png">
+    <script src="/js/jquery.min.js"></script>
+</head>
+<body>
+
+<div class="page-container" id="pageContainer">
+	<div class="page-content-wrapper">
+        <main class="page-content" id="mainContent"  data-text-for-print="Kurs Javascript dla superbohaterów">
+                        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <div class="rekl-cnt">
+                <ins
+                class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-6843603045703750"
+                data-ad-slot="4690777640"
+                data-ad-format="auto"
+                data-full-width-responsive="true"
+                ></ins>
+            </div>
+                        <div class="page-content-text">
+
+
+<h1 class="page-title">Wyrażenia regularne</h1>
+<p>
+Wyrażenia regularne stanowią doskonały sposób na badanie i modyfikowanie tekstu. Dzięki swej olbrzymiej elastyczności
+pozwalają w łatwy sposób pobierać pasujące fragmenty tekstu. To tyle książkowej teorii.
+</p>
+<p>
+A czym są wzorce w praktyce?<br>
+Powiedzmy, że mamy kod pocztowy. Kod taki można opisać w następujący sposób: na początku są 2 dowolne cyfry, potem znak myślnika, po czym występują trzy dowolne cyfry (np. 02-380). Powyższy opis kodu pocztowego to właśnie wzorzec.<br>
+Powiedzmy, że w jakimś tekście chcielibyśmy znaleźć takie kody pocztowe. Problem w tym, że nie wiemy jakie one mają numery...
+I tutaj właśnie pomogą nam wzorce.
+</p>
+
+<div class="kartofel-informuje">
+    <p>
+    Wszelakie zabawy z wyrażeniami regularnymi warto przeprowadzać w jednym z narzędzi testujących jak <a href="https://regex101.com/">to</a>, czy <a href="http://regexr.com/">to</a>. Zresztą wystarczy
+    w wyszukiwarkę wpisać "reg tester"...
+    </p>
+</div>
+
+<div class="kartofel-informuje">
+    Na temat wyrażeń regularnych jest masa super artykułów. Pod adresem <a href="https://flaviocopes.com/javascript-regular-expressions/#how-does-a-regular-expression-look-like">https://flaviocopes.com/javascript-regular-expressions/#how-does-a-regular-expression-look-like</a>
+    znajduje się jeden z fajniejszych tekstów na ten temat.
+</div>
+
+<p>
+Przykładowy wzorzec może mieć np. postać:
+</p>
+
+<pre><code class="language-js">
+/^[a-zA-Z]{2,}\s[a-zA-Z]{2,}$/
+</code></pre>
+
+<p>
+Aby w Javascript korzystać z wyrażeń regularnych, musimy utworzyć obiekt <strong>RegExp(wyrażenie, flaga)</strong>, który przyjmuje
+2 argumenty: wyrażenie, którym będziemy testować, oraz dodatkowe flagi, które poznamy w tym rozdziale.
+</p>
+
+<pre><code class="language-js">
+const reg = new RegExp("pani?" , "gi")
+
+lub
+
+const reg = /pani?/gi
+</code></pre>
+
+<p>
+Którą metodę wybrać?<br>
+Każda z nich ma swoje wady i zalety.
+Pierwsza wymaga poprzedzania specjalnych znaków (np. znaku zapytania) (które zaraz poznamy) podwójnym ukośnikiem //. W drugiej metodzie specjalne znaki poprzedzamy jednym ukośnikiem, ale całe wyrażenie musimy objąć parą ukośników.
+</p>
+
+
+<!-- ### -->
+<h2 class="subtitle" id="metaznaki">Metaznaki</h2>
+<p>
+Każdy wzorzec składa się z meta znaków, czyli specjalnych znaków, które opisują jak mają wyglądać wyszukiwane fragmenty tekstu.
+Przykładowo wzorzec składający się z meta znaków
+</p>
+
+<pre><code>
+p.p.
+</code></pre>
+
+<p>
+będzie pasował do słowa "popo", ale równie
+dobrze będzie pasował do słowa "papi", "pupa", "papa" itp.
+</p>
+
+<p>Poniżej zamieściłem tabelę zawierającą opis meta znaków.</p>
+
+<table class="tab no-auto">
+<tr>
+    <th>Metaznak</th>
+    <th>Znaczenie</th>
+    <th style="width:25%">Przykład wyrażenia</th>
+    <th>Zgodne ciągi z wyrażeniem</th>
+    <th>Niezgodne ciągi z wyrażeniem</th>
+</tr>
+<tr class="even">
+    <td>^</td>
+    <td>początek wzorca</td>
+    <td>^za</td>
+    <td>zapałka<br>zadra<br>zapłon<br>zarazek</td>
+    <td>kazanie<br>poza<br>bazar</td>
+</tr>
+<tr>
+    <td rowspan="2">$</td>
+    <td rowspan="2">koniec wzorca</td>
+    <td>az$<br></td>
+    <td>uraz<br>pokaz</td>
+    <td>azymut<br>pokazy</td>
+</tr>
+<tr>
+    <td>^.arka$</td>
+    <td>barka<br>warka</td>
+    <td>parkan</td>
+</tr>
+<tr class="even">
+    <td>.</td>
+    <td>dowolny pojedynczy znak</td>
+    <td>.an.a</td>
+    <td>panda<br>Wanda<br>panna<br>kania</td>
+    <td>rana<br>konia</td>
+</tr>
+<tr>
+    <td rowspan="2">[...]</td>
+    <td rowspan="2">
+        dowolny z wymienionych znaków;<br>
+        możemy podawać kolejne znaki lub wpisywać zakres - na przykład [a-z]
+        oznacza wszystkie małe litery.
+        Wymieniając escapowane znaki (następna table) nie musimy ich poprzedzać ukośnikiem</td>
+    <td>[a-z]an[nd]a</td>
+    <td>pana<br>panda<br>wanna</td>
+    <td>Wanda<br>kania</td>
+</tr>
+<tr>
+    <td>[a-z][a-zA-Z0-9.-]</td>
+    <td><br>pas<br>mAs<br>p2p</td>
+    <td><br>Bas<br>bal<br>balu<br>mp3</td>
+</tr>
+<tr class="even">
+    <td>[^...]</td>
+    <td>dowolny z niewymienionych znaków</td>
+    <td>kre[^st]</td>
+    <td>krew<br>krem</td>
+    <td>kres<br>kret</td>
+</tr>
+<tr>
+    <td rowspan="2">|</td>
+    <td rowspan="2">dowolny z rozdzielonych znakiem ciągów</td>
+    <td>[nz]a|pod|przed<br></td>
+    <td>na<br>za<br>pod<br>przed</td>
+    <td>&nbsp;</td>
+</tr>
+<tr>
+    <td>trzynasty|13-ty|13</td>
+    <td>trzynasty<br>13-ty<br>13</td>
+    <td></td>
+</tr>
+
+<tr class="even">
+    <td rowspan="2">(...)</td>
+    <td rowspan="2">zawężenie zasięgu</td>
+    <td>g(ż|rz)eg(ż|rz)(u|ó)łka<br></td>
+    <td>gżegżółka<br>gżegrzółka<br>gżegrzułka<br>grzegrzułka</td>
+    <td>&nbsp;</td>
+</tr>
+<tr class="even">
+    <td>(ósmy|8-my|8)(maj|maja)</td>
+    <td>ósmy maja<br>8-my maj<br>8 maja</td>
+    <td></td>
+</tr>
+
+<tr>
+    <td rowspan="2">?</td>
+    <td rowspan="2">zero lub jeden poprzedzający znak lub element; elementem może być na przykład wyrażenie umieszczone wewnątrz nawiasów (...)</td>
+    <td>ro?uter</td>
+    <td>router<br>ruter</td>
+    <td>&nbsp;</td>
+</tr>
+<tr>
+    <td>(ósmy|8(-my)?)maja?</td>
+    <td>ósmy maja<br>ósmy maj<br>8-mymaja<br>8-my maj<br>8 maja<br>8 maj</td>
+    <td></td>
+</tr>
+
+<tr class="even">
+    <td rowspan="3">+</td>
+    <td rowspan="3">jeden lub więcej poprzedzających znaków lub elementów; elementem może być na przykład wyrażenie umieszczone wewnątrz nawiasów (...)</td>
+    <td>[0-9]+[abc]<br><br></td>
+    <td>10a<br>1b<br>003c<br>42334b<br><br></td>
+    <td>a<br>b<br>c<br>z<br>14<br>03<br>12d<br>1231z<br></td>
+</tr>
+<tr class="even">
+    <td>pan+a</td>
+    <td>panna<br>pannnna</td>
+    <td></td>
+</tr>
+<tr class="even">
+    <td>(tam)+</td>
+    <td>tam<br>tamtam<br>tamtamtam</td>
+    <td>paa<br>panda<br>ta<br>tamta<br>mat</td>
+</tr>
+<tr>
+    <td rowspan="2">*</td>
+    <td rowspan="2">zero lub więcej poprzedzających znaków lub elementów; elementem może być na przykład wyrażenie umieszczone wewnątrz nawiasów (...)</td>
+    <td>[0-9]*[abc]</td>
+    <td>10a<br>1b<br>003c<br>42334b<br>a<br>b<br>c</td>
+    <td>k<br>2335</td>
+</tr>
+<tr>
+    <td>pora*n*a*</td>
+    <td>por<br>pora<br>poranna<br>poraannnaa<br>pornnna</td>
+    <td>porada<br>panna</td>
+</tr>
+
+
+<tr class="even">
+    <td>{4}</td>
+    <td>dokładnie 4 poprzedzające znaki lub elementy</td>
+    <td>[0-9]{4}</td>
+    <td>8765<br>8273<br>2635</td>
+    <td>12345<br>234<br>2123456</td>
+</tr>
+<tr>
+    <td>{4,}</td>
+    <td>4 lub więcej poprzedzających znaków lub elementów</td>
+    <td>[ah]{4,}</td>
+    <td>haha<br>haaaaahaha<br>ahaaa</td>
+    <td>haa<br>ha<br>hehe<br>aha</td>
+</tr>
+<tr class="even">
+    <td>{2,4}</td>
+    <td>od 2 do 4 poprzedzających znaków lub elementów</td>
+    <td>p.{2,4}a</td>
+    <td>piana<br>pola<br>polana</td>
+    <td>psa<br>poranna</td>
+</tr>
+</table>
+
+<p>
+    Jeżeli chcemy w wyrażeniu zawrzeć znaki, które normalnie mają specjalne znaczenie, musimy
+poprzedzić taki znak ukośnikiem.
+</p>
+<table class="tab">
+<tr>
+    <td>\.</td>
+    <td>znak kropki</td>
+    <td>[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}</td>
+    <td>128.0.0.2</td>
+    <td>128-0-0-2</td>
+</tr>
+<tr class="even">
+    <td>\*</td>
+    <td>znak *</td>
+    <td>\*.+</td>
+    <td>*nic</td>
+    <td>nic*<br>nic</td>
+</tr>
+<tr>
+    <td>\/</td>
+    <td>znak /</td>
+    <td>^\/\/$</td>
+    <td>//</td>
+    <td>&nbsp;</td>
+</tr>
+<tr class="even">
+    <td>\?</td>
+    <td>znak ?</td>
+    <td>^.+\?$</td>
+    <td>Czy to jest kot?</td>
+    <td>Czy to jest kot</td>
+</tr>
+<tr>
+    <td>\:</td>
+    <td>znak :</td>
+    <td>^.+\:$</td>
+    <td>Oto one:</td>
+    <td>:nic</td>
+</tr>
+<tr class="even">
+    <td>\.</td>
+    <td>znak .</td>
+    <td>\.+</td>
+    <td>......</td>
+    <td>&nbsp;</td>
+</tr>
+<tr>
+    <td>\^</td>
+    <td>znak ^</td>
+    <td>.*\^</td>
+    <td>To jest ^</td>
+    <td>To jest &</td>
+</tr>
+<tr class="even">
+    <td>\+</td><td>znak +</td>
+    <td>[0-9]+\+[0-9]+</td>
+    <td>928374+29832</td>
+    <td>23873-32787<br>238738278</td>
+</tr>
+<tr>
+    <td>\\</td>
+    <td>znak \</td>
+    <td>c\:\\</td>
+    <td>c:\</td>
+    <td>&nbsp;</td>
+</tr>
+<tr class="even">
+    <td>\=</td>
+    <td>znak =</td>
+    <td>[0-9]+\+[0-9]+\=[0-9]+</td>
+    <td>11+12=23</td>
+    <td>11-12=23</td>
+</tr>
+<tr>
+    <td>\|</td>
+    <td>znak |</td>
+    <td>x \|\| y</td>
+    <td>x || y</td>
+    <td>x -- y</td>
+</tr>
+</table>
+
+
+<!-- ### -->
+<h2 class="subtitle" id="flagi">Flagi</h2>
+<p>
+Poza wymienionymi meta znakami istnieją specjalne parametry (flagi), które oddziałują na wyszukiwanie wzorców.:
+</p>
+
+<pre><code class="language-js">
+const reg = /[a-z]*/mg
+const reg = new RegExp("[a-z]*","g")
+</code></pre>
+
+<table class="tab">
+<tr><th>znak Flagi</th><th>znaczenie</th></tr>
+<tr><td>i</td><td>powoduje niebranie pod uwagę wielkości liter</td></tr>
+<tr><td>g</td><td>powoduje zwracanie wszystkich pasujących fragmentów, a nie tylko pierwszego</td></tr>
+<tr><td>m</td><td>powoduje wyszukiwanie w tekście kilku liniowym. W trybie tym znak początku i końca wzorca (^$) jest
+                  wstawiany przed i po znaku nowej linii (\n).</td></tr>
+</table>
+
+
+<!-- ### -->
+<h2 class="subtitle" id="klasa">Klasy znaków</h2>
+<p>
+Dodatkowo Javascript udostępnia specjalne klasy znaków. Zamiast wyszukiwać wszystkie litery za pomocą <span class="non-break">[a-zA-Z_]</span>
+możemy skorzystać z klasy znaków <strong>\w</strong>.
+</p>
+
+<a id="klasy"></a>
+<table class="tab">
+<tr><th>Klasa znaków</th><th>znaczenie</th></tr>
+<tr><td>\s</td><td>znak spacji, tabulacji lub nowego wiersza</td></tr>
+<tr><td>\S</td><td>znak nie będący spacją, tabulacją lub znakiem nowego wiersza</td></tr>
+<tr><td>\w</td><td>każdy znak będący literą, cyfrą i znakiem _</td></tr>
+<tr><td>\W</td><td>każdy znak nie będący literą, cyfrą i znakiem _</td></tr>
+<tr><td>\d</td><td>każdy znak będący cyfrą</td></tr>
+<tr><td>\D</td><td>każdy znak nie będący cyfrą</td></tr>
+</table>
+
+<!-- ### -->
+<h2 class="subtitle" id="test">Zastosowanie metody test()</h2>
+<p>
+Zacznijmy od najprostszych rzeczy czyli od sprawdzenia, czy w danym tekście występuje nasz wzorzec.
+</p>
+<p>
+Metoda <strong>test()</strong> służy do sprawdzania, czy dane wyrażenie znajduje się w tekście:
+</p>
+
+<pre><code class="language-js">
+const text = "cat dog";
+const reg = /cat/;
+reg.test(text) === true //bo cat znajduje się w tekście
+
+const reg2 = /^cat$/;
+alert(reg2.test(text)); //false - bo wzorzec zaczyna się z początkiem i kończy z końcem tekstu (znaki ^ i $) - jedyny pasujący tekst to "cat"
+</code></pre>
+
+<pre><code class="language-js">
+const text = "Turlal goryl po Urlach kolorowe korale...";
+const reg = new RegExp("[A-Z]{1}[^\s]+");
+console.log(reg.test(text)) //true - bo w tekście jest wyraz zaczynający się z dużej litery, po którym następują małe litery (np. Turlal)
+</code></pre>
+
+<p class="opis-wyrazenia">
+<strong>[A-Z]{1}</strong> - jedna duża litera<br>
+<strong>[^\s]+</strong> - plus oznacza jeden lub więcej znaków, a [^\s] oznacza znak nie będący spacją - czyli razem: jeden
+                          lub więcej znaków nie będących spacją
+</p>
+
+<pre><code class="language-js">
+const text = "Turlal goryl po Urlach kolorowe korale...";
+const reg = new RegExp("[0-9]+");
+console.log(reg.test(text)) //false - bo w tekście nie ma żadnej cyfry
+
+const reg = new RegExp("[0-9]*");
+console.log(reg.test(text)) //true - w tekście nie ma żadnej cyfry, ale * oznacza 0 lub więcej
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="exec">Zastosowanie metody exec()</h2>
+<p>
+Metoda excec() przeszukuje dany ciąg znaków, a następnie zwraca tablicę zawierającą składowe pierwszego wyszukanego fragmentu.
+</p>
+
+<p>
+Jeżeli metoda nic nie znajdzie, zwróci null.<br>
+Jeżeli metoda coś znajdzie, wtedy element 0 zawiera ostatni pasujący ciąg, natomiast elementy o indeksie 1 - n zawierają poszczególne części wyszukiwania (patrz <a href="#nawiasy">tutaj</a>). Poniższy przykład pokazuje składowe takiego wyniku:
+</p>
+
+<pre><code class="language-js">
+const re = /d(b+)(d)/ig;
+const result = re.exec("cdbBdbsbz");
+</code></pre>
+
+<table class="tab">
+    <tr><th>Obiekt</th><th>Właściwość/Index</th><th>Opis</th><th>Przykład</th></tr>
+    <tr>
+           <td rowspan="4">result</td>
+           <td><code>[0]</code></td>
+           <td>Ostatni znaleziony pasujący ciąg</td>
+           <td><code>dbBd</code></td>
+      </tr>
+      <tr>
+           <td><code>[1], ...[<i>n</i>]</code></td>
+           <td>Kolejne <a href="#nawiasy">Atomy</a> pasującego ciągu</td>
+           <td><code>[1] = bB<br>[2] = d</code></td>
+      </tr>
+    <tr>
+        <td><code>index</code></td>
+        <td>początkowy indeks od kąd zaczyna się znaleziony kawałek tekstu</td>
+        <td><code>1</code></td>
+    </tr>
+    <tr>
+        <td><code>input</code></td>
+        <td>Oryginalny tekst w którym szukamy</td>
+        <td><code>cdbBdbsbz</code></td>
+    </tr>
+    <tr>
+        <td rowspan="5"><code>re</code></td>
+        <td><code>lastIndex</code></td>
+        <td>Indeks odkąd rozpocznie się następne szukanie</td>
+        <td><code>5</code></td>
+    </tr>
+    <tr>
+        <td><code>ignoreCase</code></td>
+        <td>Wskazuje flagę "<code>i</code>" - nie branie pod uwagę wielkości liter</td>
+        <td><code>true</code></td>
+    </tr>
+    <tr>
+        <td><code>global</code></td>
+        <td>Wskazuje flagę "<code>g</code>" - wielokrotne wyszukiwanie w tym samym ciągu</td>
+        <td><code>true</code></td>
+    </tr>
+    <tr>
+        <td><code>multiline</code></td>
+        <td>Wskazuje flagę "<code>m</code>" - wyszukiwanie w wielu liniach</td>
+        <td><code>false</code></td>
+    </tr>
+    <tr>
+        <td><code>source</code></td>
+        <td>Wzór wyrażenia regularnego</td>
+        <td><code>d(b+)(d)</code></td>
+    </tr>
+</table>
+
+<pre><code class="language-js">
+console.log(result[0]) //dbBd
+console.log(result.index) //1
+console.log(result.input) //cdbBdbsbz
+
+console.log(re.lastIndex) //5
+console.log(re.multiline) //false
+console.log(re.ignoreCase) //true
+console.log(re.source) //d(b+)(d)
+</code></pre>
+
+<p>
+    Jeżeli użyjesz flagi "g", wtedy będziesz mógł użyć metody exec() do wielokrotnego wyszukiwania w tym samym tekście:
+</p>
+
+<pre><code class="language-js">
+const myRe = /ab*/g;
+const str = "abbcdefabh";
+const myArray;
+
+while ((myArray = myRe.exec(str)) !== null) {
+    const msg = "Znaleziono: " + myArray[0] + "    ";
+    msg += "Następne wyszukiwanie rozpocznie się od: " + myRe.lastIndex;
+
+    console.log(msg);
+
+    //Znaleziono: abb - następne wyszukiwanie rozpocznie się od: 3
+    //Znaleziono: ab - następne wyszukiwanie rozpocznie się od: 9
+}
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="match">Match()</h2>
+<p>
+Obiekt String posiada metodę <strong>match()</strong>, która spełnia tę samą funkcję co metoda exec() obiektu RexExp, jednak zwraca od razu wszystkie pasujące fragmenty.
+</p>
+
+<pre><code class="language-js">
+const text = "Numer1, Numer2, Numer3, NumerB, Numer5, NumerD";
+const reg = /Numer[1-4A-C]/g;
+console.log(text.match(reg)); //Numer1, Numer2, Numer3, NumerB
+</code></pre>
+
+<pre><code class="language-js">
+const reg = /d(b+)(d)/ig;
+const result = "cdbBdbsbz".match(reg);
+
+if (result.length) {
+    console.log(result.join('-')); //dbBd
+}
+</code></pre>
+
+
+<!-- ### -->
+<h2 class="subtitle" id="search">Zastosowanie metody search()</h2>
+<p>
+Metoda <strong>search()</strong> obiektu RexExp działa tak samo jak metoda <a href="super-podstawy/string.php#indexOf">indexOf()</a> obiektu string,
+czyli zwraca indeks pierwszego wystąpienia podciągu w ciągu:
+</p>
+
+<pre><code class="language-js">
+const text = "Fantomas robi masę - marchewkowo-marcepanowa";
+const reg = /at/gi";
+
+console.log("Search: " + text.search(reg));
+console.log("Index of: " + text.indexOf("at"));
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="replace">Zastosowanie metody replace()</h2>
+<p>
+Obiekt <a href="super-podstawy/string.php">string</a> posiada metodę <strong>replace()</strong>, która służy do zamiany jednego ciągu na drugi.
+Przy jej stosowaniu możemy używać wyrażeń regularnych:
+</p>
+
+<pre><code class="language-js">
+const text = "Kolorowy kolor nie jest kolorowy?...";
+console.log(text);
+
+const reg = /lor/g //nasze wyrażenie
+console.log(text.replace(reg,"ral")); //Wyszukujemy w tekście wszystkie wystąpienia "lor" i zamieniamy je na pogrubione "ral"
+</code></pre>
+
+<p>
+Jako drugi argument tej metody możemy podać funkcję. Pobiera ona jeden argument - znaleziony fragment tekstu, oraz zwraca tekst,
+który zastąpi znaleziony fragment:
+</p>
+
+<pre><code class="language-js">
+const text = "Super Samson jest fajny.";
+const reg = /fajny/;
+const textEnhanced = text.replace(reg, function(match) {
+    return "super" + match;
+});
+
+console.log(textEnhanced); //Super Samson jest super fajny
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="czy_liczba">Czy liczba</h2>
+<p>
+Chcemy sprawdzić, czy użytkownik wpisał numer. Jak widać w <a href="#klasy">tabeli</a> zamieszczonej powyżej,
+Javascript udostępnia nam klasę <strong>\d</strong>, która oznacza dowolną cyfrę:
+</p>
+
+<pre><code class="language-js">
+const text = "909384758699";
+const reg = /^\d+$/
+if (reg.test(text)) {
+    console.log("To jest liczba")
+} else {
+    console.loge("To nie jest liczba...")
+}
+
+//w sumie jest lepszy sposób
+if (!isNan(Number(text))) ...
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="kod">Sprawdzanie Kodu Pocztowego</h2>
+<p>
+Aby wyszukać w tekście kod pocztowy użyjemy wyrażenia:
+</p>
+
+<pre><code class="language-js">
+const codeReg = /[0-9]{2}-[0-9]{3}/g;
+
+//lub
+
+const codeReg = /[\d]{2}-[\d]{3}/g;
+</code></pre>
+
+<p class="opis-wyrazenia">
+<strong>[0-9]{2}</strong> - powinny znaleźć się 2 cyfry<br>
+<strong>-</strong> - po 2 cyfrach powinien znaleźć się znak -<br>
+<strong>[0-9]{3}</strong> - po którym powinny znaleźć się 3 cyfry<br>
+<strong>g</strong> - mają być zwrócone wszystkie wyszukane pasujące ciągi<br>
+</p>
+
+<p>
+Nasz wzór możemy wykorzystać w skrypcie za pomocą metody <strong>match</strong> (zwracającej pasujące ciągi):
+</p>
+
+<pre><code class="language-js">
+const text = "Moj kod pocztowy to nie 12-323 ani tez 03-400 ... jest po prostu inny.";
+const codeReg = /[0-9]{2}-[0-9]{3}/g; //parametr g nakazuje zwrócenie wszystkich znalezionych ciągów (normalnie zwracany jest
+tylko pierwszy)
+const matchReg = text.match(codeReg);
+if (matchReg) {//jeżeli w a znajdują się pasujące ciągi
+    for (let x=0; x&lt;matchReg.length; x++) {
+        console.log(matchReg[x]);
+    }
+}
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="imienazwisko">Weryfikacja Imienia i Nazwiska</h2>
+<p>
+Wzorzec opisujący poprawność tych danych ma postać:
+</p>
+
+<pre><code class="language-js">
+const nameReg = /^[a-zA-Z]{3,}\s+[a-zA-Z]{3,}$/;
+
+//lub
+
+const nameReg = /^[\D]{3,}\s+[\D]{3,}$/;
+</code></pre>
+
+<p class="opis-wyrazenia">
+<strong>/</strong> - od tego znaku muszą się zaczynać i kończyć wszystkie wzorce w JavaScript<br>
+<strong>^</strong> - Wzorzec ma się zaczynać z początkiem tekstu<br>
+<strong>[a-zA-Z]{3,}</strong> - Ciąg musi zawierać przynajmniej 4 litery (imię)<br>
+<strong>\s+</strong> - Po których znajdą się spacje lub tabulatory (min jeden)<br>
+<strong>[a-zA-Z]{3,}</strong> - Po których znajdą się znowu przynajmniej 3 litery (nazwisko)<br>
+<strong>$</strong> - Wzorzec ma się kończyć z końcem tekstu
+</p>
+
+<p>
+Teraz możemy nasz wzór wykorzystać w skrypcie za pomocą metody <strong>test</strong>:
+</p>
+
+<pre><code class="language-js">
+const nameSurname = "Marcin Domański";
+const nameReg = /^[a-zA-Z]{2,}\s[a-zA-Z]{2,}$/;
+
+if (nameReg.test(nameSurname)) {
+    console.log('Imię i Nazwisko jest OK!');
+}
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="email">Weryfikacja emaila</h2>
+<p>
+Jak wiemy, aby adres <strong>email</strong> był prawidłowy musi spełniać kilka zasad:
+</p>
+
+<ul>
+<li>musi posiadać nazwę konta (składającą się z kiku znaków - poza znakami <strong>?,:*/</strong> i spacji)
+<li>po dokumencie musi znaleźć się znak @
+<li>po małpie powinna znaleźć się przynajmniej jedna <strong>.</strong> i to pomiędzy domeną a końcówką adresu
+<li>końcówka adresu powinna składać się z przynajmniej 2 liter (pl, com itp.)
+</ul>
+
+<p>
+Wzór który by opisywał adres mail będzie miał postać:
+</p>
+
+<pre><code class="language-js">
+const mailReg = /^[0-9a-zA-Z_.-]+@[0-9a-zA-Z.-]+\.[a-zA-Z]{2,3}$/
+</code></pre>
+
+<p class="opis-wyrazenia">
+<strong>/</strong> - od tego znaku muszą się zaczynać i kończyć wszystkie wzorce w JavaScript<br>
+<strong>^</strong> - Wzorzec ma się zaczynać z początkiem tekstu<br>
+<strong>[0-9a-zA-Z_.-]+</strong> - Następnie badamy nazwę konta, która może składać się z dowolnych znaków (cyfry, litery, .-_ )<br>
+<strong>@</strong> - Potem sprawdzamy wystąpienia znaku @<br>
+<strong>[0-9a-zA-Z_.-]+</strong> - Po znaku @ sprawdzamy domenę, która może składać się z takich samych znaków co nazwa konta oprócz znaku _<br>
+<strong>\.</strong> - Po dokumencie musi wystąpić kropka<br>
+<strong>[a-zA-Z]{2,3}</strong> - Po kropce musi wystąpić końcówka domeny, która może się składać wyłącznie z liter i jej długość musi
+                   być od 2 do 3 znaków<br>
+<strong>$</strong> - Wzorzec ma się kończyć z końcem tekstu
+</p>
+
+<p>
+Zamiast za każdym razem wpisywać a-zA-Z, możemy uprościć formularz. Na końcu za znakiem / należy wpisać i, co sprawi,
+że wielkość liter nie będzie brana pod uwagę. Dzięki temu nasze wyrażenie nieco się uprości:
+</p>
+
+<pre><code class="language-js">
+const mailReg = /^[0-9a-z_.-]+@[0-9a-z.-]+\.[a-z]{2,3}$/i
+</code></pre>
+
+<p>
+Sprawdźmy nasz wzór w przykładowym polu tekstowym (za pomocą metody <strong>test</strong>):
+</p>
+
+<pre><code class="language-js">
+const mail = "mar-dom@wp.pl";
+const mailReg = /^[0-9a-z_.-]+@[0-9a-z.-]+\.[a-z]{2,3}$/i
+
+if (mailReg.test(mail)) {
+    console.log('Mail OK');
+}
+</code></pre>
+
+<p>Powyższe wyrażenie regularne to tak naprawdę jeden z przykładów (ale działający).
+    Takich wzorów jest masa i na ich temat <a href="https://stackoverflow.com/questions/46155/how-to-validate-email-address-in-javascript">toczy się nie jedna dyskusja</a>.
+</p>
+<p>Inny wzór możesz pobrać np. ze strony <a href="http://emailregex.com/">http://emailregex.com/</a></p>
+
+<!-- ### -->
+<h2 class="subtitle" id="nawiasy">Atomy i referencja powrotna:</h2>
+<p>
+Gdy dokonujemy sprawdzenia według wzorca, możemy nasze części wyrażenia objąć w nawiasy tworząc tak zwane Atomy.
+Wówczas kolejne Atomy będą zawierać kolejne części znalezionego tekstu, do których będziemy mogli się indywidualnie odwołać:
+</p>
+
+<pre><code class="language-js">
+const str = "http://www.webreference.com/js/index.php#piosenka?l=2";
+const reg = str.match(/(\w+:\/\/)([^/]+)([^#?]*)([^?]*)\?*(.+)*/);
+</code></pre>
+
+<p class="opis-wyrazenia">
+Wzorzec wyszuka:<br>
+<strong>(\w+:\/\/)</strong> - dowolne litery po których znajduje się ciąg ://<br>
+<strong>([^/]+)</strong> - po których znajduje się ciąg do znaku /<br>
+<strong>([^#?]*)</strong> - po którym znajduje się kolejny ciąg do ? lub #<br>
+<strong>([^?]*)</strong> - po których znajduje się ciąg do ? (czyli jeżeli adres wywołał kotwicę)<br>
+<strong>\?*</strong> - po którym może znajdować się znak ?<br>
+<strong>(.+)*</strong> - po którym może wystąpić ciąg znaków (czyli query string<br>
+</p>
+
+<p>
+Po zastosowaniu atomów, możemy się odwoływać do ich treści. Jest on podzielona według naszych atomów,
+i nazywa się <strong>wsteczną referencją</strong>.
+Pierwszym ze sposobów odwoływania do tych treści jest wykorzystanie obiektu RegExp:
+</p>
+
+<pre><code class="language-js">
+const text = "http://www.webreference.com/js/index.php#piosenka?l=2";
+const reg = text.match(/(\w+:\/\/)([^/]+)([^#?]*)([^?]*)\?*(.+)*/);
+
+console.log('Badany ciąg: ' + text);
+console.log("Wyrażenie z 1 nawiasu: "+ RegExp.$1);
+console.log("Wyrażenie z 2 nawiasu: "+ RegExp.$2);
+console.log("Wyrażenie z 3 nawiasu: "+ RegExp.$3);
+console.log("Wyrażenie z 4 nawiasu: "+ RegExp.$4);
+console.log("Wyrażenie z 5 nawiasu: "+ RegExp.$5);
+</code></pre>
+
+<p>
+Drugi sposób odwoływania się do poszczególnych Atomów polega na podaniu numeru atomu poprzedzonym ukośnikiem:
+</p>
+
+<pre><code class="language-js">
+const tekst = "FantomasFantomas"
+const reg = /(Fantomas)\1/;
+text.test(reg);
+</code></pre>
+
+<p>
+Powyższy wzór korzysta z tej metody.<br>
+Pierwszy Atom pasuje do słowa Fantomas, więc wyrażenie (Fantomas)\1 jest równe "FantomasFantomas".
+</p>
+
+<p>
+Ostatnią metodą wykorzystania wstecznej referencji jest skorzystanie z metody replace(), która pozwala na
+korzystanie z numerów poprzedzonych znakiem dolara, oznaczających numer Atomu:
+</p>
+
+<pre><code class="language-js">
+const text = "2010-10-20";
+const reg = /(\d{4})-(\d{2})-(\d{2})/;
+const textReplaced = text.replace(reg, "$3 $2 $1"); //20-10-2010
+</code></pre>
+
+<p>
+Jeżeli chcemy by nasz Atom nie tworzył wstecznej referencji, wtedy musimy rozpocząć jego treść od "?:"
+</p>
+
+<pre><code class="language-js">
+const reg = /(\d{4})-(?:\d{2})-(\d{2})/;
+const zamieniony = tekst.replace(reg, "$2 $1"); //20-10-2010
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="split">Podział tekstu na słowa przy pomocy metody split()</h2>
+<p>
+To podziału tekstu wykorzystamy metodę <a href="./super-podstawy/string.php#split">split()</a>.<br>
+Pierwszym parametrem jest tekst wedle którego ma być podzielony tekst i zamieniony na tablicę:
+
+<pre><code class="language-js">
+const tekst = "Ala ma kota";
+console.log(tekst.split(" ")); //["Ala", "ma", "kota"]
+</code></pre>
+
+<p>Co ciekawe, parametr ten może być podany w formie wyrażenia regularnego:</p>
+
+<pre><code class="language-js">
+const text = "To jest zdanie do podzielenia na pojedyncze słowa"
+const tab = s.split(/\W+/); //dzielimy zdanie na słowa (wedle sekwencji nie literowych)
+for (let i=0; i&lt;tab.length; i++) {
+    console.log(tab[i]);
+}
+</code></pre>
+
+
+<!-- ### -->
+<h2 class="subtitle" id="removetags">Usuwanie tagów HTML z tekstu</h2>
+<p>
+Aby usunąć tagi z jakiegoś tekstu, wystarczy skorzystać z poniższej funkcji, która używa do tego celu wyrażeń regularnych:
+</p>
+
+<pre><code class="language-js">
+function stripTags(str) {
+    const reg = /<([^>]+>)/ig;
+    return str.replace(reg, '');
+}
+
+const body = document.querySelector('body');
+console.log( stripTags(body.innerHTML) );
+</code></pre>
+
+<p>Funkcja ta zadziała tylko z poprawną strukturą html. Jeżeli wstawiasz do jakiegoś atrybutu znak &lt; lub &gt; powinieneś takie znaki zakodować za pomocą
+&amp;lt; i &amp;gt;
+</p>
+
+<p>Inną możliwością jest użycie <a href="./dom/dom-wlasciwosci.php#innerText">innerText lub textContent</a>, które to właściwości
+zwracają tekst bez znaczników html.</p>
+
+			</div><!-- e: page-content-text -->
+			<footer class="page-footer">
+				<p>
+				Wszelkie prawa zastrzeżone. Jeżeli chcesz używać jakiejś części tego kursu, skontaktuj się z <a href="/kurs/autor.php">autorem</a>.
+				Aha - i ta strona korzysta z <a href="/kurs/polityka-prywatnosci.php">ciasteczek</a>.
+				</p>
+			</footer>
+							<div class="rekl-cnt">
+					<ins
+					class="adsbygoogle" style="margin-top:40px; display:block"
+					data-ad-client="ca-pub-6843603045703750"
+					data-ad-slot="4690777640"
+					data-ad-format="auto"
+					data-full-width-responsive="true"
+					></ins>
+				</div>
+				<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+	(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+					</main><!-- e: page-content -->
+			</div><!-- e: page-content-wrapper -->
+    <aside id="page-sidebar-cnt" class="page-sidebar-cnt">
+	<div id="page-sidebar" class="page-sidebar">
+		<button aria-label="Pokaż/ukryj Menu" aria-expanded="false" aria-controls="page-sidebar" type="button" id="pageSidebarBurger" class="page-sidebar-burger">
+			<span></span>
+		</button>
+
+		<h2 class="visuallyhidden">
+			Menu
+		</h2>
+
+		<button class="sidebar-toggle-btn" title="Pokaż/schowaj menu" aria-hidden="true">
+			<strong>Pokaż/ukryj menu</strong>
+			<span></span>
+			<span></span>
+			<span></span>
+		</button>
+
+		<div class="page-sidebar-title">
+			<a href="/kurs/kontakt.php" title="Nawrzucaj autorowi" class="mail-to-author" id="mailToAuthor">Napisz do mnie</a>
+			<a href="#popupOptions" class="page-setup-link popupOpen" title="Ustawienia strony" id="showOptions">Ustawienia</a>
+			<a href="/index.php" aria-label="Strona główna" class="page-sidebar-title-link">Kurs Javascript</a>
+		</div>
+
+        <form aria-label="Wyszukiwarka" class="search-sidebar" action="/search.php" method="post">
+            <label for="search" class="search-sidebar-label">Szukaj</label>
+            <div class="search-sidebar-input-cnt">
+                <svg class="search-sidebar-input-icon" xmlns="http://www.w3.org/2000/svg" width="26" height="28" viewBox="0 0 26 28" aria-hidden="true">
+                    <path d="M18 13c0-3.859-3.141-7-7-7s-7 3.141-7 7 3.141 7 7 7 7-3.141 7-7zm8 13c0 1.094-.906 2-2 2a1.96 1.96 0 0 1-1.406-.594l-5.359-5.344a10.971 10.971 0 0 1-6.234 1.937c-6.078 0-11-4.922-11-11s4.922-11 11-11 11 4.922 11 11c0 2.219-.672 4.406-1.937 6.234l5.359 5.359c.359.359.578.875.578 1.406z"></path>
+                </svg>
+                <input type="text" id="search" autocomplete="off" name="q" class="search-sidebar-input">
+            </div>
+            <button type="submit" class="search-sidebar-button">Szukaj</button>
+        </form>
+
+		<div class="page-sidebar-table-of-content">
+			<h2 class="visuallyhidden">Spis treści</h2>
+            <div class="page-sidebar-section">
+				<h3 class="page-sidebar-section-title noopen">
+                    <a href="/index.php">Strona główna</a>
+                </h3>
+            </div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Słowem wstępu</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/wstep/wstep.php">Wstęp</a>
+						</li>
+						<li >
+							<a href="/kurs/wstep/co-to-jest-javascript.php">Co to jest JavaScript i z czym go się je?</a>
+						</li>
+						<li >
+							<a href="/kurs/wstep/wymagania.php">Wymagania</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Super podstawy</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/debuger/debuger.php">Debuger</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/pierwszy-skrypt.php">Wstawiamy skrypty na naszą stronę</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/strict-mode.php">Strict mode</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/typy-danych.php">Typy danych i konwersja danych</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/zmienne.php">Zmienne</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/operatory.php">Operatory</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/math.php">Obiekt Math</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/string.php">String - teksty</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/instrukcje-warunkowe.php">Instrukcje warunkowe</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/petle.php">Pętle</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/funkcje.php">Funkcje</a>
+						</li>
+                        <li >
+							<a href="/kurs/super-podstawy/funkcje-tematy-dodatkowe.php">Funkcje - tematy dodatkowe</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/tablice.php">Tablice</a>
+						</li>
+                        <li >
+							<a href="/kurs/super-podstawy/tablice-iteracje.php">Tablice pętle</a>
+						</li>
+						<li >
+							<a href="/kurs/debuger/debugowanie.php">Debugowanie kodu</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+            			<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Obiekty</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+                        <li >
+							<a href="/kurs/obiekty/obiekty.php">Obiekty i this</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-jak-to-dziala.php">Jak to działa</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-konstruktor.php">Konstruktor</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-zaawansowane-this.php">Zaawansowane this</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-dziedziczenie.php">Dziedziczenie w Javascript</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-inne-sposoby-tworzenia.php">Inne sposoby tworzenia obiektów</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-instanceof-hasownproperty.php">instanceof i hasOwnProperty</a>
+						</li>
+                    </ul>
+                </div>
+            </div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">DOM i zdarzenia</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/dom/dom.php">Document Object Model</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-wlasciwosci.php">Właściwości elementów</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-relacje.php">Relacje między elementami</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-tworzenie-i-usuwanie.php">Tworzenie i usuwanie elementów</a>
+						</li>
+                        <li >
+                            <a href="/kurs/dom/style.php">Style w CSS</a>
+                        </li>
+						<li >
+							<a href="/kurs/events/events.php">Zdarzenia</a>
+						</li>
+						<li >
+							<a href="/kurs/events/events-keys.php">Zdarzenia - klawisze</a>
+						</li>
+						<li >
+							<a href="/kurs/events/events-mouse.php">Zdarzenia - myszka</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/projekt-todo.php">Projekt TODO</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/slider.php">Tworzymy slider</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+
+						<div class="page-sidebar-section show has-active-element">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Prawie podstawy</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/grafika/grafika-na-stronie.php">Grafika na stronie</a>
+						</li>
+						<li >
+							<a href="/kurs/intervals/intervals.php">setTimeout i setInterval</a>
+						</li>
+						<li >
+							<a href="/kurs/match-media.php">Praca z RWD</a>
+						</li>
+						<li >
+							<a href="/kurs/okna-dialogowe.php">Okienka dialogowe</a>
+						</li>
+						<li >
+							<a href="/kurs/okna.php">Tworzenie nowych okien</a>
+						</li>
+						<li >
+							<a href="/kurs/date/date.php">Obiekt Date</a>
+						</li>
+						<li >
+							<a href="/kurs/date/date-calendar.php">Tworzymy kalendarz</a>
+						</li>
+						<li >
+							<a href="/kurs/cookies/cookie.php">Obiekt Cookie</a>
+						</li>
+						<li >
+							<a href="/kurs/storage/storage.php">Storage</a>
+						</li>
+						<li class="active">
+							<a href="/kurs/regular.php">Wyrażenia regularne</a>
+						</li>
+						<li >
+							<a href="/kurs/formularze/formularze.php">Formularze</a>
+						</li>
+						<li >
+							<a href="/kurs/formularze/formularze-walidacja.php">Formularze - walidacja</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Ajax</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/ajax/ajax.php">AJAX, REST, JSON</a>
+						</li>
+						<li >
+							<a href="/kurs/ajax/xmlhttprequest.php">XMLHttpRequest</a>
+						</li>
+            			<li >
+							<a href="/kurs/ajax/fetch.php">Fetch API</a>
+						</li>
+						<li >
+							<a href="/kurs/ajax/formularz-kontaktowy.php">Dynamiczny formularz kontaktowy</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Nowy Javascript</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/es6/ecma-script-2015.php">ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/webpack.php">Webpack</a>
+						</li>
+                        <li >
+            				<a href="/kurs/es6/obiekty-w-es6.php">Obiekty w ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/funkcja-strzalkowa.php">Funkcja strzałkowa</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/spread-rest.php">Spread i rest</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/template-strings.php">Template strings</a>
+						</li>
+						<li >
+            				<a href="/kurs/es6/destructuring.php">Dekompozycja</a>
+        				</li>
+						<li >
+							<a href="/kurs/es6/class.php">Klasy w ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/promises.php">Promises</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/async-await.php">Async/Await</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/symbole.php">Symbole</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">jQuery</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/jquery/jquery.php">jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/animacje-w-jquery.php">Animacje w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/jquery-ajax.php">Ajax w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/tabs.php">Taby w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/plugin.php">Karuzela w jQuery</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Canvas</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/canvas/canvas.php">Canvas</a>
+						</li>
+						<li >
+							<a href="/kurs/canvas/canvas-images.php">Grafika w canvas</a>
+						</li>
+						<li >
+						<a href="/kurs/canvas/canvas-paint.php">Praktycznie : Paint w canvas</a>
+						</li>
+
+						<li >
+							<a href="/kurs/canvas/canvas-animacja.php">Animacja w canvas</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Gry</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/gry/hangman/hangman.php">Szubienica</a>
+						</li>
+						<li >
+							<a href="/kurs/gry/memory/memory.php">Memory</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+            			<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Inne</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/dodatkowe-materialy.php">Dodatkowe materiały</a>
+						</li>
+						<li >
+							<a href="/kurs/faq.php">FAQ</a>
+						</li>
+						<li >
+							<a href="/kurs/polityka-prywatnosci.php">Polityka prywatności</a>
+						</li>
+						<li >
+							<a href="/kurs/autor.php">O autorze</a>
+						</li>
+						<li >
+							<a href="/kurs/kontakt.php">Kontakt</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="page-sidebar-section">
+                <a class="special-link" href="/kurs/autor.php#donate">Wesprzyj kurs</a>
+            </div>
+		</div>
+	</div>
+</aside></div><!-- e: page-container -->
+
+<div class="popup" id="popupOptions">
+	<div class="popup-inside">
+        <div class="popup-container-cnt">
+            <div class="popup-container">
+                <button class="popup-close">Zamknij</button>
+
+                <h2 class="popup-title">
+                    Opcje
+                </h2>
+
+                <div class="popup-content">
+                    <form class="form-options">
+                        <div class="form-option">
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <label for="optionsThemeSelect">Wybierz skórkę dla listingów</label>
+                                    <select id="optionsThemeSelect"></select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <pre><code class="language-js">
+                                //tak będzie wyglądał kod
+
+                                function test() {
+                                    for (let i=0; i&lt;10; i++) {
+                                        console.log("Tekst numer ", 1);
+                                    }
+                                }
+
+                                test();
+                                </code></pre>
+                            </div>
+                            <div class="form-row" id="themeLightModeRow">
+                                <div class="form-col">
+                                    <label for="themeLightMode">
+                                        Tryb dzienny / nocny
+                                    </label>
+
+                                    <div class="light-mode-el">
+                                        <input type="checkbox" id="themeLightMode">
+                                        <span class="light-mode"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+	</div>
+</div>
+<script async defer src="https://www.googletagmanager.com/gtag/js?id=UA-38558970-5"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-38558970-5');
+</script>
+
+	<script src="/js/ads.js"></script>
+	<script src="/js/script.min.js?v=0.13" defer></script>
+</body>
+</html>

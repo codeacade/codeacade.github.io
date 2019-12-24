@@ -3,9 +3,9 @@
 <head>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Kurs Javascript - Wstęp</title>
+    <title>Kurs Javascript - Instrukcje warunkowe</title>
 	<meta name="description" content="Kurs Javascript dla superbohaterów, artykuły, tutoriale, porady, zadania do wykonania" />
-    <link rel="canonical" href="https://kursjs.pl/kurs/wstep/wstep.php" />
+    <link rel="canonical" href="https://kursjs.pl/kurs/super-podstawy/instrukcje-warunkowe.php" />
 	<link rel="stylesheet" href="./css.css" />
     <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,700&display=swap&subset=latin-ext" rel="stylesheet">
 	<meta name="image" content="https://kursjs.pl/kursjs.png">
@@ -58,48 +58,480 @@
                         <div class="page-content-text">
 
 
-<h1 class="page-title">Wstęp</h1>
+<h1 class="page-title">Instrukcje warunkowe</h1>
 <p>
-Bardzo krótki wstęp ^^.<br /><br />
-Kurs ten jest o Javascripcie. Uhh...
+<em>"Jeżeli kupisz mi zabawkę to nie będę płakał, w przeciwnym razie zrobię aferę na cały sklep."</em>
 </p>
 <p>
-Wiedz, że nie staram się tutaj tworzyć największego i najlepszego kursu o JavaScript w internecie.<br>
-Ten kurs to twór jednego człowieka.
-Nie mam szans i nie chcę konkurować z molochami takimi jak <a href="https://developer.mozilla.org/pl/">MDN</a>, <a href="https://www.udemy.com/">Udemy</a>, <a href="https://eduweb.pl/">EduWeb</a> czy <a href="https://www.w3schools.com/js/default.asp">w3schools</a>.<br>
-<br><br>
-Nie znajdziesz tutaj wszystkiego z zakresu JavaScript. <br>
-Po jakimś czasie będziesz chciał wiele rzeczy tutaj pokazanych tworzyć inaczej - lepiej.<br>
-Im większy progres będziesz zdobywał stwierdzisz, że wiele rozdziałów można było napisać o wiele lepiej. I dobrze.<br><br>
-
-W każdym bądź razie - jeżeli ta strona jakoś ci posłuży - to tylko plus. Jeżeli nie - po prostu skorzystaj z innego kursu - na rynku jest tego od groma (niektóre wymieniłem <a href="../dodatkowe-materialy.php">tutaj</a>) i każdy znajdzie coś dla siebie. Ja sam mam kilka w swojej kolekcji i twierdzę, że są naprawdę dobre.
-<br><br>
+Powyższa wypowiedź to typowy warunek, który steruje działaniami rodziców. Tak samo JavaScript udostępnia nam instrukcje warunkowe, które sterują przebiegiem naszego programu.
+</p>
+<p>
+Instrukcja warunkowa wykonuje wybrany kod, w zależności czy wartość danego wyrażenia występującego w nawiasach jest prawdą (true) czy fałszem (false).
 </p>
 
+<!-- ### -->
+<h2 class="subtitle" id="if">if</h2>
 <p>
-Jeszcze mała adnotacja, która siedzi mi w głowie.
+Instrukcja <strong>if</strong> sprawdza dany warunek, i w zależności czy jest on równy  <strong>true</strong> lub <strong>false</strong> wykona lub nie wykona sekcję kodu zawartą w klamrach:
 </p>
-<p>
-W internecie znajdziesz setki tutoriali pokazujących najnowsze techniki. A to funkcja strzałkowa, a to jak korzystać z async i await, a to jak robić połączenia fetchem czy chociażby zastosowanie modułów. Małe, konkretne, piękne - jak mój pies (a i od niedawna też kot).
-</p>
-<p>
-Na grupach facebookowych w dyskusjach znajdziesz jeszcze szybciej takie techniki.
-</p>
-<p>
-Tutaj pojawia pewna sprawa, który dotyczy nie tylko JavaScript, ale i całego frontendu. Bardzo często przy takich nowoczesnych tutorialach czy poradach autorzy nie zwracają uwagi na bardzo ważną rzecz - a mianowicie na to, że dobór techniki <strong>zawsze zależy od danego projektu</strong>. To są w końcu rzeczy oczywiste.<br>
-No właśnie nie do końca. To są rzeczy oczywiste - dla nas - osób, które w tej branży siedzą już kilkanaście lat. Ale czy dla osoby zaczynającej?
-</p>
-<p>
-Jeżeli robisz bloga o nowinkach z dziedziny frontentu, raczej możesz założyć, że większość użytkowników będzie korzystała z najnowszych przeglądarek, a więc i możesz używać najnowszych rozwiązań (chociaż najlepiej było by spojrzeć w statystyki Google Analitics które można podpiąć pod stronę).<br>
-Jeżeli jednak robisz stronę dla emerytowanych nauczycieli, czy dla przykładu olbrzymi sklep z którego będą korzystali różnorodni użytkownicy z różnorodnych krajów, wtedy rzucanie się na najnowsze rozwiązania będzie strzałem w stopę.
-</p>
-<p>
-Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie CSS Grid, a czasami nawet flexbox może okazać się czymś, czego użyć nie możesz. Czasami spokojnie będziesz mógł używać najnowszej wersji JavaScript, a czasami będziesz musiał pozostać przy starszej. A jeżeli będziesz musiał pozostać przy starszej, wtedy albo będziesz pisał JavaScript trzymając się klasycznych rozwiązań, albo skorzystasz z narzędzi zamieniających twój kod na starszy zapis.
-</p>
-<p>Autorzy tutoriali często zapominają o tym, że dla początkującej osoby istnieje po prostu JavaScript. Osoby takie często nie zdają sobie sprawy, że nie wszystko w JavaScript można dowolnie używać, nie wiedzą gdzie szukać informacji które przeglądarki co wspierają, jakich narzędzi używać do zamiany kodu i po co w ogóle to robić.</p>
-<p>W kursie tym staram się trzymać klasycznego JavaScript. Jasne - im więcej wiedzy zdobędziesz, im bardziej będziesz rozbudowywał swój warsztat, tym będziesz stosował coraz nowsze i lepsze techniki pisania kodu. A wtedy - tak jak to już pisałem powyżej - będziesz się śmiał z tego kursu. Póki co polecam po prostu uczyć się JavaScript.</p>
 
-<a href="./co-to-jest-javascript.php" class="button">To co? Zaczynamy?...</a>
+<pre><code class="language-js">
+if (warunek) {
+    ...instrukcje jeżeli warunek jest poprany
+}
+</code></pre>
+
+<p>
+Przykładowo:
+</p>
+
+<pre><code class="language-js">
+const x = 1;
+if (x === 1) { //warunek się wykona
+    console.log('Liczba równa się 1');
+}
+
+const x = 2;
+if (x !== 2) { //kod się nie wykona, bo x = 2
+    console.log("Liczba " +x+ "jest różna od 2");
+}
+</code></pre>
+
+<p>
+Wynikiem sprawdzenia każdego warunku jest wartość <strong>true</strong> lub <strong>false</strong>.
+Warunkiem wcale nie musi być przyrównanie do wartości jak powyżej. Może to tez być równanie matematyczne, czy inne wyrażenia, ponieważ rezultat <a href="zmienne.php#konwersja_danych">konwertowany</a> jest na wartość boolean (czyli przyjmuje true/false).
+</p>
+
+<p id="wartosc-false">
+Wartością false staje się każda z poniższych wartości:
+</p>
+<pre><code class="language-js">
+if (false)
+if (null)
+if (undefined)
+if (0)
+if (NaN)
+if ('')
+if ("")
+if (document.all)
+</code></pre>
+
+<p>Każda inna wartość to true.</p>
+
+<p>Poniżej kilka najpopularniejszych zastosowań:</p>
+
+<pre><code class="language-js">
+const x = 1;
+
+if (x) { //true
+    ...
+}
+</code></pre>
+
+<pre><code class="language-js">
+//Tekst inny niż pusty "" jest równy true
+const x = 'tekst';
+
+if (x) { //true bo tekst jest różny od ""
+    ...
+}
+</code></pre>
+
+<pre><code class="language-js">
+//Liczba 0 to false, każda inna to true
+const a = 5;
+const b = 5;
+if (a-b) { //false bo a-b === 0
+    ...
+}
+</code></pre>
+
+<pre><code class="language-js">
+//pusty tekst to false
+const x = '';
+
+if (x) { //false
+    ...
+}
+</code></pre>
+
+<pre><code class="language-js">
+//undefined to false
+let y;
+
+if (y) { //false
+    ...
+}
+
+if (typeof other === "undefined") { //true bo nie mamy zmiennej other
+
+}
+</code></pre>
+
+<pre><code class="language-js">
+//każda funkcja coś zwraca - domyślnie jest to wartość undefined
+//poniższa funkcja nie nie ma instrukcji return więc zwraca undefined
+
+function our() {}
+
+
+if ( our() ) { //false bo undefined
+    ...
+}
+</code></pre>
+
+<pre><code class="language-js">
+//null to false
+const n = null;
+if (n) {...}
+</code></pre>
+
+<p>Pamiętaj, że w JavaScript działa automatyczna konwersja danych. Przykładowo gdy dodajesz tablicę do stringa, wtedy zostanie ona skonwertowana na string. <a href="./typy-danych.php#automatyczna-pomoc-js">Jeżeli tablica jest pusta, zostanie skonwertowana na pusty ciąg.</a></p>
+
+
+<pre><code class="language-js">
+const tab = [];
+if (tab + "") { //"" + "" === "" czyli false
+
+}
+
+const nr = 0;
+const str = "";
+if (str + nr) { //0 + "" === "0", czyli true bo różne od ""
+}
+
+
+if (Math.min(0,1,2,3,4,5)) { //0 === false
+}
+</code></pre>
+
+<div class="kartofel-informuje">
+    <p>Jeżeli po instrukcji if pominiemy nawiasy, wtedy będzie ona się tyczyć tylko kodu, który występuje bezpośrednio po tej instrukcji. Zasada ta działa także w przypadku pętli:</p>
+
+    <pre><code class="language-js">
+    if (a === 2) console.log("a jest równe 2");
+
+    if (a === 3)
+    console.log("Zmienna a jest równa 3 i musisz się z tym pogodzić");
+
+    for (let i=0; i&lt;5; i++)
+        console.log("Jestem licznikiem: ", i);
+    </code></pre>
+
+    <p>Osobiście polecam jednak stosować klamry, bo zapis z klamrami jest czytelniejszy.</p>
+</div>
+
+<!-- ### -->
+<h2 class="subtitle" id="else">else</h2>
+<p>
+W zależności od sytuacji możemy wykonać kod w przeciwieństwie do <strong>if</strong> poprzez zastosowanie instrukcji <strong>else</strong>:
+</p>
+
+<pre><code class="language-js">
+const x = 5;
+
+if (x === 1) {
+    console.log('Liczba równa się 1')
+} else {
+    console.log('Liczba nie równa się 1')
+}
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="else_if">else if</h2>
+<p>
+Istnieje też możliwość wykonywania kilku sprawdzeń pod rząd z wykorzystaniem instrukcji <strong>else if</strong>.
+</p>
+
+<pre><code class="language-js">
+const x = 5;
+
+if (x > 5) {
+    console.log('Liczba jest większa od 5');
+} else if (x < 5) {
+    console.log('Liczba jest mniejsza od 5');
+} else {
+    console.log('Liczba równa się 5');
+}
+</code></pre>
+
+<pre><code class="language-js">
+const name = "Ala";
+
+if (name === "Monika") {
+    console.log("Imię to Monika");
+} else if (name === "Beata") {
+    console.log("Imię to Beata");
+} else if (name === "Patrycja") {
+    console.log("Imię to Patrycja");
+} else {
+    console.log("Imię jest nieznane");
+}
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="zagniezdzone-if">Zagnieżdżone if</h2>
+<p>
+Instrukcje warunkowe mogą być zagnieżdżone:
+</p>
+
+<pre><code class="language-js">
+const x = 1;
+const y = 2;
+
+if (x > 0) {
+    if (y > 0) {
+        ...//jeżeli x > 0 i y > 0
+    }
+}
+
+//to samo co powyżej
+if (x > 0 &amp;&amp; y > 0) {
+    ...//kod wykonywany jeżeli liczba > 0 i druga_liczba > 0
+}
+</code></pre>
+
+<pre><code class="language-js">
+const a = 1;
+const b = 2;
+const c = 3;
+
+if (a > b &amp;&amp; a > c) {
+    console.log('a jest największe');
+} else {
+    if (b > c) {
+        console.log('b jest największe');
+    } else {
+        console.log('c jest największe');
+    }
+}
+</code></pre>
+
+<pre><code class="language-js">
+const checkName = true;
+const name = "Ala";
+
+if (checkName) {
+    if (name === "Ala") {
+        console.log("Imię zaczyna się na A");
+    }
+    if (name === "Beata") {
+        console.log("Imię zaczyna się na B");
+    }
+    if (name === "Monika") {
+        console.log("Imię zaczyna się na M");
+    }
+}
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="operator-warunkowy">Operator warunkowy</h2>
+<p>
+Operator warunkowy, czyli tak naprawdę skrócona wersja warunku <strong>if</strong> ma postać:
+</p>
+
+<pre><code class="language-js">
+const x = (wyrażenie) ? zwróć_jeżeli_wyrażenie_true : zwróć_jeżeli_wyrażenie_false
+</code></pre>
+
+
+
+<pre><code class="language-js">
+const i = 1;
+let number = '';
+
+if (i > 0) {
+    number = 'dodatnia';
+} else {
+    number = 'ujemna';
+}
+
+
+//to samo tylko w skróconej wersji
+const number = (i > 0)? 'dodatnia' : 'ujemna';
+</code></pre>
+
+<p>
+Przykłady zastosowania:
+</p>
+
+<pre><code class="language-js">
+const x = 3;
+console.log( (x % 2 === 0)? 'parzysta' : 'nieparzysta' ) //wypisze 'nieparzysta'
+
+
+const wiek = 21;
+const status = (wiek &lt; 18) ? "jesteś za młody" : "zapraszamy na seans" //wypisze się 'zapraszamy na seans'
+
+
+const name = 'Ola';
+console.log( (name === 'Ola') ? 'Masz na imię Ola' : 'Nie masz na imię Ola' ) //pokaże 'Masz na imię Ola'
+
+const someValue = (user === 'admin') ? true : false;
+
+const answer = x === 2 ? "yes" : "no";
+
+const isMember = true;
+console.log( "The fee is " + (isMember ? "$2.00" : "$10.00") );
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="switch">switch</h2>
+<p>
+Instrukcja <strong>switch</strong> jest kolejnym sposobem testowania warunków działającym na zasadzie przyrównania wyniku do
+podanych przypadków.
+</p>
+
+<pre><code class="language-js">
+switch (wyrażenie) {
+    case przypadek1:
+        //fragment wykonywany gdy rezultat wyrażenia jest równy rezultat1 - potrzebuje break;
+        break;
+    case przypadek2:
+        //fragment wykonywany gdy rezultat wyrażenia jest równy rezultat2 - potrzebuje break;
+        break;
+    default:
+        //fragment wykonywany gdy powyższe rezultaty nie są równe rezultatowi wyrażenia - nie potrzebuje break;
+}
+</code></pre>
+
+<p>
+Każdy przypadek kończy się słowem <strong>break</strong>, która kończy wykonywanie instrukcji switch.<br>
+Jeżeli pominiemy to słowo, wtedy nawet przy pomyślnym przyrównaniu zostaną wykonane kolejne sprawdzenia, co często może powodować błędy.<br>
+Dodatkowo instrukcja switch ma specjalny przypadek <strong>default</strong> który będzie wybierany, gdy
+wszystkie inne przypadki będą błędne (odpowiednik else w instrukcji if).
+</p>
+
+<pre><code class="language-js">
+const number = 4;
+//poniższy warunek wypisze "Numer równa się cztery"
+switch (number) {
+    case 1:
+        console.log('Numer równa się jeden');
+        break;
+    case 2:
+        console.log('Numer równa się dwa');
+        break;
+    case 3:
+        console.log('Numer równa się trzy');
+        break;
+    case 4:
+        console.log('Numer równa się cztery');
+        break;
+    default:
+        console.log('Nie wiem ile równa się numer');
+}
+</code></pre>
+
+<pre><code class="language-js">
+const tool = "obcęgi";
+//poniższy warunek wypisze "Wybrałeś obcęgi"
+//w poniższym przykładzie upiększamy kod za pomocą dodatkowych
+//klamer, które nie są wymagane
+switch (tool) {
+    case 'wiertarka': {
+        console.log('Wybrałeś wiertarkę');
+        break;
+    }
+    case 'śrubokręt': {
+        console.log('Wybrałeś śrubokręt');
+        break;
+    }
+    case 'obcęgi': {
+        console.log('Wybrałeś obcęgi');
+        break;
+    }
+    case 'młotek': {
+        console.log('Wybrałeś młotek');
+        break;
+    }
+    default: {
+        console.log('Nie wiem co to za narzędzie');
+    }
+}
+</code></pre>
+
+<div class="tasks-for-you-cnt">
+	<h2 class="subtitle" id="zadania">Trening czyni mistrza</h2>
+	<p>
+		Poniżej zamieszczam kilka zadań, które w ramach ćwiczenia możesz wykonać:
+	</p>
+	<ol class="tasks-for-you">
+		<li>
+			<div class="question">
+			Stwórz trzy zmienne: a = 2, b = 3, c = 4. Za pomocą instrukcji warunkowych
+			sprawdź, która zmienna jest największa (pomiń wariant kiedy zmienne mogły by być równe).
+			</div>
+			<div class="solution">
+				<pre><code class="language-js">
+				let a = 2;
+				let b = 3;
+				let c = 4;
+	
+				if (a &gt; b &amp;&amp; a &gt; c) {
+					console.log("A jest największa");
+				} else {
+					if (b &gt; c) {
+						console.log("B jest największa");
+					} else {
+						console.log("C jest największa");
+					}
+				}
+				</code></pre>
+			</div>
+		</li>
+		<li>
+			<div class="question">
+			Masz kod prostego formularza:
+			<pre><code class="language-html">
+				&lt;form id="myForm"&gt;
+					&lt;label for="formAge"&gt;Wpisz wiek&lt;/label&gt;
+					&lt;input type="text" id="formAge" name="age"&gt;
+					&lt;button type="submit"&gt;Sprawdź&lt;/button&gt;
+				&lt;/form&gt;
+			</code></pre>
+			<p>W poniższym kodzie po wysłaniu takiego formularza pobieram wartość pola age.
+				Twoim zadaniem jest sprawdzić czy użytkownik wpisał liczbę. Spróbuj użyć
+				odpowiedniej metody konwertującej. Dodatkowo sprawdź, czy wpisana liczba lat
+				jest większa lub równa od 18. Jeżeli tak, wpisz w konsoli "wszystko ok",
+				w przeciwnym razie wypisz "niestety dostęp zablokowany."
+			</p>
+			<pre><code class="language-js">
+				//podpinamy się pod wysyłanie formularza
+				document.querySelector('#myForm').addEventListener('submit', function(e) {
+					e.preventDefault();
+	
+					//pobieramy wartość pola #formAge
+					const age = document.querySelector('#formAge').value;
+	
+					//w zmiennej age jest tekst wpisany w formularz.
+					//zamień go na liczbę i sprawdź czy po zamianie masz liczbę czy nie liczbę
+					//jeżeli liczba jest większa lub równa 18, wypisz w konsoli
+					//"wszystko ok", w przeciwnym razie wypisz "niestety, dostęp zablokowany"
+	
+					//kod pisz tutaj, przed poniższą klamrą i nawiasem
+				})
+			</code></pre>
+			</div>
+			<div class="solution">
+				<pre><code class="language-js">
+				document.querySelector('#myForm').addEventListener('submit', function(e) {
+					e.preventDefault();
+	
+					const age = document.querySelector('#formAge').value;
+					const ageNr = Number(age, 10);
+	
+					if (!isNaN(ageNr) &amp;&amp; ageNr &gt;= 18) {
+						console.log("Wszystko ok");
+					} else {
+						console.log("Niestety, dostęp zablokowany");
+					}
+				});
+				</code></pre>
+			</div>
+		</li>
+	</ol>
+	</div>
 
 			</div><!-- e: page-content-text -->
 			<footer class="page-footer">
@@ -165,13 +597,13 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
                 </h3>
             </div>
 
-						<div class="page-sidebar-section show has-active-element">
+						<div class="page-sidebar-section ">
 				<h3 class="page-sidebar-section-title">
 					<a href="#">Słowem wstępu</a>
 				</h3>
 				<div class="page-sidebar-list-cnt">
 					<ul class="page-sidebar-list">
-						<li class="active">
+						<li >
 							<a href="/kurs/wstep/wstep.php">Wstęp</a>
 						</li>
 						<li >
@@ -184,7 +616,7 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
 				</div>
 			</div>
 
-						<div class="page-sidebar-section ">
+						<div class="page-sidebar-section show has-active-element">
 				<h3 class="page-sidebar-section-title">
 					<a href="#">Super podstawy</a>
 				</h3>
@@ -214,7 +646,7 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
 						<li >
 							<a href="/kurs/super-podstawy/string.php">String - teksty</a>
 						</li>
-						<li >
+						<li class="active">
 							<a href="/kurs/super-podstawy/instrukcje-warunkowe.php">Instrukcje warunkowe</a>
 						</li>
 						<li >

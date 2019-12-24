@@ -1,0 +1,1229 @@
+<!doctype html>
+<html lang="pl-PL">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kurs Javascript - Canvas animacje</title>
+	<meta name="description" content="Kurs Javascript dla superbohaterów, artykuły, tutoriale, porady, zadania do wykonania" />
+    <link rel="canonical" href="https://kursjs.pl/kurs/canvas/canvas-animacja.php" />
+	<link rel="stylesheet" href="./css.css" />
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,700&display=swap&subset=latin-ext" rel="stylesheet">
+	<meta name="image" content="https://kursjs.pl/kursjs.png">
+<meta name="twitter:card" content="product">
+<meta name="twitter:site" content="@publisher_handle">
+<meta name="twitter:title" content="Kurs Javascript">
+<meta name="twitter:description" content="Kurs Javascript dla superbohaterów">
+<meta name="twitter:creator" content="@kartofelek007">
+<meta name="twitter:image" content="https://kursjs.pl/kursjs.png">
+<meta property="og:title" content="Kurs Javascript">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.kursjs.com/">
+<meta property="og:image" content="https://kursjs.pl/kursjs.png">
+<meta property="og:description" content="Kurs Javascript dla superbohaterów">
+<meta property="og:site_name" content="Kurs Javascript">
+<link rel="apple-touch-icon" sizes="57x57" href="/favicons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/favicons/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/favicons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/favicons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/favicons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/favicons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/favicons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/favicons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="/manifest.json">
+<meta name="msapplication-TileColor" content="#FF6347">
+<meta name="msapplication-TileImage" content="/mstile-144x144.png">
+    <script src="/js/jquery.min.js"></script>
+</head>
+<body>
+
+<div class="page-container" id="pageContainer">
+	<div class="page-content-wrapper">
+        <main class="page-content" id="mainContent"  data-text-for-print="Kurs Javascript dla superbohaterów">
+                        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <div class="rekl-cnt">
+                <ins
+                class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-6843603045703750"
+                data-ad-slot="4690777640"
+                data-ad-format="auto"
+                data-full-width-responsive="true"
+                ></ins>
+            </div>
+                        <div class="page-content-text">
+
+<style>
+canvas {
+    border:1px solid #eee;
+    background: #fff;
+}
+.grey {
+    background:#ccc;
+    margin:2px;
+    border:1px solid #aaa;
+    padding:10px;
+}
+</style>
+
+<script>
+class AnimationFrame {
+    constructor( fps = 60, animate ) {
+        this.requestID = 0;
+        this.fps = fps;
+        this.animate = animate;
+    }
+
+    start() {
+        let then = performance.now();
+        const interval = 1000 / this.fps;
+        const tolerance = 0.1;
+
+        const animateLoop = ( now ) => {
+            this.requestID = requestAnimationFrame( animateLoop );
+            const delta = now - then;
+
+            if ( delta >= interval - tolerance ) {
+                then = now - ( delta % interval );
+                this.animate( delta );
+            }
+        };
+        this.requestID = requestAnimationFrame( animateLoop );
+    }
+
+    stop() {
+        cancelAnimationFrame( this.requestID );
+    }
+
+}
+
+const rand = function(min, max) {
+    return Math.floor(Math.random()*(max-min+1)+min);
+}
+</script>
+
+<h1 class="page-title">Canvas animacje</h1>
+<!-- ### -->
+<p>
+Aby animować cokolwiek na canvasie musimy zastosować podejście znane chociażby z gier.
+Robimy więc główną pętlę (intervał), w której każdorazowo czyścimy cały canvas, rysujemy daną klatkę animacji, po czym potarzamy rysując kolejną. I tak w koło Macieju...
+</p>
+
+<p>
+Aby animować, musimy nasz kod rysujący wywoływać cyklicznie. Możemy do tego wykorzystać funkcję <a href="../intervals/intervals.php#setInterval">setInterval()</a>:
+</p>
+
+<pre><code class="language-js">
+const draw = function() {
+    ...kod rysujący
+}
+
+
+setInterval(draw, 1000/60);
+</code></pre>
+
+<p>
+lub funkcję <a href="../intervals/intervals.php#setTimeout">setTimeout</a>:
+</p>
+
+<pre><code class="language-js">
+const draw = function() {
+    ...kod rysujący
+
+    setTimeout(draw, 1000/60);
+}
+
+
+setTimeout(draw, 1000/60);
+</code></pre>
+
+<p>Problem z zastosowaniem tych metod w przypadku animacji jest taki, że nie mamy pewności, czy rysowanie pojedynczej klatki zakończy się na czas. Może to powodować, że odpalony interwał zacznie się dławić, a nasza animacja nie będzie należycie płynna. Moglibyśmy to próbować obchodzić przez <a href="../intervals/intervals.php#interwal-i-dlugie-wykonywanie-kodu">samo wywołujący się setTimeout</a>, ale wtedy nasza animacja mogła by nie być optymalnie płynna.</p>
+
+<p>
+Jeżeli zależy nam by nasza animacja działała optymalnie, wtedy do takiego cyklicznego wywoływania kodu powinniśmy użyć metody <strong>requestAnimationFrame(fn)</strong>. Metoda ta wywoła dany kod przed kolejną klatką rysowania strony. Dzięki temu przeglądarka optymalnie dobierze moment kiedy taki kod ma być odpalony, a nasza animacja będzie płynniejsza.
+</p>
+
+<pre><code class="language-js">
+const draw = function() {
+    ...kod rysujący
+
+    requestAnimationFrame(draw);
+}
+
+requestAnimationFrame(draw);
+</code></pre>
+
+<p>
+    Moment taki zależy od kilku czynników. Obciążenie procesora czy chociażby to, czy nasza strona jest w aktywnej zakładce, czy działa gdzieś w tle. Jeżeli w tle - wtedy animacja nie musi być odgrywana.
+</p>
+
+<p>Każde użycie requestAnimationFrame zwraca ID, które możemy wykorzystać do przerwania tak trwającej animacji:</p>
+
+<p>Aby zatrzymać tak odpaloną animację skorzystamy z metody <strong>cancelAnimationFrame(id)</strong>:</p>
+
+<pre><code class="language-js">
+let requestId;
+
+const loop = function() {
+    requestId = requestAnimationFrame(loop);
+    ...
+}
+
+const start = function() {
+    requestId = requestAnimationFrame(loop);
+}
+
+const pause = function() {
+    cancelAnimationFrame(requestId)
+}
+</code></pre>
+
+<p>Niestety w przeciwieństwie do setInterval nie podajemy tutaj szybkości działania takiej animacji. Częstotliwość wykonywania funkcji wynosi zazwyczaj 60 razy na sekundę, jednakże według rekomendacji W3C w większości przeglądarek odpowiada częstotliwości odświeżania ekranu. Co więc mamy zrobić, jeżeli chcemy naszą animację trochę zwolnić - np. do 30 klatek na sekundę? Możemy posłużyć się trikiem znanym z programowania gier - czyli wyliczać czy minął między kolejnymi klatkami odpowiedni czas.</p>
+
+<p>Aby to naprawić możemy skorzystać z przepisu np. z <a href="https://gist.github.com/addyosmani/5434533">tej strony</a> (chociaż tak naprawdę wystarczy w google wpisać requestAnimationFrame control frames).
+</p>
+
+<pre><code class="language-js">
+class AnimationFrame {
+    constructor( fps = 60, animate ) {
+        this.requestID = 0;
+        this.fps = fps;
+        this.animate = animate;
+    }
+
+    start() {
+        let then = performance.now();
+        const interval = 1000 / this.fps;
+        const tolerance = 0.1;
+
+        const animateLoop = ( now ) => {
+            this.requestID = requestAnimationFrame( animateLoop );
+            const delta = now - then;
+
+            if ( delta >= interval - tolerance ) {
+                then = now - ( delta % interval );
+                this.animate( delta );
+            }
+        };
+        this.requestID = requestAnimationFrame( animateLoop );
+    }
+
+    stop() {
+        cancelAnimationFrame( this.requestID );
+    }
+
+}
+</code></pre>
+
+<p>I użyjmy - na razie do wypisywania tekstu:</p>
+
+<pre><code class="language-js">
+let count = 0;
+
+const draw = function() {
+    count++;
+    divText.innerText = "Animujemy " + count;
+}
+
+const animLoop = new AnimationFrame(60, draw);
+
+const btnStart = document.querySelector('#animStart');
+const btnStop = document.querySelector('#animStop');
+const divText = document.querySelector('#testController');
+
+btnStart.addEventListener('click', function() {
+    count = 0;
+    animLoop.start();
+    btnStart.disabled = true;
+    btnStop.disabled = false;
+});
+
+btnStop.addEventListener('click', function() {
+    animLoop.stop();
+    divText.innerText = "Animacja przerwana!";
+    btnStart.disabled = false;
+    btnStop.disabled = true;
+})
+</code></pre>
+
+<style>
+#testController {
+    padding: 10px;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+}
+</style>
+
+<p>
+    <div id="testController"></div>
+    <button type="button" class="button" id="animStart">Start</button>
+    <button type="button" class="button" id="animStop" disabled>Stop</button>
+</p>
+
+<script>
+{
+    let count = 0;
+
+    const draw = function() {
+        count++;
+        divText.innerText = "Animujemy " + count;
+    }
+
+    const animLoop = new AnimationFrame(60, draw);
+
+    const btnStart = document.querySelector('#animStart');
+    const btnStop = document.querySelector('#animStop');
+    const divText = document.querySelector('#testController');
+
+    btnStart.addEventListener('click', function() {
+        count = 0;
+        animLoop.start();
+        btnStart.disabled = true;
+        btnStop.disabled = false;
+    });
+
+    btnStop.addEventListener('click', function() {
+        animLoop.stop();
+        divText.innerText = "Animacja przerwana!";
+        btnStart.disabled = false;
+        btnStop.disabled = true;
+    })
+}
+</script>
+
+<p>Mając już podstawowy kontroler do obsługi głównej pętli animacji możemy przejść do sedna rozdziału - animowania.</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="single">Animowanie pojedynczego obiektu</h2>
+<p>
+Do czyszczenia klatki wykorzystamy znaną nam metodę <strong>clearRect()</strong>, którą będziemy czyścić całą zawartość całego canvasa.
+</p>
+
+<pre><code class="language-js">
+const draw = function() {
+    //czyścimy obszar canvasu
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    //rysujemy
+    ...
+}
+
+const animLoop = new AnimationFrame(30, draw);
+</code></pre>
+
+<p>Przypuśćmy, że chcemy animować odbijającą się od krawędzi gwiazdkę. Wpierw musimy wczytać grafikę gwiazdki:</p>
+
+<pre><code class="language-js">
+const draw = function() {
+    ...
+}
+
+const image = new Image(24, 24); //grafika ma rozmiary 24x24
+image.addEventListener("load", function(){
+    const anim = new AnimationFrame(30, draw);
+    anim.start();
+});
+image.src = "./gwiazdka.png";
+</code></pre>
+
+<p>Następnie dla naszej gwiazdki musimy stworzyć zmienne dla jej pozycji. W każdej klatce animacji
+będziemy zmieniać jej pozycję oraz wyliczać czy gwiazdka nie dotknęła krawędzi canvas. Jeżeli dotknęła, wtedy kierunek ruchu na danej osi (x lub y) zmieniamy na odwrotny:</p>
+
+<pre><code class="language-js">
+const canvas = document.querySelector('canvas');
+const ctx = canvas.getContext('2d');
+
+const star = {
+    x : 0, //x i y gwiazdki
+    y : 0,
+    dirX : 1, //kierunek ruchu
+    dirY : 1,
+    speed : 2 //szybkość ruchu
+}
+
+const draw = function() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    //jeżeli gwiazdka dotknie krawędzi canvasu, zmieniamy jej kierunek na przeciwny
+    //x jest liczony od lewej strony, dlatego dla prawej i dolnej krawędzi musimy odejmować wymiary obrazka (24x24)
+    if (star.x &lt; 0 || star.x > canvas.width - 24) {
+        star.dirX = -star.dirX;
+    }
+
+    if (star.y &lt; 0 || star.y > canvas.height - 24) {
+        star.dirY = -star.dirY;
+    }
+
+    //do x i y gwiazdki dodajemy przesuniecie
+    if (star.x < 0) { star.dirX = 1 }
+    if (star.x + 24 > canvas.width) { star.dirX = -1 }
+    if (star.y < 0) { star.dirY = 1 }
+    if (star.y + 24 > canvas.height) { star.dirY = -1 }
+
+    //rysujemy gwiazdkę w nowym miejscu
+    ctx.drawImage(image, star.x, star.y);
+}
+
+const image = new Image(24, 24);
+image.addEventListener("load", function(){
+    const anim = new AnimationFrame(30, draw);
+    anim.start();
+});
+image.src = "gwiazdka.png";
+</code></pre>
+
+<canvas width="550" height="250" id="canvasAnim1"></canvas>
+<script>
+{
+    const canvas = document.querySelector('#canvasAnim1');
+    const ctx = canvas.getContext('2d');
+
+    const star = {
+        x : 0, //x i y gwiazdki
+        y : 0,
+        dirX : 1, //kierunek ruchu
+        dirY : 1,
+        speed : 2 //szybkość ruchu
+    }
+
+    const draw = function() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        //jeżeli gwiazdka dotknie krawędzi canvasu, zmieniamy jej kierunek na przeciwny
+        //x jest liczony od lewej strony, dlatego dla prawej i dolnej krawędzi musimy odejmować wymiary obrazka (24x24)
+        if (star.x < 0) { star.dirX = 1 }
+        if (star.x + 24 > canvas.width) { star.dirX = -1 }
+        if (star.y < 0) { star.dirY = 1 }
+        if (star.y + 24 > canvas.height) { star.dirY = -1 }
+
+        //do x i y gwiazdki dodajemy przesuniecie
+        star.x += star.speed * star.dirX;
+        star.y += star.speed * star.dirY;
+
+        //rysujemy gwiazdkę w nowym miejscu
+        ctx.drawImage(image, star.x, star.y);
+    }
+
+    const image = new Image(24, 24); //obrazek ma wymiary 24,24
+    image.addEventListener('load', function(){
+
+        const animLoop = new AnimationFrame(60, draw);
+        animLoop.start();
+    });
+    image.src = 'gwiazdka.png';
+}
+</script>
+
+<!-- ### -->
+<h2 class="subtitle" id="more">Animowanie kilku obiektów</h2>
+<p>
+Dla większej liczby obiektów będziemy musieli nieco zmodyfikować nasz kod.<br>
+Wszystkie gwiazdki będziemy trzymać w tablicy. Podczas pojedynczej klatki zrobimy pętlę po tej tablicy, obliczymy nową pozycję dla każdej gwiazdki i narysujemy każdy obiekt.
+</p>
+
+<div class="kartofel-informuje">
+Do generowania randomowych liczb użyjemy funkcji, którą napisaliśmy w <a href="./canvas.php#random">poprzednim rozdziale</a>.
+</div>
+
+<pre><code class="language-js">
+const canvas = document.querySelector('canvas');
+const ctx = canvas.getContext('2d');
+
+const starsCount = 20; //liczba gwiazdek do animowania
+const starsList = []; //tablica przechowująca gwiazdki
+
+const rand = function(min, max) {
+    return Math.floor(Math.random()*(max-min+1)+min);
+}
+
+//tworzymy nowe gwiazdki i wrzucamy je do tablicy
+for (let i=0; i&lt;starsCount; i++) {
+    const star = {
+        x : rand(0, canvas.width - 40),
+        y : rand(0, canvas.width - 40),
+        dirX : (Math.random() > 0.5) ? 1 : -1,
+        dirY : (Math.random() > 0.5) ? 1 : -1,
+        speed : rand(1, 2)
+    }
+    starsList.push(star);
+}
+
+const draw = function() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    for (const el of starsList) {
+        el.x += el.speed * el.dirX;
+        el.y += el.speed * el.dirY;
+
+        if (el.x < 0) { el.dirX = 1 }
+        if (el.x + 24 > canvas.width) { el.dirX = -1 }
+        if (el.y < 0) { el.dirY = 1 }
+        if (el.y + 24 > canvas.height) { el.dirY = -1 }
+
+        ctx.drawImage(image, el.x, el.y);
+    }
+}
+
+const image = new Image(24, 24); //obrazek ma wymiary 24,24
+image.addEventListener('load', function(){
+    const anim = new AnimationFrame(30, draw);
+    anim.start();
+});
+image.src = 'gwiazdka.png';
+</code></pre>
+
+<canvas width="550" height="250" id="canvasAnim2"></canvas>
+<script>
+{
+    const canvas = document.querySelector('#canvasAnim2');
+    const ctx = canvas.getContext('2d');
+
+    const starsCount = 20; //liczba gwiazdek do animowania
+    const starsList = []; //tablica przechowująca obiekty gwiazdki
+
+    //tworzymy nowe obiekty gwiazdki i wrzucamy je do tablicy
+    for (let i=0; i<starsCount; i++) {
+        const star = {
+            x : rand(0, canvas.width - 40),
+            y : rand(0, canvas.width - 40),
+            dirX : (Math.random() > 0.5) ? 1 : -1,
+            dirY : (Math.random() > 0.5) ? 1 : -1,
+            speed : rand(1, 2)
+        }
+        starsList.push(star);
+    }
+
+    const draw = function() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        for (const el of starsList) {
+            el.x += el.speed * el.dirX;
+            el.y += el.speed * el.dirY;
+
+            if (el.x < 0) { el.dirX = 1 }
+            if (el.x + 24 > canvas.width) { el.dirX = -1 }
+            if (el.y < 0) { el.dirY = 1 }
+            if (el.y + 24 > canvas.height) { el.dirY = -1 }
+
+            ctx.drawImage(image, el.x, el.y);
+        }
+    }
+
+    const image = new Image(24, 24); //obrazek ma wymiary 24,24
+    image.addEventListener('load', function(){
+        const anim = new AnimationFrame(60, draw);
+        anim.start();
+    });
+    image.src = 'gwiazdka.png';
+}
+</script>
+
+
+<!-- ### -->
+<h2 class="subtitle" id="animacja">Animacja poklatkowa</h2>
+<p>
+   Jak już wiemy, metoda drawImage w postaci <a href="./canvas-images.php#crop">drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)</a>
+   służy do rysowania na płótnie wyciętego kawałka grafiki. Metoda ta idealnie się nadaje do stworzenia poklatkowej animacji, która polega na wyświetlaniu kolejnych klatek animacji, które są ułożone obok siebie na jednej grafice z przezroczystym tłem.
+</p>
+
+
+<div class="kartofel-informuje">
+<p>
+W internecie jest bardzo dużo grafik typu "sprites", które są "wyciągnięte" ze starych gier 2d. Wystarczy w Google poszukać sformułowań typu "game sprites", by dostać ich pokaźną kolekcję. Przykładowe linki:<br />
+<a href="http://www.spriters-resource.com/">http://www.spriters-resource.com/</a><br />
+<a href="http://sdb.drshnaps.com/">http://sdb.drshnaps.com/</a>
+</p>
+</div>
+
+<p>W poniższym przykładzie skorzystamy z poniższego sprite:</p>
+
+<img src="./scottpilgrim_multiple.png" alt="Scott Pilgrim" class="border space">
+
+<p>
+Aby teraz animować taką grafikę, powinniśmy kolejno wyświetlać jej wycięte fragmenty. Aby to zrobić, powinniśmy znać numer wyświetlanej klatki, i za pomocą tej liczby obliczać w każdej klatce animacji przesunięcie wycinania.
+</p>
+
+<pre data-line="1-4,12-21"><code class="language-js">
+let currentFrame = 0; //aktualna klatka
+let framesMax = 8; //max klatek
+let frameWidth = 108; //szerokość 1 klatki
+let frameHeight = 120; //wysokość klatki
+
+const canvas = document.querySelector('canvas');
+const ctx = canvas.getContext('2d');
+
+const draw = function() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    if (currentFrame > framesMax - 1) {
+        currentFrame = 0;
+    }
+    currentFrame++;
+
+    const cutX = (currentFrame - 1) * frameWidth;
+    const drawPosX = canvas.width / 2 - 60; //polowa canvasu minus polowa klatki
+    const drawPosY = canvas.height - frameHeight; //chcemy by Pilgrim biegał na dole canvasu
+
+    ctx.drawImage(img, cutX, 0, frameWidth, frameHeight, drawPosX, drawPosY, frameWidth, frameHeight);
+}
+
+const img = new Image();
+img.src = './scottpilgrim_multiple.png';
+
+img.addEventListener('load', function() {
+    const anim = new AnimationFrame(16, draw);
+    anim.start();
+});
+</code></pre>
+
+<canvas width="550" height="250" id="frameAnimation"></canvas>
+<script>
+{
+    let currentFrame = 0;
+    let framesMax = 8;
+    let frameWidth = 108;
+    let frameHeight = 120;
+
+    const canvas = document.querySelector('#frameAnimation');
+    const ctx = canvas.getContext('2d');
+
+    const draw = function() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        if (currentFrame > framesMax - 1) {
+            currentFrame = 0;
+        }
+        currentFrame++;
+
+        const cutX = (currentFrame - 1) * frameWidth;
+        const drawPosX = canvas.width / 2 - 60; //polowa canvasu minus polowa klatki
+        const drawPosY = canvas.height - frameHeight; //chcemy by Pilgrim biegał na dole canvasu
+
+        ctx.drawImage(img, cutX, 0, frameWidth, frameHeight, drawPosX, drawPosY, frameWidth, frameHeight);
+
+    }
+
+    const img = new Image();
+    img.src = './scottpilgrim_multiple.png';
+
+    img.addEventListener('load', function() {
+        const anim = new AnimationFrame(16, draw);
+        anim.start();
+    });
+}
+</script>
+
+<p>W ramach treningu możemy też dodać do naszej animacji kreski symbolizujące pęd. Podobnie jak w przypadku gwiazdek - możemy tutaj użyć tablicy, w której będziemy przechowywać każdą kreskę:</p>
+
+<pre data-line="8-17,27-38"><code class="language-js">
+let currentFrame = 0;
+let framesMax = 8;
+let frameWidth = 108;
+let frameHeight = 120;
+const canvas = document.querySelector('canvas');
+const ctx = canvas.getContext('2d');
+
+const lines = [];
+for (let i=0; i&lt;50; i++) {
+    const line = {
+        x : rand(-100, canvas.width),
+        y : rand(-100, canvas.height),
+        speed : 40,
+        length : rand(50, 250)
+    }
+    lines.push(line)
+}
+
+const draw = function() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    if (currentFrame > framesMax - 1) {
+        currentFrame = 0;
+    }
+    currentFrame++;
+
+    for (const el of lines) {
+        el.x -= el.speed;
+        if (el.x <= -el.length) {
+            el.x = canvas.width;
+        }
+        ctx.beginPath();
+        ctx.strokeStyle = "rgba(0,0,0,0.2)"
+        ctx.lineWidth = 0.5;
+        ctx.moveTo(el.x, el.y);
+        ctx.lineTo(el.x + el.length, el.y);
+        ctx.stroke();
+    }
+
+    const cutX = (currentFrame - 1) * frameWidth;
+    const drawPosX = canvas.width / 2 - 60; //polowa canvasu minus polowa klatki
+    const drawPosY = canvas.height - frameHeight; //chcemy by Pilgrim biegał na dole canvasu
+
+    ctx.drawImage(img, cutX, 0, frameWidth, frameHeight, drawPosX, drawPosY, frameWidth, frameHeight);
+}
+
+const img = new Image();
+img.src = './scottpilgrim_multiple.png';
+
+img.addEventListener('load', function() {
+    const anim = new AnimationFrame(20, draw);
+    anim.start();
+});
+</code></pre>
+
+<canvas width="550" height="250" id="frameAnimation2"></canvas>
+<script>
+{
+    let currentFrame = 0;
+    let framesMax = 8;
+    let frameWidth = 108;
+    let frameHeight = 120;
+
+    const canvas = document.querySelector('#frameAnimation2');
+    const ctx = canvas.getContext('2d');
+
+    const lines = [];
+    for (let i=0; i<50; i++) {
+        const line = {
+            x : rand(-100, canvas.width),
+            y : rand(-100, canvas.height),
+            speed : 40,
+            length : rand(50, 250)
+        }
+        lines.push(line)
+    }
+
+    const draw = function() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        if (currentFrame > framesMax - 1) {
+            currentFrame = 0;
+        }
+        currentFrame++;
+
+        for (const el of lines) {
+            el.x -= el.speed;
+            if (el.x <= -el.length) {
+                el.x = canvas.width;
+            }
+            ctx.beginPath();
+            ctx.strokeStyle = "rgba(0,0,0,0.2)"
+            ctx.lineWidth = 0.5;
+            ctx.moveTo(el.x, el.y);
+            ctx.lineTo(el.x + el.length, el.y);
+            ctx.stroke();
+        }
+
+        const cutX = (currentFrame - 1) * frameWidth;
+        const drawPosX = canvas.width / 2 - 60; //polowa canvasu minus polowa klatki
+        const drawPosY = canvas.height - frameHeight; //chcemy by Pilgrim biegał na dole canvasu
+
+        ctx.drawImage(img, cutX, 0, frameWidth, frameHeight, drawPosX, drawPosY, frameWidth, frameHeight);
+
+    }
+
+    const img = new Image();
+    img.src = './scottpilgrim_multiple.png';
+
+    img.addEventListener('load', function() {
+        const anim = new AnimationFrame(20, draw);
+        anim.start();
+    });
+}
+</script>
+
+<div class="kartofel-informuje">
+    <p>
+        Hola, hola! Podobne rzeczy jeszcze łatwiej zrobisz w czystym CSS.
+        Przeczytaj sobie moje artykuły na ten temat:
+    </p>
+    <p>
+        <a href="http://domanart.pl/animacje-css/">animacje css</a> i
+        <a href="http://domanart.pl/baner-animowany/">baner animowany</a>
+    </p>
+    <p>Jedno jednak drugiego nie wyklucza. Powyższe podejście bardziej się sprawdzi przy grach, gdzie musimy reagować na poczynania gracza...</p>
+</div>
+
+			</div><!-- e: page-content-text -->
+			<footer class="page-footer">
+				<p>
+				Wszelkie prawa zastrzeżone. Jeżeli chcesz używać jakiejś części tego kursu, skontaktuj się z <a href="/kurs/autor.php">autorem</a>.
+				Aha - i ta strona korzysta z <a href="/kurs/polityka-prywatnosci.php">ciasteczek</a>.
+				</p>
+			</footer>
+							<div class="rekl-cnt">
+					<ins
+					class="adsbygoogle" style="margin-top:40px; display:block"
+					data-ad-client="ca-pub-6843603045703750"
+					data-ad-slot="4690777640"
+					data-ad-format="auto"
+					data-full-width-responsive="true"
+					></ins>
+				</div>
+				<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+	(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+					</main><!-- e: page-content -->
+			</div><!-- e: page-content-wrapper -->
+    <aside id="page-sidebar-cnt" class="page-sidebar-cnt">
+	<div id="page-sidebar" class="page-sidebar">
+		<button aria-label="Pokaż/ukryj Menu" aria-expanded="false" aria-controls="page-sidebar" type="button" id="pageSidebarBurger" class="page-sidebar-burger">
+			<span></span>
+		</button>
+
+		<h2 class="visuallyhidden">
+			Menu
+		</h2>
+
+		<button class="sidebar-toggle-btn" title="Pokaż/schowaj menu" aria-hidden="true">
+			<strong>Pokaż/ukryj menu</strong>
+			<span></span>
+			<span></span>
+			<span></span>
+		</button>
+
+		<div class="page-sidebar-title">
+			<a href="/kurs/kontakt.php" title="Nawrzucaj autorowi" class="mail-to-author" id="mailToAuthor">Napisz do mnie</a>
+			<a href="#popupOptions" class="page-setup-link popupOpen" title="Ustawienia strony" id="showOptions">Ustawienia</a>
+			<a href="/index.php" aria-label="Strona główna" class="page-sidebar-title-link">Kurs Javascript</a>
+		</div>
+
+        <form aria-label="Wyszukiwarka" class="search-sidebar" action="/search.php" method="post">
+            <label for="search" class="search-sidebar-label">Szukaj</label>
+            <div class="search-sidebar-input-cnt">
+                <svg class="search-sidebar-input-icon" xmlns="http://www.w3.org/2000/svg" width="26" height="28" viewBox="0 0 26 28" aria-hidden="true">
+                    <path d="M18 13c0-3.859-3.141-7-7-7s-7 3.141-7 7 3.141 7 7 7 7-3.141 7-7zm8 13c0 1.094-.906 2-2 2a1.96 1.96 0 0 1-1.406-.594l-5.359-5.344a10.971 10.971 0 0 1-6.234 1.937c-6.078 0-11-4.922-11-11s4.922-11 11-11 11 4.922 11 11c0 2.219-.672 4.406-1.937 6.234l5.359 5.359c.359.359.578.875.578 1.406z"></path>
+                </svg>
+                <input type="text" id="search" autocomplete="off" name="q" class="search-sidebar-input">
+            </div>
+            <button type="submit" class="search-sidebar-button">Szukaj</button>
+        </form>
+
+		<div class="page-sidebar-table-of-content">
+			<h2 class="visuallyhidden">Spis treści</h2>
+            <div class="page-sidebar-section">
+				<h3 class="page-sidebar-section-title noopen">
+                    <a href="/index.php">Strona główna</a>
+                </h3>
+            </div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Słowem wstępu</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/wstep/wstep.php">Wstęp</a>
+						</li>
+						<li >
+							<a href="/kurs/wstep/co-to-jest-javascript.php">Co to jest JavaScript i z czym go się je?</a>
+						</li>
+						<li >
+							<a href="/kurs/wstep/wymagania.php">Wymagania</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Super podstawy</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/debuger/debuger.php">Debuger</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/pierwszy-skrypt.php">Wstawiamy skrypty na naszą stronę</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/strict-mode.php">Strict mode</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/typy-danych.php">Typy danych i konwersja danych</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/zmienne.php">Zmienne</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/operatory.php">Operatory</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/math.php">Obiekt Math</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/string.php">String - teksty</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/instrukcje-warunkowe.php">Instrukcje warunkowe</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/petle.php">Pętle</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/funkcje.php">Funkcje</a>
+						</li>
+                        <li >
+							<a href="/kurs/super-podstawy/funkcje-tematy-dodatkowe.php">Funkcje - tematy dodatkowe</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/tablice.php">Tablice</a>
+						</li>
+                        <li >
+							<a href="/kurs/super-podstawy/tablice-iteracje.php">Tablice pętle</a>
+						</li>
+						<li >
+							<a href="/kurs/debuger/debugowanie.php">Debugowanie kodu</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+            			<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Obiekty</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+                        <li >
+							<a href="/kurs/obiekty/obiekty.php">Obiekty i this</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-jak-to-dziala.php">Jak to działa</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-konstruktor.php">Konstruktor</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-zaawansowane-this.php">Zaawansowane this</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-dziedziczenie.php">Dziedziczenie w Javascript</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-inne-sposoby-tworzenia.php">Inne sposoby tworzenia obiektów</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-instanceof-hasownproperty.php">instanceof i hasOwnProperty</a>
+						</li>
+                    </ul>
+                </div>
+            </div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">DOM i zdarzenia</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/dom/dom.php">Document Object Model</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-wlasciwosci.php">Właściwości elementów</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-relacje.php">Relacje między elementami</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-tworzenie-i-usuwanie.php">Tworzenie i usuwanie elementów</a>
+						</li>
+                        <li >
+                            <a href="/kurs/dom/style.php">Style w CSS</a>
+                        </li>
+						<li >
+							<a href="/kurs/events/events.php">Zdarzenia</a>
+						</li>
+						<li >
+							<a href="/kurs/events/events-keys.php">Zdarzenia - klawisze</a>
+						</li>
+						<li >
+							<a href="/kurs/events/events-mouse.php">Zdarzenia - myszka</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/projekt-todo.php">Projekt TODO</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/slider.php">Tworzymy slider</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Prawie podstawy</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/grafika/grafika-na-stronie.php">Grafika na stronie</a>
+						</li>
+						<li >
+							<a href="/kurs/intervals/intervals.php">setTimeout i setInterval</a>
+						</li>
+						<li >
+							<a href="/kurs/match-media.php">Praca z RWD</a>
+						</li>
+						<li >
+							<a href="/kurs/okna-dialogowe.php">Okienka dialogowe</a>
+						</li>
+						<li >
+							<a href="/kurs/okna.php">Tworzenie nowych okien</a>
+						</li>
+						<li >
+							<a href="/kurs/date/date.php">Obiekt Date</a>
+						</li>
+						<li >
+							<a href="/kurs/date/date-calendar.php">Tworzymy kalendarz</a>
+						</li>
+						<li >
+							<a href="/kurs/cookies/cookie.php">Obiekt Cookie</a>
+						</li>
+						<li >
+							<a href="/kurs/storage/storage.php">Storage</a>
+						</li>
+						<li >
+							<a href="/kurs/regular.php">Wyrażenia regularne</a>
+						</li>
+						<li >
+							<a href="/kurs/formularze/formularze.php">Formularze</a>
+						</li>
+						<li >
+							<a href="/kurs/formularze/formularze-walidacja.php">Formularze - walidacja</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Ajax</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/ajax/ajax.php">AJAX, REST, JSON</a>
+						</li>
+						<li >
+							<a href="/kurs/ajax/xmlhttprequest.php">XMLHttpRequest</a>
+						</li>
+            			<li >
+							<a href="/kurs/ajax/fetch.php">Fetch API</a>
+						</li>
+						<li >
+							<a href="/kurs/ajax/formularz-kontaktowy.php">Dynamiczny formularz kontaktowy</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Nowy Javascript</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/es6/ecma-script-2015.php">ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/webpack.php">Webpack</a>
+						</li>
+                        <li >
+            				<a href="/kurs/es6/obiekty-w-es6.php">Obiekty w ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/funkcja-strzalkowa.php">Funkcja strzałkowa</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/spread-rest.php">Spread i rest</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/template-strings.php">Template strings</a>
+						</li>
+						<li >
+            				<a href="/kurs/es6/destructuring.php">Dekompozycja</a>
+        				</li>
+						<li >
+							<a href="/kurs/es6/class.php">Klasy w ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/promises.php">Promises</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/async-await.php">Async/Await</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/symbole.php">Symbole</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">jQuery</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/jquery/jquery.php">jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/animacje-w-jquery.php">Animacje w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/jquery-ajax.php">Ajax w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/tabs.php">Taby w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/plugin.php">Karuzela w jQuery</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section show has-active-element">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Canvas</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/canvas/canvas.php">Canvas</a>
+						</li>
+						<li >
+							<a href="/kurs/canvas/canvas-images.php">Grafika w canvas</a>
+						</li>
+						<li >
+						<a href="/kurs/canvas/canvas-paint.php">Praktycznie : Paint w canvas</a>
+						</li>
+
+						<li class="active">
+							<a href="/kurs/canvas/canvas-animacja.php">Animacja w canvas</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Gry</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/gry/hangman/hangman.php">Szubienica</a>
+						</li>
+						<li >
+							<a href="/kurs/gry/memory/memory.php">Memory</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+            			<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Inne</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/dodatkowe-materialy.php">Dodatkowe materiały</a>
+						</li>
+						<li >
+							<a href="/kurs/faq.php">FAQ</a>
+						</li>
+						<li >
+							<a href="/kurs/polityka-prywatnosci.php">Polityka prywatności</a>
+						</li>
+						<li >
+							<a href="/kurs/autor.php">O autorze</a>
+						</li>
+						<li >
+							<a href="/kurs/kontakt.php">Kontakt</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="page-sidebar-section">
+                <a class="special-link" href="/kurs/autor.php#donate">Wesprzyj kurs</a>
+            </div>
+		</div>
+	</div>
+</aside></div><!-- e: page-container -->
+
+<div class="popup" id="popupOptions">
+	<div class="popup-inside">
+        <div class="popup-container-cnt">
+            <div class="popup-container">
+                <button class="popup-close">Zamknij</button>
+
+                <h2 class="popup-title">
+                    Opcje
+                </h2>
+
+                <div class="popup-content">
+                    <form class="form-options">
+                        <div class="form-option">
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <label for="optionsThemeSelect">Wybierz skórkę dla listingów</label>
+                                    <select id="optionsThemeSelect"></select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <pre><code class="language-js">
+                                //tak będzie wyglądał kod
+
+                                function test() {
+                                    for (let i=0; i&lt;10; i++) {
+                                        console.log("Tekst numer ", 1);
+                                    }
+                                }
+
+                                test();
+                                </code></pre>
+                            </div>
+                            <div class="form-row" id="themeLightModeRow">
+                                <div class="form-col">
+                                    <label for="themeLightMode">
+                                        Tryb dzienny / nocny
+                                    </label>
+
+                                    <div class="light-mode-el">
+                                        <input type="checkbox" id="themeLightMode">
+                                        <span class="light-mode"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+	</div>
+</div>
+<script async defer src="https://www.googletagmanager.com/gtag/js?id=UA-38558970-5"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-38558970-5');
+</script>
+
+	<script src="/js/ads.js"></script>
+	<script src="/js/script.min.js?v=0.13" defer></script>
+</body>
+</html>

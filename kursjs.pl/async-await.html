@@ -3,9 +3,9 @@
 <head>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Kurs Javascript - Wstęp</title>
+    <title>Kurs Javascript - Async / await</title>
 	<meta name="description" content="Kurs Javascript dla superbohaterów, artykuły, tutoriale, porady, zadania do wykonania" />
-    <link rel="canonical" href="https://kursjs.pl/kurs/wstep/wstep.php" />
+    <link rel="canonical" href="https://kursjs.pl/kurs/es6/async-await.php" />
 	<link rel="stylesheet" href="./css.css" />
     <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,700&display=swap&subset=latin-ext" rel="stylesheet">
 	<meta name="image" content="https://kursjs.pl/kursjs.png">
@@ -57,49 +57,259 @@
             </div>
                         <div class="page-content-text">
 
+<h1 class="page-title">Async / await</h1>
 
-<h1 class="page-title">Wstęp</h1>
-<p>
-Bardzo krótki wstęp ^^.<br /><br />
-Kurs ten jest o Javascripcie. Uhh...
-</p>
-<p>
-Wiedz, że nie staram się tutaj tworzyć największego i najlepszego kursu o JavaScript w internecie.<br>
-Ten kurs to twór jednego człowieka.
-Nie mam szans i nie chcę konkurować z molochami takimi jak <a href="https://developer.mozilla.org/pl/">MDN</a>, <a href="https://www.udemy.com/">Udemy</a>, <a href="https://eduweb.pl/">EduWeb</a> czy <a href="https://www.w3schools.com/js/default.asp">w3schools</a>.<br>
-<br><br>
-Nie znajdziesz tutaj wszystkiego z zakresu JavaScript. <br>
-Po jakimś czasie będziesz chciał wiele rzeczy tutaj pokazanych tworzyć inaczej - lepiej.<br>
-Im większy progres będziesz zdobywał stwierdzisz, że wiele rozdziałów można było napisać o wiele lepiej. I dobrze.<br><br>
+<p>Async/await to nowy sposób na zapis asynchronicznego kodu. Jest to nakładka na <a href="./promises.php">promisy</a>, która ułatwia pisanie nam kodu.</p>
+<p>W poprzednim rozdziale za pomocą promisów uporządkowaliśmy nasz kod w taki sposób:</p>
 
-W każdym bądź razie - jeżeli ta strona jakoś ci posłuży - to tylko plus. Jeżeli nie - po prostu skorzystaj z innego kursu - na rynku jest tego od groma (niektóre wymieniłem <a href="../dodatkowe-materialy.php">tutaj</a>) i każdy znajdzie coś dla siebie. Ja sam mam kilka w swojej kolekcji i twierdzę, że są naprawdę dobre.
-<br><br>
+<pre><code class="language-js">
+function getCountry() { ... }
+function getWeather() { ... }
+function updatePage() { ... }
+
+function renderPage() {
+    getCountry()
+        .then(data => getWeather(data.lat, data.lng))
+        .then(dataAndWeather => console.log(data, dataAndWeather))
+}
+</code></pre>
+
+<p>Dzięki async/await powyższy kod możemy jeszcze bardziej uporządkować, dzięki czemu będzie wyglądał bardziej synchronicznie:</p>
+
+<pre><code class="language-js">
+async function renderPage() {
+    const country = await getCountry();
+    const weather = await getWeather(country.lat, country.lng);
+
+    console.log(country, weather);
+}
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="async">Async</h2>
+<p>Słowo <strong>async</strong> postawione przed funkcją sprawia, że dana funkcja zawsze zwraca obietnicę. Nie potrzebujemy tutaj dodawać żadnego dodatkowego kodu:</p>
+
+<pre><code class="language-js">
+async function getData() {
+    const data = await readData();
+    return data;
+}
+
+getData()
+    .then(res => console.log(res))
+</code></pre>
+
+
+<!-- ### -->
+<h2 class="subtitle" id="await">Await</h2>
+<p>Słowo kluczowe <strong>await</strong>, sprawia, że JavaScript poczeka na wykonanie danej obietnicy do jej zakończenia i zwrócenia przez nią wyniku.</p>
+
+<pre><code class="language-js">
+function getData() {
+    return new Promise(...)
+}
+
+async function renderPage() {
+    const city = await = getData();
+    console.log(city);
+}
+</code></pre>
+
+<p>Ważne by pamiętać, że słowa await możemy używać tylko wewnątrz funkcji async:</p>
+
+<pre><code class="language-js">
+function renderPage() {
+    const city = await getCountry(); // SyntaxError: await is a reserved word
+}
+
+async function renderPage() {
+    const city = await getCountry(); //ok
+}
+</code></pre>
+
+<p>Nasz niedziałający kod możemy więc poprawić w następujący sposób:</p>
+
+<pre><code class="language-js">
+async function renderPage() {
+    const country = await getCountry();
+    const weather = await getWeather(country.lat, country.lng);
+
+    updatePage(c, weather);
+}
+
+renderPage();
+</code></pre>
+
+<p>Czasami zdarza się, że będziemy chcieli wykonać jakąś asynchroniczną operację nie będąc wewnątrz funkcji. Pozostaje wtedy użyć IIFE:</p>
+
+<pre><code class="language-js">
+const response = await fetch("..."); //błąd bo nie jesteśmy w funkcji
+
+(async () => {
+    const response = await fetch("..."); //pl
+})();
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="bledy">Obsługa błędów</h2>
+<p>Jeżeli Promise zakończy się normalnie, zostanie zwrócony wynik. Jeżeli jednak nie zakończy się powodzeniem, zostanie wykonany Reject.</p>
+
+<p>Aby obsłużyć błędy w przypadku async/await, możemy posłużyć się konstrukcją try/catch:</p>
+
+<pre><code class="language-js">
+async function renderPage() {
+    try {
+        const country = await getCountry();
+        const weather = await getCountry(country.lat, country.lng);
+        console.log(country, weather);
+    } catch (err) {
+        console.log(err)
+    }
+}
+</code></pre>
+
+<p>Jeżeli dana funkcja nie posługuje się powyższą konstrukcją, wtedy możemy catch podłączyć przy jej wywoływaniu:</p>
+
+<pre><code class="language-js">
+async function renderPage() {
+    const country = await getCountry();
+    const weather = await getCountry(country.lat, country.lng);
+    return {country, weather}
+}
+
+renderPage()
+    .then(data => console.log(data))
+    .catch(err => console.log(err));
+</code></pre>
+
+<p>Pamiętajmy też, że jeżeli odpalamy funkcję async z funkcji nie będącej synchroniczną, to powinniśmy używać then:</p>
+
+<pre><code class="language-js">
+async function renderPage() {
+    const country = await getCountry();
+    const weather = await getCountry(country.lat, country.lng);
+    return {country, weather}
+}
+
+function init() {
+    renderPage().then(result => {
+        ...
+    })
+}
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="rownoczesne-operacje">Równoczesne operacje</h2>
+<p>Popatrzmy na powyższe przykłady. Skoro instrukcja <strong>await</strong> oznacza, że JavaScript poczeka na zakończenie danej operacji, oznacza to, że kolejne połączenie rozpocznie się dopiero, gdy poprzednie się zakończy.
 </p>
 
 <p>
-Jeszcze mała adnotacja, która siedzi mi w głowie.
+Bardziej optymalnie będzie, gdy nasze operacje wywołamy równocześnie i poczekamy na ich zakończenie:</p>
 </p>
-<p>
-W internecie znajdziesz setki tutoriali pokazujących najnowsze techniki. A to funkcja strzałkowa, a to jak korzystać z async i await, a to jak robić połączenia fetchem czy chociażby zastosowanie modułów. Małe, konkretne, piękne - jak mój pies (a i od niedawna też kot).
-</p>
-<p>
-Na grupach facebookowych w dyskusjach znajdziesz jeszcze szybciej takie techniki.
-</p>
-<p>
-Tutaj pojawia pewna sprawa, który dotyczy nie tylko JavaScript, ale i całego frontendu. Bardzo często przy takich nowoczesnych tutorialach czy poradach autorzy nie zwracają uwagi na bardzo ważną rzecz - a mianowicie na to, że dobór techniki <strong>zawsze zależy od danego projektu</strong>. To są w końcu rzeczy oczywiste.<br>
-No właśnie nie do końca. To są rzeczy oczywiste - dla nas - osób, które w tej branży siedzą już kilkanaście lat. Ale czy dla osoby zaczynającej?
-</p>
-<p>
-Jeżeli robisz bloga o nowinkach z dziedziny frontentu, raczej możesz założyć, że większość użytkowników będzie korzystała z najnowszych przeglądarek, a więc i możesz używać najnowszych rozwiązań (chociaż najlepiej było by spojrzeć w statystyki Google Analitics które można podpiąć pod stronę).<br>
-Jeżeli jednak robisz stronę dla emerytowanych nauczycieli, czy dla przykładu olbrzymi sklep z którego będą korzystali różnorodni użytkownicy z różnorodnych krajów, wtedy rzucanie się na najnowsze rozwiązania będzie strzałem w stopę.
-</p>
-<p>
-Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie CSS Grid, a czasami nawet flexbox może okazać się czymś, czego użyć nie możesz. Czasami spokojnie będziesz mógł używać najnowszej wersji JavaScript, a czasami będziesz musiał pozostać przy starszej. A jeżeli będziesz musiał pozostać przy starszej, wtedy albo będziesz pisał JavaScript trzymając się klasycznych rozwiązań, albo skorzystasz z narzędzi zamieniających twój kod na starszy zapis.
-</p>
-<p>Autorzy tutoriali często zapominają o tym, że dla początkującej osoby istnieje po prostu JavaScript. Osoby takie często nie zdają sobie sprawy, że nie wszystko w JavaScript można dowolnie używać, nie wiedzą gdzie szukać informacji które przeglądarki co wspierają, jakich narzędzi używać do zamiany kodu i po co w ogóle to robić.</p>
-<p>W kursie tym staram się trzymać klasycznego JavaScript. Jasne - im więcej wiedzy zdobędziesz, im bardziej będziesz rozbudowywał swój warsztat, tym będziesz stosował coraz nowsze i lepsze techniki pisania kodu. A wtedy - tak jak to już pisałem powyżej - będziesz się śmiał z tego kursu. Póki co polecam po prostu uczyć się JavaScript.</p>
 
-<a href="./co-to-jest-javascript.php" class="button">To co? Zaczynamy?...</a>
+<pre><code class="language-js">
+async function renderPage() {
+    const country = getCountry();
+    const weather = getWeather(country.lat, country.lng);
+
+    const countryData = await country;
+    const weatherData = await weather;
+
+    updatePage(countryData, weatherData);
+}
+</code></pre>
+
+<p>Można też użyć tutaj Promise.all():</p>
+
+<pre><code class="language-js">
+async function renderPage() {
+    const country = getCountry();
+    const weather = getWeather(country.lat, country.lng);
+
+    return Promise.all([country, weather])
+}
+
+renderPage().then(...)
+</code></pre>
+
+
+<!-- ### -->
+<h2 class="subtitle" id="przyklady">Przykłady użycia</h2>
+<p>Poniżej przyjrzymy się kilku przykładom, a przy okazji ciut lepiej zapoznamy się z async/await.</p>
+
+<p>Gdy wejdziemy na stronę <a href="http://jsonplaceholder.com">http://jsonplaceholder.com</a>, zobaczymy tam przykładowy kod do pobierania danych. Nieco go poniżej zmodyfikowałem by był przyjemniejszy w użyciu:</p>
+
+<pre><code class="language-js">
+function loadData() {
+    return fetch('https://jsonplaceholder.typicode.com/todos/1')
+        .then(response => response.json())
+        .then(json => console.log(json))
+}
+
+loadData()
+    .then(data => console.log(data))
+</code></pre>
+
+<p>Gdybyśmy chcieli go zapisać za pomocą nowej składni, wyglądało by to jak poniżej:</p>
+
+<pre><code class="language-js">
+async function loadData() {
+    const response  = await fetch('https://jsonplaceholder.typicode.com/todos/1');
+    const json = await response.json();
+    return json;
+}
+
+loadData()
+    .then(data => console.log(data))
+</code></pre>
+
+<p>Inny przykład pokazuje wczytywanie grafik:</p>
+
+<pre><code class="language-js">
+function loadImage(url) {
+    return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.src = url;
+        img.onload = function() {
+            resolve(img);
+        }
+        img.onerror = function() {
+            reject(new Error(img));
+        }
+    });
+}
+
+function loadImages() {
+    Promise.all([
+        loadImage("image1.jpg"),
+        loadImage("image2.jpg")
+    ])
+    .then(imgData => {
+        console.log(imgData[0], imgData[1]);
+    }).catch(error => {
+        console.log(error);
+    })
+}
+
+loadImages();
+</code></pre>
+
+<p>Tutaj także możemy poprawić funkcję loadImages:</p>
+
+<pre><code class="language-js">
+async function loadImages() {
+    try {
+        const img1 = await loadImage("image1.jpg"),
+        const img2 = await loadImage("image2.jpg"),
+    } catch (err) {
+        console.log(err)
+    }
+}
+</code></pre>
+
+<div class="kartofel-informuje">
+    Bardzo fajny film na powyższe tematy znajdziesz pod adresem: <a href="https://www.youtube.com/watch?v=vn3tm0quoqE">https://www.youtube.com/watch?v=vn3tm0quoqE</a>
+</div>
 
 			</div><!-- e: page-content-text -->
 			<footer class="page-footer">
@@ -165,13 +375,13 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
                 </h3>
             </div>
 
-						<div class="page-sidebar-section show has-active-element">
+						<div class="page-sidebar-section ">
 				<h3 class="page-sidebar-section-title">
 					<a href="#">Słowem wstępu</a>
 				</h3>
 				<div class="page-sidebar-list-cnt">
 					<ul class="page-sidebar-list">
-						<li class="active">
+						<li >
 							<a href="/kurs/wstep/wstep.php">Wstęp</a>
 						</li>
 						<li >

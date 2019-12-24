@@ -3,9 +3,9 @@
 <head>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Kurs Javascript - Wstęp</title>
+    <title>Kurs Javascript - Destrukturyzacja obiektów</title>
 	<meta name="description" content="Kurs Javascript dla superbohaterów, artykuły, tutoriale, porady, zadania do wykonania" />
-    <link rel="canonical" href="https://kursjs.pl/kurs/wstep/wstep.php" />
+    <link rel="canonical" href="https://kursjs.pl/kurs/es6/destructuring.php" />
 	<link rel="stylesheet" href="./css.css" />
     <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,700&display=swap&subset=latin-ext" rel="stylesheet">
 	<meta name="image" content="https://kursjs.pl/kursjs.png">
@@ -57,49 +57,339 @@
             </div>
                         <div class="page-content-text">
 
-
-<h1 class="page-title">Wstęp</h1>
+<h1 class="page-title">Destrukturyzacja obiektów</h1>
 <p>
-Bardzo krótki wstęp ^^.<br /><br />
-Kurs ten jest o Javascripcie. Uhh...
-</p>
-<p>
-Wiedz, że nie staram się tutaj tworzyć największego i najlepszego kursu o JavaScript w internecie.<br>
-Ten kurs to twór jednego człowieka.
-Nie mam szans i nie chcę konkurować z molochami takimi jak <a href="https://developer.mozilla.org/pl/">MDN</a>, <a href="https://www.udemy.com/">Udemy</a>, <a href="https://eduweb.pl/">EduWeb</a> czy <a href="https://www.w3schools.com/js/default.asp">w3schools</a>.<br>
-<br><br>
-Nie znajdziesz tutaj wszystkiego z zakresu JavaScript. <br>
-Po jakimś czasie będziesz chciał wiele rzeczy tutaj pokazanych tworzyć inaczej - lepiej.<br>
-Im większy progres będziesz zdobywał stwierdzisz, że wiele rozdziałów można było napisać o wiele lepiej. I dobrze.<br><br>
-
-W każdym bądź razie - jeżeli ta strona jakoś ci posłuży - to tylko plus. Jeżeli nie - po prostu skorzystaj z innego kursu - na rynku jest tego od groma (niektóre wymieniłem <a href="../dodatkowe-materialy.php">tutaj</a>) i każdy znajdzie coś dla siebie. Ja sam mam kilka w swojej kolekcji i twierdzę, że są naprawdę dobre.
-<br><br>
+    Dekompozycja (zwana też destrukturyzacją) to nowa funkcjonalność w ES6, która polega na wyciąganiu
+    zmiennych z jakiejś struktury - np. z obiektów lub tablic.
 </p>
 
-<p>
-Jeszcze mała adnotacja, która siedzi mi w głowie.
-</p>
-<p>
-W internecie znajdziesz setki tutoriali pokazujących najnowsze techniki. A to funkcja strzałkowa, a to jak korzystać z async i await, a to jak robić połączenia fetchem czy chociażby zastosowanie modułów. Małe, konkretne, piękne - jak mój pies (a i od niedawna też kot).
-</p>
-<p>
-Na grupach facebookowych w dyskusjach znajdziesz jeszcze szybciej takie techniki.
-</p>
-<p>
-Tutaj pojawia pewna sprawa, który dotyczy nie tylko JavaScript, ale i całego frontendu. Bardzo często przy takich nowoczesnych tutorialach czy poradach autorzy nie zwracają uwagi na bardzo ważną rzecz - a mianowicie na to, że dobór techniki <strong>zawsze zależy od danego projektu</strong>. To są w końcu rzeczy oczywiste.<br>
-No właśnie nie do końca. To są rzeczy oczywiste - dla nas - osób, które w tej branży siedzą już kilkanaście lat. Ale czy dla osoby zaczynającej?
-</p>
-<p>
-Jeżeli robisz bloga o nowinkach z dziedziny frontentu, raczej możesz założyć, że większość użytkowników będzie korzystała z najnowszych przeglądarek, a więc i możesz używać najnowszych rozwiązań (chociaż najlepiej było by spojrzeć w statystyki Google Analitics które można podpiąć pod stronę).<br>
-Jeżeli jednak robisz stronę dla emerytowanych nauczycieli, czy dla przykładu olbrzymi sklep z którego będą korzystali różnorodni użytkownicy z różnorodnych krajów, wtedy rzucanie się na najnowsze rozwiązania będzie strzałem w stopę.
-</p>
-<p>
-Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie CSS Grid, a czasami nawet flexbox może okazać się czymś, czego użyć nie możesz. Czasami spokojnie będziesz mógł używać najnowszej wersji JavaScript, a czasami będziesz musiał pozostać przy starszej. A jeżeli będziesz musiał pozostać przy starszej, wtedy albo będziesz pisał JavaScript trzymając się klasycznych rozwiązań, albo skorzystasz z narzędzi zamieniających twój kod na starszy zapis.
-</p>
-<p>Autorzy tutoriali często zapominają o tym, że dla początkującej osoby istnieje po prostu JavaScript. Osoby takie często nie zdają sobie sprawy, że nie wszystko w JavaScript można dowolnie używać, nie wiedzą gdzie szukać informacji które przeglądarki co wspierają, jakich narzędzi używać do zamiany kodu i po co w ogóle to robić.</p>
-<p>W kursie tym staram się trzymać klasycznego JavaScript. Jasne - im więcej wiedzy zdobędziesz, im bardziej będziesz rozbudowywał swój warsztat, tym będziesz stosował coraz nowsze i lepsze techniki pisania kodu. A wtedy - tak jak to już pisałem powyżej - będziesz się śmiał z tego kursu. Póki co polecam po prostu uczyć się JavaScript.</p>
+<!-- ### -->
+<h2 class="subtitle" id="destructuring-objects">Dekompozycja obiektów</h2>
+<p>Przypuśćmy, że właśnie pobraliśmy za pomocą <a href="../ajax/ajax.php">AJAX</a> obiekt z danymi.</p>
 
-<a href="./co-to-jest-javascript.php" class="button">To co? Zaczynamy?...</a>
+<pre><code class="language-js">
+const myObject = {
+    name : "Marcin",
+    surname : "Kowalski",
+    age : 10
+}
+</code></pre>
+
+<p>Jeżeli teraz chciałbym, z tego obiektu wyciągnąć dane i podstawić je pod zmienne:</p>
+
+<pre><code class="language-js">
+const name = myObject.name;
+const surname = myObject.surname;
+const age = myObject.age;
+</code></pre>
+
+<p>W ES6 możemy sobie to uprościć stosując destrukturyzację:</p>
+
+<pre><code class="language-js">
+const { name, surname, age } = myObject;
+</code></pre>
+
+<p>To co napisaliśmy po lewej stronie przypomina obiekt, ale nim nie jest.
+Jest to wzór, pod który następnie podstawiamy jakiś obiekt (u nas myObject).<br>
+Między klamrami podajemy nazwy zmiennych, pod które podstawione zostaną właściwości o takich samych nazwach.
+Jeżeli danej właściwości w podstawionym obiekcie nie będzie, wtedy pod daną zmienną zostanie podstawione <strong>undefined</strong>:
+</p>
+
+<pre><code class="language-js">
+const { name, surname, age, favoritePet } = myObject;
+
+console.log(name); //Marcin
+console.log(surname); //Kowalski
+console.log(age); //10
+console.log(favoritePet); //undefined
+</code></pre>
+
+<p>
+    W powyższym przykładzie tworzymy zmienne o takich samych nazwach jak właściwości myObject.
+    Gdybyś chciał stworzyć zmienne o innych nazwach, musisz użyć znaku dwukropka:
+</p>
+
+<pre><code class="language-js">
+const {
+    name: newName,
+    surname: newSurname,
+    age,
+    favoritePet
+} = myObject;
+
+console.log(newName); //Marcin
+console.log(newSurname); //Kowalski
+console.log(age); //10
+console.log(favouritePet); //undefined
+</code></pre>
+
+<p>Dodatkowo tworząc wzorzec, możemy danym zmiennym przypisać domyślne wartości, które zostaną użyte, jeżeli danej właściwości w podstawianym obiekcie nie będzie:</p>
+
+<pre><code class="language-js">
+const {
+    name: newName,
+    surname: newSurname,
+    age = 14,
+    favoritePet = "Szamson"
+} = myObject;
+
+console.log(newName); //Marcin
+console.log(newSurname); //Kowalski
+console.log(age); //10 - bo właściwość istnieje
+console.log(favouritePet); //Szamson - została użyta domyślna
+</code></pre>
+
+<p>
+Ale po co to się może przydać? Przede wszystkim tak jak wyżej - do wyciągania zmiennych z obiektów. Wyobraź sobie że chcesz wziąć coś z obiektu, a całą resztę zostawić w spokoju. Tworzysz więc szybki wzór, podstawiasz pod dany obiekt i włala. Cała reszta Cię nie interesuje.
+</p>
+
+<pre><code class="language-js">
+const { url, print } = uberBigObjectWithMilionPropertiesAndMethods;
+</code></pre>
+
+<p>
+Pamiętaj też, że taki wzór możemy używać dla wielu obiektów. Wyobraź sobie, że robisz pętlę po pobranej tabeli użytkowników.<br>
+Każdego użytkownika podstawiasz pod wzór, a następnie działasz na zmiennych. Nie każdy użytkownik ma swój email, nie każdy ma swoją stronę www, ale to niczemu nie przeszkadza, bo w razie czego wzór dobierze domyślne wartości:
+</p>
+
+<pre><code class="language-js">
+.fetch(.....)
+.then(result => result.json())
+.then(result => {
+    //działamy na pobranych użytkownikach
+    result.users.forEach(el => {
+        const {
+            name = "",
+            surname = "",
+            email = "",
+            plan = "basic"
+            role = "user",
+            www = "http://"
+        } = el;
+
+        console.log(surname, name, email, plan, role, www);
+    });
+});
+</code></pre>
+
+<p>
+    W EcmaScript 2018 istniej też możliwość zastosowania destrukturyzacji wraz z <a href="./spread-rest.php">spread operatorem</a>.
+</p>
+
+<p>Podobnie też możemy uzyskiwać podobiekty:</p>
+
+<pre><code class="language-js">
+const car = {
+    brand : "BMW",
+    color: "red",
+    maxSpeed : 260,
+    owner: "Jan Nowak",
+    ownerAge : 30
+}
+
+const { brand, color, ...rest } = car;
+console.log(brand); //BMW
+console.log(color); //red
+console.log(rest); // { maxSpeed: 260, owner: 'Jan Nowak', ownerAge : 30 }
+</code></pre>
+
+<p>
+    Możemy to zastosować do tworzenia kopii obiektów, które nie mają wybranych przez nas właściwości:
+</p>
+
+<pre><code class="language-js">
+const ob = {
+    name : "Piotrek",
+    age : 20,
+    surname : "Nowak",
+    pet : "pies"
+}
+
+const {pet, ...obWithoutPet} = ob;
+
+console.log(pet); //pies
+console.log(obWithoutPet); //obiekt bez właściwości pet
+</code></pre>
+
+<pre><code class="language-js">
+const car = {
+    brand : "BMW",
+    color: "red",
+    maxSpeed : 260,
+    owner: "Jan Nowak",
+    ownerAge : 30
+}
+
+const {owner, ownerAge, ...car} = carData;
+
+console.log(car); //wypisze car bez właściwości owner i ownerAge
+</code></pre>
+
+<p>Pamiętaj, że wszędzie tam, gdzie otrzymujesz jakiś obiekt czy tablicę, możesz używać desktruturyzacji do wyciągania zmiennych:</p>
+
+<pre><code class="language-js">
+const buttons = document.querySelectorAll("button");
+
+//zamiast
+buttons.map((el) => {
+    return el.innerText.toUpperCase() + el.id;
+})
+
+//możemy
+buttons.map(({innerText : text, id}) => {
+    return text.toUpperCase() + id;
+})
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="destructuring-tables">Dekompozycja tablic</h2>
+<p>Podobnymi zasadami rządzi się destrukturyzacja tablic. Są małe różnice, ale ogólna zasada jest podobna.</p>
+
+<p>Przypuśćmy, że mamy tablicę, z której chcielibyśmy pobrać wartości:</p>
+
+<pre><code class="language-js">
+const tab = [1, 2, 3, 4];
+</code></pre>
+
+<p>Jeżeli teraz chciałbym pobrać z tej tablicy 2 pierwsze wartości to użył bym zapisu:</p>
+
+<pre><code class="language-js">
+const tab = [1, 2, 3, 4];
+
+//klasycznie
+const a = tab[0];
+const b = tab[1];
+
+//za pomocą destrukturyzacji
+[a, b] = tab;
+</code></pre>
+
+<p>Jeżeli chcielibyśmy z tablicy wyciągnąć wartości, ale z pominięciem kolejnej,
+wtedy musimy użyć przecinka:</p>
+
+<pre><code class="language-js">
+const tab = [1, 2, 3, 4];
+
+[a, b, , c] = tab;
+
+console.log(a, b, c); //1, 2, 4
+</code></pre>
+
+<p>Tak samo jak w przypadku destrukturyzacji obiektów, tworzymy jakiś wzór pod które potem podstawiana jest tablica.</p>
+
+<p>Podobnie też możemy definiować domyślne wartości:</p>
+
+<pre><code class="language-js">
+const tab = [1, 2, , 4];
+
+[a, b, c=5] = tab;
+
+console.log(a, b, c); //1, 2, 5
+</code></pre>
+
+<p>Co ciekawe, przy destrukturyzacji tablic możemy też użyć operatora rest:</p>
+
+<pre><code class="language-js">
+const tab = [1, , 3, 4, 5];
+
+[a, ...r] = tab;
+
+console.log(a, r); //1, [undefined, 3, 4, 5]
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="hard-example">Bardziej skomplikowana struktura</h2>
+<p>Przypuśćmy, że mamy obiekt użytkownika, który chcemy poddać destrukturyzacji.</p>
+<p>Znowu - załóżmy, że całość wykonywana jest w pętli po tablicy użytkowników, które wczytaliśmy z json z serwera. W poniższym przykładzie skupiamy się na pojedynczym użytkowniku.</p>
+
+<pre><code class="language-js">
+const myObj = {
+    name : "Marcin",
+    surname : "Domański",
+    role : "webmaster",
+    pets: ["pies", "kot"],
+    car : {
+        name : "Honda",
+        year: 2002,
+        type : "hatchback"
+    }
+}
+</code></pre>
+
+<p>Z destrukturyzacją name, surname, role i pets nie będzie problemu. Ale jak poddać destrukturyzacji bardziej skomplikowane struktury? Musimy we wzorze określić ich wygląd, czyli jeżeli poddajemy destrukturyzacji tabele w obiekcie, musimy w naszym wzorze stworzyć odzwierciedlenie takiej tabeli w obiekcie. To samo tyczy się obiektów w obiektach:</p>
+
+<pre><code class="language-js">
+const {
+    name, //nie chcemy zmieniać tej zmiennej
+    surname, //tej tez nie
+    role,
+    pets : [
+        pet1,
+        pet2
+    ],
+    car : {
+        name : carName,
+        year : carYear,
+        type : carType
+    }
+} = myObj || {}
+</code></pre>
+
+<p>Zauważ że nasz wzorzec postawiłem pod myObj || pusty obiekt. Dzięki temu zabezpieczam się na wypadek, gdyby nie było myObj</p>
+
+<div class="tasks-for-you-cnt">
+	<h2 class="subtitle" id="zadania">Trening czyni mistrza</h2>
+	<p>
+		Poniżej zamieszczam kilka zadań, które w ramach ćwiczenia możesz wykonać.
+	</p>
+	<ol class="tasks-for-you">
+		<li>
+			<div class="question">
+				Mamy obiekt:
+				<pre><code class="language-js">
+				const obj = {
+					name : "Marcin",
+					surname : "Kowalski",
+					age : 20
+				}
+				</code></pre>
+				<p>
+				Za pomocą dekompozycji utwórz 3 zmienne: name, surname i userAge
+				</p>
+			</div>
+			<div class="solution">
+				<pre><code class="language-js">
+				const obj = {
+					name : "Marcin",
+					surname : "Kowalski",
+					age : 20
+				}
+	
+				const {name, surname, age : userAge} = obj;
+	
+				console.log(name, surname, userAge);
+				</code></pre>
+			</div>
+		</li>
+		<li>
+			Mamy tablicę:
+			<pre><code class="language-js">
+				const tab = [1,2,3,4,5];
+			</code></pre>
+			Za pomocą dekompozycji pobierz pierwszą, drugą i czwartą wartość z tej tablicy i podstaw je pod zmienne a, b, c
+	
+			<div class="solution">
+				<pre><code class="language-js">
+					const tab = [1,2,3,4,5];
+	
+					const [a, b, , c] = tab;
+	
+					console.log(a, b, c);
+				</code></pre>
+			</div>
+		</li>
+	</ol>
+	</div>
 
 			</div><!-- e: page-content-text -->
 			<footer class="page-footer">
@@ -165,13 +455,13 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
                 </h3>
             </div>
 
-						<div class="page-sidebar-section show has-active-element">
+						<div class="page-sidebar-section ">
 				<h3 class="page-sidebar-section-title">
 					<a href="#">Słowem wstępu</a>
 				</h3>
 				<div class="page-sidebar-list-cnt">
 					<ul class="page-sidebar-list">
-						<li class="active">
+						<li >
 							<a href="/kurs/wstep/wstep.php">Wstęp</a>
 						</li>
 						<li >
@@ -379,7 +669,7 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
 				</div>
 			</div>
 
-						<div class="page-sidebar-section ">
+						<div class="page-sidebar-section show has-active-element">
 				<h3 class="page-sidebar-section-title">
 					<a href="#">Nowy Javascript</a>
 				</h3>
@@ -403,7 +693,7 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
 						<li >
 							<a href="/kurs/es6/template-strings.php">Template strings</a>
 						</li>
-						<li >
+						<li class="active">
             				<a href="/kurs/es6/destructuring.php">Dekompozycja</a>
         				</li>
 						<li >

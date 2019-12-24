@@ -1,0 +1,1143 @@
+<!doctype html>
+<html lang="pl-PL">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kurs Javascript - Funkcje - tematy dodatkowe</title>
+	<meta name="description" content="Kurs Javascript dla superbohaterów, artykuły, tutoriale, porady, zadania do wykonania" />
+    <link rel="canonical" href="https://kursjs.pl/kurs/super-podstawy/funkcje-tematy-dodatkowe.php" />
+	<link rel="stylesheet" href="./css.css" />
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,700&display=swap&subset=latin-ext" rel="stylesheet">
+	<meta name="image" content="https://kursjs.pl/kursjs.png">
+<meta name="twitter:card" content="product">
+<meta name="twitter:site" content="@publisher_handle">
+<meta name="twitter:title" content="Kurs Javascript">
+<meta name="twitter:description" content="Kurs Javascript dla superbohaterów">
+<meta name="twitter:creator" content="@kartofelek007">
+<meta name="twitter:image" content="https://kursjs.pl/kursjs.png">
+<meta property="og:title" content="Kurs Javascript">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.kursjs.com/">
+<meta property="og:image" content="https://kursjs.pl/kursjs.png">
+<meta property="og:description" content="Kurs Javascript dla superbohaterów">
+<meta property="og:site_name" content="Kurs Javascript">
+<link rel="apple-touch-icon" sizes="57x57" href="/favicons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/favicons/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/favicons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/favicons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/favicons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/favicons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/favicons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/favicons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="/manifest.json">
+<meta name="msapplication-TileColor" content="#FF6347">
+<meta name="msapplication-TileImage" content="/mstile-144x144.png">
+    <script src="/js/jquery.min.js"></script>
+</head>
+<body>
+
+<div class="page-container" id="pageContainer">
+	<div class="page-content-wrapper">
+        <main class="page-content" id="mainContent"  data-text-for-print="Kurs Javascript dla superbohaterów">
+                        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <div class="rekl-cnt">
+                <ins
+                class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-6843603045703750"
+                data-ad-slot="4690777640"
+                data-ad-format="auto"
+                data-full-width-responsive="true"
+                ></ins>
+            </div>
+                        <div class="page-content-text">
+
+
+<h1 class="page-title">Funkcje - tematy dodatkowe</h1>
+
+<p>Poniżej zajmiemy się dodatkowymi tematami związanymi z działaniem funkcji.</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="zasieg-zmiennych">Zasięg zmiennych</h2>
+<p>
+    Zmienne dzielimy na globalne i lokalne.<br>
+    Do tych pierwszych dostęp ma cały skrypt. Te drugie - jak sama nazwa wskazuje - są lokalne.
+</p>
+<p>
+    Podczas pisania naszych skryptów powinniśmy starać się używać jak najmniej zmiennych globalnych, ponieważ są narażone na potencjalne niepożądane zmiany.
+</p>
+<p>
+    W przypadku <a href="./zmienne.php">const i let</a> zasięg zmiennych jest blokowy, co oznacza "od klamry do klamry".
+</p>
+<pre><code class="language-js">
+let x = "Jola";
+
+{
+    let a = "Ala";
+    console.log(a); //Ala
+    console.log(x); //Jola
+}
+
+{
+    let a = "Ola"; //zmienna lokalna w tym bloku
+    console.log(a); //Ola
+    console.log(x); //Jola
+}
+
+console.log(a); //error - nie ma takiej zmiennej
+console.log(x); //Jola
+</code></pre>
+
+<p>W przypadku zmiennych deklarowanych za pomocą <strong>var</strong> ich zasięg jest funkcyjny.<br>
+Zasada jest podobna do cost i let, z tym, że tutaj zasięg definiuje ciało danej funkcji:</p>
+
+
+<pre><code class="language-js">
+var x = "Jola";
+
+function fn1() {
+    var a = "Ala";
+    console.log(a); //Ala
+    console.log(x); //Jola
+}
+
+function fn2() {
+    var a = "Ola";
+    console.log(a); //Ola
+    console.log(x); //Jola
+}
+
+console.log(a); //błąd bo zmienna a jest dostępna tylko w funkcji
+console.log(x); //Jola
+</code></pre>
+
+<p>
+Takie zamknięte środowisko może mieć spokojnie swoje zmienne, które mogą nazywać się tak samo jak zmienne ze środowiska zewnętrznego:
+</p>
+
+<pre><code class="language-js">
+var x = 1;
+
+function show() {
+    //deklarujemy zmienną x dostępną tylko w tej funkcji
+    //zbieżność nazw z zewnętrzną zmienną x nie przeszkadza, bo to nie są te same zmienne
+    var x = 2;
+    console.log(x); //2
+}
+
+show();
+console.log(x); //1 - jesteśmy poza funkcją
+</code></pre>
+
+<pre><code class="language-js">
+let x = 1;
+
+{
+    let x = 2;
+    console.log(x); //2
+}
+
+console.log(x); //1
+</code></pre>
+
+<p>W przypadku funkcji zmiennymi lokalnymi stają się też parametry.</p>
+
+<pre><code class="language-js">
+const a = 10;
+const b = 20;
+
+function myF(a, b) {
+    console.log(a, b); //"Ala", "Ola"
+}
+
+myF("Ala", "Ola");
+console.log(a, b); //10, 20
+</code></pre>
+
+<p>
+Ważne by zawsze przy tworzeniu nowych zmiennych używać słów kluczowych var/let/const.
+W przeciwnym razie możemy nieumyślnie nadpisać zmienną globalną:
+</p>
+
+<pre><code class="language-js">
+var sum = 1;
+
+function show(a, b) {
+    //funkcja show zaczyna definiować swoje zmienne.
+    //musi zadeklarować zmienne parametrów a i b
+    //czy poniżej musi zdefiniować nową zmienną sum?
+    //Nie, ponieważ poniżej nie ma deklaracji nowej zmiennej
+    //(brakuje słowa var, let lub const)
+    //funkcja więc odwołuje się tutaj do zmiennej z zewnątrz
+
+    sum = a + b;
+    console.log(sum); //wypisze 5
+}
+
+show(2, 3); //5
+console.log(sum); //5 a powinno być 1
+</code></pre>
+
+<pre><code class="language-js">
+let sum = 1;
+{
+    sum = 2 + 3;
+}
+console.log(sum); //5 a powinno być 1
+</code></pre>
+
+<p>
+    Zarówno funkcje jak i bloki mogą być spokojnie zagnieżdżone w innych funkcjach i blokach.
+</p>
+<p>
+    Działać tu będzie ten sam mechanizm co powyżej.
+    Funkcje/bloki mają dostęp do swoich zmiennych i zmiennych z zewnątrz.
+    Zewnętrzne środowisko nie ma dostępu do zmiennych w zagnieżdżonych blokach i funkcjach.
+    Tworzy się więc pewna zagnieżdżona hierarchia.<br>
+</p>
+
+<p>
+<img src="./funkcje-dostep-do-zmiennych.jpg" alt="">
+</p>
+
+<pre><code class="language-js">
+var lv0 = 0;
+
+function fn1() {
+    var lv1 = 1;
+    console.log(lv0); //0
+    console.log(lv2); //błąd - nie ma dostępu do zmiennych w wewnętrznej funkcji
+
+    function fn2() {
+        var lv2 = 2;
+        console.log(lv0, lv1, lv2); //0, 1, 2
+    }
+}
+
+console.log(lv1, lv2); //błąd - zewnętrzne środowisko nie ma dostępu
+</code></pre>
+
+<pre><code class="language-js">
+let lv0 = 0;
+
+{
+    let lv1 = 1;
+    console.log(lv0); //0
+    console.log(lv2); //błąd - nie ma dostępu do zmiennych w wewnętrznej funkcji
+
+    {
+        let lv2 = 2;
+        var lv2B = 2;
+        console.log(lv0, lv1, lv2); //0, 1, 2
+    }
+}
+
+console.log(lv1, lv2); //błąd - zewnętrzne środowisko nie ma dostępu
+console.log(lv2B); //uwaga - lv2B to var. Mamy tutaj dostęp, bo nie ogranicza jej ciało funkcji
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="domkniecia">Domknięcia - closures</h2>
+<p>
+Gdy funkcja zaczyna działać, tworzy swoje środowisko ze swoimi zmiennymi. Tymi zmiennymi są zmienne lokalne (zadeklarowane za pomocą var/let/const) oraz parametry funkcji. Gdy znajdzie odwołanie do zmiennych z zewnątrz, pobierze je stamtąd. Ok. To przejdźmy do mini przykładu:
+</p>
+
+<pre><code class="language-js">
+let a = 0;
+
+function myF() {
+    a++; //zmienna globalna
+    console.log(`a: ${a}`);
+}
+
+myF(); //a: 1
+myF(); //a: 2
+myF(); //a: 3
+myF(); //a: 4
+</code></pre>
+
+<p>Za każdym razem gdy odpalamy nasza funkcję myF(), zwiększamy zmienną braną z zewnątrz.</p>
+<p>Dodajmy do naszego przykładu dodatkową zmienną lokalną:</p>
+
+<pre><code class="language-js">
+let a = 0;
+
+function myF() {
+    let b = 0;
+    a++;
+    b++;
+    console.log(`a: ${a}, b: ${b}`);
+}
+
+myF(); //a: 1, b: 1
+myF(); //a: 2, b: 1
+myF(); //a: 3, b: 1
+myF(); //a: 4, b: 1
+</code></pre>
+
+<p>Za każdym wywołaniem naszej funkcji zmienna lokalna tworzona jest na nowo, natomiast zmienna globalna jest brana z zewnątrz, dzięki czemu między kolejnymi odpaleniami naszej funkcji trzyma swój stan. Zewnętrzne środowisko dla naszej funkcji staje się więc swoistym schowkiem.</p>
+
+<p>Spróbujmy ten sam manewr co powyższy przeprowadzić na funkcji zagnieżdżonej o jeden poziom:</p>
+
+<pre><code class="language-js" data-lines="">
+function loremFn() {
+    let a = 0;
+
+    function myF() {
+        let b = 0;
+        a++;
+        b++;
+        console.log(`a: ${a}, b: ${b}`);
+    }
+
+    myF(); //a: 1, b: 1
+    myF(); //a: 2, b: 1
+    myF(); //a: 3, b: 1
+    myF(); //a: 4, b: 1
+}
+
+loremFn();
+</code></pre>
+
+<p>Zasada jak widać nic się nie zmienia.</p>
+<p>Funkcje mogą zwracać dowolne rzeczy - w tym inne funkcje. Dla takich funkcji także możemy wykorzystać "zewnętrzne środowisko" do zapamiętywania stanu między kolejnymi wywołaniami:</p>
+
+<pre><code class="language-js">
+function counter() {
+    let a = 0;
+
+    return function() {
+        a++;
+        console.log(a);
+    }
+}
+
+const c = counter();
+c(); //1
+c(); //2
+c(); //3
+c(); //4
+</code></pre>
+
+<p>Dzięki wykorzystaniu zewnętrznego środowiska (którym dla naszej zwróconej funkcji jest funkcja counter()) nasza funkcja c() może zapamiętać swój stan między kolejnymi odpaleniami.</p>
+
+<p>Więcej na ten temat możesz dowiedzieć się na stronie <a href="https://developer.mozilla.org/pl/docs/Web/JavaScript/Domkniecia">https://developer.mozilla.org/pl/docs/Web/JavaScript/Domkniecia</a></p>
+
+
+<!-- ### -->
+<h2 class="subtitle" id="iife">Samo wywołująca się funkcja - IIFE</h2>
+<p>
+    W JavaScript istnieje pewien wzorzec anonimowej funkcji, która od razu sama się wywołuje - tak zwany <a href="https://developer.mozilla.org/en-US/docs/Glossary/IIFE">Immediately-invoked function expression (IIFE)</a>.
+</p>
+
+<p>
+    Aby go zrozumieć, stwórzmy proste wyrażenie funkcyjne:
+</p>
+
+<pre><code class="language-js">
+const fn1 = function() {...}
+
+const fn2 = function(a) {
+    console.log(a);
+}
+</code></pre>
+
+<p>
+    Żeby teraz wywołać powyższą funkcję, musimy podać jej nazwę, za którą <strong>wstawimy parę nawiasów</strong>:
+</p>
+
+<pre><code class="language-js">
+    fn1();
+
+    fn2("ala");
+</code></pre>
+
+<p>
+    Częstokroć jednak wcale nie będziemy potrzebować nazwy funkcji, bo wewnętrzny kod chcielibyśmy wykonać tylko jeden raz i to od razu.<br>
+    Czyli po definicji funkcji chcielibyśmy od razu ją wywołać:
+</p>
+
+<pre><code class="language-js">
+    function() {...}(); //zwróci błąd
+</code></pre>
+
+<p>
+   Powyższy kod zwróci błąd. Aby to naprawić, wystarczy skorzystać z zasad matematyki, gdzie nawiasami okrywamy część równania, która powinna się wykonać w pierwszej kolejności:
+</p>
+<pre><code class="language-js">
+    2 + 2.toFixed() //zwróci błąd
+    (2 + 2).toFixed() //na początku wykonaj równanie, potem toFixed()
+</code></pre>
+<p>
+Podobnie do powyższego równania wystarczy zapis funkcji objąć nawiasami:
+</p>
+
+<pre><code class="language-js">
+    (function() {...})();
+</code></pre>
+
+<pre><code class="language-js">
+    (function(a) {
+        console.log(a)
+    })("ala");
+</code></pre>
+
+<p>
+    I tak właśnie powstał nasz wzorzec samo wywołującej się anonimowej funkcji:
+</p>
+
+<pre><code class="language-js">
+(function() {
+    console.log('Jakiś tekst'); //wywoła się od razu
+})();
+
+//jest praktycznie równoznaczne z
+
+function fn1() {
+    console.log('Jakiś tekst');
+}
+fn1();
+</code></pre>
+
+<div class="kartofel-informuje">
+<p>
+    Alternatywnym zapisem dla powyższego jest wzór zalecany przez <a href="https://en.wikipedia.org/wiki/Douglas_Crockford">Douglasa Crockforda</a> - jednego z guru JavaScript.
+</p>
+<pre><code class="language-js">
+(function() {...}()); //nawiasy w środku
+</code></pre>
+</div>
+
+
+<p>
+No dobrze, a czemu to wszystkiemu ma służyć?<br>
+Jak wiemy, zakres let i const w przeciwieństwie do var mają zasięg blokowy:
+</p>
+
+<pre><code class="language-js">
+{
+    let a = 20;
+    var b = 10;
+}
+console.log(a); //błąd - nie mamy dostępu
+console.log(b); //10
+</code></pre>
+
+<p>
+Jeżeli chcemy ograniczyć zasięg var, musimy skorzystać z funkcji:
+</p>
+
+<pre><code class="language-js">
+(function() {
+    let a = 20;
+    var b = 10;
+})();
+
+console.log(a); //błąd - nie mamy dostępu
+console.log(b); //błąd - nie ma dostępu
+</code></pre>
+
+<p>W przeszłości - gdy używało się głównie var, stosowanie IIFE było dość powszechną metodą ograniczania zasięgu.</p>
+
+<p id="problem-z-var-w-petlach">
+Zakończmy ten wywód klasycznym przykładem użycia IIFE. Przypuśćmy, że mamy kod:
+</p>
+
+<pre><code class="language-js">
+var arr = [];
+
+for (var i=0; i&lt;3; i++) {
+    arr[i] = function() {
+        console.log(i);
+    }
+}
+
+arr[0](); //3 ????
+arr[1](); //3 ????
+arr[2](); //3 ????
+</code></pre>
+
+<p>
+Czemu powyższy przykład wypisuje za każdym razem 3 - przecież powinien kolejne liczby.
+</p>
+<p>
+Pamiętaj, że kod funkcji po napisaniu jest jeszcze nieaktywny.<br>
+W momencie odpalenia funkcji po pierwsze tworzy ona swoje zmienne lokalne (parametry oraz zmienne deklarowane przez var/let/const) oraz pobiera zmienne globalne jeżeli w jej kodzie są do takowych odwołania. W powyższym przykładzie funkcje nie mają zmiennych lokalnych, a tylko biorą zmienną <code>i</code> z zewnątrz. A ile wynosi zmienna <code>i</code> w momencie wywołania funkcji arr[0]? Pamiętaj, że zmienne deklarowane przez var nie mają zasięgu blokowego, więc zmienna <code>i</code> wyskoczyła poza pętlę. Tak więc w momencie wywołania funkcji arr[0] zmienna <code>i</code> jest równa 3.
+</p>
+
+<p>Aby to naprawić trzeba jakoś wymusić na funkcji by stworzyła swoje prywatne zmienne:</p>
+
+<pre><code class="language-js">
+var arr = [];
+for (var i=0; i&lt;3; i++) {
+    (function(i) {
+        arr[i] = function() {
+            console.log(i);
+        };
+    })(i);
+}
+
+arr[0](); //0
+arr[1](); //1
+arr[2](); //2
+</code></pre>
+
+<pre><code class="language-js">
+//lub
+var arr = [];
+for (var i=0; i&lt;3; i++) {
+    (function() {
+        var j = i;
+        arr[j] = function() {
+            console.log(j);
+        };
+    })();
+}
+
+arr[0](); //0
+arr[1](); //1
+arr[2](); //2
+</code></pre>
+
+...albo zacząć używać nowszych deklaracji:
+
+<pre><code class="language-js">
+const arr = [];
+for (let i=0; i&lt;3; i++) {
+    arr[i] = function() {
+        console.log(i);
+    }
+}
+
+arr[0](); //0
+</code></pre>
+
+<p>Powyższy wywód może wydawać się czysto teoretyczny, ale w praktyce dość często pojawia się na forach w nieco innej postaci:</p>
+
+<pre><code class="language-js">
+var buttons = document.querySelectorAll('button');
+
+for (var i=0; i&lt;buttons.length; i++) {
+    buttons[i].addEventListener('click', function() {
+        console.log(i);
+    });
+}
+</code></pre>
+
+<style>
+.btn-test button {
+    margin-bottom: 5px;
+}
+</style>
+<p class="btn-test">
+<button class="button test-btn">Pokaż numer 1</button>
+<button class="button test-btn">Pokaż numer 2</button>
+<button class="button test-btn">Pokaż numer 3</button>
+<button class="button test-btn">Pokaż numer 4</button>
+<button class="button test-btn">Pokaż numer 5</button>
+<button class="button test-btn">Pokaż numer 6</button>
+</p>
+
+<script>
+var buttons = document.querySelectorAll('.test-btn');
+for (var i=0; i<buttons.length; i++) {
+    buttons[i].addEventListener('click', function() {
+        console.log(i);
+    });
+}
+</script>
+
+<p>Zasada działania ta sama...</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="callback">Funkcje zwrotne</h2>
+<p>Czym są funkcje zwrotne (tak zwane callback)?</p>
+<p>Zacznijmy od podstaw. Do parametrów funkcji możemy przekazywać wszystko:</p>
+
+<pre><code class="language-js">
+function myF(a) {
+   console.log(a)
+}
+
+myF(1); //przekazaliśmy numer
+myF("Ala"); //przekazaliśmy tekst
+myF({a : 2}); //przekazaliśmy obiekt
+myF([1,2,3]); //przekazaliśmy tablicę
+</code></pre>
+
+<p>Skoro możemy przekazać wszystko, to także i funkcję, którą wewnątrz naszej funkcji możemy wywołać.</p>
+
+
+<p>Działanie takie bardzo często będziemy stosować podczas pisania kodu. Poniżej przykład zastosowania tego mechanizmu dla <a href="tablice.php#sort">sort()</a>, <a href="tablice-iteracje.php#forEach">forEach()</a>, <a href="tablice-iteracje.php#map">map()</a> i <a href="../events/events.php#addEventListener">addEventListener()</a></p>
+
+<pre><code class="language-js">
+[1,2,1,4].sort(function(a, b) {
+    ...
+})
+
+[1,2,3,4].forEach(function(el) {
+    ...
+});
+
+element.addEventListener('click', function() {
+    ...
+});
+</code></pre>
+
+<p>Mechanizm ten możemy też stosować w przypadku naszych własnych funkcji:</p>
+
+<pre><code class="language-js">
+function myF(fn) {
+    //pod fn trafia poniższa anonimowa funkcja
+    //no to ją wywołajmy...
+    fn();
+}
+
+myF(function() {
+    console.log('...');
+});
+</code></pre>
+
+<pre><code class="language-js">
+function randomBetween(min, max, fn) {
+    const nr = Math.floor(Math.random()*(max-min+1)+min);
+    fn(nr);
+}
+
+randomBetween(function(res) {
+    console.log('Losowa liczba to: ' + res);
+});
+</code></pre>
+
+<pre><code class="language-js">
+function sumTable(tab, fn) {
+    let sum = 0;
+    for (let i=0; i&lt;tab.length; i++) {
+        sum += tab[i];
+    }
+    fn(sum);
+}
+
+sumTable([1,2,3,4], function(res) {
+    console.log('Suma liczb w tablicy to: ' + res);
+});
+</code></pre>
+
+<p>Poza przekazywaniem funkcji anonimowych możemy też przekazywać funkcje przez ich nazwę (tak zwana referencja):</p>
+
+<pre><code class="language-js">
+function myF(fn) {
+    fn();
+}
+
+function otherFn() {
+    console.log(...);
+}
+
+//przekazujemy funkcję po nazwie
+myF(otherFn)
+</code></pre>
+
+<p>Jak wiemy, funkcje mogą przyjmować atrybuty. Nasza funkcja, którą przekazujemy do parametru także:</p>
+
+<pre><code class="language-js">
+function myF(fn) {
+    const text = "Ala"
+    fn(text); //pod poniższe "a" trafi tekst "Ala"
+}
+
+myF(function(a) {
+    console.log(a + " ma kota") //Ala ma kota
+})
+</code></pre>
+
+<p>W powyższym kodzie przekazujemy funkcję, która wymaga jednego atrybutu.
+Funkcja ta jest odpalana w funkcji myF, która przekazuje do jej parametru tekst.</p>
+
+<p>Funkcje zwrotne używa się bardzo często szczególnie w środowisku Node lub pracy z synchronicznym kodem.</p>
+
+
+			</div><!-- e: page-content-text -->
+			<footer class="page-footer">
+				<p>
+				Wszelkie prawa zastrzeżone. Jeżeli chcesz używać jakiejś części tego kursu, skontaktuj się z <a href="/kurs/autor.php">autorem</a>.
+				Aha - i ta strona korzysta z <a href="/kurs/polityka-prywatnosci.php">ciasteczek</a>.
+				</p>
+			</footer>
+							<div class="rekl-cnt">
+					<ins
+					class="adsbygoogle" style="margin-top:40px; display:block"
+					data-ad-client="ca-pub-6843603045703750"
+					data-ad-slot="4690777640"
+					data-ad-format="auto"
+					data-full-width-responsive="true"
+					></ins>
+				</div>
+				<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+	(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+					</main><!-- e: page-content -->
+			</div><!-- e: page-content-wrapper -->
+    <aside id="page-sidebar-cnt" class="page-sidebar-cnt">
+	<div id="page-sidebar" class="page-sidebar">
+		<button aria-label="Pokaż/ukryj Menu" aria-expanded="false" aria-controls="page-sidebar" type="button" id="pageSidebarBurger" class="page-sidebar-burger">
+			<span></span>
+		</button>
+
+		<h2 class="visuallyhidden">
+			Menu
+		</h2>
+
+		<button class="sidebar-toggle-btn" title="Pokaż/schowaj menu" aria-hidden="true">
+			<strong>Pokaż/ukryj menu</strong>
+			<span></span>
+			<span></span>
+			<span></span>
+		</button>
+
+		<div class="page-sidebar-title">
+			<a href="/kurs/kontakt.php" title="Nawrzucaj autorowi" class="mail-to-author" id="mailToAuthor">Napisz do mnie</a>
+			<a href="#popupOptions" class="page-setup-link popupOpen" title="Ustawienia strony" id="showOptions">Ustawienia</a>
+			<a href="/index.php" aria-label="Strona główna" class="page-sidebar-title-link">Kurs Javascript</a>
+		</div>
+
+        <form aria-label="Wyszukiwarka" class="search-sidebar" action="/search.php" method="post">
+            <label for="search" class="search-sidebar-label">Szukaj</label>
+            <div class="search-sidebar-input-cnt">
+                <svg class="search-sidebar-input-icon" xmlns="http://www.w3.org/2000/svg" width="26" height="28" viewBox="0 0 26 28" aria-hidden="true">
+                    <path d="M18 13c0-3.859-3.141-7-7-7s-7 3.141-7 7 3.141 7 7 7 7-3.141 7-7zm8 13c0 1.094-.906 2-2 2a1.96 1.96 0 0 1-1.406-.594l-5.359-5.344a10.971 10.971 0 0 1-6.234 1.937c-6.078 0-11-4.922-11-11s4.922-11 11-11 11 4.922 11 11c0 2.219-.672 4.406-1.937 6.234l5.359 5.359c.359.359.578.875.578 1.406z"></path>
+                </svg>
+                <input type="text" id="search" autocomplete="off" name="q" class="search-sidebar-input">
+            </div>
+            <button type="submit" class="search-sidebar-button">Szukaj</button>
+        </form>
+
+		<div class="page-sidebar-table-of-content">
+			<h2 class="visuallyhidden">Spis treści</h2>
+            <div class="page-sidebar-section">
+				<h3 class="page-sidebar-section-title noopen">
+                    <a href="/index.php">Strona główna</a>
+                </h3>
+            </div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Słowem wstępu</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/wstep/wstep.php">Wstęp</a>
+						</li>
+						<li >
+							<a href="/kurs/wstep/co-to-jest-javascript.php">Co to jest JavaScript i z czym go się je?</a>
+						</li>
+						<li >
+							<a href="/kurs/wstep/wymagania.php">Wymagania</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section show has-active-element">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Super podstawy</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/debuger/debuger.php">Debuger</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/pierwszy-skrypt.php">Wstawiamy skrypty na naszą stronę</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/strict-mode.php">Strict mode</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/typy-danych.php">Typy danych i konwersja danych</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/zmienne.php">Zmienne</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/operatory.php">Operatory</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/math.php">Obiekt Math</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/string.php">String - teksty</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/instrukcje-warunkowe.php">Instrukcje warunkowe</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/petle.php">Pętle</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/funkcje.php">Funkcje</a>
+						</li>
+                        <li class="active">
+							<a href="/kurs/super-podstawy/funkcje-tematy-dodatkowe.php">Funkcje - tematy dodatkowe</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/tablice.php">Tablice</a>
+						</li>
+                        <li >
+							<a href="/kurs/super-podstawy/tablice-iteracje.php">Tablice pętle</a>
+						</li>
+						<li >
+							<a href="/kurs/debuger/debugowanie.php">Debugowanie kodu</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+            			<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Obiekty</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+                        <li >
+							<a href="/kurs/obiekty/obiekty.php">Obiekty i this</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-jak-to-dziala.php">Jak to działa</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-konstruktor.php">Konstruktor</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-zaawansowane-this.php">Zaawansowane this</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-dziedziczenie.php">Dziedziczenie w Javascript</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-inne-sposoby-tworzenia.php">Inne sposoby tworzenia obiektów</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-instanceof-hasownproperty.php">instanceof i hasOwnProperty</a>
+						</li>
+                    </ul>
+                </div>
+            </div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">DOM i zdarzenia</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/dom/dom.php">Document Object Model</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-wlasciwosci.php">Właściwości elementów</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-relacje.php">Relacje między elementami</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-tworzenie-i-usuwanie.php">Tworzenie i usuwanie elementów</a>
+						</li>
+                        <li >
+                            <a href="/kurs/dom/style.php">Style w CSS</a>
+                        </li>
+						<li >
+							<a href="/kurs/events/events.php">Zdarzenia</a>
+						</li>
+						<li >
+							<a href="/kurs/events/events-keys.php">Zdarzenia - klawisze</a>
+						</li>
+						<li >
+							<a href="/kurs/events/events-mouse.php">Zdarzenia - myszka</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/projekt-todo.php">Projekt TODO</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/slider.php">Tworzymy slider</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Prawie podstawy</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/grafika/grafika-na-stronie.php">Grafika na stronie</a>
+						</li>
+						<li >
+							<a href="/kurs/intervals/intervals.php">setTimeout i setInterval</a>
+						</li>
+						<li >
+							<a href="/kurs/match-media.php">Praca z RWD</a>
+						</li>
+						<li >
+							<a href="/kurs/okna-dialogowe.php">Okienka dialogowe</a>
+						</li>
+						<li >
+							<a href="/kurs/okna.php">Tworzenie nowych okien</a>
+						</li>
+						<li >
+							<a href="/kurs/date/date.php">Obiekt Date</a>
+						</li>
+						<li >
+							<a href="/kurs/date/date-calendar.php">Tworzymy kalendarz</a>
+						</li>
+						<li >
+							<a href="/kurs/cookies/cookie.php">Obiekt Cookie</a>
+						</li>
+						<li >
+							<a href="/kurs/storage/storage.php">Storage</a>
+						</li>
+						<li >
+							<a href="/kurs/regular.php">Wyrażenia regularne</a>
+						</li>
+						<li >
+							<a href="/kurs/formularze/formularze.php">Formularze</a>
+						</li>
+						<li >
+							<a href="/kurs/formularze/formularze-walidacja.php">Formularze - walidacja</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Ajax</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/ajax/ajax.php">AJAX, REST, JSON</a>
+						</li>
+						<li >
+							<a href="/kurs/ajax/xmlhttprequest.php">XMLHttpRequest</a>
+						</li>
+            			<li >
+							<a href="/kurs/ajax/fetch.php">Fetch API</a>
+						</li>
+						<li >
+							<a href="/kurs/ajax/formularz-kontaktowy.php">Dynamiczny formularz kontaktowy</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Nowy Javascript</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/es6/ecma-script-2015.php">ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/webpack.php">Webpack</a>
+						</li>
+                        <li >
+            				<a href="/kurs/es6/obiekty-w-es6.php">Obiekty w ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/funkcja-strzalkowa.php">Funkcja strzałkowa</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/spread-rest.php">Spread i rest</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/template-strings.php">Template strings</a>
+						</li>
+						<li >
+            				<a href="/kurs/es6/destructuring.php">Dekompozycja</a>
+        				</li>
+						<li >
+							<a href="/kurs/es6/class.php">Klasy w ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/promises.php">Promises</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/async-await.php">Async/Await</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/symbole.php">Symbole</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">jQuery</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/jquery/jquery.php">jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/animacje-w-jquery.php">Animacje w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/jquery-ajax.php">Ajax w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/tabs.php">Taby w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/plugin.php">Karuzela w jQuery</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Canvas</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/canvas/canvas.php">Canvas</a>
+						</li>
+						<li >
+							<a href="/kurs/canvas/canvas-images.php">Grafika w canvas</a>
+						</li>
+						<li >
+						<a href="/kurs/canvas/canvas-paint.php">Praktycznie : Paint w canvas</a>
+						</li>
+
+						<li >
+							<a href="/kurs/canvas/canvas-animacja.php">Animacja w canvas</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Gry</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/gry/hangman/hangman.php">Szubienica</a>
+						</li>
+						<li >
+							<a href="/kurs/gry/memory/memory.php">Memory</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+            			<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Inne</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/dodatkowe-materialy.php">Dodatkowe materiały</a>
+						</li>
+						<li >
+							<a href="/kurs/faq.php">FAQ</a>
+						</li>
+						<li >
+							<a href="/kurs/polityka-prywatnosci.php">Polityka prywatności</a>
+						</li>
+						<li >
+							<a href="/kurs/autor.php">O autorze</a>
+						</li>
+						<li >
+							<a href="/kurs/kontakt.php">Kontakt</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="page-sidebar-section">
+                <a class="special-link" href="/kurs/autor.php#donate">Wesprzyj kurs</a>
+            </div>
+		</div>
+	</div>
+</aside></div><!-- e: page-container -->
+
+<div class="popup" id="popupOptions">
+	<div class="popup-inside">
+        <div class="popup-container-cnt">
+            <div class="popup-container">
+                <button class="popup-close">Zamknij</button>
+
+                <h2 class="popup-title">
+                    Opcje
+                </h2>
+
+                <div class="popup-content">
+                    <form class="form-options">
+                        <div class="form-option">
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <label for="optionsThemeSelect">Wybierz skórkę dla listingów</label>
+                                    <select id="optionsThemeSelect"></select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <pre><code class="language-js">
+                                //tak będzie wyglądał kod
+
+                                function test() {
+                                    for (let i=0; i&lt;10; i++) {
+                                        console.log("Tekst numer ", 1);
+                                    }
+                                }
+
+                                test();
+                                </code></pre>
+                            </div>
+                            <div class="form-row" id="themeLightModeRow">
+                                <div class="form-col">
+                                    <label for="themeLightMode">
+                                        Tryb dzienny / nocny
+                                    </label>
+
+                                    <div class="light-mode-el">
+                                        <input type="checkbox" id="themeLightMode">
+                                        <span class="light-mode"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+	</div>
+</div>
+<script async defer src="https://www.googletagmanager.com/gtag/js?id=UA-38558970-5"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-38558970-5');
+</script>
+
+	<script src="/js/ads.js"></script>
+	<script src="/js/script.min.js?v=0.13" defer></script>
+</body>
+</html>

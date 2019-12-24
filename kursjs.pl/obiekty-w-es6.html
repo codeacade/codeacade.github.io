@@ -3,9 +3,9 @@
 <head>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Kurs Javascript - Wstęp</title>
+    <title>Kurs Javascript - ES6 - obiekty</title>
 	<meta name="description" content="Kurs Javascript dla superbohaterów, artykuły, tutoriale, porady, zadania do wykonania" />
-    <link rel="canonical" href="https://kursjs.pl/kurs/wstep/wstep.php" />
+    <link rel="canonical" href="https://kursjs.pl/kurs/es6/obiekty-w-es6.php" />
 	<link rel="stylesheet" href="./css.css" />
     <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,700&display=swap&subset=latin-ext" rel="stylesheet">
 	<meta name="image" content="https://kursjs.pl/kursjs.png">
@@ -57,49 +57,357 @@
             </div>
                         <div class="page-content-text">
 
-
-<h1 class="page-title">Wstęp</h1>
+<h1 class="page-title">ES6 - obiekty</h1>
 <p>
-Bardzo krótki wstęp ^^.<br /><br />
-Kurs ten jest o Javascripcie. Uhh...
-</p>
-<p>
-Wiedz, że nie staram się tutaj tworzyć największego i najlepszego kursu o JavaScript w internecie.<br>
-Ten kurs to twór jednego człowieka.
-Nie mam szans i nie chcę konkurować z molochami takimi jak <a href="https://developer.mozilla.org/pl/">MDN</a>, <a href="https://www.udemy.com/">Udemy</a>, <a href="https://eduweb.pl/">EduWeb</a> czy <a href="https://www.w3schools.com/js/default.asp">w3schools</a>.<br>
-<br><br>
-Nie znajdziesz tutaj wszystkiego z zakresu JavaScript. <br>
-Po jakimś czasie będziesz chciał wiele rzeczy tutaj pokazanych tworzyć inaczej - lepiej.<br>
-Im większy progres będziesz zdobywał stwierdzisz, że wiele rozdziałów można było napisać o wiele lepiej. I dobrze.<br><br>
-
-W każdym bądź razie - jeżeli ta strona jakoś ci posłuży - to tylko plus. Jeżeli nie - po prostu skorzystaj z innego kursu - na rynku jest tego od groma (niektóre wymieniłem <a href="../dodatkowe-materialy.php">tutaj</a>) i każdy znajdzie coś dla siebie. Ja sam mam kilka w swojej kolekcji i twierdzę, że są naprawdę dobre.
-<br><br>
+    W tym bardzo krótki rozdziale spojrzymy na pewne usprawnienia, które pojawiły się w ES6, a które dotyczą obiektów.
 </p>
 
-<p>
-Jeszcze mała adnotacja, która siedzi mi w głowie.
-</p>
-<p>
-W internecie znajdziesz setki tutoriali pokazujących najnowsze techniki. A to funkcja strzałkowa, a to jak korzystać z async i await, a to jak robić połączenia fetchem czy chociażby zastosowanie modułów. Małe, konkretne, piękne - jak mój pies (a i od niedawna też kot).
-</p>
-<p>
-Na grupach facebookowych w dyskusjach znajdziesz jeszcze szybciej takie techniki.
-</p>
-<p>
-Tutaj pojawia pewna sprawa, który dotyczy nie tylko JavaScript, ale i całego frontendu. Bardzo często przy takich nowoczesnych tutorialach czy poradach autorzy nie zwracają uwagi na bardzo ważną rzecz - a mianowicie na to, że dobór techniki <strong>zawsze zależy od danego projektu</strong>. To są w końcu rzeczy oczywiste.<br>
-No właśnie nie do końca. To są rzeczy oczywiste - dla nas - osób, które w tej branży siedzą już kilkanaście lat. Ale czy dla osoby zaczynającej?
-</p>
-<p>
-Jeżeli robisz bloga o nowinkach z dziedziny frontentu, raczej możesz założyć, że większość użytkowników będzie korzystała z najnowszych przeglądarek, a więc i możesz używać najnowszych rozwiązań (chociaż najlepiej było by spojrzeć w statystyki Google Analitics które można podpiąć pod stronę).<br>
-Jeżeli jednak robisz stronę dla emerytowanych nauczycieli, czy dla przykładu olbrzymi sklep z którego będą korzystali różnorodni użytkownicy z różnorodnych krajów, wtedy rzucanie się na najnowsze rozwiązania będzie strzałem w stopę.
-</p>
-<p>
-Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie CSS Grid, a czasami nawet flexbox może okazać się czymś, czego użyć nie możesz. Czasami spokojnie będziesz mógł używać najnowszej wersji JavaScript, a czasami będziesz musiał pozostać przy starszej. A jeżeli będziesz musiał pozostać przy starszej, wtedy albo będziesz pisał JavaScript trzymając się klasycznych rozwiązań, albo skorzystasz z narzędzi zamieniających twój kod na starszy zapis.
-</p>
-<p>Autorzy tutoriali często zapominają o tym, że dla początkującej osoby istnieje po prostu JavaScript. Osoby takie często nie zdają sobie sprawy, że nie wszystko w JavaScript można dowolnie używać, nie wiedzą gdzie szukać informacji które przeglądarki co wspierają, jakich narzędzi używać do zamiany kodu i po co w ogóle to robić.</p>
-<p>W kursie tym staram się trzymać klasycznego JavaScript. Jasne - im więcej wiedzy zdobędziesz, im bardziej będziesz rozbudowywał swój warsztat, tym będziesz stosował coraz nowsze i lepsze techniki pisania kodu. A wtedy - tak jak to już pisałem powyżej - będziesz się śmiał z tego kursu. Póki co polecam po prostu uczyć się JavaScript.</p>
+<!-- ### -->
+<h2 class="subtitle" id="upsrawnione-zapisy">Małe usprawnienia</h2>
+<p>Pierwsze z nich dotyczy sposobu deklarowania właściwości. Załóżmy, że mamy 2 stałe:</p>
 
-<a href="./co-to-jest-javascript.php" class="button">To co? Zaczynamy?...</a>
+<pre><code class="language-js">
+const name = "Marcin";
+const pet = "Szamson";
+</code></pre>
+
+<p>Gdybyś chciał teraz stworzyć obiekt z właściwościami o takich samych nazwach jak powyższe stałe, zapisał byś to pewnie
+w taki sposób:</p>
+
+<pre><code class="language-js">
+const ob = {
+    name : name,
+    pet : pet
+}
+</code></pre>
+
+<p>W ES6 możemy takie powtórki uprościć:</p>
+
+<pre><code class="language-js">
+const ob = {
+    name,
+    pet
+}
+</code></pre>
+
+<p>Podobne zmiany tyczą się metod dla literałów. W ES6 już nie musimy używać słowa function, a wystarczą tylko nawiasy.</p>
+
+<pre data-line="14"><code class="language-js">
+//ES5
+var ob = {
+    name : "Marcin",
+    pet : "Szamson",
+    printName : function() {
+        console.log("Nazywam się: " + this.name);
+    }
+}
+
+//ES6
+const ob = {
+    name : "Marcin",
+    pet : "Szamson",
+    printName() {
+        console.log(`Nazywam się: ${this.name}`);
+    }
+}
+</code></pre>
+
+<p>Ostatnie usprawnienie, które omówimy dotyczy deklaracji nazw kluczy w obiektach.</p>
+<p>Do właściwości i metod obiektu możesz odwoływać się przez notację kropki ale też <a href="../obiekty/obiekty.php#rozne-odwolania">za pomocą nawiasów kwadratowych</a>:</p>
+
+<pre><code class="language-js">
+const ob = {
+    name : "Marcin",
+    pet : "Szamson",
+    printName() {
+        console.log(`Nazywam się: ${this.name}`);
+    }
+}
+
+ob.name;
+ob['name'];
+
+ob.printName();
+ob['printName']();
+</code></pre>
+
+<p>Ma to zastosowanie w przypadkach, gdy nazwy kluczy nie są <a href="../super-podstawy/zmienne.php#nazewnictwo-zmiennych">prawidłowymi zmiennymi</a></p>
+
+<pre><code class="language-js">
+const ob = {
+    name : "Marcin",
+    pet : "Szamson"
+}
+
+ob['print the name'] = function() {
+    console.log("Nazywam się: " + this.name);
+}
+
+ob['my surname'] = "Nowak";
+
+ob.print the name; //oczywisty błąd
+ob['print the name']();
+
+ob['my surname']; //Nowak
+</code></pre>
+
+<p>Jak widzisz w powyższym kodzie żeby dodać taką właściwość do obiektu musimy to robić poza nim.<br>
+W ES6 możemy to robić bezpośrednio w deklaracji obiektu:</p>
+
+<pre><code class="language-js">
+const ob = {
+    name : "Marcin",
+    pet : "Szamson",
+    ['my surname'] = "Nowak",
+    ['print the name']() {
+        console.log("Nazywam się: " + this.name);
+    }
+}
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="object-assign">Object.assign()</h2>
+<p>
+Metoda <strong>Object.assign(ob1, ob2...)</strong> kopiuje wszystkie przeliczalne właściwości z jednego lub więcej obiektów do obiektu docelowego.
+Kopiowanie rozpoczyna się od obiektów z prawej strony (końcowe parametry) i idzie w lewą stronę.
+</p>
+<p>
+Jeżeli obiekt po lewej stronie ma już daną właściwość, zostanie ona nadpisana wartością obiektu po prawej stronie.
+</p>
+<p>
+W wyniku dostajemy zmodyfikowany obiekt przekazany w pierwszym parametrze, który ma scalone właściwości i metody wszystkich obiektów przekazanych w kolejnych parametrach.
+</p>
+
+<pre data-line="10"><code class="language-js">
+const ob1 = {
+    name : "Marcin",
+    age : 10
+}
+
+const ob2 = {
+    name : "Piotr",
+    surname : "Nowak"
+}
+
+Object.assign(ob1, ob2);
+
+console.log(ob1); //{name: "Piotr", age: 10, surname: "Nowak"}
+</code></pre>
+
+<p>
+Bardzo często jako pierwszy parametr przekazuje się pusty obiekt, dzięki czemu zamiast modyfikować
+bezpośrednio obiekty wejściowe, zyskujemy nowy obiekt ze scalonymi składowymi pozostałych obiektów:
+</p>
+
+<pre data-line="10"><code class="language-js">
+const ob1 = {
+    name : "Marcin",
+    age : 10
+};
+
+const ob2 = {
+    name : "Piotr",
+    surname : "Nowak"
+}
+
+const ob3 = Object.assign({}, ob1, ob2);
+
+console.log(ob1); //{name: "Marcin", age: 10}
+console.log(ob2); //{name: "Piotr", surname: "Nowak"}
+console.log(ob3); //{name: "Piotr", surname: "Nowak", age: 10}
+</code></pre>
+
+<p>Metodę assign bardzo często wykorzystuje się do tworzenia kopii obiektów.</p>
+<p>
+Jak wiesz, <a href="../super-podstawy/typy-danych.php#typy-zlozone">obiekty działają referencyjnie</a>.
+Oznacza to, że jeżeli dany obiekt będzie podstawiony pod dwie zmienne, to zmiana jego składowej za pomocą którejkolwiek zmiennej
+zmieni go we wszystkich zmiennych:
+</p>
+
+<pre><code class="language-js">
+const obA = { name : "Piotr" }
+const obB = obA;
+
+obB.name = "Marcin";
+
+console.log(obA.name, obB.name); //Marcin, Marcin
+</code></pre>
+
+<p>Aby móc swobodnie zmieniać składowe obiektu B musimy pod zmienną obB podstawić nie ten sam obiekt, a jego duplikat:</p>
+
+<pre data-line="3"><code class="language-js">
+const obA = { name : "Piotr" }
+
+const obB = Object.assign({}, obA);
+obB.name = "Marcin";
+
+console.log(obA.name, obB.name); //Piotr, Marcin
+</code></pre>
+
+<p>Powyższą metoda możemy zduplikować tylko płaskie obiekty. Jeżeli któraś z właściwości zawiera w sobie obiekt, zostanie skopiowana tylko referencja do tego obiektu:</p>
+
+<pre data-line="9-11"><code class="language-js">
+const ob = {
+    name : "Marcin",
+    pet : {
+        name : "Rudzik", //nie pytajcie...
+        kind : "cat"
+    }
+}
+
+const ob2 = Object.assign({}, ob);
+ob2.pet.name = "Super Szamson";
+ob2.pet.kind = "pies";
+
+console.log(ob.pet.name, ob2.pet.name); //Super Szamson, Super Szamson
+console.log(ob.pet.kind, ob2.pet.kind); //pies, pies
+</code></pre>
+
+<p>Żeby sklonować głęboko obiekt, musimy zastosować inne techniki - np.</p>
+
+<pre data-line="9"><code class="language-js">
+const ob = {
+    name : "Marcin",
+    pet : {
+        name : "Feliks",
+        kind : "cat"
+    }
+}
+
+const ob2 = JSON.parse(JSON.stringify(ob));
+
+ob2.pet.name = "Super Szamson";
+ob2.pet.kind = "pies";
+
+console.log(ob.pet.name, ob2.pet.name); //Feliks, Super Szamson
+console.log(ob.pet.kind, ob2.pet.kind); //kot, pies
+</code></pre>
+
+<p>Ale nawet to rozwiązanie nie jest w 100% bezpieczne, ponieważ nie sklonuje nam obiektów z metodami.</p>
+
+<p>Jeżeli zdarzy się sytuacja, że będziesz potrzebował kopiować naprawdę skomplikowane obiekty,
+wtedy warto zainteresować się rozwiązaniami takimi jak <a href="https://lodash.com/docs/4.17.4#cloneDeep">https://lodash.com/docs/4.17.4#cloneDeep</a></p>
+
+<p>Ciekawy artykuł na temat kopiowania obiektów znajduje się pod adresem <a href="https://dassur.ma/things/deep-copy/">https://dassur.ma/things/deep-copy/</a>.</p>
+
+<div class="kartofel-informuje">
+    <p>
+    W ES2018 kopiowanie płaskich obiektów możemy też wykonać za pomocą <a href="./spread-rest.php">spread operatora</a>:
+    </p>
+    <pre><code class="language-js">
+        const ob = {
+            name : "marcin",
+            age : 10
+        }
+
+        const ob2 = { ...ob }
+
+        const ob3 = { ...ob, ...{ pet: "pies" } }
+    </code></pre>
+</div>
+
+<!-- ### -->
+<h2 class="subtitle" id="setprototypeof">setPrototypeOf</h2>
+<p>
+    Wracamy na chwile do naszego ukochanego działu, czyli <a href="../obiekty/obiekty-konstruktor.php">prototypów</a>.
+</p>
+<p>Jeżeli mamy konstruktor, który ma jakieś właściwości i metody i na jego bazie stworzymy obiekty:</p>
+
+<pre><code class="language-js">
+function Car(type, color) {
+    this.type = type;
+    this.color = color;
+}
+Car.prototype.drive = function() {
+    console.log("Jadę!");
+}
+
+const car1 = new Car('Toyota', 'niebieski');
+const car2 = new Car('Mercedes', 'czerwony');
+</code></pre>
+
+<p>To każdy obiekt stworzony na bazie konstruktora Car dostaje prototyp z metodą drive.</p>
+<p>Czasami będziesz chciał zmienić prototyp danej instancji na inny.
+W powyższym przykładzie przypuśćmy, że taką czynność chcesz wykonać dla car2:</p>
+
+<pre data-line="7"><code class="language-js">
+const fastCar = function() {
+    drive : function() {
+        console.log('Jadę bardzo szybko!');
+    }
+}
+
+Object.setPrototypeOf(car2, fastCar)
+
+car1.drive(); //Jadę!
+car2.drive(); //Jadę bardzo szybko!
+</code></pre>
+
+<p>Podobną metodą jest <strong>getPrototypeOf</strong> (posłużyliśmy się ją już <a href="../obiekty/obiekty-konstruktor.php#getPrototypeOf">tutaj</a>), która zwraca obiekt prototypu danego obiektu:</p>
+
+<pre><code class="language-js">
+const car1 = new Car('Toyota', 'niebieski');
+console.log(Object.getPrototypeOf(car1));
+</code></pre>
+
+<p>Niektórzy zamiast tych metod stosują bezpośrednie przypisania do właściwości <a href="../obiekty/obiekty-jak-to-dziala.php#proto-w-specyfikacji">__proto__</a>, ale
+nie jest to zalecane na rzecz użycia powyższej metod.</p>
+
+<div class="tasks-for-you-cnt">
+    <h2 class="subtitle" id="zadania">Trening czyni mistrza</h2>
+    <p>
+        Poniżej zamieszczam kilka zadań, które w ramach ćwiczenia możesz wykonać:
+    </p>
+    <ol class="tasks-for-you">
+        <li>
+            <div class="question">
+            Za pomocą nowej notacji stwórz obiekt literał <strong>translateToEN</strong> który zawiera:<br>
+            - właściwość <strong>wordsPL</strong> - tablica 5 słów po Polsku<br>
+            - właściwość <strong>wordsEN</strong> - tablica 5 słów po Angielsku<br>
+            - metodę <strong>translate</strong> - która przyjmie 1 parametr - pojedyncze słowo.<br>
+            Jeżeli to słowo znajduje się w tablicy wordsEN to metoda niech zwraca słowo o danym indeksie
+            z tablicy wordsPL. Jeżeli danego słowa nie ma w tablicy wordsPL, funkcja niech zwraca "nieznane słowo"
+            </div>
+            <div class="solution">
+                <pre><code class="language-js">
+                const translateToEN = {
+                    wordsPL : ["kot", "pies", "chomik", "ninja", "wiewiórka"],
+                    wordsEN : ["cat", "dog", "hamster", "ninja", "squirell"],
+                    translate(word) {
+                        if (this.wordsPL.indexOf(word) !== -1) {
+                            return this.wordsEN[this.wordsPL.indexOf(word)];
+                        } else {
+                            return "nieznane słowo";
+                        }
+                    }
+                }
+                </code></pre>
+            </div>
+        </li>
+
+        <li>
+            <div class="question">
+            Stwórz duplikat powyższego obiektu o nazwie <strong>translateToPL</strong>.<br>
+            Nadpisz metodę translate. Tym razem niech metoda sprawdza istnienie słowa w tablicy
+            wordsEN. Jeżeli takie słowo jest, niech zwraca odpowiednie słowo z wordsEN. W przeciwnym
+            razie niech zwraca "unknown word"
+            </div>
+            <div class="solution">
+                <pre><code class="language-js">
+                const translateToPL = Object.assign({}, translateToEN);
+                translateToPL.translate = function(word) {
+                    if (this.wordsEN.indexOf(word) !== -1) {
+                        return this.wordsPL[this.wordsEN.indexOf(word)];
+                    } else {
+                        return "unknown word";
+                    }
+                }
+                </code></pre>
+            </div>
+        </li>
+    </ol>
+</div>
+
 
 			</div><!-- e: page-content-text -->
 			<footer class="page-footer">
@@ -165,13 +473,13 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
                 </h3>
             </div>
 
-						<div class="page-sidebar-section show has-active-element">
+						<div class="page-sidebar-section ">
 				<h3 class="page-sidebar-section-title">
 					<a href="#">Słowem wstępu</a>
 				</h3>
 				<div class="page-sidebar-list-cnt">
 					<ul class="page-sidebar-list">
-						<li class="active">
+						<li >
 							<a href="/kurs/wstep/wstep.php">Wstęp</a>
 						</li>
 						<li >
@@ -379,7 +687,7 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
 				</div>
 			</div>
 
-						<div class="page-sidebar-section ">
+						<div class="page-sidebar-section show has-active-element">
 				<h3 class="page-sidebar-section-title">
 					<a href="#">Nowy Javascript</a>
 				</h3>
@@ -391,7 +699,7 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
 						<li >
 							<a href="/kurs/es6/webpack.php">Webpack</a>
 						</li>
-                        <li >
+                        <li class="active">
             				<a href="/kurs/es6/obiekty-w-es6.php">Obiekty w ES6</a>
 						</li>
 						<li >

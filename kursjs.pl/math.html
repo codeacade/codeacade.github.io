@@ -3,9 +3,9 @@
 <head>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Kurs Javascript - Wstęp</title>
+    <title>Kurs Javascript - Math()</title>
 	<meta name="description" content="Kurs Javascript dla superbohaterów, artykuły, tutoriale, porady, zadania do wykonania" />
-    <link rel="canonical" href="https://kursjs.pl/kurs/wstep/wstep.php" />
+    <link rel="canonical" href="https://kursjs.pl/kurs/super-podstawy/math.php" />
 	<link rel="stylesheet" href="./css.css" />
     <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,700&display=swap&subset=latin-ext" rel="stylesheet">
 	<meta name="image" content="https://kursjs.pl/kursjs.png">
@@ -58,49 +58,245 @@
                         <div class="page-content-text">
 
 
-<h1 class="page-title">Wstęp</h1>
-<p>
-Bardzo krótki wstęp ^^.<br /><br />
-Kurs ten jest o Javascripcie. Uhh...
-</p>
-<p>
-Wiedz, że nie staram się tutaj tworzyć największego i najlepszego kursu o JavaScript w internecie.<br>
-Ten kurs to twór jednego człowieka.
-Nie mam szans i nie chcę konkurować z molochami takimi jak <a href="https://developer.mozilla.org/pl/">MDN</a>, <a href="https://www.udemy.com/">Udemy</a>, <a href="https://eduweb.pl/">EduWeb</a> czy <a href="https://www.w3schools.com/js/default.asp">w3schools</a>.<br>
-<br><br>
-Nie znajdziesz tutaj wszystkiego z zakresu JavaScript. <br>
-Po jakimś czasie będziesz chciał wiele rzeczy tutaj pokazanych tworzyć inaczej - lepiej.<br>
-Im większy progres będziesz zdobywał stwierdzisz, że wiele rozdziałów można było napisać o wiele lepiej. I dobrze.<br><br>
 
-W każdym bądź razie - jeżeli ta strona jakoś ci posłuży - to tylko plus. Jeżeli nie - po prostu skorzystaj z innego kursu - na rynku jest tego od groma (niektóre wymieniłem <a href="../dodatkowe-materialy.php">tutaj</a>) i każdy znajdzie coś dla siebie. Ja sam mam kilka w swojej kolekcji i twierdzę, że są naprawdę dobre.
-<br><br>
+<h1 class="page-title">Math()</h1>
+<p>
+JavaScript udostępnia nam obiekt <strong>Math</strong>.
+Obiekt ten za pomocą swoich funkcjonalności ułatwia nam przeprowadzanie matematycznych operacji.<br>
+Ale jak to - tak szybko do obiektów? Obiekt Math jest tak prosty w użyciu, a i często się nam przyda, że nie ma
+sensu czekać z jego poznaniem.
 </p>
 
-<p>
-Jeszcze mała adnotacja, która siedzi mi w głowie.
-</p>
-<p>
-W internecie znajdziesz setki tutoriali pokazujących najnowsze techniki. A to funkcja strzałkowa, a to jak korzystać z async i await, a to jak robić połączenia fetchem czy chociażby zastosowanie modułów. Małe, konkretne, piękne - jak mój pies (a i od niedawna też kot).
-</p>
-<p>
-Na grupach facebookowych w dyskusjach znajdziesz jeszcze szybciej takie techniki.
-</p>
-<p>
-Tutaj pojawia pewna sprawa, który dotyczy nie tylko JavaScript, ale i całego frontendu. Bardzo często przy takich nowoczesnych tutorialach czy poradach autorzy nie zwracają uwagi na bardzo ważną rzecz - a mianowicie na to, że dobór techniki <strong>zawsze zależy od danego projektu</strong>. To są w końcu rzeczy oczywiste.<br>
-No właśnie nie do końca. To są rzeczy oczywiste - dla nas - osób, które w tej branży siedzą już kilkanaście lat. Ale czy dla osoby zaczynającej?
-</p>
-<p>
-Jeżeli robisz bloga o nowinkach z dziedziny frontentu, raczej możesz założyć, że większość użytkowników będzie korzystała z najnowszych przeglądarek, a więc i możesz używać najnowszych rozwiązań (chociaż najlepiej było by spojrzeć w statystyki Google Analitics które można podpiąć pod stronę).<br>
-Jeżeli jednak robisz stronę dla emerytowanych nauczycieli, czy dla przykładu olbrzymi sklep z którego będą korzystali różnorodni użytkownicy z różnorodnych krajów, wtedy rzucanie się na najnowsze rozwiązania będzie strzałem w stopę.
-</p>
-<p>
-Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie CSS Grid, a czasami nawet flexbox może okazać się czymś, czego użyć nie możesz. Czasami spokojnie będziesz mógł używać najnowszej wersji JavaScript, a czasami będziesz musiał pozostać przy starszej. A jeżeli będziesz musiał pozostać przy starszej, wtedy albo będziesz pisał JavaScript trzymając się klasycznych rozwiązań, albo skorzystasz z narzędzi zamieniających twój kod na starszy zapis.
-</p>
-<p>Autorzy tutoriali często zapominają o tym, że dla początkującej osoby istnieje po prostu JavaScript. Osoby takie często nie zdają sobie sprawy, że nie wszystko w JavaScript można dowolnie używać, nie wiedzą gdzie szukać informacji które przeglądarki co wspierają, jakich narzędzi używać do zamiany kodu i po co w ogóle to robić.</p>
-<p>W kursie tym staram się trzymać klasycznego JavaScript. Jasne - im więcej wiedzy zdobędziesz, im bardziej będziesz rozbudowywał swój warsztat, tym będziesz stosował coraz nowsze i lepsze techniki pisania kodu. A wtedy - tak jak to już pisałem powyżej - będziesz się śmiał z tego kursu. Póki co polecam po prostu uczyć się JavaScript.</p>
+<p><strong>Właściwości:</strong></p>
+<table class="tab">
+<tr><td><strong>Math.E</strong></td><td> - Zwraca stałą Eulera, która wynosi ok. 2.71</td>
+    <td><script>document.write(Math.E)</script></td>
+</tr>
+<tr><td><strong>Math.LN2</strong></td><td> - Zwraca logarytm dwóch, tj. ok. 0.69</td>
+    <td><script>document.write(Math.LN2)</script></td>
+</tr>
+<tr><td><strong>Math.LN10</strong></td><td> - Zwraca logarytm z dziesięciu, tj. ok. 2.30</td>
+    <td><script>document.write(Math.LN10)</script></td>
+</tr>
+<tr><td><strong>Math.LOG2E</strong></td><td> - Zwraca logarytm o podstawie 2 z liczby E, czyli ok. 1.44</td>
+    <td><script>document.write(Math.LOG2E)</script></td>
+</tr>
+<tr><td><strong>Math.LOG10E</strong></td><td> - Zwraca logarytm o podstawie 10 z E, czyli ok. 0.43</td>
+    <td><script>document.write(Math.LOG10E)</script></td>
+</tr>
+<tr><td><strong>Math.PI</strong></td><td> - Zwraca wartość liczby Pi, czyli ok. 3.14</td>
+    <td><script>document.write(Math.PI)</script></td>
+</tr>
+<tr><td><strong>Math.SQRT1_2</strong></td><td> - Zwraca pierwiastek kwadratowy z 0.5, czyli ok. 0.70</td>
+    <td><script>document.write(Math.SQRT1_2)</script></td>
+</tr>
+<tr><td><strong>Math.SQRT2</strong></td><td> - Zwraca pierwiastek kwadratowy z 2, czyli ok. 1.41</td>
+    <td><script>document.write(Math.SQRT2)</script></td>
+</tr>
+</table>
 
-<a href="./co-to-jest-javascript.php" class="button">To co? Zaczynamy?...</a>
+<p><strong>Metody</strong></p>
+<table class="tab">
+<tr><td><strong>Math.abs(liczba)</strong></td><td> - Zwraca wartość absolutną liczby</td></tr>
+<tr><td><strong>Math.acos(liczba)</strong></td><td> - Zwraca arcus cosinus z liczby (podanej w radianach)</td></tr>
+<tr><td><strong>Math.asin(liczba)</strong></td><td> - Zwraca arcus sinus z liczby (podanej w radianach)</td></tr>
+<tr><td><strong>Math.atan(liczba)</strong></td><td> - Zwraca arcus tangens z liczby (podanej w radianach)</td></tr>
+<tr><td><strong>Math.ceil(liczba)</strong></td><td> - Zwraca najmniejszą liczbę całkowitą, większą lub równą podanej liczbie</td></tr>
+<tr><td><strong>Math.cos(liczba)</strong></td><td> - Zwraca cosinus liczby (podanej w radianach)</td></tr>
+<tr><td><strong>Math.exp(liczba)</strong></td><td> - Zwraca wartość E podniesionej do potęgi wyrażonej podanym argumentem</td></tr>
+<tr><td><strong>Math.floor(liczba)</strong></td><td> - Zwraca największą liczbę całkowitą mniejszą lub równą podanej liczbie</td></tr>
+<tr><td><strong>Math.log(liczba)</strong></td><td> - Zwraca logarytm naturalny liczby</td></tr>
+<tr><td><strong>Math.max(liczba1, liczba2)</strong></td><td> - Zwraca większą z dwóch liczb</td></tr>
+<tr><td><strong>Math.min(liczba1, liczba2)</strong></td><td> - Zwraca mniejszą z dwóch liczb</td></tr>
+<tr><td><strong>Math.pow(liczba1, liczba2)</strong></td><td> - Zwraca wartość liczby1 podniesionej do potęgi liczby2</td></tr>
+<tr><td><strong>Math.random()</strong></td><td> - Zwraca wartość pseudolosową z przedziału 0 - 1</td></tr>
+<tr><td><strong>Math.round(liczba)</strong></td><td> - Zwraca zaokrąglenie danej liczby do najbliższej liczby całkowitej</td></tr>
+<tr><td><strong>Math.sin(liczba)</strong></td><td> - Zwraca sinus liczby (podanej w radianach)</td></tr>
+<tr><td><strong>Math.sqrt(liczba)</strong></td><td> - Zwraca pierwiastek kwadratowy liczby</td></tr>
+<tr><td><strong>Math.tan(liczba)</strong></td><td> - Zwraca tangens liczby (podanej w radianach)</td></tr>
+</table>
 
+
+<hr />
+<p>
+Kilka przykładów zastosowania Obiektu Math (zobacz też w konsoli debugera):
+</p>
+
+<pre><code class="language-js">
+const var1 = 56.5;
+const var2 = 74.3;
+
+Math.min(var1, var2) //56.5
+Math.max(var1, var2)) //74.3
+Math.max(1,3,6,2) //6
+
+Math.cos(0) //1
+Math.abs(-1) //1
+
+Math.round(var1) //56
+Math.round(20.52) //21
+Math.round(-10.21) //-10
+Math.round(-11.82) //-12
+
+Math.floor(var1) //56
+Math.floor(20.52) //20
+Math.floor(-10.21) //-11
+Math.floor(-11.82) //-12
+
+Math.ceil(var1) //57
+Math.ceil(20.52) //21
+Math.ceil(-10.21) //-10
+Math.ceil(-11.82) //-11
+</code></pre>
+
+<script>
+const var1 = 56.5;
+const var2 = 74.3;
+
+console.log("var1: " + var1);
+console.log("var2: " + var2);
+console.log("");
+console.log( "Math.min(var1, var2): ", Math.min(var1,var2) );
+console.log( "Math.round(Math.min(var1, var2)): ", Math.round(Math.min(var1,var2)) );
+console.log( "Math.cos(0): ", Math.cos(0) );
+console.log( "Math.abs(-1): ", Math.abs(-1) );
+console.log("");
+console.log( "Math.round(var1): ", Math.round(var1) );
+console.log( "Math.round(20.52): ", Math.round(20.52) );
+console.log( "Math.round(-10.21): ", Math.round(-10.21) );
+console.log( "Math.round(-11.82): ", Math.round(-11.82) );
+console.log("");
+console.log( "Math.floor(var1): ", Math.floor(var1) );
+console.log( "Math.floor(20.52): ", Math.floor(20.52) );
+console.log( "Math.floor(-10.21): ", Math.floor(-10.21) );
+console.log( "Math.floor(-11.82): ", Math.floor(-11.82) );
+console.log("");
+console.log( "Math.ceil(var1): ", Math.ceil(var1) );
+console.log( "Math.ceil(20.52): ", Math.ceil(20.52) );
+console.log( "Math.ceil(-10.21): ", Math.ceil(-10.21) );
+console.log( "Math.ceil(-11.82): ", Math.ceil(-11.82) );
+</script>
+
+
+<!-- ### -->
+<h2 class="subtitle" id="random">Losowa liczba z przedziału</h2>
+<p>
+Aby wygenerować liczbę losową z przedziału np. 3-7 skorzystaj z poniższego wzoru:
+</p>
+
+<pre><code class="language-js">
+const min = 3;
+const max = 7;
+
+const result =  Math.floor(Math.random() * (max-min+1) + min);
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="randomColor">Losowy kolor</h2>
+<p>
+    Wzór podpatrzony w internecie, ale ciekawie pokazuje zastosowanie powyższych informacji.
+    Aby wygenerować losowy kolor możemy skorzystać z wielu sposobów.
+</p>
+
+<pre><code class="language-js">
+function randomColor() {
+    const letters = "0123456789ABCDEF";
+    let color = "#";
+
+    for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+
+    return color;
+}
+
+console.log( randomColor() );
+console.log( randomColor() );
+console.log( randomColor() );
+</code></pre>
+
+<p>Inna ciekawa sztuczka:</p>
+
+<pre><code class="language-js">
+const color =  "#" + Math.random().toString(16).substr(2,6);
+
+/*
+Powyższe równanie możemy rozpisać na kroki:
+
+1)
+Math.random() - zwraca liczbę z przedziału 0-1
+0.0264363764209139
+
+2)
+Number.toString(16) - zapisuje liczbę w danym systemie jako string
+0.0264363764209139.toString(16) da nam "0.06c488cc270ee"
+
+3)
+"0.06c488cc270ee".subStr(2,6) - wycinamy litery od 3 do 7
+czyli w wyniku uzyskamy "06c488"
+
+4)
+Dodajemy # i mamy kolor
+"#" + "06c488" === "#06c488"
+*/
+</code></pre>
+
+Powyższe sztuczki generują kolory w mojej opinii nieco bure. Aby generować bardziej żywe kolory wystarczy skorzystać z innego formatu czyli <strong>hsl</strong>:
+
+<pre><code class="language-js">
+function randomColor() {
+    const deg = Math.random() * 360;
+    return `hsl(${deg}, 60%, 50%)`;
+}
+
+const color = randomColor();
+</code></pre>
+
+<div class="tasks-for-you-cnt">
+	<h2 class="subtitle" id="zadania">Trening czyni mistrza</h2>
+	<p>
+		Poniżej zamieszczam kilka zadań, które w ramach ćwiczenia możesz wykonać:
+	</p>
+	<ol class="tasks-for-you">
+		<li>
+			<div class="question">
+			Stwórz 2 zmienne, które zawierają 2 losowe liczby.<br>
+			Za pomocą odpowiedniej metody sprawdź, która jest większa.
+			</div>
+			<div class="solution">
+				<pre><code class="language-js">
+				const nr1 = Math.random()*10+1;
+				const nr2 = Math.random()*10+1;
+	
+				if (nr1 &gt; nr2) {
+					console.log("Liczba " + nr1 + " jest większa od liczby " + nr2);
+				} else if (nr2 &gt; nr1) {
+					console.log("Liczba " + nr2 + " jest większa od liczby " + nr1);
+				} else {
+					console.log("Obie liczby są równe", nr1, nr2);
+				}
+	
+				//lub
+				console.log(Math.max(nr1, nr2));
+				</code></pre>
+			</div>
+		</li>
+		<li>
+			<div class="question">
+			Obie liczby z punktu pierwszego zaokrąglij w górę i w dół.
+			</div>
+			<div class="solution">
+				<pre><code class="language-js">
+				const nr1 = Math.random()*10+1;
+				const nr2 = Math.random()*10+1;
+	
+				console.log(nr1, Math.ceil(nr1), Math.floor(nr1));
+				console.log(nr2, Math.ceil(nr2), Math.floor(nr2));
+				</code></pre>
+			</div>
+		</li>
+	</ol>
+	</div>
 			</div><!-- e: page-content-text -->
 			<footer class="page-footer">
 				<p>
@@ -165,13 +361,13 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
                 </h3>
             </div>
 
-						<div class="page-sidebar-section show has-active-element">
+						<div class="page-sidebar-section ">
 				<h3 class="page-sidebar-section-title">
 					<a href="#">Słowem wstępu</a>
 				</h3>
 				<div class="page-sidebar-list-cnt">
 					<ul class="page-sidebar-list">
-						<li class="active">
+						<li >
 							<a href="/kurs/wstep/wstep.php">Wstęp</a>
 						</li>
 						<li >
@@ -184,7 +380,7 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
 				</div>
 			</div>
 
-						<div class="page-sidebar-section ">
+						<div class="page-sidebar-section show has-active-element">
 				<h3 class="page-sidebar-section-title">
 					<a href="#">Super podstawy</a>
 				</h3>
@@ -208,7 +404,7 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
 						<li >
 							<a href="/kurs/super-podstawy/operatory.php">Operatory</a>
 						</li>
-						<li >
+						<li class="active">
 							<a href="/kurs/super-podstawy/math.php">Obiekt Math</a>
 						</li>
 						<li >

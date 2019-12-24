@@ -3,9 +3,9 @@
 <head>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Kurs Javascript - Wstęp</title>
+    <title>Kurs Javascript - Storage</title>
 	<meta name="description" content="Kurs Javascript dla superbohaterów, artykuły, tutoriale, porady, zadania do wykonania" />
-    <link rel="canonical" href="https://kursjs.pl/kurs/wstep/wstep.php" />
+    <link rel="canonical" href="https://kursjs.pl/kurs/storage/storage.php" />
 	<link rel="stylesheet" href="./css.css" />
     <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,700&display=swap&subset=latin-ext" rel="stylesheet">
 	<meta name="image" content="https://kursjs.pl/kursjs.png">
@@ -58,48 +58,128 @@
                         <div class="page-content-text">
 
 
-<h1 class="page-title">Wstęp</h1>
+<h1 class="page-title">Storage</h1>
 <p>
-Bardzo krótki wstęp ^^.<br /><br />
-Kurs ten jest o Javascripcie. Uhh...
-</p>
-<p>
-Wiedz, że nie staram się tutaj tworzyć największego i najlepszego kursu o JavaScript w internecie.<br>
-Ten kurs to twór jednego człowieka.
-Nie mam szans i nie chcę konkurować z molochami takimi jak <a href="https://developer.mozilla.org/pl/">MDN</a>, <a href="https://www.udemy.com/">Udemy</a>, <a href="https://eduweb.pl/">EduWeb</a> czy <a href="https://www.w3schools.com/js/default.asp">w3schools</a>.<br>
-<br><br>
-Nie znajdziesz tutaj wszystkiego z zakresu JavaScript. <br>
-Po jakimś czasie będziesz chciał wiele rzeczy tutaj pokazanych tworzyć inaczej - lepiej.<br>
-Im większy progres będziesz zdobywał stwierdzisz, że wiele rozdziałów można było napisać o wiele lepiej. I dobrze.<br><br>
-
-W każdym bądź razie - jeżeli ta strona jakoś ci posłuży - to tylko plus. Jeżeli nie - po prostu skorzystaj z innego kursu - na rynku jest tego od groma (niektóre wymieniłem <a href="../dodatkowe-materialy.php">tutaj</a>) i każdy znajdzie coś dla siebie. Ja sam mam kilka w swojej kolekcji i twierdzę, że są naprawdę dobre.
-<br><br>
+    Przeglądarki udostępniają nam interfejs <strong>Storage</strong>, który służy do przetrzymywania danych. Jest to taki swoisty schowek, w którym możemy przetrzymywać różne dane naszej strony.
 </p>
 
-<p>
-Jeszcze mała adnotacja, która siedzi mi w głowie.
-</p>
-<p>
-W internecie znajdziesz setki tutoriali pokazujących najnowsze techniki. A to funkcja strzałkowa, a to jak korzystać z async i await, a to jak robić połączenia fetchem czy chociażby zastosowanie modułów. Małe, konkretne, piękne - jak mój pies (a i od niedawna też kot).
-</p>
-<p>
-Na grupach facebookowych w dyskusjach znajdziesz jeszcze szybciej takie techniki.
-</p>
-<p>
-Tutaj pojawia pewna sprawa, który dotyczy nie tylko JavaScript, ale i całego frontendu. Bardzo często przy takich nowoczesnych tutorialach czy poradach autorzy nie zwracają uwagi na bardzo ważną rzecz - a mianowicie na to, że dobór techniki <strong>zawsze zależy od danego projektu</strong>. To są w końcu rzeczy oczywiste.<br>
-No właśnie nie do końca. To są rzeczy oczywiste - dla nas - osób, które w tej branży siedzą już kilkanaście lat. Ale czy dla osoby zaczynającej?
-</p>
-<p>
-Jeżeli robisz bloga o nowinkach z dziedziny frontentu, raczej możesz założyć, że większość użytkowników będzie korzystała z najnowszych przeglądarek, a więc i możesz używać najnowszych rozwiązań (chociaż najlepiej było by spojrzeć w statystyki Google Analitics które można podpiąć pod stronę).<br>
-Jeżeli jednak robisz stronę dla emerytowanych nauczycieli, czy dla przykładu olbrzymi sklep z którego będą korzystali różnorodni użytkownicy z różnorodnych krajów, wtedy rzucanie się na najnowsze rozwiązania będzie strzałem w stopę.
-</p>
-<p>
-Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie CSS Grid, a czasami nawet flexbox może okazać się czymś, czego użyć nie możesz. Czasami spokojnie będziesz mógł używać najnowszej wersji JavaScript, a czasami będziesz musiał pozostać przy starszej. A jeżeli będziesz musiał pozostać przy starszej, wtedy albo będziesz pisał JavaScript trzymając się klasycznych rozwiązań, albo skorzystasz z narzędzi zamieniających twój kod na starszy zapis.
-</p>
-<p>Autorzy tutoriali często zapominają o tym, że dla początkującej osoby istnieje po prostu JavaScript. Osoby takie często nie zdają sobie sprawy, że nie wszystko w JavaScript można dowolnie używać, nie wiedzą gdzie szukać informacji które przeglądarki co wspierają, jakich narzędzi używać do zamiany kodu i po co w ogóle to robić.</p>
-<p>W kursie tym staram się trzymać klasycznego JavaScript. Jasne - im więcej wiedzy zdobędziesz, im bardziej będziesz rozbudowywał swój warsztat, tym będziesz stosował coraz nowsze i lepsze techniki pisania kodu. A wtedy - tak jak to już pisałem powyżej - będziesz się śmiał z tego kursu. Póki co polecam po prostu uczyć się JavaScript.</p>
+<p>Do czego to się może przydać? Możesz dla przykładu zapisywać tutaj wynik w grze na twojej stronie. Możesz zapisać treść danego artykułu, dzięki czemu po ponownym wczytaniu strony użytkownik nie będzie musiał go jeszcze raz wczytywać. Możesz zapisywać dynamicznie to co użytkownik wpisuje w textarea. Nagle wyłączy mu się karta/przeglądarka? Nic straconego - po ponownym wejściu na twój formularz ty mu wczytasz treść ze schowka, za co użytkownik będzie całował cię po rączkach. Zastosować takiego schowka są setki.</p>
 
-<a href="./co-to-jest-javascript.php" class="button">To co? Zaczynamy?...</a>
+<p>Teoretycznie podobnym mechanizmem są ciasteczka. W praktyce nie do końca. Jasne - także możemy w nich zachować jakieś dane. Ciasteczka są jednak ciut trudniejsze w obsłudze, mają mniej miejsca (<a href="https://stackoverflow.com/questions/2989284/what-is-the-max-size-of-localstorage-values#answer-2989317">Storage</a> vs <a href="https://stackoverflow.com/questions/640938/what-is-the-maximum-size-of-a-web-browsers-cookies-key#answer-4604212">Cookies</a>), a i w zasadzie istnieją do czegoś innego. To raczej mikro dane zapisane w przeglądarce, do których ma dostęp serwer (np. kod autoryzacji na stronie). Do Storage serwer dostępu nie ma - ma do niego dostęp tylko nasza przeglądarka.</p>
+
+<div class="kartofel-informuje">
+    <p>
+    Praca z Storage będzie przyjemniejsza, jeżeli w debugerze będziesz mógł widzieć jego dane. W <a href="../debuger/debuger.php#zakladka-application">debugerze chrome</a> (F12) znajdziesz te dane
+    w zakładce Application->LocalStorage. W Firefoxie musisz wpierw kliknąć ikonkę koła zębatego (ustawienia narzędzi) i włączyć "Dane". Pojawi się nowa zakładka w której znajdziesz Local Storage.
+    </p>
+</div>
+
+<img src="localstorage.png" alt="local storage w debugerze" class="border space">
+
+<!--###-->
+<h2 class="subtitle" id="sessionstorage">Zapisywanie i pobieranie pojedynczego elementu</h2>
+<p>
+Storage składa się z <strong>session storage</strong> oraz <strong>local storage</strong>.
+</p>
+<p>
+Ten pierwszy służy do obsługi danych tylko w czasie trwania sesji (czyli do zamknięcia przeglądarki). Ten drugi służy do zapisywania danych na nieokreślony czas (aż do ich usunięcia).
+Obu używa się identycznie, więc w omawianych przykładach skupię się tylko na localStorage.
+</p>
+
+<p>
+Aby utworzyć i odczytać element w localStorage:
+</p>
+
+<pre><code class="language-js">
+localStorage.setItem('myElement', 'Przykładowa wartość');
+
+console.log(localStorage.getItem('myElement')); //Przykładowa wartość
+</code></pre>
+
+<p>Jeżeli danego elementu nie ma w storage, funkcja getItem() zwróci null.</p>
+
+<pre><code class="language-js">
+//tworzymy element tylko wtedy gdy go jeszcze nie ma
+if (localStorage.getItem('myElement') !== null) {
+    localStorage.setItem("myElement")
+}
+</code></pre>
+
+<!--###-->
+<h2 class="subtitle" id="object-in-storage">Zapisywanie i pobieranie złożonych danych</h2>
+<p>
+Domyślnie localStorage podobnie do <a href="../dom/dom-wlasciwosci.php#dataset">dataset</a> umożliwia przetrzymywanie danych jako tekst.
+Aby móc przetrzymywać w nim obiekty, musimy je zamienić na tekst za pomocą <strong>JSON.stringify</strong> oraz pobierając odmienić <strong>JSON.parse</strong>:
+</p>
+
+<pre><code class="language-js">
+const ob = {
+    one: 1,
+    two: 2,
+    three: 3
+};
+
+localStorage.setItem('myElement', JSON.stringify(ob));
+
+const retrievedObject = localStorage.getItem('myElement');
+console.log(JSON.parse(retrievedObject));
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="test">Sprawdzenie czy możemy zapisywać</h2>
+<p>
+    Jeżeli chcesz wspierać naprawdę stare przeglądarki, powinieneś sprawdzić, czy w ogóle localStorage istnieje.
+    Możemy wykorzystać do tego poniższy kod:
+</p>
+
+<pre><code class="language-js">
+if (typeof localStorage !== 'undefined') {
+
+    if (localStorage.getItem('myElement') != null) {
+        alert('Zapisany element to: ' + localStorage.getItem('myElement'));
+    }
+
+}
+</code></pre>
+
+<p>Nie jest to jednak pełen test. LocalStorage może istnieć w danej przeglądarce, ale użytkownik może wyłączyć jego działanie. Dlatego bezpieczniejszy jest poniższy test:</p>
+
+<pre><code class="language-js">
+function localStorageTest(){
+    const test = "test" + new Date().valueOf();
+    try {
+        localStorage.setItem(test, test);
+        localStorage.removeItem(test);
+        return true;
+    } catch(e) {
+        return false;
+    }
+}
+
+if (localStorageTest()) {
+    localStorage.setItem('myElement', JSON.stringify(ob));
+}
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="remove">Usuwanie elementów</h2>
+<p>Aby usunąć element z localStorage, skorzystamy z funkcji <strong>localStorage.removeItem()</strong>:</p>
+
+<pre><code class="language-js">
+localStorage.removeItem("element");
+</code></pre>
+
+<p>Jeżeli danego elementu nie ma, metoda nie wykona żadnej operacji.</p>
+
+<p>
+    Jeżeli chcemy wyczyścić cały localStorage dla danej witryny, posłużymy się funkcją <strong>localStorage.clear()</strong>:
+</p>
+
+<pre><code class="language-js">
+if (confirm('Czy chcesz wyczyścić zapisane dane?')) {
+    localStorage.clear()
+}
+</code></pre>
 
 			</div><!-- e: page-content-text -->
 			<footer class="page-footer">
@@ -165,13 +245,13 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
                 </h3>
             </div>
 
-						<div class="page-sidebar-section show has-active-element">
+						<div class="page-sidebar-section ">
 				<h3 class="page-sidebar-section-title">
 					<a href="#">Słowem wstępu</a>
 				</h3>
 				<div class="page-sidebar-list-cnt">
 					<ul class="page-sidebar-list">
-						<li class="active">
+						<li >
 							<a href="/kurs/wstep/wstep.php">Wstęp</a>
 						</li>
 						<li >
@@ -311,7 +391,7 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
 			</div>
 
 
-						<div class="page-sidebar-section ">
+						<div class="page-sidebar-section show has-active-element">
 				<h3 class="page-sidebar-section-title">
 					<a href="#">Prawie podstawy</a>
 				</h3>
@@ -341,7 +421,7 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
 						<li >
 							<a href="/kurs/cookies/cookie.php">Obiekt Cookie</a>
 						</li>
-						<li >
+						<li class="active">
 							<a href="/kurs/storage/storage.php">Storage</a>
 						</li>
 						<li >

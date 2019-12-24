@@ -1,0 +1,1580 @@
+<!doctype html>
+<html lang="pl-PL">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kurs Javascript - Formularze</title>
+	<meta name="description" content="Kurs Javascript dla superbohaterów, artykuły, tutoriale, porady, zadania do wykonania" />
+    <link rel="canonical" href="https://kursjs.pl/kurs/formularze/formularze.php" />
+	<link rel="stylesheet" href="./css.css" />
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,700&display=swap&subset=latin-ext" rel="stylesheet">
+	<meta name="image" content="https://kursjs.pl/kursjs.png">
+<meta name="twitter:card" content="product">
+<meta name="twitter:site" content="@publisher_handle">
+<meta name="twitter:title" content="Kurs Javascript">
+<meta name="twitter:description" content="Kurs Javascript dla superbohaterów">
+<meta name="twitter:creator" content="@kartofelek007">
+<meta name="twitter:image" content="https://kursjs.pl/kursjs.png">
+<meta property="og:title" content="Kurs Javascript">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.kursjs.com/">
+<meta property="og:image" content="https://kursjs.pl/kursjs.png">
+<meta property="og:description" content="Kurs Javascript dla superbohaterów">
+<meta property="og:site_name" content="Kurs Javascript">
+<link rel="apple-touch-icon" sizes="57x57" href="/favicons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/favicons/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/favicons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/favicons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/favicons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/favicons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/favicons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/favicons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="/manifest.json">
+<meta name="msapplication-TileColor" content="#FF6347">
+<meta name="msapplication-TileImage" content="/mstile-144x144.png">
+    <script src="/js/jquery.min.js"></script>
+</head>
+<body>
+
+<div class="page-container" id="pageContainer">
+	<div class="page-content-wrapper">
+        <main class="page-content" id="mainContent"  data-text-for-print="Kurs Javascript dla superbohaterów">
+                        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <div class="rekl-cnt">
+                <ins
+                class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-6843603045703750"
+                data-ad-slot="4690777640"
+                data-ad-format="auto"
+                data-full-width-responsive="true"
+                ></ins>
+            </div>
+                        <div class="page-content-text">
+
+<style>
+.form input.error-field {
+    color: red;
+    border: 1px solid red;
+    background-position: calc(100% - 10px) center;
+    padding-right:40px;
+}
+</style>
+
+
+<h1 class="page-title">Formularze</h1>
+<p>
+Formularze to w sumie jedne z najczęściej występujących komponentów na stronach.
+    W poniższym kodzie przyjrzymy się niektórym możliwościom jakie daje JavaScript w ramach manipulowania elementami formularza.
+</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="odwolanie">Przykładowy formularz</h2>
+<p>
+Naukę działania na elementach formularzy przeprowadzimy na przykładowym formularzu, który ma najczęściej występujące rodzaje pól czyli pole tekstowe, pole email, radio buttony, pola checkbox czy select. Pozostałe rodzaje pól waliduje się podobnie.
+</p>
+
+<pre><code class="language-html">
+&lt;form id="myForm" method="post" action="skrypt_przetwarzajacy.php">
+    &lt;div>
+        &lt;label for="name">Imię:&lt;/label>
+        &lt;input type="text" name="name" id="name" value="" />
+    &lt;/div>
+
+    &lt;div>
+        &lt;label for="email">E-mail:&lt;/label>
+        &lt;input type="email" name="email" id="email" value="" />
+    &lt;/div>
+
+    &lt;fieldset>
+        &lt;legend>Wybierz płeć&lt;/legend>
+        &lt;input type="radio" value="m" name="gender" checked="checked" /> m
+        &lt;input type="radio" value="k" name="gender" /> k
+    &lt;/fieldset>
+
+    &lt;fieldset>
+        &lt;legend>Wybierz minimum dwa ulubione kolory&lt;/legend>
+        &lt;input type="checkbox" value="blue" name="color" /> niebieski
+        &lt;input type="checkbox" value="red" name="color" /> czerwony
+        &lt;input type="checkbox" value="green" name="color" /> zielony
+        &lt;input type="checkbox" value="orange" name="color" /> pomarańcz
+    &lt;/fieldset>
+
+    &lt;div>
+        &lt;label for="city">Wybierz miasto&lt;/label>
+        &lt;select name="city" id="city">
+            &lt;option value="-1">wybierz&lt;/option>
+            &lt;option value="gdansk">Gdańsk&lt;/option>
+            &lt;option value="poznan">Poznań&lt;/option>
+            &lt;option value="warszawa">Warszawa&lt;/option>
+            &lt;option value="zakopane">Zakopane&lt;/option>
+        &lt;/select>
+    &lt;/div>
+
+    &lt;div>
+        &lt;button type="submit">Zapisz&lt;/button>
+    &lt;/div>
+&lt;/form>
+</code></pre>
+
+<!--###-->
+<h2 class="subtitle" id="form">Formularz</h2>
+<p>Pobierzmy nasz formularz i wypiszmy go w konsoli:</p>
+
+<pre><code class="language-js">
+const form = document.querySelector('form');
+console.dir(form);
+</code></pre>
+
+<p>
+Jak widzisz w konsoli debugera, formularz - jak każdy element na stronie - ma multum właściwości. Tak samo jak w przypadku innych elementów pobranych ze strony, większość tych właściwości przydaje się w specyficznych sytuacjach.
+</p>
+<p>W przypadku formularzy najczęściej wykorzystywanymi rzeczami będą:</p>
+<pre><code class="language-js">
+//właściwości
+form.elements - kolekcja wszystkich elementów formularza
+form.action - atrybut action formularza, czyli adres na który formularz zostanie wysłany
+form.method - metoda jaką zostanie wysłany formularz (omawiana w dziale Ajax)
+form.novalidate - atrybut określający czy ma działać domyślna HTMLowa walidacja
+
+//metody
+form.submit(); //funkcja wysyłająca formularz
+form.reset(); //funkcja resetująca formularz
+</code></pre>
+
+<p>Jeżeli chodzi o <a href="../events/events.php">zdarzenia</a>, to głównym zdarzeniem dla formularzy jest zdarzenie <strong>submit</strong>. Domyślną akcją każdego formularza jest "wysyłanie", które przeładowuje stronę lub przenosi na inną. Aby wykonać jakąkolwiek walidację, musimy tą akcję przerwać:</p>
+
+<pre><code class="language-js">
+const form = document.querySelector('form');
+
+form.addEventListener('submit', function(e) {
+    e.preventDefault(); //przerywamy domyślną wysyłkę
+
+    //dalsza część kodu wraz z ewentualną wysyłką
+    if (wszystko_ok) {
+        this.submit();
+    }
+});
+</code></pre>
+
+<p>Przykładowy kod robiący jakąś prostą walidację mógłby mieć postać:</p>
+
+<pre><code class="language-js">
+const form = document.querySelector('form');
+const message = document.querySelector('.form-message');
+
+form.addEventListener('submit', function(e) {
+    e.preventDefault(); //przerywamy domyślną wysyłkę
+
+    const errors = []; //tablica błędów
+
+    //tutaj przeprowadzamy różne testy pól
+    if (danePoleJestBledne) {
+        errors.push("Dane pole jest błędne");
+    }
+    if (innePoleJestBledne) {
+        errors.push("Dane pole jest błędne");
+    }
+
+    //po wszystkich testach wysyłamy formularz lub pokazujemy błędy
+    if (!errors.length) {
+        this.submit();
+    } else {
+        //pokazujemy błędy
+        let str = "";
+        str += "$lt;h3 class="form-error-title">Wpisałeś błędne dane:$lt;/h3>";
+        str += "&lt;ul class="form-error-list">";
+        errors.forEach(el => {
+            str += `$lt;li>${el}$lt;/li>`
+        });
+        str += "&lt;/ul>";
+        message.innerHTML = str;
+    }
+});
+</code></pre>
+
+<p>Do tego jednak dojdziemy. Na razie zajmijmy się poszczególnymi typami pól.</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="text">Pola typu TEXT</h2>
+
+<p>
+    <input type="text" name="inputText" id="inputText" placeholder="Pole testowe">
+</p>
+
+<p>Zacznijmy od wypisania w konsoli pobranego elementu:</p>
+
+<pre><code class="language-html">
+&lt;input type="text" name="inputText" id="inputText" placeholder="Pole testowe">
+</code></pre>
+
+<pre><code class="language-js">
+const input = document.querySelector('#inputText');
+console.dir(input);
+</code></pre>
+
+<script>
+console.log('%c Pole tekstowe: ', 'font-weight:bold');
+console.dir(document.querySelector('#inputText'));
+</script>
+
+<p>
+Najczęściej używaną właściwością dla większości pól będzie <strong>value</strong>, która zawiera wartość danego pola.
+</p>
+
+<pre><code class="language-js">
+const input = document.querySelector('#inputText');
+console.log( input.value );
+</code></pre>
+
+<div class="kartofel-informuje">
+    Każde pole może mieć atrybut value wpisany w html np.
+    <pre><code class="language-js">
+    &lt;input type="text" name="inputText" value="Start!">
+    </code></pre>
+    więc pomyślisz, że powinieneś użyć <a href="../dom/dom-wlasciwosci.php#getAttribute-setAttribute">getAttribute('value')</a>.
+    Byłby to jednak błąd, gdyż <a href="../dom/dom-wlasciwosci.php#wlasciwosci-atrybuty">getAttribute zwraca wartość atrybutu, jaki jest wpisana w html</a>.
+    Wartość value zwraca dynamiczną wartość, jaką użytkownik wpisze w dane pole.
+</div>
+
+<p>
+Pobrana wartość jest <a href="../super-podstawy/string.php">zawsze stringiem</a> (nawet przy polach typu number i podobnych) , możemy więc wykonać na niej wszystkie operacje, które możemy wykonywać na tekstach. I tak dla przykładu możemy poprawić imię wpisane w pole:
+</p>
+
+<pre><code class="language-js">
+const input = document.querySelector("#name");
+const val = input.value;
+
+if (!val.length) {
+    console.log('Nie wpisałeś żadnej wartości!')
+} else {
+    console.log('Twój imię to: ' + val[0].toUpperCase() + val.slice(1) );
+}
+</code></pre>
+
+<hr />
+
+<p id="imie">
+Kolejny przykład pokazuje, jak możemy sprawdzić czy wpisywany ciąg ma odpowiednią formę. W przykładzie za pomocą <a href="../regular.php">wyrażeń regularnych</a>
+sprawdzamy, czy użytkownik wpisał prawidłowe imię:
+</p>
+
+<pre><code class="language-html">
+&lt;form method="post" action="...">
+    &lt;label for="userName">Podaj imię (min. 3 znaki nie będące cyframi):&lt;/label>
+    &lt;input type="text" id="userName" name="userName" value="" />
+&lt;/form>
+</code></pre>
+
+<pre><code class="language-js">
+const input = document.querySelector('#userName');
+
+input.addEventListener('change', function() {
+    const val = this.value;
+    const reg = /^[a-zA-Z ]{3,}$/g; //testujące wyrażenie regularne
+
+    if (!reg.test(val)) {
+        alert("Co to za dziwne imię?...");
+        this.select(); //zaznaczamy treść pola
+    } else {
+        const name = val[0].toUpperCase() + val.slice(1);
+        alert('Twoje imię to: ' + name );
+    }
+});
+</code></pre>
+
+<form class="form">
+    <div class="row">
+        <div class="col-1-2">
+            <label for="userName">Podaj imię (min. 3 znaki nie będące cyframi):</label>
+            <input type="text" id="userName" value="" />
+        </div>
+        <div class="col-1-2">
+            <label>Tego pola nie testuję:</label>
+            <input type="text" value="" />
+        </div>
+    </div>
+</form>
+
+<script>
+{
+    const input = document.querySelector('#userName');
+    input.addEventListener('change', function() {
+        const val = this.value;
+        const reg = /^[a-zA-Z ]{3,}$/g; //testujące wyrażenie regularne
+
+        if (!reg.test(val)) {
+            alert("Co to za dziwne imię?...");
+            this.select(); //zaznaczamy treść pola
+        } else {
+            const name = val[0].toUpperCase() + val.slice(1);
+            alert('Twoje imię to: ' + name );
+        }
+    });
+}
+</script>
+
+<p>
+Zastosowanie okienek alert jest bardzo proste w implementacji, jednak nie jest najbardziej przyjemną metodą informowania o błędnie wprowadzanych danych.<br>
+Informację o złych danych lepiej wyświetlać w nieco bardziej subtelny sposób.
+Można np. wyświetlać przy błędnie wypełnionym polu komunikat lub zaznaczać pole za pomocą dodatkowej klasy:
+</p>
+
+<pre id="dodawanieKlasy"><code class="language-html">
+&lt;input type="text" name="name" id="name" value="" />
+&lt;span class="error">źle&lt;/span>
+</code></pre>
+
+<pre><code class="language-js">
+const input = document.querySelector('#name');
+
+input.addEventListener('change', function() {
+    const className = 'error-field';
+    const reg = new RegExp('^[a-zA-Z]{3,}$', 'g');
+
+    if (!reg.test(this.value)) {
+        this.classList.add(className); //dodaję klasę do pola
+    } else {
+        this.classList.remove(className); //usuwam klasę
+    }
+});
+</code></pre>
+
+<form class="form">
+    <div class="row">
+        <div class="col-1-2">
+            <label for="imieReg2">Podaj imię (min. 3 znaki nie będące cyframi):</label>
+            <input type="text" id="imieReg2" value="" />
+        </div>
+        <div class="col-1-2">
+            <label>Tego pola nie testuję:</label>
+            <input type="text" value="" />
+        </div>
+    </div>
+</form>
+
+<script>
+{
+    const input = document.querySelector('#imieReg2');
+    input.addEventListener('change', function() {
+        const className = 'field-error';
+        const reg = new RegExp('^[a-zA-Z]{3,}$', 'g');
+
+        if (!reg.test(this.value)) {
+            this.classList.add(className);
+        } else {
+            this.classList.remove(className);
+        }
+    });
+}
+</script>
+
+<p>Pokazanie komunikatu z informacją w powyższym przypadku możemy zrobić za pomocą JavaScript</p>
+
+<pre><code class="language-js">
+if (!reg.test(this.value)) {
+    this.classList.add(className);
+    this.nextElementSibling.style.display = "block";
+} else {
+    this.classList.remove(className);
+    this.nextElementSibling.style.display = "none";
+}
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="email">Pola typu Email</h2>
+<p>
+    Kolejne pole w naszym formularzu powinno zawierać prawidłowy e-mail. Aby sprawdzić tą wartość, wystarczy zastosować wyrażenie regularne, które opisuje
+    wygląd prawidłowego maila:
+</p>
+
+<pre><code class="language-js">
+const input = document.querySelector('#email');
+email.addEventListener('change', function() {
+    const className = 'error-field';
+    const mailReg = new RegExp('^[0-9a-z_.-]+@[0-9a-z.-]+\.[a-z]{2,3}$', 'i');
+
+    if (!mailReg.test(this.value)) {
+        this.classList.add(className); //dodaję klasę do pola
+    } else {
+        this.classList.remove(className);
+    }
+});
+</code></pre>
+
+<p>Powyższe wyrażenie regularne to przykład. Takich wzorów jest masa i na ich temat <a href="https://stackoverflow.com/questions/46155/how-to-validate-email-address-in-javascript">toczy się nie jedna dyskusja</a>.</p>
+
+<p id="testEmail">W poniższym formularzu sprawdzam tylko email:</p>
+
+<form class="form">
+    <div class="row">
+        <div class="col-1-2">
+            <label for="email">Podaj email:</label>
+            <input type="email" id="emailTest" value="" />
+        </div>
+        <div class="col-1-2">
+            <label>Tego pola nie sprawdzam:</label>
+            <input type="text" value="" />
+        </div>
+    </div>
+</form>
+
+<script>
+{
+    const input = document.querySelector('#emailTest');
+    input.addEventListener('change', function() {
+        const className = 'error-field';
+        const mailReg = new RegExp('^[0-9a-z_.-]+@[0-9a-z.-]+\.[a-z]{2,3}$', 'i');
+
+        if (!mailReg.test(this.value)) {
+            this.classList.add(className);
+        } else {
+            this.classList.remove(className);
+        }
+    });
+}
+</script>
+
+<p>
+Podobne techniki możemy stosować do większości typów danych - np. do sprawdzania kodów pocztowych, miejscowości itp. Wystarczy odpowiednio opisywać
+takie dane za pomocą <a href="../regular.php#email">wyrażeń regularnych</a>.
+Z drugiej strony nie powinniśmy też przesadzać z dokładnością sprawdzania takich danych.
+W końcu nie zawsze przeciętny użytkownik chce podawać dokładnie swoje dane. Czasami po prostu chcę sobie stworzyć konto "na szybko".
+</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="radio">Pola typu RADIO</h2>
+
+<p>Zaczynamy od wypisania danych pól w konsoli:</p>
+
+<form class="form" id="radioTestCnt">
+    <fieldset>
+        <input type="radio" value="tak" name="radioTest" /> tak
+        <input type="radio" value="nie" name="radioTest" /> nie
+    </fieldset>
+</form>
+
+<pre><code class="language-html">
+&lt;p id="radioTestCnt">
+    &lt;input type="radio" value="tak" name="radioTest" /> tak
+    &lt;input type="radio" value="nie" name="radioTest" /> nie
+&lt;/p>
+</code></pre>
+
+<pre><code class="language-js">
+console.log('Pola radio:');
+console.dir(document.querySelectorAll('#radioTestCnt input[name="radioTest"]'));
+</code></pre>
+
+<script>
+console.log('Pola radio:');
+console.dir(document.querySelectorAll('#radioTestCnt input[name="radioTest"]'));
+</script>
+
+<p>
+Przyciski radiowe umożliwiają wybór tylko jednej opcji z pośród kilku.
+Tak więc powinniśmy je stosować w przypadkach "albo". Albo lubię czekoladę, albo nie lubię.<br />
+Każde pole należące do jednej grupy powinno mieć wspólną nazwę oraz indywidualną wartość.
+</p>
+
+<pre><code class="language-html">
+&lt;fieldset>
+    &lt;legend>Wybierz płeć&lt;/legend>
+    &lt;input type="radio" value="male" name="gender" /> mężczyzna
+    &lt;input type="radio" value="female" name="gender" /> kobieta
+&lt;/fieldset>
+</code></pre>
+
+<pre><code class="language-js">
+const form = document.querySelector('#myForm');
+const genderRadio = form.querySelectorAll('input[name="gender"]');
+
+for (const radio of genderRadio) {
+    radio.addEventListener('click', function() {
+        for (const radio of genderRadio) {
+            if (radio.checked) {
+                alert('Zaznaczyłeś opcję: \n' + radio.value);
+                break;
+            }
+        }
+    });
+}
+</code></pre>
+
+<form class="form" id="formRadio">
+    <fieldset>
+        <legend>Wybierz płeć</legend>
+        <input type="radio" value="male" name="gender" /> mężczyzna
+        <input type="radio" value="female" name="gender" /> kobieta
+    </fieldset>
+</form>
+
+<script>
+{
+    const form = document.querySelector('#formRadio');
+    const genderRadio = form.querySelectorAll('input[name="gender"]');
+
+    for (const radio of genderRadio) {
+        radio.addEventListener('click', function() {
+            for (const radio of genderRadio) {
+                if (radio.checked) {
+                    alert('Zaznaczyłeś opcję: \n' + radio.value);
+                    break;
+                }
+            }
+        });
+    }
+}
+</script>
+
+<p>Przy czym w przypadku inputów typu radio powyższe podejście nie jest aż tak wymagane. Jeżeli klikniemy na radio, zostanie on wybrany, a cała reszta z jego grupy zostanie odznaczona. Oznacza to, że nawet powyższa pętla nie jest tak bardzo konieczna. Inna sprawa w przypadku checkboxów, do których właśnie przechodzimy.</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="checkbox">Pola typu CHECKBOX</h2>
+
+<p>Zacznijmy od wypisania przykładowych checkboxów w konsoli:</p>
+
+<form class="form" id="checkboxTestCnt">
+    <fieldset>
+        <label class="label-chk"><input type="checkbox" value="blue" name="chkTest"> niebieski</label>
+        <label class="label-chk"><input type="checkbox" value="red" name="chkTest"> czerwony</label>
+        <label class="label-chk"><input type="checkbox" value="green" name="chkTest"> zielony</label>
+    </fieldset>
+</form>
+
+<pre><code class="language-html">
+&lt;p id="checkboxTestCnt">
+    &lt;label class="label-chk">&lt;input type="checkbox" value="blue" name="chkTest"> niebieski&lt;/label>
+    &lt;label class="label-chk">&lt;input type="checkbox" value="red" name="chkTest"> czerwony&lt;/label>
+    &lt;label class="label-chk">&lt;input type="checkbox" value="green" name="chkTest"> zielony&lt;/label>
+&lt;/p>
+</code></pre>
+
+<pre><code class="language-js">
+console.log('Pola checkbox:');
+console.dir(document.querySelectorAll('input[name="chkTest"]'));
+</code></pre>
+
+<script>
+    console.log('%c Pola checkbox: ', 'font-size:1.2rem; font-weight:bold');
+    console.dir(document.querySelectorAll('#checkboxTestCnt input[name="chkTest"]'));
+</script>
+
+<p>
+Przyciski typu checkbox umożliwiają wybór równocześnie kilku opcji.<br />
+Aby sprawdzić, czy dany checkbox jest zaznaczony, tak samo jak przy radio
+musimy sprawdzić jego właściwość <strong>checked</strong>, np:
+</p>
+
+<pre><code class="language-js">
+if (document.querySelector('#someCheckbox').checked) {
+    alert("zaznaczony!");
+}
+</code></pre>
+
+<p>Najczęściej jednak checkboxów będzie kilka o takiej samej nazwie, więc
+zastosujemy selektor querySelectorAll wraz z pętlą:</p>
+
+<pre><code class="language-js">
+let checkedCount = 0;
+const checkboxes = form.querySelectorAll('input[name="fruit"]');
+
+for (const chk of checkboxes) {
+    if (chk.checked) {
+        checkedCount++;
+    }
+}
+
+if (checkedCount < 2) {
+    alert('Wybrałeś ' +checkedCount+' owoce, a musisz wybrać minimum 2');
+} else {
+    alert('Wybrałeś ' +checkedCount+' owoce. Bądź pozdrowiony!');
+}
+</code></pre>
+
+<form class="form" id="formColor">
+    <div>
+        <div class="row">
+            <div class="col-1-1">
+                <fieldset>
+                    <legend>Wybierz dwa (2) ulubione owoce</legend>
+                    <label class="label-chk"><input type="checkbox" value="jagoda" name="fruit" /> niebieski</label>
+                    <label class="label-chk"><input type="checkbox" value="jablko" name="fruit" /> czerwony</label>
+                    <label class="label-chk"><input type="checkbox" value="arbuz" name="fruit" /> zielony</label>
+                    <label class="label-chk"><input type="checkbox" value="pomarancz" name="fruit" /> pomarańcz</label>
+                </fieldset>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-1-1">
+                <button type="submit" class="button">Sprawdź</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script>
+
+document.querySelector('#formColor').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    let checkedCount = 0;
+    const checkboxes = this.querySelectorAll('input[name="color"]');
+
+    for (const chk of checkboxes) {
+        if (chk.checked) {
+            checkedCount++;
+        }
+    }
+
+    if (checkedCount < 2) {
+        alert('Wybrałeś ' +checkedCount+' owoce, a musisz wybrać minimum 2');
+    } else {
+        alert('Wybrałeś ' +checkedCount+' owoce. Bądź pozdrowiony!');
+    }
+});
+</script>
+
+<p>Powyższy kod możemy też uprościć za pomocą poznanych wcześniej funkcji iterujących. W tym przypadku idealnie spradzi się funkcja
+    <a href="../super-podstawy/tablice-iteracje.php#filter">filter</a>:</p>
+
+<pre><code class="language-js">
+const checkboxes = this.querySelectorAll('input[name="color"]');
+const checkedCount = checkboxes.filter(el => el.checked).length;
+console.log(checkedCount);
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="select">Pola typu SELECT</h2>
+
+<pre><code class="language-html">
+&lt;select name="eyeColor">
+    &lt;option value="-1">wybierz kolor&lt;/option>
+    &lt;option value="blue">niebieski&lt;/option>
+    &lt;option value="green">zielony&lt;/option>
+    &lt;option value="brown">brązowy&lt;/option>
+    &lt;option value="black">czarny&lt;/option>
+&lt;/select>
+</code></pre>
+
+<p>
+Żeby pobrać długość selekta (ilość jego elementów) skorzystamy z właściwości
+<strong>length</strong> lub wykorzystamy kolekcję <strong>options</strong>, która
+zawiera wszystkie elementy option danego selekta:
+</p>
+
+<pre><code class="language-js">
+const select = document.querySelector('select[name="eyeColor"]');
+const optionsLength = select.length
+
+//lub
+
+const select = document.querySelector('select[name="eyeColor"]');
+const optionsLength = select.options.length
+</code></pre>
+
+<p>
+Aby sprawdzić wartość danego selekta, tak samo jak przy reszcie pól odwołujemy się do właściwości <strong>value</strong>.<br>
+Aby sprawdzić który option został wybrany skorzystamy z właściwości <strong>selectedIndex</strong>:
+</p>
+
+<pre><code class="language-js">
+const select = document.querySelector('select[name="eyeColor"]');
+console.log(select.value); //obecna wartość selecta
+console.log(select.selectedIndex); //wypisze numer indeksu wybranego optiona
+
+//można też połączyć te właściwości
+console.log( select.options[select.selectedIndex].value );
+</code></pre>
+
+<p>Jak widzisz powyżej, właściwości selectedIndex nie ma co używać do pobierania wartości selekta, ale czasami przy operacjach na samych optionach sprawdza się ona bardzo dobrze.</p>
+<p>Wyobraź sobie, że masz selekt, który ma w sobie optiony z tekstem zaczynającym się na podobne litery.</p>
+
+<pre><code class="language-html">
+&lt;select name="citySelect" id="citySelect">
+    &lt;option value="1">Płock&lt;/option>
+    &lt;option value="2">Poznań&lt;/option>
+    &lt;option value="3">Pabianice&lt;/option>
+    &lt;option value="4">Warszawa&lt;/option>
+    &lt;option value="5">Węgorzewo&lt;/option>
+    &lt;option value="6">Wrocław&lt;/option>
+    &lt;option value="7">Zabrze&lt;/option>
+    &lt;option value="8">Zakopane&lt;/option>
+    &lt;option value="9">Zamość&lt;/option>
+&lt;/select>
+</code></pre>
+
+<p>Po wybraniu danej opcji, reszta rozpoczynająca się na daną literę powinna być nieaktywna. Niestety nie możesz tutaj użyć value dla option, bo wskazują na id danego elementu.</p>
+
+<p>Pozostaje więc użycie teksty w optionach:</p>
+
+<pre><code class="language-js">
+select.addEventListener("change", function() {
+    const selectedText = this.options[this.selectedIndex].innerText;
+
+    for (const opt of this.options) {
+        if (opt.innerText[0].toUpperCase() === selectedText[0].toUpperCase()) {
+            opt.disabled = true;
+        } else {
+            opt.disabled = false;
+        }
+    }
+});
+</code></pre>
+
+<form class="form" id="formSelect">
+    <div class="row">
+        <div class="col-1-1">
+            <label for="citySelect">Wybierz miasto</label>
+            <select name="citySelect" id="citySelect">
+                <option value="1">Płock</option>
+                <option value="2">Poznań</option>
+                <option value="3">Pabianice</option>
+                <option value="4">Warszawa</option>
+                <option value="5">Węgorzewo</option>
+                <option value="6">Wrocław</option>
+                <option value="7">Zabrze</option>
+                <option value="8">Zakopane</option>
+                <option value="9">Zamość</option>
+            </select>
+        </div>
+    </div>
+</form>
+
+<script>
+{
+    const select = document.querySelector('#citySelect');
+    select.addEventListener("change", function() {
+        const selectedText = this.options[this.selectedIndex].innerText;
+
+        for (const opt of this.options) {
+            if (opt.innerText[0].toUpperCase() === selectedText[0].toUpperCase()) {
+                opt.disabled = true;
+            } else {
+                opt.disabled = false;
+            }
+        }
+    });
+}
+</script>
+
+<!-- ### -->
+<h2 class="subtitle" id="new-option">Nowe option dla selektów</h2>
+<p>
+JavaScript daje także możliwość tworzenie nowych pól <strong>option</strong>. Możemy je spokojnie robić za pomocą funkcji creteElement, którą poznaliśmy przy okazji <a href="../dom/dom-tworzenie-i-usuwanie.php">DOM</a>. Możemy też wykorzystać konstruktor
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLOptionElement/Option">Option()</a>, który służy właśnie do tworzenia pojedynczego option:
+</p>
+
+<pre><code class="language-js">
+const select = document.querySelector('select[name="eyeColor"]');
+
+const optionText = "zaznacz mnie";
+const optionValue = "wartość optiona";
+const newOption = new Option(optionText, optionValue);
+select.options[x] = newOption;
+
+//to samo możemy uzyskać bardziej klasycznie
+const newOption = document.createElement("option");
+newOption.innerText = "zaznacz mnie";
+newOption.value = "wartość optiona";
+</code></pre>
+
+<p>
+Tworząc nowy obiekt <strong>option</strong> musimy podać dla niego właściwości:
+</p>
+
+<table class="tab">
+    <tr>
+        <th><strong>tekst</strong></th>
+        <td> czyli tekst dla danego option</td>
+    </tr>
+    <tr>
+        <th><strong>value</strong></th>
+        <td> wartość danego option</td>
+    </tr>
+    <tr>
+        <th><strong>defaultSelected*</strong></th>
+        <td> wskazuje, czy dany element jest domyślnie wybrany</td>
+    </tr>
+    <tr>
+        <th><strong>selectedIndex*</strong></th>
+        <td> wskazuje czy dany element jest wybrany.<br>
+        W polach select dla którego nie ustawiliśmy atrybutu <strong>multiply="multiply"</strong> wskazuje indeks wybranego elementu. Dla pól z atrybutem <strong>multiply</strong> wskazuje indeks <strong>tylko pierwszego</strong> wybranego elementu.
+        W takim przypadku musimy wykonać pętlę po wszystkich elementach danego selecta i sprawdzać każdy element z osobna.
+        </td>
+    </tr>
+</table>
+<p>
+Jeżeli dodamy element o indeksie który już istnieje, to stary element zostanie zastąpiony. Jeżeli dodamy element o indeksie nr 10, a lista ma ich tylko 5, to powstaną puste, niezdefiniowane pola, a na miejscu 10 nowy element.
+</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="dynamic-select">Dynamicznie wypełniany selekt</h2>
+
+<p>
+Stwórzmy selecta, który będzie zawierał wybrane elementy innego selecta. Aby wykonać to zadanie, wykonujemy pętlę po elementach option pierwszego selecta.
+Gdy dany element option jest zaznaczony (selected), wówczas tworzymy w drugim selekcie nowy option, który ma tekst i value takie same jak dany element w pierwszym selekcie.
+</p>
+
+<pre><code class="language-html">
+&lt;form>
+    &lt;select id="firstSelect" multiple="multiple">
+        &lt;option value="1"> opcja 1 &lt;/option>
+        &lt;option value="2"> opcja 2 &lt;/option>
+        &lt;option value="3"> opcja 3 &lt;/option>
+    &lt;/select>
+
+    &lt;select id="secondSelect" multiple="multiple">
+    &lt;/select>
+
+    &lt;button type="button" id="copySelect">Kopiuj zaznaczone elementy option&lt;/button>
+&lt;/form>
+</code></pre>
+
+<pre><code class="language-js">
+function copyOptions() {
+    for (let i=0; i&lt;select1.length; i++){
+        if (select1.options[i].selected) {
+            const newOption = new Option(select1.options[i].firstChild.nodeValue, select1.options[i].value);
+            select2[select2.length] = newOption;
+        }
+    }
+}
+
+const form = document.querySelector('.form-move');
+const select1 = form.querySelector('select[name="firstSelect"]');
+const select2 = form.querySelector('select[name="secondSelect"]');
+const btn = form.querySelector('.button');
+
+btn.addEventListener('click', copyOptions);
+</code></pre>
+
+<style>
+.multiple-select-form select {
+    min-height:110px;
+}
+</style>
+<form class="form multiple-select-form form-copy">
+    <div class="row">
+        <div class="col-1-2">
+            <select name="firstSelect" multiple="multiple">
+                <option value="1"> opcja 1 </option>
+                <option value="2"> opcja 2 </option>
+                <option value="3"> opcja 3 </option>
+                <option value="4"> opcja 4 </option>
+                <option value="5"> opcja 5 </option>
+            </select>
+        </div>
+        <div class="col-1-2">
+            <select name="secondSelect" multiple="multiple"></select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-1-1">
+            <button type="button" class="button copySelect">Kopiuj zaznaczone elementy</button>
+        </div>
+    </div>
+</form>
+
+<script>
+    {
+        const copyOptions = function() {
+            for (let i=0; i<select1.length; i++){
+                if (select1.options[i].selected) {
+                    const newOption = new Option(select1.options[i].firstChild.nodeValue, select1.options[i].value);
+                    select2[select2.length] = newOption;
+                }
+            }
+        };
+
+        const form = document.querySelector('.form-copy');
+        const select1 = form.querySelector('select[name="firstSelect"]');
+        const select2 = form.querySelector('select[name="secondSelect"]');
+        const btn = form.querySelector('.button');
+
+        btn.addEventListener('click', copyOptions);
+    }
+</script>
+
+<p>Jeżeli byśmy chcieli dodatkowo z lewego selekta usuwać przerzucone wartości, tuż po ich skopiowaniu
+elementy te powinniśmy usunąć - tak samo jak usuwamy każdy inny element na stronie:</p>
+
+<pre><code class="language-js">
+if (select1.length > 0) {
+    for (let i=select1.length-1; i>=0; i--){
+        if (select1.options[i].selected) {
+            const newOption = new Option(select1.options[i].innerText, select1.options[i].value);
+            select2[select2.length] = newOption;
+            select1.options[i].remove();
+        }
+    }
+}
+</code></pre>
+
+<p>Pętlę robimy od końca do początku, bo gdy usuniemy dany element, zmienią się liczniki w kolekcji.</p>
+
+<style>
+.multiple-select-form select {
+    min-height:110px;
+}
+</style>
+<form class="form multiple-select-form form-move">
+    <div class="row">
+        <div class="col-1-2">
+            <select name="firstSelect" multiple="multiple">
+                <option value="1"> opcja 1 </option>
+                <option value="2"> opcja 2 </option>
+                <option value="3"> opcja 3 </option>
+                <option value="4"> opcja 4 </option>
+                <option value="5"> opcja 5 </option>
+            </select>
+        </div>
+        <div class="col-1-2">
+            <select name="secondSelect" multiple="multiple"></select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-1-1">
+            <button type="button" class="button moveSelect">Przenieś zaznaczone elementy</button>
+        </div>
+    </div>
+</form>
+
+<script>
+    {
+        const moveOptions = function() {
+            if (select1.length > 0) {
+                for (let i=select1.length-1; i>=0; i--){
+                    if (select1.options[i].selected) {
+                        const newOption = new Option(select1.options[i].innerText, select1.options[i].value);
+                        select2[select2.length] = newOption;
+                        select1.options[i].remove();
+                    }
+                }
+            }
+        };
+
+        const form = document.querySelector('.form-move');
+        const select1 = form.querySelector('select[name="firstSelect"]');
+        const select2 = form.querySelector('select[name="secondSelect"]');
+        const btn = form.querySelector('.button');
+
+        btn.addEventListener('click', function(){
+            moveOptions();
+        });
+    }
+</script>
+
+<!-- ### -->
+<h2 class="subtitle" id="color">Input type color</h2>
+<p>
+Input typu color służy do pobierania koloru. Jest to jeden z prostszych do obsługi inputów, bo wystarczy tutaj obsłużyć tylko zdarzenie change:
+</p>
+
+<pre><code class="language-js">
+&lt;input type="color" class="input-color">
+&lt;div class="color-div"> Wybierz kolor &lt;/div>
+</code></pre>
+
+<pre><code class="language-js">
+const form = document.querySelector('.form-color');
+const input = form.querySelector('.input-color');
+const colorDiv = form.querySelector('.color-div');
+
+input.addEventListener('change', function() {
+    colorDiv.style.background = this.value;
+    colorDiv.innerText = this.value;
+});
+</code></pre>
+
+<style>
+.form-color {
+    display: flex;
+}
+.form-color .input-color {
+    width: 60px;
+    height: 60px;
+}
+.form-color .div-color {
+    flex: 1;
+    height: 60px;
+    background: #fff;
+    color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 20px;
+}
+</style>
+
+<form class="form form-color form-color1">
+    <input type="color" class="input-color">
+    <div class="div-color"> Wybierz kolor </div>
+</form>
+
+<script>
+    {
+        const form = document.querySelector('.form-color1');
+        const input = form.querySelector('.input-color');
+        const colorDiv = form.querySelector('.div-color');
+
+        input.addEventListener('change', function() {
+            colorDiv.style.background = this.value;
+            colorDiv.innerText = this.value;
+        });
+    }
+</script>
+
+<p>Wydaje się, że i powyższy kod jest raczej żadną dla nas tajemnicą. Ale i tutaj mogą pojawić się "smaczki", którymi warto się zająć.</p>
+<p>Po wybraniu koloru wrzucamy go do diva leżącego obok. Jeżeli jednak wybierzemy dość ciemny kolor, napis w divie będzie niewidoczny.</p>
+<p>Możemy tutaj wykorzystać przepis z niezastąpionego <a href="https://stackoverflow.com/questions/12043187/how-to-check-if-hex-color-is-too-black#answer-12043228">StackOverflow</a>:</p>
+
+<pre><code class="language-js">
+//https://stackoverflow.com/questions/12043187/how-to-check-if-hex-color-is-too-black
+//funkcja zwraca jasność koloru w przedziale 0-255, gdzie 0 to czarny, a 255 biały
+function colorBrightness(color) {
+    const c = color.substring(1);
+    const rgb = parseInt(c, 16);
+    const r = (rgb >> 16) & 0xff;
+    const g = (rgb >>  8) & 0xff;
+    const b = (rgb >>  0) & 0xff;
+
+    return luma = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+}
+</code></pre>
+
+<pre><code class="language-js">
+colorDiv.style.background = this.value;
+colorDiv.innerText = this.value;
+
+if (colorBrightness(this.value) > 150) {
+    colorDiv.style.color = "#000";
+} else {
+    colorDiv.style.color = "#fff";
+}
+</code></pre>
+
+<form class="form form-color form-color2">
+    <input type="color" class="input-color">
+    <div class="div-color"> Wybierz kolor </div>
+</form>
+
+<script>
+    {
+        //https://stackoverflow.com/questions/12043187/how-to-check-if-hex-color-is-too-black
+        function colorBrightness(color) {
+            const c = color.substring(1);
+            const rgb = parseInt(c, 16);
+            const r = (rgb >> 16) & 0xff;
+            const g = (rgb >>  8) & 0xff;
+            const b = (rgb >>  0) & 0xff;
+
+            return luma = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+        }
+
+
+        const form = document.querySelector('.form-color2');
+        const input = form.querySelector('.input-color');
+        const colorDiv = form.querySelector('.div-color');
+
+        input.addEventListener('change', function() {
+            colorDiv.style.background = this.value;
+            colorDiv.innerText = this.value;
+            console.log(colorBrightness(this.value));
+            if (colorBrightness(this.value) > 160) {
+                colorDiv.style.color = "#000";
+            } else {
+                colorDiv.style.color = "#fff";
+            }
+        });
+    }
+</script>
+
+<p>Najważniejszy jednak problem w przypadku inputów typu kolor jest to, że elementy te nie zadziałają wszędzie. W przeglądarkach, które nie wspierają takiego pola w ich miejsce pojawi się zwyczajne pole tekstowe, do którego możemy wpisać wszystko. W dzisiejszych czasach nie jest to dla wielu frontendowców problemem, bo tworzą swoje aplikacje tylko dla nowych przeglądarek. Możliwe, że przekona ich to, że <a href="./input-color.png">input color działa inaczej na różnych przeglądarkach</a>.</p>
+
+<p>Z tego też powodu, dość często dla inputów stosuje się zewnętrzne pluginy, które nakładają na takie inputy odpowiednią funkcjonalność. W moich zakładkach znalazłem <a href="https://github.com/Simonwep/pickr">takie cudo</a>. Na ichniejszej stronie jest dokładnie jak tego użyć a i znajdują się odpowiednie dema.</p>
+
+			</div><!-- e: page-content-text -->
+			<footer class="page-footer">
+				<p>
+				Wszelkie prawa zastrzeżone. Jeżeli chcesz używać jakiejś części tego kursu, skontaktuj się z <a href="/kurs/autor.php">autorem</a>.
+				Aha - i ta strona korzysta z <a href="/kurs/polityka-prywatnosci.php">ciasteczek</a>.
+				</p>
+			</footer>
+							<div class="rekl-cnt">
+					<ins
+					class="adsbygoogle" style="margin-top:40px; display:block"
+					data-ad-client="ca-pub-6843603045703750"
+					data-ad-slot="4690777640"
+					data-ad-format="auto"
+					data-full-width-responsive="true"
+					></ins>
+				</div>
+				<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+	(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+					</main><!-- e: page-content -->
+			</div><!-- e: page-content-wrapper -->
+    <aside id="page-sidebar-cnt" class="page-sidebar-cnt">
+	<div id="page-sidebar" class="page-sidebar">
+		<button aria-label="Pokaż/ukryj Menu" aria-expanded="false" aria-controls="page-sidebar" type="button" id="pageSidebarBurger" class="page-sidebar-burger">
+			<span></span>
+		</button>
+
+		<h2 class="visuallyhidden">
+			Menu
+		</h2>
+
+		<button class="sidebar-toggle-btn" title="Pokaż/schowaj menu" aria-hidden="true">
+			<strong>Pokaż/ukryj menu</strong>
+			<span></span>
+			<span></span>
+			<span></span>
+		</button>
+
+		<div class="page-sidebar-title">
+			<a href="/kurs/kontakt.php" title="Nawrzucaj autorowi" class="mail-to-author" id="mailToAuthor">Napisz do mnie</a>
+			<a href="#popupOptions" class="page-setup-link popupOpen" title="Ustawienia strony" id="showOptions">Ustawienia</a>
+			<a href="/index.php" aria-label="Strona główna" class="page-sidebar-title-link">Kurs Javascript</a>
+		</div>
+
+        <form aria-label="Wyszukiwarka" class="search-sidebar" action="/search.php" method="post">
+            <label for="search" class="search-sidebar-label">Szukaj</label>
+            <div class="search-sidebar-input-cnt">
+                <svg class="search-sidebar-input-icon" xmlns="http://www.w3.org/2000/svg" width="26" height="28" viewBox="0 0 26 28" aria-hidden="true">
+                    <path d="M18 13c0-3.859-3.141-7-7-7s-7 3.141-7 7 3.141 7 7 7 7-3.141 7-7zm8 13c0 1.094-.906 2-2 2a1.96 1.96 0 0 1-1.406-.594l-5.359-5.344a10.971 10.971 0 0 1-6.234 1.937c-6.078 0-11-4.922-11-11s4.922-11 11-11 11 4.922 11 11c0 2.219-.672 4.406-1.937 6.234l5.359 5.359c.359.359.578.875.578 1.406z"></path>
+                </svg>
+                <input type="text" id="search" autocomplete="off" name="q" class="search-sidebar-input">
+            </div>
+            <button type="submit" class="search-sidebar-button">Szukaj</button>
+        </form>
+
+		<div class="page-sidebar-table-of-content">
+			<h2 class="visuallyhidden">Spis treści</h2>
+            <div class="page-sidebar-section">
+				<h3 class="page-sidebar-section-title noopen">
+                    <a href="/index.php">Strona główna</a>
+                </h3>
+            </div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Słowem wstępu</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/wstep/wstep.php">Wstęp</a>
+						</li>
+						<li >
+							<a href="/kurs/wstep/co-to-jest-javascript.php">Co to jest JavaScript i z czym go się je?</a>
+						</li>
+						<li >
+							<a href="/kurs/wstep/wymagania.php">Wymagania</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Super podstawy</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/debuger/debuger.php">Debuger</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/pierwszy-skrypt.php">Wstawiamy skrypty na naszą stronę</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/strict-mode.php">Strict mode</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/typy-danych.php">Typy danych i konwersja danych</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/zmienne.php">Zmienne</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/operatory.php">Operatory</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/math.php">Obiekt Math</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/string.php">String - teksty</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/instrukcje-warunkowe.php">Instrukcje warunkowe</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/petle.php">Pętle</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/funkcje.php">Funkcje</a>
+						</li>
+                        <li >
+							<a href="/kurs/super-podstawy/funkcje-tematy-dodatkowe.php">Funkcje - tematy dodatkowe</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/tablice.php">Tablice</a>
+						</li>
+                        <li >
+							<a href="/kurs/super-podstawy/tablice-iteracje.php">Tablice pętle</a>
+						</li>
+						<li >
+							<a href="/kurs/debuger/debugowanie.php">Debugowanie kodu</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+            			<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Obiekty</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+                        <li >
+							<a href="/kurs/obiekty/obiekty.php">Obiekty i this</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-jak-to-dziala.php">Jak to działa</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-konstruktor.php">Konstruktor</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-zaawansowane-this.php">Zaawansowane this</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-dziedziczenie.php">Dziedziczenie w Javascript</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-inne-sposoby-tworzenia.php">Inne sposoby tworzenia obiektów</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-instanceof-hasownproperty.php">instanceof i hasOwnProperty</a>
+						</li>
+                    </ul>
+                </div>
+            </div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">DOM i zdarzenia</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/dom/dom.php">Document Object Model</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-wlasciwosci.php">Właściwości elementów</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-relacje.php">Relacje między elementami</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-tworzenie-i-usuwanie.php">Tworzenie i usuwanie elementów</a>
+						</li>
+                        <li >
+                            <a href="/kurs/dom/style.php">Style w CSS</a>
+                        </li>
+						<li >
+							<a href="/kurs/events/events.php">Zdarzenia</a>
+						</li>
+						<li >
+							<a href="/kurs/events/events-keys.php">Zdarzenia - klawisze</a>
+						</li>
+						<li >
+							<a href="/kurs/events/events-mouse.php">Zdarzenia - myszka</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/projekt-todo.php">Projekt TODO</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/slider.php">Tworzymy slider</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+
+						<div class="page-sidebar-section show has-active-element">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Prawie podstawy</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/grafika/grafika-na-stronie.php">Grafika na stronie</a>
+						</li>
+						<li >
+							<a href="/kurs/intervals/intervals.php">setTimeout i setInterval</a>
+						</li>
+						<li >
+							<a href="/kurs/match-media.php">Praca z RWD</a>
+						</li>
+						<li >
+							<a href="/kurs/okna-dialogowe.php">Okienka dialogowe</a>
+						</li>
+						<li >
+							<a href="/kurs/okna.php">Tworzenie nowych okien</a>
+						</li>
+						<li >
+							<a href="/kurs/date/date.php">Obiekt Date</a>
+						</li>
+						<li >
+							<a href="/kurs/date/date-calendar.php">Tworzymy kalendarz</a>
+						</li>
+						<li >
+							<a href="/kurs/cookies/cookie.php">Obiekt Cookie</a>
+						</li>
+						<li >
+							<a href="/kurs/storage/storage.php">Storage</a>
+						</li>
+						<li >
+							<a href="/kurs/regular.php">Wyrażenia regularne</a>
+						</li>
+						<li class="active">
+							<a href="/kurs/formularze/formularze.php">Formularze</a>
+						</li>
+						<li >
+							<a href="/kurs/formularze/formularze-walidacja.php">Formularze - walidacja</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Ajax</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/ajax/ajax.php">AJAX, REST, JSON</a>
+						</li>
+						<li >
+							<a href="/kurs/ajax/xmlhttprequest.php">XMLHttpRequest</a>
+						</li>
+            			<li >
+							<a href="/kurs/ajax/fetch.php">Fetch API</a>
+						</li>
+						<li >
+							<a href="/kurs/ajax/formularz-kontaktowy.php">Dynamiczny formularz kontaktowy</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Nowy Javascript</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/es6/ecma-script-2015.php">ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/webpack.php">Webpack</a>
+						</li>
+                        <li >
+            				<a href="/kurs/es6/obiekty-w-es6.php">Obiekty w ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/funkcja-strzalkowa.php">Funkcja strzałkowa</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/spread-rest.php">Spread i rest</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/template-strings.php">Template strings</a>
+						</li>
+						<li >
+            				<a href="/kurs/es6/destructuring.php">Dekompozycja</a>
+        				</li>
+						<li >
+							<a href="/kurs/es6/class.php">Klasy w ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/promises.php">Promises</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/async-await.php">Async/Await</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/symbole.php">Symbole</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">jQuery</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/jquery/jquery.php">jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/animacje-w-jquery.php">Animacje w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/jquery-ajax.php">Ajax w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/tabs.php">Taby w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/plugin.php">Karuzela w jQuery</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Canvas</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/canvas/canvas.php">Canvas</a>
+						</li>
+						<li >
+							<a href="/kurs/canvas/canvas-images.php">Grafika w canvas</a>
+						</li>
+						<li >
+						<a href="/kurs/canvas/canvas-paint.php">Praktycznie : Paint w canvas</a>
+						</li>
+
+						<li >
+							<a href="/kurs/canvas/canvas-animacja.php">Animacja w canvas</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Gry</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/gry/hangman/hangman.php">Szubienica</a>
+						</li>
+						<li >
+							<a href="/kurs/gry/memory/memory.php">Memory</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+            			<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Inne</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/dodatkowe-materialy.php">Dodatkowe materiały</a>
+						</li>
+						<li >
+							<a href="/kurs/faq.php">FAQ</a>
+						</li>
+						<li >
+							<a href="/kurs/polityka-prywatnosci.php">Polityka prywatności</a>
+						</li>
+						<li >
+							<a href="/kurs/autor.php">O autorze</a>
+						</li>
+						<li >
+							<a href="/kurs/kontakt.php">Kontakt</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="page-sidebar-section">
+                <a class="special-link" href="/kurs/autor.php#donate">Wesprzyj kurs</a>
+            </div>
+		</div>
+	</div>
+</aside></div><!-- e: page-container -->
+
+<div class="popup" id="popupOptions">
+	<div class="popup-inside">
+        <div class="popup-container-cnt">
+            <div class="popup-container">
+                <button class="popup-close">Zamknij</button>
+
+                <h2 class="popup-title">
+                    Opcje
+                </h2>
+
+                <div class="popup-content">
+                    <form class="form-options">
+                        <div class="form-option">
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <label for="optionsThemeSelect">Wybierz skórkę dla listingów</label>
+                                    <select id="optionsThemeSelect"></select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <pre><code class="language-js">
+                                //tak będzie wyglądał kod
+
+                                function test() {
+                                    for (let i=0; i&lt;10; i++) {
+                                        console.log("Tekst numer ", 1);
+                                    }
+                                }
+
+                                test();
+                                </code></pre>
+                            </div>
+                            <div class="form-row" id="themeLightModeRow">
+                                <div class="form-col">
+                                    <label for="themeLightMode">
+                                        Tryb dzienny / nocny
+                                    </label>
+
+                                    <div class="light-mode-el">
+                                        <input type="checkbox" id="themeLightMode">
+                                        <span class="light-mode"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+	</div>
+</div>
+<script async defer src="https://www.googletagmanager.com/gtag/js?id=UA-38558970-5"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-38558970-5');
+</script>
+
+	<script src="/js/ads.js"></script>
+	<script src="/js/script.min.js?v=0.13" defer></script>
+</body>
+</html>

@@ -3,9 +3,9 @@
 <head>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Kurs Javascript - Wstęp</title>
+    <title>Kurs Javascript - jQuery - zakładki</title>
 	<meta name="description" content="Kurs Javascript dla superbohaterów, artykuły, tutoriale, porady, zadania do wykonania" />
-    <link rel="canonical" href="https://kursjs.pl/kurs/wstep/wstep.php" />
+    <link rel="canonical" href="https://kursjs.pl/kurs/jquery/tabs.php" />
 	<link rel="stylesheet" href="./css.css" />
     <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,700&display=swap&subset=latin-ext" rel="stylesheet">
 	<meta name="image" content="https://kursjs.pl/kursjs.png">
@@ -57,49 +57,307 @@
             </div>
                         <div class="page-content-text">
 
+<style>
+.tab-html-example {
+    border:1px solid #eee;
+    padding:30px;
+}
+/* lista tabow */
+.tabs {
+    list-style-type: none;
+    margin: 5px 0 0 0;
+    padding: 0;
+    clear: both;
+    padding-bottom: 10px;
+    overflow: hidden;
+}
+.tabs a {
+    width: 20%;
+    display: inline-block;
+    height: 3em;
+    margin:2px;
+    background: #eee;
+    font-size: 1em;
+    font-weight: bold;
+    line-height: 3em;
+    text-decoration: none;
+    color: #333;
+    text-align: center;
+}
+.tabs a.active {
+    background: #F15C5C;
+    color:#fff;
+}
+.tabs-container {
+    background: #fff;
+}
+.tabs-container.js .tab-content {
+    display: none;
+    padding:1em;
+    font-size:1.5em;
+    line-height: 1.2em;
+    background: #eee;
+    border-radius:2px;
+}
+.tabs-container.js .tab-title {
+    margin-top:0;
+}
+.tabs-container.js .tab-content.active {
+    display: block;
+}
 
-<h1 class="page-title">Wstęp</h1>
-<p>
-Bardzo krótki wstęp ^^.<br /><br />
-Kurs ten jest o Javascripcie. Uhh...
-</p>
-<p>
-Wiedz, że nie staram się tutaj tworzyć największego i najlepszego kursu o JavaScript w internecie.<br>
-Ten kurs to twór jednego człowieka.
-Nie mam szans i nie chcę konkurować z molochami takimi jak <a href="https://developer.mozilla.org/pl/">MDN</a>, <a href="https://www.udemy.com/">Udemy</a>, <a href="https://eduweb.pl/">EduWeb</a> czy <a href="https://www.w3schools.com/js/default.asp">w3schools</a>.<br>
-<br><br>
-Nie znajdziesz tutaj wszystkiego z zakresu JavaScript. <br>
-Po jakimś czasie będziesz chciał wiele rzeczy tutaj pokazanych tworzyć inaczej - lepiej.<br>
-Im większy progres będziesz zdobywał stwierdzisz, że wiele rozdziałów można było napisać o wiele lepiej. I dobrze.<br><br>
+.tab-container.js .tab-content {
+    display:none;
+}
+.tab-container.js .tab-content.active {
+    display:block;
+}
+</style>
+<script>
+$(function() {
+    //dla każdego kontenera z treścią tabów dodajemy klasę js -> patrz dalej
+    $('.tabs-container').addClass('js');
 
-W każdym bądź razie - jeżeli ta strona jakoś ci posłuży - to tylko plus. Jeżeli nie - po prostu skorzystaj z innego kursu - na rynku jest tego od groma (niektóre wymieniłem <a href="../dodatkowe-materialy.php">tutaj</a>) i każdy znajdzie coś dla siebie. Ja sam mam kilka w swojej kolekcji i twierdzę, że są naprawdę dobre.
-<br><br>
+    $('.tabs').each(function() {
+        const $a = $(this).find('a'); //pobieram wszystkie linki-zakładki
+
+        //po kliknięciu na link...
+        $a.on('click', function(e) {
+            //podstawiamy pod zmienną $this kliknięty link
+            const $this = $(this);
+
+            //pobieramy href klikiętego linka
+            const href = $this.attr('href');
+            //pobieramy treść na którą wskazuje link
+            const $target = $(href);
+
+            //jeżeli ta treśc w ogóle istnieje...
+            if ($target.length) {
+                e.preventDefault();
+
+                //usuwamy z sąsiednich linków klasę active
+                $this.siblings('a').removeClass('active');
+                //klikniętemu linkowi dajemy klasę active
+                $this.addClass('active');
+
+                //podobne dzialanie robimy dla treści tabów
+                $target.siblings('.tab-content').removeClass('active');
+                $target.addClass('active');
+            }
+        });
+    });
+});
+</script>
+
+
+<h1 class="page-title">jQuery - zakładki</h1>
+<p>
+W poniższym przykładzie postaramy się zbudować semantyczne taby.<br>
+Bez zbytniego przedłużania bierzemy się do pracy. Zaczynamy od kodu HTML:
+</p>
+
+<pre><code class="language-html">
+&lt;div class="tabs">
+    &lt;a href="#tab1" class="active">Zakładka 1&lt;/a>
+    &lt;a href="#tab2">Zakładka 2&lt;/a>
+    &lt;a href="#tab3">Zakładka 3&lt;/a>
+&lt;/div>
+
+&lt;div class="tabs-container">
+    &lt;article id="tab1" class="tab-content active">
+        &lt;h3 class="tab-title">
+            Treść pierwszej zakładki
+        &lt;/h3>
+        &lt;div class="tab-text">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque fugit itaque modi necessitatibus pariatur...
+        &lt;/div>
+    &lt;/article>
+    &lt;article id="tab2" class="tab-content">
+        &lt;h3 class="tab-title">
+            Treść drugiej zakładki
+        &lt;/h3>
+        &lt;div class="tab-text">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque fugit itaque modi necessitatibus pariatur...
+        &lt;/div>
+    &lt;/article>
+    &lt;article id="tab3" class="tab-content">
+        &lt;h3 class="tab-title">
+            Treść trzeciej zakładki
+        &lt;/h3>
+        &lt;div class="tab-text">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque fugit itaque modi necessitatibus pariatur...
+        &lt;/div>
+    &lt;/article>
+&lt;/div>
+</code></pre>
+
+<div class="tab-html-example">
+    <div class="tabs-test">
+        <a href="#tab-1a" class="active">Zakładka 1</a>
+        <a href="#tab-2a">Zakładka 2</a>
+        <a href="#tab-3a">Zakładka 3</a>
+    </div>
+
+    <div class="tabs-container">
+        <article id="tab-1a" class="tab-content-test active">
+            <h3 class="tab-title">Treść pierwszej zakładki</h3>
+            <div class="tab-text">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque fugit itaque modi necessitatibus pariatur...
+            </div>
+        </article>
+        <article id="tab-2a" class="tab-content-test">
+            <h3 class="tab-title">Treść drugiej zakładki</h3>
+            <div class="tab-text">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque fugit itaque modi necessitatibus pariatur...
+            </div>
+        </article>
+        <article id="tab-3a" class="tab-content-test">
+            <h3 class="tab-title">Treść trzeciej zakładki</h3>
+            <div class="tab-text">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque fugit itaque modi necessitatibus pariatur...
+            </div>
+        </article>
+    </div>
+</div>
+
+
+<p>
+    Jak widzisz, jest to zwykła lista linków (kotwic), które przenoszą do odpowiedniej części na stronie. Żadna idea.<br>
+    Sam wygląd zakładkom nadamy za pomocą CSS, ale zanim to zrobimy zajmijmy się skryptami.
 </p>
 
 <p>
-Jeszcze mała adnotacja, która siedzi mi w głowie.
+    Pisanie skryptów zaczynamy od załączenia do naszego kodu <a href="https://developers.google.com/speed/libraries/devguide#jquery">biblioteki jQuery</a>.
 </p>
-<p>
-W internecie znajdziesz setki tutoriali pokazujących najnowsze techniki. A to funkcja strzałkowa, a to jak korzystać z async i await, a to jak robić połączenia fetchem czy chociażby zastosowanie modułów. Małe, konkretne, piękne - jak mój pies (a i od niedawna też kot).
-</p>
-<p>
-Na grupach facebookowych w dyskusjach znajdziesz jeszcze szybciej takie techniki.
-</p>
-<p>
-Tutaj pojawia pewna sprawa, który dotyczy nie tylko JavaScript, ale i całego frontendu. Bardzo często przy takich nowoczesnych tutorialach czy poradach autorzy nie zwracają uwagi na bardzo ważną rzecz - a mianowicie na to, że dobór techniki <strong>zawsze zależy od danego projektu</strong>. To są w końcu rzeczy oczywiste.<br>
-No właśnie nie do końca. To są rzeczy oczywiste - dla nas - osób, które w tej branży siedzą już kilkanaście lat. Ale czy dla osoby zaczynającej?
-</p>
-<p>
-Jeżeli robisz bloga o nowinkach z dziedziny frontentu, raczej możesz założyć, że większość użytkowników będzie korzystała z najnowszych przeglądarek, a więc i możesz używać najnowszych rozwiązań (chociaż najlepiej było by spojrzeć w statystyki Google Analitics które można podpiąć pod stronę).<br>
-Jeżeli jednak robisz stronę dla emerytowanych nauczycieli, czy dla przykładu olbrzymi sklep z którego będą korzystali różnorodni użytkownicy z różnorodnych krajów, wtedy rzucanie się na najnowsze rozwiązania będzie strzałem w stopę.
-</p>
-<p>
-Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie CSS Grid, a czasami nawet flexbox może okazać się czymś, czego użyć nie możesz. Czasami spokojnie będziesz mógł używać najnowszej wersji JavaScript, a czasami będziesz musiał pozostać przy starszej. A jeżeli będziesz musiał pozostać przy starszej, wtedy albo będziesz pisał JavaScript trzymając się klasycznych rozwiązań, albo skorzystasz z narzędzi zamieniających twój kod na starszy zapis.
-</p>
-<p>Autorzy tutoriali często zapominają o tym, że dla początkującej osoby istnieje po prostu JavaScript. Osoby takie często nie zdają sobie sprawy, że nie wszystko w JavaScript można dowolnie używać, nie wiedzą gdzie szukać informacji które przeglądarki co wspierają, jakich narzędzi używać do zamiany kodu i po co w ogóle to robić.</p>
-<p>W kursie tym staram się trzymać klasycznego JavaScript. Jasne - im więcej wiedzy zdobędziesz, im bardziej będziesz rozbudowywał swój warsztat, tym będziesz stosował coraz nowsze i lepsze techniki pisania kodu. A wtedy - tak jak to już pisałem powyżej - będziesz się śmiał z tego kursu. Póki co polecam po prostu uczyć się JavaScript.</p>
 
-<a href="./co-to-jest-javascript.php" class="button">To co? Zaczynamy?...</a>
+<p>
+    Następnie piszemy kod obsługi zakładek:
+</p>
+
+<pre><code class="language-js">
+$(function() {
+    //dla każdego kontenera z treścią tabów dodajemy klasę js -> patrz dalej
+    $('.tabs-container').addClass('js');
+
+    $('.tabs').each(function() {
+        const $a = $(this).find('a'); //pobieram wszystkie linki-zakładki
+
+        //po kliknięciu na link...
+        $a.on('click', function(e) {
+            //podstawiamy pod zmienną $this kliknięty link
+            const $this = $(this);
+
+            //pobieramy href klikniętego linka
+            const href = $this.attr('href');
+            //pobieramy treść na którą wskazuje link
+            const $target = $(href);
+
+            //jeżeli ta treść w ogóle istnieje...
+            if ($target.length) {
+                e.preventDefault(); //przerwij domyślną czynność jeżeli istnieje zawartość zakładki - inaczej niech działa jak link
+
+                //usuwamy z sąsiednich linków klasę active
+                $this.siblings('a').removeClass('active');
+                //klikniętemu linkowi dajemy klasę active
+                $this.addClass('active');
+
+                //podobne działanie robimy dla treści tabów
+                $target.siblings('.tab-content').removeClass('active');
+                $target.addClass('active');
+            }
+        });
+    });
+});
+</code></pre>
+
+<p>
+    Pierwszą rzeczą jaką robimy to nadanie dla treści dodatkowej klasy <strong>.js</strong>. Po co?<br>
+    Jak widzisz w przykładzie HTML powyżej kolejne treści zakładek układają się standardowo jedna pod drugą. To wielka wygoda dla masochistów, którzy wyłączają JavaScript (albo mają popsute przeglądarki).<br>
+    Jeżeli nasz skrypt zadziała, chcemy by treści zakładek były domyślnie ukryte (display:none), a wyświetlana była tylko treść aktywnej zakładki.
+    <strong>.tab-content.active</strong> (display:block).
+</p>
+
+<p>
+    Po kliknięciu na link pobieramy jego atrybut href, a następnie na jego podstawie element na który wskazuje. Mając ten element możemy mu ustawić klasę <strong>.active</strong>, a wszystkim jego sąsiadom (siblings) możemy usunąć tą klasę. Podobne działanie wykonujemy dla klikniętego linka, czyli ustawiamy mu klasę .active, a jego sąsiadom ją usuwamy. Sprawa tak prosta, że chyba zmarnowałem wasz czas.
+</p>
+
+
+<pre><code class="language-css">
+/* ---- treść zakładki ---- */
+.tabs {
+    list-style-type: none;
+    margin: 5px 0 0 0;
+    padding: 0;
+    clear: both;
+    padding-bottom: 10px;
+    overflow: hidden;
+}
+.tabs a {
+    width: 20%;
+    display: inline-block;
+    height: 3em;
+    margin:2px;
+    background: #eee;
+    font-size: 1em;
+    font-weight: bold;
+    line-height: 3em;
+    text-decoration: none;
+    color: #333;
+    text-align: center;
+}
+.tabs a.active {
+    background: #EC185D;
+    color:#fff;
+}
+
+/* ---- treść zakładek ---- */
+.tabs-container {
+}
+.tabs-container .tab-content {
+}
+
+.tabs-container.js .tab-content {
+    display: none;
+    padding:1em;
+    font-size:2em;
+    background: #eee;
+    border-radius:2px;
+}
+.tabs-container.js .tab-content.active {
+    display: block;
+}
+</code></pre>
+
+<p>
+    i w zasadzie nasze zakładki są gotowe do użycia.
+</p>
+
+<div class="tabs">
+    <a href="#tab1b" class="active">Zakładka 1</a>
+    <a href="#tab2b">Zakładka 2</a>
+    <a href="#tab3b">Zakładka 3</a>
+</div>
+
+<div class="tabs-container">
+    <article id="tab1b" class="tab-content active">
+        <h3 class="tab-title">Treść pierwszej zakładki</h3>
+        <div class="tab-text">
+            Przykładowa treść pierwszej zakładki
+        </div>
+    </article>
+    <article id="tab2b" class="tab-content">
+        <h3 class="tab-title">Treść drugiej zakładki</h3>
+        <div class="tab-text">
+            Przykładowa treść drugiej zakładki
+        </div>
+    </article>
+    <article id="tab3b" class="tab-content">
+        <h3 class="tab-title">Treść trzeciej zakładki</h3>
+        <div class="tab-text">
+            Przykładowa treść trzeciej zakładki
+        </div>
+    </article>
+</div>
 
 			</div><!-- e: page-content-text -->
 			<footer class="page-footer">
@@ -165,13 +423,13 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
                 </h3>
             </div>
 
-						<div class="page-sidebar-section show has-active-element">
+						<div class="page-sidebar-section ">
 				<h3 class="page-sidebar-section-title">
 					<a href="#">Słowem wstępu</a>
 				</h3>
 				<div class="page-sidebar-list-cnt">
 					<ul class="page-sidebar-list">
-						<li class="active">
+						<li >
 							<a href="/kurs/wstep/wstep.php">Wstęp</a>
 						</li>
 						<li >
@@ -422,7 +680,7 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
 				</div>
 			</div>
 
-						<div class="page-sidebar-section ">
+						<div class="page-sidebar-section show has-active-element">
 				<h3 class="page-sidebar-section-title">
 					<a href="#">jQuery</a>
 				</h3>
@@ -437,7 +695,7 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
 						<li >
 							<a href="/kurs/jquery/jquery-ajax.php">Ajax w jQuery</a>
 						</li>
-						<li >
+						<li class="active">
 							<a href="/kurs/jquery/tabs.php">Taby w jQuery</a>
 						</li>
 						<li >

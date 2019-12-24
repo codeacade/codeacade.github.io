@@ -1,0 +1,1435 @@
+<!doctype html>
+<html lang="pl-PL">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kurs Javascript - Praca z CSS</title>
+	<meta name="description" content="Kurs Javascript dla superbohaterów, artykuły, tutoriale, porady, zadania do wykonania" />
+    <link rel="canonical" href="https://kursjs.pl/kurs/dom/style.php" />
+	<link rel="stylesheet" href="./css.css" />
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,700&display=swap&subset=latin-ext" rel="stylesheet">
+	<meta name="image" content="https://kursjs.pl/kursjs.png">
+<meta name="twitter:card" content="product">
+<meta name="twitter:site" content="@publisher_handle">
+<meta name="twitter:title" content="Kurs Javascript">
+<meta name="twitter:description" content="Kurs Javascript dla superbohaterów">
+<meta name="twitter:creator" content="@kartofelek007">
+<meta name="twitter:image" content="https://kursjs.pl/kursjs.png">
+<meta property="og:title" content="Kurs Javascript">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.kursjs.com/">
+<meta property="og:image" content="https://kursjs.pl/kursjs.png">
+<meta property="og:description" content="Kurs Javascript dla superbohaterów">
+<meta property="og:site_name" content="Kurs Javascript">
+<link rel="apple-touch-icon" sizes="57x57" href="/favicons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/favicons/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/favicons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/favicons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/favicons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/favicons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/favicons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/favicons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="/manifest.json">
+<meta name="msapplication-TileColor" content="#FF6347">
+<meta name="msapplication-TileImage" content="/mstile-144x144.png">
+    <script src="/js/jquery.min.js"></script>
+</head>
+<body>
+
+<div class="page-container" id="pageContainer">
+	<div class="page-content-wrapper">
+        <main class="page-content" id="mainContent"  data-text-for-print="Kurs Javascript dla superbohaterów">
+                        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <div class="rekl-cnt">
+                <ins
+                class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-6843603045703750"
+                data-ad-slot="4690777640"
+                data-ad-format="auto"
+                data-full-width-responsive="true"
+                ></ins>
+            </div>
+                        <div class="page-content-text">
+
+<style>
+    .module {
+        border:1px solid rgba(100,100,100,0.2);
+        padding:1rem;
+        background: rgba(255,255,255,0.1);
+        border-radius: 3px;
+        box-shadow:0 1px 3px rgba(0,0,0,0.1);
+    }
+    .module-title {
+        margin-top:0;
+        font-size:1.3rem;
+    }
+    .module-content {
+        padding-bottom:20px;
+    }
+    .module-content.none {
+        display: none;
+    }
+    .module-button {
+        margin-bottom: 0;
+    }
+</style>
+
+<h1 class="page-title">Praca z CSS</h1>
+<p>Ze stylowaniem elementów możemy działać na kilka sposobów.</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="style">Właściwość style</h2>
+<p><strong>Najczęściej spotykanym sposobem</strong> jest skorzystanie z właściwości <strong>style</strong>, którą możemy użyć do ustawiania i odczytu stylowania:</p>
+
+<pre data-line="4-7"><code class="language-js">
+const btn = document.querySelector(".button");
+
+btn.addEventListener("click", function() {
+    this.style.backgroundColor = "#4BA2EA";
+    this.style.fontSize = "1.6rem";
+    this.style.borderRadius = "3rem";
+    this.style.color = "#F7F781";
+});
+</code></pre>
+<p>
+    <button type="button" class="button" id="testStyle">Kliknij</button>
+</p>
+
+<script>
+    {
+        const btn = document.querySelector("#testStyle");
+
+        btn.addEventListener("click", function() {
+            this.style.backgroundColor = "#4BA2EA";
+            this.style.fontSize = "1.6rem";
+            this.style.borderRadius = "3rem";
+            this.style.color = "#F7F781";
+        })
+    }
+</script>
+
+<p>
+    Jeżeli właściwość składa się z jednego słowa, to zapisujemy ją tak jak w css.
+    Jeżeli właściwość składa się z kilku słów oddzielonych myślnikiem, wtedy dla takiej właściwości musimy zastosować zapis CamelCase. Możemy tutaj też zastosować zapis <a href="../obiekty/obiekty.php#rozne-odwolania">znany z obiektów</a>:
+</p>
+
+<pre><code class="language-js">
+//css
+font-size : 1rem;
+//js
+el.style.fontSize = "1rem";
+el.style['font-size'] = "1rem";
+
+
+//css
+background : linear-gradient(#fff, #ddd);
+//js
+el.style.background = "linear-gradient(#fff, #ddd)";
+el.style['background'] = "linear-gradient(#fff, #ddd)";
+
+
+//css
+background-color : rgba(255,255,255,0.5);
+//js
+el.style.backgroundColor = "rgba(255,255,255,0.5)";
+el.style['background-color'] = "rgba(255,255,255,0.5)";
+
+
+//css
+border-width : 2px
+//js
+el.style.borderWidth = "2px"
+el.style['border-width'] = "2px";
+</code></pre>
+
+<p id="przyklad1">Podobne zasady tyczą się odczytu styli, do którego używamy tej samej właściwości:</p>
+
+<pre data-line="3"><code class="language-html">
+&lt;div class="module">
+    &lt;h3 class="module-title">Przykładowa nazwa artykułu&lt;/h3>
+    &lt;div class="module-content" style="display:none">
+        Lorem ipsum dolor sit amet...
+    &lt;/div>
+    &lt;button type="button" class="button module-button" id="testShowContent">Pokaż treść&lt;/button>
+&lt;/div>
+</code></pre>
+
+<pre data-line="5"><code class="language-js">
+const btn = document.querySelector(".module-button");
+const textCnt = btn.previousElementSibling;
+
+btn.addEventListener("click", function() {
+    if (textCnt.style.display === "none") {
+        textCnt.style.display = "block";
+    } else {
+        textCnt.style.display = "none";
+    }
+});
+</code></pre>
+
+<div class="module">
+    <h3 class="module-title">Przykładowa nazwa artykułu</h3>
+    <div class="module-content" style="display:none">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta itaque doloremque reiciendis illo placeat officia voluptate, et sapiente, laboriosam tempore exercitationem velit quis quibusdam iste molestiae alias obcaecati ut natus!
+    </div>
+    <button type="button" class="button module-button" id="testShowContent">Pokaż treść</button>
+</div>
+
+<script>
+    {
+        const btn = document.querySelector("#testShowContent");
+        const textCnt = btn.previousElementSibling;
+
+        btn.addEventListener("click", function() {
+            if (textCnt.style.display === "none") {
+                textCnt.style.display = "block";
+            } else {
+                textCnt.style.display = "none";
+            }
+        });
+    }
+</script>
+
+<p>Zauważ, że początkowe ukrycie treści uzyskałem przez <strong>display:none</strong> zapisane w atrybucie style danego elementu. Wrócimy do tej sprawy <a href="#getComputedStyle">poniżej</a>.</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="setProperty-i-getPropertyValue">setProperty() i getPropertyValue()</h2>
+<p>Właściwość style udostępnia nam też dodatkowe metody, wśród których 2 kluczowe to:<br>
+<a href="https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleDeclaration/setProperty">style.setProperty(propertyName, value, priority*)</a> - służy do ustawiania stylowania. Ostatni opcjonalny parametr priority służy do ewentualnego dodania do danych styli deklaracji !important. Najczęściej jest pomijany.<br>
+<a href="https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleDeclaration/getPropertyValue">style.getPropertyValue(property)</a> -  służy do pobierania stylowania.</p>
+
+<pre><code class="language-js">
+const btn = document.querySelector(".button");
+
+btn.addEventListener("click", function() {
+    if (this.style.getPropertyValue("font-size") !== "1.5rem") {
+        this.style.setProperty("background-color", "#4BA2EA");
+        this.style.setProperty("font-size", "1.5rem");
+        this.style.setProperty("border-radius", "3rem");
+    } else {
+        this.style.setProperty("background-color", "");
+        this.style.setProperty("font-size", "");
+        this.style.setProperty("border-radius", "");
+    }
+});
+</code></pre>
+<p>
+    <button type="button" class="button" id="testSetProperty">Kliknij</button>
+</p>
+<script>
+    {
+        const btn = document.querySelector("#testSetProperty");
+        btn.addEventListener("click", function() {
+            if (this.style.getPropertyValue("font-size") !== "1.5rem") {
+                this.style.setProperty("background-color", "#4BA2EA");
+                this.style.setProperty("font-size", "1.5rem");
+                this.style.setProperty("border-radius", "3rem");
+            } else {
+                this.style.setProperty("background-color", "");
+                this.style.setProperty("font-size", "");
+                this.style.setProperty("border-radius", "");
+            }
+        });
+    }
+</script>
+
+<!-- ### -->
+<h2 class="subtitle" id="getComputedStyle">getComputedStyle()</h2>
+<p>
+    Jeżeli ustawiamy style za pomocą powyższych sposobów, są one wstawiane inline w atrybucie style danego elementu.<br>
+    Żeby to sprawdzić, odśwież stronę, przejdź do <a href="../debuger/debuger.php">debugera</a> i zbadaj przycisk z pierwszego przykładu. Kliknij na niego i zobacz jak doklejane są style.
+</p>
+
+<img src="./style-przycisku.png" alt="style przycisku" class="border space">
+
+<p>Podobna zasada tyczy się odczytu. Jeżeli dany element nie ma ustawionych styli inline (wpisanych z palca, lub za pomocą JavaScript), to nie jesteśmy w stanie ich pobrać:</p>
+
+<pre data-line="3-10"><code class="language-js">
+const btn = document.querySelector("#testInline");
+btn.addEventListener("click", function() {
+    console.log(this.style['font-size']); //wypisze ""
+    console.log(this.style.backgroundColor); //wypisze ""
+
+    this.style['font-size'] = "1.5rem"; //ustawiamy style inline
+    this.style.backgroundColor = "#4BA2EA"; //to samo z kolorem tła
+
+    console.log(this.style['font-size']); //wypisze "1.5rem"
+    console.log(this.style.backgroundColor); //wypisze "#4BA2EA"
+});
+</code></pre>
+
+<p>
+    <button type="button" class="button" id="testInline">Kliknij</button>
+</p>
+
+<script>
+    {
+        const btn = document.querySelector("#testInline");
+        btn.addEventListener("click", function() {
+            console.log(this.style['font-size']);
+            console.log(this.style.backgroundColor);
+
+            this.style['font-size'] = "1.5rem";
+            this.style.backgroundColor = "#4BA2EA";
+
+            console.log(this.style['font-size']);
+            console.log(this.style.backgroundColor);
+        });
+    }
+</script>
+
+<p>Bardzo często będziemy chcieli jednak sprawdzić lub pobrać style, które są zadeklarowane w arkuszach stylów a nie inline w kodzie HTML.
+Przykładowo powyższy przycisk ma swój wygląd (np. background), który nadała mu klasa .button z pliku ze stylami.
+</p>
+<p>Żeby pobrać takie stylowanie musimy skorzystać z funkcji <a href="https://developer.mozilla.org/pl/docs/Web/API/Window/getComputedStyle">getComputedStyle(elem, pseudoEl*)</a>, która zwraca przeliczone przez przeglądarkę stylowanie. Pierwszy parametr tej metody określa badany element, drugi - opcjonalny pozwala pobierać style dla pseudo elementów (wtedy podajemy selektor pseudoelementu jako string):</p>
+
+<pre data-line="2"><code class="language-js">
+const btn = document.querySelector(".button");
+const styleComp = getComputedStyle(btn);
+
+console.log( styleComp.getPropertyValue("height") );
+console.log( styleComp.width );
+console.log( styleComp['background-color'] );
+</code></pre>
+
+<button id="testGetCmputed" class="button" type="button">Kliknij</button>
+
+<script>
+    {
+        const btn = document.querySelector("#testGetCmputed");
+        btn.addEventListener("click", function() {
+            const styleComputed = getComputedStyle(btn);
+
+            console.log( styleComputed.getPropertyValue("height") );
+            console.log( styleComputed.width );
+            console.log( styleComputed['background-color'] );
+        });
+    }
+</script>
+
+<div class="kartofel-informuje" id="rem-w-px">
+    <p>Gdy sprawdzisz w konsoli wynik powyższego skryptu, zorientujesz się, że dane zwracane przez omawianą metodę różnią się od tego, co zostało podane w CSS.<br>
+    I tak w stylach kolor przycisku ma #f15c5c, a zwracany jest rgb(166, 14, 14). Podobnie z rozmiarem czcionki. W CSS jest on zapisany w jednostce rem, a zwracany jest w px. W tym ostatnim przypadku żeby uzyskać rezultat w rem trzeba wynik przeliczyć przez zwrócony rozmiar dla elementu html.</p>
+</div>
+
+<p>
+    Wartość style pobrana za pomocą getComputedStyle jest właściwością tylko do odczytu. Próba ustawienia za jej pomocą nowych stylów zakończy się błędem:
+
+    <img src="./getComputedStyle-error.png" alt="getComputedStyle error" class="border">
+</p>
+
+<p>Mając teorię za sobą, poprawmy <a href="#przyklad1">wcześniejszy przykład</a> i usuńmy z niego style inline:</p>
+
+<pre data-line="3"><code class="language-html">
+&lt;div class="module">
+    &lt;h3 class="module-title">Przykładowa nazwa artykułu&lt;/h3>
+    &lt;div class="module-content"> &lt;!-- usuneliśmy atrybut style -->
+        Lorem ipsum dolor sit amet...
+    &lt;/div>
+    &lt;button type="button" class="button module-button" id="testShowContent">Pokaż treść&lt;/button>
+&lt;/div>
+</code></pre>
+
+<pre data-line="6"><code class="language-js">
+const btn = document.querySelector(".button");
+const textCnt = btn.previousElementSibling;
+
+btn.addEventListener("click", function() {
+    btn.addEventListener("click", function() {
+        const styleComputed = getComputedStyle(textCnt);
+
+        if (styleComputed.display === "none") {
+            textCnt.style.display = "inline-block";
+        } else {
+            textCnt.style.display = "none";
+        }
+    });
+});
+</code></pre>
+
+<div class="module">
+    <h3 class="module-title">Przykładowa nazwa artykułu</h3>
+    <div class="module-content none">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta itaque doloremque reiciendis illo placeat officia voluptate, et sapiente, laboriosam tempore exercitationem velit quis quibusdam iste molestiae alias obcaecati ut natus!
+    </div>
+    <button type="button" class="button module-button" id="testGetComputedModule">Pokaż treść</button>
+</div>
+
+<script>
+    {
+        const btn = document.querySelector("#testGetComputedModule");
+        const textCnt = btn.previousElementSibling;
+
+        btn.addEventListener("click", function() {
+            const styleComputed = getComputedStyle(textCnt);
+            if (styleComputed.display === "none") {
+                textCnt.style.display = "inline-block";
+            } else {
+                textCnt.style.display = "none";
+            }
+        });
+    }
+</script>
+
+<p>Aby pobrać style dla pseudo elementu musimy skorzystać z drugiego parametru tej metody:</p>
+
+<pre><code class="language-css">
+.button-pseudo::before {
+    content: "";
+    width: 20px;
+    height: 20px;
+    border: 3px solid #fff;
+    background: black;
+    border-radius: 50%;
+    display: block;
+    margin-right: 10px;
+}
+</code></pre>
+
+<pre data-line="2"><code class="language-js">
+const btn = document.querySelector(".button-pseudo");
+const styleComp = getComputedStyle(btn, "::before"); //pobieram dane dla pseudoelementu
+
+console.log( styleComp.getPropertyValue("height") );
+console.log( styleComp.width );
+console.log( styleComp['background-color'] );
+</code></pre>
+
+<style>
+    .button-pseudo {
+        display: flex;
+        align-items: center;
+    }
+    .button-pseudo::before {
+        content: "";
+        width: 20px;
+        height: 20px;
+        border: 3px solid #fff;
+        background: black;
+        border-radius: 50%;
+        display: block;
+        margin-right: 10px;
+    }
+</style>
+
+<button id="testGetCmputedPseudo" class="button button-pseudo" type="button">Kliknij</button>
+
+<script>
+    {
+        const btn = document.querySelector("#testGetCmputedPseudo");
+        btn.addEventListener("click", function() {
+            const styleComputed = getComputedStyle(btn, "::before");
+
+            console.log( styleComputed.height );
+            console.log( styleComputed.width );
+            console.log( styleComputed.backgroundColor );
+        });
+    }
+</script>
+
+
+<!-- ### -->
+<h2 class="subtitle" id="classList">classList</h2>
+<div class="kartofel-informuje">
+    <p>
+    W powyższych przykładach ustawialiśmy właściwości css za pomocą JavaScript. Niema co ukrywać - w dzisiejszych czasach starsze zasady tworzenia stron się nieco rozmywają. Jedna z takich zasad mówiła o oddzieleniu warstw od siebie. HTML to treść dokumentu, JavaScript odpowiada za manipulowanie taką treścią i dodawanie interakcji. Za wygląd odpowiedzialny jest CSS.<br>
+    Właśnie dlatego w wielu przypadkach ustawianie wyglądu powinno się odbywać za pomocą CSS - a dokładnie klas w css, a JavaScript powinien tylko odpowiednio manipulować tymi klasami - dodawać je, odejmować itp. Dzięki temu jeżeli w przyszłości najdzie konieczność np. zmiany sposobu zmiany danego przycisku, zmienisz tylko odpowiednie klasy w CSS, a JavaScript zostawisz w spokoju.
+    </p>
+</div>
+
+<p>
+    Aby zarządzać klasami css danego elementu użyjemy właściwości <strong>classList</strong>, która udostępnia nam kilka metod:
+</p>
+
+<table class="tab">
+    <tr>
+        <th><strong>add("nazwa-klasy")</strong></th>
+        <td>dodawanie klasy</td>
+    </tr>
+    <tr>
+        <th><strong>remove("nazwa-klasy")</strong></th>
+        <td>usuwanie klasy</td>
+    </tr>
+    <tr>
+        <th><strong>toggle("nazwa-klasy")</strong></th>
+        <td>przełączanie (jak nie ma to dodaje, jak jest to usuwa) klasy</td>
+    </tr>
+    <tr>
+        <th><strong>contains("nazwa-klasy")</strong></th>
+        <td>sprawdza czy element ma taką klasę</td>
+    </tr>
+</table>
+
+<pre><code class="language-js">
+const btn = document.querySelector('.btn');
+
+btn.classList; //zwraca pseudo tablicę z nazwami klas
+btn.classList.add('btn'); //dodaję klasę .btn
+btn.classList.remove('btn'); //usuwam klasę .btn
+btn.classList.toggle('btn'); //przełączam (dodaję lub usuwam) klasę .btn
+btn.classList.contains('btn'); //sprawdzam czy dany element ma klasę .btn
+</code></pre>
+
+<p>Przykładowo mamy przycisk, który działa jak przełącznik. Po kliknięciu włączamy lub wyłączamy tryb
+edytowania jakiś pól:</p>
+
+<pre><code class="language-js">
+const btn = document.querySelector('.btn-test-edit');
+
+btn.addEventListener('click', function() {
+    this.classList.toggle('editable'); //przełączam klasę buttonowi
+
+    const inputs = this.form.querySelectorAll('input, textarea');
+
+    if (this.classList.contains('editable')) { //sprawdzam czy button ma klasę
+        //włącz tryb edytowania
+        this.form.classList.add("edited");
+        this.innerText = "Zakończ";
+
+        for (const inp of inputs) {
+            inp.disabled = false;
+        }
+    } else {
+        //wyłącz tryb edytowania
+        this.form.classList.remove("edited");
+        this.innerText = "Edytuj";
+
+        for (const inp of inputs) {
+            inp.disabled = true;
+        }
+    }
+});
+</code></pre>
+
+<form class="form">
+    <div class="row">
+        <div class="col-1-1">
+            <button type="button" class="button btn-test-edit">Edytuj</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-1-2">
+            <input type="text" disabled />
+        </div>
+        <div class="col-1-2">
+            <input type="text" disabled />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-1-3">
+            <input type="text" disabled />
+        </div>
+        <div class="col-1-3">
+            <input type="text" disabled />
+        </div>
+        <div class="col-1-3">
+            <input type="text" disabled />
+        </div>
+    </div>
+</form>
+
+<style>
+    .form.edited {
+        border:2px solid tomato;
+    }
+</style>
+
+<script>
+    {
+        const btn = document.querySelector('.btn-test-edit');
+        btn.addEventListener('click', function() {
+            this.classList.toggle('editable');
+            const inputs = this.form.querySelectorAll('input, textarea');
+
+            if (this.classList.contains('editable')) {
+                //włącz tryb edytowania
+                for (const inp of inputs) {
+                    inp.disabled = false;
+                }
+                this.form.classList.add("edited");
+                this.innerText = "Zakończ";
+            } else {
+                //wyłącz tryb edytowania
+                for (const inp of inputs) {
+                    inp.disabled = true;
+                }
+                this.form.classList.remove("edited");
+                this.innerText = "Edytuj";
+            }
+        });
+    }
+</script>
+
+<!-- ### -->
+<h2 class="subtitle" id="className">className</h2>
+<p>
+    Właściwość <strong>className</strong> zwraca nam jako tekst wszystkie klasy jakie posiada dany element:
+</p>
+
+<pre><code class="language-js">
+const btn = document.querySelector('.btn');
+console.log(btn.className); //btn btn-primary
+</code></pre>
+
+<p>W czasach gdy wsparcie dla classList było marginalne, była to główna właściwość, która pozwalała zarządzać klasami. Każdy taki manewr wymagał dodatkowego kodu:</p>
+
+<pre><code class="language-js">
+const btn = document.querySelector('.btn');
+const classText = "nazwaKlasy";
+
+//add
+btn.className += " "+classText;
+
+//remove
+const classText = classText;
+const regPattern = new RegExp('(\\s|^)'+classText+'(\\s|$)');
+btn.className = btn.className.replace(regPattern, '');
+
+//contains
+if (btn.className.indexOf('btn')!==-1) {
+    console.log('Przycisk ma klasę btn');
+}
+
+//toggle
+if (btn.className.indexOf('btn')!==-1) {
+    btn.className += " "+classText;
+} else {
+    const regPattern = new RegExp('(\\s|^)'+classText+'(\\s|$)');
+    btn.className = btn.className.replace(regPattern, '');
+}
+</code></pre>
+
+<p>
+    Ogólnie nie polecam stosować tej właściwości do manipulacji klasami,
+    a tylko do ewentualnego odczytu nazwy klasy.
+</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="zmienne-w-css">Zmienne w CSS</h2>
+<p>
+    CSS także doczekał się swoich <a href="https://developer.mozilla.org/pl/docs/Web/CSS/Uzycie_zmiennych_CSS">zmiennych</a>. Ich podstawowe użycie ma postać:
+</p>
+
+<pre><code class="language-css">
+:root {
+    --color : red; /* zmienne deklarujemy poprzedzając ich nazwę -- */
+}
+
+.module-error {
+    border:1px solid var(--color); /* a używamy ze słowem var */
+    box-shadow: 0 1px 3px var(--color);
+}
+.module-error-title {
+    color: var(--color);
+}
+</code></pre>
+
+<p>
+    Zmienne w CSS zachowują się mniej więcej tak jak zmienne w JS - czyli ich zasięg jest dostępny dla coraz bardziej zagnieżdżonych elementów (tak jak zmienne w JS są dostępne dla coraz bardziej zagnieżdżonych funkcji).
+</p>
+<p>
+    W powyższym kodzie zadeklarowałem pojedynczą zmienną w elemencie :root. Element taki dla stron jest równoznaczny z html (można pisać tak i tak). Dzięki temu zmienna taka jest dostępna dla całego dokumentu.
+</p>
+
+<p>
+    Takie zmienne możemy też deklarować w każdy elemencie z osobna. Dzięki temu dostępne są one tylko w tym elemencie (i dla jego dzieci):
+</p>
+
+<pre><code class="language-css">
+.header {
+    --font-size: 14px; /* zmienne dostępne tylko dla .header i jego dzieci */
+    --color1: #222;
+    --color2: #000;
+    --color-link : #fff;
+
+    background: linear-gradient(var(--color1), var(--color2));
+}
+
+.header a {
+    color: var(--color-link); /* ok */
+}
+
+.element {
+    /* jeżeli ten element nie jest w header to nie ma dostępu do powyższych zmiennych */
+}
+</code></pre>
+
+<p>Zmienne CSS dają olbrzymie możliwości ich manipulacji. Możemy zmieniać ich wartość za pomocą zdarzeń :hover, :focus (i podobnych), możemy je zmieniać w kolejnych deklaracjach @media, a także za pomocą JavaScriptu.</p>
+
+<pre><code class="language-css">
+.element {
+    --color: red;
+
+    transition: 0.5s;
+    background: var(--color);
+}
+
+.element:hover {
+    --color : blue;
+}
+
+.element:focus {
+    --color : pink;
+}
+
+@media (max-width:500px) {
+    .element {
+        --color : yellow;
+    }
+}
+</code></pre>
+
+<pre><code class="language-js">
+const elem = document.querySelector('.element');
+elem.style.setProperty("--color", "black");
+</code></pre>
+
+<p>Poniżej zamieszczam kilka przykładów jak to można wykorzystać w praktyce.</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="zmienne-w-css-przyklad1">Przykład 1 - zmiana koloru</h2>
+
+<p>W pierwszym przykładzie za pomocą inputa typu color zmieniamy właściwości elementu:</p>
+
+<div class="element">
+    Zmień kolor i najedź kursorem
+</div>
+
+<input type="color" class="color" value="#1E90FF">
+
+<style>
+    .element {
+        --color : dodgerblue;
+        border: 2px solid var(--color);
+        color: var(--color);
+        height:5rem;
+        padding:0 1rem;
+        display: flex;
+        align-items: center;
+        font-weight: bold;
+        text-transform: uppercase;
+        font-family: sans-serif;
+        position: relative;
+        background: #eee;
+        border-radius: 5px;
+        overflow: hidden;
+        transition: 0.5s;
+    }
+    .element:hover {
+        background-color: var(--color);
+        color: #fff;
+    }
+    input[type="color"] {
+        width:50px;
+        height:50px;
+        margin-top:10px;
+    }
+</style>
+
+<script>
+{
+    const element = document.querySelector('.element');
+
+    const color = document.querySelector('.color');
+    color.addEventListener('change', function() {
+        element.style.setProperty('--color', this.value)
+    });
+}
+</script>
+
+<pre><code class="language-html">
+&lt;div class="element">
+    Zmień kolor i najedź kursorem
+&lt;/div>
+
+&lt;input type="color" class="color">
+</code></pre>
+
+<pre><code class="language-css">
+.element {
+    --color : red;
+
+    border: 2px solid var(--color);
+    color: var(--color);
+    padding: 30px;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-family: sans-serif;
+    position: relative;
+    background: #eee;
+    transition: 0.5s;
+}
+.element:hover {
+    background-color: var(--color);
+    color: #fff;
+}
+</code></pre>
+
+<pre><code class="language-js">
+const element = document.querySelector('.element');
+
+const color = document.querySelector('.color');
+color.addEventListener('change', function() {
+    element.style.setProperty('--color', this.value)
+})
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="zmienne-w-css-przyklad2">Przykład 2 - losowa pozycja</h2>
+
+<button type="button" class="button-move">
+    Zamknij reklamę
+</button>
+
+<style>
+.button-move {
+    --ml : 0px;
+    padding:0.5rem 1rem;
+    transform:  translate(var(--ml));
+    transition: 0.3s;
+}
+</style>
+
+<script>
+{
+    const element = document.querySelector('.button-move');
+
+    setInterval(function() {
+        element.style.setProperty('--ml', Math.random() * 300 + "px");
+    }, 300)
+}
+</script>
+
+<pre><code class="language-html">
+&lt;button type="button" class="button-move">
+    Zamknij reklamę
+&lt;/button>
+</code></pre>
+
+<pre><code class="language-css">
+.button-move {
+    --ml : 0px;
+
+    padding:0.5rem 1rem;
+    transform:  translate(var(--ml));
+    transition: 0.3s;
+}
+</code></pre>
+
+<pre><code class="language-js">
+const element = document.querySelector('.button-move');
+
+setInterval(function() {
+    element.style.setProperty('--ml', Math.random() * 300 + "px");
+}, 300)
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="zmienne-w-css-przyklad3">Przykład 3 - zmiana po najechaniu</h2>
+<p>
+    W kolejnym przykładzie pobieramy pozycję kursora na elemencie i ustawiamy mu pozycję pseudoelementu z gradientem. Dodatkowo na hover zmieniamy jego wielkość:
+</p>
+
+<button type="button" class="button-test">
+    <span>KLIK</span>
+</button>
+
+<style>
+    .button-test {
+        --size: 0;
+        --left: 0;
+        --top: 0;
+
+        border: 0;
+        padding: 20px 70px;
+        border-radius: 50px;
+        text-transform: uppercase;
+        font-family: sans-serif;
+        color: #fff;
+        overflow: hidden;
+        position: relative;
+        background-color: tomato;
+    }
+
+    .button-test span {
+        position: relative;
+        z-index: 1;
+    }
+
+    .button-test:hover {
+        --size: 400px;
+    }
+
+    .button-test:after {
+        content: '';
+        position: absolute;
+        left: var(--left);
+        top: var(--top);
+        width: var(--size);
+        height: var(--size);
+        background: radial-gradient(circle closest-side, #4405f7, tomato 60%);
+        background-repeat: no-repeat;
+        transform: translate(-50%, -50%);
+        transition: 0.5s width, 0.5s height;
+        z-index: 0;
+    }
+</style>
+
+<script>
+    var element = document.querySelector('.button-test');
+
+    element.addEventListener('mousemove', function(e) {
+        const rect = this.getBoundingClientRect();
+        this.style.setProperty('--left', e.pageX - (rect.left + window.scrollX) + "px");
+        this.style.setProperty('--top', e.pageY - (rect.top + window.scrollY) + "px");
+    })
+</script>
+
+<pre><code class="language-html">
+&lt;button type="button" class="button-test">
+    &lt;span>KLIK&lt;/span>
+&lt;/button>
+</code></pre>
+
+<pre><code class="language-css">
+.button-test {
+    --size: 0;
+    --left: 0;
+    --top: 0;
+
+    border: 0;
+    padding: 20px 70px;
+    border-radius: 50px;
+    text-transform: uppercase;
+    font-family: sans-serif;
+    color: #fff;
+    overflow: hidden;
+    position: relative;
+    background-color: tomato;
+}
+
+.button-test span {
+    position: relative;
+    z-index: 1;
+}
+
+.button-test:hover { /* wielkość gradientu zwiększam na hover */
+    --size: 400px;
+}
+
+.button-test:after {
+    content: '';
+    position: absolute;
+    left: var(--left);
+    top: var(--top);
+    width: var(--size);
+    height: var(--size);
+    background: radial-gradient(circle closest-side, #4405f7, tomato 60%);
+    background-repeat: no-repeat;
+    transform: translate(-50%, -50%);
+    transition: 0.3s width, 0.3s height;
+    z-index: 0;
+}
+</code></pre>
+
+<pre><code class="language-js">
+const element = document.querySelector('.button-test');
+
+element.addEventListener('mousemove', function(e) {
+    this.style.setProperty('--left', e.pageX - this.offsetLeft + "px");
+    this.style.setProperty('--top', e.pageY - this.offsetTop + "px");
+})
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="zmienne-w-css-przyklad4">Przykład 4 - zmiana pozycji elementów</h2>
+<p>
+    Ostatni przykład możesz <a href="http://domanart.pl/dema/super-szamson/super-szamson.html">zobaczyć na oddzielnej stronie</a>. To jeden z moich eksperymentów odnośnie animacji w CSS. Tutaj także wykorzystałem powyższe techniki do animowania elementów.
+</p>
+
+
+			</div><!-- e: page-content-text -->
+			<footer class="page-footer">
+				<p>
+				Wszelkie prawa zastrzeżone. Jeżeli chcesz używać jakiejś części tego kursu, skontaktuj się z <a href="/kurs/autor.php">autorem</a>.
+				Aha - i ta strona korzysta z <a href="/kurs/polityka-prywatnosci.php">ciasteczek</a>.
+				</p>
+			</footer>
+							<div class="rekl-cnt">
+					<ins
+					class="adsbygoogle" style="margin-top:40px; display:block"
+					data-ad-client="ca-pub-6843603045703750"
+					data-ad-slot="4690777640"
+					data-ad-format="auto"
+					data-full-width-responsive="true"
+					></ins>
+				</div>
+				<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+	(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+					</main><!-- e: page-content -->
+			</div><!-- e: page-content-wrapper -->
+    <aside id="page-sidebar-cnt" class="page-sidebar-cnt">
+	<div id="page-sidebar" class="page-sidebar">
+		<button aria-label="Pokaż/ukryj Menu" aria-expanded="false" aria-controls="page-sidebar" type="button" id="pageSidebarBurger" class="page-sidebar-burger">
+			<span></span>
+		</button>
+
+		<h2 class="visuallyhidden">
+			Menu
+		</h2>
+
+		<button class="sidebar-toggle-btn" title="Pokaż/schowaj menu" aria-hidden="true">
+			<strong>Pokaż/ukryj menu</strong>
+			<span></span>
+			<span></span>
+			<span></span>
+		</button>
+
+		<div class="page-sidebar-title">
+			<a href="/kurs/kontakt.php" title="Nawrzucaj autorowi" class="mail-to-author" id="mailToAuthor">Napisz do mnie</a>
+			<a href="#popupOptions" class="page-setup-link popupOpen" title="Ustawienia strony" id="showOptions">Ustawienia</a>
+			<a href="/index.php" aria-label="Strona główna" class="page-sidebar-title-link">Kurs Javascript</a>
+		</div>
+
+        <form aria-label="Wyszukiwarka" class="search-sidebar" action="/search.php" method="post">
+            <label for="search" class="search-sidebar-label">Szukaj</label>
+            <div class="search-sidebar-input-cnt">
+                <svg class="search-sidebar-input-icon" xmlns="http://www.w3.org/2000/svg" width="26" height="28" viewBox="0 0 26 28" aria-hidden="true">
+                    <path d="M18 13c0-3.859-3.141-7-7-7s-7 3.141-7 7 3.141 7 7 7 7-3.141 7-7zm8 13c0 1.094-.906 2-2 2a1.96 1.96 0 0 1-1.406-.594l-5.359-5.344a10.971 10.971 0 0 1-6.234 1.937c-6.078 0-11-4.922-11-11s4.922-11 11-11 11 4.922 11 11c0 2.219-.672 4.406-1.937 6.234l5.359 5.359c.359.359.578.875.578 1.406z"></path>
+                </svg>
+                <input type="text" id="search" autocomplete="off" name="q" class="search-sidebar-input">
+            </div>
+            <button type="submit" class="search-sidebar-button">Szukaj</button>
+        </form>
+
+		<div class="page-sidebar-table-of-content">
+			<h2 class="visuallyhidden">Spis treści</h2>
+            <div class="page-sidebar-section">
+				<h3 class="page-sidebar-section-title noopen">
+                    <a href="/index.php">Strona główna</a>
+                </h3>
+            </div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Słowem wstępu</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/wstep/wstep.php">Wstęp</a>
+						</li>
+						<li >
+							<a href="/kurs/wstep/co-to-jest-javascript.php">Co to jest JavaScript i z czym go się je?</a>
+						</li>
+						<li >
+							<a href="/kurs/wstep/wymagania.php">Wymagania</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Super podstawy</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/debuger/debuger.php">Debuger</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/pierwszy-skrypt.php">Wstawiamy skrypty na naszą stronę</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/strict-mode.php">Strict mode</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/typy-danych.php">Typy danych i konwersja danych</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/zmienne.php">Zmienne</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/operatory.php">Operatory</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/math.php">Obiekt Math</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/string.php">String - teksty</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/instrukcje-warunkowe.php">Instrukcje warunkowe</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/petle.php">Pętle</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/funkcje.php">Funkcje</a>
+						</li>
+                        <li >
+							<a href="/kurs/super-podstawy/funkcje-tematy-dodatkowe.php">Funkcje - tematy dodatkowe</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/tablice.php">Tablice</a>
+						</li>
+                        <li >
+							<a href="/kurs/super-podstawy/tablice-iteracje.php">Tablice pętle</a>
+						</li>
+						<li >
+							<a href="/kurs/debuger/debugowanie.php">Debugowanie kodu</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+            			<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Obiekty</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+                        <li >
+							<a href="/kurs/obiekty/obiekty.php">Obiekty i this</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-jak-to-dziala.php">Jak to działa</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-konstruktor.php">Konstruktor</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-zaawansowane-this.php">Zaawansowane this</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-dziedziczenie.php">Dziedziczenie w Javascript</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-inne-sposoby-tworzenia.php">Inne sposoby tworzenia obiektów</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-instanceof-hasownproperty.php">instanceof i hasOwnProperty</a>
+						</li>
+                    </ul>
+                </div>
+            </div>
+
+						<div class="page-sidebar-section show has-active-element">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">DOM i zdarzenia</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/dom/dom.php">Document Object Model</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-wlasciwosci.php">Właściwości elementów</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-relacje.php">Relacje między elementami</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-tworzenie-i-usuwanie.php">Tworzenie i usuwanie elementów</a>
+						</li>
+                        <li class="active">
+                            <a href="/kurs/dom/style.php">Style w CSS</a>
+                        </li>
+						<li >
+							<a href="/kurs/events/events.php">Zdarzenia</a>
+						</li>
+						<li >
+							<a href="/kurs/events/events-keys.php">Zdarzenia - klawisze</a>
+						</li>
+						<li >
+							<a href="/kurs/events/events-mouse.php">Zdarzenia - myszka</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/projekt-todo.php">Projekt TODO</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/slider.php">Tworzymy slider</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Prawie podstawy</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/grafika/grafika-na-stronie.php">Grafika na stronie</a>
+						</li>
+						<li >
+							<a href="/kurs/intervals/intervals.php">setTimeout i setInterval</a>
+						</li>
+						<li >
+							<a href="/kurs/match-media.php">Praca z RWD</a>
+						</li>
+						<li >
+							<a href="/kurs/okna-dialogowe.php">Okienka dialogowe</a>
+						</li>
+						<li >
+							<a href="/kurs/okna.php">Tworzenie nowych okien</a>
+						</li>
+						<li >
+							<a href="/kurs/date/date.php">Obiekt Date</a>
+						</li>
+						<li >
+							<a href="/kurs/date/date-calendar.php">Tworzymy kalendarz</a>
+						</li>
+						<li >
+							<a href="/kurs/cookies/cookie.php">Obiekt Cookie</a>
+						</li>
+						<li >
+							<a href="/kurs/storage/storage.php">Storage</a>
+						</li>
+						<li >
+							<a href="/kurs/regular.php">Wyrażenia regularne</a>
+						</li>
+						<li >
+							<a href="/kurs/formularze/formularze.php">Formularze</a>
+						</li>
+						<li >
+							<a href="/kurs/formularze/formularze-walidacja.php">Formularze - walidacja</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Ajax</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/ajax/ajax.php">AJAX, REST, JSON</a>
+						</li>
+						<li >
+							<a href="/kurs/ajax/xmlhttprequest.php">XMLHttpRequest</a>
+						</li>
+            			<li >
+							<a href="/kurs/ajax/fetch.php">Fetch API</a>
+						</li>
+						<li >
+							<a href="/kurs/ajax/formularz-kontaktowy.php">Dynamiczny formularz kontaktowy</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Nowy Javascript</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/es6/ecma-script-2015.php">ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/webpack.php">Webpack</a>
+						</li>
+                        <li >
+            				<a href="/kurs/es6/obiekty-w-es6.php">Obiekty w ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/funkcja-strzalkowa.php">Funkcja strzałkowa</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/spread-rest.php">Spread i rest</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/template-strings.php">Template strings</a>
+						</li>
+						<li >
+            				<a href="/kurs/es6/destructuring.php">Dekompozycja</a>
+        				</li>
+						<li >
+							<a href="/kurs/es6/class.php">Klasy w ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/promises.php">Promises</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/async-await.php">Async/Await</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/symbole.php">Symbole</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">jQuery</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/jquery/jquery.php">jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/animacje-w-jquery.php">Animacje w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/jquery-ajax.php">Ajax w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/tabs.php">Taby w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/plugin.php">Karuzela w jQuery</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Canvas</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/canvas/canvas.php">Canvas</a>
+						</li>
+						<li >
+							<a href="/kurs/canvas/canvas-images.php">Grafika w canvas</a>
+						</li>
+						<li >
+						<a href="/kurs/canvas/canvas-paint.php">Praktycznie : Paint w canvas</a>
+						</li>
+
+						<li >
+							<a href="/kurs/canvas/canvas-animacja.php">Animacja w canvas</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Gry</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/gry/hangman/hangman.php">Szubienica</a>
+						</li>
+						<li >
+							<a href="/kurs/gry/memory/memory.php">Memory</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+            			<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Inne</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/dodatkowe-materialy.php">Dodatkowe materiały</a>
+						</li>
+						<li >
+							<a href="/kurs/faq.php">FAQ</a>
+						</li>
+						<li >
+							<a href="/kurs/polityka-prywatnosci.php">Polityka prywatności</a>
+						</li>
+						<li >
+							<a href="/kurs/autor.php">O autorze</a>
+						</li>
+						<li >
+							<a href="/kurs/kontakt.php">Kontakt</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="page-sidebar-section">
+                <a class="special-link" href="/kurs/autor.php#donate">Wesprzyj kurs</a>
+            </div>
+		</div>
+	</div>
+</aside></div><!-- e: page-container -->
+
+<div class="popup" id="popupOptions">
+	<div class="popup-inside">
+        <div class="popup-container-cnt">
+            <div class="popup-container">
+                <button class="popup-close">Zamknij</button>
+
+                <h2 class="popup-title">
+                    Opcje
+                </h2>
+
+                <div class="popup-content">
+                    <form class="form-options">
+                        <div class="form-option">
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <label for="optionsThemeSelect">Wybierz skórkę dla listingów</label>
+                                    <select id="optionsThemeSelect"></select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <pre><code class="language-js">
+                                //tak będzie wyglądał kod
+
+                                function test() {
+                                    for (let i=0; i&lt;10; i++) {
+                                        console.log("Tekst numer ", 1);
+                                    }
+                                }
+
+                                test();
+                                </code></pre>
+                            </div>
+                            <div class="form-row" id="themeLightModeRow">
+                                <div class="form-col">
+                                    <label for="themeLightMode">
+                                        Tryb dzienny / nocny
+                                    </label>
+
+                                    <div class="light-mode-el">
+                                        <input type="checkbox" id="themeLightMode">
+                                        <span class="light-mode"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+	</div>
+</div>
+<script async defer src="https://www.googletagmanager.com/gtag/js?id=UA-38558970-5"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-38558970-5');
+</script>
+
+	<script src="/js/ads.js"></script>
+	<script src="/js/script.min.js?v=0.13" defer></script>
+</body>
+</html>

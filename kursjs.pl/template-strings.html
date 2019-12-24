@@ -3,9 +3,9 @@
 <head>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Kurs Javascript - Wstęp</title>
+    <title>Kurs Javascript - Interpolacja stringów</title>
 	<meta name="description" content="Kurs Javascript dla superbohaterów, artykuły, tutoriale, porady, zadania do wykonania" />
-    <link rel="canonical" href="https://kursjs.pl/kurs/wstep/wstep.php" />
+    <link rel="canonical" href="https://kursjs.pl/kurs/es6/template-strings.php" />
 	<link rel="stylesheet" href="./css.css" />
     <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,700&display=swap&subset=latin-ext" rel="stylesheet">
 	<meta name="image" content="https://kursjs.pl/kursjs.png">
@@ -57,49 +57,384 @@
             </div>
                         <div class="page-content-text">
 
+<h1 class="page-title">Interpolacja stringów</h1>
+<p>Do tej pory poznaliśmy dwa sposoby zapisu stringów:</p>
 
-<h1 class="page-title">Wstęp</h1>
-<p>
-Bardzo krótki wstęp ^^.<br /><br />
-Kurs ten jest o Javascripcie. Uhh...
-</p>
-<p>
-Wiedz, że nie staram się tutaj tworzyć największego i najlepszego kursu o JavaScript w internecie.<br>
-Ten kurs to twór jednego człowieka.
-Nie mam szans i nie chcę konkurować z molochami takimi jak <a href="https://developer.mozilla.org/pl/">MDN</a>, <a href="https://www.udemy.com/">Udemy</a>, <a href="https://eduweb.pl/">EduWeb</a> czy <a href="https://www.w3schools.com/js/default.asp">w3schools</a>.<br>
-<br><br>
-Nie znajdziesz tutaj wszystkiego z zakresu JavaScript. <br>
-Po jakimś czasie będziesz chciał wiele rzeczy tutaj pokazanych tworzyć inaczej - lepiej.<br>
-Im większy progres będziesz zdobywał stwierdzisz, że wiele rozdziałów można było napisać o wiele lepiej. I dobrze.<br><br>
+<pre><code class="language-js">
+const var1 = 1;
+const var2 = 2;
 
-W każdym bądź razie - jeżeli ta strona jakoś ci posłuży - to tylko plus. Jeżeli nie - po prostu skorzystaj z innego kursu - na rynku jest tego od groma (niektóre wymieniłem <a href="../dodatkowe-materialy.php">tutaj</a>) i każdy znajdzie coś dla siebie. Ja sam mam kilka w swojej kolekcji i twierdzę, że są naprawdę dobre.
-<br><br>
-</p>
+const text1 = "Ala ma " + var1 + " kota i " + var2 + " psy.";
+const text2 = 'Ala ma ' + var1 + ' kota i ' + var2 + ' psy.';
+</code></pre>
+
+<p>Podstawowy problem z tego typu zapisem jest taki, że ciężko się wstawia do nich zmienne,
+a i tworzenie wieloliniowych ciągów do najprzyjemniejszych nie należy:</p>
+
+<pre><code class="language-js">
+const html  = "&lt;div class=\"module\">";
+      html += "    &lt;div class="module-header">";
+      html += "        &lt;h2 class="module-title">" + title + "&lt;/h2>";
+      html += "    &lt;/div>";
+      html += "    &lt;div class="module-content">";
+      html += "         &lt;div>" + content + "&lt;/div>";
+      html += "    &lt;/div>";
+      html += "&lt;/div>";
+</code></pre>
 
 <p>
-Jeszcze mała adnotacja, która siedzi mi w głowie.
+Możemy posiłkować się pojedynczymi apostrofami i znakiem nowej linii:
 </p>
-<p>
-W internecie znajdziesz setki tutoriali pokazujących najnowsze techniki. A to funkcja strzałkowa, a to jak korzystać z async i await, a to jak robić połączenia fetchem czy chociażby zastosowanie modułów. Małe, konkretne, piękne - jak mój pies (a i od niedawna też kot).
-</p>
-<p>
-Na grupach facebookowych w dyskusjach znajdziesz jeszcze szybciej takie techniki.
-</p>
-<p>
-Tutaj pojawia pewna sprawa, który dotyczy nie tylko JavaScript, ale i całego frontendu. Bardzo często przy takich nowoczesnych tutorialach czy poradach autorzy nie zwracają uwagi na bardzo ważną rzecz - a mianowicie na to, że dobór techniki <strong>zawsze zależy od danego projektu</strong>. To są w końcu rzeczy oczywiste.<br>
-No właśnie nie do końca. To są rzeczy oczywiste - dla nas - osób, które w tej branży siedzą już kilkanaście lat. Ale czy dla osoby zaczynającej?
-</p>
-<p>
-Jeżeli robisz bloga o nowinkach z dziedziny frontentu, raczej możesz założyć, że większość użytkowników będzie korzystała z najnowszych przeglądarek, a więc i możesz używać najnowszych rozwiązań (chociaż najlepiej było by spojrzeć w statystyki Google Analitics które można podpiąć pod stronę).<br>
-Jeżeli jednak robisz stronę dla emerytowanych nauczycieli, czy dla przykładu olbrzymi sklep z którego będą korzystali różnorodni użytkownicy z różnorodnych krajów, wtedy rzucanie się na najnowsze rozwiązania będzie strzałem w stopę.
-</p>
-<p>
-Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie CSS Grid, a czasami nawet flexbox może okazać się czymś, czego użyć nie możesz. Czasami spokojnie będziesz mógł używać najnowszej wersji JavaScript, a czasami będziesz musiał pozostać przy starszej. A jeżeli będziesz musiał pozostać przy starszej, wtedy albo będziesz pisał JavaScript trzymając się klasycznych rozwiązań, albo skorzystasz z narzędzi zamieniających twój kod na starszy zapis.
-</p>
-<p>Autorzy tutoriali często zapominają o tym, że dla początkującej osoby istnieje po prostu JavaScript. Osoby takie często nie zdają sobie sprawy, że nie wszystko w JavaScript można dowolnie używać, nie wiedzą gdzie szukać informacji które przeglądarki co wspierają, jakich narzędzi używać do zamiany kodu i po co w ogóle to robić.</p>
-<p>W kursie tym staram się trzymać klasycznego JavaScript. Jasne - im więcej wiedzy zdobędziesz, im bardziej będziesz rozbudowywał swój warsztat, tym będziesz stosował coraz nowsze i lepsze techniki pisania kodu. A wtedy - tak jak to już pisałem powyżej - będziesz się śmiał z tego kursu. Póki co polecam po prostu uczyć się JavaScript.</p>
 
-<a href="./co-to-jest-javascript.php" class="button">To co? Zaczynamy?...</a>
+<pre><code class="language-js">
+const html  = '\
+&lt;div class=\"module\"> \
+   &lt;div class="module-header"> \
+       &lt;h2 class="module-title">' + title + '&lt;/h2> \
+   &lt;/div> \
+   &lt;div class="module-content"> \
+        &lt;div>' + content + '&lt;/div> \
+   &lt;/div> \
+&lt;/div>';
+</code></pre>
+<p>
+    ...ale wciąż nie jest to najwygodniejsze rozwiązanie.
+</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="interpolated-strings">Stringi interpolowane</h2>
+<p>Ecmascript 2015 wprowadza nowy sposób tworzenia stringów za pomocą tak zwanych <strong>backtick</strong> (na klawiaturach znaczek tuż nad tyldą):</p>
+
+<pre><code class="language-js">
+const var1 = 1;
+const var2 = 2;
+
+const text = `Ala ma ${var1} kota i ${var2} psy.`;
+</code></pre>
+
+<p>
+    Bezpośrednio do takiego tekstu możemy wstawiać kod JavaScript, w tym wywoływanie funkcji, zmienne itp.
+    Jak widzisz powyżej robi się to za pomocą znaku dolara i klamer <strong>${....}</strong>, między które trafia kod JavaScript:
+</p>
+
+<pre><code class="language-js">
+const dayData = {
+    temp : 23,
+    weather : 'pogodna'
+}
+
+function calculateWeather() {
+    return "bardzo ładna :)"
+}
+
+const text = `
+    Dzisiaj jest ${ (new Date()).getFullYear() }.
+    Na dworze jest temperatura ${ dayData.temp }
+    A pogoda jest ${ calculateWeather() }
+`;
+</code></pre>
+
+<p>
+    Ta metoda tworzenia ciągów znaków idealnie się nadaje do tworzenia
+    kawałków kodu html. To z czym się wcześniej męczyliśmy, teraz
+    wygląda o wiele lepiej:
+</p>
+
+<pre><code class="language-js">
+const text = `
+    &lt;div class="module">
+        &lt;div class="module-header">
+            &lt;h2 class="module-title"> ${title} &lt;/h2>
+        &lt;/div>
+        &lt;div class="module-content">
+            &lt;div>${content}&lt;/div>
+        &lt;/div>
+    &lt;/div>`;
+</code></pre>
+
+
+<div class="kartofel-informuje">
+    Gdy piszę te słowa niektóre leciwe przeglądarki jeszcze
+    <a href="http://caniuse.com/#search=template%20literals">nie obsługują powyższego sposobu deklaracji stringów</a>.
+    Zapewne za chwilę nie będzie to miało znaczenia, ale warte jest zaznaczenia.
+</div>
+
+<!-- ### -->
+<h2 class="subtitle" id="dodatkowe-metody">Dodatkowe metody dla stringów</h2>
+<p>Poza powyższym ułatwieniem ES6 wprowadza także nowe metody do pracy ze stringami:</p>
+
+<table class="tab">
+    <tr>
+        <th>Nazwa metody</th>
+        <th>Co robi</th>
+    </tr>
+    <tr>
+        <th><strong>startsWith(str)</strong></th>
+        <td>sprawdza czy dany tekst zaczyna się od str</td>
+    </tr>
+    <tr>
+        <th><strong>endsWith(str)</strong></th>
+        <td>sprawdza czy dany tekst kończy się str</td>
+    </tr>
+    <tr>
+        <th><strong>includes(str)</strong></th>
+        <td>sprawdza czy dany tekst zawiera w sobie str</td>
+    </tr>
+    <tr>
+        <th><strong>repeat(x)</strong></th>
+        <td>zwraca nowy string będący powtórzeniem x razy danego stringu</td>
+    </tr>
+</table>
+
+<pre><code class="language-js">
+const text = "Bardzo lubię czerwone jagódki";
+
+text.startsWith("Bardzo"); //true
+text.startsWith("lubię"); //false
+
+text.endsWith("jagódki"); //true
+text.endsWith("czerwone"); //false
+
+text.includes("Bardzo"); //true
+text.includes("jagódki"); //true
+text.includes("czerwone"); //true
+text.includes("pietruszkę"); //false
+
+console.log("siano".repeat(3)); //sianosianosiano
+console.log("G" + "o".repeat(10) + "l!"); //Gooooooooool!
+</code></pre>
+
+<p>No dobrze ale przecież mamy indexOf, a ostatnie linijki też spokojnie moglibyśmy stworzyć.<br>
+Tak - ale znowu - ES6 nie stara się odkrywać koła na nowo, a tylko ułatwić nam życie:</p>
+
+<pre><code class="language-js">
+const text = "Bardzo lubię czerwone jagódki";
+
+text.startsWith("Bardzo");
+text.indexOf("Bardzo") === 0
+
+text.endsWith("jagódki");
+text.indexOf('jagódki') === (text.length - "jagódki".length)
+(new RegExp("jagódki$")).test(text)
+
+text.includes("Bardzo");
+text.indexOf("Bardzo") !== -1
+
+console.log("siano".repeat(3));
+Array(3).join("siano");
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="funkcje-tagujace">Funkcje tagujące</h2>
+<p>ES6 wprowadza dla template stringów jeszcze jedną nową funkcjonalność - tak zwane
+<strong>funkcje tagujące</strong>. Są to zwykłe funkcje - jedyną różnicą jest sposób ich użycia. Jeżeli chcemy danej funkcji
+   użyć jako funkcji tagującej, jej nazwę podajemy tuż przed początkiem template stringa:
+
+<pre><code class="language-js">
+function formatText() {
+}
+
+const txt = formatText`Przykładowy tekst bardzo fajny`;
+console.log(txt);
+</code></pre>
+
+<p>
+    Do funkcji takiej automatycznie są przekazywane w pierwszym parametrze wszystkie części template stringa (znajdujące się między zmiennymi),
+    a do kolejnych parametrów zostaną przekazane kolejne zmienne użyte w danym template string.
+</p>
+
+<pre><code class="language-js">
+const formatString = (parts, var1, var2) => {
+    console.log(parts); // ["Cena produktu A to ", " i jest o ", " tańsza od produktu B"]
+    console.log(var1); //2000
+    console.log(var2); //150
+}
+
+const price = 2000;
+const diff = 150;
+
+const text = formatString`Cena produktu A to ${price} i jest o ${diff} tańsza od produktu B`;
+</code></pre>
+
+<p>Im więcej takich zmiennych użytych w teście, tym więcej wartości zostanie przekazanych do funkcji.
+   Najczęściej nie będziemy dokładnie wiedzieli ile jest takich zmiennych, dlatego najlepszym rozwiązaniem jest zebrać je wszystkie pod jedną zmienną:</p>
+
+<pre><code class="language-js">
+const format = (parts, ...vars) => {
+    console.log(parts); //["Nazywam się ", " i mam ", " lat"] //długość 3
+    console.log(vars); //["Piotr", 16] //długość zawsze o 1 mniejsza niż parts
+}
+
+const name = "Piotr";
+const age = 16;
+
+const text = format`Nazywam się ${name} i mam ${age} lat`;
+</code></pre>
+
+<p>Główną zaletą funkcji tagujących jest to, że jeżeli zwrócą one jakąś wartość, zastąpi ona nasz template string:</p>
+
+<pre><code class="language-js">
+const format = (parts, ...vars) => {
+    return "Hej!";
+}
+
+const name = "Piotr";
+const age = 16;
+
+const text = format`Nazywam się ${name} i mam ${age} lat`;
+console.log(text); //"Hej!"
+</code></pre>
+
+<p>Możemy to wykorzystać do modyfikacji naszych stringów. Wystarczy zrobić pętlę po parts i vars łącząc odpowiednie części w jeden string. W poniższym przykładzie każdą wartość z klamer dodatkowo modyfikuję za pomocą metody toFixed:</p>
+
+<pre data-line="2-9"><code class="language-js">
+const formatString = (parts, ...vars) => {
+    let str = '';
+    parts.forEach((el, i) => {
+        str += el;
+        if (vars[i] !== undefined) {
+            str += vars[i].toFixed(2);
+        }
+    });
+    return str;
+}
+
+const price = 2000;
+const diff = 150;
+
+const text = formatString`Cena produktu A to ${price} i jest o ${diff} tańsza od produktu B`;
+
+console.log(text); //"Cena produktu A to 2000.00 i jest o 150.00 tańsza od produktu B"
+</code></pre>
+
+<p>Kolejny przykład pokazuje jak możemy wykorzystać funkcje tagujące do oblewania zmiennych tagami html:</p>
+
+<pre data-line="6"><code class="language-js">
+const format = (parts, ...vars) => {
+    let str = '';
+    parts.forEach((el, i) => {
+        str += el;
+        if (vars[i] !== undefined) {
+            str += '&lt;strong>' + vars[i].toUpperCase() + '&lt;/strong>';
+        }
+    });
+    return str;
+}
+
+const name = "marcin";
+const dog = "szamson";
+
+const text = format`Mam na imię ${name} a mój pies to ${dog}`;
+
+console.log(text); //"Mam na imię &lt;strong>MARCIN&lt;/strong> a mój pies to &lt;strong>SZAMSON&lt;/strong>"
+</code></pre>
+
+<p>Zamiast forEach możemy też skorzystać z <a href="../super-podstawy/tablice-iteracje.php#reduce">reduce</a>:</p>
+
+<pre><code class="language-js">
+const highlight = (parts, ...values) => {
+    return parts.reduce(
+        (allText, part) => `${allText}${part}${values.length ? `&lt;strong>${values.shift()}&lt;/strong>` : ''}`;
+    , "");
+}
+
+const name = "Marcin";
+const dog = "Szamson";
+
+const text = highlight`Mam na imię ${name} a mój pies to ${dog}`;
+console.log(text);// Mam na imię &lt;strong>Marcin&lt;/strong>, a mój pies to &lt;strong>Szamson&lt;/strong>
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="po-co-to">Po co takie udziwnienia</h2>
+<p>Kolejne udziwnienie. Przecież wcześniej też spokojnie mogliśmy zamieniać zmienne na coś innego.</p>
+<p>Spójrzmy więc na przykład:</p>
+
+<pre><code class="language-js">
+const title = "Młody";
+const price = 40;
+const count = 4;
+const text = `Książka ${title} kosztuje ok ${price}zł i jest jedną z serii ${count} książek`;
+</code></pre>
+
+<p>Jeżeli teraz w takim dowolnym tekście chcielibyśmy zamienić zmienne na coś innego, trzeba by było skorzystać
+z wyrażeń regularnych, albo innych - bardziej wyspecjalizowanych sposobów (np. z wykorzystaniem replace)</p>
+
+<div class="tasks-for-you-cnt">
+	<h2 class="subtitle" id="zadania">Trening czyni mistrza</h2>
+	<p>
+		Poniżej zamieszczam kilka zadań, które w ramach ćwiczenia możesz wykonać:
+	</p>
+	<ol class="tasks-for-you">
+		<li>
+			Stwórz obiekt myPerson który ma:<br>
+			- właściwość <strong>name</strong><br>
+			- właściwość <strong>height</strong><br>
+			- metodę <strong>calculateAge()</strong>, która wyliczy twój wiek wyliczając go na bazie
+			obecnego roku (użyj odpowiedniej metody obiektu <a href="/web/20180815092226/http://kursjs.pl/kurs/date/date.php">Date</a>) (zrób to z przybliżeniem, nie ważny jest dokładny wiek)
+		</li>
+		<li>
+			<div class="question">
+			Wypisz w konsoli tekst:
+	
+			<pre><code class="language-js">
+				Nazywam się ....
+				Mój wzrost to ...
+				Mam ... lat
+			</code></pre>
+	
+			Podstaw w odpowiednie miejsca odpowiednie składowe obiektu z zadania 1
+			</div>
+			<div class="solution">
+				<pre><code class="language-js">
+				const myPerson = {
+					name : "Marcin",
+					height : 184,
+					calculateAge : function() {
+						return (new Date()).getFullYear() - 1981;
+					}
+				}
+	
+				console.log(`
+					Nazywam się ${myPerson.name}
+					Mój wzrost to ${myPerson.height}
+					Mam ${myPerson.calculateAge()} lat
+				`);
+				</code></pre>
+			</div>
+		</li>
+		<li>
+		<div class="question">
+		Stwórz funkcję tagującą, która przekształci powyższy string tak,
+		że każda wartość będzie obięta nawiasami klamrowymi np. "Nazywam się [Marcin]"
+		</div>
+			<div class="solution">
+				<pre><code class="language-js">
+				function changeText(parts, ...vars) {
+					return vars.reduce(
+						(a, b, i) =&gt; a + '[' + b + ']' + parts[i+1]
+					, parts[0]);
+				}
+	
+				const myPerson = {
+					name : "Marcin",
+					height : 184,
+					calculateAge : function() {
+						return (new Date()).getFullYear() - 1981;
+					}
+				}
+	
+				console.log(changeText`
+					Nazywam się ${myPerson.name}
+					Mój wzrost to ${myPerson.height}
+					Mam ${myPerson.calculateAge()} lat
+				`);
+				</code></pre>
+			</div>
+		</li>
+	</ol>
+	</div>
+
 
 			</div><!-- e: page-content-text -->
 			<footer class="page-footer">
@@ -165,13 +500,13 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
                 </h3>
             </div>
 
-						<div class="page-sidebar-section show has-active-element">
+						<div class="page-sidebar-section ">
 				<h3 class="page-sidebar-section-title">
 					<a href="#">Słowem wstępu</a>
 				</h3>
 				<div class="page-sidebar-list-cnt">
 					<ul class="page-sidebar-list">
-						<li class="active">
+						<li >
 							<a href="/kurs/wstep/wstep.php">Wstęp</a>
 						</li>
 						<li >
@@ -379,7 +714,7 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
 				</div>
 			</div>
 
-						<div class="page-sidebar-section ">
+						<div class="page-sidebar-section show has-active-element">
 				<h3 class="page-sidebar-section-title">
 					<a href="#">Nowy Javascript</a>
 				</h3>
@@ -400,7 +735,7 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
 						<li >
 							<a href="/kurs/es6/spread-rest.php">Spread i rest</a>
 						</li>
-						<li >
+						<li class="active">
 							<a href="/kurs/es6/template-strings.php">Template strings</a>
 						</li>
 						<li >

@@ -3,9 +3,9 @@
 <head>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Kurs Javascript - Wstęp</title>
+    <title>Kurs Javascript - Tablice - metody iteracyjne</title>
 	<meta name="description" content="Kurs Javascript dla superbohaterów, artykuły, tutoriale, porady, zadania do wykonania" />
-    <link rel="canonical" href="https://kursjs.pl/kurs/wstep/wstep.php" />
+    <link rel="canonical" href="https://kursjs.pl/kurs/super-podstawy/tablice-iteracje.php" />
 	<link rel="stylesheet" href="./css.css" />
     <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,700&display=swap&subset=latin-ext" rel="stylesheet">
 	<meta name="image" content="https://kursjs.pl/kursjs.png">
@@ -57,49 +57,557 @@
             </div>
                         <div class="page-content-text">
 
-
-<h1 class="page-title">Wstęp</h1>
+<h1 class="page-title">Tablice - metody iteracyjne</h1>
 <p>
-Bardzo krótki wstęp ^^.<br /><br />
-Kurs ten jest o Javascripcie. Uhh...
-</p>
-<p>
-Wiedz, że nie staram się tutaj tworzyć największego i najlepszego kursu o JavaScript w internecie.<br>
-Ten kurs to twór jednego człowieka.
-Nie mam szans i nie chcę konkurować z molochami takimi jak <a href="https://developer.mozilla.org/pl/">MDN</a>, <a href="https://www.udemy.com/">Udemy</a>, <a href="https://eduweb.pl/">EduWeb</a> czy <a href="https://www.w3schools.com/js/default.asp">w3schools</a>.<br>
-<br><br>
-Nie znajdziesz tutaj wszystkiego z zakresu JavaScript. <br>
-Po jakimś czasie będziesz chciał wiele rzeczy tutaj pokazanych tworzyć inaczej - lepiej.<br>
-Im większy progres będziesz zdobywał stwierdzisz, że wiele rozdziałów można było napisać o wiele lepiej. I dobrze.<br><br>
-
-W każdym bądź razie - jeżeli ta strona jakoś ci posłuży - to tylko plus. Jeżeli nie - po prostu skorzystaj z innego kursu - na rynku jest tego od groma (niektóre wymieniłem <a href="../dodatkowe-materialy.php">tutaj</a>) i każdy znajdzie coś dla siebie. Ja sam mam kilka w swojej kolekcji i twierdzę, że są naprawdę dobre.
-<br><br>
+    W poprzednim rozdziale dowiedzieliśmy się, że <a href="tablice.php#for">możemy iterować po tablicy korzystając z klasycznej pętli for</a>:
 </p>
 
-<p>
-Jeszcze mała adnotacja, która siedzi mi w głowie.
-</p>
-<p>
-W internecie znajdziesz setki tutoriali pokazujących najnowsze techniki. A to funkcja strzałkowa, a to jak korzystać z async i await, a to jak robić połączenia fetchem czy chociażby zastosowanie modułów. Małe, konkretne, piękne - jak mój pies (a i od niedawna też kot).
-</p>
-<p>
-Na grupach facebookowych w dyskusjach znajdziesz jeszcze szybciej takie techniki.
-</p>
-<p>
-Tutaj pojawia pewna sprawa, który dotyczy nie tylko JavaScript, ale i całego frontendu. Bardzo często przy takich nowoczesnych tutorialach czy poradach autorzy nie zwracają uwagi na bardzo ważną rzecz - a mianowicie na to, że dobór techniki <strong>zawsze zależy od danego projektu</strong>. To są w końcu rzeczy oczywiste.<br>
-No właśnie nie do końca. To są rzeczy oczywiste - dla nas - osób, które w tej branży siedzą już kilkanaście lat. Ale czy dla osoby zaczynającej?
-</p>
-<p>
-Jeżeli robisz bloga o nowinkach z dziedziny frontentu, raczej możesz założyć, że większość użytkowników będzie korzystała z najnowszych przeglądarek, a więc i możesz używać najnowszych rozwiązań (chociaż najlepiej było by spojrzeć w statystyki Google Analitics które można podpiąć pod stronę).<br>
-Jeżeli jednak robisz stronę dla emerytowanych nauczycieli, czy dla przykładu olbrzymi sklep z którego będą korzystali różnorodni użytkownicy z różnorodnych krajów, wtedy rzucanie się na najnowsze rozwiązania będzie strzałem w stopę.
-</p>
-<p>
-Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie CSS Grid, a czasami nawet flexbox może okazać się czymś, czego użyć nie możesz. Czasami spokojnie będziesz mógł używać najnowszej wersji JavaScript, a czasami będziesz musiał pozostać przy starszej. A jeżeli będziesz musiał pozostać przy starszej, wtedy albo będziesz pisał JavaScript trzymając się klasycznych rozwiązań, albo skorzystasz z narzędzi zamieniających twój kod na starszy zapis.
-</p>
-<p>Autorzy tutoriali często zapominają o tym, że dla początkującej osoby istnieje po prostu JavaScript. Osoby takie często nie zdają sobie sprawy, że nie wszystko w JavaScript można dowolnie używać, nie wiedzą gdzie szukać informacji które przeglądarki co wspierają, jakich narzędzi używać do zamiany kodu i po co w ogóle to robić.</p>
-<p>W kursie tym staram się trzymać klasycznego JavaScript. Jasne - im więcej wiedzy zdobędziesz, im bardziej będziesz rozbudowywał swój warsztat, tym będziesz stosował coraz nowsze i lepsze techniki pisania kodu. A wtedy - tak jak to już pisałem powyżej - będziesz się śmiał z tego kursu. Póki co polecam po prostu uczyć się JavaScript.</p>
+<pre><code class="language-js">
+const tab = ['Marcin', 'Ania', 'Agnieszka', 'Piotrek', 'Grześ', 'Magda'];
 
-<a href="./co-to-jest-javascript.php" class="button">To co? Zaczynamy?...</a>
+for (let i=0; i&lt;tab.length; i++) {
+    console.log(tab[i]);
+}
+</code></pre>
+
+<p>
+    Można powiedzieć, że pętla for jest typowo "manualna". Trzeba ustawić licznik, kiedy się kończy i jak ma być zwiększany.
+</p>
+
+<p>W większości przypadków nie ma nic złego w korzystaniu z tej metody, a plusem jest że metoda ta zadziała praktycznie w każdym języku. Jej główną wadą jest niestety średnia wygoda. Spójrz ile kodu musieliśmy naprodukować by zrobić zwykłą pętlę.</p>
+
+<p>Poniżej przyjrzymy się kilku dodatkowym iteracyjnym metodom, które udostępniają tablice.</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="forEach">forEach() - automatyczna pętla po tablicy</h2>
+<p>Pierwszą z omawianych metod jest <strong>forEach()</strong>.
+Metoda ta przyjmuje jako parametr funkcję, w której możemy ustawić 3 parametry:
+</p>
+
+<ul>
+    <li>pierwszy parametr będzie wskazywał na dany element z tablicy,</li>
+    <li>drugi parametr będzie wskazywał na indeks elementu</li>
+    <li>trzeci będzie wskazywał na aktualną tablicę po której iterujemy</li>
+</ul>
+
+<pre><code class="language-js">
+const tab = ['Marcin', 'Ania', , 'Agnieszka'];
+
+//pod zmienną el trafią kolejne elementy
+tab.forEach(function(el) {
+    console.log(el.toUpperCase());
+});
+</code></pre>
+
+<div class="kartofel-informuje">
+    W dzisiejszych czasach przy wszelakich metodach iteracyjnych używa się krótszego zapisu
+    z wykorzystaniem <a href="./funkcje.php#funkcja-strzalkowa">funkcji strzałkowej</a>.
+    Poniżej umyślnie zrezygnuję z tego zapisu by nie utrudniać odczytu listingów.
+    W ramach treningu spróbuj zamienić wybrane listingi na zapis z funkcją strzałkową.
+</div>
+
+<pre><code class="language-js">
+//tutaj nie wykorzystuje żadnej zmiennej więc nie muszę używać parametrów
+tab.forEach(function() {
+    //wykonam się tyle razy co liczba elementów
+    console.log('Lubię placki');
+});
+</code></pre>
+
+<pre><code class="language-js">
+//pod zmienną i będzie wstawiany indeks elementu
+tab.forEach(function(el, i) {
+    console.log(`Aktualny element to ${el}, a jego indeks to ${i}`);
+});
+</code></pre>
+
+<pre><code class="language-js">
+//pod zmienną arr wstawiana będzie aktualna tablica po której iterujemy - może kiedyś to się przyda?
+tab.forEach(function(el, i, arr) {
+    console.log(`Aktualny element to ${el}, a długość tablicy to ${arr.length}`);
+});
+</code></pre>
+
+<pre><code class="language-js">
+const tab = ['Marcin', 'Ania', 'Agnieszka'];
+
+let letterCount = 0;
+tab.forEach(function(el) {
+    letterCount += el.length;
+});
+
+console.log("Liczba liter wszystkich imion to: " + letterCount); //19
+</code></pre>
+
+<div class="kartofel-informuje">
+    A czy ostatni przykład da się zrobić łatwiej? Oczywiście. Wystarczy użyć funkcji join():
+    <pre><code class="language-js">
+        const tab = ['Marcin', 'Ania', 'Agnieszka'];
+        console.log(tab.join("").length);
+    </code></pre>
+</div>
+
+<p>Poza pierwszym parametrem - funkcją - metoda forEach może przyjąć jeszcze drugi parametr, który służy do ustawiania <a href="../obiekty/obiekty.php#this">this</a>. Domyślnie wewnątrz forEach (ale także i map, every, some, filter itp) zmienna this wskazuje na obiekt window:</p>
+
+<pre><code class="language-js">
+const tab = ['Marcin', 'Ania', 'Agnieszka'];
+
+tab.forEach(function() {
+    console.log(this); //window
+});
+</code></pre>
+
+<pre><code class="language-js">
+const ob = {
+    name : "Marcin"
+};
+
+tab.forEach(function() {
+    console.log(this); //ob
+}, ob);
+</code></pre>
+
+<p>Temat ten będzie bardziej poruszany w dziale związanym z obiektami. W większości przypadków parametr ten będziemy pomijać.</p>
+
+
+<!-- ### -->
+<h2 class="subtitle" id="everysome">every() i some()</h2>
+<p>
+    Metody <strong>every()</strong> i <strong>some()</strong> służą do sprawdzania czy <strong>wszystkie</strong> lub czy <strong>chociaż jeden</strong> element w tablicy spełnia dany warunek.
+</p>
+<p>Obie metody w rezultacie zwracają true lub false. </p>
+
+<p>
+    Metoda <strong>every()</strong> zwróci prawdę, kiedy przekazana w parametrze funkcja zwróci true dla każdego elementu w tablicy.
+</p>
+
+<pre><code class="language-js">
+const tab = [1, 3, 5, 8, 9];
+
+//sprawdzam czy wszystkie liczby są parzyste
+const allEven = tab.every(function(el) {
+    return el % 2 === 0;
+});
+
+console.log(allEven); //false
+</code></pre>
+
+<pre><code class="language-js">
+const tab = [
+    { name : 'Marcin', age: 18 },
+    { name : 'Ania', age: 16 },
+    { name : 'Agnieszka', age: 16}
+];
+
+//czy wszyscy użytkownicy są pełnoletni?
+const allAdult = tab.every(function(el) {
+    return el.age >= 18;
+});
+
+console.log(allAdult); //false
+</code></pre>
+
+<p>
+    Metoda <strong>some()</strong> zwróci prawdę, jeżeli chociaż dla jednego element użyta funkcja zwróci prawdę.
+</p>
+
+<pre><code class="language-js">
+const tab = ["kot", "pies", "świnka", "jeż"];
+
+//sprawdzam czy chociaż jedno słowo ma 3 litery
+const word3letter = tab.some(function(el) {
+    return el.length === 3;
+});
+
+console.log(word3letter);
+</code></pre>
+
+<pre><code class="language-js">
+const tab = [
+    { name : 'Marcin', age: 18 },
+    { name : 'Ania', age: 16 },
+    { name : 'Agnieszka', age: 16}
+];
+
+//a może chociaż jeden user jest pełnoletni?
+const isAdult = tab.some(function(el) {
+    return el.age >= 18
+});
+
+console.log(isAdult); //true
+</code></pre>
+
+
+<!-- ### -->
+<h2 class="subtitle" id="map">map() - zwracanie nowej tablicy</h2>
+<p>
+    Metoda <strong>map()</strong> robi pętlę po tablicy i każdorazowo zwraca nowy element tablicy. <strong>W wyniku po zakończeniu całej pętli zwracana jest nowa tablica z taką samą liczbą elementów</strong> jaką miała tablica na której ta metoda była wykonana:
+</p>
+
+<pre><code class="language-js">
+const tab = ['Marcin', 'Ania', 'Agnieszka'];
+
+const tab2 = tab.map(function(el) {
+    return el.toUpperCase()
+});
+
+console.log(tab); //[Marcin, Ania, Agnieszka]
+console.log(tab2); //[MARCIN, ANIA, AGNIESZKA]
+</code></pre>
+
+<pre><code class="language-js">
+const tab = [1, 2, 3];
+const tab2 = tab.map(function(el) {
+    return el * 2;
+});
+
+console.log(tab2); //[2, 4, 6]
+</code></pre>
+
+<pre><code class="language-js">
+const numbers = [1.2, 4.5, 9.3];
+
+const absolute = numbers.map(function(el) {
+    return Math.ceil(el);
+});
+console.log(absolute); //[2, 5, 10]
+</code></pre>
+
+<pre><code class="language-js">
+function multiple3(number) {
+    return number * 3;
+}
+
+var ourTable = [1, 2, 3];
+console.log(ourTable.map(multiple3)); //[3, 6, 9]
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="filter">filter() - filtrowanie elementów</h2>
+<p>
+    Bardzo często będziemy chcieli przefiltrować daną tablicę zwracając tylko elementy, które pasują do danego warunku.
+</p>
+<p>
+    Bardzo przydatną funkcją jest tutaj funkcja <strong>filter()</strong>.<br>
+    Robi pętlę po danej tablicy i w wyniku zwraca <strong>nową tablicę</strong>, zawiera odfiltrowane elementy:
+</p>
+
+<pre><code class="language-js">
+const ourTable = [1, 2, 3, 4, 5, 6];
+
+const evenNumbers = ourTable.filter(function(el) {
+    return el % 2 === 0;
+});
+
+console.log(evenNumbers); //[2, 4, 6]
+</code></pre>
+
+<pre><code class="language-js">
+const ourTable = ['Marcin', 'Ania', 'Agnieszka', 'Monika', 'Piotrek'];
+
+const woman = ourTable.filter(function(name) {
+    return name.substr(-1) === 'a';
+});
+
+console.log(woman); //["Ania", "Agnieszka", "Monika"]
+</code></pre>
+
+<pre><code class="language-js">
+const tab = [
+    { name : 'Marcin', age: 18 },
+    { name : 'Ania', age: 16 },
+    { name : 'Agnieszka', age: 16},
+    { name : 'Beata', age: 22}
+];
+
+const adultUsers = tab.filter(function(user) {
+    return user.age >= 18
+});
+
+console.log(adultUsers); [{ name : 'Marcin', age: 18 },  { name : 'Beata', age: 22}]
+</code></pre>
+
+<!-- ### -->
+<h2  class="subtitle" id="reduce">reduce() - redukowanie tablicy</h2>
+<p>
+    Za pomocą funkcji <strong>reduce()</strong> możemy wykonywać operacje na tablicy "redukując ją", w wyniku uzyskując jakiś wynik.
+</p>
+<p>
+    Działanie tej funkcji jest następujące:<br>
+   w pierwszej iteracji pod pierwszy parametr prev wstawiany jest pierwszy element
+   tablicy, a pod next kolejny. Funkcja zwraca jakiś wynik. W kolejnej iteracji jest on podstawiany pod prev, a kolejny element w tablicy pod next. Znowu zostaje zwrócony wynik, który w kolejnej iteracji wstawiany jest w miejsce prev, a pod next znowu wstawiany jest kolejny element tablicy.</p>
+
+<pre><code class="language-js">
+const tab = [1, 2, 3, 4];
+const result = tab.reduce(function(prev, next) {
+    return prev + next;
+});
+
+//1 iteracja => prev = 1, next = 2
+//2 iteracja => prev = 3, next = 3
+//3 iteracja => prev = 6, next = 4
+//wynik = 10
+</code></pre>
+
+<pre><code class="language-js">
+const tab = [3, 2, 4, 2];
+const result = tab.reduce(function(a, b) {
+    return a * b;
+});
+
+//1 iteracja => prev = 3, next = 2
+//2 iteracja => prev = 6, next = 4
+//3 iteracja => prev = 24, next = 2
+
+//wynik = 48
+</code></pre>
+
+<p>Kolejnym parametrem poza funkcją jest wartość początkowa:</p>
+
+<pre><code class="language-js">
+//atrybut po funkcji to początkowa wartość
+const sum1 = [1, 2, 3].reduce(function(a, b) {
+    return a + b;
+}, 0);
+
+//sum1 = 6
+</code></pre>
+
+<pre><code class="language-js">
+const sum2 = [1, 2, 3].reduce(function(a, b) {
+    return a + b;
+}, "");
+
+//sum1 = "123"
+</code></pre>
+
+<pre><code class="language-js">
+const data = [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
+const flatArray = data.reduce(function(total, amount) {
+  return total.concat(amount);
+}, []);
+
+//flatArray = [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
+</code></pre>
+
+<pre><code class="language-js">
+const data = [{age : 10}, {age : 12}, {age : 15}];
+const age = data.reduce(function(a, b) {
+  return {age : a.age + b.age};
+}, {age : 0});
+
+//{age : 37}
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="indexOf">indexOf(), lastIndexOf() i includes() - wyszukiwanie elementu w tablicy</h2>
+<p>
+    Wyszukać element w tablicy możemy na kilka sposobów.
+</p>
+<p>
+    Pierwszy z nich polega  (podobnie jak w przypadku <a href="string.php#indexOf">przeszukiwania stringów</a>) na skorzystaniu z metody <strong>indexOf(str)</strong>.
+</p>
+<p>
+    Metoda ta działa podobnie jak w przypadku stringów. Zwraca indeks na którym znalazła szukany tekst, lub <strong>-1</strong>, jeżeli nic nie znalazła:
+</p>
+
+<pre><code class="language-js">
+const tab = ['Marcin', 'Ania', 'Agnieszka', 'Monika'];
+
+if (tab.indexOf('Ania') !== -1) {
+    console.log('Ania występuje w tablicy pod indexem ' + tab.indexOf('Ania'));
+}
+
+//lub
+
+if (~tab.indexOf('Ania')) {
+    console.log('Ania występuje w tablicy pod indexem ' + tab.indexOf('Ania'));
+}
+</code></pre>
+
+<p>Zastosowany w drugim przykładzie znak tyldy omówiony został <a href="./string.php#bitwise">tutaj</a></p>
+
+<p>Bardzo podobną metodą jest <a href="./string.php#indexOf">lastIndexOf()</a>, która działa jak indexOf(), ale zwraca ostatnią pozycję szukanego tekstu:</p>
+
+<pre><code class="language-js">
+if (tab.lastIndexOf('txt') !== -1) {
+    console.log('Ostatnie wystąpienie w tablicy to', tab.lastIndexOf('txt')));
+}
+</code></pre>
+
+<p>
+    Podobnie do stringów dla tablic także istnieje funkcja <a href="string.php#includes">includes()</a>, która zwraca prawdę lub fałsz w zależności czy szukana wartość znajduje się w tablicy:
+</p>
+
+<pre><code class="language-js">
+const tab = ['Marcin', 'Ania', 'Agnieszka', 'Monika'];
+
+if (tab.includes('Ania')) {
+    console.log('Ania występuje w tablicy pod indeksem ' + tab.indexOf('Ania'));
+}
+
+if (!tab.includes('Pies')) {
+    console.log('Pies nie występuje w tej tablicy');
+}
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="find">find() - zwracanie pierwszego pasującego</h2>
+<p>
+    Metoda indexOf() i includes() sprawdzają się przy tablicy typów prostych.<br>
+    A co jeżeli chcemy szukać w tablicy której dane są bardziej skomplikowane?
+    Moglibyśmy wykonać pętlę for, ale o wiele wygodniejsze jest skorzystać z metody <strong>find()</strong>, która zwraca <strong>pierwszy pasujący element</strong>:
+</p>
+
+<pre><code class="language-js">
+const tab = [
+    { name : 'Karol', age: 10 },
+    { name : 'Beata', age: 13 },
+    { name : 'Marcin', age: 18 },
+    { name : 'Ania', age: 20 },
+    { name : 'Agnieszka', age: 21}
+];
+
+const findUser = tab.find(function(el) {
+    return el.age >= 18
+});
+
+console.log(findUser) //{ name : 'Marcin', age: 18 }
+</code></pre>
+
+<p>Oczywiście find() możemy też stosować dla typów prostych:</p>
+
+<pre><code class="language-js">
+const tab = [12, 5, 8, 130, 44];
+
+const bigNr = tab.find(function(el) {
+    return el >= 15
+});
+
+console.log(bigNr); //130
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="method-chaining">Łańcuchowość metod</h2>
+<p>Method chaining (łańcuchowość metod) to sposób odpalania kolejnych metod (funkcji), które zapisujemy po kropce. Technika ta tyczy się nie tylko tablic, ale całego JavaScript.</p>
+
+<p>Każda metoda czy właściwość daje jakąś wartość. Jeżeli taka zwrócona wartość pasuje dla kolejnej metody, możemy tą metodę od razu odpalić po kropce:</p>
+
+<pre><code class="language-js">
+const text = "Ala ma kota";
+
+text.toUpperCase().substr(0, 3).length //kolejne metody odpalamy po kropce
+
+//czasami trzymanie wszystkiego w jednej linii nie jest dobrym rozwiązaniem
+text
+    .toUpperCase()
+    .substr(0, 3)
+    .length
+</code></pre>
+
+
+<p>Podobnie jest z powyższymi metodami dotyczącymi tablic. Jeżeli dana metoda zwraca tablicę (np. map czy filter zwracają tablicę) możemy od razu po nich odpalać kolejne metody. </p>
+
+<pre><code class="language-js">
+const tab = ['Marcin', 'Ania', 'Agnieszka'];
+
+
+const newTab = tab.map(function(el) { //zwracam nową tablicę...
+    return el.toUpperCase()
+}).filter(function(el) { //więc mogę ją odfiltrować
+    return el[el.length-1].toUpperCase() === "A"
+}).map(function(el) { //map też może służyć do iteracji
+    return el + "!";
+}).forEach(function(el) {
+    console.log(el);
+}) //forEach nie zwraca tablicy więc nie mogę już tutaj działać jak na tablicy
+
+console.log(newTab)
+</code></pre>
+
+<p>Powyższy przykład można jeszcze bardziej uprościć stosując zamiast funkcji anonimowych referencje do funkcji. Dzięki temu nie tylko
+nasz zapis się upraszcza, ale i zyskujemy dodatkowe "klocki" do przyszłego wykorzystania.</p>
+
+<pre><code class="language-js">
+const tab = ['Marcin', 'Ania', 'Agnieszka'];
+
+const upper = function(el) {
+    return el.toUpperCase();
+}
+
+const checkIsWoman = function(el) {
+    return el.substr(-1).toUpperCase() === "A"; //naiwny test
+}
+
+const addExclamationMark = function(el) {
+    return el + "!"
+}
+
+const newTab = tab
+                .map(upper)
+                .filter(checkIsWoman)
+                .map(addExclamationMark);
+
+console.log(newTab)
+</code></pre>
+
+<p>A powyższy zapis jeszcze bardziej się uprości, jeżeli zastosujemy <a href="../es6/funkcja-strzalkowa.php">funkcję strzałkową</a></p>
+
+<pre><code class="language-js">
+const tab = ['Marcin', 'Ania', 'Agnieszka'];
+
+const upper = el => el.toUpperCase();
+const checkIsWoman = el => el.substr(-1).toUpperCase() === "A"; //naiwny test
+const addExclamationMark = el => el + "!"
+
+const newTab = tab
+                .map(upper)
+                .filter(checkIsWoman)
+                .map(addExclamationMark);
+
+console.log(newTab)
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="findIndex">findIndex() - zwracanie indeksu pasującego elementu</h2>
+<p>Metoda <strong>findIndex()</strong> zwraca indeks pierwszego pasującego elementu. Działanie tej metody jest podobne do powyższych, czyli
+jeżeli metoda zwróci prawdę, znaczy że dany element pasuje:</p>
+
+<pre><code class="language-js">
+const tab = [
+    { name : "Monika", gender: "w" },
+    { name : "Agata", gender: "w" },
+    { name : "Marcin", gender: "m" },
+    { name : "Patrycja", gender: "w" }
+]
+
+const index = tab.findIndex(function(el) {
+    return el.gender === "m"
+})
+
+console.log("index pasującego elementu:", index);
+console.log("Pasujący element:", tab[index]);
+</code></pre>
+
+<p>Do czego to może się przydać? Np. do usunięcia danego elementu za pomocą <a href="./tablica.png#splice">splice()</a>:</p>
+<pre><code class="language-js">
+const tab = [
+    { name : "Monika", gender: "w" },
+    { name : "Agata", gender: "w" },
+    { name : "Marcin", gender: "m" },
+    { name : "Patrycja", gender: "w" }
+]
+
+const index = tab.findIndex(function(el) {
+    return el.gender === "m"
+})
+
+tab.splice(index, 1);
+
+console.log(tab); //same "baby"
+</code></pre>
+
+
 
 			</div><!-- e: page-content-text -->
 			<footer class="page-footer">
@@ -165,13 +673,13 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
                 </h3>
             </div>
 
-						<div class="page-sidebar-section show has-active-element">
+						<div class="page-sidebar-section ">
 				<h3 class="page-sidebar-section-title">
 					<a href="#">Słowem wstępu</a>
 				</h3>
 				<div class="page-sidebar-list-cnt">
 					<ul class="page-sidebar-list">
-						<li class="active">
+						<li >
 							<a href="/kurs/wstep/wstep.php">Wstęp</a>
 						</li>
 						<li >
@@ -184,7 +692,7 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
 				</div>
 			</div>
 
-						<div class="page-sidebar-section ">
+						<div class="page-sidebar-section show has-active-element">
 				<h3 class="page-sidebar-section-title">
 					<a href="#">Super podstawy</a>
 				</h3>
@@ -229,7 +737,7 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
 						<li >
 							<a href="/kurs/super-podstawy/tablice.php">Tablice</a>
 						</li>
-                        <li >
+                        <li class="active">
 							<a href="/kurs/super-podstawy/tablice-iteracje.php">Tablice pętle</a>
 						</li>
 						<li >

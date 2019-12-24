@@ -1,0 +1,1091 @@
+<!doctype html>
+<html lang="pl-PL">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kurs Javascript - Gra szubienica</title>
+	<meta name="description" content="Kurs Javascript dla superbohaterów, artykuły, tutoriale, porady, zadania do wykonania" />
+    <link rel="canonical" href="https://kursjs.pl/kurs/gry/hangman/hangman.php" />
+	<link rel="stylesheet" href="./css.css" />
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,700&display=swap&subset=latin-ext" rel="stylesheet">
+	<meta name="image" content="https://kursjs.pl/kursjs.png">
+<meta name="twitter:card" content="product">
+<meta name="twitter:site" content="@publisher_handle">
+<meta name="twitter:title" content="Kurs Javascript">
+<meta name="twitter:description" content="Kurs Javascript dla superbohaterów">
+<meta name="twitter:creator" content="@kartofelek007">
+<meta name="twitter:image" content="https://kursjs.pl/kursjs.png">
+<meta property="og:title" content="Kurs Javascript">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.kursjs.com/">
+<meta property="og:image" content="https://kursjs.pl/kursjs.png">
+<meta property="og:description" content="Kurs Javascript dla superbohaterów">
+<meta property="og:site_name" content="Kurs Javascript">
+<link rel="apple-touch-icon" sizes="57x57" href="/favicons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/favicons/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/favicons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/favicons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/favicons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/favicons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/favicons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/favicons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="/manifest.json">
+<meta name="msapplication-TileColor" content="#FF6347">
+<meta name="msapplication-TileImage" content="/mstile-144x144.png">
+    <script src="/js/jquery.min.js"></script>
+</head>
+<body>
+
+<div class="page-container" id="pageContainer">
+	<div class="page-content-wrapper">
+        <main class="page-content" id="mainContent"  data-text-for-print="Kurs Javascript dla superbohaterów">
+                        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <div class="rekl-cnt">
+                <ins
+                class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-6843603045703750"
+                data-ad-slot="4690777640"
+                data-ad-format="auto"
+                data-full-width-responsive="true"
+                ></ins>
+            </div>
+                        <div class="page-content-text">
+
+
+
+<h1 class="page-title">Gra szubienica</h1>
+<p>
+Prawie każdy grał w wisielca.
+Gracz zgaduje ukryte hasło wybierając odpowiednie litery.<br />
+Jeżeli się pomyli, wtedy dorysowujemy kolejne części szubienicy, aż w końcu nieszczęśnika wieszamy.<br />
+Podobną zabawę kojarzymy pod nazwą Koło Fortuny.<br>
+W dzisiejszym odcinku postaramy się stworzyć właśnie taką grę w JavaScript - tyle że bez samego koła.
+</p>
+<p class="center">
+<a href="hangman-game.html" class="demo-link">Zobacz DEMO naszej gry</a>
+</p>
+<!-- ### -->
+<h2 class="subtitle" id="zalozenia">Podstawowe założenia gry</h2>
+<p>
+    Na sam początek rozpiszmy działania jakie musimy zakodować:
+</p>
+<ol>
+    <li>na samym początku tworzymy html dla elementów gry:
+        <ol>
+            <li>Guzik ze startem gry</li>
+            <li>Guziki z literkami</li>
+            <li>Plansza gry zawierająca aktualne hasło i liczbę dostępnych prób</li>
+        </ol>
+    </li>
+    <li>Na początku za pomocą skryptów wypełnimy planszę literkami, które będzie można klikać</li>
+    <li>Po kliknięciu na przycisk start odpalamy grę. Pobieramy hasło, aktywujemy guziki z literkami, wypisujemy hasło i zerujemy próby</li>
+    <li>Po każdym wyborze litery sprawdzamy czy jest ona w haśle, wyłączamy dany przycisk z literą (tak by nie można było jej ponownie wybrać) i sprawdzamy próby</li>
+    <li>Jeżeli próby się skończyły, kończymy grę i wyłączamy przyciski z literkami.</li>
+    <li>Jeżeli hasło zostało odgadnięte kończymy grę i wyłączamy przyciski z literkami.</li>
+</ol>
+
+<p>
+    Cały wygląd oczywiście zrobimy za pomocą CSS - wykorzystamy do tego CSS3 dzięki czemu poznamy kilka nowych technik :)
+</p>
+<!-- ### -->
+<h2 class="subtitle" id="html">Tworzymy html i css</h2>
+<p>
+    Na początku realizujemy 1 punkt z naszej listy - czyli tworzymy html dla naszej aplikacji. Jak założyliśmy musimy stworzyć planszę gry zawierającą próby
+    oraz hasło do zgadnięcia.
+</p>
+
+<pre><code class="language-html">
+&lt;div class="game">
+    &lt;div class="game-attempts">&lt;/div>
+
+    &lt;div class="game-sentence">&lt;/div>
+
+    &lt;div class="game-letters">&lt;/div>
+
+    &lt;button type="button" class="button game-start">Losuj nowe hasło&lt;/button>
+&lt;/div>
+</code></pre>
+
+<p>Przygotujmy też podstawowy CSS. Znowu - nie jest to kurs o CSS, więc nie będziemy się tutaj zbytnio na nim koncentrować. Jeżeli jednak chcesz się o coś zapytać, <a href="../../kontakt.php">napisz</a>.</p>
+
+<pre><code class="language-css">
+* {
+    box-sizing:border-box;
+}
+
+body {
+    background:#eee;
+    display: flex;
+    justify-content: center;
+    align-items: space-between;
+}
+
+/* cała gra */
+.game {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+}
+
+/* plansza z literami */
+.game-letters {
+    list-style-type:none;
+    margin:10px auto;
+    padding:0;
+    width:1200px;
+    text-align:center;
+}
+.game-letter {
+    display:inline-block;
+    width: 4rem;
+    height: 4rem;
+    margin:0.3rem;
+    cursor:pointer;
+    text-transform:uppercase;
+    font-size: 2rem;
+    font-family: sans-serif;
+    color:#444;
+    text-align:center;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    border:1px solid #ddd;
+    background: #fff;
+}
+.game-letter:disabled {
+    background: #eeeeee;
+    color:#ddd;
+    text-shadow:none;
+    cursor:default;
+}
+.game-letter:not(:disabled):hover {
+    background: #F15C5C;
+    color:#fff;
+}
+
+/* hasło */
+.game-sentence {
+    padding:0;
+    margin:0;
+    width:100%;
+    text-align:center;
+}
+.game-sentence-box {
+    text-transform: uppercase;
+    width: 5rem;
+    height: 5rem;
+    background: #fefefe;
+    border: 1px solid #ddd;
+    margin: 1rem 0.5rem 2rem;
+    font-size: 2rem;
+    font-family: sans-serif;
+    color: #333;
+    vertical-align: top;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+.game-sentence-box-space {
+    border: 0;
+    background: none;
+    box-shadow: none;
+}
+
+/* informacja o próbach */
+.game-attempts {
+    margin:1rem 0;
+    font-size: 1.6rem;
+    font-weight: bold;
+    font-family: sans-serif;
+    text-align: center;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    background: #fff;
+    color:#333;
+    border:1px solid #ddd;
+}
+
+button.button,
+input[type=button].button,
+input[type=submit].button {
+    padding: 0.8em 3em;
+    background: #F15C5C;
+    color: #FFF;
+    border: 0;
+    font-weight: bold;
+    border-radius: 0.3rem;
+    transition: 0.5s background-color, 0.5s box-shadow;
+    cursor: pointer;
+    display: block;
+    font-size: 1rem;
+    margin:3rem auto 1rem;
+}
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="silnik">Piszemy silnik gry</h2>
+<p>
+    Naszą grę napiszemy w formie prostego <a href="../../obiekty/obiekty.php">obiektu</a>.
+    Skrypt rozpoczniemy od utworzenia podstawowych zmiennych, takich jak aktualne hasło, hasła z których będziemy losować i oczywiście pobrane elementy gry na których zaraz będziemy pracować:
+</p>
+
+<pre><code class="language-js">
+const game = {
+    currentSentence : null, //aktualnie pobrane hasło
+    currentSentenceLetters : null,
+    attempts : 5, //ile prób zostało dla aktualnej gry
+    elemBoardElem : document.querySelector('.game-board'), //element z całą grą
+    elemSentence : document.querySelector('.game-sentence'), //element z hasłem do zgadnięcia
+    elemAttempts : document.querySelector('.game-attempts'), //element z liczba prob
+    elemLetters : document.querySelector('.game-letters'), //lista z literkami do klikania
+    sentences : [ //hasła z których losujemy
+        "Fantomas",
+        "Super Szamson",
+        "Hasło",
+        "Myszka",
+        "Super bohaterowie",
+        "Super pies",
+        "Przyjaciel",
+        "Kurs JavaScript",
+        "Terminator",
+        "Superman",
+        "Herkules",
+        "Batman",
+        "Spiderman",
+        "Kapitan Ameryka"
+    ],
+}
+</code></pre>
+
+<p>Nasza plansza z literami w HTML jest obecnie pusta. Pierwszą rzeczą jaką zrobimy to wypełnienie jej literami. Funkcję taką odpalimy we wspólnej metodzie <strong>initBoard()</strong>, która odpali nam wszystkie początkowe funkcje:</p>
+
+<pre><code class="language-js">
+const game = {
+    ...
+
+    generateLetterButtons() {
+        const alphabet = ['a','ą','b','c','ć','d','e','ę','f','g','h','i','j','k','l','ł','m','n','ń','o','ó','p','q','r','s','ś','t','u','v','w','x','y','z','ź','ż'];
+
+        alphabet.forEach(letter => {
+            const button = document.createElement('button');
+            button.classList.add('game-letter');
+            button.type = 'button';
+            button.dataset.letter = letter;
+            button.innerText = letter;
+            this.elemLetters.appendChild(button);
+        });
+    },
+
+    initBoard() {
+        this.generateLetterButtons();
+    }
+};
+
+game.initBoard();
+</code></pre>
+
+<p>Kolejnym krokiem jest podpięcie klików pod takie litery. <a href="../../events/events.php#dynamic-elements">Podobnie jak w innych przypadkach</a> eventów nie będziemy podpinać bezpośrednio pod litery, a pod rodzica:</p>
+
+<pre data-line="4-12,16"><code class="language-js">
+const game = {
+    ...
+
+    bindEvents() {
+        this.elemLetters.addEventListener('click', e => {
+            if (e.target.nodeName.toUpperCase() === "BUTTON" && e.target.classList.contains('game-letter')) {
+                const letter = e.target.dataset.letter;
+                console.log(letter); //narazie wypiszmy literę w konsoli
+                e.target.disabled = true;
+            }
+        });
+    },
+
+    initBoard() {
+        this.generateLetterButtons();
+        this.bindEvents();
+    }
+};
+
+game.initBoard();
+</code></pre>
+
+<p>Do przechowania danej litery wykorzystaliśmy <a href="../../dom/dom-wlasciwosci.php#dataset">dataset</a>. Na razie po kliknięciu na literę wyłączamy kliknięty element, oraz wypisujemy daną literę w konsoli.</p>
+
+<a href="hangman-demo1.html" class="button">Demo 1 - przygotowanie planszy</a>
+
+<!-- ### -->
+<h2 class="subtitle" id="gameStart">Metoda gameStart()</h2>
+
+<p>Mamy przygotowaną planszę. Po kliknięciu na przycisk "Losuj nowe hasło" rozpoczniemy właściwą grę. Posłuży nam do tego metoda <strong>gameStart()</strong>. Po odpaleniu takiej metody powinniśmy wyzerować wszystkie potrzebne właściwości (u nas tyle jedna - liczba prób). Dodatkowo powinniśmy wylosować nowe hasło do zgadnięcia, pokazać graczowi liczbę prób oraz włączyć litery:</p>
+
+<pre><code class="language-js">
+const game = {
+    ...
+
+    startGame() {
+        this.attempts = 5; //ile prób zostało dla aktualnej gry
+        this.randomSentence(); //losujemy hasło do zgadnięcia
+        this.showAttempts(); //pokazuje liczbę prób
+        this.enableLetters(); //włączamy litery
+    }
+
+    ...
+};
+
+game.initBoard();
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="enableLetters-i-disableLetters">Metody enableLetters() i disableLetters()</h2>
+
+<p>Przed rozpoczęciem gry litery powinny być nieklikalne. Dopiero po rozpoczęciu gry powinniśmy umożliwić graczowi ich klikanie. Potrzebujemy do tego 2 metod: <strong>enableLetters()</strong> i <strong>disableLetters()</strong>:</p>
+
+<pre data-line="4-8,10-14,19,26"><code class="language-js">
+const game = {
+    ...
+
+    enableLetters() {
+        //pobieramy litery i robimy po nich pętlę włączając je
+        const letters  = this.elemLetters.querySelectorAll('.game-letter');
+        letters.forEach(letter => letter.disabled = false);
+    },
+
+    disableLetters() {
+        //pobieramy litery i robimy po nich pętlę wyłączając je
+        const letters  = this.elemLetters.querySelectorAll('.game-letter');
+        letters.forEach(letter => letter.disabled = true);
+    },
+
+    initBoard() {
+        this.generateLetterButtons();
+        this.bindEvents();
+        this.disableLetters(); //przy stworzeniu planszy wyłączamy litery
+    },
+
+    startGame() {
+        this.attempts = 5; //ile prób zostało dla aktualnej gry
+        this.randomSentence(); //losujemy hasło do zgadnięcia
+        this.showAttempts(); //pokazuje liczbę prób
+        this.enableLetters(); //włączamy litery
+    }
+};
+
+game.initBoard();
+</code></pre>
+
+<p>Żeby przetestować powyższy skrypt podepnijmy pod przycisk "losuj nowe hasło" odpalenie <strong>startGame()</strong>:</p>
+
+<pre><code class="language-js">
+const game = {
+    ...
+};
+
+game.initBoard();
+
+document.querySelector('.game-start').addEventListener('click', () => game.startGame());
+</code></pre>
+
+<p>Nie mamy jeszcze metod <strong>randomSentence()</strong> i <strong>showAttempts()</strong> więc zanim je napiszemy zakomentujmy ich wywołanie w metodzie startGame.</p>
+
+<a href="hangman-demo2.html" class="button">Demo 2 - włączanie liter</a>
+
+<!-- ### -->
+<h2 class="subtitle" id="showAttempts">Metoda showAttempts()</h2>
+<p>Zaczynamy od odkomentowania łatwiejszej metody - <strong>showAttempts()</strong>, która będzie służyć do pokazywania liczby prób graczowi:</p>
+
+<pre data-line="4-6,11"><code class="language-js">
+const game = {
+    ...
+
+    showAttempts() {
+        this.elemAttempts.innerText = this.attempts;
+    },
+
+    startGame() {
+        this.attempts = 5, //ile prób zostało dla aktualnej gry
+        //this.randomSentence(); //losujemy hasło do zgadnięcia
+        this.showAttempts(); //pokazuje liczbę prób
+        this.enableLetters(); //włączamy litery
+    }
+}
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="randomSentence">Metoda randomSentence()</h2>
+<p>Kolejna metoda do odkomentowania to <strong>randomSentence()</strong>, która wylosuje dla nas nowe hasło, które będziemy zgadywać.</p>
+
+<p>Aby wylosować hasło z tablicy <strong>sentences</strong> musimy wylosować liczbę z przedziału między dwoma liczbami. Użyjemy do tego wzoru ze strony <a href="https://stackoverflow.com/questions/4959975/generate-random-number-between-two-numbers-in-javascript#answer-7228322">https://stackoverflow.com/questions/4959975/generate-random-number-between-two-numbers-in-javascript#answer-7228322</a>.</p>
+
+<pre><code class="language-js">
+const max = this.sentences.length-1;
+const min = 0;
+const rand = Math.floor(Math.random()*(max-min+1)+min);
+</code></pre>
+
+<p>Po wylosowaniu hasła podstawiamy go pod zmienną <strong>currentSentence</strong>.
+Pod zmienną <strong>currentSentenceLetters</strong> podstawiamy litery wylosowanego hasła pozbawione spacji.
+Gdy użytkownik zgadnie daną literę będziemy ją usuwać właśnie z tej zmiennej. Dzięki temu na samym końcu wystarczy sprawdzić, czy z tej zmiennej zostały usunięte wszystkie litery. Jeżeli tak - hasło zostało odgadnięte.
+</p>
+
+<p>Zanim jednak do tego dojdziemy, musimy wyczyścić planszę z hasłem (<strong>elemSentence</strong>) a następnie wygenerować w niej bloki na których będziemy pokazywać dane litery. Ważne jest to, że między słowami znajduje się spacja. Klocek z taką spacją nie powinien mieć ani obramowania ani tła. Uzyskujemy to przez dodanie takiemu blokowi dodatkowej klasy <strong>game-sentence-box-space</strong>.</p>
+
+<pre data-line="4-23,29"><code class="language-js">
+const game = {
+    ...
+
+    randomSentence() {
+        const max = this.sentences.length-1;
+        const min = 0;
+        const rand = Math.floor(Math.random()*(max-min+1)+min);
+
+        this.currentSentence = this.sentences[rand].toUpperCase();
+        this.currentSentenceLetters = this.currentSentence.replace(/ /g, '');
+
+        this.elemSentence.innerText = ''; //czyścimy listę
+
+        const letters = this.currentSentence.split('');
+        letters.forEach(letter => {
+            const div = document.createElement('div');
+            div.classList.add('game-sentence-box');
+            if (letter === ' ') {
+                div.classList.add('game-sentence-box-space');
+            }
+            this.elemSentence.appendChild(div);
+        }
+    },
+
+    ...
+
+    startGame() {
+        this.attempts = 5, //ile prób zostało dla aktualnej gry
+        this.randomSentence(); //losujemy hasło do zgadnięcia
+        this.showAttempts(); //pokazuje liczbę prób
+        this.enableLetters(); //włączamy litery
+    }
+}
+
+</code></pre>
+
+<a href="hangman-demo3.html" class="button">Demo 3 - pokaż hasło</a>
+
+<!-- ### -->
+<h2 class="subtitle" id="checkLettersInSentence">Metoda checkLettersInSentence()</h2>
+<p>Po kliknięciu na literkę powyżej wypisywaliśmy ją w konsoli. Napiszmy teraz metodę <strong>checkLettersInSentence()</strong> w której sprawdzimy czy kliknięta litera istnieje w haśle. Jeżeli istnieje, zaznaczymy ją na planszy, oraz usuniemy jej wystąpienie ze zmiennej <strong>currentSentenceLetters</strong>:</p>
+
+<pre data-line="4-29,37"><code class="language-js">
+const game = {
+    ...
+
+    checkLettersInSentence(letter) {
+        if (this.currentSentence.includes(letter)) { //jeżeli litera istnieje w haśle
+            const lettersBox = this.elemSentence.querySelectorAll('.game-sentence-box');
+
+            for (let i=0; i&lt;this.currentSentence.length; i++) {
+                if (this.currentSentence[i] === letter) {
+                    lettersBox[i].innerText = letter; //wstawiamy w odpowiedni box wybraną literę
+                }
+            }
+
+            //usuwamy trafioną literę z currentSentenceLetters
+            this.currentSentenceLetters = this.currentSentenceLetters.replace(new RegExp(letter, 'g'), '');
+
+            //jeżeli już nie ma liter w powyższej zmiennej gracz wygrał
+            if (!this.isLetterExists()) {
+                this.gameComplete();
+            }
+        } else {  //nie ma takiej litery w haśle
+            this.attempts--;
+            this.showAttempts();
+
+            if (this.attempts <= 0) { //jeżeli nie ma już prób...
+                this.gameOver();
+            }
+        }
+    },
+
+    ...
+
+    bindEvents() {
+        this.elemLetters.addEventListener('click', e => {
+            if (e.target.nodeName.toUpperCase() === "BUTTON" && e.target.classList.contains('game-letter')) {
+                const letter = e.target.dataset.letter;
+                this.checkLettersInSentence(letter.toUpperCase());
+                e.target.disabled = true;
+            }
+        });
+    },
+}
+</code></pre>
+
+<p>Po kliknięciu na literkę wywołujemy powyższą metodę <strong>checkLettersInSentence()</strong> przekazując jej daną literę.</p>
+<p>Metoda ta za pomocą <a href="../../super-podstawy/string.php#indexOf">indexOf</a> sprawdza czy litera ta istnieje w aktualnie wylosowanym haśle czyli <strong>currentSentence</strong>. Jeżeli istnieje, robimy pętlę po tym haśle i dla liter na planszy które mają odpowiedni indeks wstawiamy daną literę. Dzięki temu pojawiają się one na planszy.</p>
+<p>Kolejnym krokiem jest usunięcie wszystkich wystąpień danej litery ze zmiennej <strong>currentSentenceLetters</strong>. Dzięki temu wystarczy później sprawdzić, czy zmienna ta ma jakieś litery. Jeżeli jest pusta, wszystkie litery zostały odkryte i gracz wygrał.</p>
+<p>Do takiego sprawdzenia napiszemy oddzielną metodę <strong>isLetterExists()</strong>.</p>
+
+<p>Jeżeli dana litera nie istnieje w zmiennej <strong>currentSentence</strong>, odejmujemy liczbę prób i jeżeli wynosi ona 0, pokazujemy zakończenie gry, za co odpowiedzialna będzie metoda <strong>gameOver()</strong>.</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="isLetterExists">Metoda isLetterExists()</h2>
+<p>Powyższa metoda do sprawdzenia czy istnieją jeszcze jakieś litery w haśle używa metody <strong>isLetterExists()</strong>. Tak jak było powyżej opisane, wystarczy tutaj sprawdzić, czy w zmiennej <strong>currentSentenceLetters</strong> istnieją jakieś litery:</p>
+
+<pre data-line="4-6,18"><code class="language-js">
+const game = {
+    ...
+
+    isLetterExists() {
+        return this.currentSentenceLetters.length;
+    },
+
+    checkLettersInSentence(letter) {
+        if (this.currentSentence.indexOf(letter) !== -1) {   //jeżeli litera istnieje w haśle
+            const lettersBox = this.elemSentence.querySelectorAll('.game-sentence-box');
+
+            for (let i=0; i&lt;this.currentSentence.length; i++) {
+                if (this.currentSentence[i] === letter) {
+                    lettersBox[i].innerText = letter; //wstawiamy w odpowiedni box wybraną literę
+                }
+            }
+
+            this.currentSentenceLetters = this.currentSentenceLetters.replace(new RegExp(letter, 'g'), '');
+
+            if (!this.isLetterExists()) { //jeżeli nie ma już nieodgadniętych liter...
+                this.gameComplete();
+            }
+        } else {  //nie ma takiej litery w haśle
+            this.attempts--;
+            this.showAttempts();
+
+            if (this.attempts <= 0) { //jeżeli nie ma już prób...
+                this.gameOver();
+            }
+        }
+    },
+
+    ...
+}
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="gameComplete">Metody gameComplete() i gameOver()</h2>
+<p>Ostatnie metody jakie napiszemy to zakończenie gry - czy to pozytywne, czy negatywne.</p>
+
+<pre data-line="4-7,8-11"><code class="language-js">
+const game = {
+    ...
+
+    gameOver() {
+        alert("Niestety nie udało ci się odgadnąć hasła. Ps: brzmi ono: \n\n" + this.currentSentence);
+        this.disableLetters();
+    },
+
+    gameComplete() {
+        alert('Udało ci się zgadnąć hasło :)');
+        this.disableLetters();
+    },
+
+    ...
+}
+</code></pre>
+
+<p>Dla łatwiejszych testów w poniższym demie przy losowaniu w konsoli wypisuję aktualne hasło.</p>
+
+<a href="hangman-demo4.html" class="button">Demo 4 - kompletna gra</a>
+
+<!-- ### -->
+<h2 class="subtitle" id="podsumowanie">Podsumowanie</h2>
+<p>Nasza gra nie jest żadnym zaawansowanym tworem. Nie nadaje się do konkursów, bo wystarczy spojrzeć w źródło by znać odpowiedź. Ale jako ciekawostka dla młodszego rodzeństwa - w sam raz. Oczywiście przydała by się ładniejsza, może nieco słodsza oprawa graficzna.</p>
+<p>Jak też zauważysz, <a href="../../okna-dialogowe.php#alert">alert</a> nie za bardzo pasuje do pokazywania informacji o zakończeniu gry. O wiele lepszym rozwiązaniem było by pokazać jakąś dynamicznie tworzoną warstwę z informacją. Może nawet element <a href="https://bitsofco.de/whats-new-in-html-5-2/">dialog</a>, który pojawił się w html</p>
+
+<a href="hangman-game.html" class="demo-link">Demo końcowe</a>
+
+
+			</div><!-- e: page-content-text -->
+			<footer class="page-footer">
+				<p>
+				Wszelkie prawa zastrzeżone. Jeżeli chcesz używać jakiejś części tego kursu, skontaktuj się z <a href="/kurs/autor.php">autorem</a>.
+				Aha - i ta strona korzysta z <a href="/kurs/polityka-prywatnosci.php">ciasteczek</a>.
+				</p>
+			</footer>
+							<div class="rekl-cnt">
+					<ins
+					class="adsbygoogle" style="margin-top:40px; display:block"
+					data-ad-client="ca-pub-6843603045703750"
+					data-ad-slot="4690777640"
+					data-ad-format="auto"
+					data-full-width-responsive="true"
+					></ins>
+				</div>
+				<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+	(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+					</main><!-- e: page-content -->
+			</div><!-- e: page-content-wrapper -->
+    <aside id="page-sidebar-cnt" class="page-sidebar-cnt">
+	<div id="page-sidebar" class="page-sidebar">
+		<button aria-label="Pokaż/ukryj Menu" aria-expanded="false" aria-controls="page-sidebar" type="button" id="pageSidebarBurger" class="page-sidebar-burger">
+			<span></span>
+		</button>
+
+		<h2 class="visuallyhidden">
+			Menu
+		</h2>
+
+		<button class="sidebar-toggle-btn" title="Pokaż/schowaj menu" aria-hidden="true">
+			<strong>Pokaż/ukryj menu</strong>
+			<span></span>
+			<span></span>
+			<span></span>
+		</button>
+
+		<div class="page-sidebar-title">
+			<a href="/kurs/kontakt.php" title="Nawrzucaj autorowi" class="mail-to-author" id="mailToAuthor">Napisz do mnie</a>
+			<a href="#popupOptions" class="page-setup-link popupOpen" title="Ustawienia strony" id="showOptions">Ustawienia</a>
+			<a href="/index.php" aria-label="Strona główna" class="page-sidebar-title-link">Kurs Javascript</a>
+		</div>
+
+        <form aria-label="Wyszukiwarka" class="search-sidebar" action="/search.php" method="post">
+            <label for="search" class="search-sidebar-label">Szukaj</label>
+            <div class="search-sidebar-input-cnt">
+                <svg class="search-sidebar-input-icon" xmlns="http://www.w3.org/2000/svg" width="26" height="28" viewBox="0 0 26 28" aria-hidden="true">
+                    <path d="M18 13c0-3.859-3.141-7-7-7s-7 3.141-7 7 3.141 7 7 7 7-3.141 7-7zm8 13c0 1.094-.906 2-2 2a1.96 1.96 0 0 1-1.406-.594l-5.359-5.344a10.971 10.971 0 0 1-6.234 1.937c-6.078 0-11-4.922-11-11s4.922-11 11-11 11 4.922 11 11c0 2.219-.672 4.406-1.937 6.234l5.359 5.359c.359.359.578.875.578 1.406z"></path>
+                </svg>
+                <input type="text" id="search" autocomplete="off" name="q" class="search-sidebar-input">
+            </div>
+            <button type="submit" class="search-sidebar-button">Szukaj</button>
+        </form>
+
+		<div class="page-sidebar-table-of-content">
+			<h2 class="visuallyhidden">Spis treści</h2>
+            <div class="page-sidebar-section">
+				<h3 class="page-sidebar-section-title noopen">
+                    <a href="/index.php">Strona główna</a>
+                </h3>
+            </div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Słowem wstępu</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/wstep/wstep.php">Wstęp</a>
+						</li>
+						<li >
+							<a href="/kurs/wstep/co-to-jest-javascript.php">Co to jest JavaScript i z czym go się je?</a>
+						</li>
+						<li >
+							<a href="/kurs/wstep/wymagania.php">Wymagania</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Super podstawy</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/debuger/debuger.php">Debuger</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/pierwszy-skrypt.php">Wstawiamy skrypty na naszą stronę</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/strict-mode.php">Strict mode</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/typy-danych.php">Typy danych i konwersja danych</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/zmienne.php">Zmienne</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/operatory.php">Operatory</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/math.php">Obiekt Math</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/string.php">String - teksty</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/instrukcje-warunkowe.php">Instrukcje warunkowe</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/petle.php">Pętle</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/funkcje.php">Funkcje</a>
+						</li>
+                        <li >
+							<a href="/kurs/super-podstawy/funkcje-tematy-dodatkowe.php">Funkcje - tematy dodatkowe</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/tablice.php">Tablice</a>
+						</li>
+                        <li >
+							<a href="/kurs/super-podstawy/tablice-iteracje.php">Tablice pętle</a>
+						</li>
+						<li >
+							<a href="/kurs/debuger/debugowanie.php">Debugowanie kodu</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+            			<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Obiekty</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+                        <li >
+							<a href="/kurs/obiekty/obiekty.php">Obiekty i this</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-jak-to-dziala.php">Jak to działa</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-konstruktor.php">Konstruktor</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-zaawansowane-this.php">Zaawansowane this</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-dziedziczenie.php">Dziedziczenie w Javascript</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-inne-sposoby-tworzenia.php">Inne sposoby tworzenia obiektów</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-instanceof-hasownproperty.php">instanceof i hasOwnProperty</a>
+						</li>
+                    </ul>
+                </div>
+            </div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">DOM i zdarzenia</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/dom/dom.php">Document Object Model</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-wlasciwosci.php">Właściwości elementów</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-relacje.php">Relacje między elementami</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-tworzenie-i-usuwanie.php">Tworzenie i usuwanie elementów</a>
+						</li>
+                        <li >
+                            <a href="/kurs/dom/style.php">Style w CSS</a>
+                        </li>
+						<li >
+							<a href="/kurs/events/events.php">Zdarzenia</a>
+						</li>
+						<li >
+							<a href="/kurs/events/events-keys.php">Zdarzenia - klawisze</a>
+						</li>
+						<li >
+							<a href="/kurs/events/events-mouse.php">Zdarzenia - myszka</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/projekt-todo.php">Projekt TODO</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/slider.php">Tworzymy slider</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Prawie podstawy</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/grafika/grafika-na-stronie.php">Grafika na stronie</a>
+						</li>
+						<li >
+							<a href="/kurs/intervals/intervals.php">setTimeout i setInterval</a>
+						</li>
+						<li >
+							<a href="/kurs/match-media.php">Praca z RWD</a>
+						</li>
+						<li >
+							<a href="/kurs/okna-dialogowe.php">Okienka dialogowe</a>
+						</li>
+						<li >
+							<a href="/kurs/okna.php">Tworzenie nowych okien</a>
+						</li>
+						<li >
+							<a href="/kurs/date/date.php">Obiekt Date</a>
+						</li>
+						<li >
+							<a href="/kurs/date/date-calendar.php">Tworzymy kalendarz</a>
+						</li>
+						<li >
+							<a href="/kurs/cookies/cookie.php">Obiekt Cookie</a>
+						</li>
+						<li >
+							<a href="/kurs/storage/storage.php">Storage</a>
+						</li>
+						<li >
+							<a href="/kurs/regular.php">Wyrażenia regularne</a>
+						</li>
+						<li >
+							<a href="/kurs/formularze/formularze.php">Formularze</a>
+						</li>
+						<li >
+							<a href="/kurs/formularze/formularze-walidacja.php">Formularze - walidacja</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Ajax</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/ajax/ajax.php">AJAX, REST, JSON</a>
+						</li>
+						<li >
+							<a href="/kurs/ajax/xmlhttprequest.php">XMLHttpRequest</a>
+						</li>
+            			<li >
+							<a href="/kurs/ajax/fetch.php">Fetch API</a>
+						</li>
+						<li >
+							<a href="/kurs/ajax/formularz-kontaktowy.php">Dynamiczny formularz kontaktowy</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Nowy Javascript</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/es6/ecma-script-2015.php">ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/webpack.php">Webpack</a>
+						</li>
+                        <li >
+            				<a href="/kurs/es6/obiekty-w-es6.php">Obiekty w ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/funkcja-strzalkowa.php">Funkcja strzałkowa</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/spread-rest.php">Spread i rest</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/template-strings.php">Template strings</a>
+						</li>
+						<li >
+            				<a href="/kurs/es6/destructuring.php">Dekompozycja</a>
+        				</li>
+						<li >
+							<a href="/kurs/es6/class.php">Klasy w ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/promises.php">Promises</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/async-await.php">Async/Await</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/symbole.php">Symbole</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">jQuery</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/jquery/jquery.php">jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/animacje-w-jquery.php">Animacje w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/jquery-ajax.php">Ajax w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/tabs.php">Taby w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/plugin.php">Karuzela w jQuery</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Canvas</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/canvas/canvas.php">Canvas</a>
+						</li>
+						<li >
+							<a href="/kurs/canvas/canvas-images.php">Grafika w canvas</a>
+						</li>
+						<li >
+						<a href="/kurs/canvas/canvas-paint.php">Praktycznie : Paint w canvas</a>
+						</li>
+
+						<li >
+							<a href="/kurs/canvas/canvas-animacja.php">Animacja w canvas</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section show has-active-element">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Gry</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li class="active">
+							<a href="/kurs/gry/hangman/hangman.php">Szubienica</a>
+						</li>
+						<li >
+							<a href="/kurs/gry/memory/memory.php">Memory</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+            			<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Inne</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/dodatkowe-materialy.php">Dodatkowe materiały</a>
+						</li>
+						<li >
+							<a href="/kurs/faq.php">FAQ</a>
+						</li>
+						<li >
+							<a href="/kurs/polityka-prywatnosci.php">Polityka prywatności</a>
+						</li>
+						<li >
+							<a href="/kurs/autor.php">O autorze</a>
+						</li>
+						<li >
+							<a href="/kurs/kontakt.php">Kontakt</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="page-sidebar-section">
+                <a class="special-link" href="/kurs/autor.php#donate">Wesprzyj kurs</a>
+            </div>
+		</div>
+	</div>
+</aside></div><!-- e: page-container -->
+
+<div class="popup" id="popupOptions">
+	<div class="popup-inside">
+        <div class="popup-container-cnt">
+            <div class="popup-container">
+                <button class="popup-close">Zamknij</button>
+
+                <h2 class="popup-title">
+                    Opcje
+                </h2>
+
+                <div class="popup-content">
+                    <form class="form-options">
+                        <div class="form-option">
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <label for="optionsThemeSelect">Wybierz skórkę dla listingów</label>
+                                    <select id="optionsThemeSelect"></select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <pre><code class="language-js">
+                                //tak będzie wyglądał kod
+
+                                function test() {
+                                    for (let i=0; i&lt;10; i++) {
+                                        console.log("Tekst numer ", 1);
+                                    }
+                                }
+
+                                test();
+                                </code></pre>
+                            </div>
+                            <div class="form-row" id="themeLightModeRow">
+                                <div class="form-col">
+                                    <label for="themeLightMode">
+                                        Tryb dzienny / nocny
+                                    </label>
+
+                                    <div class="light-mode-el">
+                                        <input type="checkbox" id="themeLightMode">
+                                        <span class="light-mode"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+	</div>
+</div>
+<script async defer src="https://www.googletagmanager.com/gtag/js?id=UA-38558970-5"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-38558970-5');
+</script>
+
+	<script src="/js/ads.js"></script>
+	<script src="/js/script.min.js?v=0.13" defer></script>
+</body>
+</html>

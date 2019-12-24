@@ -1,0 +1,1650 @@
+<!doctype html>
+<html lang="pl-PL">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kurs Javascript - Funkcje</title>
+	<meta name="description" content="Kurs Javascript dla superbohaterów, artykuły, tutoriale, porady, zadania do wykonania" />
+    <link rel="canonical" href="https://kursjs.pl/kurs/super-podstawy/funkcje.php" />
+	<link rel="stylesheet" href="./css.css" />
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,700&display=swap&subset=latin-ext" rel="stylesheet">
+	<meta name="image" content="https://kursjs.pl/kursjs.png">
+<meta name="twitter:card" content="product">
+<meta name="twitter:site" content="@publisher_handle">
+<meta name="twitter:title" content="Kurs Javascript">
+<meta name="twitter:description" content="Kurs Javascript dla superbohaterów">
+<meta name="twitter:creator" content="@kartofelek007">
+<meta name="twitter:image" content="https://kursjs.pl/kursjs.png">
+<meta property="og:title" content="Kurs Javascript">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.kursjs.com/">
+<meta property="og:image" content="https://kursjs.pl/kursjs.png">
+<meta property="og:description" content="Kurs Javascript dla superbohaterów">
+<meta property="og:site_name" content="Kurs Javascript">
+<link rel="apple-touch-icon" sizes="57x57" href="/favicons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/favicons/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/favicons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/favicons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/favicons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/favicons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/favicons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/favicons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="/manifest.json">
+<meta name="msapplication-TileColor" content="#FF6347">
+<meta name="msapplication-TileImage" content="/mstile-144x144.png">
+    <script src="/js/jquery.min.js"></script>
+</head>
+<body>
+
+<div class="page-container" id="pageContainer">
+	<div class="page-content-wrapper">
+        <main class="page-content" id="mainContent"  data-text-for-print="Kurs Javascript dla superbohaterów">
+                        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <div class="rekl-cnt">
+                <ins
+                class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-6843603045703750"
+                data-ad-slot="4690777640"
+                data-ad-format="auto"
+                data-full-width-responsive="true"
+                ></ins>
+            </div>
+                        <div class="page-content-text">
+
+
+<h1 class="page-title">Funkcje</h1>
+<p>
+Gdy mąż słyszy od żony <q>idź do sklepu, kup ziemniaki</q>, wówczas zaczyna wykonywać pewien zbiór czynności.<br>
+Za każdym razem, gdy usłyszy <q>idź do sklepu, kup ziemniaki</q>, wykona ten sam zbiór czynności (i tak ma być).<br>
+W JavaScript czynności (fragmenty kodu) objęte klamrami do których możemy odwołać się poprzez nazwę to właśnie funkcje.
+</p>
+
+<p>
+Ogólna deklaracja funkcji ma następującą postać:
+</p>
+
+<pre><code class="language-js">
+function nazwaFunkcji() {
+    console.log('Hej jestem fajnym tekstem');
+}
+
+//Po stworzeniu funkcji wystarczy ją wywołać poprzez podanie jej nazwy i nawiasów:
+//3x wywołujemy powyższą funkcję
+nazwaFunkcji();
+nazwaFunkcji();
+nazwaFunkcji();
+</code></pre>
+
+<p>No dobrze, ale po co to wszystko?</p>
+<p>Spójrz na poniższy przykład:</p>
+
+<pre data-line="4-8,13-17,22-26"><code class="language-js">
+let str = '';
+
+//generuję linię
+str = '';
+for (let i=0; i&lt;10; i++) {
+    str += '-';
+}
+console.log(str);
+
+let x = 20;
+console.log("20 + 20 = ", x + 20);
+
+str = '';
+for (let i=0; i&lt;10; i++) {
+    str += '-';
+}
+console.log(str);
+
+console.log("Ala ma kota");
+console.log("a kot ma Alę");
+
+str = '';
+for (let i=0; i&lt;10; i++) {
+    str += '-';
+}
+console.log(str);
+</code></pre>
+
+<p>
+Jak widzisz kilka razy powtarzamy linijki console.log, które tworzą kreskę. To prosty przykład. Taki skrypt może zajmować o wiele, wiele więcej ekranów kodu.<br>
+Aż prosi się, by powtarzany kod wrzucić do naszej funkcji, a potem się do niej po prostu odwoływać:
+</p>
+
+<pre data-line="9,14,19"><code class="language-js">
+function line() {
+    let str = ''
+    for (let i=0; i&lt;10; i++) {
+        str += '-';
+    }
+    console.log(str);
+}
+
+line();
+
+let x = 20;
+console.log("20 + 20 = ", x + 20);
+
+line();
+
+console.log("Ala ma kota");
+console.log("a kot ma Alę");
+
+line();
+</code></pre>
+
+<p>
+Nasz kod się uprościł. Jeżeli teraz będziemy chcieli zmodyfikować
+nasz wzorek, zrobimy to tylko w jednym miejscu, a nie w wielu.<br>
+Zadziała tutaj zasada "reużywalności" kodu - podobna do tej mówiącej o trzymaniu JavaScript i CSS w oddzielnych plikach. Dzięki temu zmianę literówki zrobisz w jednym miejscu, a nie na każdej podstronie i każdym miejscu gdzie używasz danego kodu.
+</p>
+
+<p>
+Funkcję można traktować jak swego rodzaju "klocek" (...), który w każdej chwili możemy użyć.
+Wyobraź sobie, że zbudujesz sobie zestaw takich klocków, a potem w swoim kodzie będziesz je po prostu używał.<br>
+Swoje funkcje-klocki możesz spokojnie trzymać w oddzielnym pliku, który potem będziesz dołączać do wybranych stron, dzięki czemu będziesz miał dostęp do swoich funkcji. Na tej właśnie zasadzie używa się znanych bibliotek - np. jQuery, Mootols czy podobnych, które są niczym innym jak zbiorem funkcji, które ktoś dla nas napisał.
+</p>
+
+<p>Zresztą - już nie raz w tym kursie używałeś podobnych klocków. Nie swoich, a napisanych przez innych.</p>
+
+<pre><code class="language-js">
+Math.random();
+
+[].push('lorem');
+
+Math.max(1,2,3);
+
+"ala ma kota".toUpperCase();
+
+"marcin@gmail.com".indexOf('@');
+
+"kot i pies".substr(1);
+</code></pre>
+
+<p>Widzisz te nawiasy na końcu każdej linii? Poprzedza je nazwa funkcji. Autorzy JavaScript przygotowali dla nas zestaw jakiś funkcji.</p>
+
+<p>Zauważ, że w niektórych przypadkach odpalając daną funkcję (np. push(), max(), subsrt()) mogliśmy między nawiasy wstawić dodatkowe dane, które były potem przetwarzane przez taką funkcję. Te dane zwą się parametrami.</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="atrybuty">Parametry funkcji</h2>
+<p>
+Nasz powyższy klocek działa jak należy, ale jest sztywny jak diabli. Za każdym razem wypisuje ten sam tekst. Pójdźmy o krok dalej.<br>
+Częstokroć konieczne będzie przekazanie do funkcji określonych danych, które następnie zostaną przez nią przetworzone.<br />
+Dane takie zwane parametrami (lub atrybutami) przekazuje się wypisując je między nawiasami występującymi po nazwie funkcji:
+</p>
+
+
+<pre><code class="language-js">
+function sum(a, b) {
+    console.log(a + b);
+}
+
+sum(2, 3); //5
+</code></pre>
+
+<p>W powyższym przykładzie stworzyliśmy 2 miejsca na parametry - zmienne a i b. Przy wywołaniu funkcji wstawiamy w te miejsca konkretne wartości - 2 i 3.</p>
+
+<p>Poniżej inne przykłady:</p>
+
+<pre><code class="language-js">
+function writeText(name) {
+    console.log(name + " ma kota");
+}
+
+
+writeText("Ala"); //Ala ma kota
+writeText("Marysia"); //Marysia ma kota
+</code></pre>
+
+<pre><code class="language-js">
+function line(char, nr) {
+    let str = '';
+    for (let i=0; i&lt;nr; i++) {
+        str += char;
+    }
+    console.log(str);
+}
+
+line("x", 5); //xxxxx
+line(".", 10); //..........
+line("=.", 3); //=.=.=.
+</code></pre>
+
+<p>Jeżeli nasza funkcja wymaga parametrów, a dodatkowo nie została specjalnie napisana, wtedy wywołując ją musimy podać dla tych parametrów wartości. Jeżeli ich nie podamy zostaną użyte dla nich wartości undefined:</p>
+
+<pre><code class="language-js">
+function writeText(name, age) {
+    console.log(name + " ma kota, który ma " + age + "lat");
+}
+
+writeText("Ala", 5); //Ala ma kota, który ma 5 lat
+writeText("Marysia"); //Marysia ma kota, który ma undefined lat
+writeText(); //undefined ma kota, który ma undefined lat
+</code></pre>
+
+<p>Spójrz na poniższe przykłady. Zauważasz coś?</p>
+
+<pre><code class="language-js">
+//korzystamy z funkcji random() i floor() by wypisać liczbę spomiędzy 1-10
+
+function randomBetween(min, max) {
+    console.log(  Math.floor(Math.random() * (max-min+1) + min)  );
+}
+
+randomBetween(1, 10);
+</code></pre>
+
+
+<p>We wnętrzu naszych funkcji korzystamy z innych - gotowych funkcji. Spokojnie moglibyśmy też wykorzystać nasze własne funkcje.</p>
+
+<pre><code class="language-js">
+function fixName(name) {
+    console.log(name.charAt(0).toUpperCase() + name.substr(1));
+}
+
+fixName("marcin"); //Marcin
+
+function writeText(name) {
+    console.log(fixName(name) + " ma kota");
+}
+
+writeText('kasia'); //Kasia ma kota
+</code></pre>
+
+
+<!-- ### -->
+<h2 class="subtitle" id="arguments">arguments</h2>
+<p>
+JavaScript nie wymaga od nas, abyśmy przekazywali do funkcji wymaganą ilość argumentów.<br />
+Jeżeli nie zakładamy konkretnej liczby parametrów dla funkcji, możemy skorzystać z właściwości <strong>arguments</strong>:
+</p>
+
+<pre><code class="language-js">
+function sum() {
+    console.log(arguments);
+}
+
+sum(); //[] (zobacz dokładniej co wyszło w konsoli, bo wynik nie jest dokładnie taki)
+sum(1, 2, 3, 4); //[1, 2, 3, 4]
+sum("ala", "ma", "kota"); //["ala", "ma", "kota"]
+</code></pre>
+
+<p id="arguments-loop">
+Obiekt ten przypomina <a href="./tablice.php">tablicę</a>, ale tak naprawdę nią nie jest.<br>
+Oznacza to, że nie możemy na nim wykonywać metod przeznaczonych dla tablic np. <a href="../super-podstawy/tablice-iteracje.php#foreach">forEach</a>, map:
+</p>
+
+<pre><code class="language-js">
+function superSum() {
+    let result = arguments.reduce(function(a, b) { //błąd, reduce jest dla tablic
+        return a + b;
+    })
+
+    console.log(result);
+}
+</code></pre>
+
+<p>
+    Możemy to obejść na kilka sposobów. Albo zamienimy arguments na tablicę za pomocą <a href="../es6/spread-rest.php">spread operatora</a>, który rozbija daną rzecz na składowe,
+    albo użyjemy klasycznej pętli:
+</p>
+
+<pre><code class="language-js">
+function superSum() {
+    let result = [...arguments].reduce(function(a, b) {
+        return a + b;
+    })
+
+    console.log(result);
+}
+</code></pre>
+
+<pre><code class="language-js">
+function superSum() {
+    let result = 0;
+
+    for (const el of arguments) {
+        result += el;
+    }
+
+    console.log(result);
+}
+</code></pre>
+
+<p>
+    W dzisiejszych czasach zamiast opierać się o obiekt arguments, zalecane jest używać operatora <a href="../es6/spread-rest.php#rest">rest</a>, który zbiera przekazane argumenty w postaci tablicy.
+</p>
+
+<pre><code class="language-js">
+function superSum(...args) {
+    console.log(args); [1, 2, 3, 4]
+}
+superSum(1, 2, 3, 4);
+</code></pre>
+
+<pre><code class="language-js">
+function superSum(...args) {
+    let result = args.reduce(function(a, b) {
+        return a + b;
+    })
+
+    console.log(result);
+}
+
+superSum(1, 2, 3, 4);
+</code></pre>
+
+<div class="kartofel-informuje">
+    Pamiętaj jednak, że taki kod na chwilę obecną <a href="https://caniuse.com/#feat=rest-parameters" target="_blank">nie zadziała w każdej przeglądarce</a>,
+    i dlatego powinien być za pomocą odpowiednich narzędzi <a href="../es6/webpack.php">transpilowany</a> na starszą wersję JavaScript (ale to zależy jaki projekt robisz i jakie przeglądarki ma on wspierać).
+</div>
+
+<h2 class="subtitle" id="default-parameters">Domyślne wartości dla parametrów</h2>
+<p>
+Co jeżeli funkcja wymaga parametru, a ktoś go nie poda przy wywołaniu?
+Wtedy pod dany parametr trafi "brak wartości" czyli undefined:
+</p>
+
+<pre><code class="language-js">
+function print(txt) {
+    console.log("Twój tekst to " + txt);
+}
+
+print(); //"Twój tekst to undefined"
+</code></pre>
+
+<p>W EcmaScript 2015 wprowadzono domyślne wartości dla parametrów. Wystarczy po nazwie parametru ustawić mu domyślną wartość:</p>
+
+<pre><code class="language-js">
+function print(name = "Marcin", status = "najlepszy") {
+    console.log(name + " jest " + status);
+}
+
+print(); //"Marcin jest najlepszy"
+print("Karol"); //"Karol jest najlepszy"
+print("Marcin", "głupi"); //"Marcin jest głupi"
+</code></pre>
+
+<p>
+W poprzednich wersjach JavaScript (ES5 i wcześniejsze) domyślne atrybuty nie istniały, ale i na to były dość proste sposoby.
+Pamiętasz jak się sprawdza, czy dana zmienna istnieje?
+</p>
+
+<pre><code class="language-js">
+if (typeof x === "undefined") {...}
+</code></pre>
+
+<p>Wystarczy użyć tej metody:</p>
+
+<pre><code class="language-js">
+function printText(txt) {
+    if (typeof txt === "undefined") {
+        txt = "lorem";
+    }
+
+    console.log(txt);
+}
+
+//lub
+
+function printText(txt) {
+    txt = (typeof txt === "undefined")? "lorem" : txt;
+
+    console.log(txt);
+}
+
+printText(); //lorem
+</code></pre>
+
+<p>
+Istnieje też krótsza metoda.
+</p>
+
+<pre><code class="language-js">
+function printText(txt) {
+    txt = txt || "lorem";
+
+    console.log(txt);
+}
+
+printText(); //lorem
+</code></pre>
+
+<p>Trzeba mieć tutaj tylko na uwadze, że jeżeli pod txt podamy pusty ciąg znaków, lub <a href="../super-podstawy/instrukcje-warunkowe.php#wartosc-false">cokolwiek
+ co prze automatyczną konwersję zostanie zamienione na false</a>, wtedy zostanie użyty domyślny "lorem".
+ Nie zawsze jest to dobre rozwiązanie, dlatego polecam zostać przy dłuższym zapisie.</p>
+
+<pre><code class="language-js">
+function printText(txt) {
+    txt = txt || "lorem";
+
+    console.log(txt);
+}
+
+printText(""); //lorem, a powinno być ""
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="return">Instrukcja return</h2>
+<p>W powyższych listingach nasze funkcje każdorazowo wypisywały kod w konsoli debugera.<br>
+W większości przypadków nie będziemy chcieli używać debugera. Może wynik działania funkcji będziemy chcieli wstawić do przycisku na stronie, a może wypisać w okienku alert?
+Żadna z tych czynności nie ma nic wspólnego z konsolą debugera. Konsola jest dla nas - programistów. Dla użytkownika są inne rzeczy na stronie - buttony, html itp.
+</p>
+<p>Zauważ, że jeżeli wywołasz funkcję <strong>Math.random()</strong> w wyniku dostaniesz jakiś wynik:</p>
+
+<pre><code class="language-js">
+const nr = Math.random();
+alert(nr);
+</code></pre>
+
+<p>Oznacza to, że funkcja random() zwróciła ci jakąś wartość. Za takie zwrócenie wartości przez funkcję odpowiedzialna jest instrukcja <strong>return</strong>.
+</p>
+
+<pre><code class="language-js">
+function calculate(number1, number2) {
+    const result = number1 + number2;
+
+    return result;
+}
+
+console.log( calculate(10, 4) ); //wypisze 14
+</code></pre>
+
+<p>Dzięki temu, że nasza funkcja nie wypisuje wartości w konsoli, a ją zwraca, możemy ją użyć do innych celów niż tylko wypisywanie tekstów w debugerze:</p>
+
+<pre><code class="language-js">
+function repeat(txt, nr) {
+    let str = '';
+    for (let i=0; i&lt;nr; i++) {
+        str += txt;
+    }
+    return str + ' buritto!';
+}
+
+//pobieram przycisk ze strony i wstawiam do niego tekst
+//o pobieraniu elementów ze strony jeszcze się dowiesz
+document.querySelector('button').innerText = repeat("tako", 3);
+
+//lub wypisujemy to w alercie
+alert(repeat('maslo', 10));
+</code></pre>
+
+<button id="btnTest" class="button">Kliknij</button>
+
+<script>
+(function() {
+    function repeat(txt, nr) {
+        let str = '';
+        for (let i=0; i<nr; i++) {
+            str += txt;
+        }
+        return str + ' buritto!';
+    }
+
+    document.querySelector('#btnTest').addEventListener('click', function() {
+        this.innerText = repeat('tako', 5);
+    })
+})();
+</script>
+
+<p>
+Instrukcja return nie tylko zwraca wartość, ale i definitywnie przerywa działanie danej funkcji. Po pierwszym wykonaniu <strong>return</strong> działanie funkcji zakańcza się:
+</p>
+
+<pre><code class="language-js">
+function sum(a, b) {
+    return a + b;
+    console.log('liczę'); //nigdy nie zostanie wykonane, bo wcześniej return przerwie działanie funkcji
+}
+</code></pre>
+
+<p>Instrukcji return może być wiele dla jednej funkcji. Zawsze jednak wykonana zostanie tylko jedna:</p>
+
+<pre><code class="language-js">
+function isEven(number) {
+    if (number % 2 === 0) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+const nr = 1;
+if ( isEven(nr) ) {
+    console.log('Liczba' + x + ' nie jest parzysta');
+} else {
+    console.log('Liczba' + x + ' jest parzysta');
+}
+</code></pre>
+
+<p>
+Zauważyłeś jak w powyższym przykładzie zastosowaliśmy funkcję wraz z instrukcją "if".
+Jeżeli wywołujemy funkcję, w miejscu wywołania ląduje jej wynik. Czyli w powyższym przykładzie
+w konstrukcji <strong>if (isEven(nr))</strong> trafia true lub false.
+</p>
+
+<p>
+Poniżej to samo działanie. Funkcja zwraca wartość, którą od razu możemy wykorzystać:
+</p>
+
+<pre><code class="language-js">
+function fixName(name) {
+    return name.charAt(0).toUpperCase() + name.slice(1);
+}
+
+const result = fixName("piotr") + ' ' + fixName("kowalski");
+console.log(result); //Piotr Kowalski
+</code></pre>
+
+<p>
+Instrukcja return może zwracać dowolną wartość. Może to być tablica:
+</p>
+
+<pre><code class="language-js">
+function returnArray() {
+    return [1, 2, 3] //zwracamy tablicę, którą poznasz niebawem
+}
+
+const result = returnArray();
+
+console.log(result[0] + '|' + result[1] + '|' + result[2]); //wypisze 1|2|3
+</code></pre>
+
+<p>
+...lub obiekt:
+</p>
+
+<pre><code class="language-js">
+function returnObject() {
+    return {
+        first: 1,
+        second: 2,
+        third: 3
+    }
+}
+
+const result = returnObject();
+
+console.log(result.first + '|' + result.second + '|' + result.third); //wypisze 1|2|3
+</code></pre>
+
+<p>lub inne funkcje, o czym przekonasz się nieco później.</p>
+
+<div class="kartofel-informuje">
+    Czekaj, czekaj. Nie tak prędko!<br />
+    Do tego wszystkiego jeszcze dojdziemy.<br />
+    Na chwilę obecną najważniejsze jest byś zapamiętał, że funkcja to zamknięty fragment kodu, który możesz wywołać z "każdego miejsca" w każdym czasie. Nie musi to być kod odpalany od razu przy pierwszym wywołaniu skryptu (tak jakbyś pisał wszystko jedno pod drugim), a później - na przykład po kliknięciu na przycisk.<br>
+    Taki fragment kodu możesz potem parametryzować za pomocą atrybutów funkcji.<br>
+    Dodatkowo ten fragment kodu może zwracać jakiś wynik, który bardzo łatwo można wykorzystywać przy instrukcjach sprawdzających, równaniach itp.
+</div>
+
+<p>
+Zanim przejdziemy dalej, chciałbym byś zwrócił uwagę na jedną dość ważną cechę funkcji.<br>
+Spójrz na poniższy kod:
+</p>
+
+<pre><code class="language-js">
+const i = Math.abs(-20);
+const j = Math.pow(2, 3);
+const k = Math.max(1, 2, 3);
+</code></pre>
+
+<p>
+Wywołujemy tutaj znane już nam funkcje. Zauważ, że w powyższym kodzie skupiamy się tylko na wywołaniu funkcji. Interesuje nas to, jakich parametrów wymaga dana funkcja, oraz to co ona nam zwróci.<br>
+Skąd mamy wiedzieć te rzeczy? Z opisu danych funkcji - np. <a href="https://developer.mozilla.org/pl/docs/Web/JavaScript/Referencje/Obiekty/Math/abs">tego</a>, <a href="https://developer.mozilla.org/pl/docs/Web/JavaScript/Referencje/Obiekty/Math/pow">tego</a> i <a href="https://developer.mozilla.org/pl/docs/Web/JavaScript/Referencje/Obiekty/Math/max">tego</a>.</p>
+<p>
+Czy jest dla nas ważne jak taka funkcja oblicza dany wynik? Może autor do wyliczenia maksymalnej liczby wykorzystał kilka ifów? A może wykorzystał jakieś sortowanie lub zastosował pętlę? Nie jest to dla nas ważne. Nas interesuje tylko to jak taki klocek użyć i co on nam zwróci. To też jest bardzo istotna cecha funkcji. Dzięki temu skupiamy się na używaniu klocków, a nie dokładnym wnikaniu jak podszedł do tematu twórca danej funkcji.
+</p>
+
+<img src="./funkcja.png" alt="Działanie funkcji">
+
+<!-- ### -->
+<h2 class="subtitle" id="wyrazenie-funkcyjne">Wyrażenie funkcyjne</h2>
+<p>
+    Do tej pory poznaliśmy jeden sposób deklaracji funkcji.
+</p>
+
+<pre><code class="language-js">
+function myFunc() {
+    ...
+}
+</code></pre>
+
+Jest to tak zwana <strong>deklaracja funkcji</strong>.
+
+<p>Drugi sposób zwie się <strong>wyrażeniem funkcyjnym</strong>.
+Funkcję od razu podstawiamy pod zmienną:</p>
+
+<pre><code class="language-js">
+const myFunc = function() {
+    ...
+}
+</code></pre>
+
+<p>W powyższym kodzie pod zmienną podstawiliśmy tak zwaną <strong>funkcję anonimową</strong>, czyli funkcję, która nie ma nazwy.</p>
+
+<p>
+    Wyrażenie i definicja różnią się od siebie nie tylko sposobem zapisu, ale także tym, jak taki kod jest interpretowany przez przeglądarkę.<br>
+    Funkcja zadeklarowana za pomocą deklaracji jest od razu dostępna dla całego skryptu.
+    Możemy więc odwoływać się do funkcji, która jest zadeklarowana później w kodzie. Działa tutaj mechanizm hoistingu, <a href="./zmienne.php#hoisting">znany ze zmiennych</a>. Funkcje utworzone przez deklarację, poza naszymi plecami są przenoszone na początek danego scope (zasięgu).<br><br>
+
+    Przy wyrażeniu funkcyjnym mechanizm ten nie działa, a takie przedwczesne odwołanie się do funkcji jest niemożliwe. Funkcja zdefiniowana za pomocą wyrażenia musi być zadeklarowana przed jej wywołaniem:
+</p>
+
+<pre><code class="language-js">
+myFunction(); //Tutaj jest ok
+
+function myFunction() {
+    console.log('...');
+}
+</code></pre>
+
+<pre><code class="language-js">
+myFunction(); //Ee, ee - Błąd
+
+const myFunction = function() {
+    console.log('...');
+}
+</code></pre>
+
+<p>
+W praktyce nawet jeżeli deklarujesz funkcje za pomocą definicji (czyli tak jak robiliśmy dotychczas) trzymaj się poprawnego programowania. Czyli na początku twórz funkcję i zmienne, a potem ich używaj. Nigdy na odwrót, bo psuje to logikę kodu, a i powoduje cięższe odnajdywanie się w kodzie (stąd też sporo osób woli deklarować funkcje przez wyrażenia).
+</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="anonimowe-funkcje">Funkcje anonimowe</h2>
+<p>
+    Jak widzisz powyżej, pod zmienną podstawiliśmy funkcję, która nie ma własnej nazwy. Taka funkcja bez nazwy zwie się <strong>funkcją anonimową</strong>. Takie funkcje bardzo często stosuje się w przypadku pracy z <a href="../events/events.php">eventami</a>, gdzie nie występuje nawet użycie dodatkowej zmiennej:
+</p>
+
+<pre><code class="language-js">
+const elem = document.querySelector('.element');
+elem.addEventListener('click', function() {
+    ...
+});
+</code></pre>
+
+<p>Czy na przykład przy pracy z <a href="tablice-iteracje.php#forEach">metodami tablic</a>:</p>
+
+<pre><code class="language-js">
+[1,2,3].forEach(function(el) {
+    console.log(el);
+});
+
+[1,2,3].map(function(el) {
+    return el*2;
+});
+</code></pre>
+
+<p>Funkcję anonimową zastosujemy jeszcze w kilku innych sytuacjach - np. w <a href="../events/events.php">eventach</a>, <a href="funkcje-tematy-dodatkowe.php#callback">callbackach</a> czy <a href="funkcje-tematy-dodatkowe.php#iife">IIFE</a></p>
+
+<!-- ### -->
+<h2 class="subtitle" id="funkcja-strzałkowa">Funkcja strzałkowa</h2>
+<p>
+    W ES6 został wprowadzony jeszcze jeden zapis <strong>wyrażenia funkcyjnego</strong> zwany <strong>funkcją strzałkową</strong>.
+</p>
+
+<pre><code class="language-js">
+const myFunction = function(a, b) {
+    console.log(a, b);
+}
+
+const myFunction = () => {
+    console.log(a, b);
+}
+</code></pre>
+
+<div class="kartofel-informuje">
+    Funkcja strzałkowa tyczy się tylko wyrażeń funkcyjnych. Dla definicji nie może być użyta.
+</div>
+
+<p>Funkcja strzałkowa ma 2 kluczowe zadania: skrócenie zapisu, oraz nie zmieniane kontekstu this.</p>
+<p>Do tego drugiego tematu jeszcze powrócimy (<a href="../obiekty/obiekty-zaawansowane-this.php#funkcja-strzalkowa">tu</a> i <a href="../es6/funkcja-strzalkowa.php">tu</a>).
+   Na razie skupmy się na skróconym zapisie.</p>
+
+<p>Ogólnie użycie funkcji strzałkowej polega na zamianie słowa <strong>function</strong> na strzałkę czyli tak zwany <strong>fat arrow</strong>:</p>
+
+<pre><code class="language-js">
+//wyrażenie funkcyjne
+const myF = function() {
+    ...
+}
+
+//funkcja strzałkowa
+const myF = () => {
+    ...
+}
+</code></pre>
+
+<p>Przy skracaniu zapisu za pomocą funkcji strzałkowej obowiązuje nas kilka prostych zasad:</p>
+<pre><code class="language-js">
+//jeżeli funkcja nie ma parametrów, dajemy nawiasy i strzałkę (fat arrow)
+const myF = function() { ... }
+const myF = () => { ... }
+
+//jeżeli funkcja wymaga tylko jednego parametru pomijamy nawiasy
+const myF = function(a) { ... }
+const myF = a => { ... }
+
+//jeżeli funkcja wymaga większej ilości parametrów, dajemy nawiasy
+const myF = function(a, b) { ... }
+const myF = (a, b) => { ... }
+
+//jeżeli funkcja zwraca tylko jedną instrukcję możemy pominąć klamry
+const myF = function(a) { console.log(a); }
+const myF = a => console.log(a);
+
+//jeżeli funkcja tylko coś zwraca, możemy pominąć instrukcję return
+const myF = function(a) { return a * a; }
+const myF = a => a * a;
+</code></pre>
+
+<p>Powyżej mieliśmy przykłady dla podpięcia eventu czy iterowania po tablicach. W obydwu przypadkach możemy użyć funkcji strzałkowej:</p>
+
+<pre><code class="language-js">
+const elem = document.querySelector('.element');
+elem.addEventListener('click', function() {
+    ...
+});
+
+[1,2,3].forEach(function(el) {
+    console.log(el);
+});
+
+[1,2,3].map(function(el) {
+    return el*2;
+});
+</code></pre>
+
+<p>Zamienimy na:</p>
+
+<pre><code class="language-js">
+const elem = document.querySelector('.element');
+elem.addEventListener('click', () => {
+    ...
+});
+
+[1,2,3].forEach(el => console.log(el));
+
+[1,2,3].map(el => el*2);
+</code></pre>
+
+<div class="kartofel-informuje">
+    Jeden z ciekawszych i zwięzłych filmów na temat funkcji: <a href="https://www.youtube.com/watch?v=gigtS_5KOqo">https://www.youtube.com/watch?v=gigtS_5KOqo</a>
+</div>
+
+<div class="tasks-for-you-cnt">
+	<h2 class="subtitle" id="zadania">Trening czyni mistrza</h2>
+	<p>
+		Poniżej zamieszczam kilka zadań, które w ramach ćwiczenia możesz wykonać.
+		Funkcje są bardzo ważne, dlatego zadań nieco więcej.
+	</p>
+	<ol class="tasks-for-you">
+		<li>
+			<div class="question">
+			Napisz funkcję, która przyjmie jeden parametr - dowolny tekst<br>
+			Funkcja niech ZWRACA tekst "Liczba liter: ...." gdzie .... to liczba liter tekstu.<br>
+			</div>
+			<div class="solution">
+				<pre><code class="language-js">
+				function printText(txt) {
+					return "Liczba liter: " + txt.length;
+				}
+	
+				console.log(printText("Ala ma kota"));
+				</code></pre>
+			</div>
+		</li>
+		<li>
+			<div class="question">
+			Napisz funkcje, która zsumuje przekazaną do niej tablicę i zwraca wynik (sumę)
+			</div>
+			<div class="solution">
+				<pre><code class="language-js">
+				function sumTable(tab) {
+					let sum = 0;
+					for (let i=0; i&lt;tab.length; i++) {
+						sum += tab[i];
+					}
+					return sum;
+				}
+	
+	
+				const arr = [1,2,3,4];
+				console.log( sumTable(arr) );
+	
+				console.log( sumTable([1,2,3]) );
+				</code></pre>
+			</div>
+		</li>
+		<li>
+			<div class="question">
+			Napisz funkcję, która przyjmie dowolny tekst <br>
+			Funkcja niech zwraca tekst, który ma zmiksowana wielkość liter np:<br>
+			input  -&gt; Ala ma kota<br>
+			output -&gt; AlA Ma kOtA
+			</div>
+			<div class="solution">
+				<pre><code class="language-js">
+				function mix(txt) {
+					let newTxt = '';
+	
+					for (let i=0; i&lt;txt.length; i++) {
+						if (i % 2 === 0) {
+							newTxt += txt.charAt(i).toUpperCase();
+						} else {
+							newTxt += txt.charAt(i).toLowerCase();
+						}
+					}
+					return newTxt;
+				}
+	
+				console.log( mix("Ala ma kota") );
+				</code></pre>
+			</div>
+		</li>
+		<li>
+			<div class="question">
+			Napisz funkcje, która będzie wymagać 2 atrybutów.<br>
+			Funkcja niech sprawdza, czy oba atrybuty są numerami.<br>
+			Funkcja ma zwracać iloczyn (*) obu liczb.<br>
+			Jeżeli któryś z atrybutów nie jest liczba, funkcja niech zwraca false.<br>
+			NIE Wywołuj na razie tej funkcji
+			</div>
+			<div class="solution">
+				<pre><code class="language-js">
+				function multiply(nr1, nr2) {
+					if (typeof nr1 !== "number" || typeof nr2 !== "number") {
+						return false;
+					} else {
+						return nr1 * nr2;
+					}
+				}
+	
+	
+				console.log(multiply(3, 2)); //6
+				console.log(multiply("Ala", 2)); //false
+				</code></pre>
+			</div>
+		</li>
+	
+		<li>
+			<div class="question">
+			Napisz funkcje, która przyjmuje 2 parametry:<br>
+			1) imię - np: Ala<br>
+			2) miesiąc - np: styczeń<br><br>
+	
+			Funkcja ma zwracać:<br>
+			- jeżeli miesiąc to -&gt; grudzień, styczeń, luty<br>
+				"Ala jeździ na sankach"<br><br>
+	
+			- jeżeli miesiąc to -&gt; marzec, kwiecień, maj<br>
+				"Ala chodzi po kałużach"<br><br>
+	
+			- jeżeli miesiąc to -&gt; czerwiec, lipiec, sierpień<br>
+				"Ala się opala"<br><br>
+	
+			- jeżeli miesiąc to -&gt; wrzesień, październik, listopad
+				"Ala zbiera liście"
+			</div>
+			<div class="solution">
+				<pre><code class="language-js">
+					function printActions(name, month) {
+						if (month === "grudzien" || month === "styczen" || month === "luty") {
+							return name + " jeździ na sankach";
+						}
+						if (month === "marzec" || month === "kwiecien" || month === "maj") {
+							return name + " chodzi po kałużach";
+						}
+						if (month === "czerwiec" || month === "lipiec" || month === "sierpien") {
+							return name + " się opala";
+						}
+						if (month === "wrzesien" || month === "pazdziernik" || month === "listopad") {
+							return name + " zbiera liście";
+						}
+					}
+				</code></pre>
+			</div>
+		</li>
+	
+	
+		<li>
+			<div class="question">
+			Wywołaj funkcje z powyższego zadania przekazując do niej zmienne:<br>
+			- Twoje imię<br>
+			- dowolny miesiąc<br><br>
+	
+			Dopisz w tej funkcji zabezpieczenie, które pozwoli wpisać miesiąc małymi lub dużymi literami
+			Jeżeli miesiąc jest "innym słowem", funkcja niech zwraca "Ala uczy się JavaScript"
+			</div>
+			<div class="solution">
+				<pre data-line="2,17"><code class="language-js">
+				function printActions(name, month) {
+					month = month.toLowerCase();
+	
+					if (month === "grudzien" || month === "styczen" || month === "luty") {
+						return name + " jeździ na sankach";
+					}
+					if (month === "marzec" || month === "kwiecien" || month === "maj") {
+						return name + " chodzi po kałużach";
+					}
+					if (month === "czerwiec" || month === "lipiec" || month === "sierpien") {
+						return name + " się opala";
+					}
+					if (month === "wrzesien" || month === "pazdziernik" || month === "listopad") {
+						return name + " zbiera liście";
+					}
+	
+					return name + " uczy się JavaScript";
+				}
+				</code></pre>
+			</div>
+		</li>
+	
+		<li>
+			<div class="question">
+			Mamy przykładowy tekst:<br><br>
+	
+			<pre><code class="language-js">const str = "Ania|Marcin|Bartek|Piotr|Kuba|Beata|Agnieszka";</code></pre>
+	
+			Napisz funkcję, która przyjmie 2 atrybuty:<br>
+			- tekst<br>
+			- znak rozdziału (np |)<br><br>
+	
+			Skorzystaj z odpowiedniej metody String (poszukaj w necie),
+			tak aby rozdzielić przekazany do funkcji tekst na części za pomocą przekazanego znaku rozdziału.
+			W wyniku rozdzielenia powinieneś dostać tablicę. Funkcja niech posegreguje tą tablicę alfabetycznie.
+			Następnie funkcja niech połączy tą tablicę w nowy tekst wstawiając między imiona znak wcześniejszego rozdziału. Skorzystaj tutaj z innej odpowiedniej metody js.<br><br>
+	
+			input  -&gt; "Ania|Marcin|Bartek"<br>
+			output -&gt; "Ania|Bartek|Marcin"<br><br>
+	
+			Wywołaj tę funkcję przekazując do niej str z początku zadania
+			</div>
+			<div class="solution">
+				<pre><code class="language-js">
+				function sortString(txt, char) {
+					const tab = txt.split(char);
+					tab.sort();
+	
+					const newStr = tab.join("|");
+					return newStr;
+				}
+	
+	
+				const str = "Ania|Marcin|Bartek|Piotr|Kuba|Beata|Agnieszka";
+				console.log(str);
+				console.log(   sortString(str, '|')   );
+				</code></pre>
+			</div>
+		</li>
+	
+		<li>
+			<div class="question">
+			Wygeneruj pod zmienną "tab" 10-elementową tablicę z losowymi liczbami.<br>
+			Napisz funkcję getMinFromTab, do której przekażesz powyższą tablicę.<br>
+			Funkcja powinna zwrócić najmniejszą liczbę z tablicy.<br>
+			Za pomocą console.log wypisz wartość zwróconą przez funkcję.
+			</div>
+			<div class="solution">
+				<pre><code class="language-js">
+				function getMinFromTab(tab) {
+					var min = 1000000;
+					for (var i=0; i&lt;tab.length; i++) {
+						if (tab[i] &lt; min) {
+							min = tab[i]
+						}
+					}
+					return min;
+				}
+	
+	
+				//generujemy tablice
+				var tab = [];
+				for (var i=0; i&lt;10; i++) {
+					tab.push(  Math.floor(Math.random() * 10)+1  );
+				}
+	
+				//odpalamy funkcje przekazujac tablice
+				console.log(  getMinFromTab(tab)  );
+				</code></pre>
+			</div>
+		</li>
+	
+		<li>
+			<div class="question">
+			Napisz 2 funkcje. Każda z nich niech przyjmuje tablicę imion.<br><br>
+	
+			Pierwsza funkcja niech zwraca nową tablicę, w której imiona są zapisane dużymi literami.
+			Druga funkcja niech zwraca nową tablicę, w której imiona mają zmienną wielkość liter.
+			W przypadku drugiej funkcji do zamiany imion skorzystaj z funkcji z zadania 2.<br><br>
+	
+			input -&gt; ["Ania" , "Marcin" , "Bartek" , "Piotr"]<br>
+			output1 -&gt; ["ANIA" , "MARCIN" , "BARTEK" , "PIOTR"]<br>
+			output2 -&gt; ["AnIa" , "MaRcIn" , "BaRtEk" , "PiOtR"]<br>
+			</div>
+			<div class="solution">
+				<pre><code class="language-js">
+				function bigNames(tab) {
+					for (var i=0; i&lt;tab.length; i++) {
+						tab[i] = tab[i].toUpperCase();
+					}
+					return tab;
+				}
+	
+				function mixNames(tab) {
+					for (var i=0; i&lt;tab.length; i++) {
+						tab[i] = mix(tab[i]); //mix - nasza funkcja z zadania 2
+					}
+					return tab;
+				}
+	
+	
+				var tab = ["Ania" , "Marcin" , "Bartek" , "Piotr"];
+				console.log(bigNames(tab));
+				console.log(mixNames(tab));
+				</code></pre>
+			</div>
+		</li>
+	
+		<li>
+			<div class="question">
+			Napisz funkcję która przyjmie 2 atrybuty:<br>
+			- tekst<br>
+			- liczbę n<br><br>
+	
+			Funkcja niech zwraca napis będący powtórzony n razy:<br>
+			input : tekst: "ala", n: 4<br>
+			output: "alaalaalaala"<br><br>
+	
+			Funkcja niech sprawdza czy oba parametry są podane.<br>
+			Jeżeli parametr tekst nie jest podany lub nie jest tekstem, funkcja powinna go ustawić na pusty string "".<br>
+			Jeżeli parametr n nie jest podany, funkcja powinna ustawić go na 2.<br><br>
+	
+			Przykłady użycia:<br><br>
+	
+			input : tekst: "kot", n: 2<br>
+			output: "kotkot"<br><br>
+	
+			input : tekst: "x", n: nie podany<br>
+			output: "xx"<br><br>
+	
+			input : tekst: nie podany, n: 2<br>
+			output: ""
+			</div>
+			<div class="solution">
+				<pre><code class="language-js">
+				function duplicateText(text, nr) {
+					if (typeof text !== 'string') {
+						text = '';
+					}
+					if (typeof nr === 'number') {
+						nr = 2;
+					}
+	
+					let newStr = '';
+					for (let i=0; i&lt;nr; i++) {
+						newStr += text;
+					}
+	
+					return newStr;
+	
+				}
+	
+				console.log(duplicateText('maslo', 10));
+				</code></pre>
+			</div>
+		</li>
+	
+		<li>
+			<div class="question">
+			Napisz funkcję counter, która przy kolejnych wywołaniach będzie zwracać coraz większą wartość. Przy pierwszym wywołaniu powinna zwrócić 0, przy drugim 1, przy trzecim 2...<br>
+			Nie używaj tutaj zmiennej globalnej.
+			</div>
+			<div class="solution">
+				<pre><code class="language-js">
+				function counter() {
+					let a = 0;
+					return function() {
+						return a++;
+					}
+				}
+	
+				const count = counter();
+				count();
+				count();
+				</code></pre>
+			</div>
+		</li>
+		<li>
+			<div class="question">
+				Nie korzystając z gotowych funkcji Math.abs(), Math.pow() i Math.max() napisz ich
+				proste odpowiedniki czyli funkcje <strong>myAbs(nr), myPow(nr, pow) i myMax()</strong>. Skorzystaj przy tym z instrukcji if i pętli.
+			</div>
+			<div class="solution">
+				<pre><code class="language-js">
+				//jeżeli ujemne to zwraca dodatnie
+				function myAbs(nr) {
+					if (typeof nr !== "number") {
+						return NaN; //bo to zwraca Math.abs("Ola");
+					}
+	
+					if (nr &lt; 0) nr = nr * -1;
+					return nr;
+				}
+	
+				//zwraca liczbę do potęgi
+				function myPow(nr, pow) {
+					let result = nr;
+					for (let i=1; i&lt;pow; i++) {
+						result *= nr;
+					}
+					return result;
+				}
+	
+				//znajduje największą liczbę wśród parametrów
+				function myMax() {
+					if (!arguments.length) {
+						return -Infinity; //bo to zwraca Math.max();
+					}
+	
+					let max = arguments[0];
+					for (let i=0; i&lt;arguments.length; i++) {
+						if (arguments[i] &gt; max) {
+							max = arguments[i];
+						}
+					}
+					return max;
+				}
+				</code></pre>
+			</div>
+		</li>
+	</ol>
+	</div>
+
+			</div><!-- e: page-content-text -->
+			<footer class="page-footer">
+				<p>
+				Wszelkie prawa zastrzeżone. Jeżeli chcesz używać jakiejś części tego kursu, skontaktuj się z <a href="/kurs/autor.php">autorem</a>.
+				Aha - i ta strona korzysta z <a href="/kurs/polityka-prywatnosci.php">ciasteczek</a>.
+				</p>
+			</footer>
+							<div class="rekl-cnt">
+					<ins
+					class="adsbygoogle" style="margin-top:40px; display:block"
+					data-ad-client="ca-pub-6843603045703750"
+					data-ad-slot="4690777640"
+					data-ad-format="auto"
+					data-full-width-responsive="true"
+					></ins>
+				</div>
+				<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+	(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+					</main><!-- e: page-content -->
+			</div><!-- e: page-content-wrapper -->
+    <aside id="page-sidebar-cnt" class="page-sidebar-cnt">
+	<div id="page-sidebar" class="page-sidebar">
+		<button aria-label="Pokaż/ukryj Menu" aria-expanded="false" aria-controls="page-sidebar" type="button" id="pageSidebarBurger" class="page-sidebar-burger">
+			<span></span>
+		</button>
+
+		<h2 class="visuallyhidden">
+			Menu
+		</h2>
+
+		<button class="sidebar-toggle-btn" title="Pokaż/schowaj menu" aria-hidden="true">
+			<strong>Pokaż/ukryj menu</strong>
+			<span></span>
+			<span></span>
+			<span></span>
+		</button>
+
+		<div class="page-sidebar-title">
+			<a href="/kurs/kontakt.php" title="Nawrzucaj autorowi" class="mail-to-author" id="mailToAuthor">Napisz do mnie</a>
+			<a href="#popupOptions" class="page-setup-link popupOpen" title="Ustawienia strony" id="showOptions">Ustawienia</a>
+			<a href="/index.php" aria-label="Strona główna" class="page-sidebar-title-link">Kurs Javascript</a>
+		</div>
+
+        <form aria-label="Wyszukiwarka" class="search-sidebar" action="/search.php" method="post">
+            <label for="search" class="search-sidebar-label">Szukaj</label>
+            <div class="search-sidebar-input-cnt">
+                <svg class="search-sidebar-input-icon" xmlns="http://www.w3.org/2000/svg" width="26" height="28" viewBox="0 0 26 28" aria-hidden="true">
+                    <path d="M18 13c0-3.859-3.141-7-7-7s-7 3.141-7 7 3.141 7 7 7 7-3.141 7-7zm8 13c0 1.094-.906 2-2 2a1.96 1.96 0 0 1-1.406-.594l-5.359-5.344a10.971 10.971 0 0 1-6.234 1.937c-6.078 0-11-4.922-11-11s4.922-11 11-11 11 4.922 11 11c0 2.219-.672 4.406-1.937 6.234l5.359 5.359c.359.359.578.875.578 1.406z"></path>
+                </svg>
+                <input type="text" id="search" autocomplete="off" name="q" class="search-sidebar-input">
+            </div>
+            <button type="submit" class="search-sidebar-button">Szukaj</button>
+        </form>
+
+		<div class="page-sidebar-table-of-content">
+			<h2 class="visuallyhidden">Spis treści</h2>
+            <div class="page-sidebar-section">
+				<h3 class="page-sidebar-section-title noopen">
+                    <a href="/index.php">Strona główna</a>
+                </h3>
+            </div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Słowem wstępu</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/wstep/wstep.php">Wstęp</a>
+						</li>
+						<li >
+							<a href="/kurs/wstep/co-to-jest-javascript.php">Co to jest JavaScript i z czym go się je?</a>
+						</li>
+						<li >
+							<a href="/kurs/wstep/wymagania.php">Wymagania</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section show has-active-element">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Super podstawy</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/debuger/debuger.php">Debuger</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/pierwszy-skrypt.php">Wstawiamy skrypty na naszą stronę</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/strict-mode.php">Strict mode</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/typy-danych.php">Typy danych i konwersja danych</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/zmienne.php">Zmienne</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/operatory.php">Operatory</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/math.php">Obiekt Math</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/string.php">String - teksty</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/instrukcje-warunkowe.php">Instrukcje warunkowe</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/petle.php">Pętle</a>
+						</li>
+						<li class="active">
+							<a href="/kurs/super-podstawy/funkcje.php">Funkcje</a>
+						</li>
+                        <li >
+							<a href="/kurs/super-podstawy/funkcje-tematy-dodatkowe.php">Funkcje - tematy dodatkowe</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/tablice.php">Tablice</a>
+						</li>
+                        <li >
+							<a href="/kurs/super-podstawy/tablice-iteracje.php">Tablice pętle</a>
+						</li>
+						<li >
+							<a href="/kurs/debuger/debugowanie.php">Debugowanie kodu</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+            			<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Obiekty</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+                        <li >
+							<a href="/kurs/obiekty/obiekty.php">Obiekty i this</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-jak-to-dziala.php">Jak to działa</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-konstruktor.php">Konstruktor</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-zaawansowane-this.php">Zaawansowane this</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-dziedziczenie.php">Dziedziczenie w Javascript</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-inne-sposoby-tworzenia.php">Inne sposoby tworzenia obiektów</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-instanceof-hasownproperty.php">instanceof i hasOwnProperty</a>
+						</li>
+                    </ul>
+                </div>
+            </div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">DOM i zdarzenia</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/dom/dom.php">Document Object Model</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-wlasciwosci.php">Właściwości elementów</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-relacje.php">Relacje między elementami</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-tworzenie-i-usuwanie.php">Tworzenie i usuwanie elementów</a>
+						</li>
+                        <li >
+                            <a href="/kurs/dom/style.php">Style w CSS</a>
+                        </li>
+						<li >
+							<a href="/kurs/events/events.php">Zdarzenia</a>
+						</li>
+						<li >
+							<a href="/kurs/events/events-keys.php">Zdarzenia - klawisze</a>
+						</li>
+						<li >
+							<a href="/kurs/events/events-mouse.php">Zdarzenia - myszka</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/projekt-todo.php">Projekt TODO</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/slider.php">Tworzymy slider</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Prawie podstawy</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/grafika/grafika-na-stronie.php">Grafika na stronie</a>
+						</li>
+						<li >
+							<a href="/kurs/intervals/intervals.php">setTimeout i setInterval</a>
+						</li>
+						<li >
+							<a href="/kurs/match-media.php">Praca z RWD</a>
+						</li>
+						<li >
+							<a href="/kurs/okna-dialogowe.php">Okienka dialogowe</a>
+						</li>
+						<li >
+							<a href="/kurs/okna.php">Tworzenie nowych okien</a>
+						</li>
+						<li >
+							<a href="/kurs/date/date.php">Obiekt Date</a>
+						</li>
+						<li >
+							<a href="/kurs/date/date-calendar.php">Tworzymy kalendarz</a>
+						</li>
+						<li >
+							<a href="/kurs/cookies/cookie.php">Obiekt Cookie</a>
+						</li>
+						<li >
+							<a href="/kurs/storage/storage.php">Storage</a>
+						</li>
+						<li >
+							<a href="/kurs/regular.php">Wyrażenia regularne</a>
+						</li>
+						<li >
+							<a href="/kurs/formularze/formularze.php">Formularze</a>
+						</li>
+						<li >
+							<a href="/kurs/formularze/formularze-walidacja.php">Formularze - walidacja</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Ajax</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/ajax/ajax.php">AJAX, REST, JSON</a>
+						</li>
+						<li >
+							<a href="/kurs/ajax/xmlhttprequest.php">XMLHttpRequest</a>
+						</li>
+            			<li >
+							<a href="/kurs/ajax/fetch.php">Fetch API</a>
+						</li>
+						<li >
+							<a href="/kurs/ajax/formularz-kontaktowy.php">Dynamiczny formularz kontaktowy</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Nowy Javascript</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/es6/ecma-script-2015.php">ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/webpack.php">Webpack</a>
+						</li>
+                        <li >
+            				<a href="/kurs/es6/obiekty-w-es6.php">Obiekty w ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/funkcja-strzalkowa.php">Funkcja strzałkowa</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/spread-rest.php">Spread i rest</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/template-strings.php">Template strings</a>
+						</li>
+						<li >
+            				<a href="/kurs/es6/destructuring.php">Dekompozycja</a>
+        				</li>
+						<li >
+							<a href="/kurs/es6/class.php">Klasy w ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/promises.php">Promises</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/async-await.php">Async/Await</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/symbole.php">Symbole</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">jQuery</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/jquery/jquery.php">jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/animacje-w-jquery.php">Animacje w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/jquery-ajax.php">Ajax w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/tabs.php">Taby w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/plugin.php">Karuzela w jQuery</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Canvas</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/canvas/canvas.php">Canvas</a>
+						</li>
+						<li >
+							<a href="/kurs/canvas/canvas-images.php">Grafika w canvas</a>
+						</li>
+						<li >
+						<a href="/kurs/canvas/canvas-paint.php">Praktycznie : Paint w canvas</a>
+						</li>
+
+						<li >
+							<a href="/kurs/canvas/canvas-animacja.php">Animacja w canvas</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Gry</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/gry/hangman/hangman.php">Szubienica</a>
+						</li>
+						<li >
+							<a href="/kurs/gry/memory/memory.php">Memory</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+            			<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Inne</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/dodatkowe-materialy.php">Dodatkowe materiały</a>
+						</li>
+						<li >
+							<a href="/kurs/faq.php">FAQ</a>
+						</li>
+						<li >
+							<a href="/kurs/polityka-prywatnosci.php">Polityka prywatności</a>
+						</li>
+						<li >
+							<a href="/kurs/autor.php">O autorze</a>
+						</li>
+						<li >
+							<a href="/kurs/kontakt.php">Kontakt</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="page-sidebar-section">
+                <a class="special-link" href="/kurs/autor.php#donate">Wesprzyj kurs</a>
+            </div>
+		</div>
+	</div>
+</aside></div><!-- e: page-container -->
+
+<div class="popup" id="popupOptions">
+	<div class="popup-inside">
+        <div class="popup-container-cnt">
+            <div class="popup-container">
+                <button class="popup-close">Zamknij</button>
+
+                <h2 class="popup-title">
+                    Opcje
+                </h2>
+
+                <div class="popup-content">
+                    <form class="form-options">
+                        <div class="form-option">
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <label for="optionsThemeSelect">Wybierz skórkę dla listingów</label>
+                                    <select id="optionsThemeSelect"></select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <pre><code class="language-js">
+                                //tak będzie wyglądał kod
+
+                                function test() {
+                                    for (let i=0; i&lt;10; i++) {
+                                        console.log("Tekst numer ", 1);
+                                    }
+                                }
+
+                                test();
+                                </code></pre>
+                            </div>
+                            <div class="form-row" id="themeLightModeRow">
+                                <div class="form-col">
+                                    <label for="themeLightMode">
+                                        Tryb dzienny / nocny
+                                    </label>
+
+                                    <div class="light-mode-el">
+                                        <input type="checkbox" id="themeLightMode">
+                                        <span class="light-mode"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+	</div>
+</div>
+<script async defer src="https://www.googletagmanager.com/gtag/js?id=UA-38558970-5"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-38558970-5');
+</script>
+
+	<script src="/js/ads.js"></script>
+	<script src="/js/script.min.js?v=0.13" defer></script>
+</body>
+</html>

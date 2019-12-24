@@ -1,0 +1,1581 @@
+<!doctype html>
+<html lang="pl-PL">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kurs Javascript - jQuery - Ajax</title>
+	<meta name="description" content="Kurs Javascript dla superbohaterów, artykuły, tutoriale, porady, zadania do wykonania" />
+    <link rel="canonical" href="https://kursjs.pl/kurs/jquery/jquery-ajax.php" />
+	<link rel="stylesheet" href="./css.css" />
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,700&display=swap&subset=latin-ext" rel="stylesheet">
+	<meta name="image" content="https://kursjs.pl/kursjs.png">
+<meta name="twitter:card" content="product">
+<meta name="twitter:site" content="@publisher_handle">
+<meta name="twitter:title" content="Kurs Javascript">
+<meta name="twitter:description" content="Kurs Javascript dla superbohaterów">
+<meta name="twitter:creator" content="@kartofelek007">
+<meta name="twitter:image" content="https://kursjs.pl/kursjs.png">
+<meta property="og:title" content="Kurs Javascript">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.kursjs.com/">
+<meta property="og:image" content="https://kursjs.pl/kursjs.png">
+<meta property="og:description" content="Kurs Javascript dla superbohaterów">
+<meta property="og:site_name" content="Kurs Javascript">
+<link rel="apple-touch-icon" sizes="57x57" href="/favicons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/favicons/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/favicons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/favicons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/favicons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/favicons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/favicons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/favicons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="/manifest.json">
+<meta name="msapplication-TileColor" content="#FF6347">
+<meta name="msapplication-TileImage" content="/mstile-144x144.png">
+    <script src="/js/jquery.min.js"></script>
+</head>
+<body>
+
+<div class="page-container" id="pageContainer">
+	<div class="page-content-wrapper">
+        <main class="page-content" id="mainContent"  data-text-for-print="Kurs Javascript dla superbohaterów">
+                        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <div class="rekl-cnt">
+                <ins
+                class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-6843603045703750"
+                data-ad-slot="4690777640"
+                data-ad-format="auto"
+                data-full-width-responsive="true"
+                ></ins>
+            </div>
+                        <div class="page-content-text">
+
+<h1 class="subtitle">jQuery - Ajax</h1>
+<p>
+    Obsługa AJAX w czystym JavaScript nie zawsze jest najwygodniejszą sprawą. Możliwe, że właśnie dlatego bardzo często do działania z AJAX wybierane są biblioteki dające "nakładkę" (zwaną abstrakcją).
+    Jedną z takich bibliotek jest właśnie jQuery, która bardzo upraszcza pracę z Ajaxem.
+</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="ajax">$.ajax()</h2>
+<p>
+    Pierwsza funkcja i od razu z grubej rury. Funkcja <a href="http://jqapi.com/#p=jQuery.ajax">$.ajax()</a>, bo o niej mowa to główna a zarazem najbardziej rozbudowana funkcja z zestawu. Nasza bohaterka ma postać:
+</p>
+
+<pre><code class="language-js">
+$.ajax({
+    url         : "example.php", //wymagane, gdzie się łączymy
+    method      : "post", //typ połączenia, domyślnie get
+    contentType : 'application/json', //gdy wysyłamy dane czasami chcemy ustawić ich typ
+    dataType    : 'json', //typ danych jakich oczekujemy w odpowiedzi
+    data        : { //dane do wysyłki
+        name : 'Marcin',
+        country : 'Polska'
+    })
+});
+</code></pre>
+
+<p>
+    Jedynym wymaganym atrybutem jest tutaj url. Poza nim możemy określić dodatkowe atrybuty, wśród których znajdują się między innymi:
+</p>
+<table class="tab">
+    <tr>
+        <th style="width:150px"><strong>method</strong></th>
+        <td>typ połączenia: post, get, delete, put, patch. Domyślnym jest get i wtedy nie musimy podawać tego parametru</td>
+    </tr>
+    <tr>
+        <th><strong>data</strong></th>
+        <td>obiekt zawierający przekazywane dane</td>
+    </tr>
+    <tr>
+        <th><strong>dataType</strong></th>
+        <td>typ danych jaki oczekujemy w odpowiedzi. Omówimy go za moment. Jeżeli nie zostanie ustawiony, jQuery spróbuje określić typ danych na podstawie tego co dostanie w odpowiedzi. Najczęściej będzie to 'json'</td>
+    </tr>
+    <tr>
+        <th><strong>contentType</strong></th>
+        <td>typ danych jakie wysyłamy na serwer. Czasami musimy poinformować serwer <a href="https://pl.wikipedia.org/wiki/Typ_MIME">jakiego typu</a> dane mu wysyłamy</td>
+    </tr>
+</table>
+
+<p>
+    W praktyce parametrów możliwych do ustawienia jest o wiele więcej, ale większości z nich na co dzień zwyczajnie się nie używa. Warto jednak przyjrzeć się stronie <a href="http://jqapi.com/#p=jQuery.ajax">http://jqapi.com/#p=jQuery.ajax</a> i zapoznać się z kilkoma z nich.
+</p>
+
+<p>Proste przykłady użycia tej funkcji mogą wyglądać tak jak poniżej:</p>
+
+<pre><code class="language-js">
+//pobieranie danych w formacie JSON
+$.ajax({
+    url : "example.php",
+    dataType : "json"
+})
+.done(res => console.log(res));
+</code></pre>
+
+<pre><code class="language-js">
+//wysyłanie danych i otrzymanie danych w formacie JSON
+$.ajax({
+    url : "example.php",
+    method : "post",
+    dataType : "json",
+    data : {
+        name : "Karol",
+        age : 13
+    }
+})
+.done(res => console.log(res));
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="json">Funkcje zwrotne</h2>
+<p>
+Jak widzisz w powyższych przykładach, po zakończeniu połączenia odpalana jest funkcja zwrotna <strong>done()</strong>, do której przekazywane są dane zwrócone z serwera (w naszym przypadku trafią pod zmienną res). Można powiedzieć, że jest to taki event load dla <a href="../ajax/xmlhttprequest.php#load-event">XMLHttpRequest</a>.
+</p>
+<p>
+Funkcje takie możemy podawać jako <a href="#poprzednie-wersje">dodatkowe właściwości funkcji $.ajax()</a>, ale też - tak jak powyżej - jako dodatkowe podawane po kropce funkcje. Są to kolejno:
+</p>
+
+<table class="tab">
+    <tr>
+        <th><strong>done()</strong></th>
+        <td>wywoływane po pomyślnym wysłaniu danych do skryptu (kiedy serwer nie zwrócił błędu typu 400, 404, 500 itp)</td>
+    </tr>
+    <tr>
+        <th><strong>fail()</strong></th>
+        <td>wywoływane gdy nastąpi błąd w połączeniu - np. 404 - nie ma takiego adresu</td>
+    </tr>
+    <tr>
+        <th><strong>always()</strong></th>
+        <td>wywoływane po zakończeniu połączenia - bez względu czy zakończyło się błędem czy sukcesem</td>
+    </tr>
+</table>
+
+<p>Użycie takich funkcji może mieć postać:</p>
+
+<pre><code class="language-js">
+$.ajax({
+    url : '...'
+})
+.done(function(res) {
+    console.log(res); //dostaliśmy odpowiedź z serwera, wypisujemy ją
+})
+.fail(function() {
+    alert("Wystąpił błąd w połączeniu");
+})
+.always(function() {
+    $('.loading').hide();
+});
+</code></pre>
+
+<p>
+    Przykładowe zastosowania funkcji zwrotnych mogą mieć postać:
+</p>
+
+<pre><code class="language-js">
+//wczytywanie danych z serwera
+$.ajax({
+    url : '...',
+    dataType : "json"
+})
+.done(function(response) {
+    console.log(response);
+});
+</code></pre>
+
+<pre><code class="language-js">
+//wysyłanie danych na serwer i wypisanie zwracanej odpowiedzi
+$.ajax({
+    url : '...',
+        method : "post",
+        data : { //na serwer trafią dwie dane - name i pet
+            name : "Marcin",
+            pet : "Super Szamson"
+        },
+        dataType : "json" //oczekujemy odpowiedzi w formacie json
+})
+.done(function(response) {
+    console.log(response);
+})
+.fail(function() {
+    $('.form-message').html( "Wystąpił błąd" ); //pokazujemy użytkownikowi komunikat
+})
+</code></pre>
+
+<pre><code class="language-js">
+//wysyłanie danych w formacie json i wypisanie zwracanej odpowiedzi
+const ob = {
+    name : "Marcin",
+    pet : {
+        name : "Szamson",
+        color : "brown",
+        speed : 1000000
+    }
+};
+
+$.ajax({
+    url : '...',
+        method : "post",
+        contentType : "application/json",
+        data : JSON.stringify(ob),
+        dataType : "json"
+})
+.done(response => { //funkcje srzałkowe jak najbardziej na propsie
+    console.log(response);
+})
+.fail(() => {
+    alert("Wystąpił błąd w połączeniu");
+})
+.always(() => {
+    $('.loading').hide();
+});
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="prosty-przyklad-pobierania-danych">Prosty przykład pobierania danych</h2>
+<p>Dla utrwalenia poznanej wiedzy spróbujmy wykonać jakieś realne połączenie. Naszym celem będzie ściągnięcie danych z testowego API. Pod adresem <a href="https://jsonplaceholder.typicode.com/users">https://jsonplaceholder.typicode.com/users</a> mamy przykładową listę użytkowników. Po kliknięciu na przycisk pobierzmy ją i w liście wypiszmy imiona i emaile użytkowników:</p>
+
+<pre><code class="language-html">
+&lt;button class="button test-ajax" type="button">Kliknij i zobacz w konsoli debugera&lt;/button>
+&lt;ul class="user-list">&lt;/ul>
+</code></pre>
+
+<pre><code class="language-js">
+const apiUrl = "https://jsonplaceholder.typicode.com";
+const $list = $('.user-list');
+
+$('.test-ajax').on('click', function() {
+    const $btn = $(this);
+
+    //dodajemy klasę .loading do buttona, która doda mu ikonkę ładowania
+    //i wyłączamy go by użytkownik nie był nadgorliwy
+    $btn.addClass('loading');
+    $btn.prop('disabled', true);
+
+    //wykonujemy połączenie
+    $.ajax({
+        url : apiUrl + '/users',
+        dataType : 'json'
+    })
+    .done((res) => {
+        //czyścimy listę przed dodaniem użytkowników
+        //inaczej ponowne kliknięcie duplikowało by użytkowników na liście
+        $list.empty();
+
+        //robimy pętlę po zwróconej tablicy
+        //dołączając do listy kolejne LI z imieniem i emailem użytkownika
+        res.forEach(el => {
+            $list.append(`&lt;li>${el.name} : ${el.email}&lt;/li>`);
+        })
+    })
+    .always(() => {
+        //po zakończeniu wczytywania wyłączamy loading
+        //i włączamy przycisk
+        $btn.removeClass('loading');
+        $btn.prop('disabled', false);
+    });
+});
+</code></pre>
+
+<style>
+    .user-list {
+        border:1px solid #ddd;
+        padding: 1rem 3rem;
+    }
+</style>
+<p>
+    <button class="button test-ajax" type="button">Kliknij i zobacz w konsoli debugera</button>
+</p>
+<ul class="user-list"></ul>
+
+<script>
+    {
+        const apiUrl = "https://jsonplaceholder.typicode.com";
+        const $list = $('.user-list');
+
+        $('.button.test-ajax').on('click', function() {
+            const $btn = $(this);
+
+            $btn.addClass('loading');
+            $btn.prop('disabled', true);
+
+            $.ajax({
+                url: apiUrl + '/users',
+                dataType: 'json',
+                type: 'get'
+            })
+            .done(function(res) {
+                $list.empty();
+
+                res.forEach(el => {
+                    $list.append(`<li>${el.name} : ${el.email}</li>`);
+                })
+            })
+            .always(function() {
+                $btn.removeClass('loading');
+                $btn.prop('disabled', false);
+            });
+        });
+    }
+</script>
+
+<!-- ### -->
+<h2 class="subtitle" id="prosty-przyklad-wysylania-danych">Prosty przykład wysyłania danych</h2>
+<p>Skoro udało nam się pobrać dane, spróbujmy je wysłać. Tutaj także skorzystamy z API <a href="https://jsonplaceholder.typicode.com/">https://jsonplaceholder.typicode.com/</a>. Tym razem spróbujmy dodać nowy post wysyłając odpowiednie dane (ich strukturę możemy zobaczyć
+    <a href="https://jsonplaceholder.typicode.com/posts">tutaj</a>) na adres <a href="https://jsonplaceholder.typicode.com/posts">https://jsonplaceholder.typicode.com/posts</a>. API pod tym adresem jest testowe, to znaczy, że dodany post nie zostanie zapisany realnie w bazie, ale API będzie symulowało takie działanie.</p>
+
+<pre><code class="language-js">
+&lt;form class="form" id="formSubmit">
+    &lt;div class="form-row">
+            &lt;label for="inputTitle">Tytuł postu&lt;/label>
+            &lt;input type="text" id="inputTitle">
+    &lt;/div>
+    &lt;div class="form-row">
+            &lt;label for="inpBody">Treść postu&lt;/label>
+            &lt;textarea id="inpBody">&lt;/textarea>
+    &lt;/div>
+    &lt;div class="form-row">
+            &lt;button type="submit" class="button">Wyślij i sprawdź w konsoli odpowiedź&lt;/button>
+    &lt;/div>
+&lt;/form>
+</code></pre>
+
+<pre><code class="language-js">
+const apiUrl = "https://jsonplaceholder.typicode.com";
+
+//pobieramy wszystkie niezbędne elementy
+const $form = $('.form');
+const $inputTitle = $('#inpTitle');
+const $inputBody = $('#inpBody');
+const $submitBtn = $form.find(":submit");
+
+//podpinamy się pod wysłany formularz
+$form.on("submit", function(e) {
+    e.preventDefault();
+
+    //po kliknięciu wyłączam submit i dodaję mu loading
+    $submitBtn.addClass('loading');
+    $submitBtn.prop('disabled', true);
+
+    //wysyłamy dane
+    $.ajax({
+        url: apiUrl + '/posts',
+        method : "POST",
+        dataType : "json",
+        data : {
+            userId : 1, //przykładowy user
+            title : $inputTitle.val(), //wartości danych pobieram z pól
+            body : $inputBody.val()
+        }
+    })
+    .done(function(res) {
+        console.log("Użytkownik został dodany do bazy", res);
+    })
+    .always(function() {
+        //po zakończeniu połączenia włączam submit i wyłączam klasę loading
+        $submitBtn.removeClass('loading');
+        $submitBtn.prop('disabled', false);
+    });
+});
+</code></pre>
+
+<form class="form" id="formSubmit">
+    <div class="form-row">
+        <div class="col-1-1">
+            <label for="inputTitle">Tytuł postu</label>
+            <input type="text" id="inputTitle">
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col-1-1">
+            <label for="inpBody">Treść postu</label>
+            <textarea id="inpBody"></textarea>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col-1-1">
+            <button type="submit" class="button">Wyślij i sprawdź w konsoli odpowiedź</button>
+        </div>
+    </div>
+</form>
+
+<script>
+{
+    const apiUrl = "https://jsonplaceholder.typicode.com";
+
+    //pobieramy wszystkie niezbędne elementy
+    const $form = $('.form');
+    const $inputTitle = $('#inpTitle');
+    const $inputBody = $('#inpBody');
+    const $submitBtn = $form.find(":submit");
+
+    //podpinamy się pod wysłany formularz
+    $form.on("submit", function(e) {
+        e.preventDefault();
+
+        //po kliknięciu wyłączam submit i dodaję mu loading
+        $submitBtn.addClass('loading');
+        $submitBtn.prop('disabled', true);
+
+        //wysyłamy dane
+        $.ajax({
+            url : apiUrl + "/posts",
+            method : "POST",
+            dataType : "json",
+            data : {
+                userId : 1,
+                title : $inputTitle.val(), //wartości danych pobieram z pól
+                body : $inputBody.val()
+            }
+        })
+        .done(function(res) {
+            console.log("Użytkownik został dodany do bazy", res);
+        })
+        .always(function() {
+            //po zakończeniu połączenia włączam submit i wyłączam klasę loading
+            $submitBtn.removeClass('loading');
+            $submitBtn.prop('disabled', false);
+        });
+    });
+}
+</script>
+
+<!-- ### -->
+<h2 class="subtitle" id="skrocone-funckje">Skrócone funkcje</h2>
+<p>
+    jQuery udostępnia nam też kilka funkcji będących alternatywnym, skróconymi wariantami użycia powyżej funkcji $.ajax czyli:
+</p>
+
+<table class="tab">
+    <tr><td><a href="#get">$.get()</a></td></tr>
+    <tr><td><a href="#post">$.post()</a></td></tr>
+    <tr><td><a href="#getJSON">$.getJSON()</a></td></tr>
+    <tr><td><a href="#getScript">$.getSCRIPT()</a></td></tr>
+    <tr><td><a href="#load">$element.load()</a></td></tr>
+</table>
+
+<!-- ### -->
+<h2 class="subtitle" id="get">$.get()</h2>
+<p>Funkcja <a href="http://jqapi.com/#p=jQuery.get">$.get()</a> jest skróconym zapisem wywołania funkcji $.ajax() w postaci:</p>
+
+<pre><code class="language-js">
+$.ajax({
+    url: url,
+    success: success, //funkcja wykonująca się po zakończeniu połączenia
+    data: data, //opcjonalne - dane do wysłania
+    dataType: dataType //opcjonalne - typ danych jakich oczekujemy
+});
+</code></pre>
+
+<p>i służy do wykonywania połączeń typu <strong>get</strong>. Przykładowe zastosowania tej funkcji mogą mieć postać:</p>
+
+<pre><code class="language-js">
+//pobieranie danych
+$.get("example.php", function(res){
+    console.log("Dane otrzymane: ", res);
+});
+</code></pre>
+
+<pre><code class="language-js">
+//pobieranie danych z dodatkowym wysłaniem jakiś danych
+$.get("example.php", { page : 1 }, function(res){
+    console.log("Dane otrzymane: ", res);
+});
+</code></pre>
+
+<pre><code class="language-js">
+//pobieranie danych z wykorzystaniem funkcji done
+$.get("example.php", { page : 1})
+.done(resp => {
+    console.log(resp);
+})
+.fail(() => {
+    alert("Wystąpił błąd w połączeniu");
+})
+.always(() => {
+    $('.loading').hide();
+});
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="post">$.post()</h2>
+<p>
+Funkcja <a href="http://jqapi.com/#p=jQuery.post">$.post</a> jest skróconym zapisem wywołania funkcji $.ajax w postaci:
+</p>
+
+<pre><code class="language-js">
+$.ajax({
+    method: "POST",
+    url: url,
+    data: data, //wysyłane dane na serwer
+    success: success,
+    dataType: dataType
+});
+</code></pre>
+
+<p>i służy do wykonywania połączeń typu post:</p>
+
+<pre><code class="language-js">
+//pobieramy html i wstawiamy go w element .result
+$.post( "ajax/test.html", function( data ) {
+  $(".result").html( data );
+});
+</code></pre>
+
+<pre><code class="language-js">
+//wysyłamy dane na serwer
+$.post("example.php", {
+    name: "Johny",
+    surname: "Bravo"
+});
+</code></pre>
+
+<pre><code class="language-js">
+//wysyłamy dane i wypisujemy odpowiedź w funkcji done
+$.post("example.php", {
+    name: "Johny",
+    surname: "Bravo"
+})
+.done(resp => {
+    console.log(resp);
+});
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="getJSON">$.getJSON()</h2>
+<p>
+    Funkcja <a href="http://jqapi.com/#p=jQuery.getJSON">$.getJSON()</a> to skrócony zapis konstrukcji:
+</p>
+
+<pre><code class="language-js">
+$.ajax({
+    dataType: "json",
+    url: url,
+    data: data,
+    success: success
+});
+</code></pre>
+
+<p>i służy do pobierania danych typu json. Przykładowe użycie tej funkcji może mieć postać:</p>
+
+<pre><code class="language-js">
+$.getJSON("test.json", function(res) {
+  res.forEach(el => console.log(el) );
+});
+</code></pre>
+
+<p>Podobnie do poprzednich funkcji możemy tutaj wysyłać dodatkowe dane i używać nowych funkcji zwrotnych:</p>
+
+<pre><code class="language-js">
+$.getJSON("test.json", { id : 100})
+.done(resp => {
+    console.log(resp);
+})
+.fail(() => {
+    alert("Wystąpił błąd w połączeniu");
+});
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="getScript">$.getScript()</h2>
+<p>
+    Funkcja <a href="http://jqapi.com/#p=jQuery.getScript">$.getSCRIPT()</a> to skrócony zapis kodu:
+</p>
+
+<pre><code class="language-js">
+$.ajax({
+    url: url,
+    dataType: "script",
+    success: success
+});
+</code></pre>
+
+<p>
+    i służy do wczytania i wykonania skryptu JavaScript. Jej przykładowe użycie może mieć postać:
+</p>
+
+<pre><code class="language-js">
+$.getScript("test.js"); //wczytanie i wykonanie skryptu
+</code></pre>
+
+<p>
+    I znowu - podobnie jak przy innych funkcjach możemy tutaj wysyłać dodatkowe dane i używać nowych funkcji zwrotnych:
+</p>
+
+<pre><code class="language-js">
+$.getScript("test.js")
+.done(function( script, textStatus ) {
+    console.log( textStatus ); //treść skryptu
+    console.log( textStatus ); //status wczytania - np. success
+})
+.fail(() => {
+    alert("Wystąpił błąd w połączeniu");
+});
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="load">$element.load()</h2>
+<p>Ostatnią z omawianych funkcji jest <a href="http://jqapi.com/#p=load">$element.load()</a>, która jest mniej więcej odpowiednikiem kodu <code>$.get(url, data, success)</code> i służy do wczytywania treści z serwera i umieszczenia jej w jakimś elemencie.
+</p>
+
+<p>Jej przykładowe użycie może mieć postać:</p>
+
+<pre><code class="language-js">
+//wczytuję plik article.html i umieszczam go w div #result
+$("#result").load( "article.html" );
+</code></pre>
+
+<pre><code class="language-js">
+//wczytuję plik article.html ale tylko zawartość diva #content
+$("#result").load( "article.html #content" );
+</code></pre>
+
+<pre><code class="language-js">
+//wczytuje treść artykułu przekazując dodatkowe dane na serwer - np. id wczytywanego artykułu
+$("#result").load( "article.php", { id: 100 } );
+</code></pre>
+
+<pre><code class="language-js">
+//wczytuję dane przekazując dodatkowy parametr
+//dodatkowo po wczytaniu danych odpalam funkcję, która pokaże div#result
+$("#result").load("feeds.php", { limit: 25 }, function() {
+    //funkcja zwrotna odpalana po wczytaniu
+    $("#result").slideDown();
+});
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="load-przyklad">Przykład użycia metody load()</h2>
+<p>
+    Przykład użycia metody load możesz zobaczyć poniżej.
+</p>
+
+<p>
+   Jest to prosta lista 3 linków prowadzących do stron z opisami bohaterów.<br>
+   Za pomocą jquery podpinamy im event kliknięcia. Przerywamy domyślą akcję (przenoszenie), a następnie za pomocą load wczytujemy treść z danego pliku html.<br>
+    W zakładce network debugera możesz sprawdzić jak wyglądają odpowiedzi:
+</p>
+
+<pre><code class="language-js">
+&lt;ul class="tabs">
+    &lt;li class="tabs-el">&lt;a href="data-batman.html" class="tabs-link">Batman&lt;/a>&lt;/li>
+    &lt;li class="tabs-el">&lt;a href="data-superman.html" class="tabs-link">Superman&lt;/a>&lt;/li>
+    &lt;li class="tabs-el">&lt;a href="data-flash.html" class="tabs-link">Flash&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;div class="tabs-content">&lt;/div>
+</code></pre>
+
+<pre><code class="language-js">
+const $links = $('.tabs a');
+$links.on("click", function(e) {
+    e.preventDefault();
+    //pobieram dokąd prowadzi link
+    const href = $(this).attr('href');
+
+    //wyłączam innym tabom klasę .tabs-el-active
+    $(this).parent().siblings().removeClass('tabs-el-active');
+    //i dodaję klikniętemu
+    $(this).parent().addClass('tabs-el-active');
+
+    //wczytuję treść
+    $('.tabs-content').load(href + ' #content', function() {
+        console.log("Wczytano treść");
+    });
+});
+$links.eq(0).click(); //klikam na 1 link
+</code></pre>
+
+<style>
+    .tabs {
+        display: flex;
+        list-style:none;
+        padding:0;
+        margin:0;
+    }
+    .tabs-el {
+        display: block;
+        padding: 0.5rem 1rem;
+        background: #0DD1A5;
+        margin-right:3px;
+        color: #fff;
+    }
+    .tabs-el:not(.tabs-el-active):hover {
+        background: #0DC49B;
+    }
+    .tabs-el-active {
+        background: #A6E22E;
+    }
+    .tabs-link {
+        color: inherit;
+        text-decoration: none;
+    }
+    .tabs-link:hover {
+        color:inherit;
+    }
+    .tabs-content {
+        border: 1px solid #ddd;
+        padding: 1.5rem;
+        background: #fff;
+        color: #333;
+    }
+</style>
+
+<ul class="tabs">
+    <li class="tabs-el"><a href="data-batman.html" class="tabs-link">Batman</a></li>
+    <li class="tabs-el"><a href="data-superman.html" class="tabs-link">Superman</a></li>
+    <li class="tabs-el"><a href="data-flash.html" class="tabs-link">Flash</a></li>
+</ul>
+<div class="tabs-content"></div>
+
+<script>
+    {
+        const $links = $('.tabs a');
+        $links.on("click", function(e) {
+            e.preventDefault();
+            const href = $(this).attr('href');
+
+            $(this).parent().siblings().removeClass('tabs-el-active');
+            $(this).parent().addClass('tabs-el-active');
+
+            $('.tabs-content').load(href + ' #content', function() {
+                console.log("Wczytano treść");
+            });
+        });
+        $links.eq(0).click(); //klikam na 1 link
+    }
+</script>
+
+<div class="kartofel-informuje">
+    Powyższy skrypt ma tą zaletę, że użytkownik nawet bez CSS i JS będzie mógł dostać się do treści. Jeżeli JS nie zadziała, linki po prostu przeniosą użytkownika na daną podstronę. Użyteczność nie ta sama, ale dostanie się do treści możliwe. Mały detal a cieszy...
+</div>
+
+<!-- ### -->
+<h2 class="subtitle" id="selectyjson">Dynamiczne selekty z wykorzystaniem JSON</h2>
+<p>
+    Kolejny przykład wykorzystania powyższej wiedzy to mechanizm 2 zależnych od siebie selektów. Opcje w 2 selekcie będą zależne od tego, co wybierzemy w 1 selekcie.<br>
+    Poniższy przykład pokazuje, jak taki problem rozwiązać z wykorzystaniem json:
+</p>
+
+<pre><code class="language-html">
+    &lt;select id="select1" name="gender">
+        &lt;option value="-1">Wybierz płeć&lt;/option>
+        &lt;option value="k">Kobiety&lt;/option>
+        &lt;option value="m">Mężczyźni&lt;/option>
+    &lt;/select>
+
+    &lt;select id="select1" disabled name="personNames">
+        &lt;option value="-1">---&lt;/option>
+    &lt;/select>
+</code></pre>
+
+<p>
+    Mamy więc 2 selekty. Pierwszy z nich służy do wybrania płci, a drugi będzie służyć do wyboru imienia.<br />
+    Po wybraniu płci w 1 selekcie, sprawdzamy czy ma ona jakąś sensowną wartość (czyli jest różna od -1) i
+    wysyłamy ją do serwera. Następnie aktywujemy drugi selekt i za pomocą pętli dynamicznie ustawiamy jego optiony.
+</p>
+
+<pre><code class="language-js">
+const $select1 = $('#select1');
+const $select2 = $('#select2');
+
+$select1.on('change', function() {
+    const selectVal = $(this).find('option:selected').val();   //pobieramy wartość wybranego selekta
+
+    if (selectVal !== -1) {  //jeżeli jest inna niż -1 (czyli jeżeli został wybrany model)
+        $.ajax({
+            type: "post",
+            url: "skryptNaSerwerze.php",
+            dataType : 'json',
+            data: {
+                gender : selectVal
+            }
+        })
+        .done(function(response) {
+            $select2.prop('disabled', 0); //aktywujemy 2 selekt
+            $select2.empty(); //czyścimy go
+
+            response.forEach(function(el) {
+                $select2.append('&lt;option value="'+el.value+'">'+el.name+'&lt;/option>');
+            });
+
+            //ustawiamy jako wybrany pierwszy option w selekcie 2
+            $select2.find('option').eq(0).prop('selected', 1);
+        })
+        .fail(function() {
+            console.warn('wystąpił błąd');
+        })
+    } else {
+        $select2.empty();
+        $select2.prop('disabled', 1);
+    }
+});
+
+$select1.val(-1);
+$select2.prop('disabled', 1);
+</code></pre>
+
+<p>
+    Aby powyższy skrypt miał sens, musimy stworzyć skrypt <strong>skryptNaSerwerze.php</strong>,
+    który na podstawie przesłanego POST będzie wysyłał
+    do przeglądarki json z odpowiednimi wartościami,
+    na podstawie których tworzymy nowe optiony. Poniżej przedstawiam wersję dla php
+</p>
+
+<pre><code class="language-php">
+&lt;?php
+$gender = $_POST['gender'];
+
+$names = Array();
+
+$names['m'] = Array();
+$names['m'][0] = Array('name'=>'Arnold', 'value'=>'1');
+$names['m'][1] = Array('name'=>'Bartek', 'value'=>'2');
+$names['m'][2] = Array('name'=>'Darek', 'value'=>'3');
+$names['m'][3] = Array('name'=>'Kamil', 'value'=>'4');
+$names['m'][4] = Array('name'=>'Michał', 'value'=>'5');
+
+$names['k'] = Array();
+$names['k'][0] = Array('name'=>'Ania', 'value'=>'1');
+$names['k'][1] = Array('name'=>'Beata', 'value'=>'2');
+$names['k'][2] = Array('name'=>'Kamila', 'value'=>'3');
+$names['k'][3] = Array('name'=>'Patrycja', 'value'=>'4');
+$names['k'][4] = Array('name'=>'Zenona', 'value'=>'5');
+
+echo json_encode($names[$gender]);
+</code></pre>
+
+<script>
+    $(function() {
+        const $select1 = $('#select1');
+        const $select2 = $('#select2');
+
+        $select1.on('change', function() {
+            const selectVal = $(this).find('option:selected').val();
+
+            if (selectVal !== -1) {
+                $.ajax({
+                    type: "post",
+                    url: "skryptNaSerwerze.php",
+                    dataType : 'json',
+                    data: {
+                        gender : selectVal
+                    }
+                })
+                .done(function(response) {
+                    $select2.prop('disabled', 0);
+                    $select2.empty();
+
+                    response.forEach(function(el) {
+                        $select2.append('<option value="'+el.value+'">'+el.name+'<name/option>');
+                    });
+
+                    $select2.find('option').eq(0).prop('selected', 1);
+                })
+                .fail(function() {
+                    console.warn('wystąpił błąd');
+                })
+            } else {
+                $select2.empty();
+                $select2.prop('disabled', 1);
+            }
+        });
+
+        $select1.val(-1);
+        $select2.prop('disabled', 1);
+    });
+</script>
+
+<style>
+    select:disabled {
+        opacity: 0.6;
+    }
+</style>
+
+<form class="form">
+    <fieldset>
+        <div class="row">
+            <div class="col-1-2">
+                <label for="select1">Wybierz płeć</label>
+                <select id="select1">
+                    <option value="-1">Wybierz pleć</option>
+                    <option value="k">Kobiety</option>
+                    <option value="m">Mężczyźni</option>
+                </select>
+            </div>
+            <div class="col-1-2">
+                <label for="select2">Wybierz osobę</label>
+                <select id="select2" disabled="disabled">
+                    <option value="-1">---</option>
+                </select>
+            </div>
+        </div>
+    </fieldset>
+</form>
+
+<p>Sprawdź w konsoli (zakładka Network) jak doczytywane są dane.</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="poprzednie-wersje">Dodatek: poprzednie wersje jQuery</h2>
+<p>
+W poprzednich wersjach jQuery metody <strong>done()</strong>, <strong>fail()</strong> i <strong>always()</strong> istniały pod nazwami success, error i complete i były deklarowane jako parametry obiektu konfiguracyjnego funkcji $.ajax():
+</p>
+
+<pre><code class="language-js">
+$.ajax({
+    url : '...',
+    success : function(response) {...},
+    error : function() {...},
+    complete : function() {...}
+})
+</code></pre>
+
+    <p>Używanie funkcji zwrotnych w takiej postaci jest możliwe dalej, co zresztą robiliśmy kilka razy powyżej. Jeżeli wrócisz wzrokiem do powyższych opisów metod skróconych (<a href="#get">$.get()</a>, <a href="#post">$.post()</a> itp.), zobaczysz, że w tych skróconych metodach funkcje zwrotne podawaliśmy właśnie jako jeden z parametrów (przy czym mogliśmy też użyć nowszego podejścia).</p>
+
+<p>
+Od wersji jQuery 1.5 zostały wprowadzone omawiane powyżej alternatywne funkcje zwrotne <strong>done()</strong>, <strong>fail()</strong> i <strong>always()</strong>. Wiąże się to z wprowadzeniem do jQuery <a href="../es6/promises.php">obietnic</a>, dzięki którym możemy pisać przyjemniejszy kod przy pracy z asynchronicznością.
+</p>
+
+<p>W poprzednich wersjach gdy chcieliśmy wykonać jakąś funkcję po zakończeniu połączenia, musieliśmy
+ją odpalać z wnętrza ciała deklaracji danej funkcji asynchronicznej np.:</p>
+
+<pre><code class="language-js">
+$.ajax({
+    url : "example.php",
+    success : function(response) {
+        printData(response);
+    },
+    error : function() {...},
+    complete : function() {...}
+})
+</code></pre>
+
+<pre><code class="language-js">
+$.get(url : "example.php", function(response) {
+    printData(response);
+});
+</code></pre>
+
+<p>Powodowało to, że nasz kod stawał się cięższy w utrzymaniu, ponieważ musieliśmy skakać wzrokiem po całym kodzie i przyglądać się wnętrzu danych funkcji:</p>
+
+<pre><code class="language-js">
+function printData(data) {
+    console.log(data);
+}
+
+function loadData() {
+    $.ajax({
+        url : '...',
+        success : function(resp) {
+            printData(resp);
+        }
+    })
+}
+
+$('#button1').on('click', function() {
+    loadData(); //stąd do loadData, a z loadData do printData1, a z printData1 do...
+});
+</code></pre>
+
+<p id="callback-problem">Ale i to nie koniec problemów.<br>
+Wyobraź sobie, że powyższa funkcja loadData() powinna być funkcją uniwersalną, którą moglibyśmy wykorzystać do pobierania różnych danych.<br>
+   Po pobraniu danych powinniśmy móc wywoływać różne funkcje do obróbki zwróconych danych. Ale jak to zrobić - skoro w powyższym kodzie po wczytaniu danych zawsze odpalana jest ta sama funkcja printData()?. Problem ukazuje poniższy kod:</p>
+
+<pre><code class="language-js">
+function printData1(data) {
+    console.log(data);
+}
+
+function printData2(data) {
+    console.log(data);
+}
+
+function loadData() {
+    $.ajax({
+        url : '...',
+        success : function(resp) {
+            printData1(resp);
+        }
+    })
+}
+
+$('#button1').on('click', function() {
+    //po wczytaniu danych chcę odpalić printData1 - tu się uda, bo powyżej właśnie ona jest odpalana
+    //ale dalej musimy skakać po kodzie wzrokiem i analizować wnętrze loadData
+    loadData();
+});
+
+$('#button2').on('click', function() {
+    //po wczytaniu danych chcę odpalić printData2 - tylko jak????
+    loadData();
+});
+</code></pre>
+
+<p>Rozwiązaniem takiej sytuacji było zastosowanie funkcji zwrotnych (callback):</p>
+
+<pre data-line="9,13,20-24"><code class="language-js">
+function printData1(data) {
+    console.log(data);
+}
+
+function printData2(data) {
+    console.log(data);
+}
+
+function loadData(fn) {
+    $.ajax({
+        url : '...',
+        success : function(resp) {
+            fn(resp);
+        }
+    })
+}
+
+$('#button1').on('click', function() {
+    //nie musimy skakać wzrokiem i po wczytaniu danych spokojnie odpalamy różne funkcje
+    loadData(printData1);
+    //lub
+    loadData(function(data) {
+        printData1(data);
+    });
+});
+
+$('#button2').on('click', function() {
+    loadData(printData2);
+});
+</code></pre>
+
+<p>Dzięki nowemu podejściu powyższe zagadnienia możemy zapisać w o wiele prostszy sposób:</p>
+
+<pre><code class="language-js">
+function loadData() {
+    return $.ajax({
+        url : url
+    });
+}
+
+$('#button1').on('click', function() {
+    loadData().done(data => printData1(data));
+});
+
+$('#button2').on('click', function() {
+    loadData().done(data => printData2(data));
+});
+</code></pre>
+
+<p>
+    Dodatkowo dzięki temu, że każda z omawianych funkcji zwraca <a href="../es6/promises.php">obietnicę</a>, bardzo łatwo możemy czekać na zakończenie kilku różnych połączeń, co nawet z wykorzystaniem funkcji zwrotnych nie było by najprzyjemniejsze.
+</p>
+
+<pre><code class="language-js">
+const getData1 = function() {
+    return $.get({
+        url : '...'
+    })
+}
+
+const getData2 = function() {
+    return $.post({
+        url : '...'
+    })
+}
+
+const getData3 = function() {
+    return $.ajax({
+        url : '...'
+    })
+}
+
+//czekamy na skończenie działania naszych funkcji
+$.when(getData1, getData2, getData3).then((res1, res2, res3) => {
+    console.log(res1[0], res2[0], res3[0]);
+}, () => {
+    console.log('Fail: ', error, error.status, error.statusText);
+});
+</code></pre>
+
+
+			</div><!-- e: page-content-text -->
+			<footer class="page-footer">
+				<p>
+				Wszelkie prawa zastrzeżone. Jeżeli chcesz używać jakiejś części tego kursu, skontaktuj się z <a href="/kurs/autor.php">autorem</a>.
+				Aha - i ta strona korzysta z <a href="/kurs/polityka-prywatnosci.php">ciasteczek</a>.
+				</p>
+			</footer>
+							<div class="rekl-cnt">
+					<ins
+					class="adsbygoogle" style="margin-top:40px; display:block"
+					data-ad-client="ca-pub-6843603045703750"
+					data-ad-slot="4690777640"
+					data-ad-format="auto"
+					data-full-width-responsive="true"
+					></ins>
+				</div>
+				<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+	(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+					</main><!-- e: page-content -->
+			</div><!-- e: page-content-wrapper -->
+    <aside id="page-sidebar-cnt" class="page-sidebar-cnt">
+	<div id="page-sidebar" class="page-sidebar">
+		<button aria-label="Pokaż/ukryj Menu" aria-expanded="false" aria-controls="page-sidebar" type="button" id="pageSidebarBurger" class="page-sidebar-burger">
+			<span></span>
+		</button>
+
+		<h2 class="visuallyhidden">
+			Menu
+		</h2>
+
+		<button class="sidebar-toggle-btn" title="Pokaż/schowaj menu" aria-hidden="true">
+			<strong>Pokaż/ukryj menu</strong>
+			<span></span>
+			<span></span>
+			<span></span>
+		</button>
+
+		<div class="page-sidebar-title">
+			<a href="/kurs/kontakt.php" title="Nawrzucaj autorowi" class="mail-to-author" id="mailToAuthor">Napisz do mnie</a>
+			<a href="#popupOptions" class="page-setup-link popupOpen" title="Ustawienia strony" id="showOptions">Ustawienia</a>
+			<a href="/index.php" aria-label="Strona główna" class="page-sidebar-title-link">Kurs Javascript</a>
+		</div>
+
+        <form aria-label="Wyszukiwarka" class="search-sidebar" action="/search.php" method="post">
+            <label for="search" class="search-sidebar-label">Szukaj</label>
+            <div class="search-sidebar-input-cnt">
+                <svg class="search-sidebar-input-icon" xmlns="http://www.w3.org/2000/svg" width="26" height="28" viewBox="0 0 26 28" aria-hidden="true">
+                    <path d="M18 13c0-3.859-3.141-7-7-7s-7 3.141-7 7 3.141 7 7 7 7-3.141 7-7zm8 13c0 1.094-.906 2-2 2a1.96 1.96 0 0 1-1.406-.594l-5.359-5.344a10.971 10.971 0 0 1-6.234 1.937c-6.078 0-11-4.922-11-11s4.922-11 11-11 11 4.922 11 11c0 2.219-.672 4.406-1.937 6.234l5.359 5.359c.359.359.578.875.578 1.406z"></path>
+                </svg>
+                <input type="text" id="search" autocomplete="off" name="q" class="search-sidebar-input">
+            </div>
+            <button type="submit" class="search-sidebar-button">Szukaj</button>
+        </form>
+
+		<div class="page-sidebar-table-of-content">
+			<h2 class="visuallyhidden">Spis treści</h2>
+            <div class="page-sidebar-section">
+				<h3 class="page-sidebar-section-title noopen">
+                    <a href="/index.php">Strona główna</a>
+                </h3>
+            </div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Słowem wstępu</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/wstep/wstep.php">Wstęp</a>
+						</li>
+						<li >
+							<a href="/kurs/wstep/co-to-jest-javascript.php">Co to jest JavaScript i z czym go się je?</a>
+						</li>
+						<li >
+							<a href="/kurs/wstep/wymagania.php">Wymagania</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Super podstawy</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/debuger/debuger.php">Debuger</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/pierwszy-skrypt.php">Wstawiamy skrypty na naszą stronę</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/strict-mode.php">Strict mode</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/typy-danych.php">Typy danych i konwersja danych</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/zmienne.php">Zmienne</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/operatory.php">Operatory</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/math.php">Obiekt Math</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/string.php">String - teksty</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/instrukcje-warunkowe.php">Instrukcje warunkowe</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/petle.php">Pętle</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/funkcje.php">Funkcje</a>
+						</li>
+                        <li >
+							<a href="/kurs/super-podstawy/funkcje-tematy-dodatkowe.php">Funkcje - tematy dodatkowe</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/tablice.php">Tablice</a>
+						</li>
+                        <li >
+							<a href="/kurs/super-podstawy/tablice-iteracje.php">Tablice pętle</a>
+						</li>
+						<li >
+							<a href="/kurs/debuger/debugowanie.php">Debugowanie kodu</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+            			<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Obiekty</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+                        <li >
+							<a href="/kurs/obiekty/obiekty.php">Obiekty i this</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-jak-to-dziala.php">Jak to działa</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-konstruktor.php">Konstruktor</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-zaawansowane-this.php">Zaawansowane this</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-dziedziczenie.php">Dziedziczenie w Javascript</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-inne-sposoby-tworzenia.php">Inne sposoby tworzenia obiektów</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-instanceof-hasownproperty.php">instanceof i hasOwnProperty</a>
+						</li>
+                    </ul>
+                </div>
+            </div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">DOM i zdarzenia</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/dom/dom.php">Document Object Model</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-wlasciwosci.php">Właściwości elementów</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-relacje.php">Relacje między elementami</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-tworzenie-i-usuwanie.php">Tworzenie i usuwanie elementów</a>
+						</li>
+                        <li >
+                            <a href="/kurs/dom/style.php">Style w CSS</a>
+                        </li>
+						<li >
+							<a href="/kurs/events/events.php">Zdarzenia</a>
+						</li>
+						<li >
+							<a href="/kurs/events/events-keys.php">Zdarzenia - klawisze</a>
+						</li>
+						<li >
+							<a href="/kurs/events/events-mouse.php">Zdarzenia - myszka</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/projekt-todo.php">Projekt TODO</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/slider.php">Tworzymy slider</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Prawie podstawy</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/grafika/grafika-na-stronie.php">Grafika na stronie</a>
+						</li>
+						<li >
+							<a href="/kurs/intervals/intervals.php">setTimeout i setInterval</a>
+						</li>
+						<li >
+							<a href="/kurs/match-media.php">Praca z RWD</a>
+						</li>
+						<li >
+							<a href="/kurs/okna-dialogowe.php">Okienka dialogowe</a>
+						</li>
+						<li >
+							<a href="/kurs/okna.php">Tworzenie nowych okien</a>
+						</li>
+						<li >
+							<a href="/kurs/date/date.php">Obiekt Date</a>
+						</li>
+						<li >
+							<a href="/kurs/date/date-calendar.php">Tworzymy kalendarz</a>
+						</li>
+						<li >
+							<a href="/kurs/cookies/cookie.php">Obiekt Cookie</a>
+						</li>
+						<li >
+							<a href="/kurs/storage/storage.php">Storage</a>
+						</li>
+						<li >
+							<a href="/kurs/regular.php">Wyrażenia regularne</a>
+						</li>
+						<li >
+							<a href="/kurs/formularze/formularze.php">Formularze</a>
+						</li>
+						<li >
+							<a href="/kurs/formularze/formularze-walidacja.php">Formularze - walidacja</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Ajax</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/ajax/ajax.php">AJAX, REST, JSON</a>
+						</li>
+						<li >
+							<a href="/kurs/ajax/xmlhttprequest.php">XMLHttpRequest</a>
+						</li>
+            			<li >
+							<a href="/kurs/ajax/fetch.php">Fetch API</a>
+						</li>
+						<li >
+							<a href="/kurs/ajax/formularz-kontaktowy.php">Dynamiczny formularz kontaktowy</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Nowy Javascript</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/es6/ecma-script-2015.php">ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/webpack.php">Webpack</a>
+						</li>
+                        <li >
+            				<a href="/kurs/es6/obiekty-w-es6.php">Obiekty w ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/funkcja-strzalkowa.php">Funkcja strzałkowa</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/spread-rest.php">Spread i rest</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/template-strings.php">Template strings</a>
+						</li>
+						<li >
+            				<a href="/kurs/es6/destructuring.php">Dekompozycja</a>
+        				</li>
+						<li >
+							<a href="/kurs/es6/class.php">Klasy w ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/promises.php">Promises</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/async-await.php">Async/Await</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/symbole.php">Symbole</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section show has-active-element">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">jQuery</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/jquery/jquery.php">jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/animacje-w-jquery.php">Animacje w jQuery</a>
+						</li>
+						<li class="active">
+							<a href="/kurs/jquery/jquery-ajax.php">Ajax w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/tabs.php">Taby w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/plugin.php">Karuzela w jQuery</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Canvas</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/canvas/canvas.php">Canvas</a>
+						</li>
+						<li >
+							<a href="/kurs/canvas/canvas-images.php">Grafika w canvas</a>
+						</li>
+						<li >
+						<a href="/kurs/canvas/canvas-paint.php">Praktycznie : Paint w canvas</a>
+						</li>
+
+						<li >
+							<a href="/kurs/canvas/canvas-animacja.php">Animacja w canvas</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Gry</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/gry/hangman/hangman.php">Szubienica</a>
+						</li>
+						<li >
+							<a href="/kurs/gry/memory/memory.php">Memory</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+            			<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Inne</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/dodatkowe-materialy.php">Dodatkowe materiały</a>
+						</li>
+						<li >
+							<a href="/kurs/faq.php">FAQ</a>
+						</li>
+						<li >
+							<a href="/kurs/polityka-prywatnosci.php">Polityka prywatności</a>
+						</li>
+						<li >
+							<a href="/kurs/autor.php">O autorze</a>
+						</li>
+						<li >
+							<a href="/kurs/kontakt.php">Kontakt</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="page-sidebar-section">
+                <a class="special-link" href="/kurs/autor.php#donate">Wesprzyj kurs</a>
+            </div>
+		</div>
+	</div>
+</aside></div><!-- e: page-container -->
+
+<div class="popup" id="popupOptions">
+	<div class="popup-inside">
+        <div class="popup-container-cnt">
+            <div class="popup-container">
+                <button class="popup-close">Zamknij</button>
+
+                <h2 class="popup-title">
+                    Opcje
+                </h2>
+
+                <div class="popup-content">
+                    <form class="form-options">
+                        <div class="form-option">
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <label for="optionsThemeSelect">Wybierz skórkę dla listingów</label>
+                                    <select id="optionsThemeSelect"></select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <pre><code class="language-js">
+                                //tak będzie wyglądał kod
+
+                                function test() {
+                                    for (let i=0; i&lt;10; i++) {
+                                        console.log("Tekst numer ", 1);
+                                    }
+                                }
+
+                                test();
+                                </code></pre>
+                            </div>
+                            <div class="form-row" id="themeLightModeRow">
+                                <div class="form-col">
+                                    <label for="themeLightMode">
+                                        Tryb dzienny / nocny
+                                    </label>
+
+                                    <div class="light-mode-el">
+                                        <input type="checkbox" id="themeLightMode">
+                                        <span class="light-mode"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+	</div>
+</div>
+<script async defer src="https://www.googletagmanager.com/gtag/js?id=UA-38558970-5"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-38558970-5');
+</script>
+
+	<script src="/js/ads.js"></script>
+	<script src="/js/script.min.js?v=0.13" defer></script>
+</body>
+</html>

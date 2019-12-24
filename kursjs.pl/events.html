@@ -1,0 +1,1946 @@
+<!doctype html>
+<html lang="pl-PL">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kurs Javascript - Events</title>
+	<meta name="description" content="Kurs Javascript dla superbohaterów, artykuły, tutoriale, porady, zadania do wykonania" />
+    <link rel="canonical" href="https://kursjs.pl/kurs/events/events.php" />
+	<link rel="stylesheet" href="./css.css" />
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,700&display=swap&subset=latin-ext" rel="stylesheet">
+	<meta name="image" content="https://kursjs.pl/kursjs.png">
+<meta name="twitter:card" content="product">
+<meta name="twitter:site" content="@publisher_handle">
+<meta name="twitter:title" content="Kurs Javascript">
+<meta name="twitter:description" content="Kurs Javascript dla superbohaterów">
+<meta name="twitter:creator" content="@kartofelek007">
+<meta name="twitter:image" content="https://kursjs.pl/kursjs.png">
+<meta property="og:title" content="Kurs Javascript">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.kursjs.com/">
+<meta property="og:image" content="https://kursjs.pl/kursjs.png">
+<meta property="og:description" content="Kurs Javascript dla superbohaterów">
+<meta property="og:site_name" content="Kurs Javascript">
+<link rel="apple-touch-icon" sizes="57x57" href="/favicons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/favicons/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/favicons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/favicons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/favicons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/favicons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/favicons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/favicons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="/manifest.json">
+<meta name="msapplication-TileColor" content="#FF6347">
+<meta name="msapplication-TileImage" content="/mstile-144x144.png">
+    <script src="/js/jquery.min.js"></script>
+</head>
+<body>
+
+<div class="page-container" id="pageContainer">
+	<div class="page-content-wrapper">
+        <main class="page-content" id="mainContent"  data-text-for-print="Kurs Javascript dla superbohaterów">
+                        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <div class="rekl-cnt">
+                <ins
+                class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-6843603045703750"
+                data-ad-slot="4690777640"
+                data-ad-format="auto"
+                data-full-width-responsive="true"
+                ></ins>
+            </div>
+                        <div class="page-content-text">
+
+<style>
+.test-block {
+    height:200px;
+    background-color:#E6E6FF;
+    border:1px solid #000080;
+    color:#000080;
+    text-align:center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+</style>
+
+<h1 class="page-title">Events</h1>
+<p>
+Zdarzenia to czynności, które dzieją się w przeglądarce. Może je wywoływać użytkownik, ale i każdy element na stronie. Przykładowo klikając na przycisk na stronie, wywołujemy zdarzenie click. Wybierając za pomocą klawisza tab kolejny element w formularzu, wywołujemy zdarzenie focus. Opuszczając taki element, wywołujemy blur. Obrazek się wgrał? Wywołuje zdarzenie load. Formularz się wysyła? Wywoływane jest zdarzenie submit.
+</p>
+
+<p>
+    <a href="#eventy" id="showEventsList">Pokaż listę najczęściej używanych zdarzeń</a>
+</p>
+
+<script>
+$(function() {
+    const $btn = $('#showEventsList')
+    $btn.on("click", function(e) {
+        e.preventDefault();
+        $("#eventy").slideToggle(function() {
+            if ($(this).is(':visible')) {
+                $btn.text("Schowaj listę najczęściej używanych zdarzeń");
+            } else {
+                $btn.text("Pokaż listę najczęściej używanych zdarzeń");
+            }
+        });
+    })
+})
+</script>
+
+<div style="display: none" id="eventy">
+
+<table class="tab" >
+    <tbody>
+    <tr><th>Typ zdarzenia:</th><th>Opis:</th></tr>
+    <tr><th><strong>click</strong></th><td>odpalane, gdy element został kliknięty (np. input)</td></tr>
+    <tr><th><strong>mouseover</strong></th><td>odpalane, gdy kursor znalazł się na elemencie</td></tr>
+    <tr><th><strong>mouseout</strong></th><td>odpalane, gdy kursor opuścił element</td></tr>
+    <tr><th><strong>mouseenter</strong></th><td>odpalane, gdy kursor znalazł się na elemencie</td></tr>
+    <tr><th><strong>mouseleave</strong></th><td>odpalane, gdy kursor opuścił element</td></tr>
+    <tr><th><strong>dblclick</strong></th><td>odpalane, gdy podwójnie klikniemy na element (np. input)</td></tr>
+    <tr><th><strong>change</strong></th><td>odpalane, gdy opuściliśmy element, i zmienił on swoją zawartość (np. pole tekstowe), ale też na zmianę np. selekta, checkboxa itp.</td></tr>
+    <tr><th><strong>submit</strong></th><td>odpalane, gdy formularz jest wysyłany</td></tr>
+    <tr><th><strong>resize</strong></th><td>odpalane, gdy rozmiar okna przeglądarki jest zmieniany</td></tr>
+    <tr><th><strong>focus</strong></th><td>odpalane, gdy element stał się aktywny (np. pole tekstowe, link, button, element z tabindex)</td></tr>
+    <tr><th><strong>blur</strong></th><td>odpalane, gdy element przestał być aktywny (np. opuściliśmy input)</td></tr>
+    <tr><th><strong>keydown</strong></th><td>odpalane, gdy został naciśnięty klawisz na klawiaturze</td></tr>
+    <tr><th><strong>keyup</strong></th><td>odpalane gdy puścimy klawisz na klawiaturze</td></tr>
+    <tr><th><strong>keydown</strong></th><td>odpalane gdy naciśniemy klawisz, lub go przytrzymamy</td></tr>
+    <tr><th><strong>input</strong></th><td>odpalany gdy coś wpiszemy do pola, wybierzemy coś z selecta, klikniemy na input itp.</td></tr>
+    <tr><th><strong>load</strong></th><td>odpalane, gdy obiekt został załadowany (np. cała strona, pojedyncza grafika)</td></tr>
+    <tr><th><strong>contextmenu</strong></th><td>odpalane, gdy kliknięto prawym klawiszem myszki i pojawiło się menu kontekstowe</td></tr>
+    <tr><th><strong>wheel</strong></th><td>odpalane, gry kręcimy kółeczkiem myszki</td></tr>
+    <tr><th><strong>select</strong></th><td>odpalane, gdy zawartość obiektu została zaznaczona</td></tr>
+    <tr><th><strong>unload</strong></th><td>odpalane, gdy użytkownik opuszcza dana stronę</td></tr>
+    <tr><th><strong>animationstart</strong></th><td>odpalane, gdy animacja css się zacznie</td></tr>
+    <tr><th><strong>animationend</strong></th><td>odpalane, gdy animacja css się zakończy</td></tr>
+    <tr><th><strong>animationiteration</strong></th><td>odpalane, gdy animacja css zrobi jedną iterację</td></tr>
+    <tr><th><strong>transitionstart</strong></th><td>odpalane, gdy transition css się zacznie</td></tr>
+    <tr><th><strong>transitionend</strong></th><td>odpalane, gdy transition css się zakończy</td></tr>
+    <tr><th><strong>transitionrun</strong></th><td>odpalane, gdy transition zostanie stworzone (odpalane przed rozpoczęciem opóźnienia)</td></tr>
+    </tbody>
+    </table>
+
+    <p>
+        Powyższa lista zawiera tylko najczęściej używane zdarzenia.
+        Takich zdarzeń jest <a href="https://developer.mozilla.org/en-US/docs/Web/Events">o wiele, wiele więcej</a>
+    </p>
+</div>
+
+<!-- ### -->
+<h2 class="subtitle" id="domcontentloaded">DOMContentLoaded</h2>
+<p>
+    Wspominałem to już w dziale o <a href="../dom/dom.php">DOM</a>, ale warto to sobie przypomnieć raz jeszcze.<br>
+    Za chwilę zaczniemy podpinać zdarzenia do elementów na stronie. Żeby takie podpinanie mogło zadziałać, te elementy muszą być już dostępne dla skryptu.<br>
+    Oznacza to, że zanim zaczniemy cokolwiek podpinać, musimy się upewnić, że został już wczytany html i zostało stworzone drzewo dokumentu.
+</p>
+<p>
+    Aby mieć pewność, że elementy już istnieją użyjemy jednej z trzech metod: <a href="../super-podstawy/pierwszy-skrypt.php#gdzie-wstawiac">wstawimy nasz skrypt na końcu strony</a> (najlepiej tuż przed tagiem <strong>&lt;/body></strong>), do naszego skryptu dodamy atrybut <a href="../super-podstawy/pierwszy-skrypt.php#async-defer">defer</a> lub wykryjemy czy dokument został już w całości wczytany.
+</p>
+<p>Jeżeli pracujemy sami nad naszą prywatną stroną mamy raczej kontrolę kto co kiedy odpala. Ale sytuacja zmienia się gdy piszemy skrypty, które będą używane przez innych, albo pracujemy w zespole. Dlatego właśnie zawsze dobrą praktyką jest sprawdzać, czy dany dokument jest już gotowy do użycia w JavaScript.</p>
+<p>
+    Aby wykryć czy dokument został wczytany, skorzystamy ze zdarzenia <strong>DOMContentLoaded</strong>:
+</p>
+
+<pre><code class="language-js">
+document.addEventListener("DOMContentLoaded", function(event) {
+
+    console.log("DOM został wczytany");
+    console.log("Tutaj dopiero wyłapujemy elementy");
+
+});
+</code></pre>
+
+<p>W bardzo wielu skryptach zamiast DOMContentLoaded używane jest zdarzenie <strong>load</strong> dla obiektu window. Jest to często błąd, wynikający z niewiedzy autora skryptu. Event load dla window jest odpalany, gdy wszystkie elementy na stronie zostaną załadowane - nie tylko drzewo dom, ale także i grafiki. Bardzo często będzie to powodować mocno zauważalne opóźnienia, ponieważ dla przykładu nasze dynamicznie generowane za pomocą JavaScript menu odpali się dopiero po wczytaniu dużych grafik, które użyliśmy gdzieś poniżej na stronie.<br>
+Jeżeli więc twój skrypt ma tylko działać na elementach, a nie czekać na wczytanie całych grafik, zawsze używaj zdarzenia <strong>DOMContentLoaded</strong>.</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="inline">Rejestrowanie zdarzenia bezpośrednio w kodzie HTML</h2>
+<p>
+Aby zdarzenie było dostępne dla danego obiektu, musimy je dla niego zarejestrować. Istnieje kilka metod na rejestrację zdarzenia dla obiektu.
+</p>
+<p>
+Pierwsza metoda - <strong>najgorsza</strong> - to zdarzenia deklarowane inline (jako atrybut elementu).<br>
+Polega ona na określeniu zdarzenia wewnątrz znacznika:
+</p>
+
+<pre><code class="language-html">
+&lt;a href="jakasStrona.html" onclick="alert('Kliknąłeś')"> kliknij &lt;/a>
+
+&lt;body onload="pageLoaded()">
+    ...
+&lt;/body>
+</code></pre>
+
+<p>
+Ten model rejestrowania zdarzeń nie jest za bardzo zalecany z kilku powodów.
+Po pierwsze miesza warstwy logiki i danych czyli JavaScript z kodem HTML.<br>
+Po drugie pozbawia nas kontekstu. Jeżeli rejestrujesz zdarzenia ze skryptów,
+często masz dostęp do właściwości konkretnego obiektu JavaScript,
+zmiennych funkcji itp. W powyższym typie zdarzeń nic takiego nie ma miejsca.
+Wszystko jest totalnie globalne. To błąd.
+</p>
+
+<div class="kartofel-informuje">
+    <p>Hah! Krzykniesz. Więc cały Angular i jemu podobne frameworki są złe, bo przecież tam też są tak deklarowane zdarzenia.</p>
+    <p>No nie do końca. Faktycznie zdarzenia tam są podpinane w podobny sposób, ale działają tam też mechanizmy, które powodują, że zdarzenia takie nie są totalnie globalne i działają w zakresie danych komponentów.</p>
+</div>
+
+<!-- ### -->
+<h2 class="subtitle" id="oddzielenie">Zdarzenie jako właściwość obiektu</h2>
+<p>
+    Kolejna metoda przypisywania zdarzeń polega na ustawieniu zdarzenia jako <strong>właściwość</strong> danego obiektu:
+</p>
+
+<p>Jeżeli wyłapiesz ze strony jakiś element i wypiszesz go w konsoli</p>
+
+<pre><code class="language-js">
+const h2 = document.querySelector('h2');
+console.dir(h2);
+</code></pre>
+
+<p>zauważysz tam masę właściwości i metod. Wśród nich będzie cała masa właściwości zaczynających się od "on" - np. onclick, onmouseover, onload itp. Służą one właśnie do podpinania funkcji pod dane zdarzenia.</p>
+
+<pre><code class="language-js">
+function showText() {
+    console.log('Kliknięto przycisk');
+}
+
+const element = document.querySelector('#przycisk');
+
+element.onclick = showText;
+
+element.onmouseover = function() {
+    console.log('Najechano na przycisk');
+}
+</code></pre>
+
+<p>
+Zauważyłeś, że przy podpinaniu funkcji przez referencję (przez nazwę) do zdarzeń pomijamy nawiasy? Robimy tak dlatego, ponieważ nie chcemy odpalać funkcji, a tylko ją podpiąć pod dane zdarzenie.
+</p>
+
+
+<p>
+Jeżeli chcemy podpinać zdarzenia do wielu elementów równocześnie, musimy zastosować pętlę:
+</p>
+
+<pre><code class="language-js">
+const p = document.querySelectorAll('p');
+
+for (const el of p) {
+    el.onclick = function() {
+        this.classList.add('mark');
+    }
+}
+</code></pre>
+
+<p>
+Od tej pory gdy klikniemy na którykolwiek akapit na stronie, dodamy mu klasę mark, która zrobi z nim dziwne rzeczy.
+</p>
+
+<p>
+    Aby usunąć wcześniej przypisane zdarzenie, wystarczy pod daną właściwość podstawić null:
+</p>
+
+<pre><code class="language-js">
+    element.onclick = null;
+</code></pre>
+
+<p>
+Problem z tym modelem podpinania zdarzeń polega na tym, że do jednego elementu możemy podpiąć tylko jedną funkcję dla jednego rodzaju zdarzenia.
+</p>
+
+<p>
+Normalnie dla pojedynczego elementu możemy podpiąć kilka funkcji nasłuchujących dane zdarzenie.
+Wtedy będą one wszystkie odpalane np. na pojedyncze kliknięcie. W przypadku tego modelu możemy to obejść przez zastosowanie wzorca:
+</p>
+
+<pre><code class="language-js">
+const btn = document.querySelector('#przycisk');
+
+btn.onclick = function() {
+    printData();
+    changeSomething();
+    slide();
+}
+</code></pre>
+
+<p>Niestety nawet i w tym momencie sytuacja nie będzie idealna, ponieważ nie ma łatwej metody na usuwanie i odpisanie pojedynczych funkcji. Co jeżeli po jakimś warunku po jakimś czasie będziemy chcieli odpiąć funkcję slide()?</p>
+
+<p>
+Nie zawsze będzie to jednak problemem. Dość często spotkasz się z tutorialami na temat np. XMLHttpRequest, w których autorzy używają właśnie tego zapisu ze względu na jego krótszy zapis w stosunku do poniżej opisanego addEventListener:</p>
+
+<pre><code class="language-js">
+const xhr = new XMLHttpRequest();
+xhr.onload = function() { ... }
+xhr.onerror = function() { ... }
+xhr.send(null);
+</code></pre>
+
+<p>Kod ten ani nie podpina pod jedno zdarzenie wielu funkcji, ani nie potrzebuje używać dodatkowych funkcjonalności jakie daje addEventListener. Może to być więc wystarczające rozwiązanie.</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="addEventListener">Nowy model rejestracji zdarzeń</h2>
+
+<p>
+Powyższych problemów nie mamy korzystając z innego modelu rejestrowania zdarzeń opierającego się na funkcji <strong>addEventListener()</strong>.
+</p>
+
+<p id="parametry">
+Przyjmuje ona 3 argumenty: typ zdarzenia, <a href="../super-podstawy/funkcje-tematy-dodatkowe.php#callback">funkcję wywoływaną</a>, oraz trzeci opcjonalny argument, który służy do ustawiania dodatkowych opcji dla eventu, takich jak <a href="#stopPropagation">propagacja</a>. W większości przypadków trzeci parametr jest pomijany.
+</p>
+
+<pre><code class="language-js">
+const element = document.querySelector('.btn');
+
+function showMe() {
+    console.log("Jakiś tekst");
+}
+
+function showSomething() {
+    console.log("Inny tekst");
+}
+
+//rejestrujemy 3 zdarzenia click dla elementu
+element.addEventListener('click', showMe);
+element.addEventListener('click', showSomething)
+element.addEventListener('click', function() {
+    this.style.color = 'red';
+});
+</code></pre>
+
+<p>
+    Od tej pory po pojedynczym kliknięciu zostaną wywołane wszystkie trzy funkcje.
+</p>
+
+<p id="removeEventListener">
+Do wyrejestrowania danej funkcji służy metoda <strong>element.removeEventListener()</strong>, która przyjmuje 2 parametry: nazwę zdarzenia i nazwę funkcji którą chcemy wyrejestrować:
+</p>
+
+<pre><code class="language-js">
+element.removeEventListener('click', showMe);
+element.removeEventListener('click', showSomething);
+</code></pre>
+
+<p>
+Niestety jedna z naszych funkcji jest funkcją anonimową - nie ma nazwy i nie jest podstawiona pod żadną zmienną. <strong>Nie jesteśmy więc w stanie przekazać dla removeEventListener drugiego parametru</strong>, tym samym  nie jesteśmy w stanie wyrejestrować tej funkcji.
+</p>
+<p>
+Co więc zrobić? Jeżeli wiemy, że zajdzie potrzeba wyrejestrowania danej funkcji - używajmy referencji. Jeżeli takiego wyrejestrowania robić nie musimy (co ma miejsce w większości przypadków), wtedy spokojnie możemy używać i funkcji anonimowych - co jest zwyczajnie wygodniejsze.
+</p>
+
+
+<!-- ### -->
+<h2 class="subtitle" id="dispatch-click">Wywoływanie kliknięcia</h2>
+<p>
+JavaScript udostępnia nam kilka gotowych metod dla elementów na stronie, które w prosty
+sposób pozwalają wywoływać dane eventy - tak jakby to realnie zrobił użytkownik:
+</p>
+
+<pre><code class="language-js">
+//klikamy na element
+element.click();
+
+//opuszczamy element
+element.blur();
+
+//wskazuje dany element - tak jakbyśmy go wybrali np. za pomocą klawiatury
+element.focus();
+
+//wysyłamy dany formularz
+form.submit();
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="zasada3">Zasada trzech kroków</h2>
+<p>Zanim przejdziemy dalej, chciałbym tutaj na chwilę się zatrzymać.</p>
+<p>Zasada 3 kroków nie jest ani oficjalną zasadą, ani nie znajdziemy jej w żadnej książce.</p>
+<p>Działając na elementach tak jak w tym rozdziale, powinniśmy wykonać pewne czynności. Zazwyczaj są one dość podobne:</p>
+
+<ul>
+    <li><strong>1. Pobieramy elementy</strong> na których będziemy działać. Nie bójmy się tworzenia zmiennych. Czasami będzie to 5, czasami 10 elementów.</li>
+    <li><strong>2. Podpinamy eventy</strong> do pobranych elementów.</li>
+    <li><strong>3. Działamy</strong></li>
+</ul>
+
+<p>Tak naprawdę jest to zasada 4 kroków. Istnieje też krok 0, czyli użycie DOMContentLoaded, bo nie mamy pewności w którym miejscu i jak zostanie użyty nasz skrypt.</p>
+
+<p>Zasadę 4 kroków zastosujmy na przykładzie:</p>
+
+<p>Mamy prosty html:</p>
+
+<pre><code class="language-html">
+&lt;div class="element">
+    &lt;div class="big">&lt;/div>
+
+    &lt;button data-color="#30A9DE">blue&lt;/button>
+    &lt;button data-color="#E53A40">red&lt;/button>
+    &lt;button data-color="#75D701">green&lt;/button>
+    &lt;button data-color="#f9d423">yellow&lt;/button>
+    &lt;button data-color="#f349eb">pink&lt;/button>
+&lt;/div>
+</code></pre>
+
+<p>Po kliknięciu na buttony chcemy by w elemencie o klasie .big ustawiało się tło o kolorze z data-color klikniętego elementu.</p>
+
+<pre><code class="language-js">
+//krok 0
+document.addEventListener("DOMContentLoaded", function() {
+
+    //krok 1
+    const big = document.querySelector(".ex1 .big");
+    const buttons = document.querySelectorAll(".ex1 button");
+
+    //krok 2
+    //mamy kolekcję buttonów - koniecznie pętla po nich
+    for (const btn of buttons) {
+        btn.addEventListener("click", function() {
+            //krok 3
+            //działamy
+            big.style.background = this.dataset.color;
+            big.innerText = this.dataset.color;
+        })
+    }
+
+});
+</code></pre>
+
+<style>
+    .ex1 {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        grid-template-rows: 1fr 60px;
+        grid-gap: 10px;
+    }
+    .ex1 div {
+        grid-area: 1 / 1 / 2 / 6;
+        height: 400px;
+        border: 5px solid #222;
+        background: #fff;
+        font-family: sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: bold;
+        color: #222;
+    }
+    .ex1 button {
+        cursor: pointer;
+        background: #222;
+        color: #fff;
+        border:0;
+        box-shadow: 0 4px 4px -2px rgba(0,0,0,0.2);
+    }
+    .ex1 button:focus {
+        outline: none;
+        border: 3px solid #222;
+        background: #fff;
+        color: #222;
+        box-shadow: none;
+    }
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+
+    const buttons = document.querySelectorAll('button');
+    const div = document.querySelector('.big');
+
+    for (const el of buttons) {
+        el.addEventListener("click", function() {
+            div.style.background = this.dataset.color;
+            div.innerText = this.dataset.color;
+        })
+    }
+
+});
+</script>
+
+<div class="ex1">
+    <div class="big"></div>
+    <button data-color="#30A9DE">blue</button>
+    <button data-color="#E53A40">red</button>
+    <button data-color="#75D701">green</button>
+    <button data-color="#f9d423">yellow</button>
+    <button data-color="#f349eb">pink</button>
+</div>
+
+<!-- ### -->
+<h2 class="subtitle" id="example">Przykład użycia</h2>
+<p>
+    Na zakończenie tych wywodów kawałek kodu, który demonstruje użycie powyższych metod:
+</p>
+
+<pre><code class="language-html">
+&lt;div>
+    &lt;button id="buttonTest" class="button button-primary button-big" type="button">Wpierw podepnij zdarzenie!&lt;/button>
+    &lt;button id="buttonTestAdd" class="button" type="button">Podepnij zdarzenie&lt;/button>
+    &lt;button id="buttonTestRemove" class="button" type="button">Odepnij zdarzenie&lt;/button>
+    &lt;button id="buttonTestClick" class="button" type="button">Kliknij na dużym przycisku&lt;/button>
+&lt;/div>
+</code></pre>
+
+<pre><code class="language-js">
+//0. jak w większości przykładów pominę użycie DOMContentLoaded
+
+//1. Pobieram elementy
+const buttonTest = document.querySelector('#buttonTest');
+const buttonAdd =  document.querySelector('#buttonTestAdd');
+const buttonRemove =  document.querySelector('#buttonTestRemove');
+const buttonClick =  document.querySelector('#buttonTestClick');
+
+//2,3. Podpinam eventy i działamy
+// W tym przykładzie użyłem podpięcia przez referencję (podanie nazwy do funkcji)
+function showText() {
+    alert('Kliknięto duży przycisk');
+}
+
+function addTestEvent() {
+    buttonTest.innerText = 'No dobra. Można klikać!';
+    buttonTest.addEventListener('click', showText);
+}
+
+function removeTestEvent() {
+    buttonTest.innerText = 'Wpierw podepnij zdarzenie!';
+    buttonTest.removeEventListener('click', showText);
+}
+
+function clickOnBtn() {
+    buttonTest.click();
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    buttonAdd.addEventListener('click', addTestEvent);
+    buttonRemove.addEventListener('click', removeTestEvent);
+    buttonClick.addEventListener('click', clickOnBtn);
+});
+</code></pre>
+
+<p>
+    <button class="button button-primary button-big" id="buttonTest" type="button">Wpierw podepnij zdarzenie przyciskiem poniżej!</button><br><br>
+    <button class="button" id="buttonTestAdd" type="button">Podepnij zdarzenie</button>
+    <button class="button" id="buttonTestRemove" type="button">Odepnij zdarzenie</button>
+    <button class="button" id="buttonTestClick" type="button">Kliknij na dużym przycisku</button>
+</p>
+<script>
+	{
+		const buttonTest = document.querySelector('#buttonTest');
+		const buttonAdd = document.querySelector('#buttonTestAdd');
+		const buttonRemove = document.querySelector('#buttonTestRemove');
+		const buttonClick = document.querySelector('#buttonTestClick');
+
+		function showText() {
+			alert('Kliknięto duży przycisk');
+		}
+
+		function addTestEvent() {
+			buttonTest.innerText = 'No dobra. Można klikać!';
+			buttonTest.addEventListener('click', showText);
+		}
+
+		function removeTestEvent() {
+			buttonTest.innerText = 'Wpierw podepnij zdarzenie!';
+			buttonTest.removeEventListener('click', showText);
+		}
+
+		function clickOnBtn() {
+			buttonTest.click();
+		}
+
+		document.addEventListener("DOMContentLoaded", function() {
+			buttonAdd.addEventListener('click', addTestEvent);
+			buttonRemove.addEventListener('click', removeTestEvent);
+			buttonClick.addEventListener('click', clickOnBtn);
+		});
+	}
+</script>
+
+
+<!-- ### -->
+<h2 class="subtitle" id="this">Ten element</h2>
+<p>
+Wewnątrz funkcji, którą podpięliśmy do eventu słowo <strong>this</strong> wskazuje na element, który wywołał dane zdarzenie.<br>
+Przykładowo jeżeli podpinamy zdarzenie click pod jakiś button,
+to we wnętrzu funkcji danego zdarzenia <strong>this</strong> będzie wskazywać na dany button:
+</p>
+
+<pre><code class="language-js">
+function changeColor() {
+    this.style.color = "red"; //this wskazuje na kliknięty element
+}
+
+const elem = document.querySelector('.btn1');
+elem.addEventListener('click', changeColor);
+
+elem.addEventListener('mouseover', function() {
+    this.innerText = "Dobry przycisk";
+})
+</code></pre>
+
+<p>
+Mogą zdarzyć się przypadki, że kontekst dla <strong>this</strong>
+zostanie zmieniony (np. poprzez <a href="../obiekty/obiekty-zaawansowane-this.php#bind">funkcję strzałkową czy bind</a>).<br>
+Wtedy do danego elementu możemy odwołać się poprzez <strong>e.target</strong>:
+</p>
+
+<pre><code class="language-js">
+function changeColor(e) {
+    e.target.style.color = 'red'; //this wskazuje na kliknięty element
+}
+
+const elem = document.querySelector('.btn1');
+elem.addEventListener('click', changeColor);
+
+elem.addEventListener('mouseover', function(e) {
+    e.target.innerText = "Dobry przycisk";
+})
+</code></pre>
+
+<p>Skąd ten e? A właśnie go poznamy...</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="e">Wkraczamy w głąb zdarzenia</h2>
+<p>Podpinając daną funkcję do eventu, możemy ustawić jej parametr, pod który JavaScript wstawi nam obiekt z dodatkowymi informacjami związanymi z tym eventem.</p>
+
+<pre><code class="language-js">
+element.document.addEventListener('click', function(even) {
+    console.log(even);
+});
+</code></pre>
+
+<input type="button" class="button" id="testEventButton" value="Kliknij myszką i sprawdź w konsoli wynik" />
+<script>
+{
+    const btn = document.querySelector('#testEventButton');
+
+    btn.addEventListener('click', function(e) {
+        console.log('Event: ', e);
+    });
+}
+</script>
+
+<p>Informacje takie będą związane z danym typem eventu. Dla przykładu dla eventu związanego z myszką będziemy mogli pobrać pozycję kursora, informacje który klawisz myszki został naciśnięty itp. Dla eventów związanych z klawiszami pobierzemy który klawisz został naciśnięty, czy trzymaliśmy klawisz Shift itp. Dla eventu animationend będziemy mogli pobrać informacje o zakończonej animacji itp. Różne eventy przekazują nam różne informacje.
+</p>
+
+<div class="test-event">
+    <p>Dla poniższego inputa podpiąłem kilka eventów: click, mouseover i keydown.
+    Każdy z nich wypisuje informacje o sobie w konsoli:</p>
+    <form class="form" onsubmit="return false">
+        <input type="text" id="testEvent" placeholder="Wpisz coś i sprawdź">
+    </form>
+</div>
+
+<script>
+{
+    const testEvent = document.querySelector("#testEvent");
+
+    testEvent.addEventListener('mouseover', function(e) {
+        console.log(e);
+    });
+    testEvent.addEventListener('mouseover', function(e) {
+        console.log(e);
+    });
+    testEvent.addEventListener('keydown', function(e) {
+        console.log(e);
+    });
+}
+</script>
+
+<p>Poniżej skupimy się na kilku przykładowych - ale dość często stosowanych właściwościach</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="typ">Typ zdarzenia</h2>
+<p>
+Jakiego typu jest dane zdarzenie? Aby się tego dowiedzieć, wystarczy odczytać właściwość <strong>type</strong> zdarzenia:
+</p>
+
+<pre><code class="language-js">
+const btn = document.querySelector('#uberButton');
+
+btn.addEventListener('click', function(e) {
+    console.log('Typ zdarzenia: ' + e.type);
+});
+</code></pre>
+
+<input type="button" class="button" id="uberButton" value="Kliknij myszką" />
+<script>
+{
+    const btn = document.querySelector('#uberButton');
+
+    btn.addEventListener('click', function(e) {
+        console.log('Typ zdarzenia: ' + e.type);
+    });
+}
+</script>
+
+
+<!-- ### -->
+<h2 class="subtitle" id="preventDefault">Wstrzymanie domyślnej akcji</h2>
+<p>
+    Większość elementów na stronie wykonuje domyślne akcje. Linki przenoszą w jakieś miejsca,
+    formularze się wysyłają, buttony się wciskają itp.<br><br>
+
+    Po podpięciu zdarzeń pod obiekt będą ono wywoływane na początku, jednak zaraz po nich wykonana zostanie domyślna czynność.<br><br>
+
+    Aby zapobiec wykonaniu domyślnej akcji skorzystamy z metody <strong>e.preventDefault()</strong>:
+</p>
+
+<pre><code class="language-js">
+form.addEventListener("submit", function(e) {
+    e.preventDefault();
+    console.log('ten formularz się nie wyśle');
+});
+
+input.addEventListener("keydown", function(e) {
+    e.preventDefault();
+    console.log('w ten input nic nie wpiszesz');
+});
+
+link.addEventListener('click', function(e) {
+    e.preventDefault();
+
+    console.log('Ten link nigdzie nie przeniesie.');
+});
+</code></pre>
+
+<p>
+    Niektórych zdarzeń nie da się w ten sposób zatrzymać (np. load), o czym mówi nam właściwość <strong>e.cancelable</strong>.
+</p>
+
+
+<!-- ### -->
+<h2 class="subtitle" id="stopPropagation">Zachowanie eventów</h2>
+<p>
+    Przeanalizujmy prosty przykład. Mamy html, w którym znajduje się przycisk w divie.<br>
+    Do obydwu elementów podpinamy zdarzenie click.
+</p>
+
+<pre><code class="language-html">
+&lt;html>
+    &lt;body>
+        &lt;div class="parent">
+            &lt;button class="button">Kliknij mnie i sprawdź w konsoli&lt;/button>
+        &lt;/div>
+        &lt;p>
+            &lt;span>&lt;/span>
+        &lt;/p>
+    &lt;/body>
+&lt;/html>
+</code></pre>
+
+<pre><code class="language-js">
+const div = document.querySelector('.parent');
+const btn = document.querySelector('.parent .button');
+
+div.addEventListener('click', function(e) {
+    console.log('Kliknięto div');
+});
+
+btn.addEventListener('click', function(e) {
+    console.log('Kliknięto przycisk');
+});
+</code></pre>
+
+<div class="test-block" id="exampleDiv1">
+    <button class="button">Kliknij mnie i sprawdź w konsoli</button>
+</div>
+
+<script>
+{
+    const div = document.querySelector('#exampleDiv1');
+    const btn = document.querySelector('#exampleDiv1 .button');
+
+    div.addEventListener('click', function(e) {
+        console.log('Kliknięto div');
+    });
+
+    btn.addEventListener('click', function(e) {
+        console.log('Kliknięto przycisk');
+    });
+}
+</script>
+<p>
+    Jeżeli teraz klikniemy na przycisk, w konsoli zostanie wyświetlony komunikat "Kliknięto link". Równocześnie jednak zostanie wyświetlony komunikat dla div.
+</p>
+<p>
+    Czemu tak się stało?
+</p>
+<p>
+    Powyższa sytuacja wynika z tego jak zachowują się eventy.<br>
+    Każde zdarzenie składa się z 3 faz:
+</p>
+
+<ul>
+<li><strong>faza capture</strong> - kiedy event podąża od góry drzewa (od window) do danego elementu</li>
+<li><strong>faza target</strong> - kiedy event dotrze do elementu, który wywołał to zdarzenie</li>
+<li><strong>faza bubbling</strong> - kiedy event pnie się w górę drzewa aż dotrze do window</li>
+</ul>
+
+<p class="center">
+    <img src="./event-phase.png" class="space center border" alt="fazy eventów">
+</p>
+
+<p>
+    Standardowo
+    <span class="info">
+        większość
+        <span class="info-text">
+            Większość, ale nie wszystkie.
+            Niektóre eventy takie jak np. focus, blur domyślnie pomijają
+            fazę bubbling.<br>
+            W bardzo starych przeglądarkach Netscape faza bubbling nawet domyślnie nie istniała!<br>
+            Więcej na ten temat możesz dowiedzieć się <a href="https://www.quirksmode.org/js/events_order.html">tutaj</a>, a samą listę
+            eventów wraz z ich fazami znajdziesz <a href="https://www.w3.org/TR/DOM-Level-3-Events/#events-focus-types">tutaj</a>.
+        </span>
+    </span>
+    zdarzeń domyślnie składa się z wszystkich trzech faz. Nasze powyższe zdarzenie dla buttona biegnie więc od window do naszego elementu, tam jest rejestrowane za pomocą podpiętej za pomocą addEventListener funkcji, a następnie wraca ono przez wszystkich rodziców naszego elementu, aż dotrze do window.
+</p>
+
+<p>Zachowanie takiego eventu może być zmienione na kilka sposobów. Po pierwsze możemy użyć <a href="#parametry">trzeciego parametru</a>, który jeżeli ustawimy na true, sprawi, że w evencie zostanie pomięta faza bubbling, czyli po dotarciu do danego elementu zostanie on zatrzymany:</p>
+
+<pre><code class="language-js">
+btn.addEventListener("click", function() {...}, true); //event capturing
+btn.addEventListener("click", function() {...}); //event bubbling
+</code></pre>
+
+<p>Jako trzeci parametr możemy też przekazać obiekt, z kilkoma właściwościami:</p>
+
+<pre><code class="language-js">
+element.addEventListener('click', doSomething, {
+    capture: false, //czy używać fazy capture
+    once: true, //po pierwszym odpaleniu nasłuchiwanie zostanie usunięte - czyli dane nasłuchiwanie zadziała tylko 1x
+    passive: false //jeżeli true, funkcja nigdy nie odpali preventDefault() nawet jeżeli podano je w funkcji
+});
+</code></pre>
+
+<p>Tak naprawdę tylko w wyjątkowych sytuacjach będziesz chciał zmienić zachowanie eventów, dlatego w większości przypadków trzeci parametr możemy pominąć.</p>
+
+<div class="kartofel-informuje">
+    <p>
+        Możliwe, że w tym momencie możesz być nieco zmieszany. Zamiast po prostu odpalić event na danym elemencie, dodatkowo lata on po innych elementach? Znowu jakieś udziwnienia?<br>
+        Osobiście lubię przyrównywać to do narysowanego w zeszycie przycisku. Gdy palcem naciśniemy na taki rysunek, przyciśniemy i rysunek, ale i kartkę na którym został narysowany, a i wszystkie karki, które leżą poniżej.
+    </p>
+
+    <img src="./button-press.png" class="center" alt="Przykład z naciśnięciem przycisku">
+</div>
+
+<p>Kolejnymi sposobami na zmianę zachowania eventu to użycie dodatkowych metod takich jak stopPropagation czy stopImmediatePropagation, za pomocą których możemy przerwać wędrówkę eventu.</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="stopPropagation">Zatrzymanie propagacji</h2>
+<p>
+    Aby przerwać powyższą wędrówkę, skorzystamy z metody <strong>e.stopPropagation()</strong>.<br>
+    Metoda ta blokuje wędrówkę eventu:
+</p>
+
+<pre data-line="9"><code class="language-js">
+const div = document.querySelector('.parent');
+const btn = document.querySelector('.parent .button');
+
+div.addEventListener('click', function(e) {
+    console.log('Kliknięto div');
+});
+
+btn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    console.log('Kliknięto przycisk');
+});
+</code></pre>
+
+<p>
+    Od tej pory kliknięcie na przycisk wywoła zdarzenie tylko dla tego przycisku. Wędrówka tego zdarzenia zostanie zablokowana tuż bo dotarciu do przycisku:
+</p>
+
+<div class="test-block" id="exampleDiv2">
+    <button class="button">Kliknij mnie</button>
+</div>
+
+<script>
+{
+    const div = document.querySelector('#exampleDiv2');
+    const btn = document.querySelector('#exampleDiv2 .button');
+
+	div.addEventListener('click',function(e) {
+        console.log('Kliknięto div');
+    });
+
+    btn.addEventListener('click',function(e) {
+        e.stopPropagation();
+        console.log('Kliknięto przycisk');
+    });
+}
+</script>
+
+<p>Ważne jest to, że jeżeli chcemy całkowicie zablokować przedostanie się danego typu eventu w górę, metodę stopPropagation musimy wywołać w 1 funkcji nasłuchującej.</p>
+
+<pre><code class="language-js">
+btn.addEventListener('click', function(e) {
+    console.log('Kliknięto przycisk');
+});
+
+btn.addEventListener('click', function(e) {
+    e.stopPropagation(); //powyższa funkcja już puściła event w górę
+    console.log('Kliknięto przycisk');
+});
+</code></pre>
+
+<p id="stopImmediatePropagation">
+    Istnieje też metoda <strong>stopImmediatePropagation()</strong>, która także blokuje wędrówkę eventu danego typu. Różni się ona od stopPropagation tym, że poza blokadą wędrówki dodatkowo zatrzyma dla danego elementu wywołanie kolejnych funkcji nasłuchujących dany event.
+</p>
+<p>Porównajmy więc 2 przykłady. Pierwszy z nich będzie korzystał z stopPropagation, a drugi z stopImmediatePropagation.</p>
+
+<p>W przykładzie poniżej element <strong>.grand-parent</strong> ma włączone nasłuchiwanie click. Element <strong>.parent</strong> ma podpięte 2 nasłuchiwania click. W pierwszym z nich odpala e.stopPropagation(). </p>
+
+<pre><code class="language-html">
+&lt;div class="grand-parent">
+        dziadek
+    &lt;div class="parent">
+        rodzic
+        &lt;button class="button" type="button">stopPropagation&lt;/button>
+    &lt;/div>
+&lt;/div>
+</code></pre>
+
+<pre data-line="13"><code class="language-js">
+const grandParent = document.querySelector('.grand-parent');
+const parent = document.querySelector('.grand-parent .parent');
+const btn = document.querySelector('.grand-parent .button');
+
+grandParent.addEventListener('click', function(e) {
+    console.log('nasłuchiwanie klika na dziadku'); //będzie zablokowane
+});
+
+parent.addEventListener('click', function(e) {
+    //zatrzymujemy wędrówkę eventu danego typu w górę dokumentu - nie dojdzie on do dziadka
+    //nie zatrzymujemy wykonania kodu z tej funkcji
+    //nie zatrzymujemy wykonania pozostałych nasłuchów dla tego elementu
+    e.stopPropagation();
+    console.log('1 nasłuchiwanie klika w rodzicu');
+});
+
+parent.addEventListener('click', function(e) {
+    console.log('2 nasłuchiwanie klika w rodzicu');
+});
+
+btn.addEventListener('click', function(e) {
+    console.log('klik na buttonie');
+});
+</code></pre>
+
+<style>
+    .grand-parent,
+    .grand-parent .parent {
+        padding:1rem;
+        background:rgba(0,0,128,0.1);
+        border:1px solid rgba(0,0,128, 1);
+    }
+</style>
+
+<div class="grand-parent grand-parent-propagation">
+    dziadek
+    <div class="parent">
+        rodzic<br>
+        <button class="button" type="button">stopPropagation</button>
+    </div>
+</div>
+
+<script>
+    {
+	    const grandParent = document.querySelector('.grand-parent-propagation');
+	    const parent = document.querySelector('.grand-parent-propagation .parent');
+	    const btn = document.querySelector('.grand-parent-propagation .button');
+
+	    grandParent.addEventListener('click', function(e) {
+		    console.log('nasłuchiwanie klika na dziadku');
+	    });
+
+	    parent.addEventListener('click', function(e) {
+		    e.stopPropagation();
+		    console.log('1 nasłuchiwanie klika w rodzicu');
+	    });
+	    parent.addEventListener('click', function(e) {
+		    console.log('2 nasłuchiwanie klika w rodzicu');
+	    });
+
+	    btn.addEventListener('click', function(e) {
+		    console.log('');
+		    console.log('klik na buttonie');
+	    });
+    }
+</script>
+
+<p>I wersja 2 - z stopImmediatePropagation:</p>
+
+<pre><code class="language-html">
+&lt;div class="grand-parent">
+        dziadek
+    &lt;div class="parent">
+        rodzic
+        &lt;button class="button" id="buttonImidiatePropagation3" type="button">stopImmediatePropagation&lt;/button>
+    &lt;/div>
+&lt;/div>
+</code></pre>
+
+<pre data-line="13"><code class="language-js">
+const grandParent = document.querySelector('.grand-parent');
+const parent = document.querySelector('.grand-parent .parent');
+const btn = document.querySelector('.grand-parent .button');
+
+grandParent.addEventListener('click', function(e) {
+    console.log('nasłuchiwanie klika na dziadku'); //będzie zablokowane
+});
+
+parent.addEventListener('click', function(e) {
+    //zatrzymujemy wędrówkę eventu danego typu w górę dokumentu - nie dojdzie on do dziadka
+    //nie zatrzymujemy wykonania kodu z tej funkcji
+    //zatrzymujemy pozostałe nasłuchy eventu danego typu dla tego elementu
+    e.stopImmediatePropagation();
+    console.log('1 nasłuchiwanie klika w rodzicu');
+});
+
+parent.addEventListener('click', function(e) {
+    console.log('2 nasłuchiwanie klika w rodzicu');
+});
+
+btn.addEventListener('click', function(e) {
+    console.log('klik na buttonie');
+});
+</code></pre>
+
+<div class="grand-parent grand-parent-immediate">
+    dziadek
+    <div class="parent">
+        rodzic<br>
+        <button class="button" type="button">stopImmediatePropagation</button>
+    </div>
+</div>
+
+<script>
+    {
+        const grandParent = document.querySelector('.grand-parent-immediate');
+        const parent = document.querySelector('.grand-parent-immediate .parent');
+        const btn = document.querySelector('.grand-parent-immediate .button');
+
+        grandParent.addEventListener('click', function(e) {
+            console.log('nasłuchiwanie klika na dziadku');
+        });
+
+        parent.addEventListener('click', function(e) {
+            e.stopImmediatePropagation();
+            console.log('1 nasłuchiwanie klika w rodzicu');
+        });
+        parent.addEventListener('click', function(e) {
+            console.log('2 nasłuchiwanie klika w rodzicu');
+        });
+
+        btn.addEventListener('click', function(e) {
+        	console.log('');
+            console.log('klik na buttonie');
+        });
+    }
+</script>
+
+<!-- ### -->
+<h2 class="subtitle" id="currentTarget-target">Element nasłuchujący i ten, na którym odpalono zdarzenie</h2>
+<p>
+Jak widziałeś powyżej element który nasłuchuje zdarzenie wcale nie musi być tym, na którym dane zdarzenie zostało wywołane. Możemy dla przykładu nasłuchiwać zdarzenia click dla div, a zostanie ono zapoczątkowane w buttonie, który jest w tym divie.
+</p>
+<p>Właściwość <strong>e.target</strong> wskazuje na element, na którym dane zdarzenie się wydarzyło, a właściwość <strong>e.currentTarget</strong> na element, który nasłuchuje dane zdarzenie.</p>
+
+<pre><code class="language-html">
+&lt;div class="parent" id="parentTarget">
+    &lt;button class="button" type="button">Test targeta&lt;/button>
+&lt;/div>
+</code></pre>
+
+<pre><code class="language-js">
+const parent = document.querySelector('.parent');
+parent.addEventListener('click', function(e) {
+    console.log('e.target: ', e.target);
+    console.log('e.currentTarget: ', e.currentTarget);
+})
+</code></pre>
+
+<div class="parent" id="parentTarget">
+    <button class="button" type="button">Test targeta</button>
+</div>
+
+<script>
+{
+    const parent = document.querySelector('#parentTarget');
+    parent.addEventListener('click', function(e) {
+        console.log('e.target: ', e.target);
+        console.log('e.currentTarget: ', e.currentTarget);
+    });
+}
+</script>
+
+<!-- ### -->
+<h2 class="subtitle" id="dynamic-elements">Problem z eventami i dynamicznymi elementami</h2>
+
+<p>Wyobraź sobie, że mamy listę elementów, które są do niej wstawiane dynamicznie:</p>
+
+<pre><code class="language-html">
+&lt;div class="elements-list">
+    &lt;!-- tutaj trafią nowe elementy -->
+&lt;/div>
+
+&lt;div class="add-element-bar">
+    &lt;button type="button" class="btn add-element">
+        Dodaj element
+    &lt;/button>
+&lt;/div>
+</code></pre>
+
+<pre><code class="language-js">
+
+document.addEventListener('DOMContentLoaded', function() {
+    let counter = 0;
+    const addBtn = document.querySelector('.add-element');
+    const list = document.querySelector('.elements-list');
+
+    addBtn.addEventListener('click', function() {
+        counter++;
+
+        //tworzę element
+        const el = document.createElement('div');
+        el.classList.add('element');
+        el.innerText = "To jest element " + counter;
+
+        //dodaje element do listy
+        list.appendChild(el);
+    });
+
+});
+</code></pre>
+
+<p>Teraz chcielibyśmy do każdego takiego elementu dodać przycisk usuwania, który po kliknięciu usunie taki element:</p>
+
+<pre data-line="9-12"><code class="language-js">
+document.addEventListener('DOMContentLoaded', function() {
+
+    const addBtn = document.querySelector('.add-element');
+    const list = document.querySelector('.elements-list');
+
+    addBtn.addEventListener('click', function() {
+        ...
+
+        const del = document.createElement('button');
+        del.innerText = "Usuń";
+        del.classList.add('delete');
+        el.appendChild(del);
+
+        ...
+    });
+
+});
+</code></pre>
+
+<p>Podepnijmy pod niego zdarzenie click, które usunie element:</p>
+
+<pre data-line="11-18"><code class="language-js">
+document.addEventListener('DOMContentLoaded', function() {
+
+    const addBtn = document.querySelector('.add-element');
+    const list = document.querySelector('.elements-list');
+
+    addBtn.addEventListener('click', function() {
+        ...
+        ...
+    });
+
+    const delBtns = document.querySelectorAll('.delete');
+
+    for (const el of delBtns) {
+        el.addEventListener('click', function() {
+            const element = this.parentElement;
+            element.parentElement.removeChild(element);
+        });
+    }
+});
+</code></pre>
+
+<p>
+    <a href="./events-test1.html">Sprawdź działanie powyższego kodu</a>
+</p>
+
+<p>Dodajemy nowy element, klikamy na przycisk usuń i co? I nie działa.</p>
+
+<p>Kod na 100% jest poprawny, błędów w konsoli nie ma. Więc czemu to coś nie działa?</p>
+
+<p>Zwróć uwagę, kiedy i jak podpinamy eventy dla przycisków <strong>.delete</strong></p>
+
+<p>Robimy to tuż pod podpięciem eventu pod główny przycisk dodający nowy element. Wyszukujemy wszystkie przyciski <strong>.delete</strong> w liście elementów i podpinamy im...</p>
+
+<p>Ale zaraz zaraz - przecież w tym momencie jeszcze nie ma w tej liście żadnych przycisków .delete. Dopiero po dodaniu nowego elementu powstanie pierwszy przycisk .delete. Nasz kod podpinający przyciski usuwania działa dobrze, problem w tym, że selektor znajdujący takie przyciski nie ma co jeszcze znaleźć...</p>
+
+<p>Jak rozwiązać taki problem?</p>
+
+<p>Jednym z rozwiązań jest podpinanie eventów po stworzeniu danego przycisku:</p>
+
+<pre data-line="10-13"><code class="language-js">
+addBtn.addEventListener('click', function() {
+    counter++;
+    const el = document.createElement('div');
+    el.classList.add('element');
+    el.innerText = "To jest element " + counter;
+
+    const del = document.createElement('button');
+    del.innerText = "Usuń";
+    del.classList.add('delete');
+    del.addEventListener('click', function() {
+        const element = this.parentElement;
+        element.parentElement.removeChild(element);
+    });
+    el.appendChild(del);
+
+    list.appendChild(el);
+});
+</code></pre>
+
+<p>I to rozwiązanie zadziała - <a href="./events-test2.html">zresztą sprawdź tutaj</a></p>
+
+<p>Problem z tym rozwiązaniem jest jeden. Wyobraź sobie, że takich elementów mamy powiedzmy 100000. Czyli 100000 razy podpinamy event click. Zamiast jednego eventu mamy ich o wiele, wiele więcej. Pamiętasz <a href="../obiekty/obiekty-konstruktor.php#oszczednosc-zasobow">prototyp i po co go stosowaliśmy</a>?</p>
+<p>Przy eventach występuje ta sama zasada. Skoro istnieje (a istnieje) sposób by zamiast 100000 eventów użyć tylko jednego, to czemu by z niego nie skorzystać?</p>
+<p>Rozwiązanie jest bardzo proste: zamiast podpinać się bezpośrednio pod dane elementy (.delete), podepniemy się pod rodzica i za pomocą <strong>e.target</strong> w evencie będziemy sprawdzać jaki element wywołał dany event:</p>
+
+<pre><code class="language-js">
+list.addEventListener('click', function(e) {
+    //e.target - ten który kliknął
+    //e.currentTarget - ten który nasłuchuje
+
+    if (e.target.classList.contains('.delete')) { //tutaj nie tylko klasę możemy sprawdzać
+        const element = e.target.parentElement;
+        element.parentElement.removeChild(element);
+    }
+});
+</code></pre>
+
+<p>Dzięki temu nie tylko ograniczyliśmy liczbę eventów
+do jednego. Zyskaliśmy także to, że nasz event działa dla elementów, które dopiero zostaną dodane. W końcu elementem nasłuchującym jest element .list, który istnieje od samego początku.</p>
+
+<p>To co - <a href="./events-test3.html">sprawdzamy?</a></p>
+
+<!-- ### -->
+<h2 class="subtitle" id="dispatchEvent">Customowe eventy</h2>
+<p>Istnieje kilka metod, które możemy wykorzystać do symulowania zachowania elementów:</p>
+<pre><code class="language-js">
+element.click(); //kliknęliśmy w element
+element.select(); //zaznaczamy element (tekst w inpucie)
+element.focus(); //wybieramy element (jak za pomocą klawiatury)
+element.blur(); //opuszczamy element
+
+form.submit(); //wysyłamy formularz
+form.reset(); //resetujemy formularz
+</code></pre>
+
+<div class="kartofel-informuje">
+    <p>Wymieniona powyżej metoda submit() dla formularzy nie działa do końca tak jak może nam się to wydawać. Metoda submit() odpala wysyłkę formularza programistyczną, natomiast event submit odpalany jest gdy formularz zostanie wysłany ręcznie poprzez klawisz enter (dla formularza z 1 polem) lub poprzez naciśnięcie klawisza submit w formularzu (<a href="http://codetheory.in/javascript-fire-onsubmit-by-calling-form-submit/">1</a>). Co więcej użycie tej metody spowoduje, że nie zadziała htmlowa walidacja formularzy. Nie ja to wymyślałem...</p>
+
+    <pre><code class="language-js">
+    const form = document.querySelector(".form");
+
+    //to nigdy nie odpali
+    form.addEventListener("submit", function(e) {
+        e.preventDefault();
+        console.log("walidacja i wysyłka");
+    });
+
+    form.submit()
+    </code></pre>
+
+    <p>Aby to naprawić musimy stworzyć i odpalić event submit:</p>
+
+    <pre><code class="language-js">
+    const form = document.querySelector(".form");
+
+    //tutaj wszystko ok
+    form.addEventListener("submit", function(e) {
+        e.preventDefault();
+        console.log("walidacja i wysyłka");
+    });
+
+    form.dispatchEvent(new Event("submit"));
+    </code></pre>
+</div>
+
+<p>Możemy też odpalać inne typy eventów (ale i te powyższe). Aby odpalić takie eventy, musimy się posłużyć konstruktorem <a href="https://developer.mozilla.org/en-US/docs/Web/API/Event/Event">Event</a>:</p>
+
+<pre><code class="language-js">
+const img = document.querySelector('img');
+
+const event = new Event("mousemove", {
+    'bubbles'    : true, //czy zdarzenie ma iść w górę dokumentu
+    'cancelable' : true  //czy można je zatrzymać
+});
+img.dispatchEvent(event);
+</code></pre>
+
+<pre><code class="language-js">
+//lub w skróconej wersji
+img.dispatchEvent(new Event("mousemove"));
+</code></pre>
+
+<p>Żeby sprawdzić, czy dany event został realnie wykonany przez użytkownika, czy wywołaliśmy go poprzez skrypt, możemy posłużyć się właściwością: <a href="https://developer.mozilla.org/en-US/docs/Web/API/Event/isTrusted">e.isTrusted</a></p>
+
+<pre><code class="language-js" data-lines="">
+const btn = document.querySelector("#testTrusted");
+const btn2 = document.querySelector("#testTrustedClick");
+
+btn.addEventListener('click', function(e) {
+    console.log(`e.isTrusted: ${e.isTrusted}`);
+});
+btn2.addEventListener('click', function(e) {
+    btn.click();
+});
+</code></pre>
+
+<p>
+<button class="button" id="testTrusted">Kliknij i zobacz czy jest zaufany</button>
+<button class="button" id="testTrustedClick">Kliknij programowo w przycisk obok</button>
+</p>
+
+<script>
+{
+    const btn = document.querySelector("#testTrusted");
+    const btn2 = document.querySelector("#testTrustedClick");
+
+    btn.addEventListener('click', function(e) {
+        console.log(`e.isTrusted: ${e.isTrusted}`);
+    });
+    btn2.addEventListener('click', function(e) {
+        btn.click();
+    });
+}
+</script>
+
+<p>Tak naprawdę nie musimy się ograniczać do eventów, które są domyślnie dostępne, ponieważ możemy też robić nasze własne:</p>
+
+<pre><code class="language-js">
+//nasłuchujemy na nasz event - np. oznaczający wczytanie naszych danych
+document.addEventListener('loadDataComplete', function() {
+    document.querySelector('#loading').style.display = "none"
+});
+
+//dla uproszczenia przykładu
+//poniżej zakładamy, że wczytaliśmy dane
+fetch('...url...').then(function() {
+    const event = new Event('loadDataComplete');
+    elem.dispatchEvent(event);
+})
+</code></pre>
+
+<p>
+To nie wszystko. Aby móc wraz z eventem przesyłać dodatkowe dane, użyjemy metody <strong>CustomEvent(eventName, detail, bubbles, cancelable)</strong>.
+</p>
+<p>Pierwszym parametrem jest nazwa <strong>naszego eventu</strong>. Do drugiego przekazujemy <strong>dodatkowe dane</strong> w postaci obiektu, który ma właściwość detail. Dane te zostaną wysłane wraz z eventem.<br>
+Będą one potem dostępne pod właściwością <strong>e.detail</strong>, która zostanie przekazany do funkcji nasłuchującej. Ostatnie parametry <strong>włączenie odwrotnego przepływu eventów</strong> (z góry dokumentu na dół) i <a href="#stopPropagation">włączenie / wyłączenie propagacji</a>.
+</p>
+
+<p>
+    Ogólna więc postać CustomEventu wygląda tak:
+</p>
+
+<pre><code class="language-js">
+const ob = {
+    ...
+}
+
+const event = new CustomEvent('loadDataComplete', {
+    detail: { ourData: ob },
+    bubbles: true, //idąc w góre dokumentu, event będzie odpalany dla elementów (jeżeli mają nasłuch)
+	cancelable: false //czy można przerwać za pomocą e.stopPropagation()
+});
+</code></pre>
+
+<p>Na stronie <a href="https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent">https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent</a> możesz zobaczyć, że takich parametrów jest o wiele więcej, chociaż są rzadziej używane.</p>
+
+<p>
+Przykładowo możemy stworzyć własny event, który poinformuje inne elementy na stronie
+że właśnie wczytał dane, oraz wraz z eventem przekaże im te dane:
+</p>
+
+<pre><code class="language-js">
+document.addEventListener('loadDataComplete', function(e) {
+    console.log(e.detail);
+});
+
+parentElement.addEventListener('loadDataComplete', function(e) {
+    console.log(e.detail);
+});
+
+btn.addEventListener('click', function() {
+    //po kliknięciu na przycisk wczytujemy dynamicznie dane
+    //po wczytaniu wysyłamy w gore nasz event, który ma także w sobie jakieś dodatkowe dane
+    fetch('...url...').then(function() {
+        const ob = {
+            name : "Marcin",
+            surname : "Nowak"
+        }
+        const event = new CustomEvent('loadDataComplete', { detail: ob });
+        elem.dispatchEvent(event);
+    })
+})
+</code></pre>
+
+<p>Ale po co to? Musisz wiedzieć, że eventy bardzo często są nie tylko wykorzystywane do reakcji na czynności użytkownika, ale też do przesyłania informacji między różnymi oddzielnymi częściami danej strony. Większość dzisiejszych frameworków takich jak Angular, React itp. bazują na tej zasadzie. Mamy jakiś komponent, który musi przekazać jakieś dane do innych komponentów. Możemy to robić za pomocą atrybutów (jakiś propsów itp.), ale też możemy wykorzystywać eventy, dzięki czemu część komponentów nasłuchuje na dany event, a jak on się spełni, one wezmą sobie odpowiednie dane.</p>
+
+<p>W poniższym przykładzie dynamicznie wczytujemy dane z innego serwera. Jak je wczytam,
+    odpalam nasz event <strong>listLoaded</strong> na jakiś elementach. One czekają na ten event, a jak tylko
+    go usłyszą, wypisują wynik w konsoli. Sprawdź w debugerze czy się udało...
+</p>
+
+<pre><code class="language-js">
+const component = document.querySelector('#loadDataElement');
+
+//jakis element na stronie wczytuje dane
+//jak je wczyta wysyla event do dokumentu (w gore)
+document.querySelector("#testDispatch").addEventListener("click", function() {
+    fetch('https://jsonplaceholder.typicode.com/users')
+        .then(resp => resp.json())
+        .then(function(resp) {
+            const event = new CustomEvent('listLoaded', {
+                detail : {
+                    users : resp
+                },
+                bubbles: true,
+                cancelable: false
+            });
+
+            //odpalamy event na danych elementach
+            component.dispatchEvent(event);
+    });
+})
+
+component.addEventListener('listLoaded', function(e) {
+    console.log(e.detail.users);
+});
+
+document.addEventListener('listLoaded', function(e) {
+    console.log(e.detail.users);
+});
+</code></pre>
+
+<div id="customEventParent">
+    <button id="testDispatch" class="button">KLIK</button>
+    <div id="loadDataElement"></div>
+</div>
+
+<script>
+const component = document.querySelector('#loadDataElement');
+
+//jakis element na stronie wczytuje dane
+//jak je wczyta wysyla event do dokumentu (w gore)
+document.querySelector("#testDispatch").addEventListener("click", function() {
+    fetch('https://jsonplaceholder.typicode.com/users')
+        .then(resp => resp.json())
+        .then(function(resp) {
+            const event = new CustomEvent('listLoaded', {
+                detail : {
+                    users : resp
+                },
+                bubbles: true,
+                cancelable: false
+            });
+
+            //odpalamy event na danych elementach
+            component.dispatchEvent(event);
+    });
+})
+
+component.addEventListener('listLoaded', function(e) {
+    console.log(e.detail.users);
+});
+
+document.addEventListener('listLoaded', function(e) {
+    console.log(e.detail.users);
+});
+</script>
+
+			</div><!-- e: page-content-text -->
+			<footer class="page-footer">
+				<p>
+				Wszelkie prawa zastrzeżone. Jeżeli chcesz używać jakiejś części tego kursu, skontaktuj się z <a href="/kurs/autor.php">autorem</a>.
+				Aha - i ta strona korzysta z <a href="/kurs/polityka-prywatnosci.php">ciasteczek</a>.
+				</p>
+			</footer>
+							<div class="rekl-cnt">
+					<ins
+					class="adsbygoogle" style="margin-top:40px; display:block"
+					data-ad-client="ca-pub-6843603045703750"
+					data-ad-slot="4690777640"
+					data-ad-format="auto"
+					data-full-width-responsive="true"
+					></ins>
+				</div>
+				<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+	(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+					</main><!-- e: page-content -->
+			</div><!-- e: page-content-wrapper -->
+    <aside id="page-sidebar-cnt" class="page-sidebar-cnt">
+	<div id="page-sidebar" class="page-sidebar">
+		<button aria-label="Pokaż/ukryj Menu" aria-expanded="false" aria-controls="page-sidebar" type="button" id="pageSidebarBurger" class="page-sidebar-burger">
+			<span></span>
+		</button>
+
+		<h2 class="visuallyhidden">
+			Menu
+		</h2>
+
+		<button class="sidebar-toggle-btn" title="Pokaż/schowaj menu" aria-hidden="true">
+			<strong>Pokaż/ukryj menu</strong>
+			<span></span>
+			<span></span>
+			<span></span>
+		</button>
+
+		<div class="page-sidebar-title">
+			<a href="/kurs/kontakt.php" title="Nawrzucaj autorowi" class="mail-to-author" id="mailToAuthor">Napisz do mnie</a>
+			<a href="#popupOptions" class="page-setup-link popupOpen" title="Ustawienia strony" id="showOptions">Ustawienia</a>
+			<a href="/index.php" aria-label="Strona główna" class="page-sidebar-title-link">Kurs Javascript</a>
+		</div>
+
+        <form aria-label="Wyszukiwarka" class="search-sidebar" action="/search.php" method="post">
+            <label for="search" class="search-sidebar-label">Szukaj</label>
+            <div class="search-sidebar-input-cnt">
+                <svg class="search-sidebar-input-icon" xmlns="http://www.w3.org/2000/svg" width="26" height="28" viewBox="0 0 26 28" aria-hidden="true">
+                    <path d="M18 13c0-3.859-3.141-7-7-7s-7 3.141-7 7 3.141 7 7 7 7-3.141 7-7zm8 13c0 1.094-.906 2-2 2a1.96 1.96 0 0 1-1.406-.594l-5.359-5.344a10.971 10.971 0 0 1-6.234 1.937c-6.078 0-11-4.922-11-11s4.922-11 11-11 11 4.922 11 11c0 2.219-.672 4.406-1.937 6.234l5.359 5.359c.359.359.578.875.578 1.406z"></path>
+                </svg>
+                <input type="text" id="search" autocomplete="off" name="q" class="search-sidebar-input">
+            </div>
+            <button type="submit" class="search-sidebar-button">Szukaj</button>
+        </form>
+
+		<div class="page-sidebar-table-of-content">
+			<h2 class="visuallyhidden">Spis treści</h2>
+            <div class="page-sidebar-section">
+				<h3 class="page-sidebar-section-title noopen">
+                    <a href="/index.php">Strona główna</a>
+                </h3>
+            </div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Słowem wstępu</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/wstep/wstep.php">Wstęp</a>
+						</li>
+						<li >
+							<a href="/kurs/wstep/co-to-jest-javascript.php">Co to jest JavaScript i z czym go się je?</a>
+						</li>
+						<li >
+							<a href="/kurs/wstep/wymagania.php">Wymagania</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Super podstawy</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/debuger/debuger.php">Debuger</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/pierwszy-skrypt.php">Wstawiamy skrypty na naszą stronę</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/strict-mode.php">Strict mode</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/typy-danych.php">Typy danych i konwersja danych</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/zmienne.php">Zmienne</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/operatory.php">Operatory</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/math.php">Obiekt Math</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/string.php">String - teksty</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/instrukcje-warunkowe.php">Instrukcje warunkowe</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/petle.php">Pętle</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/funkcje.php">Funkcje</a>
+						</li>
+                        <li >
+							<a href="/kurs/super-podstawy/funkcje-tematy-dodatkowe.php">Funkcje - tematy dodatkowe</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/tablice.php">Tablice</a>
+						</li>
+                        <li >
+							<a href="/kurs/super-podstawy/tablice-iteracje.php">Tablice pętle</a>
+						</li>
+						<li >
+							<a href="/kurs/debuger/debugowanie.php">Debugowanie kodu</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+            			<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Obiekty</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+                        <li >
+							<a href="/kurs/obiekty/obiekty.php">Obiekty i this</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-jak-to-dziala.php">Jak to działa</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-konstruktor.php">Konstruktor</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-zaawansowane-this.php">Zaawansowane this</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-dziedziczenie.php">Dziedziczenie w Javascript</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-inne-sposoby-tworzenia.php">Inne sposoby tworzenia obiektów</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-instanceof-hasownproperty.php">instanceof i hasOwnProperty</a>
+						</li>
+                    </ul>
+                </div>
+            </div>
+
+						<div class="page-sidebar-section show has-active-element">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">DOM i zdarzenia</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/dom/dom.php">Document Object Model</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-wlasciwosci.php">Właściwości elementów</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-relacje.php">Relacje między elementami</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-tworzenie-i-usuwanie.php">Tworzenie i usuwanie elementów</a>
+						</li>
+                        <li >
+                            <a href="/kurs/dom/style.php">Style w CSS</a>
+                        </li>
+						<li class="active">
+							<a href="/kurs/events/events.php">Zdarzenia</a>
+						</li>
+						<li >
+							<a href="/kurs/events/events-keys.php">Zdarzenia - klawisze</a>
+						</li>
+						<li >
+							<a href="/kurs/events/events-mouse.php">Zdarzenia - myszka</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/projekt-todo.php">Projekt TODO</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/slider.php">Tworzymy slider</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Prawie podstawy</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/grafika/grafika-na-stronie.php">Grafika na stronie</a>
+						</li>
+						<li >
+							<a href="/kurs/intervals/intervals.php">setTimeout i setInterval</a>
+						</li>
+						<li >
+							<a href="/kurs/match-media.php">Praca z RWD</a>
+						</li>
+						<li >
+							<a href="/kurs/okna-dialogowe.php">Okienka dialogowe</a>
+						</li>
+						<li >
+							<a href="/kurs/okna.php">Tworzenie nowych okien</a>
+						</li>
+						<li >
+							<a href="/kurs/date/date.php">Obiekt Date</a>
+						</li>
+						<li >
+							<a href="/kurs/date/date-calendar.php">Tworzymy kalendarz</a>
+						</li>
+						<li >
+							<a href="/kurs/cookies/cookie.php">Obiekt Cookie</a>
+						</li>
+						<li >
+							<a href="/kurs/storage/storage.php">Storage</a>
+						</li>
+						<li >
+							<a href="/kurs/regular.php">Wyrażenia regularne</a>
+						</li>
+						<li >
+							<a href="/kurs/formularze/formularze.php">Formularze</a>
+						</li>
+						<li >
+							<a href="/kurs/formularze/formularze-walidacja.php">Formularze - walidacja</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Ajax</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/ajax/ajax.php">AJAX, REST, JSON</a>
+						</li>
+						<li >
+							<a href="/kurs/ajax/xmlhttprequest.php">XMLHttpRequest</a>
+						</li>
+            			<li >
+							<a href="/kurs/ajax/fetch.php">Fetch API</a>
+						</li>
+						<li >
+							<a href="/kurs/ajax/formularz-kontaktowy.php">Dynamiczny formularz kontaktowy</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Nowy Javascript</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/es6/ecma-script-2015.php">ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/webpack.php">Webpack</a>
+						</li>
+                        <li >
+            				<a href="/kurs/es6/obiekty-w-es6.php">Obiekty w ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/funkcja-strzalkowa.php">Funkcja strzałkowa</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/spread-rest.php">Spread i rest</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/template-strings.php">Template strings</a>
+						</li>
+						<li >
+            				<a href="/kurs/es6/destructuring.php">Dekompozycja</a>
+        				</li>
+						<li >
+							<a href="/kurs/es6/class.php">Klasy w ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/promises.php">Promises</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/async-await.php">Async/Await</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/symbole.php">Symbole</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">jQuery</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/jquery/jquery.php">jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/animacje-w-jquery.php">Animacje w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/jquery-ajax.php">Ajax w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/tabs.php">Taby w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/plugin.php">Karuzela w jQuery</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Canvas</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/canvas/canvas.php">Canvas</a>
+						</li>
+						<li >
+							<a href="/kurs/canvas/canvas-images.php">Grafika w canvas</a>
+						</li>
+						<li >
+						<a href="/kurs/canvas/canvas-paint.php">Praktycznie : Paint w canvas</a>
+						</li>
+
+						<li >
+							<a href="/kurs/canvas/canvas-animacja.php">Animacja w canvas</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Gry</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/gry/hangman/hangman.php">Szubienica</a>
+						</li>
+						<li >
+							<a href="/kurs/gry/memory/memory.php">Memory</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+            			<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Inne</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/dodatkowe-materialy.php">Dodatkowe materiały</a>
+						</li>
+						<li >
+							<a href="/kurs/faq.php">FAQ</a>
+						</li>
+						<li >
+							<a href="/kurs/polityka-prywatnosci.php">Polityka prywatności</a>
+						</li>
+						<li >
+							<a href="/kurs/autor.php">O autorze</a>
+						</li>
+						<li >
+							<a href="/kurs/kontakt.php">Kontakt</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="page-sidebar-section">
+                <a class="special-link" href="/kurs/autor.php#donate">Wesprzyj kurs</a>
+            </div>
+		</div>
+	</div>
+</aside></div><!-- e: page-container -->
+
+<div class="popup" id="popupOptions">
+	<div class="popup-inside">
+        <div class="popup-container-cnt">
+            <div class="popup-container">
+                <button class="popup-close">Zamknij</button>
+
+                <h2 class="popup-title">
+                    Opcje
+                </h2>
+
+                <div class="popup-content">
+                    <form class="form-options">
+                        <div class="form-option">
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <label for="optionsThemeSelect">Wybierz skórkę dla listingów</label>
+                                    <select id="optionsThemeSelect"></select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <pre><code class="language-js">
+                                //tak będzie wyglądał kod
+
+                                function test() {
+                                    for (let i=0; i&lt;10; i++) {
+                                        console.log("Tekst numer ", 1);
+                                    }
+                                }
+
+                                test();
+                                </code></pre>
+                            </div>
+                            <div class="form-row" id="themeLightModeRow">
+                                <div class="form-col">
+                                    <label for="themeLightMode">
+                                        Tryb dzienny / nocny
+                                    </label>
+
+                                    <div class="light-mode-el">
+                                        <input type="checkbox" id="themeLightMode">
+                                        <span class="light-mode"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+	</div>
+</div>
+<script async defer src="https://www.googletagmanager.com/gtag/js?id=UA-38558970-5"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-38558970-5');
+</script>
+
+	<script src="/js/ads.js"></script>
+	<script src="/js/script.min.js?v=0.13" defer></script>
+</body>
+</html>

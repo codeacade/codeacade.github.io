@@ -1,0 +1,886 @@
+<!doctype html>
+<html lang="pl-PL">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kurs Javascript - Debuger</title>
+	<meta name="description" content="Kurs Javascript dla superbohaterów, artykuły, tutoriale, porady, zadania do wykonania" />
+    <link rel="canonical" href="https://kursjs.pl/kurs/debuger/debuger.php" />
+	<link rel="stylesheet" href="./css.css" />
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,700&display=swap&subset=latin-ext" rel="stylesheet">
+	<meta name="image" content="https://kursjs.pl/kursjs.png">
+<meta name="twitter:card" content="product">
+<meta name="twitter:site" content="@publisher_handle">
+<meta name="twitter:title" content="Kurs Javascript">
+<meta name="twitter:description" content="Kurs Javascript dla superbohaterów">
+<meta name="twitter:creator" content="@kartofelek007">
+<meta name="twitter:image" content="https://kursjs.pl/kursjs.png">
+<meta property="og:title" content="Kurs Javascript">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.kursjs.com/">
+<meta property="og:image" content="https://kursjs.pl/kursjs.png">
+<meta property="og:description" content="Kurs Javascript dla superbohaterów">
+<meta property="og:site_name" content="Kurs Javascript">
+<link rel="apple-touch-icon" sizes="57x57" href="/favicons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/favicons/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/favicons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/favicons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/favicons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/favicons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/favicons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/favicons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="/manifest.json">
+<meta name="msapplication-TileColor" content="#FF6347">
+<meta name="msapplication-TileImage" content="/mstile-144x144.png">
+    <script src="/js/jquery.min.js"></script>
+</head>
+<body>
+
+<div class="page-container" id="pageContainer">
+	<div class="page-content-wrapper">
+        <main class="page-content" id="mainContent"  data-text-for-print="Kurs Javascript dla superbohaterów">
+                        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <div class="rekl-cnt">
+                <ins
+                class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-6843603045703750"
+                data-ad-slot="4690777640"
+                data-ad-format="auto"
+                data-full-width-responsive="true"
+                ></ins>
+            </div>
+                        <div class="page-content-text">
+
+<h1 class="page-title">Debuger</h1>
+<p>
+    Tworząc strony jednym z nieodłącznych narzędzi, które powinno nam towarzyszyć jest debuger. Aby go włączyć naciskamy klawisz F12 w przeglądarce.
+    Alternatywą jest kliknąć prawym przyciskiem myszy na dowolny element na stronie i wybrać z okienka
+    "Zbadaj element" (inspect) lub nacisnąć klawisze Ctrl + Shift + I.<br> W niektórych przeglądarkach powyższa metoda może się nieco różnić (np. w Safari trzeba wcześniej włączyć narzędzia developerskie).
+</p>
+
+<img src="./debuger.png" alt="debuger" class="border space">
+
+<p>
+    Co nam daje taki debuger?<br>
+    Za jego pomocą możemy dowolnie badać i modyfikować strony, edytować html, zarządzać schowkiem strony, ciasteczkami, zmieniać style elementów, sprawdzać czemu dane elementy źle się wyświetlają, rozwalać strony itp. W skrócie można powiedzieć, że to taki radar, bez którego w zasadzie nie ma co podchodzić do tworzenia stron.
+</p>
+<p>
+    Poniżej postaram się opisać kilka z ważniejszych zakładek debugera w przeglądarce Chrome.
+</p>
+
+
+<!--###-->
+<h2 class="subtitle" id="zakladka-console">Zakładka Console</h2>
+
+<img src="./debuger-console.png" alt="console" class="space border">
+
+<p>
+    Zakładka console służy do wypisywania komunikatów, testowania kawałków kodu itp.<br>
+    Możemy ją odpalić poprzez przejście na zakładkę Console w debugerze, lub będąc na innych naciskając klawisz Esc.<br>
+    W naszych skryptach bardzo często będziemy chcieli coś wypisać - np. jakiś komunikat, daną zmienną,element czy inną rzecz. Skorzystamy wtedy z instrukcji <strong>console.log</strong>, która służy do wypisywania w konsoli:
+</p>
+
+<pre><code class="language-js">
+//możemy wypisywać teksty, liczby itp.
+console.log('Witaj świecie');
+
+//możemy wypisać obiekt i go zbadać
+console.log(window);
+
+//po przecinku możemy wypisać kilka elementów na raz
+console.log("Witaj", window, 100);
+</code></pre>
+
+<p>
+    W wielu miejscach - nawet na tym kursie - będziesz chciał szybko sprawdzić działanie jakiegoś skryptu lub zmiennej.<br>
+    Wystarczy więc, że otworzysz debugera (F12) i przejdziesz do zakładki Console.<br>
+    Jeżeli skrypt udostępnia jakieś zmienne lub funkcje, możesz w konsoli zacząć wpisywać ich nazwy, a debuger podpowie ci resztę.
+</p>
+
+<p>
+    Na stronie, którą właśnie czytasz stworzyłem mikro skrypt z tajemniczą zmienną.
+    Przejdź teraz do konsoli debugera i zacznij wpisywać <strong>mojaPie</strong>.
+</p>
+
+<p>
+    Debuger powinien podpowiedzieć tobie pełną nazwę zmiennej <strong>mojaPierwszaSuperZmienna</strong>.<br>
+    Strzałka w prawo by dopełnić wpisywaną nazwę i enter by wyświetlić w konsoli jej wartość.<br>
+    W konsoli powinna pojawić się wartość tej zmiennej, czyli jakiś tekst. Jaki? Sprawdź sam. Podobnie możesz zacząć wpisywać window, Math czy podobne globalnie dostępne elementy.
+</p>
+
+<script>
+    let mojaPierwszaSuperZmienna = "Pierwszy krok do stania się wymiataczem JavaScript :)";
+</script>
+
+<p>Nie wszystkie zmienne będziemy mogli tak badać. Jeżeli dana zmienna jest ukryta przed zewnętrznym środowiskiem (<a href="../super-podstawy/funkcje-tematy-dodatkowe.php#zasieg-zmiennych">1</a>), nie zbadamy jej w powyższy sposób. Ale wtedy spokojnie możemy użyć console.log() bezpośrednio w kodzie.</p>
+
+<p>Istnieją też inne instrukcje, które udostępnia nam obiekt console:</p>
+
+<pre><code class="language-js">
+//bardzo często będziemy chcieli wypisać element by go zbadać.
+//gdy wypiszemy element pobrany ze strony, w konsoli pokaże nam tylko html znacznika. Gdy chcemy wypisać więcej detali o tym obiekcie to użyjemy console.dir
+
+console.dir(someButton);
+</code></pre>
+
+<pre><code class="language-js">
+//pokaże w konsoli ładnie sformatowaną tabelę
+console.table([1,2,3,4,5]);
+</code></pre>
+
+<pre><code class="language-js">
+//grupowanie wielu tekstów (console.log etc) w konsoli w jedną grupę
+console.group('Nazwa grupy');
+    console.log('Ala ma kota');
+    console.log('Kot ma Alę');
+console.groupEnd(); //kończenie grupy
+
+
+console.groupCollapsed('Nazwa grupy'); //grupa domyślnie zwinięta
+console.log('Ala ma kota');
+console.log('Kot ma Alę');
+console.groupEnd(); //kończenie grupy
+</code></pre>
+
+<pre><code class="language-js">
+//czasami będziemy chcieli sprawdzić jak szybko wykona się nasz skrypt...
+console.time('test 1'); //rozpoczyna test - zaczyna liczyć czas
+for (let i=0; i&lt;10000; i++) {
+    ...
+}
+console.timeEnd('test 1'); //kończy test
+</code></pre>
+
+<pre><code class="language-js">
+//czasami też będziemy chcieli zatrzymać na chwilę działanie skryptu w danym miejscu
+function test() {
+    let i = 0;
+    debugger; //instrukcją debugger przerywam działanie skryptu w tym miejscu, dzięki czemu mogę spokojnie go badać w zakładce Source. Dodatkowo w konsoli mam dostęp do zmiennych z danego scope - np. je tam wpisując
+}
+test();
+</code></pre>
+
+<p>Ważną cechą console.log jest to, że możemy w niej wypisywać naście elementów po przecinkach. Dzięki temu nie będziemy musieli się skupiać na typach:</p>
+
+<pre><code class="language-js">
+//zamiast
+console.log("Nazywam się: " + myName);
+
+//lepiej użyć
+console.log("Nazywam się:", myName);
+
+//lub
+console.log({myName : myName});
+</code></pre>
+
+<p>
+    Poza wypisywaniem tekstu w konsoli warto tutaj zwrócić uwagę też na mały trybik w prawym górnym rogu tej zakładki.
+</p>
+
+<img src="./debuger-console-gears-of-war.png" alt="gears of war" class="space border">
+
+<p>Po jego kliknięciu ukaże nam się kilka opcji, które służą do pokazywania lub ukrywania dodatkowych informacji. Wśród nich na szczególną uwagę zasługuje opcja <strong>Preserve log</strong>, która po aktywowaniu spowoduje, że po przeładowaniu/zmianie strony w danej zakładce konsola nie będzie się czyścić, a teksty będą doklejane do tych co już w niej są. Mega przydatna opcja przy pracy z <a href="../formularze/formularze.php">formularzami</a>.</p>
+
+
+<!--###-->
+<h2 class="subtitle" id="zakladka-elements">Zakładka Elements</h2>
+
+<img src="./debuger-bar.png" alt="belka debugera" class="space border">
+
+<p>
+Poza konsolą będziemy bardzo często korzystać z innych zakładek.<br>
+Pierwszą z nich jest zakładka Elements, która pozwala badać i zmieniać całą strukturę dokumentu.
+</p>
+<p>
+Po lewej stronie znajduje się drzewo dokumentu (html), natomiast po prawej style badanego elementu oraz kilka przydatnych zakładek.
+</p>
+<p>
+Badany element możemy wybrać na kilka sposobów.
+</p>
+<p>
+Po pierwsze - wybierzemy go klikając zwyczajnie w widoczny w tej zakładce dokument html.
+Możemy się po nim poruszać klikając na poszczególne elementy drzewka, lub posługując się strzałkami klawiatury (góra-dół, prawo-lewo rozwija i zwija element).
+</p>
+
+<p>Drugi sposób to użycie pierwszej z lewej strony górnej belki debugera ikonki.</p>
+
+<img src="./debuger-select-icon.png" alt="ikonka wyboru elementów ze strony" class="border">
+
+<p>Po jej wybraniu trzeba zaznaczyć badany element na stronie. W ostatnich wersjach Chrome opcja ta ma szczególne znaczenie, ponieważ po użyciu jej i wskazaniu danego elementu pokazywany jest dodatkowy popup z informacjami o kontraście danego elementu. Bardzo ważna sprawa jeżeli chcemy robić dobre strony.
+</p>
+
+<img src="./debuger-ikonka-wskazywania.png" alt="ikonka badania elementów" class="border space">
+
+<p>
+Trzeci sposób to kliknięcie badanego elementu na stronie prawym klawiszem myszki i wybranie opcji "zbadaj". Wydaje się najbardziej wygodną, przy czym najlepiej po prostu przećwiczyć sobie używanie wszystkich trzech zamiennie.
+</p>
+
+<p>Poza drzewem dokumentu zakładka Elements pokazuje po prawej stronie style każdego elementu. Style pokazywane są od dołu do góry. Te najbardziej aktualne (czyli występujące najniżej w stylach) są pokazane wyżej.</p>
+
+<img src="./debuger-element.png" alt="Widok debugera" class="space border">
+
+<p>Na szarym tle pokazywane są style domyślne przeglądarki. Jeżeli któraś z właściwości będzie przekreślona, znaczy to, że inny selektor w css ją nadpisał (ma większą moc, lub dane stylowanie jest niżej w CSS). Czasami przy niektórych właściwościach mogą pojawić się wykrzykniki. Oznacza to, że dana właściwość została źle napisana (podaliśmy błędną składnię). </p>
+
+<img src="./debuger-style.png" alt="debuger style" class="border">
+
+<p>Po kliknięciu każdej właściwości po prawej stronie możemy ją dynamicznie zmieniać. Przy wartościach
+numerycznych możemy je zwiększać lub zmniejszać za pomocą klawiszy strzałek góra-dół. Wystarczy postawić kursor na danej wartości i strzałkami góra-dół zmienić jej wartość (z shiftem taka zmiana następuje co 10).</p>
+
+<p>Przy niektórych właściwościach pojawiają się dodatkowe ikonki - np. służąca do wyboru koloru, lub do zmiany box-shadow.</p>
+
+<img src="./debuger-wlasciwosci.png" alt="Widok debugera" class="space border">
+
+<p>Kolejną bardzo ważną opcją jest <strong>:hov</strong>, który mieści się na górze z prawej strony tej zakładki.</p>
+
+<img src="./debuger-hov.png" alt="hov:" class="border space">
+
+<p>
+Umożliwia ona wymuszenie stanu na elemencie - np. hover, focus, active itp. Bardzo ważna opcja przy tworzeniu efektów np. dla przycisków</p>
+
+<p>
+Ok. Dużo się napisałem. Zanim przejdziemy dalej, przećwiczmy powyższe informacje.<br>
+Poniżej masz przycisk. Klient zgłosił, że przycisk wygląda, jakby został stworzony przez podludzi. Trzeba go poprawić.
+</p>
+<p>
+    Spróbuj go teraz zbadać i zmień jego parametry według poniższych wytycznych klienta:
+</p>
+
+<ul>
+    <li>Odstęp wewnętrzny (padding) ustaw na <strong>20px 40px</strong></li>
+    <li>Kolor przycisku (background) zmień na <strong>#e31a59</strong></li>
+    <li>Kolor tekstu (color) zmień na <strong>#fff</strong></li>
+    <li>Dodaj zaokrąglone rogi (border-radius) i ustaw je na <strong>60px</strong></li>
+</ul>
+
+<p>
+Dodatkowo korzystając z ikonki <strong>:hov</strong> zmień stylowanie przycisku po najechaniu i ustaw mu parametry:
+</p>
+
+<ul>
+    <li>cień miał parametry: <strong>0 2px 10px #7321f3</strong></li>
+    <li>kolor tekstu : <strong>#fff</strong></li>
+    <li>kolor tła przycisku: <strong>#7321f3</strong></li>
+</ul>
+
+<button class="button-test">
+    Testowy przycisk nie najlepszej jakości
+</button>
+
+<p>Po lewej stronie zakładki Element znajduje się HTML. Gdy klikniesz prawym przyciskiem myszy na wybrany element, pojawi się menu kontekstowe.</p>
+
+<img src="./debuger-menu-kontekstowe.png" alt="debugert menu kontektowe" class="space border">
+
+<p>Warto przejrzeć opcje z tego menu. Można w nim znaleźć edycję HTML, edycję atrybutów elementu, usuwanie czy ukrywanie danych elementów. Bardzo przydatna opcja, gdy chcemy dany pozbyć się danego elementu (np. informacji o zapisie do newslettera której się nie da ukryć).</p>
+<p>Spróbuj przetestować te opcje i pousuwać kilka elementów z tej strony.</p>
+
+<!--###-->
+<h2 class="subtitle" id="zakladka-sources">Zakładka Sources</h2>
+<p>
+Kolejną zakładką jest Sources. Znajdziesz tutaj używane zasoby - np. pliki ze skryptami, stylami, użyte grafiki itp. Jest to główna zakładka, której będziemy używać przy debugowaniu naszych skryptów.
+</p>
+<p>
+Po lewej stronie tej zakładki masz listę plików. Po wybraniu danego pliku, zobaczysz jego kod. Jeżeli dany kod jest zminimalizowany (co w dzisiejszych czasach zdarza się bardzo często), możemy skorzystać z ikonki Preety print, która znajduje się na dole.
+</p>
+
+<img src="./debuger-preety-print.png" alt="preety print" class="border space">
+
+<p>
+Patrząc na kod JavaScript w zakładce Source możemy klikając na numerach danych linii, by postawić w danym miejscu tak zwane breakpointy. Po odświeżeniu strony lub wykonaniu zdarzenia wykonywanie kodu zatrzyma się we wskazanych miejscach.<br> Od tej pory będziemy mogli badać każdą zmienną w kodzie. Wystarczy najechać na nią kursorem.
+</p>
+
+<p>Takie rzeczy będziemy robić w rozdziale o <a href="./debugowanie.php">debugowaniu kodu</a>.</p>
+
+<p>Zanim tam jednak dotrzemy, mikro test. Będąc na tej stronie znajdź w tej zakładce plik test-debuger.js (jest w katalogu kurs/debuger) i postaw tam kilka breakpointów. Następnie odśwież stronę i spróbuj pobadać kilka zmiennych.</p>
+
+<script src="./test-debuger.js"></script>
+
+<img src="./debuger-badanie-bp.png" alt="Badanie zmienynch w debugerze" class="space border">
+
+<p>Po postawieniu breakpointów na liniach, odświeżeniu strony wykonywanie skryptu się zatrzyma, a sama strona zostanie przykryta szarym tłem. Zatrzymane miejsce będzie reprezentować niebieska linia w kodzie w zakładce Sources.<br>
+
+<p>W przyszłości zapewne będziesz o wiele częściej korzystał z tej zakładki. Polecam ci przejść tutorial na stronie <a href="https://developers.google.com/web/tools/chrome-devtools/javascript/">https://developers.google.com/web/tools/chrome-devtools/javascript/</a>, który fajnie naucza korzystania z tej zakładki.</p>
+
+<p>O samym debugowaniu i prawej części tej zakładki <a href="./debugowanie.php">pouczymy się w jednym z kolejnych rozdziałów</a>, a tym czasem...</p>
+
+<p>...to nie koniec. Tym razem przechodzimy na lewą stronę zakładki Sources.</p>
+
+<img src="./debugger-source-left.png" alt="debugger source lewa część zakładki" class="space border">
+
+<p>
+    Na górze tej części mamy kilka zakładek.
+    W zakładce Page wymienione są wszystkie rzeczy, których używa nasza strona. Ale to już wiemy, bo właśnie jej używaliśmy.
+</p>
+
+<p>Jeżeli pracujemy nad stroną na naszym komputerze, w zakładce <strong>Filesystem</strong> będziemy mogli dodać folder, w którym się ona znajduje na naszym dysku. Dzięki temu zmiany dokonywane za pomocą debugera, będą wprowadzane bezpośrednio do edytora w którym pracujemy. Nie tylko będziemy mogli edytować kod w zakłądce source (trzyma go zapisać za pomocą Ctrl + S), ale też każda zmiana stylów w zakładce Elements zostanie wprowadzona bezpośrednio do plików.<br>
+Gdy wejdziemy w tą zakładkę, musimy wybrać folder, w którym mamy stronę nad którą pracujemy. Zostaniemy zapytani, czy zezwalamy na zapis (pytanie pojawi się na górze okna przeglądarki).<br>
+Osobiście nie nadużywam tej funkcjonalności, bo jakoś nie mam do niej zaufania. Możliwe, że w przyszłości się do niej przekonam...</p>
+
+<p>
+    Podobne działanie ma zakładka Overrides, z tym, że możemy w niej nadpisywać skrypty i strony na stronach zewnętrznych.
+</p>
+
+<img src="./overrides.png" alt="Debuger overrides">
+
+<p>Pozostałe zakładki Content Script i Snippets zawierają skrypty odpalane np. przez używane przez nas dodatki, ale też Snippety, czyli kawałki kodu, które możemy sobie zapisać do późniejszego użytku (ale to samo spokojnie możesz robić w swoim edytorze).</p>
+
+<!--###-->
+<h2 class="subtitle" id="zakladka-network">Zakładka Network</h2>
+<p>Skoro tak dobrze nam idzie omawianie zakładek, przechodzimy do kolejnej.</p>
+<p>Zakładka Network służy do badania requestów, czyli zapytań do zasobów. To właśnie tutaj możemy zbadać ile requestów musi być wykonane by nasza strona została wczytana (im mniej tym lepiej).<br>
+Dodatkowo możemy badać każdy request z osobna. Będziemy to robić szczególnie w dziale o <a href="../ajax/ajax.php">ajaxie</a> czy <a href="../cookies/cookie.php">ciasteczkach</a>.
+</p>
+
+<p>Ciekawą opcją w tej zakładce jest możliwość symulowania wolnych łączy lub braku połączenia. Dzięki temu możemy sprawdzić jak nasza strona będzie się wczytywać na wolnych łączach.</p>
+
+<img src="./debuger-network.png" alt="" class="space border">
+
+<p>Bardzo ważną opcją jest też opcja <strong>preserve log</strong>, którą znajdziesz na belce tej zakładki. Działa ona podobnie do tej z zakładki Console, co oznacza, że po jej zaznaczeniu dane z konsoli nie będą czyszczone po odświeżeniu strony, a tylko doklejane do widocznych.</p>
+
+<p>Dodatkowo na górze tej zakładki znajdują się opcje pozwalające filtrować requesty. Przydatne gdy chcemy np. wyszukać tylko pliki ze stylami dołączonymi do strony.</p>
+
+<img src="./debuger-newtwork-bar.png" alt="debuger network bar" class="space border">
+
+
+<!--###-->
+<h2 class="subtitle" id="zakladka-application">Zakładka Application</h2>
+
+<img src="./debuger-storage.png" alt="Zakładka application" class="space border">
+
+<p>Zakładka Application pozwala nam badać różne miejsca gdzie przechowywane są dane dostępne dla strony. I tak możemy tutaj zbadać czy usunąć ciasteczka czy dane z localStorage. Będziemy tutaj zaglądać w działach z <a href="../storage/storage.php">localStorage</a>czy <a href="../cookies/cookie.php">ciasteczkami</a>.
+</p>
+
+<div class="kartofel-informuje">
+    Niektóre strony używają ciasteczek by serwować tobie spersonalizowane oferty. Jedną z takich stron jest Udemy. Jeżeli oferty dla ciebie są za duże, warto spróbować wyczyścić dla niej ciasteczka (korzystając właśnie z omawianej zakładki). Możliwe, że oferty się poprawią (chociaż trik ten nie zawsze działa).
+</div>
+
+
+<!--###-->
+<h2 class="subtitle" id="zakladka-audits">Zakładka Audits</h2>
+<p>Kolejna zakładka jaką chciałbym omówić to zakładka Audits.</p>
+<p>Istnieje taka strona jak <a href="https://developers.google.com/speed/pagespeed/">https://developers.google.com/speed/pagespeed/</a>, która służy do sprawdzania strony pod względem dostępności, szybkości wczytywania itp.</p>
+<p>Po jej użyciu dostaniemy raport, który będzie zawierał różne porady co powinniśmy poprawić na naszej stronie.</p>
+<p>Raportu takiego nie należy traktować jako wyznacznika dobrej strony. To tylko porady jak zoptymalizować działanie naszej strony. Czasami lepsze, czasami gorsze. 100 pkt wcale nie będzie oznaczać, że nasza strona jest idealna i z pewnością odniesie sukces. 100pkt oznacza, że na Google PageSpeed uzyskaliśmy maksimum punktów. Nic więcej, nic mniej.</p>
+
+<p>Ale też warto korzystać z takich stron. Czasami zapomnimy o minimalizacji skryptów, o optymalizacji CSS, o zmniejszeniu wagi grafik itp. Google page speed może nam o tym przypomnieć.</p>
+
+<p>W zakładce Audits możemy przeprowadzić podobne sprawdzenie i dostaniemy całkiem podobne wyniki - nie tylko tyczące się optymalizacji, ale też dostępności czy bezpieczeństwa.</p>
+
+<img src="./debuger-audits.png" alt="debuger zakładka audits" class="space border">
+
+<p>Jak widzisz, w momencie pisania tego tekstu ta strona nie jest najlepiej zoptymalizowana. Ale obiecuję - kiedyś to poprawię...</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="zakladka-perfomance">Zakładka perfomance</h2>
+
+<img src="./debuger-perfomance.png" alt="debuger perfomance" class="border space">
+
+<p>
+    Zakładka perfomance służy do badania strony pod względem wydajności.
+    W jej prawym górnym rogu znajduje się przycisk nagrywania. Włączamy nagrywanie, odświeżamy stronę lub chwilę po niej chodzimy i zatrzymeujemy nagrywanie.
+</p>
+<p>Naszym oczom powinna pojawić się linia czasu z rozrysowanymi wykresami jak wyglądało renderowanie naszej strony, a które możemy badać jeżeli zależy nam na optymalizacji renderowania naszej strony.</p>
+<p>Dobrze pokazuje to ten film: <a href="https://youtu.be/0Xg6r_MKGJ4?t=1066">https://youtu.be/0Xg6r_MKGJ4?t=1066</a></p>
+
+<!--###-->
+<h2 class="subtitle" id="dodatkowe-narzedzia">Dodatkowe narzędzia</h2>
+<p>
+O debugerze można by napisać całkiem sporą książkę, bo narzędzie to ma pełno ukrytych funkcjonalności.
+Aby zobaczyć niektóre z nich, wystarczy kliknąć 3 kropeczki w prawym górnym rogu debugera i wybrać opcję "More tools".<br>
+
+Można też posłużyć się skrótem klawiszy <strong>Ctrl + Shift + P</strong>, który otworzy okienko do wyszukiwania/odpalania rzeczy w debugerze (podobny skrót ma podobną funkcjonalność w wielu edytorach - np. VSC, Atom czy Sublime Text!)
+</p>
+<p>Wśród dodatkowych ciekawych narzędzi warto spojrzeć na:
+
+<ul>
+<li><a href="https://developers.google.com/web/tools/chrome-devtools/inspect-styles/animations">Animation</a> - zakładka, która służy do badania animacji na stronach</li>
+<li><strong>Remote devices</strong> - zakładka, która służy do podłączania dodatkowych urządzeń (przy czym ja zamiast tego polecam użyć <a href="http://domanart.pl/browsersync-na-propsie/">BrowserSync</a>)</li>
+<li><strong>Rendering</strong> - zakładka, która służy do sprawdzania jak rysowana jest nasza strona (sprawa tyczy się optymalizacji <a href="https://www.html5rocks.com/en/tutorials/speed/high-performance-animations/" target="_blank">renderowania naszej strony</a>), oraz pozwala włączyć licznik FPS</li>
+<li><strong>Show coverage</strong> - narzędzie pokazujące ile naszych stylów / js jest realnie używane w danym momencie na danej stronie. Dzięki temu możemy spróbować je trochę zmniejszyć</li>
+</ul>
+
+
+			</div><!-- e: page-content-text -->
+			<footer class="page-footer">
+				<p>
+				Wszelkie prawa zastrzeżone. Jeżeli chcesz używać jakiejś części tego kursu, skontaktuj się z <a href="/kurs/autor.php">autorem</a>.
+				Aha - i ta strona korzysta z <a href="/kurs/polityka-prywatnosci.php">ciasteczek</a>.
+				</p>
+			</footer>
+							<div class="rekl-cnt">
+					<ins
+					class="adsbygoogle" style="margin-top:40px; display:block"
+					data-ad-client="ca-pub-6843603045703750"
+					data-ad-slot="4690777640"
+					data-ad-format="auto"
+					data-full-width-responsive="true"
+					></ins>
+				</div>
+				<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+	(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+					</main><!-- e: page-content -->
+			</div><!-- e: page-content-wrapper -->
+    <aside id="page-sidebar-cnt" class="page-sidebar-cnt">
+	<div id="page-sidebar" class="page-sidebar">
+		<button aria-label="Pokaż/ukryj Menu" aria-expanded="false" aria-controls="page-sidebar" type="button" id="pageSidebarBurger" class="page-sidebar-burger">
+			<span></span>
+		</button>
+
+		<h2 class="visuallyhidden">
+			Menu
+		</h2>
+
+		<button class="sidebar-toggle-btn" title="Pokaż/schowaj menu" aria-hidden="true">
+			<strong>Pokaż/ukryj menu</strong>
+			<span></span>
+			<span></span>
+			<span></span>
+		</button>
+
+		<div class="page-sidebar-title">
+			<a href="/kurs/kontakt.php" title="Nawrzucaj autorowi" class="mail-to-author" id="mailToAuthor">Napisz do mnie</a>
+			<a href="#popupOptions" class="page-setup-link popupOpen" title="Ustawienia strony" id="showOptions">Ustawienia</a>
+			<a href="/index.php" aria-label="Strona główna" class="page-sidebar-title-link">Kurs Javascript</a>
+		</div>
+
+        <form aria-label="Wyszukiwarka" class="search-sidebar" action="/search.php" method="post">
+            <label for="search" class="search-sidebar-label">Szukaj</label>
+            <div class="search-sidebar-input-cnt">
+                <svg class="search-sidebar-input-icon" xmlns="http://www.w3.org/2000/svg" width="26" height="28" viewBox="0 0 26 28" aria-hidden="true">
+                    <path d="M18 13c0-3.859-3.141-7-7-7s-7 3.141-7 7 3.141 7 7 7 7-3.141 7-7zm8 13c0 1.094-.906 2-2 2a1.96 1.96 0 0 1-1.406-.594l-5.359-5.344a10.971 10.971 0 0 1-6.234 1.937c-6.078 0-11-4.922-11-11s4.922-11 11-11 11 4.922 11 11c0 2.219-.672 4.406-1.937 6.234l5.359 5.359c.359.359.578.875.578 1.406z"></path>
+                </svg>
+                <input type="text" id="search" autocomplete="off" name="q" class="search-sidebar-input">
+            </div>
+            <button type="submit" class="search-sidebar-button">Szukaj</button>
+        </form>
+
+		<div class="page-sidebar-table-of-content">
+			<h2 class="visuallyhidden">Spis treści</h2>
+            <div class="page-sidebar-section">
+				<h3 class="page-sidebar-section-title noopen">
+                    <a href="/index.php">Strona główna</a>
+                </h3>
+            </div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Słowem wstępu</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/wstep/wstep.php">Wstęp</a>
+						</li>
+						<li >
+							<a href="/kurs/wstep/co-to-jest-javascript.php">Co to jest JavaScript i z czym go się je?</a>
+						</li>
+						<li >
+							<a href="/kurs/wstep/wymagania.php">Wymagania</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section show has-active-element">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Super podstawy</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li class="active">
+							<a href="/kurs/debuger/debuger.php">Debuger</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/pierwszy-skrypt.php">Wstawiamy skrypty na naszą stronę</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/strict-mode.php">Strict mode</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/typy-danych.php">Typy danych i konwersja danych</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/zmienne.php">Zmienne</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/operatory.php">Operatory</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/math.php">Obiekt Math</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/string.php">String - teksty</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/instrukcje-warunkowe.php">Instrukcje warunkowe</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/petle.php">Pętle</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/funkcje.php">Funkcje</a>
+						</li>
+                        <li >
+							<a href="/kurs/super-podstawy/funkcje-tematy-dodatkowe.php">Funkcje - tematy dodatkowe</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/tablice.php">Tablice</a>
+						</li>
+                        <li >
+							<a href="/kurs/super-podstawy/tablice-iteracje.php">Tablice pętle</a>
+						</li>
+						<li >
+							<a href="/kurs/debuger/debugowanie.php">Debugowanie kodu</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+            			<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Obiekty</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+                        <li >
+							<a href="/kurs/obiekty/obiekty.php">Obiekty i this</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-jak-to-dziala.php">Jak to działa</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-konstruktor.php">Konstruktor</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-zaawansowane-this.php">Zaawansowane this</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-dziedziczenie.php">Dziedziczenie w Javascript</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-inne-sposoby-tworzenia.php">Inne sposoby tworzenia obiektów</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-instanceof-hasownproperty.php">instanceof i hasOwnProperty</a>
+						</li>
+                    </ul>
+                </div>
+            </div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">DOM i zdarzenia</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/dom/dom.php">Document Object Model</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-wlasciwosci.php">Właściwości elementów</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-relacje.php">Relacje między elementami</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-tworzenie-i-usuwanie.php">Tworzenie i usuwanie elementów</a>
+						</li>
+                        <li >
+                            <a href="/kurs/dom/style.php">Style w CSS</a>
+                        </li>
+						<li >
+							<a href="/kurs/events/events.php">Zdarzenia</a>
+						</li>
+						<li >
+							<a href="/kurs/events/events-keys.php">Zdarzenia - klawisze</a>
+						</li>
+						<li >
+							<a href="/kurs/events/events-mouse.php">Zdarzenia - myszka</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/projekt-todo.php">Projekt TODO</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/slider.php">Tworzymy slider</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Prawie podstawy</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/grafika/grafika-na-stronie.php">Grafika na stronie</a>
+						</li>
+						<li >
+							<a href="/kurs/intervals/intervals.php">setTimeout i setInterval</a>
+						</li>
+						<li >
+							<a href="/kurs/match-media.php">Praca z RWD</a>
+						</li>
+						<li >
+							<a href="/kurs/okna-dialogowe.php">Okienka dialogowe</a>
+						</li>
+						<li >
+							<a href="/kurs/okna.php">Tworzenie nowych okien</a>
+						</li>
+						<li >
+							<a href="/kurs/date/date.php">Obiekt Date</a>
+						</li>
+						<li >
+							<a href="/kurs/date/date-calendar.php">Tworzymy kalendarz</a>
+						</li>
+						<li >
+							<a href="/kurs/cookies/cookie.php">Obiekt Cookie</a>
+						</li>
+						<li >
+							<a href="/kurs/storage/storage.php">Storage</a>
+						</li>
+						<li >
+							<a href="/kurs/regular.php">Wyrażenia regularne</a>
+						</li>
+						<li >
+							<a href="/kurs/formularze/formularze.php">Formularze</a>
+						</li>
+						<li >
+							<a href="/kurs/formularze/formularze-walidacja.php">Formularze - walidacja</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Ajax</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/ajax/ajax.php">AJAX, REST, JSON</a>
+						</li>
+						<li >
+							<a href="/kurs/ajax/xmlhttprequest.php">XMLHttpRequest</a>
+						</li>
+            			<li >
+							<a href="/kurs/ajax/fetch.php">Fetch API</a>
+						</li>
+						<li >
+							<a href="/kurs/ajax/formularz-kontaktowy.php">Dynamiczny formularz kontaktowy</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Nowy Javascript</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/es6/ecma-script-2015.php">ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/webpack.php">Webpack</a>
+						</li>
+                        <li >
+            				<a href="/kurs/es6/obiekty-w-es6.php">Obiekty w ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/funkcja-strzalkowa.php">Funkcja strzałkowa</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/spread-rest.php">Spread i rest</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/template-strings.php">Template strings</a>
+						</li>
+						<li >
+            				<a href="/kurs/es6/destructuring.php">Dekompozycja</a>
+        				</li>
+						<li >
+							<a href="/kurs/es6/class.php">Klasy w ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/promises.php">Promises</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/async-await.php">Async/Await</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/symbole.php">Symbole</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">jQuery</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/jquery/jquery.php">jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/animacje-w-jquery.php">Animacje w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/jquery-ajax.php">Ajax w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/tabs.php">Taby w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/plugin.php">Karuzela w jQuery</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Canvas</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/canvas/canvas.php">Canvas</a>
+						</li>
+						<li >
+							<a href="/kurs/canvas/canvas-images.php">Grafika w canvas</a>
+						</li>
+						<li >
+						<a href="/kurs/canvas/canvas-paint.php">Praktycznie : Paint w canvas</a>
+						</li>
+
+						<li >
+							<a href="/kurs/canvas/canvas-animacja.php">Animacja w canvas</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Gry</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/gry/hangman/hangman.php">Szubienica</a>
+						</li>
+						<li >
+							<a href="/kurs/gry/memory/memory.php">Memory</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+            			<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Inne</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/dodatkowe-materialy.php">Dodatkowe materiały</a>
+						</li>
+						<li >
+							<a href="/kurs/faq.php">FAQ</a>
+						</li>
+						<li >
+							<a href="/kurs/polityka-prywatnosci.php">Polityka prywatności</a>
+						</li>
+						<li >
+							<a href="/kurs/autor.php">O autorze</a>
+						</li>
+						<li >
+							<a href="/kurs/kontakt.php">Kontakt</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="page-sidebar-section">
+                <a class="special-link" href="/kurs/autor.php#donate">Wesprzyj kurs</a>
+            </div>
+		</div>
+	</div>
+</aside></div><!-- e: page-container -->
+
+<div class="popup" id="popupOptions">
+	<div class="popup-inside">
+        <div class="popup-container-cnt">
+            <div class="popup-container">
+                <button class="popup-close">Zamknij</button>
+
+                <h2 class="popup-title">
+                    Opcje
+                </h2>
+
+                <div class="popup-content">
+                    <form class="form-options">
+                        <div class="form-option">
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <label for="optionsThemeSelect">Wybierz skórkę dla listingów</label>
+                                    <select id="optionsThemeSelect"></select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <pre><code class="language-js">
+                                //tak będzie wyglądał kod
+
+                                function test() {
+                                    for (let i=0; i&lt;10; i++) {
+                                        console.log("Tekst numer ", 1);
+                                    }
+                                }
+
+                                test();
+                                </code></pre>
+                            </div>
+                            <div class="form-row" id="themeLightModeRow">
+                                <div class="form-col">
+                                    <label for="themeLightMode">
+                                        Tryb dzienny / nocny
+                                    </label>
+
+                                    <div class="light-mode-el">
+                                        <input type="checkbox" id="themeLightMode">
+                                        <span class="light-mode"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+	</div>
+</div>
+<script async defer src="https://www.googletagmanager.com/gtag/js?id=UA-38558970-5"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-38558970-5');
+</script>
+
+	<script src="/js/ads.js"></script>
+	<script src="/js/script.min.js?v=0.13" defer></script>
+</body>
+</html>

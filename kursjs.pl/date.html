@@ -3,9 +3,9 @@
 <head>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Kurs Javascript - Wstęp</title>
+    <title>Kurs Javascript - Obiekt Date</title>
 	<meta name="description" content="Kurs Javascript dla superbohaterów, artykuły, tutoriale, porady, zadania do wykonania" />
-    <link rel="canonical" href="https://kursjs.pl/kurs/wstep/wstep.php" />
+    <link rel="canonical" href="https://kursjs.pl/kurs/date/date.php" />
 	<link rel="stylesheet" href="./css.css" />
     <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,700&display=swap&subset=latin-ext" rel="stylesheet">
 	<meta name="image" content="https://kursjs.pl/kursjs.png">
@@ -58,48 +58,496 @@
                         <div class="page-content-text">
 
 
-<h1 class="page-title">Wstęp</h1>
+<h1 class="page-title">Obiekt Date</h1>
 <p>
-Bardzo krótki wstęp ^^.<br /><br />
-Kurs ten jest o Javascripcie. Uhh...
-</p>
-<p>
-Wiedz, że nie staram się tutaj tworzyć największego i najlepszego kursu o JavaScript w internecie.<br>
-Ten kurs to twór jednego człowieka.
-Nie mam szans i nie chcę konkurować z molochami takimi jak <a href="https://developer.mozilla.org/pl/">MDN</a>, <a href="https://www.udemy.com/">Udemy</a>, <a href="https://eduweb.pl/">EduWeb</a> czy <a href="https://www.w3schools.com/js/default.asp">w3schools</a>.<br>
-<br><br>
-Nie znajdziesz tutaj wszystkiego z zakresu JavaScript. <br>
-Po jakimś czasie będziesz chciał wiele rzeczy tutaj pokazanych tworzyć inaczej - lepiej.<br>
-Im większy progres będziesz zdobywał stwierdzisz, że wiele rozdziałów można było napisać o wiele lepiej. I dobrze.<br><br>
-
-W każdym bądź razie - jeżeli ta strona jakoś ci posłuży - to tylko plus. Jeżeli nie - po prostu skorzystaj z innego kursu - na rynku jest tego od groma (niektóre wymieniłem <a href="../dodatkowe-materialy.php">tutaj</a>) i każdy znajdzie coś dla siebie. Ja sam mam kilka w swojej kolekcji i twierdzę, że są naprawdę dobre.
-<br><br>
+JavaScript udostępnia nam konstruktor <strong>Date()</strong> który umożliwia nam w łatwy sposób przeprowadzać operacje związane z czasem.<br />
 </p>
 
-<p>
-Jeszcze mała adnotacja, która siedzi mi w głowie.
-</p>
-<p>
-W internecie znajdziesz setki tutoriali pokazujących najnowsze techniki. A to funkcja strzałkowa, a to jak korzystać z async i await, a to jak robić połączenia fetchem czy chociażby zastosowanie modułów. Małe, konkretne, piękne - jak mój pies (a i od niedawna też kot).
-</p>
-<p>
-Na grupach facebookowych w dyskusjach znajdziesz jeszcze szybciej takie techniki.
-</p>
-<p>
-Tutaj pojawia pewna sprawa, który dotyczy nie tylko JavaScript, ale i całego frontendu. Bardzo często przy takich nowoczesnych tutorialach czy poradach autorzy nie zwracają uwagi na bardzo ważną rzecz - a mianowicie na to, że dobór techniki <strong>zawsze zależy od danego projektu</strong>. To są w końcu rzeczy oczywiste.<br>
-No właśnie nie do końca. To są rzeczy oczywiste - dla nas - osób, które w tej branży siedzą już kilkanaście lat. Ale czy dla osoby zaczynającej?
-</p>
-<p>
-Jeżeli robisz bloga o nowinkach z dziedziny frontentu, raczej możesz założyć, że większość użytkowników będzie korzystała z najnowszych przeglądarek, a więc i możesz używać najnowszych rozwiązań (chociaż najlepiej było by spojrzeć w statystyki Google Analitics które można podpiąć pod stronę).<br>
-Jeżeli jednak robisz stronę dla emerytowanych nauczycieli, czy dla przykładu olbrzymi sklep z którego będą korzystali różnorodni użytkownicy z różnorodnych krajów, wtedy rzucanie się na najnowsze rozwiązania będzie strzałem w stopę.
-</p>
-<p>
-Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie CSS Grid, a czasami nawet flexbox może okazać się czymś, czego użyć nie możesz. Czasami spokojnie będziesz mógł używać najnowszej wersji JavaScript, a czasami będziesz musiał pozostać przy starszej. A jeżeli będziesz musiał pozostać przy starszej, wtedy albo będziesz pisał JavaScript trzymając się klasycznych rozwiązań, albo skorzystasz z narzędzi zamieniających twój kod na starszy zapis.
-</p>
-<p>Autorzy tutoriali często zapominają o tym, że dla początkującej osoby istnieje po prostu JavaScript. Osoby takie często nie zdają sobie sprawy, że nie wszystko w JavaScript można dowolnie używać, nie wiedzą gdzie szukać informacji które przeglądarki co wspierają, jakich narzędzi używać do zamiany kodu i po co w ogóle to robić.</p>
-<p>W kursie tym staram się trzymać klasycznego JavaScript. Jasne - im więcej wiedzy zdobędziesz, im bardziej będziesz rozbudowywał swój warsztat, tym będziesz stosował coraz nowsze i lepsze techniki pisania kodu. A wtedy - tak jak to już pisałem powyżej - będziesz się śmiał z tego kursu. Póki co polecam po prostu uczyć się JavaScript.</p>
+<pre><code class="language-js">
+const now = new Date();
+console.dir(now);
+</code></pre>
 
-<a href="./co-to-jest-javascript.php" class="button">To co? Zaczynamy?...</a>
+<script>
+{
+    const now = new Date();
+    console.dir(now);
+}
+</script>
+
+<div class="kartofel-informuje">
+Pamiętaj, że jest do data z urządzenia danego użytkownika, a nie serwera. Może ona być inna u różnych użytkowników.
+</div>
+
+<p>
+Podstawowe metody za pomocą których możemy w łatwy sposób formatować wygląd daty (najczęściej używane):
+</p>
+
+<table class="tab">
+<tr><th style="width:125px">getDate()</th><td> - zwraca dzień miesiąca (wartość z przedziału 1 - 31)</td></tr>
+<tr><th>getDay()</th><td> - zwraca dzień tygodnia (0 dla niedzieli, 1 dla poniedziałku, 2 dla wtorku itd)</td></tr>
+<tr><th>getYear()</th><td> - zwraca liczbę reprezentującą rok (dla lat 1900 - 1999 jest to 2-cyfrowa liczba np. 99, a dla późniejszych jest to liczba 4-cyfrowa np. 2002)</td></tr>
+<tr><th>getFullYear()</th><td> - zwraca pełną liczbę reprezentującą rok (np. 1999 lub 2000)</td></tr>
+<tr><th>getHours()</th><td> - zwraca aktualną godzinę (wartość z przedziału 0 - 23)</td></tr>
+<tr><th>getMillisecond()</th><td> - zwraca milisekundy (wartość z przedziału 0 - 999)</td></tr>
+<tr><th>getMinutes()</th><td> - zwraca minuty (wartość z przedziału 0 - 59)</td></tr>
+<tr><th>getMonth()</th><td> - zwraca aktualny miesiąc (0 - styczeń, 1 - luty itp.)</td></tr>
+<tr><th>getSeconds()</th><td> - zwraca aktualną liczbę sekund (wartość z przedziału 0 - 59)</td></tr>
+<tr><th>getTime()</th><td> - zwraca aktualny czas jako liczbę reprezentującą liczbę milisekund która upłynęła od godziny 00:00 1 stycznia 1970 roku</td></tr>
+</table>
+
+<p>
+Wszystkie dostępne metody znajdziesz <a href="https://developer.mozilla.org/pl/docs/Web/JavaScript/Referencje/Obiekty/Date">tutaj</a>.
+</p>
+
+<p>
+Przykładowe wyświetlenie godziny może mieć postać:
+</p>
+
+<pre><code class="language-js">
+const now = new Date();
+console.log(now.getHours());
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="sformatowana_data">Wypisywanie sformatowanej daty na ekran</h2>
+<p>
+Skorzystajmy z powyższych metod aby wypisać sformatowaną datę:
+</p>
+
+<pre><code class="language-js">
+const now = new Date();
+const el = document.querySelector('.element');
+
+const html = `
+Jest teraz czas: ${now.getHours()} : ${now.getMinutes()} : ${now.getSeconds()} lt;br>
+Dnia: ${now.getDate()} . ${now.getMonth()+1} . ${now.getFullYear()}
+`
+
+el.innerText = html
+</code></pre>
+
+<div id="test1"></div>
+<script language="javascript">
+{
+    const now = new Date();
+    const el = document.querySelector('#test1');
+
+    const html = `
+    Jest teraz czas: ${now.getHours()} : ${now.getMinutes()} : ${now.getSeconds()} <br>
+    Dnia: ${now.getDate()} . ${now.getMonth()+1} . ${now.getFullYear()}
+    `
+
+    el.innerText = html
+}
+</script>
+
+<p>
+Wszystko wygląda w miarę dobrze. Jednak wciąż możemy poprawić pewne szczegóły. Wartości reprezentujące dany czas - np. minuty, sekundy lub miesiące są przedstawiane jako jednocyfrowe liczby jeżeli ich wartość jest mniejsza od <strong>10</strong>.<br>
+Możemy to zrobić na minimum dwa sposoby:
+</p>
+
+<pre><code class="language-js">
+function leadingZero(i) {
+    return (i &lt; 10)? '0'+i : i;
+}
+
+//lub
+
+function leadingZero(i) {
+    return `${i}`.padStart(2, "0");
+}
+</code></pre>
+
+<pre><code class="language-html">
+&lt;div id="test2">&lt;/div>
+</code></pre>
+
+<pre><code class="language-js">
+function lz(i) {
+    return `${i}`.padStart(2, "0");
+}
+
+const now = new Date();
+const el = document.querySelector('.element');
+
+const html = `
+    Jest teraz czas: ${lz(now.getHours())} : ${lz(now.getMinutes())} : ${lz(now.getSeconds())} lt;br>
+    Dnia: ${lz(now.getDate())} . ${lz(now.getMonth()+1)} . ${now.getFullYear()}
+`;
+
+el.innerText = html
+</code></pre>
+
+<div id="test2"></div>
+<script>
+{
+    const lz = function(i) {
+        return `${i}`.padStart(2, "0");
+    }
+
+    const now = new Date();
+    const el = document.querySelector('#test2');
+
+    const html = `
+        Jest teraz czas: ${lz(now.getHours())} : ${lz(now.getMinutes())} : ${lz(now.getSeconds())} <br>
+        Dnia: ${lz(now.getDate())} . ${lz(now.getMonth()+1)} . ${now.getFullYear()}
+    `;
+}
+</script>
+
+<!-- ### -->
+<h2 class="subtitle" id="dzien_tygodnia">Dzień tygodnia</h2>
+<p>
+Aby wypisać dzień tygodnia musimy skorzystać z metody <strong>getDay()</strong>.
+</p>
+
+<pre><code class="language-js">
+const now = new Date();
+const element = document.querySelector('.element');
+
+element.innerText = `Dzisiaj jest dzień tygodnia: ${now.getDay()}`; //pamiętajmy, że dni tygodnia liczone są od 0
+</code></pre>
+
+<p>
+Numer tygodni w postaci liczby nie wygląda zbyt elegancko. Aby to naprawić, możemy skorzystać z tablicy dni:
+</p>
+
+<pre><code class="language-js">
+const now = new Date();
+const days = ["Niedziela", "Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek", "Sobota"];
+
+const element = document.querySelector('.element');
+element.innerText = `Dzisiaj jest dzień tygodnia: ${ days[now.getDay()] }`;
+</code></pre>
+
+<div id="test4"></div>
+<script>
+{
+    const now = new Date();
+    const days = ["Niedziela", "Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek", "Sobota"];
+
+    const element = document.querySelector('#test4');
+    element.innerText = `Dzisiaj jest dzień tygodnia: ${ days[now.getDay()] }`;
+}
+</script>
+
+<!-- ### -->
+<h2 class="subtitle" id="dynamicznie">Dynamiczne wypisywanie czasu</h2>
+<p>
+Wiedząc już jak się wypisuje aktualną datę oraz aktualny dzień tygodnia możemy napisać skrypt, który będzie to robił dynamicznie za pomocą <a href="../intervals/intervals.php#setInterval">jednej z funkcji interwałów</a>. Teoretycznie najlepszym sposobem do zastosowania tutaj interwału:
+</p>
+
+<pre><code class="language-js">
+function showTextTime() {
+    ...
+}
+
+setInterval(() => {
+    showTextTime();
+}, 1000);
+</code></pre>
+
+<p>
+Nie jest to jedyna możliwość. Naszym celem jest aktualizowanie czasu co sekundę, ale nie znaczy to wcale, że powinniśmy daną funkcję odpalać z taką częstotliwością. O wiele lepszym rozwiązaniem będzie odpalanie jej tak często jak to możliwe, dzięki czemu będzie mniej prawdopodobne, że nasz zegarek będzie pokazywał czas możliwie precyzyjnie.
+</p>
+<p>
+W naszym przypadku zastosujemy <a href="requestAnimationFrame">requestAnimationFrame</a>, którą używaliśmy przy <a href="../canvas/canvas-animacja.php">animacjach canvas</a>. Funkcja ta służy do odpalania danej funkcji możliwe często - czyli co kolejne odmalowanie strony.</p>
+
+<pre><code class="language-html">
+&lt;div id="elTime">&lt;/div>
+&lt;div id="elDate">&lt;/div>
+</code></pre>
+
+<pre><code class="language-js">
+function lz(i) {
+    return `${i}`.padStart(2, "0");
+}
+
+const elDate = document.querySelector('#elDate')
+const elTime = document.querySelector('#elTime')
+
+function showTextTime() {
+    const now = new Date();
+    const days = ["Niedziela", "Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek", "Sobota"];
+
+    const textDate = `${lz(now.getDate())} . ${lz((now.getMonth()+1))} . ${now.getFullYear()} ( ${days[now.getDay()]} )`;
+    const textTime = `${lz(now.getHours())} : ${lz(now.getMinutes())} : ${lz(now.getSeconds())}`;
+
+    elDate.innerHTML = textDate;
+    elTime.innerHTML = textTime;
+
+    window.requestAnimationFrame(showTextTime);
+}
+
+window.requestAnimationFrame(showTextTime);
+</code></pre>
+
+<p>Powyższe podejście jest jednym z prostszych, ale równocześnie <a href="https://stackoverflow.com/questions/196027/is-there-a-more-accurate-way-to-create-a-javascript-timer-than-settimeout">nie jest idealne</a> i nie nada się do każdego zastosowania. Zrobienie zegarka na stronie - jak najbardziej. Ale zrobienie serwisu aukcyjnego bazującego na takim prostym rozwiązaniu może nas później zaboleć w sądzie...</p>
+
+<div class="kartofel-informuje">
+    Dlatego właśnie przy bardziej skomplikowanych operacjach na czasie większość programistów używa bardzo popularnej biblioteki <a href="http://moment.js">moment.js</a>
+</div>
+
+<div id="elTime"></div>
+<div id="elDate"></div>
+
+<script>
+{
+    const lz = function(i) {
+        return `${i}`.padStart(2, "0");
+    }
+
+    const elDate = document.querySelector('#elDate')
+    const elTime = document.querySelector('#elTime')
+
+    const showTextTime = function() {
+        const now = new Date();
+        const days = ["Niedziela", "Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek", "Sobota"];
+
+        const textDate = `
+            ${lz(now.getDate())} . ${lz((now.getMonth()+1))} . ${now.getFullYear()} ( ${days[now.getDay()]} )
+        `;
+        const textTime = `${lz(now.getHours())} : ${lz(now.getMinutes())} : ${lz(now.getSeconds())}`;
+
+        elDate.innerHTML = textDate;
+        elTime.innerHTML = textTime;
+
+        window.requestAnimationFrame(showTextTime)
+    }
+
+    window.requestAnimationFrame(showTextTime);
+}
+</script>
+
+<!--###-->
+<h2 class="subtitle" id="zaleznosc">Tekst w zależności od czasu</h2>
+<p>
+Poznane powyżej metody można wykorzystać do wypisywania odpowiedniej treści w zależności od aktualnego czasu. Wystarczy sprawdzić aktualny znacznik czasu (dni, godziny, minuty itp.) i w zależności od jego wartości wypisywać odpowiednią treść. Poniższy skrypt przedstawia przykładowe zastosowanie tej metody:
+</p>
+
+<h2 class="subtitle" id="metoda1">Ustawianie Daty i Czasu - metoda 1</h2>
+<p>
+W powyższych skryptach za pomocą odpowiednich metod pobieraliśmy aktualną datę i czas. JavaScript udostępnia nam także zestaw metod, za pomocą których możemy ustawiać czas i datę.
+</p>
+<p>
+Ustawienie takie nie wpływa w żaden sposób na systemowy zegar i kalendarz - działa ono tylko w obrębie skryptu JavaScript.
+</p>
+<p>
+Aby ustawić datę i czas możemy skorzystać z dwóch sposobów.
+</p>
+<p>
+Pierwszym z nich polega na podaniu w nawiasach obiektu Date() poszczególnych składowych czasu. Kolejność wprowadzanych danych to: <strong>rok, miesiąc, dzień, godzina , minuta, sekunda, milisekunda,</strong> przy czym nie musimy podawać wszystkich składowych.
+</p>
+
+<pre><code class="language-js">
+const time = new Date(2008, 4, 12, 15, 24, 18);
+</code></pre>
+
+<p>
+ustawi nam datę obiektu <strong>dzisiaj</strong> na:
+</p>
+
+<ul>
+<li>rok - <strong>2008</strong>,</li>
+<li>miesiąc - <strong>4</strong> (maj),</li>
+<li>dzień - <strong>12</strong>,</li>
+<li>godzina - <strong>15</strong>,</li>
+<li>minuta - <strong>24</strong>,</li>
+<li>sekunda - <strong>18</strong></li>
+</ul>
+
+<p>
+Po ustawieniu tak daty, możemy na tej zmiennej działać tak samo jak to robiliśmy powyżej.
+</p>
+
+<!--###-->
+<h2 class="subtitle" id="metoda2">Ustawianie Daty i Czasu - metoda 2</h2>
+<p>
+Drugim sposobem ustawiania czasu i daty jest zastosowanie odpowiednich metod:
+</p>
+
+<p>
+<strong>setYear()</strong> - ustawia dwie ostatnie cyfry roku,<br />
+<strong>setMonth()</strong> - ustawia miesiąc, <br />
+<strong>setDate()</strong> - ustawia dzień miesiąca, <br />
+<strong>setHours()</strong> - ustawia godzinę, <br />
+<strong>setMinutes()</strong> - ustawia minuty, <br />
+<strong>setSeconds()</strong> - ustawia sekundy,<br />
+<strong>setMilliseconds()</strong> - ustawia milisekundy.
+</p>
+
+<p>
+    Każda metoda ustawia tylko jeden element obiektu Date. Poza tymi metodami istnieją jeszcze <a href="https://developer.mozilla.org/pl/docs/Web/JavaScript/Referencje/Obiekty/Date">dodatkowe metody do ustawiania czasu</a>.
+</p>
+
+<pre><code class="language-js">
+const now = new Date();
+now.setYear(2008);
+now.setMonth(4);
+now.setDate(12);
+now.setHours(15);
+now.setMinutes(24);
+now.setSeconds(18);
+</code></pre>
+
+<!--###-->
+<h2 class="subtitle" id="odliczanka">Odliczanie</h2>
+<p>
+Spróbujmy napisać skrypt, który będzie odliczał dni do jakiegoś wydarzenia.
+</p>
+<p>
+Na początku przeanalizujmy problem.
+</p>
+<p>
+Aby zrobić takie odliczanie, musimy obliczyć różnicę między datą z przyszłości a datą teraźniejszą. Pobieramy więc oba czasy (w ms), a następnie odejmujemy od siebie. Uzyskany wynik otrzymujemy w ms.<br>
+Nas jednak interesuje liczba dni. Dzielimy więc wynik przez liczbę ms w dniu (czyli 24*60*60*1000). Dzięki temu uzyskujemy liczbę oznaczającą liczbę dni+resztę.<br>
+Aby wydobyć tą resztę, musimy od wyniku odjąć zaokrąglony wynik. Mając resztę możemy w podobny sposób obliczyć liczbę godzin, minut i sekund - wciąż posługując się podobną techniką.
+</p>
+
+<pre><code class="language-js">
+const lz = function(i) {
+    return `${i}`.padStart(2, "0");
+}
+
+const element = document.querySelector('.element');
+
+const showCount = function() {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = 10;
+    const day = 29;
+
+
+    //rok, miesiąc, dzień, godzina, minuta
+    const importantDate = new Date(year, month-1, day);
+    const msInADay = 24 * 60 * 60 * 1000; //1 dzień w milisekundach - to w nich przecież zwracany czas metodą getTime
+
+    const timeDifference = (importantDate.getTime() - now.getTime());
+
+    const eDaysToDate = timeDifference / msInADay;
+    const daysToDate = Math.floor(eDaysToDate);
+
+    //musimy tutaj sprawdzić, czy powyższa zmienna nie jest 0,
+    //bo inaczej poniżej byśmy mieli dzielenie przez 0
+    if (daysToDate < 1) {
+        daysToDateFix = 1;
+    } else {
+        daysToDateFix = daysToDate;
+    }
+
+    console.log(now.getMonth())
+
+    const eHoursToDate = (eDaysToDate % daysToDateFix)*24;
+    const hoursToDate = Math.floor(eHoursToDate);
+
+    const eMinutesToDate = (eHoursToDate - hoursToDate)*60;
+    const minutesToDate = Math.floor(eMinutesToDate);
+
+    const eSecondsToDate = Math.floor((eMinutesToDate - minutesToDate)*60);
+    const secondsToDate = Math.floor(eSecondsToDate);
+
+    const tekst = `
+        Do moich kolejnych urodzin pozostało:
+        ${daysToDate} dni
+        ${hoursToDate} godzin
+        ${minutesToDate} minut i
+        ${lz(secondsToDate)} sekund
+    `;
+
+
+
+    //jeżeli czas się skończył
+        const timeDiff = importantDate - now;
+        if (timeDiff < 0) {
+            element.innerHTML = 'Czas minął';
+        } else {
+            element.innerHTML = tekst;
+            window.requestAnimationFrame(showCount);
+        }
+
+}
+
+window.requestAnimationFrame(showCount);
+</code></pre>
+
+<style>
+#test8 {
+    background: tomato;
+    color: #fff;
+    padding: 20px;
+}
+</style>
+
+<div id="test8"></div>
+
+<script>
+{
+    const lz = function(i) {
+        return `${i}`.padStart(2, "0");
+    }
+
+    const element = document.querySelector('#test8');
+
+    const showCount = function() {
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = 10;
+        const day = 29;
+
+
+        //rok, miesiąc, dzień, godzina, minuta
+        const importantDate = new Date(year, month-1, day);
+        const msInADay = 24 * 60 * 60 * 1000; //1 dzień w milisekundach - to w nich przecież zwracany czas metodą getTime
+
+        const timeDifference = (importantDate.getTime() - now.getTime());
+
+        const eDaysToDate = timeDifference / msInADay;
+        const daysToDate = Math.floor(eDaysToDate);
+
+        //musimy tutaj sprawdzić, czy powyższa zmienna nie jest 0,
+        //bo inaczej poniżej byśmy mieli dzielenie przez 0
+        if (daysToDate < 1) {
+            daysToDateFix = 1;
+        } else {
+            daysToDateFix = daysToDate;
+        }
+
+        console.log(now.getMonth())
+
+        const eHoursToDate = (eDaysToDate % daysToDateFix)*24;
+        const hoursToDate = Math.floor(eHoursToDate);
+
+        const eMinutesToDate = (eHoursToDate - hoursToDate)*60;
+        const minutesToDate = Math.floor(eMinutesToDate);
+
+        const eSecondsToDate = Math.floor((eMinutesToDate - minutesToDate)*60);
+        const secondsToDate = Math.floor(eSecondsToDate);
+
+        const tekst = `
+            Do moich kolejnych urodzin pozostało:
+            ${daysToDate} dni
+            ${hoursToDate} godzin
+            ${minutesToDate} minut i
+            ${lz(secondsToDate)} sekund
+        `;
+
+
+
+        //jeżeli czas się skończył
+            const timeDiff = importantDate - now;
+            if (timeDiff < 0) {
+                element.innerHTML = 'Czas minął';
+            } else {
+                element.innerHTML = tekst;
+                window.requestAnimationFrame(showCount);
+            }
+
+    }
+
+    window.requestAnimationFrame(showCount);
+}
+</script>
 
 			</div><!-- e: page-content-text -->
 			<footer class="page-footer">
@@ -165,13 +613,13 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
                 </h3>
             </div>
 
-						<div class="page-sidebar-section show has-active-element">
+						<div class="page-sidebar-section ">
 				<h3 class="page-sidebar-section-title">
 					<a href="#">Słowem wstępu</a>
 				</h3>
 				<div class="page-sidebar-list-cnt">
 					<ul class="page-sidebar-list">
-						<li class="active">
+						<li >
 							<a href="/kurs/wstep/wstep.php">Wstęp</a>
 						</li>
 						<li >
@@ -311,7 +759,7 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
 			</div>
 
 
-						<div class="page-sidebar-section ">
+						<div class="page-sidebar-section show has-active-element">
 				<h3 class="page-sidebar-section-title">
 					<a href="#">Prawie podstawy</a>
 				</h3>
@@ -332,7 +780,7 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
 						<li >
 							<a href="/kurs/okna.php">Tworzenie nowych okien</a>
 						</li>
-						<li >
+						<li class="active">
 							<a href="/kurs/date/date.php">Obiekt Date</a>
 						</li>
 						<li >

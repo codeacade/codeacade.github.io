@@ -1,0 +1,1585 @@
+<!doctype html>
+<html lang="pl-PL">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kurs Javascript - jQuery</title>
+	<meta name="description" content="Kurs Javascript dla superbohaterów, artykuły, tutoriale, porady, zadania do wykonania" />
+    <link rel="canonical" href="https://kursjs.pl/kurs/jquery/jquery.php" />
+	<link rel="stylesheet" href="./css.css" />
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,700&display=swap&subset=latin-ext" rel="stylesheet">
+	<meta name="image" content="https://kursjs.pl/kursjs.png">
+<meta name="twitter:card" content="product">
+<meta name="twitter:site" content="@publisher_handle">
+<meta name="twitter:title" content="Kurs Javascript">
+<meta name="twitter:description" content="Kurs Javascript dla superbohaterów">
+<meta name="twitter:creator" content="@kartofelek007">
+<meta name="twitter:image" content="https://kursjs.pl/kursjs.png">
+<meta property="og:title" content="Kurs Javascript">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.kursjs.com/">
+<meta property="og:image" content="https://kursjs.pl/kursjs.png">
+<meta property="og:description" content="Kurs Javascript dla superbohaterów">
+<meta property="og:site_name" content="Kurs Javascript">
+<link rel="apple-touch-icon" sizes="57x57" href="/favicons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/favicons/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/favicons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/favicons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/favicons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/favicons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/favicons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/favicons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="/manifest.json">
+<meta name="msapplication-TileColor" content="#FF6347">
+<meta name="msapplication-TileImage" content="/mstile-144x144.png">
+    <script src="/js/jquery.min.js"></script>
+</head>
+<body>
+
+<div class="page-container" id="pageContainer">
+	<div class="page-content-wrapper">
+        <main class="page-content" id="mainContent"  data-text-for-print="Kurs Javascript dla superbohaterów">
+                        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <div class="rekl-cnt">
+                <ins
+                class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-6843603045703750"
+                data-ad-slot="4690777640"
+                data-ad-format="auto"
+                data-full-width-responsive="true"
+                ></ins>
+            </div>
+                        <div class="page-content-text">
+
+<style>
+.module {
+    border:1px solid #ddd;
+    box-shadow:0 2px 3px rgba(0,0,0,.2);
+    padding:20px;
+}
+.module-content {
+    padding-bottom:20px;
+}
+.test-block {
+    width:200px;
+    height:200px;
+    background:#f17575;
+    border:1px solid #8c0000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    overflow:hidden;
+    color:#cc0000;
+    text-align: center;
+    user-select:none
+}
+</style>
+
+
+<h1 class="page-title">jQuery</h1>
+<p>jQuery - biblioteka która zrobiła niemałe zamieszanie w internecie.</p>
+<p>Swoją popularność zawdzięcza kilku rzeczom, które ją charakteryzują.</p>
+<p>Po pierwsze jQuery bardzo upraszcza pisanie skryptów. Dzięki niej zamiast skupiać się jak napisać dany fragment kodu, skupiamy się na tym jak rozwiązać dany problem.</p>
+<p>Druga bardzo ważna sprawa to <strong>olbrzymie!</strong> zaplecze gotowych pluginów. Chcesz użyć lightboxa na stronie? Dorzucasz <a href="http://fancybox.net/howto">plugin</a>, dopisujesz
+2-3 linijki kodu i masz lightbox. Chcesz użyć na stronie responsywnej karuzeli? Znowu - zastosujesz odpowiedni <a href="http://kenwheeler.github.io/slick/">plugin</a>, napiszesz kilka linii kodu i problem rozwiązany. Nawet w dzisiejszych czasach na próżno będziemy szukać podobnych rozwiązań w nowoczesnych frameworkach (React/Angular) czy czystym JavaScript. A nawet jeżeli cokolwiek znajdziemy, rozwiązania te nie będą tak dopracowane jak ich odpowiedniki z jQuery. Może wynika to właśnie z tego co napisałem na początku? Autorzy skupiali się na funkcjonalności, a nie jak pisać kod...
+</p>
+<p>
+Kolejną zaletą - w dzisiejszych czasach może mniej znaczącą - jest jednolitość kodu. Gdy jQuery wchodziła na rynek wciąż istniała na rynku spora rozbieżność w implementacji różnych "ficzerów" (i istnieje po dzień dzisiejszy).<br>
+Dla przykładu - event <a href="../dom/dom.php#domcontentloaded">DOMContentLoaded</a> nie był wspierany przez wszystkie przeglądarki i najbezpieczniejszym rozwiązaniem było zastosować odpowiedni kod jQuery. W dzisiejszych czasach JavaScript dołącza do swojej specyfikacji coraz więcej rozwiązań znanych z jQuery. Obietnice, closest(), after(), before(), prepend(), append() itp. to rzeczy, które już dawno istniały w jQuery. A w jQuery jest tego o wiele, wiele więcej.
+</p>
+
+<!--###-->
+<h2 class="subtitle" id="zanim-zaczniemy">Zanim zaczniemy</h2>
+<p>
+    Ale po co uczyć się jQuery. Przecież nikt tego już nie używa. Z pewnością spotkasz takie głosy na Facebooku czy niektórych forach.
+</p>
+<p>
+    Pamiętaj, że jQuery jest jednym z wielu narzędzi. Jeżeli robimy aplikację w samym JavaScript, wtedy sięgniemy po Reacta/Angulara/Vue czy inny framework, który nam pasuje. Nikt tutaj niczego nie narzuca.
+</p>
+<p>Jeżeli manipulujemy głównie gotowym DOM (np. jak w przypadku większości stron) - wtedy jQuery sprawdzi się idealnie.
+</p>
+<p>
+    Ale przecież w dzisiejszych czasach wszystko możemy napisać w Vanilla JS? Możemy. Ale trzeba rozróżnić hobbistyczne dłubanie po godzinach od robienia projektu dla klienta. W tym pierwszym możemy sobie spokojnie siedzieć i miesiącami "majsterkować". W tym drugim przypadku mamy rozwiązać konkretne problemy i goni nas czas, co często oznacza użycie sprawdzonych gotowych "klocków".
+</p>
+<p>
+Poza tym jest wiele sytuacji, które bez jQuery są bardzo trudne do rozwiązania.
+Są strony takie jak <a href="http://youmightnotneedjquery.com/">http://youmightnotneedjquery.com/</a>, które udowadniają, że w wielu sytuacjach nie potrzebujesz jQuery. I faktycznie - by pobrać elementy ze strony nie potrzebujesz od razu sięgać po jQuery. By podpiąć im eventy - po co nam jQuery? By zrobić proste zapytanie Ajax - także możemy to napisać w czystym JavaScript. Strony te jednak umiejętnie omijają sytuacje bardziej skomplikowane, które zdarzają się dość często przy realnym tworzeniu stron. W jQuery rozwiązujemy je jedną linijką, a w czystym JavaScript - kilka ekranów kodu, który mało kto umie napisać. Przykładem takich "mikro" sytuacji są zależne animacje slideUp(), slideDown(), działające na wszystkich przeglądarkach płynne przewijanie strony itp rzeczy. Detale - prawda? Ale znowu - dobór narzędzia zależy od danej sytuacji. Czasami czysty JavaScript będzie idealnym wyborem, czasami jQuery, czasami Angular itp.
+</p>
+
+<p>A czy nikt nie używa jQuery? Czy ja wiem...</p>
+<ul>
+<li><a href="https://insights.stackoverflow.com/survey/2019#technology-_-web-frameworks">https://insights.stackoverflow.com/survey/2019#technology-_-web-frameworks</a></li>
+<li><a href="https://ashleynolan.co.uk/blog/frontend-tooling-survey-2018-results#js-knowledge#q14-knowledge-of-javascript-libraries-and-frameworks">https://ashleynolan.co.uk/blog/frontend-tooling-survey-2018-results#js-knowledge</a></li>
+<li><a href="https://remysharp.com/2017/12/15/is-jquery-still-relevant">https://remysharp.com/2017/12/15/is-jquery-still-relevant</a></li>
+<li><a href="https://www.youtube.com/watch?v=pk3tsynNZ0w">https://www.youtube.com/watch?v=pk3tsynNZ0w</a></li>
+</ul>
+
+<div class="kartofel-informuje">
+    <p>
+    Nie wiem czy spotkałeś się ze świetną biblioteką <a href="http://vanilla-js.com/">Vanilla JS</a>?<br>
+    Swego czasu sporo firm wręcz przesadzało z użyciem jQuery. Powodowało to, ze jQuery używane było do nawet najmniejszych błahostek takich jak podpięcie eventu click czy pobranie elementów.
+    </p>
+    <p>
+        Części programistów nie za bardzo się to podobało, dlatego wymyślili pewien fortel. Skoro mają używać gotowych, przetestowanych rozwiązań - to czemu by nie przekonać szefostwa do innej super biblioteki. I tak właśnie powstała <a href="http://vanilla-js.com/">Vanilla JS</a>, która tak naprawdę biblioteką nie jest, a tylko oszustwem, które miało zmylić "górę". Zresztą wejdź na jej stronę i powybieraj kilka funkcjonalności, a zobaczysz ile będzie ważyła paczka do pobrania. W końcu co masz niby ściągać, skoro chcesz używać czystego JavaScript.
+    </p>
+    <p>W dzisiejszych czasach bardzo często (nawet w tym kursie) nazwą Vanilla JS określa się czysty JavaScript.</p>
+</div>
+
+<!-- ### -->
+<h2 class="subtitle" id="dorzucenie-biblioteki">Rozpoczęcie pracy</h2>
+<p>
+Aby zacząć używać jQuery, będziemy musieli dołączyć jej plik do naszej strony. Możemy albo ściągnąć
+<a href="http://jquery.com/download/">plik z biblioteką na dysk</a>, albo odwołać się do wystawionej w necie wersji. Najlepiej skorzystać z serwera <a href="https://code.jquery.com/">CDN jQuery</a> (lub innego np. <a href="https://cdnjs.com/">https://cdnjs.com/</a>).<br>
+Wystarczy wstawić taką ścieżkę przed nasze skrypty po czym można zaczynać tworzyć.<br>
+Ja osobiście lubię odwoływać się do serwerów cdn Googla wstawiając do html link ze strony
+<a href="https://developers.google.com/speed/libraries/#jquery">https://developers.google.com/speed/libraries/#jquery</a>.<br>
+Jeżeli używasz webstorma, polecam dodać go do <a href="https://www.jetbrains.com/help/webstorm/configuring-javascript-libraries.html">globalnej bilioteki</a>, dzięki czemu lepiej będzie nam podpowiadać.
+</p>
+
+<div class="kartofel-informuje">
+    Przy nauce jQuery bardzo pomocna będzie dokumentacja znajdująca się
+    pod adresem <a href="http://jqapi.com/">http://jqapi.com/</a>
+</div>
+
+<!-- ### -->
+<h2 class="subtitle" id="znak-dolara">Znak $ i składnia łańcuchowa</h2>
+<p>
+jQuery ma bardzo zwięzłą konstrukcję, do której wykorzystuje składnię łańcuchową.<br>
+Większość operacji będziemy wykonywać na obiektach pobranych ze strony. Aby pobrać taki element ze strony wystarczy zastosować konstrukcję:
+</p>
+
+<pre><code class="language-js">
+$('.selektor')....
+</code></pre>
+
+<pre><code class="language-js">
+$('#pierwszy').css({background : 'blue'}).delay(2000).slideUp().delay(1000).fadeIn(1000);
+
+//wcale nie musisz wszystkiego pisać w jednej linii
+$('#pierwszy')
+    .css({
+        background : 'blue'
+    })
+    .delay(2000)
+    .slideUp()
+    .delay(1000)
+    .fadeIn(1000);
+</code></pre>
+
+<p>
+Powyższe polecenie wystarczy podzielić względem kropek:
+</p>
+
+<ol>
+    <li>Pobieramy obiekt #pierwszy (tak jak za pomocą <a href="../dom/dom.php#querySelector">querySelectorAll</a>)</li>
+    <li>Ustawiamy mu kolor na niebieski</li>
+    <li>Czekamy 2 sekundy</li>
+    <li>Ukrywamy go (zwijamy do góry)</li>
+    <li>Czekamy 1 sekundę</li>
+    <li>Po czym pokazujemy go płynnie w czasie 1 sekundy</li>
+</ol>
+
+<button class="button" id="pierwszy">Kliknij mnie</button>
+
+<script>
+$('#pierwszy').on('click', function() {
+    $(this)
+        .css({
+            background : 'blue'
+        })
+        .delay(2000)
+        .slideUp()
+        .delay(1000)
+        .fadeIn(1000);
+});
+</script>
+
+<!-- ### -->
+<h2 class="subtitle" id="document-ready">document ready</h2>
+<p>
+Tak samo jak w przypadku vanilla JavaScript aby pobierać elementy ze strony,
+powinniśmy się upewnić, że <a href="../dom/dom.php#domcontentloaded">drzewo DOM zostało już wczytane</a>) korzystając z eventu DOMContentLoaded.<br>
+jQuery upraszcza zapis tego eventu:
+</p>
+
+<pre><code class="language-js">
+$(document).ready(function() {
+    ...
+})
+
+//lub to samo w skróconej - zalecanej wersji
+
+$(function() {
+    ...
+})
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="pobieranie-elementu">Pobieranie elementu</h2>
+<p>
+Aby pobrać element ze strony, tak samo jak w przypadku <a href="../dom/dom.php#querySelector">querySelectorAll()</a> korzystamy
+ze składni CSS:
+</p>
+
+<pre><code class="language-js">
+$('div.czerwony') //pobranie divów o klasie czerwony
+$('div p') //wszystkie p zawierające się w div
+$('div#cnt > p') //wszystkie p mieszczące się bezpośrednio w div #cnt
+$('p:first-of-type') //pobranie wszystkich p, które są pierwszymi elementami danego typu
+$('img[width=100]') //pobranie wszystkich img, które mają atrybut width="100"
+$(':checkbox ~ label') //wszystkie labele, które następują po checkboxach na danym poziomie drzewa
+</code></pre>
+
+<p>Różnica w porównaniu z querySelectorem jest taka, że w przypadku jQuery nie musimy zastanawiać się czy pobieramy 1 czy wiele elementów, a dodatkowo selektor działa we właściwym <a href="../dom/dom.php#scope">scopie</a>.</p>
+
+<pre><code class="language-html">
+&lt;div class="el">
+    &lt;div class="nie-ten">
+        &lt;div class="chcemy-ten">&lt;/div>
+    &lt;/div>
+&lt;/div>
+</code></pre>
+<pre><code class="language-js">
+const el = document.querySelector(".el");
+el.querySelector("div div"); //.nie-ten
+
+const $el = $(".el");
+$el.find("div div"); //.chcemy-ten
+</code></pre>
+
+<p>
+jQuery udostępnia nam też sporo metod dodatkowych.<br />
+Wśród nich najczęściej używanymi są:
+</p>
+
+<table class="tab">
+<tr>
+    <th><a href="http://jqapi.com/#p=find">find()</a></th>
+    <td>wyszukuje wewnątrz danego elementu dane elementy</li></td>
+</tr>
+<tr>
+    <th><a href="http://jqapi.com/#p=eq">eq()</a></th>
+    <td>zwraca z listy element o danym indeksie</li></td>
+</tr>
+<tr>
+    <th><a href="http://jqapi.com/#p=first">first()</a></th>
+    <td>zwraca pierwszy element z listy elementów</li></td>
+</tr>
+<tr>
+    <th><a href="http://jqapi.com/#p=last">last()</a></th>
+    <td>zwraca ostatni element z listy elementów</li></td>
+</tr>
+<tr>
+    <th><a href="http://jqapi.com/#p=lt-selector">lt()</a></th>
+    <td>zwraca elementy o indeksie mniejszym od danego</li></td>
+</tr>
+<tr>
+    <th><a href="http://jqapi.com/#p=gt-selector">gt()</a></th>
+    <td>zwraca elementy o indeksie większym od danego</li></td>
+</tr>
+<tr>
+    <th><a href="http://jqapi.com/#p=not">not()</a></th>
+    <td>zwraca element, jeżeli nie jest on ...</li></td>
+</tr>
+<tr>
+    <th><a href="http://jqapi.com/#p=is">is()</a></th>
+    <td>zwraca element, jeżeli jest on ...</li></td>
+</tr>
+<tr>
+    <th><a href="http://jqapi.com/#p=filter">filter()</a></th>
+    <td>filtruje listę elementów przez zadane kryterium</li></td>
+</tr>
+<tr>
+    <th><a href="http://jqapi.com/#p=add">add()</a></th>
+    <td>dodaje do kolekcji inne elementy lub kolekcje</li></td>
+</tr>
+</table>
+
+<pre><code class="language-js">
+$('div.czerwony').find('p')
+
+$('div.czerwony p').eq(2)
+//lub
+$('div.czerwony p:eq(2)')
+//lub
+$('div.czerwony p:nth-of-type(2)')
+
+$('p').gt(2).addClass('with-border')
+//lub
+$('p:gt(2)').addClass('with-border')
+//lub
+$('p:nth-of-type(n+2)').addClass('with-border')
+
+$('div').not('.red')
+//lub
+$('div:not(.red)')
+
+$('div').is(':visible'); //wszystkie divy widoczne
+$('div').not(':animated'); //wszystkie divy które nie są obecnie animowane
+
+$('div').add('p'); //dodaje do kolekcji div elementy p
+
+const $div = $('div');
+const $p = $('p');
+const $all = $div.add($p); //tutaj także dodaję 2 kolekcje
+
+$('p').filter('.important'); //pobierz wszystkie p a potem odfiltruj z nich te z klasą .important
+</code></pre>
+
+<p>
+    Szczególnie metoda <a href="http://jqapi.com/#p=filter">filter(parametr)</a> ma bardzo ciekawe zastosowanie. Jako parametr
+    może ona dostać tekst będący selektorem, lub funkcję która zwraca prawdę lub fałsz. Jeżeli zostanie zwrócona prawda,
+    oznacza to, że dany element tablicy pasuje i zostanie on zwrócony.
+</p>
+
+<pre><code class="language-js">
+const $div = $('div');
+$div.filter(':visible').hide() //ukrywa divy, które są widoczne
+
+const $inputs = $('input');
+$inputs.filter(':not(:checkbox)') //wszystkie inputy nie będące checboxami
+
+const $div = $('div');
+$div.filter(function() {
+    return ($(this).children('span').length > 2)? true : false
+}) //filtruje te divy, które zawierają min 3 spany
+</code></pre>
+
+<p>
+Jeżeli chcesz się dowiedzieć więcej na temat selektorów jquery, odwiedź stronę <a href="http://jqapi.com/#p=class-selector">http://jqapi.com/#p=class-selector</a>
+po czym przejść do zakładki <em>Selectors > Basic filters</em> (okazyjnie przeglądając i inne zakładki).
+</p>
+
+<p>
+Poza wyżej wymienionymi metodami jQuery udostępnia nam metody do poruszania się po drzewie DOM.
+</p>
+
+<table class="tab">
+<tr>
+    <th><a href="http://jqapi.com/#p=parent">$elem.parent(selektor*)</a></th>
+    <td>Pobiera rodzica. Parametr selektor jest opcjonalny. Jeżeli go nie podamy, zostanie pobrany dowolny rodzic elementu. Jeżeli go podamy, zostanie pobrany rodzic tylko gdy pasuje do selektora.</td>
+</tr>
+<tr>
+    <th><a href="http://jqapi.com/#p=parents">$elem.parents(selektor*)</a></th>
+    <td>idzie w górę drzewa aż natrafi na rodzica który pasuje do selektora</td>
+</tr>
+<tr>
+    <th><a href="http://jqapi.com/#p=closest">$elem.closest(selektor*)</a></th>
+    <td>idzie w górę drzewa aż natrafi na rodzica który pasuje do selektora</td>
+</tr>
+<tr>
+    <th><a href="http://jqapi.com/#p=siblings">$elem.siblings()</a></th>
+    <td>pobiera braci elementu</td>
+</tr>
+<tr>
+    <th><a href="http://jqapi.com/#p=next">$elem.next(selektor*)</a></th>
+    <td>pobiera następny element jeżeli pasuje do selektora. Można też pominąć ten parametr, wtedy pobierze dowolny następny element</td>
+</tr>
+<tr>
+    <th><a href="http://jqapi.com/#p=nextUntil">$elem.nextUtil(selektor*)</a></th>
+    <td>Pobiera wszystkie następne elementy dopóki nie natrafi na element pasujący do selektora. Jeżeli nie podamy selektora, wszystkie następne elementy zostaną zwrócone</td>
+</tr>
+<tr>
+    <th><a href="http://jqapi.com/#p=prev">$elem.prev(selektor*)</a></th>
+    <td>pobiera poprzedni element jeżeli pasuje do selektora. Można też pominąć ten parametr, wtedy pobierze dowolny poprzedni element</td>
+</tr>
+<tr>
+    <th><a href="http://jqapi.com/#p=prevUntil">$elem.prevUntil(selektor*)</a></th>
+    <td>Pobiera wszystkie poprzednie elementy dopóki nie natrafi na element pasujący do selektora. Jeżeli nie podamy selektora, wszystkie poprzednie elementy zostaną zwrócone</td>
+</tr>
+<tr>
+    <th><a href="http://jqapi.com/#p=children">$elem.children()</a></th>
+    <td>pobiera bezpośrednie dzieci elementu</td>
+</tr>
+</table>
+
+<p>Na szczególną uwagę zasługują metody <strong>parents()</strong> i <strong>closest()</strong>.
+Metoda parents() zwraca pierwszego napotkanego rodzica, który pasuje do podanego selektora. Sprawdzanie takie
+rozpoczyna się od rodzica danego elementu (czyli nigdy nie zostanie zwrócony element, na którym została wywołana ta metoda).<br>
+Metoda closest() działa całkiem podobnie, ale rozpoczyna swoją podróż z uwzględnieniem danego elementu:
+</p>
+
+<pre><code class="language-html">
+&lt;div class="div module">
+    &lt;div>
+        &lt;div>
+            &lt;div class="div btn">&lt;/div>
+        &lt;/div>
+    &lt;/div>
+&lt;/div>
+</code></pre>
+
+<pre><code class="language-js">
+$('.btn').parents('.div'); //zwróci zewnętrzny .div.module
+$('.btn').closest('.div'); //zwróci wewnętrzny .div.btn
+</code></pre>
+
+
+<!-- ### -->
+<h2 class="subtitle" id="manipulacja-stylami-i-klasami">Manipulacja stylami i klasami</h2>
+<p>
+Po pobraniu elementu (lub stworzeniu) dostajemy dostęp do jego licznych właściwości i metod.
+Aby zmienić style elementu skorzystamy z metody css, którą można używać na 2 sposoby:
+</p>
+
+<pre><code class="language-js">
+$element.css('background-color', 'red');
+$element.css('color', 'blue');
+$element.css('padding', 10); //px zostaną dodane automatycznie
+
+//lub podając obiekt
+
+$element.css({
+    color : 'red',
+    'background-color' : 'blue',
+    padding : 10 //px zostaną dodane automatycznie
+});
+</code></pre>
+
+<p>Dodatkowo mamy możliwość manipulowania klasami danego elementu:</p>
+
+<pre><code class="language-js">
+$element.addClass("nazwa_klasy"); //dodaje klasę css elementowi
+$element.removeClass("nazwa_klasy"); //usuwa klasę css elementowi
+$element.hasClass("nazwa_klasy"); //sprawdza czy dany element ma klasę
+$element.toggleClass("nazwa_klasy"); //włącza/wyłącza klasę
+</code></pre>
+
+<p>Jeżeli chcemy dodać lub usunąć więcej klas, podajemy je po spacji:</p>
+
+<pre><code class="language-js">
+$element.addClass("big important");
+$element.removeClass("big important");
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="wybrane-metody-i-wlasciwosci">Wybrane metody i właściwości</h2>
+<p>Poza manipulacją stylami, mamy dostęp do wielu metod i właściwości dla takich elementów. Poniżej lista tych najczęściej używanych:</p>
+
+<table class="tab" id="attr">
+<tr>
+    <td><a href="http://jqapi.com/#p=attr">$element.attr(nazwa)</a></td>
+    <td>pobiera lub ustawia atrybut o danej nazwie. Jeżeli atrybutu nie ma, zwraca undefined</td>
+</tr>
+<tr>
+    <td><a href="http://jqapi.com/#p=removeAttr">$element.removeAttr(nazwa)</a></td>
+    <td>usuwa atrybut o danej nazwie</td>
+</tr>
+</table>
+
+<pre><code class="language-js">
+const $img = $("img");
+
+const src = $img.attr("src"); //pobiera atrybut src z grafiki
+
+if ( $img.attr("alt") ) { //jeżeli nie ma atrybutu alt
+    $img.removeAttr("tooltip"); //usuwam atrybuty
+    $img.attr("data-text", $img.attr("alt")); //dodaję pojedynczy atrybut
+
+    $img.attr({ //możemy ustawiać kilka atrybutów na raz
+        alt: "Lorem ipsum dolor",
+        title: "Lorem ipsum dolor"
+    });
+}
+</code></pre>
+
+<pre><code class="language-js">
+const $link = $("a");
+
+const href = $link.attr("href")); //pobiera atrybut href z linka
+$link.removeAttr("tooltip"); //ustawiam atrybut tooltip
+
+if (href.startsWith("http")) {
+    $link.attr("target", "_blank"); //dodaję nowy atrybut
+}
+</code></pre>
+
+<table class="tab">
+<tr>
+    <td><a href="http://jqapi.com/#p=prop">$element.prop(nazwa)</a></td>
+    <td>pobiera lub ustawia daną właściwość.  Jeżeli właściwości nie ma, zwraca undefined</td>
+</tr>
+<tr>
+    <td><a href="http://jqapi.com/#p=removeProp">$element.removeProp(nazwa)</a></td>
+    <td>usuwa daną właściwość</td>
+</tr>
+</table>
+
+<pre><code class="language-js">
+const $input = $("input:radio"); //pobieramy input radio
+if ($input.is(":checked")) {
+    $input.prop("disabled", true); //ustawiam właściwość
+}
+</code></pre>
+
+    <p>W powyższym przykładzie działam na właściwościach elementu. Jeżeli nie pamiętasz czym się różnią atrybuty od właściwości elementu, <a href="../dom/dom-wlasciwosci.php#wlasciwosci-atrybuty">służę pomocą</a>.</p>
+
+
+<table class="tab">
+<tr>
+    <td><a href="http://jqapi.com/#p=text">$element.text()</a></td>
+    <td>pobiera lub ustawia tekst elementu (równoznaczne z textContent)</td>
+</tr>
+<tr>
+    <td><a href="http://jqapi.com/#p=html">$element.html()</a></td>
+    <td>pobiera lub ustawia html elementu (równoznaczne z innerHTML)</td>
+</tr>
+</table>
+
+<pre><code class="language-js">
+const text = $element.text(); //pobieram text w elemencie
+$element.html(text); //ustawiam nowy html na tekst bez znaczników html
+</code></pre>
+
+<table class="tab">
+<tr>
+    <td><a href="http://jqapi.com/#p=val">$element.val()</a></td>
+    <td>Ustawia lub pobiera wartość value</td>
+</tr>
+</table>
+
+<pre><code class="language-js">
+$input = $("input:text");
+$input.val(); //pobieram value
+$input.val("nowa wartość"); //ustawiam value
+</code></pre>
+
+
+<!-- ### -->
+<h2 class="subtitle" id="events">Zdarzenia w jquery</h2>
+<p>
+Aby przypiąć nasłuch zdarzenia do pobranego lub utworzonego elementu korzystamy z metody będącej nazwą zdarzenia, lub skorzystać z metody <strong>on()</strong>.
+</p>
+
+<pre><code class="language-js">
+$('input#guzik').click(function() {
+    console.log('test');
+})
+
+//lub
+
+$('input#guzik').on('click', function() {
+    console.log('test');
+})
+</code></pre>
+
+
+
+<p>Podobnie jak przy metodzie <a href="#manipulacja-stylami-i-klasami">.css()</a> i <a href="#attr">.attr()</a> także przy zdarzeniach je deklarować pojedynczo, ale i zbiorczo
+podając obiekt z odpowiednimi metodami:</p>
+
+<pre><code class="language-js">
+$element.on('click', function() {...})
+$element.on('mouseover', function() {...})
+
+//lub
+
+$element.on({
+    'click', function() {
+        ...
+    },
+    'mouseover' : function() {
+        ...
+    }
+});
+</code></pre>
+
+<p>
+Aby odwołać się do obiektu wywołującego, wskazujemy go instrukcją <strong>this</strong>.
+To już wiemy z rozdziału o <a href="../events/events.php#this">eventach</a>.
+</p>
+<p>
+Domyślnie this wskazuje na element, który wywołał dane zdarzenie. Ten element jest w czystym javascript. Aby na takim obiekcie wykonywać operacje za pomocą jQuery, wystarczy nasze this podstawić pod jquery, stosując konstrukcję <code>$(this)</code>. Dzięki temu uzyskujemy obiekt jquery wskazujący na wywołujący element.
+</p>
+
+<pre><code class="language-html">
+&lt;a class="link" href="http://jakis_adres.com">Pokaż href&lt;/a>
+&lt;a class="link" href="http://jakis_inny_adres.com">Pokaż href&lt;/a>
+</code></pre>
+
+<pre><code class="language-js">
+$('.element').on('click', function(e) {
+    e.preventDefault();
+
+    this - wskazuje na dany element w czystym JavaScript
+    $(this) - wskazuje na dany element w jQuery
+
+})
+</code></pre>
+
+<pre><code class="language-js">
+$('.element').on('click', function(e) {
+    e.preventDefault();
+
+    this.css({'color': 'black'}); //błąd! - this.css is not a function
+
+    $(this).css({'color': 'black'}); //wszystko ok
+
+    console.log( $(this).attr('href') ); //pobieramy atrybut href
+})
+</code></pre>
+
+<p>
+    <a class="test1 button" href="http://jakis_adres.com">Pokaż href</a>
+    <a class="test1 button" href="http://jakis_inny_adres.com">Pokaż href</a>
+</p>
+
+<script>
+$('a.test1').on('click', function(e) {
+    e.preventDefault();
+    //this.css({'color': 'black'}); //this.css is not a function
+    $(this).css({'color': 'black'});
+    console.log( $(this).attr('href') );
+});
+</script>
+
+<p>
+    Aby odpiąć dane zdarzenie, skorzystamy z metody <strong>off()</strong>.
+    Działa ona praktycznie tak samo jak <a href="../events/events.php#removeEventListener">removeEventListener</a>, czyli jeżeli chcemy odpiąć jakąś funkcję, powinniśmy przekazać ją jako parametr:
+</p>
+
+<pre><code class="language-js">
+function showSomething() {
+    console.log('Kliknięto');
+}
+
+$('.element').on('click', showSomething);
+$('.element').off('click', showSomething);
+</code></pre>
+
+<p>
+    <a href="../events/events.php#removeEventListener">W jQuery w przeciwieństwie do JavaScript możemy też odpinać funkcje anonimowe</a>. Wystarczy przy ich podpinaniu podać dla zdarzenia nazwę:
+</p>
+
+<pre><code class="language-js">
+$('.element').on('click', function() {
+    console.log('Kliknięto 1');
+});
+
+$('.element').on('click.klik2', function() {
+    console.log('Kliknięto 2');
+});
+
+//usuwam event o nazwie eventToDelete
+$('.element').off('click.klik2');
+</code></pre>
+
+<p>
+    <button class="test2 button">Klik</button>
+    <button class="test2 button">Klik</button>
+</p>
+
+<script>
+const $btn = $('.test2');
+$btn.on('click', function() {
+    console.log('Kliknięto 1');
+});
+
+$btn.on('click.klik2', function() {
+    console.log('Kliknięto 2');
+});
+
+$btn.off('click.klik2');
+</script>
+
+<!-- ### -->
+<h2 class="subtitle" id="one">Jednorazowy event za pomocą one()</h2>
+<p>Jeżeli chcemy do elementu podpiąć event, który wykona się tylko jeden raz (a zaraz potem zostanie usunięty), skorzystamy z funkcji <strong>.one()</strong>:</p>
+
+<pre><code class="language-js">
+$('.element').one('click', function() {
+    console.log('Wykonam się tylko jeden raz po czym się odłączę');
+});
+</code></pre>
+
+<p>
+    <button class="test3 button">Klik</button>
+</p>
+
+<script>
+$('.test3').one('click', function() {
+    console.log('Wykonam się tylko jeden raz po czym się odłączę');
+});
+</script>
+
+<p>Jest to równoznaczne z odpisaniem eventu z jego wnętrza (co jest możliwe także tylko w Jquery):</p>
+
+<pre><code class="language-js">
+$('.element').one('click', function(e) {
+    console.log('Wykonam się tylko jeden raz po czym się odłączę');
+    $(this).off(e);
+});
+</code></pre>
+
+
+<!-- ### -->
+<h2 class="subtitle" id="show-hide">Pokazywanie i ukrywanie elementów</h2>
+<p>
+    jQuery udostępnia nam kilka metod służących do pokazywania i ukrywania elementów na stronie.
+</p>
+<p>
+    Pierwszymi z nich są <strong>show()</strong> która pokazuje
+    i <strong>hide()</strong> która ukrywa dany element.
+</p>
+
+<pre><code class="language-js">
+$('#someDiv').show();
+$('#someDiv').hide();
+</code></pre>
+
+<p>
+    Nie myl powyższego z:
+</p>
+
+<pre><code class="language-js">
+$('#someDiv').css('display', 'block');
+$('#someDiv').css('display', 'none');
+</code></pre>
+
+<p>Pamiętaj, że element może mieć różne stylowanie i wcale nie jest powiedziane, że będzie miał wyświetlanie typu block.</p>
+<p>Powyższe metody automatycznie określają jakie wyświetlanie ma dany element.</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="fadein-fadeout">Płynne pokazywanie i ukrywanie elementów</h2>
+<p>
+    Aby płynnie pokazywać lub ukrywać elementy, skorzystamy z metod:
+</p>
+
+<table class="tab left">
+    <tr>
+        <th>Nazwa metody</th>
+        <th>Co robi</th>
+    </tr>
+    <tr>
+        <th><strong>$element.fadeIn(szybkosc*, funkcjaZwrotna*)</strong></th>
+        <td>płynnie pokazuje  element</td>
+    </tr>
+    <tr>
+        <th><strong>$element.fadeIn(szybkosc*, funkcjaZwrotna*)</strong></th>
+        <td>płynnie ukrywa  element</td>
+    </tr>
+    <tr>
+        <th><strong>$element.fadeToggle(szybkosc*, funkcjaZwrotna*)</strong></th>
+        <td>płynnie pokazuje lub ukrywa element</td>
+    </tr>
+</table>
+
+<p>
+    Opcjonalny parametr szybkość określa szybkość zanikania. Możemy go podać słownie za pomocą słów "slow", "medium", "fast", ale najczęściej podaje się go w formie milisekund.<br>
+    Parametr funkcjaZwrotna to funkcja, która zostanie wykonana po zakończeniu zanikania:
+</p>
+
+<pre><code class="language-js">
+$(".test1").fadeOut();
+$(".test2").fadeIn(300);
+$(".test2").fadeIn(function() {
+    console.log("Zakończono animację");
+});
+</code></pre>
+
+<p>Przykład użycia:</p>
+
+<pre><code class="language-js">
+&lt;div class="module">
+    &lt;div class="module-content" style="display:none">
+        Lorem ipsum dolor sit amet...
+    &lt;/div>
+    &lt;button class="module-toggle button">Pokaż/schowaj content&lt;/button>
+&lt;/div>
+</code></pre>
+
+<pre><code class="language-js">
+$('.module-toggle').on('click', function() {
+    $(this).prev().fadeToggle();
+})
+</code></pre>
+
+
+<div class="kartofel-informuje">
+    <p>
+        Zauważ, że pobrany element podstawiłem pod zmienną. Dzięki temu gdy kilka razy odwołujemy się do danego obiektu, każdorazowo JavaScript nie musi przeszukiwać drzewa DOM.<br><br>
+
+        Znak $ przy nazwie zmiennej $btn to tylko konwencja nazewnicza - ułatwienie dla nas.<br>
+        Dzięki temu wiemy, że dana zmienna jest elementem pobranym lub stworzonym za pomocą jQuery,
+        i możemy na nim wywoływać wszystkie metody tej biblioteki (find, next, eq, css itp).
+    </p>
+</div>
+
+<div class="module">
+    <div class="module-content" style="display:none">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab adipisci atque blanditiis cupiditate nisi nostrum recusandae, repellat. A, adipisci animi aut autem hic placeat possimus quasi reiciendis veniam voluptas voluptates.
+    </div>
+    <button class="module-toggle-1 button">Pokaż / ukryj treść</button>
+</div>
+
+<script>
+$('.module-toggle-1').on('click', function() {
+    $(this).prev().fadeToggle();
+})
+</script>
+
+<!-- ### -->
+<h2 class="subtitle" id="slideup-slidedown">Płynne zwijanie i rozwijanie elementów</h2>
+<p>
+    Bardzo podobnymi w użyciu są metody służące do zwijania/rozwijania elementów:
+</p>
+
+<table class="tab left">
+    <tr>
+        <th>Nazwa metody</th>
+        <th>Co robi</th>
+    </tr>
+    <tr>
+        <th><strong>$element.slideDown(szybkosc*, funkcjaZwrotna*)</strong></th>
+        <td>płynnie rozwija  element</td>
+    </tr>
+    <tr>
+        <th><strong>$element.slideUp(szybkosc*, funkcjaZwrotna*)</strong></th>
+        <td>płynnie zwija  element</td>
+    </tr>
+    <tr>
+        <th><strong>$element.slideToggle(szybkosc*, funkcjaZwrotna*)</strong></th>
+        <td>płynnie zwija lub rozwija element</td>
+    </tr>
+</table>
+
+<pre><code class="language-js">
+$(".test1").slideUp();
+$(".test2").slideDown(300);
+$(".test3").slideToggle(function() {
+    console.log('Zakończono animację');
+});
+</code></pre>
+
+<p>Przykład użycia:</p>
+
+<pre><code class="language-js">
+&lt;div class="module">
+    &lt;div class="module-content" style="display:none">
+        Lorem ipsum dolor sit amet...
+    &lt;/div>
+    &lt;button class="module-toggle button">Pokaż treść&lt;/button>
+&lt;/div>
+</code></pre>
+
+<pre><code class="language-js">
+$('.module-toggle').on('click', function() {
+    const $btn = $(this);
+
+    $(this).prev().slideToggle(function() {
+        //this tutaj wskazuje na element zwijany
+
+        //sprawdzam czy tekst po zwinięciu/rozwinięciu jest widoczny
+        if ($(this).is(':visible')) {
+            $btn.text('Ukryj treść');
+        } else {
+            $btn.text('Pokaż treść');
+        }
+    });
+})
+</code></pre>
+
+<div class="module">
+<div class="module-content" style="display:none">
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab adipisci atque blanditiis cupiditate nisi nostrum recusandae, repellat. A, adipisci animi aut autem hic placeat possimus quasi reiciendis veniam voluptas voluptates.
+</div>
+<button class="module-toggle-2 button">Pokaż treść</button>
+</div>
+
+<script>
+$('.module-toggle-2').on('click', function() {
+    const $btn = $(this);
+
+    $(this).prev().slideToggle(function() {
+        //this tutaj wskazuje na element zwijany
+        if ($(this).is(':visible')) {
+            $btn.text('Ukryj treść');
+        } else {
+            $btn.text('Pokaż treść');
+        }
+    });
+})
+</script>
+
+
+<!-- ### -->
+<h2 class="subtitle" id="tworzenie-elementow">Tworzenie nowych elementów</h2>
+<p>
+Aby utworzyć nowy element za pomocą jQuery wystarczy skorzystać z podobnej konstrukcji co w przypadku pobierania elementów ze strony:
+</p>
+
+<pre><code class="language-js">
+const $div = $('&lt;div class="module">&lt;/div>');
+</code></pre>
+
+<p>Tak jak w przypadku innych metod, tutaj też mamy kilka sposobów działania z nowymi elementami:</p>
+
+<pre><code class="language-js">
+const $div = $('&lt;div id="headCnt" class="page-header-cnt>&lt;/div>')
+
+//lub
+
+const $div = $("&lt;div>", {id: "headCnt", class: "page-header-cnt"});
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="dolaczanie-elementow">Dołączanie elementów do strony</h2>
+
+<p>Aby dołączyć element do strony możemy skorzystać z jednej z kilku metod:</p>
+
+<table class="tab">
+<tr>
+    <th><strong>el.append(insertEl)</strong></th>
+    <td>Dołącza insertEl na końcu parenta</td>
+</tr>
+<tr>
+    <th><strong>el.prepend(insertEl)</strong></th>
+    <td>Dołącza insertEl na początku parenta</td>
+</tr>
+<tr>
+    <th><strong>el.before(insertEl)</strong></th>
+    <td>Dołącza insertEl przed danym elementem</td>
+</tr>
+<tr>
+    <th><strong>el.after(insertEl)</strong></th>
+    <td>Dołącza insertEl za danym elementem</td>
+</tr>
+</table>
+
+<pre><code class="language-js">
+const $div = $('.test-append-cnt');
+
+const $span1 = $('&lt;span>Na końcu&lt;/span>');
+$div.append($span1);
+
+const $span2 = $('&lt;span>Na początku&lt;/span>');
+$div.prepend($span2);
+
+const $span4 = $('&lt;span>Za elementem&lt;/span>');
+$div.after($span4);
+
+const $span3 = $('&lt;span>Przed elementem&lt;/span>');
+$div.before($span3);
+</code></pre>
+
+<div class="test-append-cnt">
+    <button class="button test-append">Na końcu</button>
+    <button class="button test-prepend">Na początku</button>
+    <button class="button test-after">Za elementem</button>
+    <button class="button test-before">Przed elementem</button>
+</div>
+
+<style>
+.test-append-cnt {
+    border:1px solid #ddd;
+    padding:1rem;
+    margin:2rem 0
+}
+</style>
+<script>
+$('.test-append').on('click', function() {
+    const $span = $('<span>Na końcu</span>');
+    $('.test-append-cnt').append($span);
+});
+
+$('.test-prepend').on('click', function() {
+    const $span = $('<span>Na początku</span>');
+    $('.test-append-cnt').prepend($span);
+});
+
+$('.test-before').on('click', function() {
+    const $span = $('<span>Przed elementem</span>');
+    $('.test-append-cnt').before($span);
+});
+
+$('.test-after').on('click', function() {
+    const $span = $('<span>Za elementem</span>');
+    $('.test-append-cnt').after($span);
+})
+</script>
+
+<!-- ### -->
+<h2 class="subtitle" id="usuwanie-elementow">Usuwanie elementów ze strony</h2>
+<p>Aby usunąć element, skorzystamy z metody <strong>remove()</strong>:</p>
+
+<pre><code class="language-js">
+const $btn = $('.button');
+$btn.remove();
+</code></pre>
+
+
+<!-- ### -->
+<h2 class="subtitle" id="data">Data</h2>
+<p>
+    W lekcji o <a href="../dom/dom-wlasciwosci.php">właściwościach elementów</a> poznałeś właściwość <a href="../dom/dom-wlasciwosci.php#dataset">dataset</a>.
+        Właściwość ta opiera się o customowe atrybuty <strong>data-...</strong>:
+</p>
+<pre><code class="language-html">
+&lt;button type="button" id="myButton" data-tooltip="Jakiś tekst" data-arrow-position="top">
+    Kliknij mnie
+&lt;/button>
+</code></pre>
+
+<pre><code class="language-js">
+const elem = document.querySelector('#myButton');
+
+console.log(elem.dataset) //{tooltip: "Jakiś tekst", arrowPosition: "top"}
+console.log(elem.dataset.tooltip); //Jakiś tekst
+console.log(elem.dataset.arrowPosition); //top
+</code></pre>
+
+<p>jQuery udostępnia nam metodę <strong>data()</strong>, która działa dość podobnie - ale nie do końca.</p>
+<p>Otóż jQuery tworzy za naszymi plecami dla każdego elementu <strong>obiekt z danymi</strong>, który możemy wykorzystać do przechowywania dodatkowych danych związanych z danym elementem.</p>
+<p>Obiekt ten początkowo tworzony jest w oparciu o atrybuty <strong>data-...</strong>:</p>
+
+<pre><code class="language-js">
+$('#myButton').on('click', function() {
+    console.log( $(this).data() ); //{arrowPosition: "top", tooltip: "Jakiś tekst"}
+})
+</code></pre>
+
+<button type="button" class="button" id="myButton" data-tooltip="Jakiś tekst" data-arrow-position="top"> Kliknij mnie </button>
+<script>
+$('#myButton').on('click', function() {
+    console.log( $(this).data() ); //{arrowPosition: "top", tooltip: "Jakiś tekst"}
+})
+</script>
+
+<p> Różnica w stosunku do wersji Vanilla JavaScript jest taka, że po dodaniu do tego obiektu nowej właściwości, <strong>nie pojawia się ona jako atrybut elementu</strong> (w wersji JavaScript się pojawia), a tylko zapisywana jest w obiekcie data. Aby to sprawdzić, kliknij i sprawdź poniższe przyciski w debugerze. W wersji JavaScript zobaczysz, że właściwość dodana do dataset trafiła do atrybutów elementu.</p>
+
+
+<button type="button" class="button" id="myButtonJavaScript" data-tooltip="Jakiś tekst" data-arrow-position="top"> Wesja JavaScript </button>
+<button type="button" class="button" id="myButtonjQuery" data-tooltip="Jakiś tekst" data-arrow-position="top"> Wersja jQuery </button>
+
+<script>
+$('#myButtonjQuery').on('click', function() {
+    $(this).data('cat', "Wielki kocur");
+    console.log('Data tego obiektu: ', $(this).data());
+    console.log('Ten obiekt:');
+    console.log($(this)[0].outerHTML);
+});
+
+document.querySelector('#myButtonJavaScript').addEventListener('click', function() {
+    this.dataset.cat = "Wielki kocur";
+    console.log('Data tego obiektu: ', this.dataset);
+    console.log('Ten obiekt:');
+    console.log(this.outerHTML);
+})
+</script>
+
+<p>
+    Aby dodać nowe dane do metody <strong>data()</strong>, wystarczy podać ich nazwy i wartości w nawiasach. Jeżeli chcemy odczytać dane, wtedy podajemy tylko ich nazwy:
+</p>
+
+<pre><code class="language-js">
+$btn.data() //odczytuje cały obiekt
+$btn.data('position'); //odczytuje daną "position"
+$btn.data('cat', 'Wielki kocur'); //ustawiam zmienną cat na "Wielki kocur"
+$btn.data('bar', { myType: "test", count: 40 } )); //pod zmienną bar przechowuję dodatkowy obiekt
+$btn.data('bar'); //odczytuję zmienną bar
+</code></pre>
+
+<p>
+    Pytanie, które może się nasunąć to czemu jQuery poszło inną drogą niż Vanilla JavaScript? Ano z prostego powodu. Atrybuty data-... (a więc i cała właściwość dataset) dobrze się sprawdzają przy przetrzymywaniu prostych tekstów. Ale już trzymanie tam <a href="../dom/dom-wlasciwosci.php#dataset-obiekty">innych typów danych wcale fajne nie jest</a>. W przypadku jQuerowego (tak to sie odmienia?) data nie ma takich problemów.
+</p>
+
+<pre><code class="language-js">
+const p = document.querySelector('p');
+p.dataset.age = 20;
+p.dataset.ob = { name : "Marcin" }
+console.log(p.dataset.age); //"20"
+console.log(p.dataset.ob); //"[object Object]"
+
+const $p = $('p').first();
+$p.data('age', 20);
+$p.data('ob', { name : "Marcin" });
+console.log(p.data('age')); //20
+console.log(p.data('ob')); //{ name : "Marcin" }
+</code></pre>
+
+			</div><!-- e: page-content-text -->
+			<footer class="page-footer">
+				<p>
+				Wszelkie prawa zastrzeżone. Jeżeli chcesz używać jakiejś części tego kursu, skontaktuj się z <a href="/kurs/autor.php">autorem</a>.
+				Aha - i ta strona korzysta z <a href="/kurs/polityka-prywatnosci.php">ciasteczek</a>.
+				</p>
+			</footer>
+							<div class="rekl-cnt">
+					<ins
+					class="adsbygoogle" style="margin-top:40px; display:block"
+					data-ad-client="ca-pub-6843603045703750"
+					data-ad-slot="4690777640"
+					data-ad-format="auto"
+					data-full-width-responsive="true"
+					></ins>
+				</div>
+				<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+	(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+					</main><!-- e: page-content -->
+			</div><!-- e: page-content-wrapper -->
+    <aside id="page-sidebar-cnt" class="page-sidebar-cnt">
+	<div id="page-sidebar" class="page-sidebar">
+		<button aria-label="Pokaż/ukryj Menu" aria-expanded="false" aria-controls="page-sidebar" type="button" id="pageSidebarBurger" class="page-sidebar-burger">
+			<span></span>
+		</button>
+
+		<h2 class="visuallyhidden">
+			Menu
+		</h2>
+
+		<button class="sidebar-toggle-btn" title="Pokaż/schowaj menu" aria-hidden="true">
+			<strong>Pokaż/ukryj menu</strong>
+			<span></span>
+			<span></span>
+			<span></span>
+		</button>
+
+		<div class="page-sidebar-title">
+			<a href="/kurs/kontakt.php" title="Nawrzucaj autorowi" class="mail-to-author" id="mailToAuthor">Napisz do mnie</a>
+			<a href="#popupOptions" class="page-setup-link popupOpen" title="Ustawienia strony" id="showOptions">Ustawienia</a>
+			<a href="/index.php" aria-label="Strona główna" class="page-sidebar-title-link">Kurs Javascript</a>
+		</div>
+
+        <form aria-label="Wyszukiwarka" class="search-sidebar" action="/search.php" method="post">
+            <label for="search" class="search-sidebar-label">Szukaj</label>
+            <div class="search-sidebar-input-cnt">
+                <svg class="search-sidebar-input-icon" xmlns="http://www.w3.org/2000/svg" width="26" height="28" viewBox="0 0 26 28" aria-hidden="true">
+                    <path d="M18 13c0-3.859-3.141-7-7-7s-7 3.141-7 7 3.141 7 7 7 7-3.141 7-7zm8 13c0 1.094-.906 2-2 2a1.96 1.96 0 0 1-1.406-.594l-5.359-5.344a10.971 10.971 0 0 1-6.234 1.937c-6.078 0-11-4.922-11-11s4.922-11 11-11 11 4.922 11 11c0 2.219-.672 4.406-1.937 6.234l5.359 5.359c.359.359.578.875.578 1.406z"></path>
+                </svg>
+                <input type="text" id="search" autocomplete="off" name="q" class="search-sidebar-input">
+            </div>
+            <button type="submit" class="search-sidebar-button">Szukaj</button>
+        </form>
+
+		<div class="page-sidebar-table-of-content">
+			<h2 class="visuallyhidden">Spis treści</h2>
+            <div class="page-sidebar-section">
+				<h3 class="page-sidebar-section-title noopen">
+                    <a href="/index.php">Strona główna</a>
+                </h3>
+            </div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Słowem wstępu</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/wstep/wstep.php">Wstęp</a>
+						</li>
+						<li >
+							<a href="/kurs/wstep/co-to-jest-javascript.php">Co to jest JavaScript i z czym go się je?</a>
+						</li>
+						<li >
+							<a href="/kurs/wstep/wymagania.php">Wymagania</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Super podstawy</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/debuger/debuger.php">Debuger</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/pierwszy-skrypt.php">Wstawiamy skrypty na naszą stronę</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/strict-mode.php">Strict mode</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/typy-danych.php">Typy danych i konwersja danych</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/zmienne.php">Zmienne</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/operatory.php">Operatory</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/math.php">Obiekt Math</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/string.php">String - teksty</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/instrukcje-warunkowe.php">Instrukcje warunkowe</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/petle.php">Pętle</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/funkcje.php">Funkcje</a>
+						</li>
+                        <li >
+							<a href="/kurs/super-podstawy/funkcje-tematy-dodatkowe.php">Funkcje - tematy dodatkowe</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/tablice.php">Tablice</a>
+						</li>
+                        <li >
+							<a href="/kurs/super-podstawy/tablice-iteracje.php">Tablice pętle</a>
+						</li>
+						<li >
+							<a href="/kurs/debuger/debugowanie.php">Debugowanie kodu</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+            			<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Obiekty</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+                        <li >
+							<a href="/kurs/obiekty/obiekty.php">Obiekty i this</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-jak-to-dziala.php">Jak to działa</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-konstruktor.php">Konstruktor</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-zaawansowane-this.php">Zaawansowane this</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-dziedziczenie.php">Dziedziczenie w Javascript</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-inne-sposoby-tworzenia.php">Inne sposoby tworzenia obiektów</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-instanceof-hasownproperty.php">instanceof i hasOwnProperty</a>
+						</li>
+                    </ul>
+                </div>
+            </div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">DOM i zdarzenia</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/dom/dom.php">Document Object Model</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-wlasciwosci.php">Właściwości elementów</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-relacje.php">Relacje między elementami</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-tworzenie-i-usuwanie.php">Tworzenie i usuwanie elementów</a>
+						</li>
+                        <li >
+                            <a href="/kurs/dom/style.php">Style w CSS</a>
+                        </li>
+						<li >
+							<a href="/kurs/events/events.php">Zdarzenia</a>
+						</li>
+						<li >
+							<a href="/kurs/events/events-keys.php">Zdarzenia - klawisze</a>
+						</li>
+						<li >
+							<a href="/kurs/events/events-mouse.php">Zdarzenia - myszka</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/projekt-todo.php">Projekt TODO</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/slider.php">Tworzymy slider</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Prawie podstawy</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/grafika/grafika-na-stronie.php">Grafika na stronie</a>
+						</li>
+						<li >
+							<a href="/kurs/intervals/intervals.php">setTimeout i setInterval</a>
+						</li>
+						<li >
+							<a href="/kurs/match-media.php">Praca z RWD</a>
+						</li>
+						<li >
+							<a href="/kurs/okna-dialogowe.php">Okienka dialogowe</a>
+						</li>
+						<li >
+							<a href="/kurs/okna.php">Tworzenie nowych okien</a>
+						</li>
+						<li >
+							<a href="/kurs/date/date.php">Obiekt Date</a>
+						</li>
+						<li >
+							<a href="/kurs/date/date-calendar.php">Tworzymy kalendarz</a>
+						</li>
+						<li >
+							<a href="/kurs/cookies/cookie.php">Obiekt Cookie</a>
+						</li>
+						<li >
+							<a href="/kurs/storage/storage.php">Storage</a>
+						</li>
+						<li >
+							<a href="/kurs/regular.php">Wyrażenia regularne</a>
+						</li>
+						<li >
+							<a href="/kurs/formularze/formularze.php">Formularze</a>
+						</li>
+						<li >
+							<a href="/kurs/formularze/formularze-walidacja.php">Formularze - walidacja</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Ajax</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/ajax/ajax.php">AJAX, REST, JSON</a>
+						</li>
+						<li >
+							<a href="/kurs/ajax/xmlhttprequest.php">XMLHttpRequest</a>
+						</li>
+            			<li >
+							<a href="/kurs/ajax/fetch.php">Fetch API</a>
+						</li>
+						<li >
+							<a href="/kurs/ajax/formularz-kontaktowy.php">Dynamiczny formularz kontaktowy</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Nowy Javascript</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/es6/ecma-script-2015.php">ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/webpack.php">Webpack</a>
+						</li>
+                        <li >
+            				<a href="/kurs/es6/obiekty-w-es6.php">Obiekty w ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/funkcja-strzalkowa.php">Funkcja strzałkowa</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/spread-rest.php">Spread i rest</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/template-strings.php">Template strings</a>
+						</li>
+						<li >
+            				<a href="/kurs/es6/destructuring.php">Dekompozycja</a>
+        				</li>
+						<li >
+							<a href="/kurs/es6/class.php">Klasy w ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/promises.php">Promises</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/async-await.php">Async/Await</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/symbole.php">Symbole</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section show has-active-element">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">jQuery</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li class="active">
+							<a href="/kurs/jquery/jquery.php">jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/animacje-w-jquery.php">Animacje w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/jquery-ajax.php">Ajax w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/tabs.php">Taby w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/plugin.php">Karuzela w jQuery</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Canvas</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/canvas/canvas.php">Canvas</a>
+						</li>
+						<li >
+							<a href="/kurs/canvas/canvas-images.php">Grafika w canvas</a>
+						</li>
+						<li >
+						<a href="/kurs/canvas/canvas-paint.php">Praktycznie : Paint w canvas</a>
+						</li>
+
+						<li >
+							<a href="/kurs/canvas/canvas-animacja.php">Animacja w canvas</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Gry</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/gry/hangman/hangman.php">Szubienica</a>
+						</li>
+						<li >
+							<a href="/kurs/gry/memory/memory.php">Memory</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+            			<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Inne</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/dodatkowe-materialy.php">Dodatkowe materiały</a>
+						</li>
+						<li >
+							<a href="/kurs/faq.php">FAQ</a>
+						</li>
+						<li >
+							<a href="/kurs/polityka-prywatnosci.php">Polityka prywatności</a>
+						</li>
+						<li >
+							<a href="/kurs/autor.php">O autorze</a>
+						</li>
+						<li >
+							<a href="/kurs/kontakt.php">Kontakt</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="page-sidebar-section">
+                <a class="special-link" href="/kurs/autor.php#donate">Wesprzyj kurs</a>
+            </div>
+		</div>
+	</div>
+</aside></div><!-- e: page-container -->
+
+<div class="popup" id="popupOptions">
+	<div class="popup-inside">
+        <div class="popup-container-cnt">
+            <div class="popup-container">
+                <button class="popup-close">Zamknij</button>
+
+                <h2 class="popup-title">
+                    Opcje
+                </h2>
+
+                <div class="popup-content">
+                    <form class="form-options">
+                        <div class="form-option">
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <label for="optionsThemeSelect">Wybierz skórkę dla listingów</label>
+                                    <select id="optionsThemeSelect"></select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <pre><code class="language-js">
+                                //tak będzie wyglądał kod
+
+                                function test() {
+                                    for (let i=0; i&lt;10; i++) {
+                                        console.log("Tekst numer ", 1);
+                                    }
+                                }
+
+                                test();
+                                </code></pre>
+                            </div>
+                            <div class="form-row" id="themeLightModeRow">
+                                <div class="form-col">
+                                    <label for="themeLightMode">
+                                        Tryb dzienny / nocny
+                                    </label>
+
+                                    <div class="light-mode-el">
+                                        <input type="checkbox" id="themeLightMode">
+                                        <span class="light-mode"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+	</div>
+</div>
+<script async defer src="https://www.googletagmanager.com/gtag/js?id=UA-38558970-5"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-38558970-5');
+</script>
+
+	<script src="/js/ads.js"></script>
+	<script src="/js/script.min.js?v=0.13" defer></script>
+</body>
+</html>

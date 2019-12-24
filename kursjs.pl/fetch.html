@@ -3,9 +3,9 @@
 <head>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Kurs Javascript - Wstęp</title>
+    <title>Kurs Javascript - Fetch API</title>
 	<meta name="description" content="Kurs Javascript dla superbohaterów, artykuły, tutoriale, porady, zadania do wykonania" />
-    <link rel="canonical" href="https://kursjs.pl/kurs/wstep/wstep.php" />
+    <link rel="canonical" href="https://kursjs.pl/kurs/ajax/fetch.php" />
 	<link rel="stylesheet" href="./css.css" />
     <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,700&display=swap&subset=latin-ext" rel="stylesheet">
 	<meta name="image" content="https://kursjs.pl/kursjs.png">
@@ -57,49 +57,470 @@
             </div>
                         <div class="page-content-text">
 
-
-<h1 class="page-title">Wstęp</h1>
+<h1 class="page-title">Fetch API</h1>
 <p>
-Bardzo krótki wstęp ^^.<br /><br />
-Kurs ten jest o Javascripcie. Uhh...
-</p>
-<p>
-Wiedz, że nie staram się tutaj tworzyć największego i najlepszego kursu o JavaScript w internecie.<br>
-Ten kurs to twór jednego człowieka.
-Nie mam szans i nie chcę konkurować z molochami takimi jak <a href="https://developer.mozilla.org/pl/">MDN</a>, <a href="https://www.udemy.com/">Udemy</a>, <a href="https://eduweb.pl/">EduWeb</a> czy <a href="https://www.w3schools.com/js/default.asp">w3schools</a>.<br>
-<br><br>
-Nie znajdziesz tutaj wszystkiego z zakresu JavaScript. <br>
-Po jakimś czasie będziesz chciał wiele rzeczy tutaj pokazanych tworzyć inaczej - lepiej.<br>
-Im większy progres będziesz zdobywał stwierdzisz, że wiele rozdziałów można było napisać o wiele lepiej. I dobrze.<br><br>
-
-W każdym bądź razie - jeżeli ta strona jakoś ci posłuży - to tylko plus. Jeżeli nie - po prostu skorzystaj z innego kursu - na rynku jest tego od groma (niektóre wymieniłem <a href="../dodatkowe-materialy.php">tutaj</a>) i każdy znajdzie coś dla siebie. Ja sam mam kilka w swojej kolekcji i twierdzę, że są naprawdę dobre.
-<br><br>
+Nowe przeglądarki udostępniają nam Fetch API - nowy interfejs do dynamicznego pobierania zasobów.
 </p>
 
-<p>
-Jeszcze mała adnotacja, która siedzi mi w głowie.
-</p>
-<p>
-W internecie znajdziesz setki tutoriali pokazujących najnowsze techniki. A to funkcja strzałkowa, a to jak korzystać z async i await, a to jak robić połączenia fetchem czy chociażby zastosowanie modułów. Małe, konkretne, piękne - jak mój pies (a i od niedawna też kot).
-</p>
-<p>
-Na grupach facebookowych w dyskusjach znajdziesz jeszcze szybciej takie techniki.
-</p>
-<p>
-Tutaj pojawia pewna sprawa, który dotyczy nie tylko JavaScript, ale i całego frontendu. Bardzo często przy takich nowoczesnych tutorialach czy poradach autorzy nie zwracają uwagi na bardzo ważną rzecz - a mianowicie na to, że dobór techniki <strong>zawsze zależy od danego projektu</strong>. To są w końcu rzeczy oczywiste.<br>
-No właśnie nie do końca. To są rzeczy oczywiste - dla nas - osób, które w tej branży siedzą już kilkanaście lat. Ale czy dla osoby zaczynającej?
-</p>
-<p>
-Jeżeli robisz bloga o nowinkach z dziedziny frontentu, raczej możesz założyć, że większość użytkowników będzie korzystała z najnowszych przeglądarek, a więc i możesz używać najnowszych rozwiązań (chociaż najlepiej było by spojrzeć w statystyki Google Analitics które można podpiąć pod stronę).<br>
-Jeżeli jednak robisz stronę dla emerytowanych nauczycieli, czy dla przykładu olbrzymi sklep z którego będą korzystali różnorodni użytkownicy z różnorodnych krajów, wtedy rzucanie się na najnowsze rozwiązania będzie strzałem w stopę.
-</p>
-<p>
-Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie CSS Grid, a czasami nawet flexbox może okazać się czymś, czego użyć nie możesz. Czasami spokojnie będziesz mógł używać najnowszej wersji JavaScript, a czasami będziesz musiał pozostać przy starszej. A jeżeli będziesz musiał pozostać przy starszej, wtedy albo będziesz pisał JavaScript trzymając się klasycznych rozwiązań, albo skorzystasz z narzędzi zamieniających twój kod na starszy zapis.
-</p>
-<p>Autorzy tutoriali często zapominają o tym, że dla początkującej osoby istnieje po prostu JavaScript. Osoby takie często nie zdają sobie sprawy, że nie wszystko w JavaScript można dowolnie używać, nie wiedzą gdzie szukać informacji które przeglądarki co wspierają, jakich narzędzi używać do zamiany kodu i po co w ogóle to robić.</p>
-<p>W kursie tym staram się trzymać klasycznego JavaScript. Jasne - im więcej wiedzy zdobędziesz, im bardziej będziesz rozbudowywał swój warsztat, tym będziesz stosował coraz nowsze i lepsze techniki pisania kodu. A wtedy - tak jak to już pisałem powyżej - będziesz się śmiał z tego kursu. Póki co polecam po prostu uczyć się JavaScript.</p>
+<p>Jako, że fetch jest dość nowy, w poniższych skryptach będziemy wykorzystywać nowe rozwiązania takie jak <a href="../es6/funkcja-strzalkowa.php">funkcja strzałkowa</a>, <a href="../es6/template-strings.php">template string</a> itp.</p>
 
-<a href="./co-to-jest-javascript.php" class="button">To co? Zaczynamy?...</a>
+<!-- ### -->
+<h2 class="subtitle" id="pobieranie-danych">Pobieranie danych</h2>
+<p>
+Do naszych testów skorzystamy z darmowego API mieszczącego się pod adresem <a href="https://jsonplaceholder.typicode.com/">https://jsonplaceholder.typicode.com/</a>.</p>
+<p>Po wejściu na tą stronę widzimy, że aby pobrać użytkowników, musimy połączyć się na adres <a href="https://jsonplaceholder.typicode.com/users">https://jsonplaceholder.typicode.com/users</a>.</p>
+
+<p>Wykonajmy podstawowe połączenie w celu pobrania danych:</p>
+
+<pre><code class="language-js">
+fetch("https://jsonplaceholder.typicode.com/users")
+    .then(resp => {
+        console.log(resp);
+    })
+</code></pre>
+
+<p>Po odpaleniu fetch zwraca <a href="../es6/promises.php">Promise</a>, więc tak samo jak w rozdziale o <a href="../es6/promises.php">Promise</a>, możemy je obsłużyć za pomocą dostępnych dla Promisów metod - then, all i catch.</p>
+
+<pre><code class="language-js">
+{
+    const btn = document.querySelector("#btn1");
+    btn.addEventListener("click", function() {
+        fetch("https://jsonplaceholder.typicode.com/users")
+            .then(resp => {
+                console.log("Przykład 1:");
+                console.log(resp);
+            })
+    })
+}
+</code></pre>
+
+<p>
+<button id="btn1" class="button" type="button">Kliknij i sprawdź w konsoli</button>
+</p>
+
+<script>
+{
+    const btn = document.querySelector("#btn1");
+    btn.addEventListener("click", function() {
+        fetch("https://jsonplaceholder.typicode.com/users")
+            .then(resp => {
+                console.log("Przykład 1:");
+                console.log(resp);
+            })
+    })
+}
+</script>
+
+<p>Po wywołaniu powyższego skryptu naszym oczom w konsoli pokaże się mniej więcej coś takiego:</p>
+
+<img src="./fetch-response.png" alt="response fetch" class="space border">
+
+<p>Czyli dostaliśmy odpowiedź. Jak widzisz, wśród właściwości mamy <strong>status</strong> 200, statusText, url itp.</p>
+
+<p>Po takiej odpowiedzi będziemy mieli dostęp do różnych jej właściwości:</p>
+
+<pre><code class="language-js">
+fetch("https://jsonplaceholder.typicode.com/users").then(resp => {
+    console.log(resp.headers.get("Content-Type"));
+    console.log(resp.headers.get("Date"));
+
+    console.log(resp.status);
+    console.log(resp.statusText);
+    console.log(resp.type);
+    console.log(resp.url);
+    console.log(resp.body);
+    ...
+});
+</code></pre>
+
+<p>Właściwa odpowiedź jest przetrzymywana pod właściwością <strong>body</strong>. W konsoli debugera powyższy kod wyświetli nam obiekt <a href="https://developer.mozilla.org/en-US/docs/Web/API/ReadableStream">ReadableStream</a>.<br>
+Aby zamienić go na odpowiedni format musimy zastosować <a href="https://developer.mozilla.org/en-US/docs/Web/API/Response#Methods">odpowiednią metodę</a>, która skonwertuje tą właściwość na dany format. W naszym przypadku oczekujemy json, więc zastosujmy metodę <strong>response.json()</strong>. Dla innych typów danych trzeba by użyć innych metod - np. dla tekstu <strong>response.text()</strong>, a dla grafik i różnego rodzaju plików <strong>response.blob()</strong>:</p>
+
+<pre data-line="2"><code class="language-js">
+fetch("https://jsonplaceholder.typicode.com/users")
+    .then(resp => resp.json())
+    .then(resp => {
+        console.log("Przykład 2:");
+        console.log(resp);
+    })
+</code></pre>
+
+<p>Naszym oczom w konsoli debugera ukaże się lista użytkowników. Zróbmy więc po niej prostą pętlę:</p>
+
+<pre><code class="language-js">
+fetch("https://jsonplaceholder.typicode.com/users")
+    .then(resp => resp.json())
+    .then(resp => {
+        console.log(resp);
+
+        resp.forEach(user => {
+            console.groupCollapsed(`Użytkownik ${user.id}`)
+            console.log(`Nazwa: ${user.name}`);
+            console.log(`Nazwa użytkownika: ${user.username}`);
+            console.log(`Email: ${user.email}`);
+            console.log(`Adres: ${user.address.city} ${user.address.street} ${user.address.zipcode}`);
+            console.log(`WWW: ${user.website}`);
+            console.groupEnd();
+        })
+    })
+</code></pre>
+
+<p>
+<button id="btn2" class="button" type="button">Kliknij i sprawdź w konsoli</button>
+</p>
+<script>
+(function() {
+    const btn = document.querySelector("#btn2");
+    btn.addEventListener("click", function() {
+        fetch("https://jsonplaceholder.typicode.com/users")
+            .then(resp => resp.json())
+            .then(resp => {
+                console.log(resp);
+                resp.forEach(user => {
+                    console.groupCollapsed(`Użytkownik ${user.id}`);
+                    console.log(`Nazwa: ${user.name}`);
+                    console.log(`Nazwa użytkownika: ${user.username}`);
+                    console.log(`Email: ${user.email}`);
+                    console.log(`Adres: ${user.address.city} ${user.address.street} ${user.address.zipcode}`);
+                    console.log(`WWW: ${user.website}`);
+                    console.groupEnd();
+                })
+            })
+    });
+})();
+</script>
+
+<p>Swoją drogą powyższy przykład można by zapisać za pomocą <a href="../es6/destructuring.php">destrukturyzacji</a>:</p>
+
+<pre><code class="language-js">
+...
+resp.forEach(user => {
+    const {
+        id,
+        name = "Brak danych",
+        userName : username = "Brak danych",
+        email = "Brak danych",
+        address : {
+            street,
+            zipCode : zipcode
+        },
+        www : website
+    } = user;
+
+    console.groupCollapsed(`Użytkownik ${id}`)
+    console.log(`Nazwa: ${name}`);
+    console.log(`Nazwa użytkownika: ${userName}`);
+    console.log(`Email: ${email}`);
+    console.log(`Adres: ${address.city} ${address.street} ${address.zipCode}`);
+    console.log(`WWW: ${www}`);
+    console.groupEnd();
+})
+...
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="wysylanie-danych">Wysyłanie danych</h2>
+<p>Żeby wysłać dane musimy je ustawić we właściwości <strong>body</strong>. Dane takie podobnie jak w przypadku <a href="./xmlhttprequest.php#wysylanych-danych">XMLHttpRequest</a> powinniśmy zakodowane w ciąg znaków.</p>
+
+<pre data-line="3"><code class="language-js">
+fetch("...", {
+        method: "post",
+        body: "name=Marcin&surname=Nowak"
+    })
+    .then(res => res.json())
+    .then(res => {
+        console.log("Dodałem użytkownika:");
+        console.log(res);
+    })
+</code></pre>
+
+<p>Jeżeli nie chcemy ręcznie kodować takiego zapisu, skorzystajmy z <a href="./xmlhttprequest.php#formData">formData</a>:</p>
+
+<pre data-line="1-3,7"><code class="language-js">
+const formData = new FormData();
+formData.append("name", nameVal);
+formData.append("surname", surnameVal);
+
+fetch("...", {
+        method: "post",
+        body: formData
+    })
+    .then(res => res.json())
+    .then(res => {
+        console.log("Dodałem użytkownika:");
+        console.log(res);
+    })
+</code></pre>
+
+<p>
+Sprawdźmy to w praktyce. Po wejściu na stronę <a href="https://jsonplaceholder.typicode.com/posts">https://jsonplaceholder.typicode.com/posts</a>, widzimy, że każdy post składa się z id, title, userId i body. ID jest automatycznie zwiększane, więc musimy wysłać tylko pozostałe właściwości:
+</p>
+
+<pre><code class="language-js">
+const formData = new FormData();
+formData.append("title", "Lorem ipsum");
+formData.append("body", "Lorem ipsum dolor sit amet consectetur...");
+formData.append("userId", 1);
+
+fetch("https://jsonplaceholder.typicode.com/posts", {
+        method: "post",
+        body: formData
+    })
+    .then(res => res.json())
+    .then(res => {
+        console.log("Dodałem użytkownika:");
+        console.log(res);
+    })
+</code></pre>
+
+<p>
+<button id="btn3" class="button" type="button">Kliknij i sprawdź w konsoli</button>
+</p>
+<script>
+(function() {
+    const btn = document.querySelector("#btn3");
+    btn.addEventListener("click", function() {
+        const formData = new FormData();
+        formData.append("title", "Lorem ipsum");
+        formData.append("body", "Lorem ipsum dolor sit amet consectetur...");
+        formData.append("userId", 1);
+
+        fetch("https://jsonplaceholder.typicode.com/posts", {
+                method: "post",
+                body: formData
+            })
+            .then(res => res.json())
+            .then(res => {
+                console.log("Dodałem użytkownika:");
+                console.log(res);
+            })
+    });
+})();
+</script>
+
+<p>Api do którego się łączymy nie zapisuje realnie użytkowników, ale tylko symuluje. W odpowiedzi dostaliśmy użytkownika o id:101, co oznacza, że zostało symulowane dodanie do bazy nowego użytkownika (normalnie było ich 100).</p>
+
+<p>Czasami zajdzie potrzeba wysłania danych innego typu - np. JSON. Musimy wtedy ustawić odpowiedni nagłówek <strong>Content-Type</strong>, a nasze dane musimy zakodować do postaci JSON.</p>
+
+<pre data-line="9-12"><code class="language-js">
+const ob = {
+    title: "Nazwa posta",
+    body: "Lorem ipsum dolor sit amet consectetur...",
+    userId: 1
+};
+
+fetch("https://jsonplaceholder.typicode.com/posts", {
+        method: "post",
+        headers: {
+            "Content-type": "application/json; charset=UTF-8"
+        },
+        body: JSON.stringify(ob)
+    })
+    .then(res => res.json())
+    .then(res => {
+        console.log("Dodałem użytkownika:");
+        console.log(res);
+    })
+</code></pre>
+
+<p>Nagłówki takie możemy ustawić tak jak powyżej - ręcznie. Możemy też skorzystać z obiektu typu Header, który udostępnia nam dodatkowe metody do manipulacji pojedynczymi nagłówkami:</p>
+
+<pre><code class="language-js">
+const ourHeaders = new Headers();
+
+//dodajemy dodatkowe nagłówki
+ourHeaders.append("Content-Type", "text/plain");
+ourHeaders.append("X-My-Custom-Header", "CustomValue");
+
+//czy powyższy obiekt ma dany nagłówek
+ourHeaders.has("Content-Type"); // true
+
+//pobieramy dany nagłówek
+ourHeaders.get("Content-Type"); // "text/plain"
+
+//ustawiamy nagłówek
+ourHeaders.set("Content-Type", "application/json");
+
+//usuwamy nagłówek
+ourHeaders.delete("X-My-Custom-Header");
+
+
+fetch("https://jsonplaceholder.typicode.com/posts", {
+    method: "post",
+    headers: ourHeaders,
+    body: JSON.stringify(ob)
+})
+</code></pre>
+
+<p>
+Po drugie musimy zamienić nasz obiekt na odpowiedni zapis. Wykorzystujemy tutaj <a href="./ajax.php#stringify">JSON.stringify()</a>.
+Podobną metodę stosowaliśmy do <a href="../dom/dom-wlasciwosci.php#stringfity">zapisu obiektów do customowych atrybutów</a>
+</p>
+
+
+<!-- ### -->
+<h2 class="subtitle" id="bledy-w-polaczeniu">Błędy w połączeniu</h2>
+<p>
+Spróbujmy na początek połączyć się na błędny adres:
+</p>
+
+<pre><code class="language-js">
+fetch("https://jsonplaceholder.typicode.com/kaszanka")
+    .then(resp => {
+        console.log("Odpowiedź:");
+        console.dir(resp)
+    })
+    .catch(error => console.log("Błąd: ", error));
+</code></pre>
+
+<p>
+<button id="btn4" class="button" type="button">Kliknij i sprawdź w konsoli</button>
+</p>
+<script>
+(function() {
+    const btn = document.querySelector("#btn4");
+    btn.addEventListener("click", function() {
+        fetch("https://jsonplaceholder.typicode.com/kaszanka")
+            .then(resp => {
+                console.log("Odpowiedź:");
+                console.dir(resp)
+            })
+            .catch(error => console.dir("Błąd: ", error));
+    });
+})();
+</script>
+
+<p>
+Teoretycznie wystąpił błąd, więc powinien się odpalić <strong>catch</strong>.
+Nic takiego jednak się nie stało, bo w konsoli debugera otrzymaliśmy odpowiedź prawie jak przy naszym pierwszym połączeniu. Różnice są w niektórych właściwościach:
+</p>
+
+<img src="./response-404.png" alt="response 404" class="border space">
+
+<p>Jak widzimy, <strong>status</strong> zmienił się na 404, <strong>statusText</strong> na "Not Found", a właściwość <strong>ok</strong> zmieniła się na false.</p>
+<p>Wynika to z tego, że Promise zwracany przez Fetch nie zwraca reject gdy status połączenia jest niewłaściwy (404, 500 itp).</p>
+
+<p>Aby obsłużyć błędne zapytania, musimy w then() obsłużyć więc powyższe właściwości:</p>
+
+<pre><code class="language-js">
+fetch("https://jsonplaceholder.typicode.com/kaszanka")
+    .then(resp => {
+        if (resp.ok) {
+            return resp.json()
+        } else {
+            throw new Error("Wystąpił błąd połączenia!")
+        }
+    })
+    .then(resp => {
+        console.log(resp)
+    })
+    .catch(error => console.dir("Błąd: ", error));
+</code></pre>
+
+<p>
+<button id="btn5" class="button" type="button">Kliknij i sprawdź w konsoli</button>
+</p>
+<script>
+(function() {
+    const btn = document.querySelector("#btn5");
+    btn.addEventListener("click", function() {
+        fetch("https://jsonplaceholder.typicode.com/kaszanka")
+            .then(resp => {
+                if (resp.ok) {
+                    return resp.json()
+                } else {
+                    throw new Error("Wystąpił błąd połączenia!")
+                }
+            })
+            .then(resp => {
+                console.log(resp)
+            });
+    });
+})();
+</script>
+
+<p>Żeby jeszcze dokładniej poinformować użytkownika o wynikłym błędzie, możemy skorzystać z <a href="../es6/promises.php">Promise</a>, który po zwróceniu reject przeskoczy do catch:</p>
+
+<pre><code class="language-js">
+fetch("https://jsonplaceholder.typicode.com/kaszanka")
+    .then(resp => {
+        if (resp.ok) {
+            return resp.json()
+        } else {
+            return Promise.reject(resp)
+        }
+    })
+    .then(resp => {
+        console.log(resp)
+    })
+    .catch(error => {
+        if (error.status === 404) {
+            console.log("Błąd: żądany adres nie istnieje");
+        }
+    });
+</code></pre>
+
+<p>
+<button id="btn6" class="button" type="button">Kliknij i sprawdź w konsoli</button>
+</p>
+
+<script>
+(function() {
+    const btn = document.querySelector("#btn6");
+    btn.addEventListener("click", function() {
+        fetch("https://jsonplaceholder.typicode.com/kaszanka")
+            .then(resp => {
+                if (resp.ok) {
+                    return resp.json()
+                } else {
+                    return Promise.reject(resp)
+                }
+            })
+            .then(resp => {
+                console.log(resp)
+            })
+            .catch(error => {
+                if (error.status === 404) {
+                    console.log("Błąd: żądany adres nie istnieje");
+                }
+            });
+    });
+})();
+</script>
+
+
+<div class="tasks-for-you-cnt">
+	<h2 class="subtitle" id="zadania">Trening czyni mistrza</h2>
+	<p>
+		Poniżej zamieszczam kilka zadań, które w ramach ćwiczenia możesz wykonać:
+	</p>
+	<ol class="tasks-for-you">
+		<li>
+			<p>
+			Przejdź na stronę <a href="https://web.archive.org/web/20180807134143/http://mailtest.in/documentation/">http://mailtest.in/documentation/</a><br><br>
+	
+			Twoim zadaniem jest:<br>
+			- stwórz formularz, który będzie miał jedno pole na email oraz button submit<br>
+			- podepnij się pod wysyłanie formularza i <a href="/web/20180807134143/http://kursjs.pl/kurs/events/events.php#preventDefault">przerwij domyślną akcję</a>.<br>
+			Za pomocą fetch wyślij dane na odpowiedni adres. Sprawdź na powyższej stronie jak ma on wyglądać.
+			W zależności od odpowiedzi wyświetl w konsoli stosowny komunikat.
+			</p>
+		</li>
+		<li>
+			<p>
+			Przejdź na stronę <a href="https://web.archive.org/web/20180807134143/https://developers.google.com/books/docs/v1/using#WorkingVolumes">https://developers.google.com/books/docs/v1/using#WorkingVolumes</a><br>
+			Za pomocą fetch pobierz liste książek o tematyce "wiedzmin".<br><br>
+			Zrób pętlę po wynikach i wrzuć ładnie sformatowane dane do html. Dane niech zawierają:<br>
+			- tytuł książki<br>
+			- autorzy<br>
+			- liczbę podstron<br>
+			- link do poglądu<br>
+			- czy dostępne w formie pdf
+			</p>
+			<p>Do formatowania danych użyj <a href="/web/20180807134143/http://kursjs.pl/kurs/es6/template-strings.php">template strings</a></p>
+		</li>
+	</ol>
+	</div>
 
 			</div><!-- e: page-content-text -->
 			<footer class="page-footer">
@@ -165,13 +586,13 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
                 </h3>
             </div>
 
-						<div class="page-sidebar-section show has-active-element">
+						<div class="page-sidebar-section ">
 				<h3 class="page-sidebar-section-title">
 					<a href="#">Słowem wstępu</a>
 				</h3>
 				<div class="page-sidebar-list-cnt">
 					<ul class="page-sidebar-list">
-						<li class="active">
+						<li >
 							<a href="/kurs/wstep/wstep.php">Wstęp</a>
 						</li>
 						<li >
@@ -357,7 +778,7 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
 				</div>
 			</div>
 
-						<div class="page-sidebar-section ">
+						<div class="page-sidebar-section show has-active-element">
 				<h3 class="page-sidebar-section-title">
 					<a href="#">Ajax</a>
 				</h3>
@@ -369,7 +790,7 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
 						<li >
 							<a href="/kurs/ajax/xmlhttprequest.php">XMLHttpRequest</a>
 						</li>
-            			<li >
+            			<li class="active">
 							<a href="/kurs/ajax/fetch.php">Fetch API</a>
 						</li>
 						<li >

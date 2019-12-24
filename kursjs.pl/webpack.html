@@ -1,0 +1,1075 @@
+<!doctype html>
+<html lang="pl-PL">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kurs Javascript - Webpack i Babel</title>
+	<meta name="description" content="Kurs Javascript dla superbohaterów, artykuły, tutoriale, porady, zadania do wykonania" />
+    <link rel="canonical" href="https://kursjs.pl/kurs/es6/webpack.php" />
+	<link rel="stylesheet" href="./css.css" />
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,700&display=swap&subset=latin-ext" rel="stylesheet">
+	<meta name="image" content="https://kursjs.pl/kursjs.png">
+<meta name="twitter:card" content="product">
+<meta name="twitter:site" content="@publisher_handle">
+<meta name="twitter:title" content="Kurs Javascript">
+<meta name="twitter:description" content="Kurs Javascript dla superbohaterów">
+<meta name="twitter:creator" content="@kartofelek007">
+<meta name="twitter:image" content="https://kursjs.pl/kursjs.png">
+<meta property="og:title" content="Kurs Javascript">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.kursjs.com/">
+<meta property="og:image" content="https://kursjs.pl/kursjs.png">
+<meta property="og:description" content="Kurs Javascript dla superbohaterów">
+<meta property="og:site_name" content="Kurs Javascript">
+<link rel="apple-touch-icon" sizes="57x57" href="/favicons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/favicons/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/favicons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/favicons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/favicons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/favicons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/favicons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/favicons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="/manifest.json">
+<meta name="msapplication-TileColor" content="#FF6347">
+<meta name="msapplication-TileImage" content="/mstile-144x144.png">
+    <script src="/js/jquery.min.js"></script>
+</head>
+<body>
+
+<div class="page-container" id="pageContainer">
+	<div class="page-content-wrapper">
+        <main class="page-content" id="mainContent"  data-text-for-print="Kurs Javascript dla superbohaterów">
+                        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <div class="rekl-cnt">
+                <ins
+                class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-6843603045703750"
+                data-ad-slot="4690777640"
+                data-ad-format="auto"
+                data-full-width-responsive="true"
+                ></ins>
+            </div>
+                        <div class="page-content-text">
+
+<h1 class="page-title">Webpack i Babel</h1>
+
+<!-- ### -->
+<h2 class="subtitle" id="wsparcie">Wsparcie</h2>
+<p>
+Gdy spojrzysz na tabelę ze strony <a href="http://kangax.github.io/compat-table/es6/">http://kangax.github.io/compat-table/es6/</a>
+zobaczysz, że wsparcie dla ES6 jest już bardzo dobre.
+</p>
+
+<p>
+Jeżeli jednak chcemy, by nasz kod działał na starszych przeglądarkach, które dla przykładu nie wspierają <a href="https://caniuse.com/#search=Template%20Literals">interpolacji stringów</a>, czy
+<a href="https://caniuse.com/#feat=es6-class">klas</a>, musimy go odpowiednio zamienić na starszy zapis.
+</p>
+
+<p>W dzisiejszych czasach do takiej <strong>transpilacji</strong> najczęściej używa się narzędzia zwącego się <a href="https://babeljs.io/">Babel</a>, która zamienia nowy kod na odpowiedni zapis.</p>
+
+<p>Jest wiele <a href="https://babeljs.io/docs/setup/">sposobów na użycie Babel</a>.</p>
+<p>Jednym z najbardziej popularnych sposobów jest używanie jej wraz z <a href="https://babeljs.io/docs/setup/">Webpackiem</a>.</p>
+
+<p>Co to jest Webpack? Jest to tak zwany <strong>bundler</strong>, czyli narzędzie, które służy do bundlowania. Koniec.
+</p>
+<p>
+Narzędzie takie czyta wskazany przez nas plik JavaScript, a następnie wykonuje na nim zadane czynności. Jeżeli dla przykładu znajdzie w kodzie importowanie innego pliku JavaScript, dołączy go do naszego kodu. Takich różnych akcji jest cała masa.<br>
+Co najważniejsze - Webpack może dołączać do JavaScript różne formaty (np. SCSS, grafiki JPG, PNG itp.) - odpowiednio konwertując dany format na zapis JavaScript. Takie wrzucanie wszystkiego w jeden plik JavaScript to właśnie bundlowanie.<br>
+Ale możliwości webpacka na tym się nie kończą. Webpack może łączyć skrypty, minimalizować je, może kompilować SCSS, optymalizować grafiki, optymalizować kod html, dołączać do js zakodowane grafiki itp.</p>
+<p>W wyniku takich akcji nasze źródłowe skrypty są zamieniane na jeden wynikowy, zminimalizowany i zoptymalizowany plik. Przypomina to tworzenie klasycznych programów, gdzie w wyniku naszych działań dostajemy jeden duży .exe, w którym sa różne rzeczy.</p>
+
+<p>Webpack słynie z tego, że jego konfiguracja do najprostszych nie należy. I jest to po części prawdą. Z jednej strony możemy stosować bardzo proste konfiguracje - które po prostu działają. I z nimi nie ma raczej problemu.<br>
+Czasami też można natrafić na <a href="https://nystudio107.com/blog/an-annotated-webpack-4-config-for-frontend-web-development">monstrualne konfiguracje</a> - których stworzenie zapewne zajmuje wiele tygodni.<br>
+Tak czy siak konfiguracja jest raczej spoko, problem jest raczej z pluginami, które dołączamy do naszej konfiguracji. Jak to było w przysłowiu - każdy sobie rzepkę skrobie - co jest często zmorą dzisiejszego frontendu. Każdy plugin konfiguruje się inaczej, trzeba doszukiwać się czemu coś działa albo nie działa, jak trzeba coś podłączyć, i dlaczego coś co powinno ruszyć bez problemu na naszym systemie rzuca błędami. A utrudniają to pisane - niestety - na kolanie dokumentacje. Ale żyć się da - trzeba po prostu raz się przebić przez ten bigos.</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="node">Instalacja Node</h2>
+<p>Zaczynamy od zainstalowania Node.js wraca z npm (Node Package Manager) na swoim komputerze. Wchodzimy na stronę <a href="https://nodejs.org/en/">https://nodejs.org/en/</a> i dokonujemy instalacji. Różni się ona w zależności od systemu. Na Windowsie nie powinno być raczej żadnego problemu. Ewentualnie po instalacji czasami trzeba wylogować się i jeszcze raz zalogować by zaktualizowało zmienne Path.</p>
+
+<p>W przypadku systemów Linux/Osx instalację można przeprowadzić na kilka sposobów, przy czym większość osób zaleca użyć narzędzia <a href="https://github.com/creationix/nvm#install-script">NVM (Node Version Manager)</a>.</p>
+
+<p>Przechodzimy więc na stronę z <a href="https://github.com/nvm-sh/nvm#install--update-script">opisem instalacji</a>, a następnie idąc zgodnie z instrukcją instalujemy nvm.</p>
+<p><strong>Tutaj bardzo ważne jest, by tą instrukcję dokładnie czytać</strong>, bo opisane jest tam kilka powszechnych problemów, które zazwyczaj trafiają się podczas instalacji tego narzędzia na systemach OsX i Linux.</p>
+
+<style>
+    .expand {display: none}
+</style>
+
+<script>
+    $(function() {
+        $('.expand-toggle').on('click', function(e) {
+            e.preventDefault();
+            $($(this).attr('href')).slideToggle();
+        })
+    })
+</script>
+
+<ul>
+<li>
+    <a href="#install-ubuntu" class="expand-toggle">Instalacja dla Ubuntu</a>
+    <div class="expand" id="install-ubuntu">
+        <p>Niestety nie mam możliwości przetestowania procesu instalacji na każdej dystrybucji Linuxa, dlatego poniższy opis będzie dotyczył się dystrybucji Ubuntu. Podejrzewam, że na innych będzie podobnie.</p>
+        <p>Domyślnie na Ubuntu dostępny jest wget. Wybierzmy więc instalację opartą o wget wklejając odpowiednie <a href="https://github.com/nvm-sh/nvm#install--update-script">polecenie do terminala</a>.</p>
+        <p>Po zakończonej instalacji spróbujmy w terminalu wpisać polecenie <code>nvm</code>. Jeżeli nie zadziała, spróbujmy zamknąć i otworzyć jeszcze raz terminal. Po ponownym otwarciu terminalu wpisujemy powinno już działać. Instalujemy więc Node poleceniem:</p>
+
+        <pre><code class="language-js">
+        nvm install node
+        </code></pre>
+
+        <p>Sprawdźmy czy wszystko poszło dobrze wpisując polecenia <code>node -v</code> i <code>npm -v</code>. Jeżeli w terminalu pokażą się wersje, znaczy, że proces instalacji mamy zakończony.</p>
+    </div>
+</li>
+<li>
+    <a href="#install-osx" class="expand-toggle">Instalacja Node dla Osx</a>
+    <div class="expand" id="install-osx">
+        <p>Dla Osx instalację Node możemy przeprowadzić na kilka sposobów. Jednym z nich jest użycie <a href="https://brew.sh/">Homebrew</a>. Instalacja opisana jest na <a href="https://changelog.com/posts/install-node-js-with-homebrew-on-os-x">tej stronie</a>.
+        </p>
+        <p>
+        Możemy też - tak jak w przypadku wersji dla Linux - użyć narzędzia <a href="https://github.com/nvm-sh/nvm#install--update-script">nvm</a>, które w przyszłości ułatwi nam w razie potrzeby zmianę wersji Node.
+        </p>
+
+        <p>Przed instalacją nvm powinieneś mieć <a href="https://medium.com/@LondonAppBrewery/how-to-download-and-setup-xcode-10-for-ios-development-b63bed1865c">zainstalowanego XCode</a>, w przeciwnym razie podczas instalacji (za pomocą curl lub wget) pojawi się okienko z prośbą o zainstalowanie tego narzędzia. Jeżeli tak się stanie zgódź się, a następnie odpal instalację nvm jeszcze raz.</p>
+
+        <p>Po zakończonej instalacji zamknij i jeszcze raz otwórz terminal. Spróbuj wpisać w nim polecenie <code>nvm</code>. Jeżeli pojawi się komunikat "command not found", spróbuj wykonać poniższe kroki:</p>
+
+        <ol>
+            <li>Możesz nie mieć utworzonego pliku .bash_profile na twoim komputerze. Stwórz go poleceniem <code>touch ~/.bash_profile</code> a następnie odpal instalację nvm jeszcze raz.</li>
+            <li>Zrestartuj terminal</li>
+        </ol>
+
+        <p>Po tych czynnościach będziemy mogli zainstalować <a href="https://github.com/creationix/nvm#usage">node za pomocą polecenia</a>:</p>
+
+        <pre><code class="language-js">
+        nvm install node
+        </code></pre>
+
+        <p>W skrajnych przypadkach trzeba dopisać jeszcze polecenie:</p>
+
+        <pre><code class="language-js">
+        nvm use node
+        </code></pre>
+    </div>
+</li>
+</ul>
+
+<!-- ### -->
+<h2 class="subtitle" id="npm-init">Stworzenie package.json</h2>
+<p>Po instalacji Node.js przechodzimy do instalacji webpacka.</p>
+<p>Tak samo jak resztę pakietów Node, Webpacka możemy zainstalować globalnie lub lokalnie per projekt. Obie metody są dobre i zależą od podejścia. Ja preferuję metodę "per projekt", ponieważ powoduje ona zapisanie w pliku
+    <strong>package.json</strong> instalowanych paczek (patrz poniżej) a i pozwala używanie różnych wersji danej paczki dla różnych projektów.</p>
+
+<p>Żeby stworzyć plik package.json, przechodzimy w terminalu do danego katalogu, a następnie inicjujemy nowy projekt poleceniem:</p>
+
+<pre><code>
+npm init
+</code></pre>
+
+<p>Będziemy musieli odpowiedzieć na kilka pytań. Musimy czytać, co pojawia się w konsoli, bo dla przykładu pierwsze pytanie dotyczy nazwy naszego projektu i domyślna nazwa brana jest na bazie nazwy katalogu. Jeżeli nasz katalog zawiera duże litery lub spacje, wtedy taka wygenerowana przez kreator nazwa może nie być prawidłowa i trzeba będzie wpisać własną. Na szczęście wszystkie komunikaty pojawiają się w terminalu.<br>
+Nie musimy dokładnie odpowiadać na pytania. Kilka szybkich enterów powinno załatwić sprawę.</p>
+
+<p>Możemy też zamiast <strong>npm init</strong> wpisać <strong>npm init -y</strong>, co spowoduje automatyczne odpowiedzi na wszystkie pytania.</p>
+
+<p>Po inicjacji pojawi się nam w katalogu plik <strong>packages.json</strong>, który zawiera nie tylko informacje na temat projektu (te które właśnie wpisywaliśmy), ale rzeczy, które zainstalujemy dla naszego projektu (np. webpack, webpack-cli, gulp itp). Plik ten spokojnie możesz edytować za pomocą dowolnego edytora (ale uważnie, bo tutaj każdy przecinek ma znaczenie).</p>
+
+<p>Dzięki powyższemu plikowi, osoba która ściągnie nasz projekt z repozytorium nie będzie musiała się przebijać przez cały proces szukania i instalacji odpowiednich modułów, a wykona tylko jedno polecenie:</p>
+
+<pre><code>
+npm install
+//lub
+npm i
+</code></pre>
+
+<p>które automatycznie zainstaluje jej wszystkie niezbędne moduły.</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="instalacja-webpacka">Instalacja webpacka</h2>
+<p>Przechodzimy do instalacji <a href="https://webpack.github.io/">webpacka</a>.</p>
+
+<p>Będąc dalej w terminalu w naszym katalogu wpisujemy:</p>
+
+<pre><code>
+npm install webpack webpack-cli --save-dev
+</code></pre>
+
+<p>alternatywą do powyższego polecenia jest</p>
+
+<pre><code>
+npm i webpack webpack-cli -D
+</code></pre>
+
+    <p>co zainstaluje nam webpacka oraz jego klienta w danym projekcie. Powinien pojawić się katalog  <strong>node_modules</strong>, w którym pojawi się bardzo dużo katalogów i plików (bardzo dużo). Wśród nich będzie katalog webpack.</p>
+<p>Dodatkowo w pliku <strong>package.json</strong> powinien pojawić się dodatkowy wpis o zainstalowanych paczkach:</p>
+
+<pre data-line="13-15"><code class="language-xml">
+{
+  "name": "projekt",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {
+    "webpack": "^4.35.0",
+    "webpack-cli": "^3.3.5",
+  }
+}
+</code></pre>
+
+<p>Właśnie w tej sekcji będą się pojawiać wpisy o instalowanych przez nas rzeczach. Dzięki temu inne osoby ściągając nasz projekt nie będą musiały za każdym razem instalować wszystkich rzeczy z osobna, a zainstalują wszystko naraz za pomocą polecenia <strong>npm i</strong>.</p>
+
+<div class="kartofel-informuje">
+    <p>
+        Pamiętaj, że instalowane paczki to tak naprawdę pobrane repozytoria danej paczki. Zamiast więc ściągać ręcznie plik jakiegoś pluginu (np. jQuery), możesz go spokojnie zainstalować za pomocą npm. Instalując paczkę ściągamy jej pliki do odpowiedniego katalogu w node_modules.
+    </p>
+    <p>
+        Instalując paczki, w pliku <strong>package.json</strong> mogą pojawić się różne sekcje z ich listą. Niektóre paczki będziemy używać tylko w czasie tworzenia strony (np. Autoprefixer), inne będzie wykorzystywać strona podczas swojego działania na serwerze (np. Express). Jedne pojawią się w sekcji devDependencies, inne w sekcji dependencies.<br>
+    </p>
+    <p>
+        Podczas instalowania odpowiednich paczek w zależności od tego kiedy daną paczkę będziemy używać (czy tylko w czasie tworzenia strony, czy też sama strona będzie z takiej paczki korzystać), powinniśmy użyć odpowiedniej flagi.
+    </p>
+    <p>
+        Paczki dla developingu instalujemy korzystając z flagi <code>-D</code> lub <code>--save-dev</code>. Paczki takie zostaną zapisane w sekcji devDependencies w pliku package.json.
+    </p>
+    <p>Paczki, które będą wykorzystywane później przez stronę instalujemy bez powyższych flag, co doda je do sekcji dependencies.</p>
+    <p>Jakie to ma dla nas znaczenie? W sumie porządkowe. To dalej paczki w odpowiednich katalogach. Jedyna różnica jest taka, że potem instalując nasz projekt na serwer, możemy na nim zainstalować tylko paczki "produkcyjne" korzystając z polecenia <code>npm i --production</code>. W przeciwnym razie zainstalowane zostaną wszystkie paczki wraz z tymi z devDependencies. Ciut więcej, ale i tak będzie działać...</p>
+</div>
+
+<!-- ### -->
+<h2 class="subtitle" id="odpalamy-webpacka">Odpalamy webpacka</h2>
+<p>Webpack działa tak, że wskazujemy mu plik wejścia (plik w którym my piszemy skrypty), a następnie wskazujemy mu plik, do którego zostanie zapisany transpilowany kod.
+</p>
+
+<p>Przypuśćmy, że nasza struktura katalogów wygląda tak:</p>
+
+<img src="./webpack-struktura.png" class="border space" alt="Webpack struktura projektu">
+
+<p>Mamy więc katalog src, w którym mamy wszystkie pliki na których pracujemy. Mamy też katalog dist, w którym będzie strona wynikowa, a w nim katalog js, w którym pojawi się transpilowany plik bundle.js, który dołączymy w naszym index.html.</p>
+
+<p>
+Podstawowe odpalenie webpacka polega na odwołaniu się do webpacka, a następnie podanie 2 parametrów: pliku wejściowego i pliku wyjściowego. Webpack został zainstalowany w node_modules, a jego skrypt mieści się dokładnie w node_modules/webpack/bin. Aby więc odpalić ręcznie webpacka musimy użyć polecenia:</p>
+
+<pre><code>
+node node_modules/webpack/bin/webpack.js src/js/app.js js/bundle.js
+</code></pre>
+
+<p>Po odpaleniu powyższej komendy w terminalu projektu powinna nam się pojawić informacja o zakończonej kompilacji.</p>
+
+<p>Jak widzisz, powyższe polecenie do najprostszych nie należy. Spróbujmy to usprawnić.</p>
+<p>Najbardziej popularnym sposobem jest wykorzystanie skryptów npm. Jeżeli otworzysz plik <strong>package.json</strong>, znajdziesz w nim sekcję script:</p>
+
+<pre><code>
+...
+"scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+},
+...
+</code></pre>
+
+<p>Jest to przykładowy skrypt o nazwie <strong>test</strong>. Zamieńmy jego treść na:</p>
+
+<pre><code>
+...
+"scripts": {
+    "test": "echo 'To nasz testowy skrypt'"
+},
+...
+</code></pre>
+
+<p>i odpalmy poleceniem:</p>
+
+<pre><code>
+npm run test
+</code></pre>
+
+<p>Skrypt ten tylko wypisał w konsoli powyższy tekst. Skrypty więc służą do odpalania jakiś komend w terminalu. Wykorzystajmy je do odpalania webpacka. Skrypt test nie będzie nam już potrzebny, dlatego zamieńmy go poniższym:</p>
+
+<pre><code>
+...
+"scripts": {
+    "start": "webpack --mode development --watch",
+    "build": "webpack --mode production",
+},
+...
+</code></pre>
+
+<p>Powyższe 2 skrypty odpalają webpacka. Odpalając moduły za pomocą skryptów z pliku package.json nie musisz podawać im dokładnej ścieżki do katalogu, ponieważ skrypty npm odniosą się automatycznie do odpowiedniego katalogu w nowe_modules.</p>
+
+<p>Pierwszy ze skryptów odpali webpacka w taki sposób, że kod będzie skompilowany w "czytelny" sposób. Wersja produkcyjna skompiluje kod zminimalizowany.</p>
+
+<p>Uruchamiamy więc nasz skrypt poleceniem:</p>
+
+<pre><code>
+npm start
+//lub
+npm run build
+</code></pre>
+
+<div class="kartofel-informuje">
+    Istnieją predefiniowane aliasy dla niektórych tasków. I tak
+    by odpalić zadanie start możemy wpisać <code>npm run start</code> lub <code>npm start</code>. Podobne aliasy istnieją dla <a href="https://docs.npmjs.com/cli/run-script">start, restart, stop, config, test i script</a>.<br>
+    Cechę tą wykorzystuje dla przykładu bardzo popularne narzędzie <a href="https://github.com/facebook/create-react-app">create-react-app</a>, które po zainstalowaniu odpala się poleceniem <code>npm start</code> (npm run start).
+</div>
+
+<p>Po odpaleniu powyższych skryptów, w konsoli pojawią się błędy.</p>
+
+<p>Webpack daje nam znać, że brakuje pliku konfiguracji. Gdy pierwszy raz odpaliliśmy webpacka, podawaliśmy mu 2 atrybuty - plik wejściowy i wyjściowy. Odpalając webpacka w powyższy sposób, musimy mu dostarczyć plik konfiguracyjny.</p>
+
+
+<!-- ### -->
+<h2 class="subtitle" id="konfiguracja-webpacka">Konfiguracja webpacka</h2>
+<p>Podobnie do <a href="http://domanart.pl/gulp">Gulpa</a>, webpack też wymaga pliku konfiguracyjnego, który powie mu dokładnie co ma robić. W Gulpie plik taki nazywa się gulpfile.js, natomiast dla webpacka plik konfiguracyjny domyślnie nosi nazwę <strong>webpack.config.js</strong> (<a href="https://webpack.js.org/configuration/#use-different-config-file">1</a>)</p>
+
+<p>Tworzymy więc za pomocą dowolnego edytora w głównym katalogu naszego projektu plik <strong>webpack.config.js</strong></p>
+
+<p>W jego wnętrzu wpisujemy poniższy kod:</p>
+
+<pre><code class="language-js">
+const path = require("path");
+
+module.exports = {
+    entry: './src/js/app.js',
+    output: {
+        filename: "bundle.min.js",
+        path: path.resolve(__dirname, "./dist/js")
+    },
+    watch: false,
+    mode: "development",
+    devtool: "source-map",
+    module: {
+        rules: [
+            {
+                test: /\.m?js$/,
+                exclude: /(node_modules|bower_components)/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['@babel/preset-env']
+                    }
+                }
+            }
+        ]
+    }
+}
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="entry-output">Entry i output</h2>
+<p>
+Konfiguracja webpacka zaczyna się od wskazania pliku wejściowego, od którego webpack zacznie czytać nasz kod. Służy do tego klucz <strong>entry</strong>.</p>
+<p>
+Kolejną rzeczą jest wskazanie pliku wyjściowego czyli <strong>output</strong>. Można tutaj podawać w filename konkretną ścieżkę do pliku, a można i tak jak powyżej - podać katalog i nazwę pliku.
+</p>
+
+<p>Ścieżka do katalogu musi być absolutna, dlatego wyliczamy ją <a href="https://webpack.js.org/configuration/output/#outputpath">za pomocą path</a>:</p>
+
+<pre><code class="language-js">
+const path = require('path');
+
+...
+
+module.exports = {
+    entry: "./js/app.js",
+    output: {
+        filename: "bundle.min.js",
+        path: path.resolve(__dirname, "./dist/js")
+    },
+    ...
+}
+</code></pre>
+
+<p>Podawanie ścieżki do katalogu wynika z tego, że plików wejściowych może być kilka. Wtedy wyjść także będzie kilka:</p>
+
+<pre><code class="language-js">
+entry: {
+    home : "./js/home.js",
+    app  : "./js/app.js",
+},
+output: {
+    filename: "out-[name].js", //zostaną nam wygenerowane pliki out-home.js i out-app.js
+    path: path.resolve(__dirname, "./dist/js")
+},
+</code></pre>
+
+<p>Dodatkowo możemy tutaj użyć dodatkowych składowych do <a href="https://webpack.js.org/configuration/output/#outputfilename">generowania nazw wyjściowych plików</a>.</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="watch-source">Watch i source-map</h2>
+<p>Kolejna właściwość - <strong>watch</strong> - włącza nam obserwowanie zmian w plikach. Po odpaleniu webpacka będzie on działał w tle i czekał na zmiany w plikach źródłowych. Gdy takie zauważy, odpali kompilację. Dzięki temu wystarczy, że raz go odpalimy i skupimy się na dalszej pracy. Aby zakończyć tak odpalonego webpacka, wystarczy w terminalu nacisnąć Ctrl + C kilka razy.
+</p>
+<p>
+Kolejną właściwością jest <strong>source-map</strong>. Wyobraź sobie, że w naszym kodzie źródłowym zrobiliśmy błąd. Po dołączeniu do index.html wynikowego pliku nie bylibyśmy w stanie stwierdzić, w którym pliku znajduje się błędny kod, bo przecież w przeglądarce mamy dołączony kod skompilowany. Dzięki source-maps webpack dołącza plik z mapą, która mapuje skompilowany kod na pliki źródłowe. Dzięki temu badając JavaScript w przeglądarce debuger będzie nam wskazywał ścieżki do plików źródłowych.
+</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="module">Module</h2>
+<p>
+Kolejna duża sekcja to <strong>module</strong>.
+</p>
+
+<pre><code class="language-js">
+...
+module: {
+    rules: [
+        {
+            test: /\.m?js$/,
+            exclude: /(node_modules|bower_components)/,
+            use: {
+                loader: 'babel-loader',
+                options: {
+                    presets: ['@babel/preset-env']
+                }
+            }
+        },
+        {
+            ...
+        },
+        {
+            ...
+        }
+    ]
+}
+...
+</code></pre>
+
+<p>
+Webpack czyta nasz kod. Jeżeli trafi na instrukcję require/import, dołączy do danego pliku importowany kod. W przypadku webpacka możemy do Javascriptu dołączać dowolny tym pliku (a nawet powinniśmy, bo właśnie na tym polega całe bundlowanie).
+Aby tak dołączane pliki stały się poprawnym kodem Javascript, muszą być na niego odpowiednio przekształcone.
+</p>
+
+<p>Służą do tego tak zwane loadery.</p>
+
+<p>Jak widzisz w powyższym listingu, sekcja module składa się z tablicy rules, w której określamy zasady jakie mają być użyte dla używanych przez nas formatów plików. Każda taka zasada składa się z
+    <strong>test</strong> - gdzie podajemy testowane pliki. Jeżeli webpack wykryje plik o takim rozszerzeniu w require/import, użyje odpowiedniego loadera, który podejemy we właściwości <strong>use</strong>.</p>
+
+<p>W naszym przypadku interesują nas głównie pliki JavaScript, które domyślnie webpack po prostu by złączył z sobą. My chcemy jednak by webpack dodatkowo taki kod transpilował na starszy zapis (dla lepszego wsparcia przeglądarek) za pomocą <a href="https://babeljs.io/">Babel</a>. Żeby tego dokonać, mówimy webpackowi, że gdy wykryje dołączane pliki z rozszerzeniem JS (właściwość test), ma użyć loadera <a href="https://github.com/babel/babel-loader">babel-loader</a> (właściowść use).
+
+<p>Żeby używać loadera babel, musimy go zainstalować. Wpisujemy więc w google <strong>webpack loader babel</strong>, przechodzimy na stronę <a href="https://github.com/babel/babel-loader">https://github.com/babel/babel-loader</a> a następnie zgodnie z instrukcją instalujemy: </p>
+
+<pre><code>
+npm install -D babel-loader @babel/core @babel/preset-env
+</code></pre>
+
+<p>
+Wraz z babel-loader i babel-core zainstalowaliśmy <strong>preset-env</strong>. Presety - jak w każdym programie czy grze - to przygotowane dla nas gotowe ustawienia. Babel to mechanizm, który służy do transformacji naszego kodu Javascript np - na inną wersję. Żeby taka transformacja mogła przebiec, musimy powiedzieć Babelowi co i jak zamieniać i jakich
+    <a href="https://babeljs.io/docs/en/plugins">pluginów ma do tego używać</a>. Zamiast tego możemy też skorzystać właśnie z gotowych <a href="https://babeljs.io/docs/en/presets">presetów</a>.
+</p>
+<p>
+I tak jeżeli używamy Reacta, zapewne zainteresuje nas preset <a href="https://babeljs.io/docs/en/babel-preset-react">preset-react</a>, jeżeli typescript, preset <a href="https://babeljs.io/docs/en/babel-preset-typescript">babel-preset-typescript</a>.
+</p>
+<p>
+    Jednym z bardziej polecanych presetów jest preset-evn (ten który powyżej zainstalowaliśmy). Jego główną zaletą jest to, że podobnie jak w przypadku <a href="http://domanart.pl/gulp/#Autoprefixer">autoprefixera</a>, możemy tutaj podać przeglądarki na których powinien działać docelowy kod.
+</p>
+
+<p>Preset preset-env podobnie jak autoprefixer do określenia przeglądarek wykorzystuje mechanizm <a href="https://github.com/browserslist/browserslist#readme">browerlist</a>. Aby wskazać o jakie przeglądarki nam chodzi, możemy - zdognie z opisem z <a href="https://github.com/browserslist/browserslist#readme">ich strony</a> - postąpić na kilka sposobów.</p>
+
+<p>Możemy dla przykładu dodać odpowiedni zapis w naszym pliku package.json:</p>
+
+<pre data-line="10-13"><code class="language-js">
+{
+  "name": "projekt",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack --mode development --watch",
+    "build": "webpack --mode production"
+  },
+  "browserslist": [
+    "last 1 version",
+    "> 1%"
+  ],
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {},
+    "devDependencies": {
+    "@babel/core": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
+    "babel-loader": "^8.0.6",
+    "webpack": "^4.35.0",
+    "webpack-cli": "^3.3.5"
+  }
+}
+</code></pre>
+
+<p>(pamiętajmy tylko, że JSON jest formatem dość restrykcyjnym, dlatego nie możemy tam dodać żadnego nadmiarowego lub pominąć żadnego przecinka)</p>
+
+<p>Pełną listę podobnych zapisów odnośnie przeglądarek możesz znaleźć <a href="https://github.com/ai/browserslist#queries">tutaj</a>. Powyższy zapis w package.json będzie wykorzystywany przez Autoprefixera, więc jednym zapisem zadowolimy dwa mechanizmy. Brawo.</p>
+
+<p>Odpal teraz webpacka poleceniem:</p>
+
+<pre><code>
+npm run dev
+//lub
+npm run build
+</code></pre>
+
+<p>Jeżeli chcesz przerwać działanie webpacka, w terminalu naciśnij Ctrl + C.</p>
+
+<p><a href="./projekt-webpack.zip">Tutaj możesz ściągnąć</a> powyżej opisany mini projekt. Po ściągnięciu wypakuj go do katalogu z projektem, a następnie zainstaluj wszystkie paczki za pomocą polecenia <strong>npm i</strong> (lub sudo npm i).</p>
+<p>Po instalacji możesz już działać odpalając webpacka powyżej opisanymi poleceniami.</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="webpack-dev-server">Webpack dev server</h2>
+<p>Podczas pracy dobrze jest mieć automatyczne odświeżanie, dzięki czemu nasza praca będzie przyjemniejsza.</p>
+
+<p>Jednym z możliwych rozwiązań jest zastosowanie do tego <strong>webpack dev server</strong>, który automatycznie będzie odświeżał na stronie nasze skrypty gdy wykryje zmianę która do nich wprowadzamy.</p>
+
+<p>Ważną sprawą jest, że po odpaleniu takiego servera bundlowanie skryptów odbywa się wirtualnie <strong>w pamięci komputera</strong>. Na naszej stronie w przeglądarce wszystko będzie widoczne jak należy, ale wynikowy kod nie będzie zapisywany na dysku do realnych plików js, a będzie brany bezpośrednio z pamięci komputera.</p>
+
+<p>Co to oznacza? Jeżeli podczas pracy developerskiej będziemy korzystać z takiego serwera, to na jej zakończenie i tak będziemy musieli odpalić jeden ze skryptów, który realnie przebuduje pliki na dysk.</p>
+
+<p>
+Aby zainstalować taki server, przechodzimy na stronę <a href="https://github.com/webpack/webpack-dev-server">https://github.com/webpack/webpack-dev-server</a> i instalujemy serwer zgodnie z instrukcją:
+</p>
+
+<pre><code class="language-js">
+npm i webpack-dev-server -D
+</code></pre>
+
+<p>Aby teraz go użyć, wystarczy zamiast samego webpacka, odpalić nasz serwer. Dodajmy do skryptów w package.json odpowiedni skrypt:</p>
+
+<pre><code class="language-js">
+...
+"scripts": {
+    "start": "webpack --mode development --watch",
+    "build": "webpack --mode production",
+    "server": "webpack-dev-server --inline --hot"
+},
+...
+</code></pre>
+
+<div class="kartofel-informuje">
+Parametr --hot oznacza hot-replacement. Webpack przy bardzo dużych bundlach będzie starał się aktualizować tylko kawałki kodu, które realnie się zmieniły - dodatkowo będzie to robił bez przeładowania strony.
+</div>
+
+<p>Od tej pory będziemy mogli mogli używać 3 poleceń:</p>
+<ul>
+    <li><strong>npm start</strong> - odpali webpacka w trybie nasłuchiwania. Kod będzie kompilowany i zapisywany na dysku do plików w formie niespakowanej</li>
+    <li><strong>npm run build</strong> - skompiluje kod js do plików na dysku w formie spakowanej</li>
+    <li><strong>npm run server</strong> - odpali webpack-dev-server. Kod będzie kompilowany w pamięci, a w przeglądarce będzie się automatycznie odświeżał</li>
+</ul>
+
+<!-- ### -->
+<h2 class="subtitle" id="inne-rozwiazania">Inne rozwiązania</h2>
+<p>To co pokazałem ci powyżej, jest jedną z miliona możliwości używania webpacka.</p>
+<p>Niektórzy instalują go globalnie, tworzą plik konfiguracyjny (tak jak powyżej), a potem odpalają go bez skryptu bezpośrednio z konsoli poleceniem:</p>
+
+<pre><code>
+webpack
+</code></pre>
+
+<p>co dam nam w konsoli:</p>
+
+<img src="./webpack-console.png" alt="webpack console" class="border">
+
+<p>Inni instalują webpacka globalnie i w ogóle nie tworzą pliku konfiguracji od razu odpalając go z komendy (podając też wszystkie konieczne parametry)</p>
+
+<p>Ja osobiście lubię przy pracy używać Gulpa. W <a href="http://domanart.pl/gulp">tym artykule</a> opisałem jak można go przykładowo skonfigurować, między innymi integrując go z webpackiem. Jeżeli cię to zainteresuje, zerknij też na <a href="http://domanart.pl/gulp-hot-module-replacement/">ten mini artykuł</a>, gdzie pokazuję, jak włączyć hot module replacement dla BrowserSync.
+
+
+<p>
+Metody dla mnie bardzo wygodne, ale czy dla ciebie się sprawdzą?
+Wszystko zależy od <a href="http://domanart.pl/warsztat-webmastera">twojego warsztatu webmastera</a> i tego do czego używasz podobnych narzędzi.
+</p>
+
+<p>Niektórzy są frontendowcami bardziej graficznymi i ich zabawa z narzędziami nie bawi. Osoby takie najczęściej wybierają narzędzia takie jak <a href="https://prepros.io/">Prepros</a> czy <a href="https://codekitapp.com/">CodeKit</a>. Ja osobiście czasami w niektórych projektach odpalam sobie taki program i zamiast dłubać w konfiguracji narzędzi i od razu rzucam się na żywioł kodu. Wszystko zależy od sytuacji i nas samych.<br>
+Nie jest tak i nigdy nie będzie, że do celu prowadzi tylko jedna słuszna ścieżka, a cała reszta rozwiązań jest zła.</p>
+
+<div class="kartofel-informuje">
+Jest wiele bardzo dobrych artykułów na temat webpacka.<br>
+Osobiście polecam obejrzeć serię filmów ze strony Laracast: <a href="https://laracasts.com/series/webpack-for-everyone">https://laracasts.com/series/webpack-for-everyone</a> czy jeden z
+<a href="https://www.youtube.com/watch?v=3On5Z0gjf4U">lepszych tutorialów o webpacku</a>
+</div>
+
+
+			</div><!-- e: page-content-text -->
+			<footer class="page-footer">
+				<p>
+				Wszelkie prawa zastrzeżone. Jeżeli chcesz używać jakiejś części tego kursu, skontaktuj się z <a href="/kurs/autor.php">autorem</a>.
+				Aha - i ta strona korzysta z <a href="/kurs/polityka-prywatnosci.php">ciasteczek</a>.
+				</p>
+			</footer>
+							<div class="rekl-cnt">
+					<ins
+					class="adsbygoogle" style="margin-top:40px; display:block"
+					data-ad-client="ca-pub-6843603045703750"
+					data-ad-slot="4690777640"
+					data-ad-format="auto"
+					data-full-width-responsive="true"
+					></ins>
+				</div>
+				<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+	(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+					</main><!-- e: page-content -->
+			</div><!-- e: page-content-wrapper -->
+    <aside id="page-sidebar-cnt" class="page-sidebar-cnt">
+	<div id="page-sidebar" class="page-sidebar">
+		<button aria-label="Pokaż/ukryj Menu" aria-expanded="false" aria-controls="page-sidebar" type="button" id="pageSidebarBurger" class="page-sidebar-burger">
+			<span></span>
+		</button>
+
+		<h2 class="visuallyhidden">
+			Menu
+		</h2>
+
+		<button class="sidebar-toggle-btn" title="Pokaż/schowaj menu" aria-hidden="true">
+			<strong>Pokaż/ukryj menu</strong>
+			<span></span>
+			<span></span>
+			<span></span>
+		</button>
+
+		<div class="page-sidebar-title">
+			<a href="/kurs/kontakt.php" title="Nawrzucaj autorowi" class="mail-to-author" id="mailToAuthor">Napisz do mnie</a>
+			<a href="#popupOptions" class="page-setup-link popupOpen" title="Ustawienia strony" id="showOptions">Ustawienia</a>
+			<a href="/index.php" aria-label="Strona główna" class="page-sidebar-title-link">Kurs Javascript</a>
+		</div>
+
+        <form aria-label="Wyszukiwarka" class="search-sidebar" action="/search.php" method="post">
+            <label for="search" class="search-sidebar-label">Szukaj</label>
+            <div class="search-sidebar-input-cnt">
+                <svg class="search-sidebar-input-icon" xmlns="http://www.w3.org/2000/svg" width="26" height="28" viewBox="0 0 26 28" aria-hidden="true">
+                    <path d="M18 13c0-3.859-3.141-7-7-7s-7 3.141-7 7 3.141 7 7 7 7-3.141 7-7zm8 13c0 1.094-.906 2-2 2a1.96 1.96 0 0 1-1.406-.594l-5.359-5.344a10.971 10.971 0 0 1-6.234 1.937c-6.078 0-11-4.922-11-11s4.922-11 11-11 11 4.922 11 11c0 2.219-.672 4.406-1.937 6.234l5.359 5.359c.359.359.578.875.578 1.406z"></path>
+                </svg>
+                <input type="text" id="search" autocomplete="off" name="q" class="search-sidebar-input">
+            </div>
+            <button type="submit" class="search-sidebar-button">Szukaj</button>
+        </form>
+
+		<div class="page-sidebar-table-of-content">
+			<h2 class="visuallyhidden">Spis treści</h2>
+            <div class="page-sidebar-section">
+				<h3 class="page-sidebar-section-title noopen">
+                    <a href="/index.php">Strona główna</a>
+                </h3>
+            </div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Słowem wstępu</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/wstep/wstep.php">Wstęp</a>
+						</li>
+						<li >
+							<a href="/kurs/wstep/co-to-jest-javascript.php">Co to jest JavaScript i z czym go się je?</a>
+						</li>
+						<li >
+							<a href="/kurs/wstep/wymagania.php">Wymagania</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Super podstawy</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/debuger/debuger.php">Debuger</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/pierwszy-skrypt.php">Wstawiamy skrypty na naszą stronę</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/strict-mode.php">Strict mode</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/typy-danych.php">Typy danych i konwersja danych</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/zmienne.php">Zmienne</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/operatory.php">Operatory</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/math.php">Obiekt Math</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/string.php">String - teksty</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/instrukcje-warunkowe.php">Instrukcje warunkowe</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/petle.php">Pętle</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/funkcje.php">Funkcje</a>
+						</li>
+                        <li >
+							<a href="/kurs/super-podstawy/funkcje-tematy-dodatkowe.php">Funkcje - tematy dodatkowe</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/tablice.php">Tablice</a>
+						</li>
+                        <li >
+							<a href="/kurs/super-podstawy/tablice-iteracje.php">Tablice pętle</a>
+						</li>
+						<li >
+							<a href="/kurs/debuger/debugowanie.php">Debugowanie kodu</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+            			<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Obiekty</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+                        <li >
+							<a href="/kurs/obiekty/obiekty.php">Obiekty i this</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-jak-to-dziala.php">Jak to działa</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-konstruktor.php">Konstruktor</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-zaawansowane-this.php">Zaawansowane this</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-dziedziczenie.php">Dziedziczenie w Javascript</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-inne-sposoby-tworzenia.php">Inne sposoby tworzenia obiektów</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-instanceof-hasownproperty.php">instanceof i hasOwnProperty</a>
+						</li>
+                    </ul>
+                </div>
+            </div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">DOM i zdarzenia</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/dom/dom.php">Document Object Model</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-wlasciwosci.php">Właściwości elementów</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-relacje.php">Relacje między elementami</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-tworzenie-i-usuwanie.php">Tworzenie i usuwanie elementów</a>
+						</li>
+                        <li >
+                            <a href="/kurs/dom/style.php">Style w CSS</a>
+                        </li>
+						<li >
+							<a href="/kurs/events/events.php">Zdarzenia</a>
+						</li>
+						<li >
+							<a href="/kurs/events/events-keys.php">Zdarzenia - klawisze</a>
+						</li>
+						<li >
+							<a href="/kurs/events/events-mouse.php">Zdarzenia - myszka</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/projekt-todo.php">Projekt TODO</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/slider.php">Tworzymy slider</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Prawie podstawy</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/grafika/grafika-na-stronie.php">Grafika na stronie</a>
+						</li>
+						<li >
+							<a href="/kurs/intervals/intervals.php">setTimeout i setInterval</a>
+						</li>
+						<li >
+							<a href="/kurs/match-media.php">Praca z RWD</a>
+						</li>
+						<li >
+							<a href="/kurs/okna-dialogowe.php">Okienka dialogowe</a>
+						</li>
+						<li >
+							<a href="/kurs/okna.php">Tworzenie nowych okien</a>
+						</li>
+						<li >
+							<a href="/kurs/date/date.php">Obiekt Date</a>
+						</li>
+						<li >
+							<a href="/kurs/date/date-calendar.php">Tworzymy kalendarz</a>
+						</li>
+						<li >
+							<a href="/kurs/cookies/cookie.php">Obiekt Cookie</a>
+						</li>
+						<li >
+							<a href="/kurs/storage/storage.php">Storage</a>
+						</li>
+						<li >
+							<a href="/kurs/regular.php">Wyrażenia regularne</a>
+						</li>
+						<li >
+							<a href="/kurs/formularze/formularze.php">Formularze</a>
+						</li>
+						<li >
+							<a href="/kurs/formularze/formularze-walidacja.php">Formularze - walidacja</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Ajax</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/ajax/ajax.php">AJAX, REST, JSON</a>
+						</li>
+						<li >
+							<a href="/kurs/ajax/xmlhttprequest.php">XMLHttpRequest</a>
+						</li>
+            			<li >
+							<a href="/kurs/ajax/fetch.php">Fetch API</a>
+						</li>
+						<li >
+							<a href="/kurs/ajax/formularz-kontaktowy.php">Dynamiczny formularz kontaktowy</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section show has-active-element">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Nowy Javascript</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/es6/ecma-script-2015.php">ES6</a>
+						</li>
+						<li class="active">
+							<a href="/kurs/es6/webpack.php">Webpack</a>
+						</li>
+                        <li >
+            				<a href="/kurs/es6/obiekty-w-es6.php">Obiekty w ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/funkcja-strzalkowa.php">Funkcja strzałkowa</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/spread-rest.php">Spread i rest</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/template-strings.php">Template strings</a>
+						</li>
+						<li >
+            				<a href="/kurs/es6/destructuring.php">Dekompozycja</a>
+        				</li>
+						<li >
+							<a href="/kurs/es6/class.php">Klasy w ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/promises.php">Promises</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/async-await.php">Async/Await</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/symbole.php">Symbole</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">jQuery</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/jquery/jquery.php">jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/animacje-w-jquery.php">Animacje w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/jquery-ajax.php">Ajax w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/tabs.php">Taby w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/plugin.php">Karuzela w jQuery</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Canvas</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/canvas/canvas.php">Canvas</a>
+						</li>
+						<li >
+							<a href="/kurs/canvas/canvas-images.php">Grafika w canvas</a>
+						</li>
+						<li >
+						<a href="/kurs/canvas/canvas-paint.php">Praktycznie : Paint w canvas</a>
+						</li>
+
+						<li >
+							<a href="/kurs/canvas/canvas-animacja.php">Animacja w canvas</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Gry</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/gry/hangman/hangman.php">Szubienica</a>
+						</li>
+						<li >
+							<a href="/kurs/gry/memory/memory.php">Memory</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+            			<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Inne</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/dodatkowe-materialy.php">Dodatkowe materiały</a>
+						</li>
+						<li >
+							<a href="/kurs/faq.php">FAQ</a>
+						</li>
+						<li >
+							<a href="/kurs/polityka-prywatnosci.php">Polityka prywatności</a>
+						</li>
+						<li >
+							<a href="/kurs/autor.php">O autorze</a>
+						</li>
+						<li >
+							<a href="/kurs/kontakt.php">Kontakt</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="page-sidebar-section">
+                <a class="special-link" href="/kurs/autor.php#donate">Wesprzyj kurs</a>
+            </div>
+		</div>
+	</div>
+</aside></div><!-- e: page-container -->
+
+<div class="popup" id="popupOptions">
+	<div class="popup-inside">
+        <div class="popup-container-cnt">
+            <div class="popup-container">
+                <button class="popup-close">Zamknij</button>
+
+                <h2 class="popup-title">
+                    Opcje
+                </h2>
+
+                <div class="popup-content">
+                    <form class="form-options">
+                        <div class="form-option">
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <label for="optionsThemeSelect">Wybierz skórkę dla listingów</label>
+                                    <select id="optionsThemeSelect"></select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <pre><code class="language-js">
+                                //tak będzie wyglądał kod
+
+                                function test() {
+                                    for (let i=0; i&lt;10; i++) {
+                                        console.log("Tekst numer ", 1);
+                                    }
+                                }
+
+                                test();
+                                </code></pre>
+                            </div>
+                            <div class="form-row" id="themeLightModeRow">
+                                <div class="form-col">
+                                    <label for="themeLightMode">
+                                        Tryb dzienny / nocny
+                                    </label>
+
+                                    <div class="light-mode-el">
+                                        <input type="checkbox" id="themeLightMode">
+                                        <span class="light-mode"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+	</div>
+</div>
+<script async defer src="https://www.googletagmanager.com/gtag/js?id=UA-38558970-5"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-38558970-5');
+</script>
+
+	<script src="/js/ads.js"></script>
+	<script src="/js/script.min.js?v=0.13" defer></script>
+</body>
+</html>

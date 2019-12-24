@@ -3,9 +3,9 @@
 <head>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Kurs Javascript - Wstęp</title>
+    <title>Kurs Javascript - Funkcje interwałowe</title>
 	<meta name="description" content="Kurs Javascript dla superbohaterów, artykuły, tutoriale, porady, zadania do wykonania" />
-    <link rel="canonical" href="https://kursjs.pl/kurs/wstep/wstep.php" />
+    <link rel="canonical" href="https://kursjs.pl/kurs/intervals/intervals.php" />
 	<link rel="stylesheet" href="./css.css" />
     <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,700&display=swap&subset=latin-ext" rel="stylesheet">
 	<meta name="image" content="https://kursjs.pl/kursjs.png">
@@ -56,50 +56,462 @@
                 ></ins>
             </div>
                         <div class="page-content-text">
+<h1 class="page-title">Funkcje interwałowe</h1>
+<p>W JavaScript istnieją funkcje, które pozwalają odpalić nasz kod z opóźnieniem czasowym, lub pozwalają odpalać taki kod cyklicznie co jakiś czas.</p>
 
-
-<h1 class="page-title">Wstęp</h1>
+<!-- ### -->
+<h2 class="subtitle" id="setTimeout">setTimeout()</h2>
 <p>
-Bardzo krótki wstęp ^^.<br /><br />
-Kurs ten jest o Javascripcie. Uhh...
-</p>
-<p>
-Wiedz, że nie staram się tutaj tworzyć największego i najlepszego kursu o JavaScript w internecie.<br>
-Ten kurs to twór jednego człowieka.
-Nie mam szans i nie chcę konkurować z molochami takimi jak <a href="https://developer.mozilla.org/pl/">MDN</a>, <a href="https://www.udemy.com/">Udemy</a>, <a href="https://eduweb.pl/">EduWeb</a> czy <a href="https://www.w3schools.com/js/default.asp">w3schools</a>.<br>
-<br><br>
-Nie znajdziesz tutaj wszystkiego z zakresu JavaScript. <br>
-Po jakimś czasie będziesz chciał wiele rzeczy tutaj pokazanych tworzyć inaczej - lepiej.<br>
-Im większy progres będziesz zdobywał stwierdzisz, że wiele rozdziałów można było napisać o wiele lepiej. I dobrze.<br><br>
-
-W każdym bądź razie - jeżeli ta strona jakoś ci posłuży - to tylko plus. Jeżeli nie - po prostu skorzystaj z innego kursu - na rynku jest tego od groma (niektóre wymieniłem <a href="../dodatkowe-materialy.php">tutaj</a>) i każdy znajdzie coś dla siebie. Ja sam mam kilka w swojej kolekcji i twierdzę, że są naprawdę dobre.
-<br><br>
+    Pierwszą z takich funkcji jest <strong>setTimeout(fn, time)</strong>.<br>
+    Służy ona wywołania z opóźnieniem funkcji przekazanej w pierwszym parametrze. W drugim parametrze podajemy czas w milisekundach po jakim zostanie ta funkcja wywołana.
 </p>
 
-<p>
-Jeszcze mała adnotacja, która siedzi mi w głowie.
-</p>
-<p>
-W internecie znajdziesz setki tutoriali pokazujących najnowsze techniki. A to funkcja strzałkowa, a to jak korzystać z async i await, a to jak robić połączenia fetchem czy chociażby zastosowanie modułów. Małe, konkretne, piękne - jak mój pies (a i od niedawna też kot).
-</p>
-<p>
-Na grupach facebookowych w dyskusjach znajdziesz jeszcze szybciej takie techniki.
-</p>
-<p>
-Tutaj pojawia pewna sprawa, który dotyczy nie tylko JavaScript, ale i całego frontendu. Bardzo często przy takich nowoczesnych tutorialach czy poradach autorzy nie zwracają uwagi na bardzo ważną rzecz - a mianowicie na to, że dobór techniki <strong>zawsze zależy od danego projektu</strong>. To są w końcu rzeczy oczywiste.<br>
-No właśnie nie do końca. To są rzeczy oczywiste - dla nas - osób, które w tej branży siedzą już kilkanaście lat. Ale czy dla osoby zaczynającej?
-</p>
-<p>
-Jeżeli robisz bloga o nowinkach z dziedziny frontentu, raczej możesz założyć, że większość użytkowników będzie korzystała z najnowszych przeglądarek, a więc i możesz używać najnowszych rozwiązań (chociaż najlepiej było by spojrzeć w statystyki Google Analitics które można podpiąć pod stronę).<br>
-Jeżeli jednak robisz stronę dla emerytowanych nauczycieli, czy dla przykładu olbrzymi sklep z którego będą korzystali różnorodni użytkownicy z różnorodnych krajów, wtedy rzucanie się na najnowsze rozwiązania będzie strzałem w stopę.
-</p>
-<p>
-Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie CSS Grid, a czasami nawet flexbox może okazać się czymś, czego użyć nie możesz. Czasami spokojnie będziesz mógł używać najnowszej wersji JavaScript, a czasami będziesz musiał pozostać przy starszej. A jeżeli będziesz musiał pozostać przy starszej, wtedy albo będziesz pisał JavaScript trzymając się klasycznych rozwiązań, albo skorzystasz z narzędzi zamieniających twój kod na starszy zapis.
-</p>
-<p>Autorzy tutoriali często zapominają o tym, że dla początkującej osoby istnieje po prostu JavaScript. Osoby takie często nie zdają sobie sprawy, że nie wszystko w JavaScript można dowolnie używać, nie wiedzą gdzie szukać informacji które przeglądarki co wspierają, jakich narzędzi używać do zamiany kodu i po co w ogóle to robić.</p>
-<p>W kursie tym staram się trzymać klasycznego JavaScript. Jasne - im więcej wiedzy zdobędziesz, im bardziej będziesz rozbudowywał swój warsztat, tym będziesz stosował coraz nowsze i lepsze techniki pisania kodu. A wtedy - tak jak to już pisałem powyżej - będziesz się śmiał z tego kursu. Póki co polecam po prostu uczyć się JavaScript.</p>
+<pre><code class="language-js">
+function myFunc() {
+    console.log('Jakiś tekst');
+}
 
-<a href="./co-to-jest-javascript.php" class="button">To co? Zaczynamy?...</a>
+setTimeout(myFunc, 1200); //odpali po 1.2s
+</code></pre>
+
+<pre><code class="language-js">
+function myFunc() {
+    console.log('Jakiś tekst');
+}
+
+setTimeout(function() {
+    console.log("z zaskoczenia!");
+}, 3 * 1000); //odpali po 3s
+</code></pre>
+
+<p>Gdy używasz setTimeout funkcja która ma być odpalona odkładana jest na stos, a cała reszta kodu jest wykonywana dalej. Gdy zadany czas minie, twoja funkcja zostanie wywołana:</p>
+
+<pre><code class="language-js">
+setTimeout(function() {
+    console.log('Trzeci tekst');
+}, 2000);
+
+console.log('Pierwszy tekst');
+console.log('Drugi tekst');
+</code></pre>
+
+<p>W powyższym przykładzie wpierw zostaną wypisane "Pierwszy tekst" i "Drugi tekst", a po upływie 2 sekund zostanie wypisany także "Trzeci tekst".</p>
+
+<div class="kartofel-informuje">
+    Odłożona na stos funkcja zostanie wykonana "później", czyli po kodzie, który nie został nigdzie odłożony. Tyczy się to nawet funkcji, które są odpalane z zerowym opóźnieniem:
+
+    <pre><code class="language-js">
+    setTimeout(function() {
+        console.log('Drugi');
+    }, 0)
+
+    console.log('Pierwszy');
+    </code></pre>
+
+    <p>Dzieje się tak dzięki działaniu tak zwanego event loop. Dokładniej przedstawił to zagadnienie <a href="https://www.youtube.com/watch?v=8aGhZQkoFbQ">Philip Roberts w swojej prezentacji</a>.</p>
+</div>
+
+<p id="clearTimeout">Żeby przerwać wcześniej zainicjowany setTimeout (ale przed jego wykonaniem) korzystamy z metody <strong>clearTimeout()</strong> która w parametrze przyjmuje zmienną, pod którą zostało wcześniej podstawione wywołanie setTimeout():</p>
+
+<pre><code class="language-js">
+const time = setTimeout(function() {
+    console.log('Pełne zaskoczenie');
+}, 10000);
+
+clearTimeout(time); //powyższa funkcja nigdy się nie odpali, bo od razu przerwaliśmy setTimeout
+</code></pre>
+
+<p>
+   Do czego realnie można to wykorzystać?
+</p>
+<p>
+    Sytuacji takich może być naprawdę wiele. Użytkownik dodaje nowy wpis na listę. My zaznaczamy go za pomocą dodatkowej klasy, a po kilku sekundach zaznaczenie usuwamy.
+    Albo dla przykładu ktoś usuwa rekord, a my pokazujemy mu <a href="https://ireade.github.io/Toast.js/">toast</a>. Po kilku sekundach by nie zaśmiecać ekranu usuwamy taki komunikat.
+</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="setInterval">setInterval()</h2>
+<p>
+    Powyższa funkcja setTimeout wywołuje daną funkcję <strong>tylko 1 raz</strong>.
+</p>
+<p>
+    Kolejna funkcja którą poznamy to <strong>setInterval(fn, time)</strong>, która działa bardzo podobnie do setTimeout. Kluczową różnicą jest tutaj to, że setInterval będzie odpalać naszą funkcję co jakiś czas <strong>cyklicznie</strong>:
+</p>
+
+<pre><code class="language-js">
+const time = setInterval(function() {
+    console.log('Przykładowy napis');
+}, 1000);
+</code></pre>
+
+<p>Po odpaleniu powyższego kodu w naszej konsoli będzie się co sekundę pojawiać napis "Przykładowy napis" aż do zamknięcia strony, lub zatrzymania takiego interwału.</p>
+
+<p id="clearInterval">Żeby zatrzymać taki interwał, skorzystamy z metody <strong>clearInterval()</strong>, która podobnie do clearTimeout() przyjmuje tylko jeden parametr, który jest zmienną, pod która wcześniej zostało podstawione zadeklarowanie setInterval:</p>
+
+<pre data-line="5"><code class="language-js">
+const time = setInterval(function() {
+    console.log('Wypiszę się co 1 sekundę');
+}, 1000);
+
+clearInterval(time);
+</code></pre>
+
+<p>Przerwanie interwału możemy też wykonywać z jego wnętrza:</p>
+
+<pre data-line="8"><code class="language-js">
+let i = 0;
+
+const time = setInterval(function() {
+    i++;
+    console.log(i);
+
+    if (i >= 10) {
+        clearInterval(time);
+    }
+}, 1000);
+</code></pre>
+
+<p>Poniższy przykład pokazuje użycie interwału po kliknięciu na przycisk:</p>
+
+<pre><code class="language-js">
+const btn = document.querySelector('#btnTest');
+
+btn.addEventListener('click', function() {
+    this.disabled = true;
+    let i = 5;
+
+    const time = setInterval(function() {
+        i--;
+        console.log(i);
+
+        if (i &lt;= 0) {
+            console.log('Koniec!');
+            clearInterval(time);
+            this.disabled = false;
+        }
+    }, 1000);
+});
+</code></pre>
+
+<button class="button" type="button" id="btnTest">Kliknij i sprawdź konsolę</button>
+<script>
+{
+    const btn = document.querySelector('#btnTest');
+    btn.addEventListener('click', function() {
+        this.disabled = true;
+        let i = 5;
+
+        const time = setInterval(function() {
+            console.log(i);
+            i--;
+
+            if (i <= 0) {
+                console.log('Koniec!');
+                clearInterval(time);
+                this.disabled = false;
+            }
+        }, 1000);
+    });
+}
+</script>
+
+<p id="zmiana-this">Podobnie jak w <a href="../obiekty/obiekty-zaawansowane-this.php">forEach</a> w funkcjach setTimeout i setInterval <a href="../obiekty/obiekty.php#this">this</a> domyślnie wskazuje na obiekt window, a nie element w którym ta funkcja została wywołana.</p>
+
+<pre data-line="4,12"><code class="language-js">
+const btn = document.querySelector('#btnTest');
+
+btn.addEventListener('click', function() {
+    this.disabled = true; //this === button
+    let i = 5;
+
+    const time = setInterval(function() {
+        console.log(i);
+        i--;
+
+        if (i &lt;= 0) {
+            this.disabled = false; //błąd! - tutaj this wskazuje na window
+            console.log('Koniec');
+            clearInterval(time);
+        }
+    }, 1000);
+});
+</code></pre>
+
+<p>
+Jeżeli po przerwaniu interwału chcielibyśmy klikniętemu przyciskowi wyłączyć disabled, wtedy funkcję wywołaną w setInterval musielibyśmy przypiąć za pomocą metody <a href="../obiekty/obiekty-zaawansowane-this.php">bind()</a>, tak by wewnętrzne this wskazywało na przycisk, a nie na window lub zastosować <a href="../es6/funkcja-strzalkowa.php">funkcję strzałkową</a>:</p>
+
+<pre data-line="15"><code class="language-js">
+const btn = document.querySelector('#btnTest');
+btn.addEventListener('click', function() {
+    this.disabled = true;
+    let i = 5;
+
+    const time = setInterval(() => {
+        console.log(i);
+        i--;
+
+        if (i &lt;= 0) {
+            this.disabled = false;
+            console.log('Koniec');
+            clearInterval(time);
+        }
+    }, 1000);
+});
+</code></pre>
+
+<button class="button" type="button" id="btnTest2">Kliknij i sprawdź konsolę</button>
+<script>
+{
+    const btn = document.querySelector('#btnTest2');
+    btn.addEventListener('click', function() {
+        this.disabled = true;
+        let counter = 5;
+
+        const time = setInterval(() => {
+            console.log(counter);
+            counter--;
+
+            if (counter === 0) {
+                this.disabled = false;
+                console.log('Koniec');
+                clearInterval(time);
+            }
+        }, 1000);
+    });
+}
+</script>
+
+<!-- ### -->
+<h2 class="subtitle" id="interwal-i-dlugie-wykonywanie-kodu">interwał i długo wywołujący się kod</h2>
+<p>Funkcja setInterval wywołuje naszą funkcję co zadany czas, nie patrząc na to, czy jej kod się zdąży wykonać czy nie. Wyobraź sobie, że wykonanie kodu naszej funkcji będzie trwać dłużej niż zadany czas interwału. Może to być np. mocno obciążające manipulowanie <a href="../dom/dom-tworzenie-i-usuwanie.php">elementami strony</a>, jakaś obciążająca procesor animacja czy chociażby <a href="../ajax/ajax.php">zapytania do serwera</a>, które nie wiadomo dokładnie kiedy się skończą. W takim przypadku wykonywanie naszej funkcji może zacząć się nakładać:</p>
+
+
+<pre><code class="language-js">
+function longFn() {
+    let i = 0;
+
+    //symulujemy bardzo długo wywołujący się kod, który może zając kilka sekund
+    //poniższy kod wykonywać się będzie przez 2000ms
+    const t = setInterval(function() {
+        i++;
+        console.log(i)
+        if (i >= 200) {
+            clearInterval(t);
+        }
+    }, 100); //100 * 200 === 2000
+}
+
+let time = setInterval(longFn, 1000);
+</code></pre>
+
+<p>Jak widzisz liczby są wypisywane w złej kolejności, bo kolejne działania funkcji się nakładają:</p>
+
+<img src="./interval-example.png" alt="przykład nachodzącego intervalu" class="space border">
+
+<p>Jeżeli zakładamy, że wykonanie kodu naszej funkcji może zająć więcej niż odstępy interwału, prawdopodobnie lepszym wyborem będzie zastosowanie setTimeout, który będzie w danej funkcji wywoływał daną funkcję:</p>
+
+<pre><code class="language-js">
+function longFn() {
+    //bardzo długo wywołujący się kod, który może zając kilka sekund
+
+    time = setTimeout(longFn, 1000);
+}
+
+let time = setTimeout(longFn, 1000);
+</code></pre>
+
+<p>Poprzedni przykład z użyciem setTimeout():</p>
+
+<pre data-line="11,16"><code class="language-js">
+function longFn() {
+    let i = 0;
+
+    const t = setInterval(function() {
+        i++;
+        console.log(i)
+        if (i >= 200) {
+            clearInterval(t);
+            time = setTimeout(longFn, 1000);
+        }
+    }, 100);
+}
+
+let time = setTimeout(longFn, 1000);
+</code></pre>
+
+<p>Tym razem wszystko już jest ok:</p>
+
+<img src="./interval-example-correct.png" alt="przykład nachodzącego intervalu" class="space border">
+
+
+<!-- ### -->
+<h2 class="subtitle" id="debounce-throttle">Debounce i throttle</h2>
+<p>Wyobraź sobie, że robisz dynamiczną wyszukiwarkę na stronie. Użytkownik wpisuje litery do pola, a ty co litera wykonujesz za pomocą Ajax do serwera zapytanie, a następnie zwracasz użytkownikowi wyniki.</p>
+
+<pre><code class="language-js">
+//kod teoretyczny
+input.addEventListener("input", function() {
+    $.get("....", function(result) {
+        console.log(result);
+    })
+});
+</code></pre>
+
+<p>Problem z takim podejście jest taki, że większośc użytkowników internetu szybko pisze, więc nasze kolejne zapytania będą się bardzo często wykonywać. Zbyt często. Dość szybko spowoduje to przyblokowanie kolejnych zapytań.</p>
+
+<p>Żeby ci to zademonstrować, zróbmy sytuację za pomocą setTimeout, które zastąpi nam dynamiczne połączenie:</p>
+
+<pre><code class="language-js">
+input.addEventListener("input", function() {
+    const text = this.value.repeat(10);
+    setTimeout(()=> {
+        console.log(`Wyszukiwana fraza to: ${text}`);
+    }, 3000);
+});
+</code></pre>
+
+<form class="form">
+    <div class="row">
+        <div class="col">
+            <label for="normalSearch">Wpisuj szybko jakiś tekst i sprawdź w konsoli:</label>
+            <input type="text" id="normalSearch">
+        </div>
+    </div>
+</form>
+
+<script>
+    {
+        const input = document.querySelector("#normalSearch");
+        input.addEventListener("input", function() {
+            const text = this.value.repeat(10);
+            setTimeout(()=> {
+                console.log(`Wyszukiwana fraza to: ${text}`);
+            }, 3000);
+        });
+    }
+</script>
+
+<p>Ale nie tylko dynamicznych wyszukiwarek się to tyczy. Każda sytuacja, która potencjalnie może odpalać nasz kod zbyt szybko będzie potencjalnie problematyczna.</p>
+
+<p>Tutaj podobny problem - tym razem tyczy się zmiany rozmiaru <a href="test-resize.html">okna strony (event resize)</a>.</p>
+
+<p>Właśnie w takich i podobnych sytuacjach stosuje się omawiane techniki.</p>
+
+<p>Pierwsza z nich nosi nazwę <strong>throttle</strong>.</p>
+
+<pre><code class="language-js">
+function throttled(delay, fn) {
+    let lastCall = 0;
+    return function (...args) {
+        const now = (new Date).getTime();
+        if (now - lastCall < delay) {
+            return;
+        }
+        lastCall = now;
+        return fn(...args);
+    }
+}
+</code></pre>
+
+<pre><code class="language-js">
+const tHandler = throttled(200, printKey);
+const input = document.querySelector('input');
+input.addEventListener("input", tHandler);
+</code></pre>
+
+<form class="form">
+    <div class="row">
+        <div class="col">
+            <label for="throttle">Wpisuj szybko jakiś tekst i sprawdź w konsoli:</label>
+            <input type="text" id="throttle">
+        </div>
+    </div>
+</form>
+
+<script>
+    {
+        const throttled = function(delay, fn) {
+            let lastCall = 0;
+            return function (...args) {
+                const now = (new Date).getTime();
+                if (now - lastCall < delay) {
+                    return;
+                }
+                lastCall = now;
+                return fn(...args);
+            }
+        };
+
+        const printText = (e) => {
+            console.log(input.value);
+        };
+
+        const tHandler = throttled(400, printText);
+        const input = document.querySelector('#throttle');
+        input.addEventListener("input", tHandler);
+    }
+</script>
+
+<p>Druga z nich nosi nazwę <strong>debounce</strong>. Najczęściej używaną implementacją debounce jest chyba ta zastosowana w <a href="https://lodash.com/docs/4.17.15#debounce">bibliotece loadash</a>, ale możliwych implementacji jest bardzo dużo (np. dla <a href="http://benalman.com/code/projects/jquery-throttle-debounce/examples/debounce/">jQuery</a>). Poniżej zamieszczam inną przykładową implementację:</p>
+
+<pre><code class="language-js">
+function debounced(delay, fn) {
+    let timerId;
+    return function (...args) {
+        if (timerId) {
+            clearTimeout(timerId);
+        }
+        timerId = setTimeout(() => {
+            fn(...args);
+            timerId = null;
+        }, delay);
+    }
+}
+</code></pre>
+
+<pre><code class="language-js">
+const tHandler = debounced(200, printKey);
+const input = document.querySelector('input');
+input.addEventListener("input", tHandler);
+</code></pre>
+
+<form class="form">
+    <div class="row">
+        <div class="col">
+            <label for="debounced">Wpisuj szybko jakiś tekst i sprawdź w konsoli:</label>
+            <input type="text" id="debounced">
+        </div>
+    </div>
+</form>
+
+<script>
+    {
+        const debounced = function(delay, fn) {
+            let timerId;
+            return function (...args) {
+                if (timerId) {
+                    clearTimeout(timerId);
+                }
+                timerId = setTimeout(() => {
+                    fn(...args);
+                    timerId = null;
+                }, delay);
+            }
+        };
+
+        const printText = (e) => {
+            console.log(input.value);
+        };
+
+        const tHandler = debounced(400, printText);
+        const input = document.querySelector('#debounced');
+        input.addEventListener("input", tHandler);
+    }
+</script>
+
+<p>Pokazany wcześniej przykład z problematyczną zmianą rozmiaru okna wraz z zaimplementowaną funkcją <a href="test-resize-debounce.html">debounce</a></p>
+
+
 
 			</div><!-- e: page-content-text -->
 			<footer class="page-footer">
@@ -165,13 +577,13 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
                 </h3>
             </div>
 
-						<div class="page-sidebar-section show has-active-element">
+						<div class="page-sidebar-section ">
 				<h3 class="page-sidebar-section-title">
 					<a href="#">Słowem wstępu</a>
 				</h3>
 				<div class="page-sidebar-list-cnt">
 					<ul class="page-sidebar-list">
-						<li class="active">
+						<li >
 							<a href="/kurs/wstep/wstep.php">Wstęp</a>
 						</li>
 						<li >
@@ -311,7 +723,7 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
 			</div>
 
 
-						<div class="page-sidebar-section ">
+						<div class="page-sidebar-section show has-active-element">
 				<h3 class="page-sidebar-section-title">
 					<a href="#">Prawie podstawy</a>
 				</h3>
@@ -320,7 +732,7 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
 						<li >
 							<a href="/kurs/grafika/grafika-na-stronie.php">Grafika na stronie</a>
 						</li>
-						<li >
+						<li class="active">
 							<a href="/kurs/intervals/intervals.php">setTimeout i setInterval</a>
 						</li>
 						<li >

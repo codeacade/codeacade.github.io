@@ -3,9 +3,9 @@
 <head>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Kurs Javascript - Wstęp</title>
+    <title>Kurs Javascript - Praca z RWD</title>
 	<meta name="description" content="Kurs Javascript dla superbohaterów, artykuły, tutoriale, porady, zadania do wykonania" />
-    <link rel="canonical" href="https://kursjs.pl/kurs/wstep/wstep.php" />
+    <link rel="canonical" href="https://kursjs.pl/kurs/match-media.php" />
 	<link rel="stylesheet" href="./css.css" />
     <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,700&display=swap&subset=latin-ext" rel="stylesheet">
 	<meta name="image" content="https://kursjs.pl/kursjs.png">
@@ -58,48 +58,144 @@
                         <div class="page-content-text">
 
 
-<h1 class="page-title">Wstęp</h1>
+<h1 class="page-title">Praca z RWD</h1>
 <p>
-Bardzo krótki wstęp ^^.<br /><br />
-Kurs ten jest o Javascripcie. Uhh...
-</p>
-<p>
-Wiedz, że nie staram się tutaj tworzyć największego i najlepszego kursu o JavaScript w internecie.<br>
-Ten kurs to twór jednego człowieka.
-Nie mam szans i nie chcę konkurować z molochami takimi jak <a href="https://developer.mozilla.org/pl/">MDN</a>, <a href="https://www.udemy.com/">Udemy</a>, <a href="https://eduweb.pl/">EduWeb</a> czy <a href="https://www.w3schools.com/js/default.asp">w3schools</a>.<br>
-<br><br>
-Nie znajdziesz tutaj wszystkiego z zakresu JavaScript. <br>
-Po jakimś czasie będziesz chciał wiele rzeczy tutaj pokazanych tworzyć inaczej - lepiej.<br>
-Im większy progres będziesz zdobywał stwierdzisz, że wiele rozdziałów można było napisać o wiele lepiej. I dobrze.<br><br>
-
-W każdym bądź razie - jeżeli ta strona jakoś ci posłuży - to tylko plus. Jeżeli nie - po prostu skorzystaj z innego kursu - na rynku jest tego od groma (niektóre wymieniłem <a href="../dodatkowe-materialy.php">tutaj</a>) i każdy znajdzie coś dla siebie. Ja sam mam kilka w swojej kolekcji i twierdzę, że są naprawdę dobre.
-<br><br>
+Przy pracy z różnymi urządzeniami bardzo często chcemy sprawdzać rozdzielczość urządzenia.
 </p>
 
-<p>
-Jeszcze mała adnotacja, która siedzi mi w głowie.
-</p>
-<p>
-W internecie znajdziesz setki tutoriali pokazujących najnowsze techniki. A to funkcja strzałkowa, a to jak korzystać z async i await, a to jak robić połączenia fetchem czy chociażby zastosowanie modułów. Małe, konkretne, piękne - jak mój pies (a i od niedawna też kot).
-</p>
-<p>
-Na grupach facebookowych w dyskusjach znajdziesz jeszcze szybciej takie techniki.
-</p>
-<p>
-Tutaj pojawia pewna sprawa, który dotyczy nie tylko JavaScript, ale i całego frontendu. Bardzo często przy takich nowoczesnych tutorialach czy poradach autorzy nie zwracają uwagi na bardzo ważną rzecz - a mianowicie na to, że dobór techniki <strong>zawsze zależy od danego projektu</strong>. To są w końcu rzeczy oczywiste.<br>
-No właśnie nie do końca. To są rzeczy oczywiste - dla nas - osób, które w tej branży siedzą już kilkanaście lat. Ale czy dla osoby zaczynającej?
-</p>
-<p>
-Jeżeli robisz bloga o nowinkach z dziedziny frontentu, raczej możesz założyć, że większość użytkowników będzie korzystała z najnowszych przeglądarek, a więc i możesz używać najnowszych rozwiązań (chociaż najlepiej było by spojrzeć w statystyki Google Analitics które można podpiąć pod stronę).<br>
-Jeżeli jednak robisz stronę dla emerytowanych nauczycieli, czy dla przykładu olbrzymi sklep z którego będą korzystali różnorodni użytkownicy z różnorodnych krajów, wtedy rzucanie się na najnowsze rozwiązania będzie strzałem w stopę.
-</p>
-<p>
-Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie CSS Grid, a czasami nawet flexbox może okazać się czymś, czego użyć nie możesz. Czasami spokojnie będziesz mógł używać najnowszej wersji JavaScript, a czasami będziesz musiał pozostać przy starszej. A jeżeli będziesz musiał pozostać przy starszej, wtedy albo będziesz pisał JavaScript trzymając się klasycznych rozwiązań, albo skorzystasz z narzędzi zamieniających twój kod na starszy zapis.
-</p>
-<p>Autorzy tutoriali często zapominają o tym, że dla początkującej osoby istnieje po prostu JavaScript. Osoby takie często nie zdają sobie sprawy, że nie wszystko w JavaScript można dowolnie używać, nie wiedzą gdzie szukać informacji które przeglądarki co wspierają, jakich narzędzi używać do zamiany kodu i po co w ogóle to robić.</p>
-<p>W kursie tym staram się trzymać klasycznego JavaScript. Jasne - im więcej wiedzy zdobędziesz, im bardziej będziesz rozbudowywał swój warsztat, tym będziesz stosował coraz nowsze i lepsze techniki pisania kodu. A wtedy - tak jak to już pisałem powyżej - będziesz się śmiał z tego kursu. Póki co polecam po prostu uczyć się JavaScript.</p>
+<p>Jednym ze sposobów reakcji na zmianę rozmiaru ekranu przeglądarki, jest podpięcie się pod event <strong>resize</strong> obiektu window:</p>
 
-<a href="./co-to-jest-javascript.php" class="button">To co? Zaczynamy?...</a>
+<pre><code class="language-js">
+window.addEventListener('resize', function() {
+    console.log(this);
+});
+</code></pre>
+
+<p>
+Event ten najczęściej zastosujemy w sytuacjach, gdy chcemy reagować na każdą rozdzielczość. Takich sytuacji jest wbrew pozorom całkiem dużo. Przykładowo może zdarzyć się, że będziemy chcieli ustawić powitalny banner, który po wejściu na stornę będzie zajmował całą powierzchnię ekranu.
+</p>
+
+<p>
+W naszym przypadku najczęściej wykorzystywanymi właściwościami obiektu window będą <strong>window.innerWidth</strong> i <strong>window.innerHeight</strong>:
+</p>
+
+<pre><code class="language-js">
+window.addEventListener('resize', function() {
+    console.log(`Rozmiar okna: ${this.innerWidth} x ${this.innerHeight}`);
+});
+</code></pre>
+
+<p>
+Z podpinaniem się pod event resize wiążą się też pewne problemy. Pierwszym z nich jest to, że
+jak zauważysz w konsoli podczas zmiany rozmiarów okna, event taki jest odpalany bardzo często.
+Przy prostych czynnościach jak przełączenie klasy nie powinno to być większym problemem. Bardzo często jednak przy takich zmianach ekranu będziemy chcieli robić bardziej skomplikowane czynności - np. zmieniać wiele divów na stronie. Rozwiązaniem tutaj będzie zastosowanie <a href="intervals/intervals.php#debounce-throttle">jednej z technik</a>, które spowolnią wykonywanie takiego kodu.
+</p>
+
+<p>
+Drugim problemem jest to, że w CSS za pomocą mediaQuery możemy testować nie tylko rozdzielczość ekranu, ale też gęstość pikseli, typ mediów, orientację urządzenia i o wiele, wiele więcej. W powyższej metodzie jesteśmy skazani tylko na rozmiar okna.
+</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="sprawdzanie-elementu">Sprawdzanie elementu</h2>
+<p>Jeden ze sposobów rozwiązania tego problemu polega na tym, by zamiast sprawdzać rozdzielczość ekranu, wystarczy sprawdzić jakąś właściwość elementu testowego.<br>
+Element taki można stworzyć za pomocą JavaScript lub po prostu umieścić w html, a następnie wynieść poza ekran - tak by nie przeszkadzał użytkownikowi:</p>
+
+<pre><code class="language-css">
+.test-element {
+    position:absolute;
+    left: -99999px;
+    display:none;
+}
+
+@media only screen and (min-width:768px) {
+    .test-element {
+        display:block;
+    }
+}
+</code></pre>
+
+<pre><code class="language-js">
+const testElement = document.createElement('span');
+testElement.classList.add('test-element');
+
+window.addEventListener('resize', function() {
+    const style = window.getComputedStyle(testElement);
+
+    if (style.display === 'block') {
+        console.log("Wersja na desktopy");
+    } else {
+        console.log("Wersja mobilna");
+    }
+});
+</code></pre>
+
+<p>Do pobrania <strong>display:block</strong> nie możemy w tym przypadku użyć właściwości element.style, ponieważ działa ona tylko na stylach wpisanych inline w danym elemencie. W naszym przypadku musimy użyć funkcji <a href="dom/style.php#getComputedStyle">getComputedStyle()</a>, która zwróci nam przeliczone style.</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="matchMedia">matchMedia</h2>
+<p>Kolejnym sposobem na reagowanie na zmianę mediów (w tym rozmiarów okna) jest skorzystanie ze specjalnie przeznaczonego do tego celu obiektu <strong>window.matchMedia(mediaQuery)</strong></p>
+
+<pre><code class="language-js">
+const media = window.matchMedia("(min-width: 768px)");
+
+if (media.matches) {
+    console.log('Wersja na desktopy');
+} else {
+    console.log('Wersja mobilna');
+}
+</code></pre>
+
+<p>Zaletą tego rozwiązania jest to, że podane media mogą być tak samo precyzyjne jak te z CSS. Nie musimy się więc ograniczać do rozmiaru okna, ale też <a href="https://css-tricks.com/css-media-queries/">możemy sprawdzić inne media</a>.</p>
+
+<p>Powyższy kod zostanie odpalony jeden raz - tuż po wywołaniu (najczęściej przy wejściu na stronę).</p>
+
+<p>Żeby powyższe sprawdzanie reagowało na zmianę mediów (np. rozmiaru okna), musimy podpiąć do niego listener:</p>
+
+<pre data-line="8-14"><code class="language-js">
+const media = window.matchMedia("(min-width: 768px)");
+if (media.matches) {
+    console.log('Wersja na desktopy');
+} else {
+    console.log('Wersja mobilna');
+}
+
+media.addEventListener("change", function(media) {
+    if (media.matches) {
+        console.log('Wersja na desktopy');
+    } else {
+        console.log('Wersja mobilna');
+    }
+});
+</code></pre>
+
+<p>W przeciwieństwie do eventu resize który jest odpalany non stop przy zmianie rozmiaru okna, powyższy event będzie odpalany tylko w momencie danego warunku z media.</p>
+
+<pre><code class="language-js">
+function setBg(media) {
+    if (media.matches) {
+        body.style.setProperty('background-color', 'red');
+    } else {
+        body.style.setProperty('background-color', 'blue');
+    }
+}
+
+const media = window.matchMedia("(min-width: 768px)");
+const body = document.querySelector('body');
+
+setBg(media);
+
+media.addEventListener("change", setBg);
+</code></pre>
+
+<div class="kartofel-informuje">
+    <p>Dla machMedia istnieją też dwie bardzo podobne funkcje, które służą do podpianania eventów. Mowa o addListener i removeListener.</p>
+    <pre><code class="language-js">
+        media.addListener(function(media) { ... });
+        media.removeListener(function(media) { ... });
+    </code></pre>
+    <p>Obie funkcje nie są już zalecane na rzecz powyżej pokazanego <a href="events/events.php#addEventListener">klasycznego podpinania</a> zdarzenia change.</p>
+</div>
+
 
 			</div><!-- e: page-content-text -->
 			<footer class="page-footer">
@@ -165,13 +261,13 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
                 </h3>
             </div>
 
-						<div class="page-sidebar-section show has-active-element">
+						<div class="page-sidebar-section ">
 				<h3 class="page-sidebar-section-title">
 					<a href="#">Słowem wstępu</a>
 				</h3>
 				<div class="page-sidebar-list-cnt">
 					<ul class="page-sidebar-list">
-						<li class="active">
+						<li >
 							<a href="/kurs/wstep/wstep.php">Wstęp</a>
 						</li>
 						<li >
@@ -311,7 +407,7 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
 			</div>
 
 
-						<div class="page-sidebar-section ">
+						<div class="page-sidebar-section show has-active-element">
 				<h3 class="page-sidebar-section-title">
 					<a href="#">Prawie podstawy</a>
 				</h3>
@@ -323,7 +419,7 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
 						<li >
 							<a href="/kurs/intervals/intervals.php">setTimeout i setInterval</a>
 						</li>
-						<li >
+						<li class="active">
 							<a href="/kurs/match-media.php">Praca z RWD</a>
 						</li>
 						<li >

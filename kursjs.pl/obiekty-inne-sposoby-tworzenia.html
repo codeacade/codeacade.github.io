@@ -3,9 +3,9 @@
 <head>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Kurs Javascript - Wstęp</title>
+    <title>Kurs Javascript - Obiekty - Object.create()</title>
 	<meta name="description" content="Kurs Javascript dla superbohaterów, artykuły, tutoriale, porady, zadania do wykonania" />
-    <link rel="canonical" href="https://kursjs.pl/kurs/wstep/wstep.php" />
+    <link rel="canonical" href="https://kursjs.pl/kurs/obiekty/obiekty-inne-sposoby-tworzenia.php" />
 	<link rel="stylesheet" href="./css.css" />
     <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,700&display=swap&subset=latin-ext" rel="stylesheet">
 	<meta name="image" content="https://kursjs.pl/kursjs.png">
@@ -57,49 +57,229 @@
             </div>
                         <div class="page-content-text">
 
-
-<h1 class="page-title">Wstęp</h1>
+<h1 class="page-title">Obiekty - Object.create()</h1>
 <p>
-Bardzo krótki wstęp ^^.<br /><br />
-Kurs ten jest o Javascripcie. Uhh...
+Wraz z rozwojem JavaScript dochodziły nowe sposoby na tworzenie obiektów. Jednym z nich jest użycie metody <strong>Object.create()</strong>.
 </p>
 <p>
-Wiedz, że nie staram się tutaj tworzyć największego i najlepszego kursu o JavaScript w internecie.<br>
-Ten kurs to twór jednego człowieka.
-Nie mam szans i nie chcę konkurować z molochami takimi jak <a href="https://developer.mozilla.org/pl/">MDN</a>, <a href="https://www.udemy.com/">Udemy</a>, <a href="https://eduweb.pl/">EduWeb</a> czy <a href="https://www.w3schools.com/js/default.asp">w3schools</a>.<br>
-<br><br>
-Nie znajdziesz tutaj wszystkiego z zakresu JavaScript. <br>
-Po jakimś czasie będziesz chciał wiele rzeczy tutaj pokazanych tworzyć inaczej - lepiej.<br>
-Im większy progres będziesz zdobywał stwierdzisz, że wiele rozdziałów można było napisać o wiele lepiej. I dobrze.<br><br>
-
-W każdym bądź razie - jeżeli ta strona jakoś ci posłuży - to tylko plus. Jeżeli nie - po prostu skorzystaj z innego kursu - na rynku jest tego od groma (niektóre wymieniłem <a href="../dodatkowe-materialy.php">tutaj</a>) i każdy znajdzie coś dla siebie. Ja sam mam kilka w swojej kolekcji i twierdzę, że są naprawdę dobre.
-<br><br>
+Jako pierwszy parametr przyjmuje obiekt, który stanie się prototypem nowo tworzonych obiektów:
 </p>
 
-<p>
-Jeszcze mała adnotacja, która siedzi mi w głowie.
-</p>
-<p>
-W internecie znajdziesz setki tutoriali pokazujących najnowsze techniki. A to funkcja strzałkowa, a to jak korzystać z async i await, a to jak robić połączenia fetchem czy chociażby zastosowanie modułów. Małe, konkretne, piękne - jak mój pies (a i od niedawna też kot).
-</p>
-<p>
-Na grupach facebookowych w dyskusjach znajdziesz jeszcze szybciej takie techniki.
-</p>
-<p>
-Tutaj pojawia pewna sprawa, który dotyczy nie tylko JavaScript, ale i całego frontendu. Bardzo często przy takich nowoczesnych tutorialach czy poradach autorzy nie zwracają uwagi na bardzo ważną rzecz - a mianowicie na to, że dobór techniki <strong>zawsze zależy od danego projektu</strong>. To są w końcu rzeczy oczywiste.<br>
-No właśnie nie do końca. To są rzeczy oczywiste - dla nas - osób, które w tej branży siedzą już kilkanaście lat. Ale czy dla osoby zaczynającej?
-</p>
-<p>
-Jeżeli robisz bloga o nowinkach z dziedziny frontentu, raczej możesz założyć, że większość użytkowników będzie korzystała z najnowszych przeglądarek, a więc i możesz używać najnowszych rozwiązań (chociaż najlepiej było by spojrzeć w statystyki Google Analitics które można podpiąć pod stronę).<br>
-Jeżeli jednak robisz stronę dla emerytowanych nauczycieli, czy dla przykładu olbrzymi sklep z którego będą korzystali różnorodni użytkownicy z różnorodnych krajów, wtedy rzucanie się na najnowsze rozwiązania będzie strzałem w stopę.
-</p>
-<p>
-Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie CSS Grid, a czasami nawet flexbox może okazać się czymś, czego użyć nie możesz. Czasami spokojnie będziesz mógł używać najnowszej wersji JavaScript, a czasami będziesz musiał pozostać przy starszej. A jeżeli będziesz musiał pozostać przy starszej, wtedy albo będziesz pisał JavaScript trzymając się klasycznych rozwiązań, albo skorzystasz z narzędzi zamieniających twój kod na starszy zapis.
-</p>
-<p>Autorzy tutoriali często zapominają o tym, że dla początkującej osoby istnieje po prostu JavaScript. Osoby takie często nie zdają sobie sprawy, że nie wszystko w JavaScript można dowolnie używać, nie wiedzą gdzie szukać informacji które przeglądarki co wspierają, jakich narzędzi używać do zamiany kodu i po co w ogóle to robić.</p>
-<p>W kursie tym staram się trzymać klasycznego JavaScript. Jasne - im więcej wiedzy zdobędziesz, im bardziej będziesz rozbudowywał swój warsztat, tym będziesz stosował coraz nowsze i lepsze techniki pisania kodu. A wtedy - tak jak to już pisałem powyżej - będziesz się śmiał z tego kursu. Póki co polecam po prostu uczyć się JavaScript.</p>
+<pre><code class="language-js">
+const car = {
+    drive() { console.log("Jadę") },
+    refuel() { console.log("Tankuję") },
+    stop() { console.log("Zatrzymuję się") }
+}
 
-<a href="./co-to-jest-javascript.php" class="button">To co? Zaczynamy?...</a>
+const c1 = Object.create(car);
+c1.name = "Samochód 1";
+
+const c2 = Object.create(car);
+c2.name = "Samochód 2";
+
+console.log(c1);
+console.log(c2);
+</code></pre>
+
+<img src="./object-create.png" alt="object create" class="border">
+
+<p>Drugim parametrem Object.create() jest obiekt, w którym możemy ustawić właściwości nowo tworzonego obiektu:</p>
+
+<pre><code class="language-js">
+const c1 = Object.create(car, {
+    name: {
+        value: 'Maluch'
+    },
+    km: {
+        value: 0
+    }
+}
+</code></pre>
+
+<p>W odróżnieniu od klasycznego ustawiania właściwości (np. <code>c1.name = "Maluch"</code>), mamy tutaj dodatkowe możliwości, ponieważ każdą tak tworzoną właściwość możemy <a href="https://developer.mozilla.org/pl/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty">dodatkowo opisać</a> poprzez cechy:</p>
+
+<ul>
+
+    <li><strong>enumerable</strong> - czy wartość ma być widoczna przy pętlach iteracyjnych (np. for in, for of itp.) - np. właściwość length nie jest enumerable</li>
+    <li><strong>writable</strong> (true/false) - czy zmienna może być zmieniana np. <code>car.name = "Fiat"</code></li>
+    <li><strong>configurable</strong> (true/false) - czy zmienna może mieć później zmieniane cechy - np. czy możemy później zmienić ją na nie enumerable, lub czy będziemy mogli ją usunąć poprzez <a href="./obiekty.php#delete">delete</a>)</li>
+    <li><strong>value</strong> - wartość tej właściwości. Nie można tego używać wraz z get/set</li>
+    <li><strong>get</strong> - tak zwany getter - funkcja wywoływana gdy pobieramy daną wartość</li>
+    <li><strong>set</strong> - tak zwany setter - funkcja wywoływana gdy ustawiamy daną wartość</li>
+</ul>
+
+<pre><code class="language-js">
+const user = Object.create({}, {
+    _name : {
+        writable : true,
+        configurable : true,
+        value : "",
+        enumerable : false
+    },
+    name: {
+        get: function() {
+            return this._name;
+        },
+        set : function(newName) {
+            this._name = newName[0].toUpperCase() + newName.substr(1);
+        },
+        enumerable : true
+    }
+});
+
+user.name = "karol";
+console.log( user.name ); //Karol
+
+for (const key in user) {
+    console.log(key); //name
+}
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="defineProperty">defineProperty()</h2>
+<p>W powyższym kodzie stworzyliśmy obiekt, od razu przy tym ustawiając jego właściwości. Możemy też takie właściwości dodawać poza ciałem obiektu za pomocą <strong>defineProperty()</strong>:</p>
+
+<pre><code class="language-js">
+const ob = {
+    _name : "piotr",
+    _height : 180
+};
+
+Object.defineProperty(ob, "name", {
+    set : function(newName) {
+        this._name = newName;
+    },
+    get : function() {
+        return this._name[0].toUpperCase() + this._name.substr(1).toLowerCase();
+    }
+});
+
+Object.defineProperty(ob, "height", {
+    get : function(height) {
+        return this._height;
+    },
+    set : function(height) {
+        this._height = height + 'cm';
+    }
+});
+
+Object.defineProperty(ob, "gender", {
+    writable : false,
+    value : "male"
+});
+
+console.log(ob.name); //Marcin
+ob.name = "grzegorz";
+console.log(ob.name); //Grzegorz
+
+ob.height = 180;
+console.log(ob.height); //180cm
+
+ob.gender = "woman"; //male - nie możemy zmienić tej właściwości
+</code></pre>
+
+<p>Powyższe definiowanie właściwości możemy też połączyć z konstruktorem:</p>
+
+<pre><code class="language-js">
+function Car(brand, color) {
+    this.brand = brand;
+    this.color = color;
+
+    var _speed; //zmienna prywatna niedostępna z zewnątrz
+
+    Object.defineProperty(this, "speed", {
+        get: function() {
+            return this._speed;
+        },
+        set: function(value) {
+            this._speed = value;
+            if (this._speed > 180) {
+                this._speed = 180;
+            }
+        }
+    });
+}
+
+const car = new Car("BMW", "Black");
+car.speed = 160;
+car.speed += 20;
+car.speed += 20; // 180 a nie 200!
+console.log(car.speed); //180km
+</code></pre>
+
+<!--###-->
+<h2 class="subtitle" id="enumerable">Enumerable</h2>
+<p>
+    Jak spojrzysz powyżej, jedną z właściwości jest enumerable, która oznacza, czy dana zmienna ma być listowana gdy wykonujemy pętlę na danym obiekcie. Sprawdźmy do na przykładzie:
+</p>
+
+<pre><code class="language-js">
+const tab = ["Ala", "Ola", "Ula"];
+console.dir(tab); //0: "Ala", 1: "Ola", 2: "Ula", "length" : 3
+</code></pre>
+
+<p>Powyżej mamy tablicę - czyli swego rodzaju obiekt. Jak widzisz, gdy wypisujemy nasz obiekt za pomocą console.dir, wypisane są jego wszystkie klucze wraz z length.</p>
+
+<p>Jeżeli jednak zrobimy pętlę po takim obiekcie, zostaną uwzględnione tylko klucze iterowalne:</p>
+
+<pre><code class="language-js">
+const tab = ["Ala", "Ola", "Ula"];
+for (const key in tab) {
+    console.log(key); //0, 1, 2, ale nie length
+}
+</code></pre>
+
+<p>Spróbujmy to zrobić na naszym obiekcie:</p>
+
+<pre><code class="language-js">
+const ob = {
+    name : "Marcin",
+    age : "old"
+}
+ob.pet = "Szamson";
+
+for (const key in ob) {
+    console.log(key); //name, age, pet
+}
+</code></pre>
+
+<p>Oznacza to, że tworząc w klasyczny sposób obiekty, wszystkie ich klucze są iterowalne.</p>
+
+<p>Korzystając z funkcji Object.create możemy zdecydować, które właściwości naszego obiektu będą iterowalne:</p>
+
+<pre><code class="language-js">
+const ob = Object.create({}, {
+    name : {
+        enumerable : true,
+        value : "Marcin"
+    },
+    age : {
+        enumerable : false,
+        value : 200,
+        writable : false
+    }
+});
+
+for (const i in ob) {
+    console.log(i); //name
+}
+</code></pre>
+
+<p>Żeby sprawdzić jakie cechy ma dana właściwość, możemy posłużyć się funkcją <strong>Object.getOwnPropertyDescriptor()</strong>:</p>
+
+<pre><code class="language-js">
+Object.getOwnPropertyDescriptor(ob, "name");
+//{value: "Marcin", writable: false, enumerable: true, configurable: false}
+</code></pre>
+
+<p>Jeżeli temat cię zainteresował polecam dodatkowe teksty na ten temat:</p>
+
+<ul>
+    <li><a href="http://arqex.com/967/javascript-properties-enumerable-writable-configurable">http://arqex.com/967/javascript-properties-enumerable-writable-configurable</a></li>
+    <li><a href="https://addyosmani.com/resources/essentialjsdesignpatterns/book/">https://addyosmani.com/resources/essentialjsdesignpatterns/book/</a></li>
+    <li><a href="http://robotlolita.me/2011/10/09/understanding-javascript-oop.html">http://robotlolita.me/2011/10/09/understanding-javascript-oop.html</a></li>
+</ul>
 
 			</div><!-- e: page-content-text -->
 			<footer class="page-footer">
@@ -165,13 +345,13 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
                 </h3>
             </div>
 
-						<div class="page-sidebar-section show has-active-element">
+						<div class="page-sidebar-section ">
 				<h3 class="page-sidebar-section-title">
 					<a href="#">Słowem wstępu</a>
 				</h3>
 				<div class="page-sidebar-list-cnt">
 					<ul class="page-sidebar-list">
-						<li class="active">
+						<li >
 							<a href="/kurs/wstep/wstep.php">Wstęp</a>
 						</li>
 						<li >
@@ -239,7 +419,7 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
 				</div>
 			</div>
 
-            			<div class="page-sidebar-section ">
+            			<div class="page-sidebar-section show has-active-element">
 				<h3 class="page-sidebar-section-title">
 					<a href="#">Obiekty</a>
 				</h3>
@@ -260,7 +440,7 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
                         <li >
 							<a href="/kurs/obiekty/obiekty-dziedziczenie.php">Dziedziczenie w Javascript</a>
 						</li>
-                        <li >
+                        <li class="active">
 							<a href="/kurs/obiekty/obiekty-inne-sposoby-tworzenia.php">Inne sposoby tworzenia obiektów</a>
 						</li>
                         <li >

@@ -1,0 +1,1116 @@
+<!doctype html>
+<html lang="pl-PL">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kurs Javascript - Grafika na stronie</title>
+	<meta name="description" content="Kurs Javascript dla superbohaterów, artykuły, tutoriale, porady, zadania do wykonania" />
+    <link rel="canonical" href="https://kursjs.pl/kurs/grafika/grafika-na-stronie.php" />
+	<link rel="stylesheet" href="./css.css" />
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,700&display=swap&subset=latin-ext" rel="stylesheet">
+	<meta name="image" content="https://kursjs.pl/kursjs.png">
+<meta name="twitter:card" content="product">
+<meta name="twitter:site" content="@publisher_handle">
+<meta name="twitter:title" content="Kurs Javascript">
+<meta name="twitter:description" content="Kurs Javascript dla superbohaterów">
+<meta name="twitter:creator" content="@kartofelek007">
+<meta name="twitter:image" content="https://kursjs.pl/kursjs.png">
+<meta property="og:title" content="Kurs Javascript">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.kursjs.com/">
+<meta property="og:image" content="https://kursjs.pl/kursjs.png">
+<meta property="og:description" content="Kurs Javascript dla superbohaterów">
+<meta property="og:site_name" content="Kurs Javascript">
+<link rel="apple-touch-icon" sizes="57x57" href="/favicons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/favicons/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/favicons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/favicons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/favicons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/favicons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/favicons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/favicons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="/manifest.json">
+<meta name="msapplication-TileColor" content="#FF6347">
+<meta name="msapplication-TileImage" content="/mstile-144x144.png">
+    <script src="/js/jquery.min.js"></script>
+</head>
+<body>
+
+<div class="page-container" id="pageContainer">
+	<div class="page-content-wrapper">
+        <main class="page-content" id="mainContent"  data-text-for-print="Kurs Javascript dla superbohaterów">
+                        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <div class="rekl-cnt">
+                <ins
+                class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-6843603045703750"
+                data-ad-slot="4690777640"
+                data-ad-format="auto"
+                data-full-width-responsive="true"
+                ></ins>
+            </div>
+                        <div class="page-content-text">
+
+<style>
+#obrazekKarto {
+    cursor: url(./celownik.png), auto;
+}
+</style>
+
+
+<h1 class="page-title">Grafika na stronie</h1>
+
+<p>Przypuśćmy, że mamy obrazek img na stronie:</p>
+
+<p>
+    <img src="./wietnam.jpg" class="img" alt="Kartofel w wietnamie" width="400" height="400">
+</p>
+
+<pre><code class="language-html">
+    &lt;img src="./wietnam.jpg" class="img" alt="Kartofel w wietnamie" width="400" height="400">
+</code></pre>
+
+<p>Żeby móc na nim pracować, pobierzmy go i zbadajmy w konsoli (zrób to teraz):</p>
+
+<pre><code class="language-js">
+const img = document.querySelector('.img');
+console.dir(img);
+</code></pre>
+
+<img src="./img-debuger.png" class="space border" alt="Widok części debugera po zbadaniu grafiki">
+
+<script>
+const img = document.querySelector('.img');
+console.log('Badana grafika ze strony:');
+console.dir(img);
+</script>
+
+<p>
+    Jak widzisz w <a href="../debuger/debuger.php">konsoli debugera</a> (mam nadzieję, że masz ją otwartą), dla tak pobranej grafiki możemy ustawiać mnóstwo właściwości i korzystać z wielu metod.
+</p>
+<p>
+    Wśród nich jednymi z najczęściej używanymi są:
+</p>
+
+<table class="tab">
+    <tr>
+        <th><strong>width</strong></th>
+        <td>szerokość grafiki,</td>
+    </tr>
+    <tr>
+        <th><strong>height</strong></th>
+        <td>wysokość grafiki,</td>
+    </tr>
+    <tr>
+        <th><strong>alt</strong></th>
+        <td>alternatywny opis grafiki (widoczny gdy się nie wczyta),</td>
+    </tr>
+    <tr>
+        <th><strong>title</strong></th>
+        <td>tekst, który pojawi się po najechaniu kursorem na element,</td>
+    </tr>
+    <tr>
+        <th><strong>src</strong></th>
+        <td>adres do grafiki</td>
+    </tr>
+</table>
+
+<pre><code class="language-js">
+const obr = document.querySelector('.img');
+console.log('Szerokość: ' + img.width + ', wysokość: ' + img.height + ', src:' + img.src);
+</code></pre>
+
+<p>No dobrze - w praktyce używa się tego co pasuje w danej sytuacji. Poniżej zajmiemy się częstymi przypadkami, które są spotykane przy pracy z grafiką w js.</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="rollover">Zmiana po najechaniu</h2>
+<div class="kartofel-informuje">
+    <p>
+    Do efektu rollover powinien być stosowany zwykły CSS i selektor :hover.<br>
+    Jeżeli nie masz powodu by wykorzystywać do tego JavaScript - nie rób tego.
+    </p>
+</div>
+
+<p>
+Aby podmienić grafikę na inną musimy zmienić atrybut <strong>src</strong> danej grafiki:
+</p>
+
+<pre><code class="language-js">
+const obr = document.getElementById('obrazek');
+
+img.addEventListener('mouseover', function() {
+    this.src = 'obrazek_2.jpg';
+});
+
+img.addEventListener('mouseout', function() {
+    this.src = 'obrazek_1.jpg';
+});
+</code></pre>
+
+<p id="rollower-preload">
+Powyższa metoda ma jeden błąd. Nowa grafika jest ściągana dopiero, gdy wskażemy nasz obrazek kursorem.
+Przy wolnych łączach lub dużych grafikach spowoduje to "dziurę", bo obrazek będzie wczytywany dopiero po najechaniu. Aby temu zapobiec musimy wszystkie grafiki załadować zawczasu.
+</p>
+<p>
+    Aby załadować wcześniej grafiki możemy skorzystać z różnych sztuczek. Przykładowo możemy wrzucić na stronę obrazek z daną grafiką, który ukryjemy np. za pomocą pozycjonowania absolutnego ( <code>position:absolute; left:-99999px;</code>. Grafikę taką moglibyśmy też dać jako tło jakiegoś ukrytego elementu - tutaj raczej szedł bym w <code>visibility:hidden, height:0; width:0;</code>, bo nie jest powiedziane, że tło elementu ukrytego za pomocą <code>display:none</code> zawsze będzie dociągane.
+</p>
+<p>
+    Możemy też zastosować zupełnie inne podejście polegające na stworzeniu obrazka za pomocą JavaScript.<br>
+    W tym celu możemy stworzyć obrazek za pomocą <code>document.createElement('img')</code> lub korzystając z <a href="../obiekty/obiekty-konstruktor.php">konstruktora</a> <strong>Image()</strong>.
+</p>
+
+<pre><code class="language-js">
+const newImage = new Image(200, 300); //przy tworzeniu Image możemy podać jego rozmiary
+newImage.src = "obrazek_on.jpg" //podajemy jego src
+
+document.querySelector('body').appendChild(newImage);
+</code></pre>
+
+<pre><code class="language-js">
+const newImage = document.createElement('img');
+newImage.width = 200;
+newImage.height = 300;
+newImage.src = "obrazek_on.jpg" //podajemy jego src
+
+document.querySelector('body').appendChild(newImage);
+</code></pre>
+
+<p>
+Gdy utworzymy już stosowne obiekty, możemy odwoływać się do ich właściwości src:
+</p>
+
+<pre><code class="language-js">
+const imageOff = new Image();
+imageOff.src = '/images/obrazek1.jpg';
+
+const imageOn = new Image();
+imageOn.src = '/images/obrazek2.jpg';
+
+
+const img = document.querySelector('.hover');
+
+img.addEventListener('mouseover', function() {
+    this.src = imageOn.src;
+});
+img.addEventListener('mouseout', function() {
+    this.src = imageOff.src;
+});
+</code></pre>
+
+<p class="align-center">
+    <img src="./obrazek1.jpg" alt="Obrazek do najechania kursorem" id="obr" style="border:1px solid #666"/>
+</p>
+
+<script>
+{
+    const imageOff = new Image();
+    imageOff.src = './obrazek1.jpg';
+
+    const imageOn = new Image();
+    imageOn.src = './obrazek2.jpg';
+
+    const img = document.getElementById('obr');
+
+    img.addEventListener('mouseover', function() {
+        this.src = imageOn.src;
+    });
+    img.addEventListener('mouseout', function() {
+        this.src = imageOff.src;
+    });
+}
+</script>
+
+<p>
+    Deklarowanie dla każdej grafiki obu stanów w podany powyżej sposób może być problematyczne - zwłaszcza dla większej liczby grafik.</p>
+<p>Żeby to rozwiazać możemy trzymać nazwy obrazków w tablicy, na bazie której zrobimy sobie odpowiednie obiekty Image():</p>
+
+<pre><code class="language-js">
+const names = [
+    'obr1.jpg',
+    'obr1-over.jpg',
+    'obr2.jpg',
+    'obr2-over.jpg',
+];
+
+const images = names.map(name => {
+    const img = new Image();
+    img.src = name;
+    return img;
+});
+
+
+const img = document.getElementById('img');
+img.addEventListener('mouseover', function() {
+    this.src = images[0].src;
+});
+img.addEventListener('mouseout', function() {
+    this.src = images[1].src;
+});
+</code></pre>
+
+<p>
+Przy większej liczbie obrazków odwoływanie się do nich przez indeks może być dość niewygodne. W takim przypadku możemy pokusić się o stworzenie mini systemu, w którym przy odwoływaniu się będziemy podawać nazwę. W tym przypadku przetrzymywane Images() warto trzymać w postaci obiektu z odpowiednimi kluczami, lub pod postacią Mapy:
+</p>
+
+<pre><code class="language-js">
+//nazwy obrazków
+const names = [
+    {name: 'icon1', normal: 'obr1_normal.jpg', hover: 'obr1_over.jpg'},
+    {name: 'hero',  normal: 'obr2_normal.jpg', hover: 'obr2_over.jpg'},
+    {name: 'ball',  normal: 'obr3_normal.jpg', hover: 'obr3_over.jpg'},
+    {name: 'other', normal: 'obr4_normal.jpg', hover: 'obr4_over.jpg'},
+];
+
+//tworzymy mapę z obiektami Image()
+const images = new Map();
+names.forEach(ob => {
+    const img = new Image();
+    img.src = ob.normal;
+
+    const img2 = new Image();
+    img2.stc = ob.hover;
+
+    map.set(ob.name, {
+        normal : img,
+        hover : img2
+    });
+});
+
+const img = document.getElementById('.hero-element');
+img.addEventListener('mouseover', function() {
+    this.src = images.get("hero").hover;
+});
+img.addEventListener('mouseout', function() {
+    this.src = images.get("hero").normal;
+});
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="load">Load</h2>
+<p>
+Obiekty wczytywane (np. window, image, script itp.) posiadają zdarzenie <a href="https://developer.mozilla.org/en-US/docs/Web/Events/load">load</a>, które wykrywa, czy dany obiekt został w pełni załadowany.
+</p>
+
+<p>
+Dla obiektu window zdarzenie to oznacza wczytanie całego dokument dom oraz wszystkich grafik (w przeciwieństwie do <a href="../events/events.php#domcontentloaded">DOMContentLoaded</a>, które odpalane jest po wczytaniu drzewa DOM, ale przed wczytaniem grafik).<br>
+Dla grafiki oznacza to wczytanie grafiki:
+</p>
+
+<pre><code class="language-js">
+img.addEventListener('load', function() {
+    console.log('Dana grafika została załadowana');
+});
+
+img.src = 'lorem.jpg'; //wpierw ustawiamy zdarzenie, potem ustawiamy src
+</code></pre>
+
+<p>Jeżeli w powyższym skrypcie zdarzenie load ustawilibyśmy po ustawieniu src, skrypt mógł by zadziałać nieprawidłowo. Może zdarzyć się sytuacja, że obrazek wczyta się natychmiastowo po ustawieniu src (np. siedzi już w <a href="https://en.wikipedia.org/wiki/Web_cache">cache przeglądarki</a>). Oznacza to, że obrazek wczyta się przed odpaleniem nasłuchiwania eventu load.</p>
+
+<p>Są jednak sytuacje (szczególnie przy bardziej skomplikowanych skryptach), że nie jesteśmy w stanie zagwarantować takiej kolejności. Przykładowo system podpina wszystkie eventy, a gdzieś dalej dopiero budowane są src grafik w systemie. W takim przypadku warto sprawdzić właściwość <strong>complete</strong> każdej grafiki, która wskazuje czy dany obrazek jest wczytany czy nie.</p>
+
+<pre><code class="language-js">
+img.src = 'lorem.jpg';
+
+img.addEventListener('load', function() {
+    console.log('Dana grafika została załadowana');
+});
+
+if (img.complete) {
+    //odpalam ręcznie event load
+    const event = new Event('load');
+    img.dispatchEvent(event);
+}
+
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="loading">Postęp wczytywania grafik na stronie</h2>
+<p>
+Wyobraź sobie, że naszym zadaniem będzie zrobienie paska ładowania grafik użytych na stronie.
+</p>
+<p>Aby to zrealizować, zacznijmy od przygotowania elementu z progress barem:</p>
+
+<pre><code class="language-css">
+.loading {
+    margin: 30px 0;
+    height: 10px;
+    border-radius: 10px;
+    background: #eee;
+    display: flex;
+    overflow:hidden;
+}
+
+.loading-progress {
+    background: tomato;
+}
+</code></pre>
+
+<pre><code class="language-html">
+&lt;div id="loading">
+    &lt;div class="loading-progress">&lt;/div>
+&lt;/div>
+</code></pre>
+
+<p>Sam skrypt będzie raczej prosty. Tworzymy tablicę ze ścieżkami do grafik oraz pustą tablicę, do której będziemy wrzucać elementy Images().</p>
+
+<pre><code class="language-js">
+//tablica z nazwami obrazków do załadowania
+const imgNames = [
+    'obrazek1.gif',
+    'obrazek2.gif',
+    'obrazek3.gif',
+    'obrazek4.gif',
+    'obrazek5.gif',
+    'obrazek6.gif'
+];
+
+const loadingStep = (100 / imgNames.length); //szerokość oznaczająca % paska po załadowaniu 1 obrazka
+
+const images = []; //tablica będzie zawierała obiekty Image
+
+const loading = document.querySelector('.loading');
+const loadingBar = loading.querySelector('.loading-progress');
+
+const pageToRedirect = 'index.php'; //strona na którą przeniesie po zakończonym ładowaniu
+
+//funkcja rozpoczynająca ładowanie obrazków
+function startLoading() {
+    imgNames.forEach(name => {
+        const img = new Image();
+        //po wczytaniu grafiki wrzucam nowe Image() do tablicy images
+        //sprawdzam ile elementów ma ta tablica i na tej podstawie ustawiam szerokość paska postępu
+
+        img.addEventListener('load', function() {
+            images.push(this);
+            loadingBar.style.width = `${images.length * loadingStep}%`; //zmieniamy szerokość paska w %
+
+            if (images.length >= imgNames.length) {
+                //po załadowaniu wszystkich grafik czekamy 1s i przenosimy na stronę
+                setTimeout(() => {
+                    window.location.href = pageToRedirect
+                }, 1000);
+            }
+        });
+        img.src = name;
+
+        if (img.complete) {
+            const event = new Event('load');
+            img.dispatchEvent(event);
+        }
+    });
+}
+
+startLoading();
+</code></pre>
+
+<p>
+    Powyższy przykład możesz zobaczyć w działaniu <a href="grafika-loading-test.html">tutaj</a>.
+</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="loading2">Wczytywanie grafiki i obietnice</h2>
+<p>
+    Wczytywanie to proces asynchroniczny, więc jest to idealne miejsce by zastosować <a href="../ajax/promise.php">obietnice</a> lub <a href="../ajax/async-await.php">async/await</a>.
+</p>
+
+<p>Napiszmy prostą funkcję, która zwróci nam obietnicę, który zostanie rozwiązany gdy grafika zostanie wczytana. W przeciwnym razie zostanie zwrócony błąd. Tak naprawdę są to powyżej zebrane informacje okryte za pomocą Promise:</p>
+
+<pre><code class="language-js">
+const loadImage = function(name, src) {
+    return new Promise((resolve, reject) => {
+        const img = new Image();
+        //zwracamy obiekt, który będzie miał 2 klucze:
+        //name - nazwa którą będziemy podawać przy odwoływaniu się do tej grafiki
+        //img - właściwy element img, który będzie zwracany
+        img.addEventListener('load',  () => resolve({name : name, img : img}));
+        img.addEventListener('error', e => reject(e));
+        img.src = src;
+
+        if (img.complete) {
+            const event = new Event('load');
+            img.dispatchEvent(event);
+        }
+    });
+}
+</code></pre>
+
+<p>Wykorzystajmy ją w funkcji wczytującej kilka grafik na raz:</p>
+
+<pre><code class="language-js">
+const graphicCollection = [
+    {name : 'hero' , src : 'graphic-to-load/aniolek.jpg'},
+    {name : 'icon' , src : 'graphic-to-load/aniolek2.jpg'},
+    {name : 'cats' , src : 'graphic-to-load/book.jpg'},
+    {name : 'pies' , src : 'graphic-to-load/bum.jpg'}
+];
+
+const loadImages = function(sources) {
+    const promises = sources.map(img => loadImage(img.name, img.src));
+    return Promise.all(promises);
+}
+</code></pre>
+
+<p>Od tej pory oczekiwanie na wczytanie wszystkich grafik będzie bardzo proste:</p>
+
+<pre><code class="language-js">
+loadImages(graphicCollection).then(data => {
+    //kluczami będą nazwy grafik - np. grafika1, grafika-moja2, grafika-inna3
+    data.forEach(img => {
+        images.set(img.name, img.img);
+    });
+
+    console.log('hero -> ', images.get('hero'));
+    console.log('icon -> ', images.get('icon'));
+    console.log('cats -> ', images.get('cats'));
+    console.log('pies -> ', images.get('pies'));
+});
+</code></pre>
+
+<button class="button" id="testPromiseLoad">Sprawdź w konsoli</button>
+
+<script>
+{
+    const loadImage = function(name, src) {
+        return new Promise((resolve, reject) => {
+            const img = new Image();
+            img.addEventListener('load',  () => resolve({name, img}));
+            img.addEventListener('error', e => reject(e));
+            img.src = src;
+
+            if (img.complete) {
+                const event = new Event('load');
+                img.dispatchEvent(event);
+            }
+        });
+    };
+
+    const loadImages = function(sources) {
+        //tablica z grafikami
+        //każdy jej element zawierać będzie promise z wczytywaną grafiką
+        const promises = sources.map( img => loadImage(img.name, img.src)  );
+        return Promise.all(promises);
+    };
+
+    const graphicCollection = [
+        {name : 'hero' , src : 'graphic-to-load/aniolek.jpg'},
+        {name : 'icon' , src : 'graphic-to-load/aniolek2.jpg'},
+        {name : 'cats' , src : 'graphic-to-load/book.jpg'},
+        {name : 'pies' , src : 'graphic-to-load/bum.jpg'}
+    ];
+    const images = new Map(); //mapa z wczytanymi grafikami
+
+
+
+    const startLoadImages = function() {
+        loadImages(graphicCollection).then(data => {
+            //kluczami będą nazwy grafik - np. grafika1, grafika-moja2, grafika-inna3
+            data.forEach(img => {
+                images.set(img.name, img.img);
+            });
+
+            console.log('hero -> ', images.get('hero'));
+            console.log('icon -> ', images.get('icon'));
+            console.log('cats -> ', images.get('cats'));
+            console.log('pies -> ', images.get('pies'));
+        });
+    };
+
+    const btn = document.querySelector("#testPromiseLoad");
+    btn.addEventListener("click", startLoadImages)
+}
+</script>
+
+<!-- ### -->
+<h2 class="subtitle" id="lazy">Lazy loading</h2>
+<p>Lazy loading to metoda wczytywania obrazków polegająca na tym, że dany obrazek wczytywany jest dopiero w momencie gdy pojawi się na ekranie.</p>
+<p>Od Chrome 76, wczytywanie takie możemy uzyskać za pomocą dodatkowego atrybutu <strong>lazy</strong> dla elementów img:</p>
+
+<pre><code class="language-html">
+&lt;img src="image.png" loading="lazy" alt="...">
+&lt;iframe src="https://example.com" loading="lazy">&lt;/iframe>
+</code></pre>
+
+<p>Atrybut ten może przyjąć jedną z wartości:</p>
+
+<table class="tab">
+    <tr>
+        <th>auto</th>
+        <td>domyślna wartość dla leniwego wczytywania. Równa temu, jakbyśmy w ogóle tego atrybutu nie używali.</td>
+    </tr>
+    <tr>
+        <th>lazy</th>
+        <td>opóźnione wczytywanie grafiki gdy osiągnie ona wskazany dystans od ekranu (zależy od typu zasobów, szybkości łącza itp.)</td>
+    </tr>
+    <tr>
+        <th>eager</th>
+        <td>zdjęcie ma być wczytywane natychmiast po wejściu na stronę</td>
+    </tr>
+</table>
+
+<p>W przypadku, gdy dana przeglądarka nie obsługuje powyższego atrybutu, możemy skorzystać z kilku metod naprawy tego stanu.</p>
+
+<p>Pierwszą z nich jest użycie tak zwane <a href="https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API">IntersectObserver</a>, który nasłuchuje, czy dane elementy znalazły się w zadanym obszarze.</p>
+<p>Drugą jest użycie jednego z <a href="../events/events.php">eventów</a> resize, scroll i orientationchange.</p>
+
+<p>Nie będę tutaj duplikował czyjegoś kodu i zwyczajnie odeślę was pod <a href="https://developers.google.com/web/fundamentals/performance/lazy-loading-guidance/images-and-video/#using_event_handlers_the_most_compatible_way">ten adres</a>, gdzie został pokazany stosowny kod.</p>
+
+<hr>
+<h2 class="subtitle" id="loading">Trening czyni mistrza</h2>
+<p>
+    Poniżej zamieszczam kilka zadań, które w ramach ćwiczenia możesz wykonać:
+</p>
+<ol class="tasks-for-you">
+    <li>
+        <div class="question">
+        Utwórz jeden obiekt typu Image. Ustaw mu src do jakiejś grafiki.
+        Następnie stwórz za pomocą JavaScript div o rozmiarach np. 400x300, któremu jako tło ustawisz
+        tą grafikę. Grafika tła powinna być dopasowana do wielkości diva.
+        </div>
+        <div class="solution">
+            <pre><code class="language-js">
+                const img = new Image();
+                img.src = "https://placeimg.com/640/480/animals?t=1514540372818";
+
+                const div = document.createElement('div');
+                div.style.width = "400px";
+                div.style.height = "300px";
+                div.style.backgroundImage = "url(img.src)";
+                div.style.backgroundSize = "cover"; //lub contain jeżeli ma się całe mieścić w divie
+
+                document.querySelector('body').appendChild(div);
+            </code></pre>
+        </div>
+    </li>
+    <li>
+    <div class="question">
+    Po kliknięciu na div, zmień mu grafikę na inną (którą pobierzesz z kolejnego Image)
+    </div>
+    <div class="solution">
+        <pre><code class="language-js">
+            const img = new Image();
+            img.src = "https://placeimg.com/640/480/animals?t=1514540372818";
+
+            const img2 = new Image();
+            img2.src = "https://placeimg.com/640/480/animals?t=1514540470097";
+
+            const div = document.createElement('div');
+            div.style.width = "400px";
+            div.style.height = "300px";
+            div.style.backgroundImage = "url(img.src)";
+            div.style.backgroundSize = "cover";
+
+            document.querySelector('body').appendChild(div);
+
+            div.addEventListener('click', function() {
+                this.style.backgroundImage = "url(img2.src)";
+            });
+        </code></pre>
+    </div>
+    </li>
+    <li>
+    Dla chętnych. Na środku powyżej stworzonego postępu ładowania (w artykule) dodaj tekst, który będzie pokazywał liczbę wczytywanych obrazków w formacie "Wczytano 5 / 10"
+    </li>
+    <li>
+        Pobierz sobie stronę <a href="zadanie-obrazki.html">zadanie-obrazki.html</a> (prawym klawiszem myszy na link i zapisz jako).
+        W kodzie strony masz kilka obrazków.<br><br>
+
+        Twoim celem jest:<br>
+        - pobrać z nich atrybut src i podstawić go pod atrybut data<br>
+        - dodać dla img klasę .loading<br>
+        - poczekać aż wczyta się grafika, wtedy usunąć .loading i przywrócić na nowo src z grafiką.<br><br>
+
+        Aby móc testować to zadanie w debugerze w zakładce Network na górze możesz sobie ustawić testową szybkość połączenia.
+        Dodatkowo odświeżaj stronę poprzez Ctrl + Shift + R (odświeżenie z pominięciem cache).
+    </li>
+    <li>
+        Dla chętnych. Powyższe zadanie zmodyfikuj tak, by grafiki
+        zaczęły się ładować dopiero, gdy dany obrazek znajdzie się na ekranie. Możesz skorzystać
+        z <a href="https://web.archive.org/web/20181007125453/https://stackoverflow.com/questions/5353934/check-if-element-is-visible-on-screen">https://stackoverflow.com/questions/5353934/check-if-element-is-visible-on-screen</a>
+    </li>
+</ol>
+
+			</div><!-- e: page-content-text -->
+			<footer class="page-footer">
+				<p>
+				Wszelkie prawa zastrzeżone. Jeżeli chcesz używać jakiejś części tego kursu, skontaktuj się z <a href="/kurs/autor.php">autorem</a>.
+				Aha - i ta strona korzysta z <a href="/kurs/polityka-prywatnosci.php">ciasteczek</a>.
+				</p>
+			</footer>
+							<div class="rekl-cnt">
+					<ins
+					class="adsbygoogle" style="margin-top:40px; display:block"
+					data-ad-client="ca-pub-6843603045703750"
+					data-ad-slot="4690777640"
+					data-ad-format="auto"
+					data-full-width-responsive="true"
+					></ins>
+				</div>
+				<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+	(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+					</main><!-- e: page-content -->
+			</div><!-- e: page-content-wrapper -->
+    <aside id="page-sidebar-cnt" class="page-sidebar-cnt">
+	<div id="page-sidebar" class="page-sidebar">
+		<button aria-label="Pokaż/ukryj Menu" aria-expanded="false" aria-controls="page-sidebar" type="button" id="pageSidebarBurger" class="page-sidebar-burger">
+			<span></span>
+		</button>
+
+		<h2 class="visuallyhidden">
+			Menu
+		</h2>
+
+		<button class="sidebar-toggle-btn" title="Pokaż/schowaj menu" aria-hidden="true">
+			<strong>Pokaż/ukryj menu</strong>
+			<span></span>
+			<span></span>
+			<span></span>
+		</button>
+
+		<div class="page-sidebar-title">
+			<a href="/kurs/kontakt.php" title="Nawrzucaj autorowi" class="mail-to-author" id="mailToAuthor">Napisz do mnie</a>
+			<a href="#popupOptions" class="page-setup-link popupOpen" title="Ustawienia strony" id="showOptions">Ustawienia</a>
+			<a href="/index.php" aria-label="Strona główna" class="page-sidebar-title-link">Kurs Javascript</a>
+		</div>
+
+        <form aria-label="Wyszukiwarka" class="search-sidebar" action="/search.php" method="post">
+            <label for="search" class="search-sidebar-label">Szukaj</label>
+            <div class="search-sidebar-input-cnt">
+                <svg class="search-sidebar-input-icon" xmlns="http://www.w3.org/2000/svg" width="26" height="28" viewBox="0 0 26 28" aria-hidden="true">
+                    <path d="M18 13c0-3.859-3.141-7-7-7s-7 3.141-7 7 3.141 7 7 7 7-3.141 7-7zm8 13c0 1.094-.906 2-2 2a1.96 1.96 0 0 1-1.406-.594l-5.359-5.344a10.971 10.971 0 0 1-6.234 1.937c-6.078 0-11-4.922-11-11s4.922-11 11-11 11 4.922 11 11c0 2.219-.672 4.406-1.937 6.234l5.359 5.359c.359.359.578.875.578 1.406z"></path>
+                </svg>
+                <input type="text" id="search" autocomplete="off" name="q" class="search-sidebar-input">
+            </div>
+            <button type="submit" class="search-sidebar-button">Szukaj</button>
+        </form>
+
+		<div class="page-sidebar-table-of-content">
+			<h2 class="visuallyhidden">Spis treści</h2>
+            <div class="page-sidebar-section">
+				<h3 class="page-sidebar-section-title noopen">
+                    <a href="/index.php">Strona główna</a>
+                </h3>
+            </div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Słowem wstępu</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/wstep/wstep.php">Wstęp</a>
+						</li>
+						<li >
+							<a href="/kurs/wstep/co-to-jest-javascript.php">Co to jest JavaScript i z czym go się je?</a>
+						</li>
+						<li >
+							<a href="/kurs/wstep/wymagania.php">Wymagania</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Super podstawy</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/debuger/debuger.php">Debuger</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/pierwszy-skrypt.php">Wstawiamy skrypty na naszą stronę</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/strict-mode.php">Strict mode</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/typy-danych.php">Typy danych i konwersja danych</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/zmienne.php">Zmienne</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/operatory.php">Operatory</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/math.php">Obiekt Math</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/string.php">String - teksty</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/instrukcje-warunkowe.php">Instrukcje warunkowe</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/petle.php">Pętle</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/funkcje.php">Funkcje</a>
+						</li>
+                        <li >
+							<a href="/kurs/super-podstawy/funkcje-tematy-dodatkowe.php">Funkcje - tematy dodatkowe</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/tablice.php">Tablice</a>
+						</li>
+                        <li >
+							<a href="/kurs/super-podstawy/tablice-iteracje.php">Tablice pętle</a>
+						</li>
+						<li >
+							<a href="/kurs/debuger/debugowanie.php">Debugowanie kodu</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+            			<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Obiekty</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+                        <li >
+							<a href="/kurs/obiekty/obiekty.php">Obiekty i this</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-jak-to-dziala.php">Jak to działa</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-konstruktor.php">Konstruktor</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-zaawansowane-this.php">Zaawansowane this</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-dziedziczenie.php">Dziedziczenie w Javascript</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-inne-sposoby-tworzenia.php">Inne sposoby tworzenia obiektów</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-instanceof-hasownproperty.php">instanceof i hasOwnProperty</a>
+						</li>
+                    </ul>
+                </div>
+            </div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">DOM i zdarzenia</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/dom/dom.php">Document Object Model</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-wlasciwosci.php">Właściwości elementów</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-relacje.php">Relacje między elementami</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-tworzenie-i-usuwanie.php">Tworzenie i usuwanie elementów</a>
+						</li>
+                        <li >
+                            <a href="/kurs/dom/style.php">Style w CSS</a>
+                        </li>
+						<li >
+							<a href="/kurs/events/events.php">Zdarzenia</a>
+						</li>
+						<li >
+							<a href="/kurs/events/events-keys.php">Zdarzenia - klawisze</a>
+						</li>
+						<li >
+							<a href="/kurs/events/events-mouse.php">Zdarzenia - myszka</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/projekt-todo.php">Projekt TODO</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/slider.php">Tworzymy slider</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+
+						<div class="page-sidebar-section show has-active-element">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Prawie podstawy</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li class="active">
+							<a href="/kurs/grafika/grafika-na-stronie.php">Grafika na stronie</a>
+						</li>
+						<li >
+							<a href="/kurs/intervals/intervals.php">setTimeout i setInterval</a>
+						</li>
+						<li >
+							<a href="/kurs/match-media.php">Praca z RWD</a>
+						</li>
+						<li >
+							<a href="/kurs/okna-dialogowe.php">Okienka dialogowe</a>
+						</li>
+						<li >
+							<a href="/kurs/okna.php">Tworzenie nowych okien</a>
+						</li>
+						<li >
+							<a href="/kurs/date/date.php">Obiekt Date</a>
+						</li>
+						<li >
+							<a href="/kurs/date/date-calendar.php">Tworzymy kalendarz</a>
+						</li>
+						<li >
+							<a href="/kurs/cookies/cookie.php">Obiekt Cookie</a>
+						</li>
+						<li >
+							<a href="/kurs/storage/storage.php">Storage</a>
+						</li>
+						<li >
+							<a href="/kurs/regular.php">Wyrażenia regularne</a>
+						</li>
+						<li >
+							<a href="/kurs/formularze/formularze.php">Formularze</a>
+						</li>
+						<li >
+							<a href="/kurs/formularze/formularze-walidacja.php">Formularze - walidacja</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Ajax</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/ajax/ajax.php">AJAX, REST, JSON</a>
+						</li>
+						<li >
+							<a href="/kurs/ajax/xmlhttprequest.php">XMLHttpRequest</a>
+						</li>
+            			<li >
+							<a href="/kurs/ajax/fetch.php">Fetch API</a>
+						</li>
+						<li >
+							<a href="/kurs/ajax/formularz-kontaktowy.php">Dynamiczny formularz kontaktowy</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Nowy Javascript</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/es6/ecma-script-2015.php">ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/webpack.php">Webpack</a>
+						</li>
+                        <li >
+            				<a href="/kurs/es6/obiekty-w-es6.php">Obiekty w ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/funkcja-strzalkowa.php">Funkcja strzałkowa</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/spread-rest.php">Spread i rest</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/template-strings.php">Template strings</a>
+						</li>
+						<li >
+            				<a href="/kurs/es6/destructuring.php">Dekompozycja</a>
+        				</li>
+						<li >
+							<a href="/kurs/es6/class.php">Klasy w ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/promises.php">Promises</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/async-await.php">Async/Await</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/symbole.php">Symbole</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">jQuery</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/jquery/jquery.php">jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/animacje-w-jquery.php">Animacje w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/jquery-ajax.php">Ajax w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/tabs.php">Taby w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/plugin.php">Karuzela w jQuery</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Canvas</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/canvas/canvas.php">Canvas</a>
+						</li>
+						<li >
+							<a href="/kurs/canvas/canvas-images.php">Grafika w canvas</a>
+						</li>
+						<li >
+						<a href="/kurs/canvas/canvas-paint.php">Praktycznie : Paint w canvas</a>
+						</li>
+
+						<li >
+							<a href="/kurs/canvas/canvas-animacja.php">Animacja w canvas</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Gry</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/gry/hangman/hangman.php">Szubienica</a>
+						</li>
+						<li >
+							<a href="/kurs/gry/memory/memory.php">Memory</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+            			<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Inne</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/dodatkowe-materialy.php">Dodatkowe materiały</a>
+						</li>
+						<li >
+							<a href="/kurs/faq.php">FAQ</a>
+						</li>
+						<li >
+							<a href="/kurs/polityka-prywatnosci.php">Polityka prywatności</a>
+						</li>
+						<li >
+							<a href="/kurs/autor.php">O autorze</a>
+						</li>
+						<li >
+							<a href="/kurs/kontakt.php">Kontakt</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="page-sidebar-section">
+                <a class="special-link" href="/kurs/autor.php#donate">Wesprzyj kurs</a>
+            </div>
+		</div>
+	</div>
+</aside></div><!-- e: page-container -->
+
+<div class="popup" id="popupOptions">
+	<div class="popup-inside">
+        <div class="popup-container-cnt">
+            <div class="popup-container">
+                <button class="popup-close">Zamknij</button>
+
+                <h2 class="popup-title">
+                    Opcje
+                </h2>
+
+                <div class="popup-content">
+                    <form class="form-options">
+                        <div class="form-option">
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <label for="optionsThemeSelect">Wybierz skórkę dla listingów</label>
+                                    <select id="optionsThemeSelect"></select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <pre><code class="language-js">
+                                //tak będzie wyglądał kod
+
+                                function test() {
+                                    for (let i=0; i&lt;10; i++) {
+                                        console.log("Tekst numer ", 1);
+                                    }
+                                }
+
+                                test();
+                                </code></pre>
+                            </div>
+                            <div class="form-row" id="themeLightModeRow">
+                                <div class="form-col">
+                                    <label for="themeLightMode">
+                                        Tryb dzienny / nocny
+                                    </label>
+
+                                    <div class="light-mode-el">
+                                        <input type="checkbox" id="themeLightMode">
+                                        <span class="light-mode"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+	</div>
+</div>
+<script async defer src="https://www.googletagmanager.com/gtag/js?id=UA-38558970-5"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-38558970-5');
+</script>
+
+	<script src="/js/ads.js"></script>
+	<script src="/js/script.min.js?v=0.13" defer></script>
+</body>
+</html>

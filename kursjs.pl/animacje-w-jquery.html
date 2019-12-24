@@ -3,9 +3,9 @@
 <head>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Kurs Javascript - Wstęp</title>
+    <title>Kurs Javascript - jQuery - animacje</title>
 	<meta name="description" content="Kurs Javascript dla superbohaterów, artykuły, tutoriale, porady, zadania do wykonania" />
-    <link rel="canonical" href="https://kursjs.pl/kurs/wstep/wstep.php" />
+    <link rel="canonical" href="https://kursjs.pl/kurs/jquery/animacje-w-jquery.php" />
 	<link rel="stylesheet" href="./css.css" />
     <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,700&display=swap&subset=latin-ext" rel="stylesheet">
 	<meta name="image" content="https://kursjs.pl/kursjs.png">
@@ -57,49 +57,522 @@
             </div>
                         <div class="page-content-text">
 
+<style>
+    .user-list {
+        padding:1rem 1rem 0 1rem;
+        border:1px solid #ddd;
+        margin:2rem 0;
+        background: #eee;
+    }
+    .user-cnt {
+        background: #fff;
+        padding:1rem;
+        box-shadow:0 1px 2px rgba(0,0,0,0.3);
+        margin-bottom:1rem;
+    }
+</style>
+<!-- ### -->
+<h1 class="page-title">jQuery - animacje</h1>
+<p>
+    W bardzo wielu przypadkach będziemy chcieli dane elementy strony animować.
+    Możemy to zrobić za pomocą metody <strong>animate(properties, time*, ease*, fn*)</strong>.
+    Najbardziej interesującymi nas parametrami są <strong>properties</strong>,
+    do których przekazujemy obiekt składający się z właściwości i ich nowych wielkości:
+</p>
 
-<h1 class="page-title">Wstęp</h1>
-<p>
-Bardzo krótki wstęp ^^.<br /><br />
-Kurs ten jest o Javascripcie. Uhh...
-</p>
-<p>
-Wiedz, że nie staram się tutaj tworzyć największego i najlepszego kursu o JavaScript w internecie.<br>
-Ten kurs to twór jednego człowieka.
-Nie mam szans i nie chcę konkurować z molochami takimi jak <a href="https://developer.mozilla.org/pl/">MDN</a>, <a href="https://www.udemy.com/">Udemy</a>, <a href="https://eduweb.pl/">EduWeb</a> czy <a href="https://www.w3schools.com/js/default.asp">w3schools</a>.<br>
-<br><br>
-Nie znajdziesz tutaj wszystkiego z zakresu JavaScript. <br>
-Po jakimś czasie będziesz chciał wiele rzeczy tutaj pokazanych tworzyć inaczej - lepiej.<br>
-Im większy progres będziesz zdobywał stwierdzisz, że wiele rozdziałów można było napisać o wiele lepiej. I dobrze.<br><br>
+<div class="kartofel-informuje">
+    Zarówno w JavaScript, jQuery czy CSS możemy dodawać animacje na divy, spany i podobne elementy.
+    Pamiętaj jednak, że większość takich elementów nie jest dostępna dla użytkowników
+    poruszających się po stronie za pomocą klawiatury. Interaktywne elementy powinny być tworzone za pomocą odpowiednich znaczników takich jak a, button, input itp.
+</div>
 
-W każdym bądź razie - jeżeli ta strona jakoś ci posłuży - to tylko plus. Jeżeli nie - po prostu skorzystaj z innego kursu - na rynku jest tego od groma (niektóre wymieniłem <a href="../dodatkowe-materialy.php">tutaj</a>) i każdy znajdzie coś dla siebie. Ja sam mam kilka w swojej kolekcji i twierdzę, że są naprawdę dobre.
-<br><br>
-</p>
+<pre><code class="language-html">
+&lt;button type="button" class="button" id="testAnim">Animuj&lt;/button>
+&lt;div id="testAnimBlock" class="test-block">DIV&lt;/div>
+</code></pre>
+
+<pre><code class="language-js">
+$("#testAnim1").on('click', function(){
+    $(this).animate({
+        width: "500px",
+        opacity: 0.4,
+        fontSize: "3em",
+        borderWidth: "10px"
+    }, 1500);
+});
+</code></pre>
+
+
+<div id="testAnim1" class="test-block">Kliknij mnie</div>
+
+<style>
+    .test-block {
+        width:200px;
+        border:2px solid rgba(13,162,227, 1);
+        background: rgba(13,162,227,0.7);
+        text-align: center;
+        color:#fff;
+        padding:20px;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+</style>
+
+<script>
+$("#testAnim1").on('click', function(){
+    $(this).animate({
+        width: "500px",
+        opacity: 0.4,
+        fontSize: "3em",
+        borderWidth: "10px"
+    }, 1500);
+});
+</script>
 
 <p>
-Jeszcze mała adnotacja, która siedzi mi w głowie.
+    Parametr <strong>ease</strong> określa przebieg animacji.<br>
+    jQuery posiada wbudowane dwa rodzaje przebiegu animacji: <strong>linear</strong> i <strong>swing</strong>.
+    Aby skorzystać z innych rodzajów, powinniśmy skorzystać z dodatkowych pluginów do jQuery, np. tego:
+    <a href="http://gsgd.co.uk/sandbox/jquery/easing/">http://gsgd.co.uk/sandbox/jquery/easing/</a>.
 </p>
-<p>
-W internecie znajdziesz setki tutoriali pokazujących najnowsze techniki. A to funkcja strzałkowa, a to jak korzystać z async i await, a to jak robić połączenia fetchem czy chociażby zastosowanie modułów. Małe, konkretne, piękne - jak mój pies (a i od niedawna też kot).
-</p>
-<p>
-Na grupach facebookowych w dyskusjach znajdziesz jeszcze szybciej takie techniki.
-</p>
-<p>
-Tutaj pojawia pewna sprawa, który dotyczy nie tylko JavaScript, ale i całego frontendu. Bardzo często przy takich nowoczesnych tutorialach czy poradach autorzy nie zwracają uwagi na bardzo ważną rzecz - a mianowicie na to, że dobór techniki <strong>zawsze zależy od danego projektu</strong>. To są w końcu rzeczy oczywiste.<br>
-No właśnie nie do końca. To są rzeczy oczywiste - dla nas - osób, które w tej branży siedzą już kilkanaście lat. Ale czy dla osoby zaczynającej?
-</p>
-<p>
-Jeżeli robisz bloga o nowinkach z dziedziny frontentu, raczej możesz założyć, że większość użytkowników będzie korzystała z najnowszych przeglądarek, a więc i możesz używać najnowszych rozwiązań (chociaż najlepiej było by spojrzeć w statystyki Google Analitics które można podpiąć pod stronę).<br>
-Jeżeli jednak robisz stronę dla emerytowanych nauczycieli, czy dla przykładu olbrzymi sklep z którego będą korzystali różnorodni użytkownicy z różnorodnych krajów, wtedy rzucanie się na najnowsze rozwiązania będzie strzałem w stopę.
-</p>
-<p>
-Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie CSS Grid, a czasami nawet flexbox może okazać się czymś, czego użyć nie możesz. Czasami spokojnie będziesz mógł używać najnowszej wersji JavaScript, a czasami będziesz musiał pozostać przy starszej. A jeżeli będziesz musiał pozostać przy starszej, wtedy albo będziesz pisał JavaScript trzymając się klasycznych rozwiązań, albo skorzystasz z narzędzi zamieniających twój kod na starszy zapis.
-</p>
-<p>Autorzy tutoriali często zapominają o tym, że dla początkującej osoby istnieje po prostu JavaScript. Osoby takie często nie zdają sobie sprawy, że nie wszystko w JavaScript można dowolnie używać, nie wiedzą gdzie szukać informacji które przeglądarki co wspierają, jakich narzędzi używać do zamiany kodu i po co w ogóle to robić.</p>
-<p>W kursie tym staram się trzymać klasycznego JavaScript. Jasne - im więcej wiedzy zdobędziesz, im bardziej będziesz rozbudowywał swój warsztat, tym będziesz stosował coraz nowsze i lepsze techniki pisania kodu. A wtedy - tak jak to już pisałem powyżej - będziesz się śmiał z tego kursu. Póki co polecam po prostu uczyć się JavaScript.</p>
 
-<a href="./co-to-jest-javascript.php" class="button">To co? Zaczynamy?...</a>
+<pre><code class="language-js">
+$("#testAnim2").on('click', function(){
+    $(this).animate({
+            height:200,
+            width:400,
+            opacity: 0.5
+        },
+        {
+            duration: 1000, //czas animacji
+            ease: 'linear', //typ animacji
+            complete: function() { //funkcja zwrotna
+                alert("koniec animacji");
+            }
+        }
+    );
+});
+</code></pre>
+
+<div id="testAnim2" class="test-block">Kliknij tutaj</div>
+
+<script>
+$("#testAnim2").on('click', function(){
+    $(this).animate({
+            height:200,
+            width:400,
+            opacity: 0.5
+        },
+        {
+            duration: 1000, //czas animacji
+            ease: 'linear', //typ animacji
+            complete: function() { //funkcja zwrotna
+                alert("koniec animacji");
+            }
+        }
+    );
+});
+</script>
+
+<p>Po dodaniu powyższej biblioteki z serwera CDN (np. <a href="https://cdnjs.com/libraries/jquery-easing">stąd</a>) możemy użyć o wiele więcej typów animacji:</p>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+
+<div id="testAnim3" class="test-block">Kliknij tutaj</div>
+
+<pre data-line="9"><code class="language-js">
+$("#testAnim2").on('click', function(){
+    $(this).animate({
+            height:200,
+            width:400,
+            opacity: 0.5
+        },
+        {
+            duration: 1000, //czas animacji
+            easing: 'easeOutBounce', //typ animacji
+            complete: function() { //funkcja zwrotna
+                alert("koniec animacji");
+            }
+        }
+    );
+});
+</code></pre>
+
+<script>
+$("#testAnim3").on('click', function(){
+    $(this).animate({
+            height:200,
+            width:400,
+            opacity: 0.5
+        },
+        {
+            duration: 1000, //czas animacji
+            easing: 'easeOutBounce', //typ animacji
+            complete: function() { //funkcja zwrotna
+                alert("koniec animacji");
+            }
+        }
+    );
+});
+</script>
+
+<!-- ### -->
+<h2 class="subtitle" id="uproszczony-zapis">Uproszczony zapis</h2>
+<p>Powyższy zapis definicji animacji mimo, że czytelny, jest nieco długi. W wielu sytuacjach będziesz chciał zastosować
+uproszczony zapis:</p>
+
+<pre><code class="language-js">
+$('.module1').animate({width: 500});
+
+$('.module2').animate({width: 500}, 1000);
+
+$('.module3').animate({width: 500}, 1000, function() {
+    console.log('koniec animacji');
+});
+</code></pre>
+
+<p>Poza właściwościami wszystkie atrybuty są opcjonalne, więc możemy ich nie podawać. Jak widzisz, nie musimy nawet
+przekazywać obiektu z ustawieniami, a tylko podać je w odpowiedniej kolejności.</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="inne-opcje-dla-wartosci">Inne opcje dla wartości</h2>
+<p>
+    W powyższych przykładach animowane właściwości ustawiłem na sztywno.<br />
+    W jQuery można także zastosować wartości relatywne za pomocą zapisów <strong>-=</strong> lub <strong>+=</strong>, które
+    odejmą lub dodadzą odpowiednią wielkość od aktualnej:
+</p>
+
+<pre><code class="language-js">
+$("#testAnim4").on('click', function(){
+    $(this).animate({
+        width: "+=" + 50,
+        height: "+=" + 10,
+        opacity: "-=" + 0.1,
+        duration : 2000 //inny sposób deklaracji czasu trwania animacji
+    });
+});
+</code></pre>
+
+<div id="testAnim4" class="test-block">Klikaj tutaj szybko kilka razy</div>
+
+<script>
+$("#testAnim4").on('click', function(){
+    $(this).animate({
+        width: "+=" + 50,
+        height: "+=" + 10,
+        opacity: "-=" + 0.1,
+        duration : 3000 //inny sposób deklaracji czasu trwania animacji
+    });
+});
+</script>
+
+<!-- ### -->
+<h2 class="subtitle" id="animation-fix">Poprawa animacji</h2>
+<p>
+    Przyjrzyjmy się teraz pewnej sytuacji.<br>
+    Mamy blok, po najechaniu na który chcemy płynnie zmienić jego rozmiary w zależności od
+    tego czy kursor na nim jest czy nie. Po zjechaniu kursorem animacja powinna wrócić do początkowego stanu:
+</p>
+
+<pre><code class="language-js">
+$('#testAnim5').on({
+    'mouseover' : function() {
+        $(this).animate({
+            width: 300
+        }, 800);
+    },
+    'mouseout' : function() {
+        $(this).animate({
+            width: 200
+        }, 800);
+    }
+});
+</code></pre>
+
+<div id="testAnim5" class="test-block">
+    Pomęcz mnie
+</div>
+
+<script>
+$('#testAnim5').on({
+    'mouseover' : function() {
+        $(this).animate({
+            width: 300
+        }, 800);
+    },
+    'mouseout' : function() {
+        $(this).animate({
+            width: 200
+        }, 800);
+    }
+});
+</script>
+<p>
+    Problem pojawi się wtedy, gdy użytkownik zacznie się pastwić nad naszym elementem szybko
+    najeżdżając i opuszczając go kursorem. Kilka takich ruchów i animacja się zapętla, mimo, że już dawno jesteśmy kursorem w innym miejscu. Spowodowane jest to tym, że nasza animacja nie zdąży się do końca wykonać, a my chcemy odpalić ją ponownie.
+</p>
+<p>
+    Aby temu zapobiec musimy posiłkować się jedną z dwóch technik.
+</p>
+<p>
+    Pierwsza z nich polega na wykorzystaniu metody <strong>stop()</strong>, która zatrzyma odpaloną animację:
+</p>
+
+<pre><code class="language-js">
+$("#testAnim6").on({
+    'mouseover' : function() {
+        $(this).stop().animate({width:300}, 500);
+    },
+    'mouseout' : function() {
+        $(this).stop().animate({width:200}, 500);
+    }
+});
+</code></pre>
+
+<div id="testAnim6" class="test-block">
+    Pomęcz mnie
+</div>
+
+<script>
+$("#testAnim6").on({
+    'mouseover' : function() {
+        $(this).stop().animate({width:300}, 500);
+    },
+    'mouseout' : function() {
+        $(this).stop().animate({width:200}, 500);
+    }
+});
+</script>
+
+<p> Druga metoda polega na sprawdzaniu czy dany element nie zakończył swojej animacji:</p>
+
+<pre data-line="2"><code class="language-js">
+$("#testAnim7").on('click', function(){
+    if (!$(this).is(':animated')) {
+        $(this).animate({
+            width: "+=" + 50,
+            height: "+=" + 10,
+            opacity: "-=" + 0.1,
+            duration : 3000 //inny sposób deklaracji czasu trwania animacji
+        });
+    }
+});
+</code></pre>
+
+<div id="testAnim7" class="test-block">Kliknij tutaj szybko kilka razy</div>
+
+<script>
+$("#testAnim7").on('click', function(){
+    if (!$(this).is(':animated')) {
+        $(this).animate({
+            width: "+=" + 50,
+            height: "+=" + 10,
+            opacity: "-=" + 0.1,
+            duration : 3000
+        });
+    }
+});
+</script>
+
+<p>Zauważ, że w przeciwieństwie do jednego z poprzednich przykładów teraz nawet jak będziesz szybko klikał, to po przerwaniu tego szaleństwa (...)
+div nie będzie kontynuował swojego rozrostu.</p>
+
+<p>
+    Powyższe dwa sposoby sprawdzają się w innych zastosowaniach. Metoda <strong>stop()</strong>
+    lepiej sprawdza się w zdarzeniach <strong>mouseover</strong> i <strong>mouseout</strong>, natomiast sprawdzanie
+    czy obiekt jest animowany lepiej stosować przy zdarzeniach <strong>click</strong>
+</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="delay">Delay</h2>
+<p>Metoda <strong>delay(time)</strong> służy do opóźniania kolejnych czynności w składni łańcuchowej (gdzie kolejne polecenia są łączone kropką):</p>
+
+<pre><code class="language-js">
+$('.element')
+    .hide()
+    .delay(2000) //czekam 2 sekundy
+    .slideDown();
+</code></pre>
+
+<p>Metoda ta ma szczególne zastosowanie gdy chcemy dla przykładu rozwinąć kolejne elementy dodawane do dynamicznej listy.</p>
+<p>Wyobraź sobie, że masz listę użytkowników:</p>
+
+<pre><code class="language-js">
+const users = [
+    { name : "Marcin", surname : "Nowak" },
+    { name : "Piotr", surname : "Kowalski" },
+    { name : "Grzegorz", surname : "Piotrowski" },
+    { name : "Karol", surname : "Karolak" },
+    { name : "Michał", surname : "Nowacki" }
+]
+</code></pre>
+
+<p>Chcielibyśmy zrobić pętlę po takiej tablicy, dynamicznie wygenerować dla każdego użytkownika kontener i wrzucić go do listy:</p>
+
+<pre><code class="language-js">
+$(".add-button").on('click', function() {
+    const $userList = $('.user-list');
+
+    users.forEach(function(user) {
+        const html = `&lt;div class="user-cnt">
+            &lt;strong class="user-name-label">Nazwa użytkownika:&lt;/strong>
+            &lt;span class="user-name">${user.name} ${user.surname}&lt;/span>
+        &lt;/div>`;
+
+        const $cnt = $(html);
+        $userList.append($cnt)
+    });
+});
+</code></pre>
+
+<div class="user-list" id="userListTest1">
+    <div class="user-cnt">
+        <strong class="user-name-label">Nazwa użytkownika:</strong>
+        <span class="user-name">Marcin Domański</span>
+    </div>
+</div>
+<button class="button" id="userAddTest1">Dodaj użytkowników</button>
+
+<script>
+    {
+        const users = [
+            { name : "Marcin", surname : "Nowak" },
+            { name : "Piotr", surname : "Kowalski" },
+            { name : "Grzegorz", surname : "Piotrowski" },
+            { name : "Karol", surname : "Karolak" },
+            { name : "Michał", surname : "Nowacki" }
+        ];
+
+        $("#userAddTest1").on('click', function() {
+            const $userList = $("#userListTest1");
+
+            users.forEach(function(user) {
+                const html = `<div class="user-cnt">
+                    <strong class="user-name-label">Nazwa użytkownika:</strong>
+                    <span class="user-name">${user.name} ${user.surname}</span>
+                </div>`;
+
+                const $cnt = $(html);
+                $userList.append($cnt)
+            })
+        })
+    }
+</script>
+
+<p>Jak widzisz dodawanie działa, ale nie jest wizualnie dobre dla użytkownika. O wiele lepszym rozwiązaniem będzie rozwijać dodawane elementy:</p>
+
+<pre data-line="10-12"><code class="language-js">
+const $userList = $('.user-list');
+
+$(".add-button").on('click', function() {
+    users.forEach(function(user) {
+        const html = `&lt;div class="user-cnt">
+            &lt;strong class="user-name-label">Nazwa użytkownika:&lt;/strong>
+            &lt;span class="user-name">${user.name} ${user.surname}&lt;/span>
+        &lt;/div>`;
+
+        const $cnt = $(html).hide();
+        $userList.append($cnt);
+        $cnt.slideDown();
+    });
+});
+</code></pre>
+
+<div class="user-list" id="userListTest2">
+    <div class="user-cnt">
+        <strong class="user-name-label">Nazwa użytkownika:</strong>
+        <span class="user-name">Marcin Domański</span>
+    </div>
+</div>
+<button class="button" id="userAddTest2">Dodaj użytkowników</button>
+
+<script>
+    {
+        const users = [
+            { name : "Marcin", surname : "Nowak" },
+            { name : "Piotr", surname : "Kowalski" },
+            { name : "Grzegorz", surname : "Piotrowski" },
+            { name : "Karol", surname : "Karolak" },
+            { name : "Michał", surname : "Nowacki" }
+        ];
+
+        $('#userAddTest2').on('click', function() {
+            const $userList = $('#userListTest2');
+
+            users.forEach(function(user) {
+                const html = `<div class="user-cnt">
+                    <strong class="user-name-label">Nazwa użytkownika:</strong>
+                    <span class="user-name">${user.name} ${user.surname}</span>
+                </div>`;
+
+                const $cnt = $(html).hide();
+                $userList.append($cnt);
+                $cnt.slideDown();
+            })
+        })
+    }
+</script>
+
+<p>Problem z tym podejściem jest taki, że wszystkie elementy są rozwijane w tym samym momencie.
+I tutaj właśnie idealnym rozwiązaniem będzie użycie <strong>delay()</strong>, tak by elementy rozwijały się jeden po drugim:</p>
+
+<pre data-line="4,10-12"><code class="language-js">
+const $userList = $('.user-list');
+
+$(".add-button").on('click', function() {
+    users.forEach(function(user, i) {
+        const html = `&lt;div class="user-cnt">
+            &lt;strong class="user-name-label">Nazwa użytkownika:&lt;/strong>
+            &lt;span class="user-name">${user.name} ${user.surname}&lt;/span>
+        &lt;/div>`;
+
+        const $cnt = $(html).hide();
+        $userList.append($cnt);
+        $cnt.delay(300*i).slideDown();
+    });
+});
+</code></pre>
+
+<div class="user-list" id="userListTest3">
+    <div class="user-cnt">
+        <strong class="user-name-label">Nazwa użytkownika:</strong>
+        <span class="user-name">Marcin Domański</span>
+    </div>
+</div>
+<button class="button" id="userAddTest3">Dodaj użytkowników</button>
+
+<script>
+    {
+        const users = [
+            { name : "Marcin", surname : "Nowak" },
+            { name : "Piotr", surname : "Kowalski" },
+            { name : "Grzegorz", surname : "Piotrowski" },
+            { name : "Karol", surname : "Karolak" },
+            { name : "Michał", surname : "Nowacki" }
+        ];
+
+        $('#userAddTest3').on('click', function() {
+            const $userList = $('#userListTest3');
+
+            users.forEach(function(user, i) {
+                const html = `<div class="user-cnt">
+                    <strong class="user-name-label">Nazwa użytkownika:</strong>
+                    <span class="user-name">${user.name} ${user.surname}</span>
+                </div>`;
+
+                const $cnt = $(html).hide();
+                $userList.append($cnt);
+                $cnt.delay(300*i).slideDown();
+            })
+        })
+    }
+</script>
 
 			</div><!-- e: page-content-text -->
 			<footer class="page-footer">
@@ -165,13 +638,13 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
                 </h3>
             </div>
 
-						<div class="page-sidebar-section show has-active-element">
+						<div class="page-sidebar-section ">
 				<h3 class="page-sidebar-section-title">
 					<a href="#">Słowem wstępu</a>
 				</h3>
 				<div class="page-sidebar-list-cnt">
 					<ul class="page-sidebar-list">
-						<li class="active">
+						<li >
 							<a href="/kurs/wstep/wstep.php">Wstęp</a>
 						</li>
 						<li >
@@ -422,7 +895,7 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
 				</div>
 			</div>
 
-						<div class="page-sidebar-section ">
+						<div class="page-sidebar-section show has-active-element">
 				<h3 class="page-sidebar-section-title">
 					<a href="#">jQuery</a>
 				</h3>
@@ -431,7 +904,7 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
 						<li >
 							<a href="/kurs/jquery/jquery.php">jQuery</a>
 						</li>
-						<li >
+						<li class="active">
 							<a href="/kurs/jquery/animacje-w-jquery.php">Animacje w jQuery</a>
 						</li>
 						<li >

@@ -3,9 +3,9 @@
 <head>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Kurs Javascript - Wstęp</title>
+    <title>Kurs Javascript - Projekt TODO</title>
 	<meta name="description" content="Kurs Javascript dla superbohaterów, artykuły, tutoriale, porady, zadania do wykonania" />
-    <link rel="canonical" href="https://kursjs.pl/kurs/wstep/wstep.php" />
+    <link rel="canonical" href="https://kursjs.pl/kurs/dom/projekt-todo.php" />
 	<link rel="stylesheet" href="./css.css" />
     <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,700&display=swap&subset=latin-ext" rel="stylesheet">
 	<meta name="image" content="https://kursjs.pl/kursjs.png">
@@ -57,50 +57,443 @@
             </div>
                         <div class="page-content-text">
 
-
-<h1 class="page-title">Wstęp</h1>
-<p>
-Bardzo krótki wstęp ^^.<br /><br />
-Kurs ten jest o Javascripcie. Uhh...
-</p>
-<p>
-Wiedz, że nie staram się tutaj tworzyć największego i najlepszego kursu o JavaScript w internecie.<br>
-Ten kurs to twór jednego człowieka.
-Nie mam szans i nie chcę konkurować z molochami takimi jak <a href="https://developer.mozilla.org/pl/">MDN</a>, <a href="https://www.udemy.com/">Udemy</a>, <a href="https://eduweb.pl/">EduWeb</a> czy <a href="https://www.w3schools.com/js/default.asp">w3schools</a>.<br>
-<br><br>
-Nie znajdziesz tutaj wszystkiego z zakresu JavaScript. <br>
-Po jakimś czasie będziesz chciał wiele rzeczy tutaj pokazanych tworzyć inaczej - lepiej.<br>
-Im większy progres będziesz zdobywał stwierdzisz, że wiele rozdziałów można było napisać o wiele lepiej. I dobrze.<br><br>
-
-W każdym bądź razie - jeżeli ta strona jakoś ci posłuży - to tylko plus. Jeżeli nie - po prostu skorzystaj z innego kursu - na rynku jest tego od groma (niektóre wymieniłem <a href="../dodatkowe-materialy.php">tutaj</a>) i każdy znajdzie coś dla siebie. Ja sam mam kilka w swojej kolekcji i twierdzę, że są naprawdę dobre.
-<br><br>
-</p>
+<h1 class="page-title">Projekt TODO</h1>
 
 <p>
-Jeszcze mała adnotacja, która siedzi mi w głowie.
+   Czas przećwiczyć to co poznaliśmy do tej pory. Naszym celem będzie stworzenie prostej aplikacji służącej do dodawania prostych zadań. Aplikacja będzie umożliwiała dodawać, usuwać oraz wyszukiwać zadania.
 </p>
-<p>
-W internecie znajdziesz setki tutoriali pokazujących najnowsze techniki. A to funkcja strzałkowa, a to jak korzystać z async i await, a to jak robić połączenia fetchem czy chociażby zastosowanie modułów. Małe, konkretne, piękne - jak mój pies (a i od niedawna też kot).
-</p>
-<p>
-Na grupach facebookowych w dyskusjach znajdziesz jeszcze szybciej takie techniki.
-</p>
-<p>
-Tutaj pojawia pewna sprawa, który dotyczy nie tylko JavaScript, ale i całego frontendu. Bardzo często przy takich nowoczesnych tutorialach czy poradach autorzy nie zwracają uwagi na bardzo ważną rzecz - a mianowicie na to, że dobór techniki <strong>zawsze zależy od danego projektu</strong>. To są w końcu rzeczy oczywiste.<br>
-No właśnie nie do końca. To są rzeczy oczywiste - dla nas - osób, które w tej branży siedzą już kilkanaście lat. Ale czy dla osoby zaczynającej?
-</p>
-<p>
-Jeżeli robisz bloga o nowinkach z dziedziny frontentu, raczej możesz założyć, że większość użytkowników będzie korzystała z najnowszych przeglądarek, a więc i możesz używać najnowszych rozwiązań (chociaż najlepiej było by spojrzeć w statystyki Google Analitics które można podpiąć pod stronę).<br>
-Jeżeli jednak robisz stronę dla emerytowanych nauczycieli, czy dla przykładu olbrzymi sklep z którego będą korzystali różnorodni użytkownicy z różnorodnych krajów, wtedy rzucanie się na najnowsze rozwiązania będzie strzałem w stopę.
-</p>
-<p>
-Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie CSS Grid, a czasami nawet flexbox może okazać się czymś, czego użyć nie możesz. Czasami spokojnie będziesz mógł używać najnowszej wersji JavaScript, a czasami będziesz musiał pozostać przy starszej. A jeżeli będziesz musiał pozostać przy starszej, wtedy albo będziesz pisał JavaScript trzymając się klasycznych rozwiązań, albo skorzystasz z narzędzi zamieniających twój kod na starszy zapis.
-</p>
-<p>Autorzy tutoriali często zapominają o tym, że dla początkującej osoby istnieje po prostu JavaScript. Osoby takie często nie zdają sobie sprawy, że nie wszystko w JavaScript można dowolnie używać, nie wiedzą gdzie szukać informacji które przeglądarki co wspierają, jakich narzędzi używać do zamiany kodu i po co w ogóle to robić.</p>
-<p>W kursie tym staram się trzymać klasycznego JavaScript. Jasne - im więcej wiedzy zdobędziesz, im bardziej będziesz rozbudowywał swój warsztat, tym będziesz stosował coraz nowsze i lepsze techniki pisania kodu. A wtedy - tak jak to już pisałem powyżej - będziesz się śmiał z tego kursu. Póki co polecam po prostu uczyć się JavaScript.</p>
 
-<a href="./co-to-jest-javascript.php" class="button">To co? Zaczynamy?...</a>
+<p>Zanim zaczniemy pracę, ściągnij <a href="projekt-todo.zip">tą paczkę</a> z plikami, na których będziemy działać. W paczce znajdują się 2 katalogi: project i finish-project. Wersja finish to skończony projekt. Nas głównie teraz interesuje katalog project.</p>
 
+<p>Jak widzisz zaczynamy od prostego HTML.</p>
+
+<pre><code class="language-html">
+&lt;!doctype html>
+&lt;html lang="pl">
+    &lt;head>
+        &lt;meta charset="utf-8">
+        &lt;title>TODO&lt;/title>
+        &lt;meta http-equiv="x-ua-compatible" content="ie=edge">
+        &lt;meta name="viewport" content="width=device-width, initial-scale=1">
+        &lt;link rel="stylesheet" href="css/style.css">
+    &lt;/head>
+    &lt;body>
+        &lt;div class="todo-cnt">
+            <!-- tutaj trafi wszystko -->
+        &lt;/div>
+
+        &lt;script src="js/script.js">&lt;/script>
+    &lt;/body>
+&lt;/html>
+</code></pre>
+
+<p>Nasze wszystkie elementy będziemy wstawiać w element <strong>.todo-cnt</strong></p>
+
+<!-- ### -->
+<h2 class="subtitle" id="formularz-dodawania-zadania">Formularz dodawania zadania</h2>
+<p>Zanim zaczniemy pisać nasze skrypty, powinniśmy stworzyć wygląd naszych elementów. Zaczynamy od html i css dla formularza dodawania zadań.</p>
+
+<pre><code class="language-html">
+&lt;form class="todo-form" id="todoForm">
+    &lt;div class="todo-form-row">
+        &lt;label class="todo-form-label" for="todoMessage">Podaj treść zadania&lt;/label>
+        &lt;textarea class="todo-form-message" name="todoMessage" id="todoMessage">&lt;/textarea>
+    &lt;/div>
+    &lt;div class="todo-form-row">
+        &lt;button type="submit" class="button todo-form-button">Dodaj&lt;/button>
+    &lt;/div>
+&lt;/form>
+</code></pre>
+
+<p>Nie jest to kurs o HTML, ale małe info dla Ciebie. Pamiętaj że tworząc kod formularzy
+zawsze powinieneś dawać labele dla inputów. Nawet jeżeli takiego labela nie ma na layoucie a input ma placeholder, label w kodzie
+powinien się znajdować - ewentualnie powinieneś go ukryć <a href="https://github.com/h5bp/html5-boilerplate/blob/master/dist/css/main.css#L137">dowolną techniką do ukrywania tekstu</a>.</p>
+
+<div class="kartofel-informuje">
+    <p>Nasz formularz jest prostym tworem. Nie zakładamy możliwości jego działania bez JavaScript, dlatego dla elementu form pominąłem atrybuty method i action. W praktyce gdybyś celował w jak największą dostępność twojej aplikacji, wtedy takie atrybuty powinny się tutaj znaleźć, a sam formularz powinien być możliwy do użycia bez JavaScript (oczywiście użycie takie było by średnio wygodne, ale było by możliwe...).</p>
+</div>
+
+<pre><code class="language-css">
+* {
+    box-sizing: border-box;
+}
+body {
+    background: #fafafa;
+}
+
+.todo-cnt {
+    max-width:60rem;
+    margin:0 auto;
+}
+.todo-form {
+    font-family:sans-serif;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    padding:1rem;
+    background: #fff;
+}
+.todo-form-row {
+    overflow:hidden;
+}
+.todo-form-label {
+    display: block;
+    font-size:0.8rem;
+    margin-bottom:0.2rem;
+}
+.todo-form-message {
+    padding:1rem;
+    height:10rem;
+    width:100%;
+    border:1px solid #ddd;
+    margin-bottom: 0.5rem;
+    resize: vertical;
+    font-family:sans-serif;
+}
+.todo-form-button {
+    padding:0.8rem 1.6rem;
+    background: #F15C5C;
+    color:#fff;
+    border:0;
+    border-radius: 0.188rem;
+    transition:0.4s all;
+    cursor: pointer;
+    float: right;
+}
+.todo-form-button:hover {
+    background: #ED2D2D;
+}
+</code></pre>
+
+<a href="projekt-todo/projekt-todo-1.html" class="button">1 - Formularz dodawania</a>
+
+
+<!-- ### -->
+<h2 class="subtitle" id="lista-i-wyszukiwarka-todo">Lista zadań</h2>
+<p>Kolejnym elementem będzie lista z zadaniami. Na razie stwórzmy ich wygląd na sztywno. W końcowej fazie zadania te będą generowane dynamicznie. Zanim jednak tą dynamikę dodamy, musimy stworzyć HTML by mieć na czym się opierać.</p>
+
+<p>Lista zadań składa się z tytułu i mini formularza służącego do wyszukiwania zadań.</p>
+
+<pre><code class="language-html">
+&lt;section class="todo-list-cnt">
+    &lt;header class="todo-list-header">
+        &lt;h2 class="todo-list-title">
+            Lista zadań
+        &lt;/h2>
+        &lt;form class="todo-list-search-form">
+            &lt;input type="search" id="todoSearch" class="todo-list-search">
+        &lt;/form>
+    &lt;/header>
+
+    &lt;div class="todo-list" id="todoList">
+        &lt;!-- tutaj trafią zadania -->
+    &lt;/div>
+&lt;/section>
+</code></pre>
+
+<pre><code class="language-css">
+.todo-list-cnt {
+    background: #fff;
+    font-family:sans-serif;
+    margin:1rem 0;
+    border:1px solid #ddd;
+    padding:1rem 2rem;
+}
+.todo-list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.todo-list-search-form {
+    width:50%;
+}
+.todo-list-search {
+    border:1px solid #ddd;
+    padding:0.5rem;
+    width: 100%;
+}
+.todo-list-title {
+    margin-top:0;
+    margin-bottom:0;
+    font-size:1rem;
+    text-transform: uppercase;
+}
+</code></pre>
+
+<a href="projekt-todo/projekt-todo-2.html" class="button">2 - Formularz i lista zadań</a>
+
+<!-- ### -->
+<h2 class="subtitle" id="pojedyncze-zadanie">Pojedyncze zadanie</h2>
+<p>Ostatnim elementem będzie dodawane zadanie.</p>
+
+<pre><code class="language-html">
+&lt;div class="todo-element">
+    &lt;div class="todo-element-bar">
+        &lt;h3 class="todo-element-date">20-10-2016 godz. 16:32&lt;/h3>
+        &lt;button class="todo-element-delete" title="Usuń task">
+            &lt;i class="fas fa-times-circle">&lt;/i>
+        &lt;/button>
+    &lt;/div>
+    &lt;div class="todo-element-text">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio laudantium quasi blanditiis enim molestias explicabo id totam veniam corporis maiores.
+    &lt;/div>
+&lt;/div>
+</code></pre>
+
+<p>Nasze zadanie składa się z belki z datą utworzenia i przyciskiem usunięcia. Przycisk usunięcia ma w sobie ikonkę [x]. Ikonkę tą dodamy za pomocą <a href="https://fontawesome.com/get-started">fontAwesome</a>. Niedawno wyszła 5 wersja tej świetnej biblioteki ikon. Aż prosi się, by spróbować ją w praktyce.</p>
+<p>Wchodzimy na stronę <a href="https://fontawesome.com/get-started">https://fontawesome.com/get-started</a> i wedle instrukcji dodajemy do naszej strony skrypt:</p>
+
+<pre><code class="language-html">
+&lt;script defer src="https://use.fontawesome.com/releases/v5.0.2/js/all.js">&lt;/script>
+</code></pre>
+
+<p>Po dodaniu skryptu, wystarczy użyć odpowiedniej ikonki - w naszym przypadku to ikonka <strong>.fa-times-circle</strong></p>
+
+<p>Pozostaje ostylować elementy zadań:</p>
+
+<pre><code class="language-css">
+.todo-element {
+    border-top:1px solid #ddd;
+    margin-top:1rem;
+    padding-top:2rem;
+    padding-bottom: 2rem;
+}
+.todo-element-bar {
+    overflow:hidden;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom:0.75rem;
+}
+.todo-element-date {
+    margin:0;
+}
+.todo-element-date {
+    font-size:0.9rem;
+    font-weight: normal;
+}
+.todo-element-delete {
+    color:#F15C5C;
+    border:0;
+    font-size:1rem;
+    background: none;
+    cursor: pointer;
+    padding:0;
+    transition:0.4s all;
+}
+.todo-element-delete svg {
+    pointer-events: none; /* nie chcemy obsługi kliknięć na elementy svg - bo takie dodaje użyty fontAwesome */
+}
+.todo-element-delete:hover {
+    color: #ED2D2D;
+}
+.todo-element-text {
+    color:#777;
+    font-size:0.8rem;
+}
+</code></pre>
+
+<a href="projekt-todo/projekt-todo-3.html" class="button">3 - Lista zadań z zadaniami</a>
+
+<!-- ### -->
+<h2 class="subtitle" id="dodawanie-taska-do-listy">Dodawanie taska do listy</h2>
+
+<p>Skrypt rozpoczynamy od wyłapania elementów, na których będziemy pracować:</p>
+
+<pre><code class="language-js">
+let todoList = null;
+let todoForm = null;
+let todoSearch = null;
+
+document.addEventListener('DOMContentLoaded', function() {
+    todoList = document.querySelector('#todoList');
+    todoForm = document.querySelector('#todoForm');
+    todoSearch = document.querySelector('#todoSearch');
+
+    ...
+});
+</code></pre>
+
+<p>Pierwszą rzeczą którą zrobimy to podpięcie się pod wysyłkę formularza. Gdy ktoś wyśle formularz, sprawdzimy czy treść nie jest pusta. Jeżeli tak jest, dodamy nowe zadanie do listy. Zadanie powinno zawierać tekst pobrany z formularza oraz datę dodania. Po dodaniu zadania do listy wyczyścimy treść w formularzu.</p>
+
+<pre data-line="5-7,14-21"><code class="language-js">
+let todoList = null;
+let todoForm = null;
+let todoSearch = null;
+
+function addTask(text) {
+    console.log('Dodaję zadanie do listy')
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    const todoList = document.querySelector('#todoList');
+    const todoForm = document.querySelector('#todoForm');
+    const todoSearch = document.querySelector('#todoSearch');
+
+    todoForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const textarea = this.querySelector('textarea');
+        if (textarea.value !== '') {
+            addTask(textarea.value);
+            textarea.value = '';
+        }
+    });
+});
+</code></pre>
+
+<p>Kolejnym krokiem jest stworzenie kodu funkcji <strong>addTask()</strong>. Musimy wygenerować kod elementu, który już stworzyliśmy powyżej. Moglibyśmy tutaj użyć innerHTML, ale w tym przypadku kodu aż tyle nie ma, a i nie chcemy tracić referencji do tworzonych elementów. Wykorzystanie createElement, mimo, że powoduje powstanie o wiele więcej kodu, jest dobrą praktyką:</p>
+
+<pre><code class="language-js">
+function addTask(text) {
+    //element todo
+    const todo = document.createElement('div');
+    todo.classList.add('todo-element');
+
+    //belka górna
+    const todoBar = document.createElement('div');
+    todoBar.classList.add('todo-element-bar');
+
+    //data w belce
+    const todoDate = document.createElement('div');
+    todoDate.classList.add('todo-element-bar');
+    const date = new Date();
+    const dateText = date.getDate() + '-' + (date.getMonth()+1) + '-' + date.getFullYear() + ' godz.: ' + date.getHours() + ':' + date.getMinutes();
+    todoDate.innerText = dateText;
+
+    //przycisk usuwania
+    const todoDelete = document.createElement('button');
+    todoDelete.classList.add('todo-element-delete');
+    todoDelete.classList.add('button');
+    todoDelete.innerHTML = '&lt;i class="fas fa-times-circle">&lt;/i>';
+
+    //wrzucamy elementy do belki
+    todoBar.appendChild(todoDate);
+    todoBar.appendChild(todoDelete);
+
+    //element z tekstem
+    const todoText = document.createElement('div');
+    todoText.classList.add('todo-element-text');
+    todoText.innerText = text;
+
+    //łączymy całość
+    todo.appendChild(todoBar);
+    todo.appendChild(todoText);
+
+    //i wrzucamy do listy
+    todoList.append(todo);
+}
+</code></pre>
+
+<a href="projekt-todo/projekt-todo-4.html" class="button">4 - Dodawanie zadania</a>
+
+<!-- ### -->
+<h2 class="subtitle" id="usuwanie-zadania-z-listy">Usuwanie zadania z listy</h2>
+<p>Po kliknięciu na przycisk [x] w elemencie zadania, zadania to powinno być usunięte.</p>
+<p>Event taki nie możemy podpiąć tak samo jak event dla formularza. Pamiętaj, że elementy z zadaniami jeszcze nie istnieją, więc podpięlibyśmy event pod przyciski usuń, których nie ma.</p>
+
+<p>W tym przypadku zastosujmy <a href="../events/events.php#dynamic-elements">podpięcie eventu pod rodzica</a> wraz ze sprawdzaniem elementu który został kliknięty. Ale spokojnie moglibyśmy tutaj zastosować normalne podpięcie pod te przyciski. Wszystko zależy od sytuacji - u nas raczej nigdy nie będziemy mieli miliona zadań na liście (a jeżeli tak, wtedy trzeba by bardziej przemyśleć tak prostą aplikację)</p>
+
+<pre><code class="language-js">
+...
+
+document.addEventListener('DOMContentLoaded', function() {
+    ...
+
+    todoList.addEventListener('click', function(e) {
+        console.log(e.target);
+    });
+});
+</code></pre>
+
+<p>Po kliknięciu na taką ikonkę powinniśmy przejść do elementu zadania czyli <strong>.todo-element</strong>.</p>
+<p>Problem jaki zobaczysz po odpaleniu powyższego skryptu jest taki, że <strong>e.target</strong> wskazuje na element svg - czyli ikonkę fontAwesome. Nie wiadomo dokładnie jak głęboko dany element jest zagnieżdżony. Może to będzie svg, a może jakiś element &lt;i> w którym jest zagnieżdżona ikonka. Możliwe, że zaraz coś się w tym pluginie zmieni i ta struktura zostanie zmodyfikowana. Przez to właśnie nie jest bezpieczne zastosować tutaj konstrukcji <strong>e.target.parentElement.parentElement.parentElement</strong></p>
+<p>Na szczęście tak samo jak w jQuery w JavaScript istnieje metoda <a href="dom-relacje.php#closest">el.closest(selektor)</a> która wyszukuje najbliższy element pasujący do danego selektora.</p>
+
+<pre><code class="language-js">
+...
+
+document.addEventListener('DOMContentLoaded', function() {
+    ...
+
+    if (e.target.closest('.todo-element-delete') !== null) {
+        e.target.closest('.todo-element').remove();
+    }
+});
+</code></pre>
+
+<p>Jeżeli chcemy wspierać starsze IE, wtedy do naszego kodu musimy dodać tak zwany polyfill, czyli kod łatający brak wsparcia dla danej metody:</p>
+
+<pre data-line="3-13"><code class="language-js">
+...
+
+//polyfill dla przeglądarek nie obsługujących closest()
+if (!Element.prototype.matches) Element.prototype.matches = Element.prototype.msMatchesSelector;
+if (!Element.prototype.closest) Element.prototype.closest = function (selector) {
+    let el = this;
+    while (el) {
+        if (el.matches(selector)) {
+            return el;
+        }
+        el = el.parentElement;
+    }
+};
+
+document.addEventListener('DOMContentLoaded', function() {
+    ...
+
+    todoList.addEventListener('click', function(e) {
+        if (e.target.closest('.todo-element-delete') !== null) {
+            e.target.closest('.todo-element').remove();
+        }
+    });
+});
+</code></pre>
+
+<p>A samą metodę <strong>remove()</strong> zastąpić odpowiednikiem w postaci removeChild:</p>
+
+<pre><code class="language-js">
+todoList.addEventListener('click', function(e) {
+    if (e.target.closest('.todo-element-delete') !== null) {
+        const todoElem = e.target.closest('.todo-element');
+        todoElem.parentNode.removeChild(todoElem);
+    }
+});
+</code></pre>
+
+<p>Dodaj kilka zadań, a następnie spróbuj je usunąć.</p>
+
+<a href="projekt-todo/projekt-todo-5.html" class="button">5 - Usuwanie zadania</a>
+
+<!-- ### -->
+<h2 class="subtitle" id="wyszukiwanie-zadan">Wyszukiwanie zadań</h2>
+
+<p>Ostatnia funkcjonalność to wyszukiwanie zadań. Wykorzystamy do tego mini formularz leżący w nagłówku listy zadań.</p>
+
+<p>W tym przypadku zadanie jest bardzo proste. Po wpisaniu jakiejś wartości musimy zrobić pętlę po liście zadań. Dla każdego elementu będziemy sprawdzać czy tekst w danym zadaniu zawiera szukaną frazę - wykorzystamy do tego <a href="../super-podstawy/string.php#indexOf">indexOf</a>. Jeżeli zawiera to takie zadanie to taki element pokażemy, w przeciwnym wypadku ukryjemy go poprzez ustawienie <strong>display:none</strong>. Samą pętlę po elementach zadań wykonamy nie za pomocą for, a za pomocą <a href="../dom/dom.php#forEach">forEach</a>:</p>
+
+<pre><code class="language-js">
+todoSearch.addEventListener('input', function() {
+    const val = this.value;
+    const elems = todoList.querySelectorAll('.todo-element');
+
+    [].forEach.call(elems, function(el) {
+        const text = el.querySelector('.todo-element-text').innerText;
+
+        if (text.indexOf(val) !== -1) {
+            el.style.setProperty('display', '');
+        } else {
+            el.style.setProperty('display', 'none');
+        }
+    });
+});
+</code></pre>
+
+<p>Dodaj kilka zadań, a następnie korzystając z wyszukiwarki spróbuj coś wyszukać.</p>
+
+<a href="projekt-todo/projekt-todo-6.html" class="button">6 - Wyszukiwanie zadań</a>
+
+<!-- ### -->
+<h2 class="subtitle" id="podsumowanie">Podsumowanie</h2>
+<p>Nasz powyższy przykład jest bardzo prosty i w praktyce jeszcze trochę mu brakuje. Jego główną bolączką jest to, że każdorazowo po wejściu na stronę zadania są czyszczone.
+Aby móc zapisywać zadania trzeba wykorzystać do tego celu <a href="../storage/storage.php">localStorage</a> albo - lepiej - skorzystać z <a href="../ajax/ajax.php">Ajax</a> i zapisywać dane na serwerze. Ale to już w kolejnych rozdziałach...</p>
 			</div><!-- e: page-content-text -->
 			<footer class="page-footer">
 				<p>
@@ -165,13 +558,13 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
                 </h3>
             </div>
 
-						<div class="page-sidebar-section show has-active-element">
+						<div class="page-sidebar-section ">
 				<h3 class="page-sidebar-section-title">
 					<a href="#">Słowem wstępu</a>
 				</h3>
 				<div class="page-sidebar-list-cnt">
 					<ul class="page-sidebar-list">
-						<li class="active">
+						<li >
 							<a href="/kurs/wstep/wstep.php">Wstęp</a>
 						</li>
 						<li >
@@ -270,7 +663,7 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
                 </div>
             </div>
 
-						<div class="page-sidebar-section ">
+						<div class="page-sidebar-section show has-active-element">
 				<h3 class="page-sidebar-section-title">
 					<a href="#">DOM i zdarzenia</a>
 				</h3>
@@ -300,7 +693,7 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
 						<li >
 							<a href="/kurs/events/events-mouse.php">Zdarzenia - myszka</a>
 						</li>
-						<li >
+						<li class="active">
 							<a href="/kurs/dom/projekt-todo.php">Projekt TODO</a>
 						</li>
 						<li >

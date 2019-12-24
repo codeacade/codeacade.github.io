@@ -3,9 +3,9 @@
 <head>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Kurs Javascript - Wstęp</title>
+    <title>Kurs Javascript - Spread i rest</title>
 	<meta name="description" content="Kurs Javascript dla superbohaterów, artykuły, tutoriale, porady, zadania do wykonania" />
-    <link rel="canonical" href="https://kursjs.pl/kurs/wstep/wstep.php" />
+    <link rel="canonical" href="https://kursjs.pl/kurs/es6/spread-rest.php" />
 	<link rel="stylesheet" href="./css.css" />
     <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,700&display=swap&subset=latin-ext" rel="stylesheet">
 	<meta name="image" content="https://kursjs.pl/kursjs.png">
@@ -57,49 +57,233 @@
             </div>
                         <div class="page-content-text">
 
-
-<h1 class="page-title">Wstęp</h1>
+<h1 class="page-title">Spread i rest</h1>
 <p>
-Bardzo krótki wstęp ^^.<br /><br />
-Kurs ten jest o Javascripcie. Uhh...
+Spread syntax, to nowy zapis, który umożliwia rozbijanie iterowanej (takiej po której można robić pętle) wartości na składowe.<br>
+Co to jest ta iterowana wartość? Może nią być string (bo składa się z poszczególnych liter),
+może to być tablica (bo składa się z elementów), mogą to być kolekcje (po których bardzo często robiliśmy pętle for) czy nawet obiekty (po których robiliśmy pętle for in).
 </p>
 <p>
-Wiedz, że nie staram się tutaj tworzyć największego i najlepszego kursu o JavaScript w internecie.<br>
-Ten kurs to twór jednego człowieka.
-Nie mam szans i nie chcę konkurować z molochami takimi jak <a href="https://developer.mozilla.org/pl/">MDN</a>, <a href="https://www.udemy.com/">Udemy</a>, <a href="https://eduweb.pl/">EduWeb</a> czy <a href="https://www.w3schools.com/js/default.asp">w3schools</a>.<br>
-<br><br>
-Nie znajdziesz tutaj wszystkiego z zakresu JavaScript. <br>
-Po jakimś czasie będziesz chciał wiele rzeczy tutaj pokazanych tworzyć inaczej - lepiej.<br>
-Im większy progres będziesz zdobywał stwierdzisz, że wiele rozdziałów można było napisać o wiele lepiej. I dobrze.<br><br>
-
-W każdym bądź razie - jeżeli ta strona jakoś ci posłuży - to tylko plus. Jeżeli nie - po prostu skorzystaj z innego kursu - na rynku jest tego od groma (niektóre wymieniłem <a href="../dodatkowe-materialy.php">tutaj</a>) i każdy znajdzie coś dla siebie. Ja sam mam kilka w swojej kolekcji i twierdzę, że są naprawdę dobre.
-<br><br>
+Poniżej kilka przykładów użycia tego zapisu:
 </p>
 
-<p>
-Jeszcze mała adnotacja, która siedzi mi w głowie.
-</p>
-<p>
-W internecie znajdziesz setki tutoriali pokazujących najnowsze techniki. A to funkcja strzałkowa, a to jak korzystać z async i await, a to jak robić połączenia fetchem czy chociażby zastosowanie modułów. Małe, konkretne, piękne - jak mój pies (a i od niedawna też kot).
-</p>
-<p>
-Na grupach facebookowych w dyskusjach znajdziesz jeszcze szybciej takie techniki.
-</p>
-<p>
-Tutaj pojawia pewna sprawa, który dotyczy nie tylko JavaScript, ale i całego frontendu. Bardzo często przy takich nowoczesnych tutorialach czy poradach autorzy nie zwracają uwagi na bardzo ważną rzecz - a mianowicie na to, że dobór techniki <strong>zawsze zależy od danego projektu</strong>. To są w końcu rzeczy oczywiste.<br>
-No właśnie nie do końca. To są rzeczy oczywiste - dla nas - osób, które w tej branży siedzą już kilkanaście lat. Ale czy dla osoby zaczynającej?
-</p>
-<p>
-Jeżeli robisz bloga o nowinkach z dziedziny frontentu, raczej możesz założyć, że większość użytkowników będzie korzystała z najnowszych przeglądarek, a więc i możesz używać najnowszych rozwiązań (chociaż najlepiej było by spojrzeć w statystyki Google Analitics które można podpiąć pod stronę).<br>
-Jeżeli jednak robisz stronę dla emerytowanych nauczycieli, czy dla przykładu olbrzymi sklep z którego będą korzystali różnorodni użytkownicy z różnorodnych krajów, wtedy rzucanie się na najnowsze rozwiązania będzie strzałem w stopę.
-</p>
-<p>
-Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie CSS Grid, a czasami nawet flexbox może okazać się czymś, czego użyć nie możesz. Czasami spokojnie będziesz mógł używać najnowszej wersji JavaScript, a czasami będziesz musiał pozostać przy starszej. A jeżeli będziesz musiał pozostać przy starszej, wtedy albo będziesz pisał JavaScript trzymając się klasycznych rozwiązań, albo skorzystasz z narzędzi zamieniających twój kod na starszy zapis.
-</p>
-<p>Autorzy tutoriali często zapominają o tym, że dla początkującej osoby istnieje po prostu JavaScript. Osoby takie często nie zdają sobie sprawy, że nie wszystko w JavaScript można dowolnie używać, nie wiedzą gdzie szukać informacji które przeglądarki co wspierają, jakich narzędzi używać do zamiany kodu i po co w ogóle to robić.</p>
-<p>W kursie tym staram się trzymać klasycznego JavaScript. Jasne - im więcej wiedzy zdobędziesz, im bardziej będziesz rozbudowywał swój warsztat, tym będziesz stosował coraz nowsze i lepsze techniki pisania kodu. A wtedy - tak jak to już pisałem powyżej - będziesz się śmiał z tego kursu. Póki co polecam po prostu uczyć się JavaScript.</p>
+<pre><code class="language-js">
+//rozbijanie tablicy na poszczególne liczby
+const tab = [1, 2, 3, 4];
+console.log(...tab);
 
-<a href="./co-to-jest-javascript.php" class="button">To co? Zaczynamy?...</a>
+//kopiowanie tablic
+const tab2 = [...tab];
+
+//łączenie tablic
+const tabPart = [3, 4]
+const tabFull = [1, 2, ...tabPart, 5, 6]; //1,2,3,4,5,6
+</code></pre>
+
+<pre><code class="language-js">
+//rozdzielanie teksty na poszczególne litery
+const str = "Ala ma kota";
+const tab = [...str]; //["A", "l", "a", " ", "m", "a", " ", "k", "o", "t", "a"]
+</code></pre>
+
+<p>
+    Math.max wymaga parametrów po przecinku (nie jako tablica), więc
+    mogę tutaj zastosować spread:
+</p>
+
+<pre><code class="language-js">
+Math.max(...tab);
+</code></pre>
+
+<p id="spread-kolekcje">
+    Spread mogę też wykorzystać do zamiany kolekcji elementów na tablicę:
+</p>
+
+<pre><code class="language-js">
+const divs = document.querySelectorAll('div');
+
+//nowa tablica z samymi tekstami z divów
+const texts = [...divs].map(el => {
+    return el.innerText;
+})
+</code></pre>
+
+<p>W nowej wersji JavaScript spread możemy też zastosować dla obiektów:</p>
+
+<pre><code class="language-js">
+const ob1 = {
+    a : 10,
+    b : 20
+}
+
+const ob2 = {
+    a : 15,
+    c : 30
+}
+
+const obBig = {
+    ...ob1,
+    ...ob2,
+    d: 40
+};
+
+console.log(obBig); //{ a : 15, b : 20, c : 30, d : 40 }
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="rest">Rest parameter</h2>
+<p>
+    Identycznie jak spread syntax wygląda <strong>rest parameter</strong>, różnicą jest miejsce użycia - w tym przypadku jako parametr funkcji.<br>
+    Zapis ten umożliwia zbieranie w jedną zmienną (będącą tablicą) wielu parametrów
+    przekazywanych do funkcji:
+</p>
+
+<pre><code class="language-js">
+function myF(...param) {
+    console.log(param); //[1, 2, 3, 4, 5]
+}
+
+myF(1,2,3,4,5);
+</code></pre>
+
+<pre><code class="language-js">
+function myF(...param) {
+    const newTab = [...param];
+    newTab.push("Ala");
+    console.log(param, newTab); //[1,2,3], [1,2,3,"Ala"]
+}
+
+myF(1,2,3);
+</code></pre>
+
+<p>
+    Tutaj może ci się pojawić pytanie. Po co takie dziwy, skoro
+    poznaliśmy już właściwość <a href="../super-podstawy/funkcje.php#arguments">arguments</a>,
+    która przecież przechowują przekazane atrybuty:
+</p>
+
+<pre><code class="language-js">
+function myF() {
+    console.log(arguments); //1,2,3,4,5
+}
+
+myF(1,2,3,4,5);
+</code></pre>
+
+<p>
+    Po pierwsze właściwość arguments ma narzuconą nazwę, a rest możemy nazywać tak jak nam pasuje.
+    Powyżej nazwaliśmy go <strong>param</strong>, ale kto nam broni nazwać to inaczej.<br>
+    Druga różnica jest taka, że do <strong>rest parameters trafiają parametry w formie tablicy</strong>.<br>
+    Mimo, że po arguments możemy zrobić pętlę for, <strong>nie jest on tablicą</strong> (tak samo jak w przypadku kolekcji):
+</p>
+
+<pre><code class="language-js">
+function myF1() {
+    arguments.forEach(el => console.log(el));
+}
+myF1(1,2,3,4,5); //błąd - arguments.forEach is not a function
+
+
+function myF2(...attr) {
+    attr.forEach(el => console.log(el));
+}
+myF2(1,2,3,4,5); //wszystko ok
+</code></pre>
+
+<p>
+    Trzecią - najważniejszą zmianą jest to, że do rest możemy bardzo łatwo zbierać "pozostałe atrybuty".
+    Wyobraź sobie, że twoja funkcja wymaga 2 atrybutów, ale ktoś zechce przekazać do niej więcej:
+</p>
+
+<pre><code class="language-js">
+function printAbout(name = "Ala", ...other) {
+    console.log("To jest " + name);
+
+    if (other.length) {
+        console.log(`${name} ma zwierzaki: ${other.join()}`);
+    }
+}
+
+printAbout("Marcin", "pies", "kot"); //To jest Marcin. Marcin ma zwierzaki: pies,kot
+printAbout(); //To jest Ala
+</code></pre>
+
+<p>
+    Pamiętaj, że rest musi występować jako ostatni w parametrach:
+</p>
+
+<pre><code class="language-js">
+function myF(a, b, ...numbers) {
+
+}
+
+function myF(a, ...numbers, b) { //błąd : Rest parameter must be last formal parameter
+
+}
+</code></pre>
+
+<p>Ps. Pewnie zauważyłeś, że lubię kończyć zdania trzema kropkami? Nie ma to nic wspólnego z rest ani spread. Obiecuję. ...Uhh - a raczej U,h,h</p>
+
+<div class="tasks-for-you-cnt">
+	<h2 class="subtitle" id="zadania">Trening czyni mistrza</h2>
+	<p>
+		Poniżej zamieszczam kilka zadań, które w ramach ćwiczenia możesz wykonać.
+	</p>
+	<ol class="tasks-for-you">
+		<li>
+			<div class="question">
+			Stwórz 2 tablice:
+			<pre><code class="language-js">
+				const tab1 = [1, 2, 3, 6, 5];
+				const tab2 = [10, 20, 15, 4];
+			</code></pre>
+			<p>Za pomocą spread syntax połącz te dwie tablice tak, by w wyniku uzyskać:</p>
+			<pre><code class="language-js">
+				const tab3 = [1, 2, 3, 6, 5, 10, 20, 15, 4];
+			</code></pre>
+			<p>
+				Posortuj te tablice odpowiednią metodą.
+			</p>
+			<p>Następnie pobierz z tej tablicy największą i najmniejszą liczbę. Wykorzystaj do tego obiekt Math</p>
+			</div>
+			<div class="solution">
+				<pre><code class="language-js">
+				const tab1 = [1, 2, 3, 6, 5];
+				const tab2 = [10, 20, 15, 4];
+				const tab3 = [...tab1, ...tab2];
+	
+				tab3.sort((a, b) =&gt; a - b);
+				console.log(Math.max(...tab3));
+				console.log(Math.min(...tab3));
+				</code></pre>
+			</div>
+		</li>
+		<li>
+		<div class="question">
+			<p>
+			Stwórz funkcję <strong>printBig()</strong>, która będzie przyjmowała dowolną liczbę parametrów. Wykorzystaj do tego rest parameter.
+			Wypisz w konsoli jeden tekst, który będzie składał się z przekazanych wartości
+			pisanych dużymi literami i rozdzielonych znakiem " + ":
+			</p>
+	
+			<pre><code class="language-js">
+				wywołanie: printBig("pies", "świnka", "kot");
+				wynik: "PIES + ŚWINKA + KOT"
+			</code></pre>
+		</div>
+		<div class="solution">
+			<pre><code class="language-js">
+			function printBig(...args) {
+				const tab = args.map(el =&gt; el.toUpperCase());
+				return tab.join(" + ");
+			}
+	
+			console.log( printBig("pies", "świnka", "kot") );
+			</code></pre>
+		</div>
+		</li>
+	</ol>
+	</div>
 
 			</div><!-- e: page-content-text -->
 			<footer class="page-footer">
@@ -165,13 +349,13 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
                 </h3>
             </div>
 
-						<div class="page-sidebar-section show has-active-element">
+						<div class="page-sidebar-section ">
 				<h3 class="page-sidebar-section-title">
 					<a href="#">Słowem wstępu</a>
 				</h3>
 				<div class="page-sidebar-list-cnt">
 					<ul class="page-sidebar-list">
-						<li class="active">
+						<li >
 							<a href="/kurs/wstep/wstep.php">Wstęp</a>
 						</li>
 						<li >
@@ -379,7 +563,7 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
 				</div>
 			</div>
 
-						<div class="page-sidebar-section ">
+						<div class="page-sidebar-section show has-active-element">
 				<h3 class="page-sidebar-section-title">
 					<a href="#">Nowy Javascript</a>
 				</h3>
@@ -397,7 +581,7 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
 						<li >
 							<a href="/kurs/es6/funkcja-strzalkowa.php">Funkcja strzałkowa</a>
 						</li>
-						<li >
+						<li class="active">
 							<a href="/kurs/es6/spread-rest.php">Spread i rest</a>
 						</li>
 						<li >

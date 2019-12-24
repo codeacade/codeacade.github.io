@@ -3,9 +3,9 @@
 <head>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Kurs Javascript - Wstęp</title>
+    <title>Kurs Javascript - Symbole</title>
 	<meta name="description" content="Kurs Javascript dla superbohaterów, artykuły, tutoriale, porady, zadania do wykonania" />
-    <link rel="canonical" href="https://kursjs.pl/kurs/wstep/wstep.php" />
+    <link rel="canonical" href="https://kursjs.pl/kurs/es6/symbole.php" />
 	<link rel="stylesheet" href="./css.css" />
     <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,700&display=swap&subset=latin-ext" rel="stylesheet">
 	<meta name="image" content="https://kursjs.pl/kursjs.png">
@@ -57,49 +57,130 @@
             </div>
                         <div class="page-content-text">
 
-
-<h1 class="page-title">Wstęp</h1>
+<h1 class="page-title">Symbole</h1>
 <p>
-Bardzo krótki wstęp ^^.<br /><br />
-Kurs ten jest o Javascripcie. Uhh...
-</p>
-<p>
-Wiedz, że nie staram się tutaj tworzyć największego i najlepszego kursu o JavaScript w internecie.<br>
-Ten kurs to twór jednego człowieka.
-Nie mam szans i nie chcę konkurować z molochami takimi jak <a href="https://developer.mozilla.org/pl/">MDN</a>, <a href="https://www.udemy.com/">Udemy</a>, <a href="https://eduweb.pl/">EduWeb</a> czy <a href="https://www.w3schools.com/js/default.asp">w3schools</a>.<br>
-<br><br>
-Nie znajdziesz tutaj wszystkiego z zakresu JavaScript. <br>
-Po jakimś czasie będziesz chciał wiele rzeczy tutaj pokazanych tworzyć inaczej - lepiej.<br>
-Im większy progres będziesz zdobywał stwierdzisz, że wiele rozdziałów można było napisać o wiele lepiej. I dobrze.<br><br>
-
-W każdym bądź razie - jeżeli ta strona jakoś ci posłuży - to tylko plus. Jeżeli nie - po prostu skorzystaj z innego kursu - na rynku jest tego od groma (niektóre wymieniłem <a href="../dodatkowe-materialy.php">tutaj</a>) i każdy znajdzie coś dla siebie. Ja sam mam kilka w swojej kolekcji i twierdzę, że są naprawdę dobre.
-<br><br>
+Jedną z nowości jakie przyniosło ES6 jest nowy typ prymitywny zwany <strong>symbolem</strong>.
+Podobnie jak w przypadku innych prymitywów symbol możemy stworzyć za pomocą konstruktora,
+w przeciwieństwie jednak do innych typów nie możemy tutaj stosować literałów:
 </p>
 
-<p>
-Jeszcze mała adnotacja, która siedzi mi w głowie.
-</p>
-<p>
-W internecie znajdziesz setki tutoriali pokazujących najnowsze techniki. A to funkcja strzałkowa, a to jak korzystać z async i await, a to jak robić połączenia fetchem czy chociażby zastosowanie modułów. Małe, konkretne, piękne - jak mój pies (a i od niedawna też kot).
-</p>
-<p>
-Na grupach facebookowych w dyskusjach znajdziesz jeszcze szybciej takie techniki.
-</p>
-<p>
-Tutaj pojawia pewna sprawa, który dotyczy nie tylko JavaScript, ale i całego frontendu. Bardzo często przy takich nowoczesnych tutorialach czy poradach autorzy nie zwracają uwagi na bardzo ważną rzecz - a mianowicie na to, że dobór techniki <strong>zawsze zależy od danego projektu</strong>. To są w końcu rzeczy oczywiste.<br>
-No właśnie nie do końca. To są rzeczy oczywiste - dla nas - osób, które w tej branży siedzą już kilkanaście lat. Ale czy dla osoby zaczynającej?
-</p>
-<p>
-Jeżeli robisz bloga o nowinkach z dziedziny frontentu, raczej możesz założyć, że większość użytkowników będzie korzystała z najnowszych przeglądarek, a więc i możesz używać najnowszych rozwiązań (chociaż najlepiej było by spojrzeć w statystyki Google Analitics które można podpiąć pod stronę).<br>
-Jeżeli jednak robisz stronę dla emerytowanych nauczycieli, czy dla przykładu olbrzymi sklep z którego będą korzystali różnorodni użytkownicy z różnorodnych krajów, wtedy rzucanie się na najnowsze rozwiązania będzie strzałem w stopę.
-</p>
-<p>
-Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie CSS Grid, a czasami nawet flexbox może okazać się czymś, czego użyć nie możesz. Czasami spokojnie będziesz mógł używać najnowszej wersji JavaScript, a czasami będziesz musiał pozostać przy starszej. A jeżeli będziesz musiał pozostać przy starszej, wtedy albo będziesz pisał JavaScript trzymając się klasycznych rozwiązań, albo skorzystasz z narzędzi zamieniających twój kod na starszy zapis.
-</p>
-<p>Autorzy tutoriali często zapominają o tym, że dla początkującej osoby istnieje po prostu JavaScript. Osoby takie często nie zdają sobie sprawy, że nie wszystko w JavaScript można dowolnie używać, nie wiedzą gdzie szukać informacji które przeglądarki co wspierają, jakich narzędzi używać do zamiany kodu i po co w ogóle to robić.</p>
-<p>W kursie tym staram się trzymać klasycznego JavaScript. Jasne - im więcej wiedzy zdobędziesz, im bardziej będziesz rozbudowywał swój warsztat, tym będziesz stosował coraz nowsze i lepsze techniki pisania kodu. A wtedy - tak jak to już pisałem powyżej - będziesz się śmiał z tego kursu. Póki co polecam po prostu uczyć się JavaScript.</p>
+<pre><code class="language-js">
+const sym = Symbol();
+console.log(typeof sym); //symbol
 
-<a href="./co-to-jest-javascript.php" class="button">To co? Zaczynamy?...</a>
+//dla każdego symbolu możemy przekazać własną nazwę
+//która ułatwia debugowanie
+const sym2 = Symbol('Moj symbol');
+console.log(sym2); //Symbol(Moj symbol)
+</code></pre>
+
+<p>Główną cechą symboli jest to, że każdorazowo przyjmują one całkowicie nową wartość, którą określa dany symbol. Nawet jeżeli przekażemy im taki sam tekst opisowy, każdy nowo utworzony
+symbol ma nową wartość, inną od innych symboli:</p>
+
+<pre><code class="language-js">
+//false bo oba symbole mają podobny tekst opisowy, ale ich "wartości" są całkowicie unikatowe
+console.log(Symbol("foo") === Symbol("foo"))
+</code></pre>
+
+<p>W przypadku Symboli nie interesuje nas jaką konkretną wartość ma dany symbol, ale to, że
+jego wartość jest zawsze unikatowa. Czyli w przeciwieństwie np. do Number odwołując się do zmiennej nie pobieramy konkretnej wartości, a tylko "coś unikatowego".</p>
+
+<p>Do czego to się może przydać?<br>
+<p>
+Wyobraź sobie, że wraz z innymi tworzycie super zaawansowany silnik do gier. Pojedynczy obiekt
+ma mnóstwo metod np. collision, moved itp. Ty w pewnym momencie chcesz dodać nową metodę, ale też chcesz mieć pewność, że nie nadpiszesz żadnej innej metody. Klasycznie mógłbyś wykorzystać do tego celu pętlę while, tak by generować unikatową nazwę dla twojej metody:</p>
+
+<pre><code class="language-js">
+let check = true;
+let methodName = "moved";
+const ob = {};
+
+while (ob.hasOwnProperty(methodName)) {
+    methodName += randomLetter();
+}
+
+ob[methodName] = function() {
+    ...
+}
+</code></pre>
+
+<p>
+W przypadku symboli zawsze będziesz miał unikatową wartość, a więc i twoją metodę:
+</p>
+
+<pre><code class="language-js">
+const move = Symbol('my move method');
+
+const ob = {};
+ob[move] = function() {
+    ...
+}
+
+
+//jedyna możliwość odwołania się do powyższej metody
+//jest skorzystanie z symbolu, do którego mamy referencję w stałej move
+
+ob[move](); //Test
+</code></pre>
+
+<pre><code class="language-js">
+const myObj = {};
+let sym1 = Symbol('moj'); //tworze nowy symbol
+myObj[sym1] = "Ala";
+
+console.log(myObj); //{Symbol(moj): "Ala"}
+
+
+sym1 = Symbol(); //tworze nowy symbol pod tą samą nazwą
+myObj[sym1] = "Monika";
+
+console.log(myObj); //{Symbol(moj): "Ala", Symbol(): "Monika"}
+
+const sym2 = Symbol('moj'); //podobny opis nic nie oznacza
+myObj[sym2] = "Beata";
+
+console.log(myObj); //{Symbol(moj): "Ala", Symbol(): "Monika", Symbol(moj): "Beata"}
+</code></pre>
+
+<p>Nawet jeżeli stworzymy nowy symbol o tej samej nazwie i wartości, będzie on zupełnie nowym symbolem. Dzięki temu wszystkie trzy właściwości są pod innymi kluczami.</p>
+
+<p>Jeżeli teraz chcielibyśmy się do tych właściwości dostać moglibyśmy użyć zmiennych wskazujących na dany symbol. W powyższym przykładzie jednak zmienna sym została zmieniona, więc w żaden sposób nie wskazuje na pierwszy symbol. Możemy tutaj skorzystać z metody <strong>Object.getOwnPropertySymbols(ob)</strong>, która zwraca symbole użyte w danym obiekcie:</p>
+
+<pre><code class="language-js">
+const symb = Object.getOwnPropertySymbols(myObj);
+console.log(symb.length); //3
+console.log(symb[0]); //Symbol(moj)
+console.log(myObj[symb[0]]) //Ala
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="symbol-for">Metody dla symboli</h2>
+<p>JavaScript udostępnia kilka metod dla symboli. Pierwszą z nich jest <strong>Symbol.for(nazwa)</strong>. Służy ona do tworzenia danych symboli w globalnym rejestrze. Wyobraź sobie globalną listę. Gdy na danej pozycji nie ma jeszcze stworzonego symbolu, wtedy użycie tej metody stworzy pod daną pozycją nowy symbol. Każde kolejne użycie tej metody z daną nazwą nie stworzy nowego symbolu, a tylko pobierze już stworzony symbol:</p>
+
+<pre><code class="language-js">
+Symbol.for("mySymbol name"); //tworzę nowy symbol
+Symbol.for("other symbol"); //tworzę nowy symbol
+
+console.log(Symbol.for("mySymbol name")); //pobieram wcześniej utworzony symbol
+console.log(Symbol.for("mySymbol name2")); //tworzę nowy symbol
+</code></pre>
+
+<pre><code class="language-js">
+const hidden = Symbol.for("name"); //tworzę nowy symbol
+
+//odwołuję się do symbolu
+console.log(hidden);
+console.log(Symbol.for("name"));
+</code></pre>
+
+<p>Jeżeli znamy nazwę zmiennej do której przypisany został symbol, możemy za jej pomocą
+pobrać klucz, który został wpisany przy tworzeniu symbolu. Wykorzystamy do tego metodę <strong>Symbol.keyFor()</strong></p>
+
+<pre><code class="language-js">
+const hidden = Symbol.for("my hidden message");
+console.log(Symbol.keyFor(hidden)); //my hidden message
+</code></pre>
+
 
 			</div><!-- e: page-content-text -->
 			<footer class="page-footer">
@@ -165,13 +246,13 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
                 </h3>
             </div>
 
-						<div class="page-sidebar-section show has-active-element">
+						<div class="page-sidebar-section ">
 				<h3 class="page-sidebar-section-title">
 					<a href="#">Słowem wstępu</a>
 				</h3>
 				<div class="page-sidebar-list-cnt">
 					<ul class="page-sidebar-list">
-						<li class="active">
+						<li >
 							<a href="/kurs/wstep/wstep.php">Wstęp</a>
 						</li>
 						<li >
@@ -379,7 +460,7 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
 				</div>
 			</div>
 
-						<div class="page-sidebar-section ">
+						<div class="page-sidebar-section show has-active-element">
 				<h3 class="page-sidebar-section-title">
 					<a href="#">Nowy Javascript</a>
 				</h3>
@@ -415,7 +496,7 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
 						<li >
 							<a href="/kurs/es6/async-await.php">Async/Await</a>
 						</li>
-						<li >
+						<li class="active">
 							<a href="/kurs/es6/symbole.php">Symbole</a>
 						</li>
 					</ul>

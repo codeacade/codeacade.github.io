@@ -1,0 +1,1681 @@
+<!doctype html>
+<html lang="pl-PL">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kurs Javascript - Formularz kontaktowy</title>
+	<meta name="description" content="Kurs Javascript dla superbohaterów, artykuły, tutoriale, porady, zadania do wykonania" />
+    <link rel="canonical" href="https://kursjs.pl/kurs/ajax/formularz-kontaktowy.php" />
+	<link rel="stylesheet" href="./css.css" />
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,700&display=swap&subset=latin-ext" rel="stylesheet">
+	<meta name="image" content="https://kursjs.pl/kursjs.png">
+<meta name="twitter:card" content="product">
+<meta name="twitter:site" content="@publisher_handle">
+<meta name="twitter:title" content="Kurs Javascript">
+<meta name="twitter:description" content="Kurs Javascript dla superbohaterów">
+<meta name="twitter:creator" content="@kartofelek007">
+<meta name="twitter:image" content="https://kursjs.pl/kursjs.png">
+<meta property="og:title" content="Kurs Javascript">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.kursjs.com/">
+<meta property="og:image" content="https://kursjs.pl/kursjs.png">
+<meta property="og:description" content="Kurs Javascript dla superbohaterów">
+<meta property="og:site_name" content="Kurs Javascript">
+<link rel="apple-touch-icon" sizes="57x57" href="/favicons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/favicons/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/favicons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/favicons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/favicons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/favicons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/favicons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/favicons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="/manifest.json">
+<meta name="msapplication-TileColor" content="#FF6347">
+<meta name="msapplication-TileImage" content="/mstile-144x144.png">
+    <script src="/js/jquery.min.js"></script>
+</head>
+<body>
+
+<div class="page-container" id="pageContainer">
+	<div class="page-content-wrapper">
+        <main class="page-content" id="mainContent"  data-text-for-print="Kurs Javascript dla superbohaterów">
+                        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <div class="rekl-cnt">
+                <ins
+                class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-6843603045703750"
+                data-ad-slot="4690777640"
+                data-ad-format="auto"
+                data-full-width-responsive="true"
+                ></ins>
+            </div>
+                        <div class="page-content-text">
+
+<h1 class="page-title">Formularz kontaktowy</h1>
+<p>
+W poniższym tekście stworzymy dynamicznie sprawdzany i wysyłany formularz kontaktowy kontaktowy.
+</p>
+
+<a href="formularz-kontaktowy/formularz-4.html" class="demo-link">Gotowy formularz</a>
+
+<div class="kartofel-informuje">
+    W poniższym kodzie będziemy korzystać z funkcjonalności ES6 takich jak funkcja strzałkowa czy spread operator.
+    Jeżeli chcesz wspierać starsze IE, będziesz musiał przerobić niektóre fragmenty kodu na starsze rozwiązania.
+    Ewentualnie zastosuj transpilację za pomocą <a href="../es6/webpack.php">Babela</a>
+</div>
+
+<!-- ### -->
+<h2 class="subtitle" id="html">HTML</h2>
+<p>Zaczynamy od prostego kodu html i jego omówienia:</p>
+
+<pre class="language-html"><code>&lt;form class="form" id="contactForm" method="post" action="/send-scripts.php"&gt;
+    &lt;div class="form-row"&gt;
+        &lt;label for="field-name"&gt;Name*&lt;/label&gt;
+        &lt;input type="text" name="name" required id="field-name" data-error="Wypełnij to pole" pattern="[a-zA-ZąĄććęęłŁńŃóÓśŚżŻŹŹ ]+"&gt;
+    &lt;/div&gt;
+    &lt;div class="form-row"&gt;
+        &lt;label for="field-email"&gt;Email*&lt;/label&gt;
+        &lt;input type="email" name="email" required id="field-email" data-error="Wpisz poprawny email" pattern="[^@\s]+@[^@\s]+\.[^@\s]+"&gt;
+    &lt;/div&gt;
+    &lt;div class="form-row"&gt;
+        &lt;label for="field-message"&gt;Message*&lt;/label&gt;
+        &lt;textarea name="message" required data-error="Musisz wypełnić pole" id="field-message" pattern=".+"&gt;&lt;/textarea&gt;
+    &lt;/div&gt;
+    &lt;div class="form-row"&gt;
+        &lt;label class="checkbox-cnt"&gt;
+            &lt;input type="checkbox" data-error="Musisz wypełnić pole" name="regulation"&gt;
+            &lt;i class="state" aria-hidden="true"&gt;&lt;/i&gt;
+            &lt;span&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. In libero arcu, vulputate sit amet mattis sit amet, ultrices in erat. Aenean suscipit arcu ac lorem lacinia ut scelerisque turpis commodo.&lt;/span&gt;
+        &lt;/label&gt;
+    &lt;/div&gt;
+    &lt;div class="form-row"&gt;
+        &lt;button type="submit" class="submit-btn"&gt;
+            Wyślij
+        &lt;/button&gt;
+    &lt;/div&gt;
+&lt;/form&gt;
+</code></pre>
+
+<p>Jest to formularz z 2 polami tekstowymi, jednym textarea, inputem typu checkbox i buttonem do wysyłania.</p>
+<p>Każdy formularz powinien mieć klasę dla stylowania, atrybut action, który wskazuje, gdzie ten formularz zostanie wysłany (w jakie miejsce), oraz atrybut method, który wskazuje jakiego typy będzie to wysyłka.</p>
+
+<p>
+Każde pole w formularzu ma swój label. Nawet jeżeli takie labele nie będą widoczne w layoucie, powinni istnieć w kodzie html ze względów dostępności. Placeholder nie będzie tutaj rozwiązaniem. Label taki wskazuje za pomocą atrybutu for na id danego pola.<br>
+Pola te mają też podstawowe atrybuty takie jak typ, <a href="https://developer.mozilla.org/pl/docs/Web/HTML/Element/Input#required">required</a> (pole wymagane) czy <a href="https://developer.mozilla.org/pl/docs/Web/HTML/Element/Input#attr-pattern">pattern</a>, które określa wzór treści jaką wymaga dane pole.
+Zauważ, że dla pola typu email też podałem ten atrybut, mimo, że domyślnie to pole też jest sprawdzane przez przeglądarkę. Domyślna walidacja przepuszcza maile w stylu <strong>example@</strong>, więc nie zawsze będzie nam pasować.
+</p>
+
+<p>
+Dla checkboxa zastosowałem kod który dawno temu pokazałem tutaj: <a href="http://domanart.pl/wtf-forms/">http://domanart.pl/wtf-forms/</a>.
+</p>
+
+<p>
+Jeżeli pola posiadają atrybut required (czyli są wymagane), wtedy przy wysyłaniu formularza pojawią nam się domyślne dymki walidacji. Aby podczas wysyłania formularza nie pojawiały się dymki walidacji którą udostępnia przeglądarka -  nie jesteśmy w stanie zmienić.
+</p>
+
+<img src="./form-tooltip.png" alt="Dymki walidacji" class="border">
+
+<p>
+    To dobrze, że one są. My jednak chcemy zrobić własną walidację. Aby wyłączyć takie dymki tworząc naszą walidację musimy do formularza dodać atrybut <strong>novalidate</strong>.
+</p>
+
+<p>
+Każde pole ma także dodatkowy atrybut <strong>data-error</strong>, który zawiera tekst, który będzie wyświetlany w razie błędu.
+</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="css">CSS</h2>
+<p>Do naszego formularza dodajemy proste stylowanie:</p>
+
+<pre><code class="language-css">
+* {
+    box-sizing: border-box;
+}
+
+.form {
+    margin: 3rem auto;
+    font-family: sans-serif;
+    max-width: 40rem;
+}
+.form .form-row {
+    margin-bottom: 1rem;
+}
+.form .form-row:last-child {
+    margin-bottom: 0;
+}
+.form input[type=text],
+.form input[type=email],
+.form textarea,
+.form .checkbox-cnt .state {
+    box-shadow:inset 0 1px 5px rgba(0,0,0,0.07);
+}
+.form input[type=text],
+.form input[type=email],
+.form textarea {
+    border-radius: 0.2rem;
+    font-family: sans-serif;
+    padding: 0.8rem;
+    border: 1px solid #aaa;
+    display: block;
+    width: 100%;
+    color: #666;
+}
+.form input[type=text]:focus,
+.form input[type=email]:focus,
+.form textarea:focus {
+    border-color: #9DC9F5;
+    box-shadow: inset 0 0 0 1px #9DC9F5, inset 0 1px 5px rgba(0,0,0,0.07);
+    outline: none;
+}
+.form textarea {
+    height: 10rem;
+}
+.form label {
+    font-weight: bold;
+    display: block;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+}
+.form .submit-btn {
+    font-family: sans-serif;
+    padding: 1rem 2rem;
+    background: #F15C5C;
+    border: 0;
+    border-radius: 0.2rem;
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: bold;
+    transition: 0.3s background-color;
+}
+@media screen and (max-width:500px) {
+    .form .submit-btn {
+        display: block;
+        width: 100%;
+    }
+}
+
+
+/* ---------------------------------------------------- */
+/* walidacja formularza */
+/* ---------------------------------------------------- */
+.form input[type=text].error,
+.form input[type=email].error,
+.form textarea.error,
+.form .checkbox-cnt input.error ~ .state {
+    border-color:##E01546;
+}
+.field-error {
+    color:##E01546;
+    padding:0.5rem 0;
+    font-size:0.8rem;
+}
+
+
+/* ---------------------------------------------------- */
+/* checkbox */
+/* ---------------------------------------------------- */
+.form .submit-btn:hover {
+    background: #7EC927;
+}
+.form .checkbox-cnt {
+    padding-left: 3rem;
+    position: relative;
+    font-weight: normal;
+    font-size: 0.85rem;
+    line-height: 1.1rem;
+    color: #444;
+    cursor: pointer;
+}
+.form .checkbox-cnt .state {
+    width: 2rem;
+    height: 2rem;
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    border: 1px solid #aaa;
+    border-radius: 0.2rem;
+}
+.form .checkbox-cnt .state:before {
+    width: 1rem;
+    height: 1rem;
+    border-radius: 0.2rem;
+    background: #70B81B;
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    content: '';
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0;
+}
+.form .checkbox-cnt input:checked ~ .state:before {
+    animation: checkboxShowAnim 0.5s 1;
+    opacity: 1;
+}
+.form .checkbox-cnt input {
+    position: absolute;
+    top:0;
+    left:0;
+    width: 2rem;
+    height: 2rem;
+    z-index: 2;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    opacity: 0;
+}
+@keyframes checkboxShowAnim {
+    0%  { border-radius:50%; transform:translate(-50%, -50%) scale(0.2); }
+    50% { transform:translate(-50%, -50%) scale(1.2); }
+    100% { transform:translate(-50%, -50%) scale(1); }
+}
+</code></pre>
+
+<p>Połowa stylowania dotyczy się checkboxa, przedstawiłem ją we <a href="http://domanart.pl/wtf-forms/">wspomnianym artykule</a></p>
+
+<a href="formularz-kontaktowy/formularz-1.html" class="demo-link">Formularz wygląd</a>
+
+
+<!-- ### -->
+<h2 class="subtitle" id="logika-po-stronie-przegladarki">Logika po stronie przeglądarki</h2>
+<p>
+<strong>Zanim przejdziemy do kodowania rozpiszmy logikę działania formularza:</strong>
+</p>
+<ol>
+    <li>1 etap walidacji - pola naszego formularza powinny mieć dynamiczną walidację, która będzie reagować na wpisywany tekst. Nie powinna ona być nachalna, czyli raczej nie będziemy użytkownika bombardować dodatkowymi opisami, a co najwyżej będziemy zmieniać wygląd pola</li>
+    <li>2 etap walidacji - przy wysyłaniu formularza sprawdzimy wszystkie pola i w razie czego wyświetlimy dodatkowe opisy pod polami co należy wpisać.</li>
+    <li>Jeżeli wszystkie pola są poprawne, wtedy wysyłamy formularzy, pokazujemy znacznik wczytywania (loading) i wyłączamy przycisk submit, tak by użytkownik nie mógł "mashować" nachalnej wysyłki</li>
+    <li>3 etap walidacji - jeżeli przesłane na serwer dane z formularza są błędne, serwer powinien zwrócić informacje które pola są błędne, a my powinniśmy wyświetlić odpowiednie informacje</li>
+    <li>Jeżeli formularz został wysłany poprawnie (wszystkie dane są ok i nie było błędu wysyłki) wtedy powinna pojawić się informacja o powodzeniu wysłania emaila</li>
+</ol>
+
+<p>Po rozpisaniu tych punktów przejdźmy do napisania prostego skryptu walidacji.</p>
+<p>Pierwszą czynnością jest pobranie formularza i jego pól które będziemy sprawdzać:</p>
+
+<pre><code class="language-js">
+const form = document.querySelector('#contactForm');
+const inputs = form.querySelectorAll('input[required], textarea[required], select[required]');
+
+//wyłączamy domyślną walidację
+form.setAttribute('novalidate', true);
+</code></pre>
+
+<p>Kolejnym krokiem jest podpięcie pod nie eventu <a href="https://developer.mozilla.org/en-US/docs/Web/Events/input">input</a>, który reaguje na wpisywany tekst.</p>
+<p>Na pobranej za pomocą querySelectorAll kolekcji <a href="../dom/dom.php#forEach-spread">nie można normalnie robić forEach</a>, dlatego
+stosujemy tutaj trik z zamianą kolekcji na tablicę poprzez rozbicie za pomocą <a href="../es6/spread-rest.php#spread-kolekcje">spread operatora</a>.
+Dodatkowo w pętli stosujemy <a href="../es6/funkcja-strzalkowa.php">funkcję strzałkową</a>, ponieważ w tym momencie nie potrzebujemy mieć <a href="../es6/funkcja-strzalkowa.php#zmiana-kontekstu">dostępu do this</a>:</p>
+
+<pre data-line="7-17"><code class="language-js">
+const form = document.querySelector('#contactForm');
+const inputs = form.querySelectorAll('input[required], textarea[required], select[required]');
+
+//wyłączamy domyślną walidację
+form.setAttribute('novalidate', true);
+
+//zamieniamy inputs na tablicę i robimy po niej pętlę
+[...inputs].forEach(elem => {
+    elem.addEventListener('input', function() {
+        if (!this.checkValidity()) {
+            this.classList.add('error');
+        } else {
+            this.classList.remove('error');
+            hideFieldError(this);
+        }
+    });
+});
+</code></pre>
+
+<p>Do sprawdzenia poprawności skorzystaliśmy
+z <a href="https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/Data_form_validation#Constraint_validation_API_methods">html5 js validation</a>, a dokładniej z metody <strong>checkValidity()</strong>, która automatycznie sprawdza wartość pola - albo korzystając z <strong>type</strong> pola, albo z atrybutu <strong>pattern</strong>. Jeżeli więc mamy pole typu email, domyślnie walidacja przeglądarki przyjmie swój własny algorytm by sprawdzić wpisaną w to pole wartość. Jeżeli takie pole dostanie dodatkowo atrybut pattern, wtedy zostanie on użyty do takiego sprawdzenia.
+</p>
+
+<div class="kartofel-informuje">
+    Ma to szczególne znaczenie, dla przykładu domyślna walidacja pola email, które ma tylko atrybut required (bez pattern) przepuszcza maile w postaci "lorem@lorem", co nie każdemu może odpowiadać, bo zazwyczaj mail powinien mieć postać z końcową domeną np. "lorem@lorem.pl". Dlatego w wielu przypadkach mimo nadania polu jakiegoś typu warto dodatkowo wstawić tam własny atrybut pattern - tak jak my to zrobiliśmy w naszym formularzu.
+</div>
+
+<p>
+W naszym przypadku zamiast tego api moglibyśmy skorzystać z <a href="../regular.php">wyrażeń regularnych</a> tak jak poniżej:
+</p>
+
+<pre><code class="language-js">//zamiast
+if (!input.checkValidity()) {
+    ...
+}
+
+//możemy spokojnie zastosować klasyczną metodę z regexp
+const pattern = input.getAttribute('pattern');
+if (new RegExp(pattern).test(input.value) {
+    ...
+}
+</code></pre>
+
+<p>Wracamy do kodu. W powyższej pętli forEach korzystamy z metod <strong>hideFieldError()</strong>. Napiszmy ją oraz jej przeciwieństwo czyli <strong>showFieldError()</strong>, która przyda nam się później:</p>
+
+<pre data-line="7-20,22-29"><code class="language-js">
+const form = document.querySelector('#contactForm');
+const inputs = form.querySelectorAll('input[required], textarea[required], select[required]');
+
+//wyłączamy domyślną walidację
+form.setAttribute('novalidate', true);
+
+const displayFieldError = function(elem) {
+    const fieldRow = elem.closest('.form-row');
+    const fieldError = fieldRow.querySelector('.field-error');
+    //jeżeli komunikat z błędem pod polem nie istnieje...
+    if (fieldError === null) {
+        //pobieramy z pola tekst błędu
+        //i tworzymy pole
+        const errorText = elem.dataset.error;
+        const divError = document.createElement('div');
+        divError.classList.add('field-error');
+        divError.innerText = errorText;
+        fieldRow.appendChild(divError);
+    }
+};
+
+const hideFieldError = function(elem) {
+    const fieldRow = elem.closest('.form-row');
+    const fieldError = fieldRow.querySelector('.field-error');
+    //jeżeli pobrane pole istnieje - usuń je
+    if (fieldError !== null) {
+        fieldError.remove();
+    }
+};
+
+[...inputs].forEach(elem => {
+    ...
+});
+</code></pre>
+
+<div class="kartofel-informuje">
+<p>W powyższych metodach skorzystaliśmy z metody <a href="../dom/dom-relacje.php#closest-ie">closest()</a>. Nie jest ona w pełni wspierana, dlatego jeżeli będzie nam zależało na wsparciu IE, trzeba będzie zastosować polyfill, opisany w powyższym linku.</p>
+</div>
+
+<p>Dla pól typu checkbox musimy dodatkowo podpiąć zdarzenie click:</p>
+
+<pre data-line="25-35"><code class="language-js">
+const form = document.querySelector('#contactForm');
+const inputs = form.querySelectorAll('input[required], textarea[required], select[required]');
+
+//wyłączamy domyślną walidację
+form.setAttribute('novalidate', true);
+
+const displayFieldError = function(elem) {
+    ....
+};
+
+const hideFieldError = function(elem) {
+    ...
+};
+
+[...inputs].forEach(elem => {
+    elem.addEventListener('input', function() {
+        if (!this.checkValidity()) {
+            this.classList.add('error');
+        } else {
+            this.classList.remove('error');
+            hideFieldError(this);
+        }
+    });
+
+    if (elem.type === "checkbox") {
+        elem.addEventListener('click', function() {
+            const formRow = this.closest('.form-row');
+            if (this.checked) {
+                this.classList.remove('error');
+                hideFieldError(this);
+            } else {
+                this.classList.add('error');
+            }
+        });
+    }
+});
+</code></pre>
+
+<a href="formularz-kontaktowy/formularz-2.html" class="demo-link">Dynamiczna walidacja</a>
+
+<!-- ### -->
+<h2 class="subtitle" id="dodanie-tekstow-walidacji">Dodanie tekstów walidacji</h2>
+<p>
+Przy wysyłaniu formularza powinniśmy dokonać ponownej walidacji, tym razem jednak wyświetlimy teksty pod polami, które będą mówić użytkownikowi co zrobił nie tak. Stworzymy do tego metodę <strong>checkFiledsErrors()</strong>, która działać będzie podobnie do powyższych, tyle że nie dla pojedynczego pola, a dla wielu:
+</p>
+
+<pre data-line="19-36,42"><code class="language-js">
+const form = document.querySelector('#contactForm');
+const inputs = form.querySelectorAll('input[required], textarea[required], select[required]');
+
+//wyłączamy domyślną walidację
+form.setAttribute('novalidate', true);
+
+const displayFieldError = function(elem) {
+    ...
+};
+
+const hideFieldError = function(elem) {
+    ...
+};
+
+[...inputs].forEach(elem => {
+   ...
+});
+
+const checkFieldsErrors = function(elements) {
+    //ustawiamy zmienną na true. Następnie robimy pętlę po wszystkich polach
+    //jeżeli któreś z pól jest błędne, przełączamy zmienną na false.
+    let fieldsAreValid = true;
+
+    [...elements].forEach(elem => {
+        if (elem.checkValidity()) {
+            hideFieldError(elem);
+            elem.classList.remove('error');
+        } else {
+            displayFieldError(elem);
+            elem.classList.add('error');
+            fieldsAreValid = false;
+        }
+    });
+
+    return fieldsAreValid;
+};
+
+form.addEventListener('submit', e => {
+    e.preventDefault();
+
+    //jeżeli wszystkie pola są poprawne...
+    if (checkFieldsErrors(inputs)) {
+        ...
+    }
+});
+</code></pre>
+
+<a href="formularz-kontaktowy/formularz-3.html" class="demo-link">Walidacja przed wysyłką</a>
+
+<!-- ### -->
+<h2 class="subtitle" id="wysylka-formularza">Wysyłka formularza</h2>
+<p>
+W tym momencie możemy już wysłać formularz a i nasza walidacja po stronie przeglądarki działa.
+</p>
+
+<p>Żeby wysłać dane, musimy pobrać wszystkie dane z formularza. Wystarczy zrobić pętlę po elementach formularza które nie są :disabled (bo takie normalnie nie są wysyłane) i wrzucić ich wartości do wspólnego obiektu <strong>dataToSend</strong> typu <a href="../ajax/xmlhttprequest.php#formData.">formData</a>:</p>
+
+<pre data-line="6-11"><code class="language-js">
+form.addEventListener('submit', e => {
+    e.preventDefault();
+
+    //jeżeli wszystkie pola są poprawne...
+    if (checkFieldsErrors(inputs)) {
+        //generujemy dane jako obiekt dataToSend
+        //domyślnie elementy disabled nie są wysyłane!
+        const elements = form.querySelectorAll('input:not(:disabled), textarea:not(:disabled), select:not(:disabled)');
+
+        const dataToSend = new FormData();
+        [...elements].forEach(el => dataToSend.append(el.name, el.value));
+
+        ...
+    }
+});
+</code></pre>
+
+<p>Mamy zebrane dane. Pozostaje je wysłać.</p>
+
+<p>
+Przed samym wysłaniem danych wyłączmy przycisk submit poprzez dodanie do niego atrybutu <strong>disabled</strong>. Dzięki temu zniecierpliwiony użytkownik nie będzie mógł klikać w przycisk wysyłania aż do czasu zakończenia poprzedniej wysyłki.
+</p>
+<p>
+Dodatkowo powinniśmy pokazać jakiś wskaźnik wczytywania. Możemy to zrobić jakąś graficzką loadingu, ale lepiej zastosować jakąś prostą animację:
+</p>
+
+<pre><code class="language-css">
+/* ---------------------------------------------------- */
+/* loading */
+/* ---------------------------------------------------- */
+.elem-is-busy {
+    position: relative;
+    pointer-events: none;
+    opacity:0.5;
+}
+
+.elem-is-busy::after {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    border-right-color: rgba(0,0,0,0.7);
+    transform: translate(-50%, -50%) rotate(0deg);
+    content:'';
+    animation: rotateSingleLoading 0.3s infinite linear;
+    z-index: 10;
+}
+
+@keyframes rotateSingleLoading {
+    from {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+    to {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+</code></pre>
+
+<pre><code class="language-js">
+document.querySelector('#loadingTest').addEventListener('click', function() {
+    this.classList.add('element-is-busy');
+    this.disabled = true;
+});
+</code></pre>
+
+<style>
+.submit-btn {
+    font-family: sans-serif;
+    padding:1rem 2rem;
+    background: #70B81B;
+    border:0;
+    border-radius:0.2rem;
+    color:#fff;
+    font-size:1.1rem;
+    font-weight: bold;
+    transition: 0.3s background-color;
+}
+
+.element-is-busy {
+    position: relative;
+    pointer-events: none;
+    opacity:0.5;
+}
+.element-is-busy::after {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    border-right-color: rgba(0,0,0,0.7);
+    transform: translate(-50%, -50%) rotate(0deg);
+    content:'';
+    animation: rotateSingleLoading 0.3s infinite linear;
+    z-index: 100;
+}
+@keyframes rotateSingleLoading {
+    from {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+    to {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+</style>
+<button type="button submit-btn" class="button" id="loadingTest">Kliknij i przetestuj</button>
+<script>
+    document.querySelector('#loadingTest').addEventListener('click', function() {
+        this.classList.add('element-is-busy');
+        this.disabled = true;
+    });
+</script>
+
+<p>Zastosujmy ją w naszym skrypcie przy dynamicznym wysyłaniu danych:</p>
+
+<pre data-line="11-13"><code class="language-js">
+form.addEventListener('submit', e => {
+    e.preventDefault();
+    ...
+
+    if (checkFieldsErrors(inputs)) {
+        const elements = form.querySelectorAll('input:not(:disabled), textarea:not(:disabled), select:not(:disabled)');
+
+        const dataToSend = new FormData();
+        [...elements].forEach(el => dataToSend.append(el.name, el.value));
+
+        const submit = form.querySelector('[type="submit"]');
+        submit.disabled = true;
+        submit.classList.add('element-is-busy');
+
+        //zaraz wyślemy dane
+        //...
+    }
+})
+</code></pre>
+
+<p>
+Do samej wysyłki zastosujemy <a href="../ajax/fetch.php#wysylanych-danych">fetch</a>. Dla adresu i metody jaką wyślemy musimy pobrać atrybuty action i method z formularza. Wcześniej pobrane dane z formularza wysyłamy jako POST, dlatego zamieniamy je za pomocą <a href="./xmlhttprequest.php#formData">formData</a> na właściwy zapis:</p>
+</p>
+
+<pre data-line="15-29"><code class="language-js">
+form.addEventListener('submit', e => {
+    e.preventDefault();
+    ...
+
+    if (checkFieldsErrors(inputs)) {
+        const elements = form.querySelectorAll('input:not(:disabled), textarea:not(:disabled), select:not(:disabled)');
+
+        const dataToSend = new FormData();
+        [...elements].forEach(el => dataToSend.append(el.name, el.value));
+
+        const submit = form.querySelector('[type="submit"]');
+        submit.disabled = true;
+        submit.classList.add('element-is-busy');
+
+        const url = form.getAttribute('action');
+        const method = form.getAttribute('method');
+
+        fetch(url, {
+            method: method.toUpperCase(),
+            body: dataToSend
+        })
+        .then(ret => ret.json())
+        .then(ret => {
+            submit.disabled = false;
+            submit.classList.remove('element-is-busy');
+        }).catch(_ => {
+            submit.disabled = false;
+            submit.classList.remove('element-is-busy');
+        });
+    }
+})
+</code></pre>
+
+<p>Zauważ, że przy <a href="../es6/funkcja-strzalkowa.php">użyciu funkcji strzałkowej</a> dla catch atrybut nazwałem jako znak podłogi. Jest to spotykana praktyka, która oznacza, że taki atrybut nie będzie używany i nas nie interesuje.</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="po-stronie-serwera">Po stronie serwera</h2>
+<p>
+Formularz wysłaliśmy na serwer. Czas zająć się napisaniem skryptu serwerowego. Do naszych celów użyjemy PHP, ale podobne działanie można utworzyć w każdej innej technologii serwerowej:
+</p>
+<pre data-line="9,22"><code class="language-php">
+&lt;?php
+
+$mailToSend = 'twoj-mail@lorem.pl';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $message = $_POST['email'];
+    $regulation = $_POST['regulation']; //walidacja regulaminu - nie zawsze potrzebna
+    $errors = Array();
+	$return = Array();
+
+    if (empty($name)) {
+        array_push($errors, 'name');
+    }
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        array_push($errors, 'email');
+    }
+    if (empty($message)) {
+        array_push($errors, 'message');
+    }
+    if (empty($regulation)) { //walidacja regulaminu - nie zawsze potrzebna
+        array_push($errors, 'regulation');
+    }
+    if (count($errors) &gt; 0) {
+        $return['errors'] = $errors;
+    } else {
+        $headers  = 'MIME-Version: 1.0' . "\r\n";
+        $headers .= 'Content-type: text/html; charset=UTF-8'. "\r\n";
+        $headers .= 'From: '.$email."\r\n";
+        $headers .= 'Reply-to: '.$email;
+        $message  = "
+            &lt;html&gt;
+                &lt;head&gt;
+                    &lt;meta charset=\"utf-8\"&gt;
+                &lt;/head&gt;
+                &lt;style type=\"text/css\"&gt;
+                    body {font-family:sans-serif; padding:20px;}
+                    div {margin-bottom:10px;}
+                    .msg-title {margin-top:30px;}
+                &lt;/style&gt;
+                &lt;body&gt;
+                    &lt;div&gt;Imię: $name&lt;/div&gt;
+                    &lt;div&gt;Email: &lt;a href=\"mailto:$email\"&gt;$email&lt;/a&gt;&lt;/div&gt;
+                    &lt;div&gt;Wiadomość:&lt;/div&gt;
+                    &lt;div&gt;$message&lt;/div&gt;
+                &lt;/body&gt;
+            &lt;/html&gt;";
+
+        if (mail($mailToSend, 'Wiadomość ze strony - ' . date("d-m-Y"), $message, $headers)) {
+            $return['status'] = 'ok';
+        } else {
+            $return['status'] = 'error';
+        }
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($return);
+}
+</code></pre>
+
+<p>
+Jest to prosty skrypt, który kolejno sprawdza przesłane pola. Jeżeli któreś z pól jest błędne, wtedy wrzuca do tablicy <strong>$errors</strong> pod klucz będący nazwą tego pola tekst z komunikatem błędu.
+</p>
+
+<div class="kartofel-informuje">
+    W powyższym skrypcie sprawdzamy pole $_POST['regulation'] które wysyłamy z formularza. W wielu przypadkach takie pole będzie nam zbędne. Jeżeli będziesz chciał użyć powyższego kodu, wtedy usuń dwa zaznaczone w tym listingu miejsca.
+</div>
+
+<p>
+W rezultacie powyższego skryptu gdy wystąpią błędy, do skryptu po stronie przeglądarki trafi odpowiedź w formacie json:
+</p>
+
+<pre><code class="language-json">
+{
+    "errors" : [
+        "name",
+        "email",
+        "message",
+        ...
+    ]
+}
+</code></pre>
+
+<p>
+Gdy dostaniemy z serwera powyższą odpowiedź, zrobimy pętlę po tablicy errors i dla każdego pola o danej nazwie zastosujemy wcześniej napisaną funkcję <strong>fieldsHasErrors()</strong>.
+</p>
+
+<p>
+Gdy jednak wszystkie pola będą wypełnione poprawnie, powyższy skrypt tworzy prostą wiadomość email, wysyła ją za pomocą funkcji <a href="http://php.net/manual/en/function.mail.php">mail()</a> i wysyła do naszego skryptu js prostą odpowiedź:
+</p>
+
+<pre><code class="language-json">
+{
+    "status" : "ok"
+}
+</code></pre>
+
+Jeżeli by się okazało, że mail nie mógł być wysłany (np. błąd z serwerem), wtedy wróci do nas zwrotka z jsonem:
+
+<pre><code class="language-json">
+{
+    "status" : "error"
+}
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="odpowiedz-z-serwea-bledne-dane">Odpowiedź z serwera - błędne dane</h2>
+<p>
+Serwer dostał paczkę danych, obsłużył ją i zwraca nam odpowiedź. W pierwszej kolejności obsłużmy odpowiedź z wypisanymi błędnie wypełnionymi polami:
+</p>
+
+<pre data-line="14-28"><code class="language-js">
+form.addEventListener('submit', e => {
+    e.preventDefault();
+    ...
+
+    if (checkFieldsErrors(inputs)) {
+        ...
+
+        fetch(url, {
+            ...
+        }).then(function(ret) {
+            submit.disabled = false;
+            submit.classList.remove('element-is-busy');
+
+            if (ret.errors) {
+                ret.errors.map(function(el) {
+                    return '[name="'+el+'"]'
+                });
+
+                const badFields = form.querySelectorAll(ret.errors.join(','));
+                checkFieldsErrors(badFields);
+            } else {
+                if (ret.status === 'ok') {
+                    //wyświetlamy komunikat powodzenia, cieszymy sie
+                }
+                if (ret.status === 'error') {
+                    //komunikat błędu, niepowodzenia
+                }
+            }
+        }).catch(function(ret) {
+            submit.disabled = false;
+            submit.classList.remove('element-is-busy');
+        });
+    }
+})
+</code></pre>
+
+<p>
+Gdy dostaniemy w odpowiedzi błędy w postaci zmiennej <strong>ret.errors</strong>, każdą wartość tej tablicy (które są tak naprawdę nazwami naszych pól) zmieniamy za pomocą <a href="../super-podstawy/tablice-iteracje.php#map">map</a> na teksty np. <strong>[name="email"]</strong> czy <strong>[name="message"]</strong>. Następnie taką tablicę łączymy za pomocą <a href="../super-podstawy/tablice.php#join">join(',')</a>, dzięki czemu uzyskujemy zapis:
+</p>
+
+<pre><code class="language-js">
+const badFields = form.querySelectorAll(ret.errors.join(','));
+//da nam w wyniku
+const badFields = form.querySelectorAll('[name="name"], [name="email"], [name="message"]...')
+</code></pre>
+
+<p>Powyższy zapis przekazujemy do <strong>checkFieldsErrors()</strong> co powoduje odpalenie walidacji dla wszystkich błędnych pól.</p>
+
+
+<!-- ### -->
+<h2 class="subtitle" id="odpowiedz-z-serwea-negatywna">Odpowiedź z serwera - błąd serwera</h2>
+<p>
+Pozostały nam rzeczy małe, czyli obsługa odpowiedzi, gdy status równy jest "ok" i "error".
+</p>
+<p>
+Zacznijmy od błędów. Dla error możemy dodać do formularza tekst z komunikatem błędu wysyłki. Gdzie? A to zależy od naszych upodobać - może być np. po prawej stronie przycisku wyślij (a może jakiś toast):
+</p>
+
+<pre data-line="23-34"><code class="language-js">
+form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    ...
+
+    if (checkFieldsErrors(inputs)) {
+        ...
+
+        fetch(url, {
+            ...
+        }).then(function(ret) {
+            submit.disabled = false;
+            submit.classList.remove('element-is-busy');
+
+            if (ret.errors) {
+                ret.errors.map(function(el) {
+                    return '[name="'+el+'"]'
+                });
+                checkFieldsErrors(form.querySelectorAll(ret.errors.join(','));
+            } else {
+                if (ret.status === 'ok') {
+                    //wyświetlamy komunikat powodzenia, cieszymy sie
+                }
+                if (ret.status === 'error') {
+                    //jeżeli istnieje komunikat o błędzie wysyłki
+                    //np. generowany przy poprzednim wysyłaniu formularza
+                    //usuwamy go, by nie duplikować tych komunikatów
+                    if (document.querySelector('.send-error')) {
+                        document.querySelector('.send-error').remove();
+                    }
+                    const div = document.createElement('div');
+                    div.classList.add('send-error');
+                    div.innerText = 'Wysłanie wiadomości się nie powiodło';
+                    submit.parentElement.appendChild(div);
+                }
+            }
+        }).catch(function(ret) {
+            submit.disabled = false;
+            submit.classList.remove('element-is-busy');
+        });
+    }
+})
+</code></pre>
+
+<p>Dodajmy też proste stylowanie dla tego komunikatu:</p>
+
+<pre><code class="language-css">
+.form .send-error {
+    display:inline-block;
+    font-family: sans-serif;
+    padding:1rem 2rem;
+    color:red;
+}
+
+@media screen and (max-width:500px) {
+    .form .send-error {
+        text-align:center;
+        display: block;
+    }
+}
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="odpowiedz-z-serwea-pozytywna">Odpowiedź z serwera - wreszcie pozytywnie</h2>
+<p>
+Uff. Zajmijmy się teraz pozytywną odpowiedzią. Możemy tutaj oczywiście wstawić tekst tak samo jak w przypadku błędu serwera. Polecam jednak zastąpienie całego formularza html z informacją o pozytywnej wysyłce. Dzięki temu formularz będzie trochę bardziej odporny na różne ataki robotów:
+</p>
+
+<pre data-line="13-21"><code class="language-js">
+fetch(url, {
+    ...
+}).then(function(ret) {
+    submit.disabled = false;
+    submit.classList.remove('element-is-busy');
+
+    if (ret.errors) {
+        ret.errors.map(function(el) {
+            return '[name="'+el+'"]'
+        });
+        checkFieldsErrors(form.querySelectorAll(ret.errors.join(','));
+    } else {
+        if (ret.status === 'ok') {
+            const div = document.createElement('div');
+            div.classList.add('form-send-success');
+            div.innerText = 'Wysłanie wiadomości się nie powiodło';
+
+            form.parentElement.insertBefore(div, form);
+            div.innerHTML = '&lt;strong&gt;Wiadomość została wysłana&lt;/strong&gt;&lt;span&gt;Dziękujemy za kontakt. Postaramy się odpowiedzieć jak najszybciej&lt;/span&gt;';
+            form.remove();
+        }
+
+        if (ret.status === 'error') {
+            //jeżeli istnieje komunikat o błędzie wysyłki
+            //np. generowany przy poprzednim wysyłaniu formularza
+            //usuwamy go, by nie duplikować tych komunikatów
+            if (document.querySelector('.send-error')) {
+                document.querySelector('.send-error').remove();
+            }
+            const div = document.createElement('div');
+            div.classList.add('send-error');
+            div.innerText = 'Wysłanie wiadomości się nie powiodło';
+            submit.parentElement.appendChild(div);
+        }
+    }
+}).catch(function(ret) {
+    submit.disabled = false;
+    submit.classList.remove('element-is-busy');
+});
+</code></pre>
+
+<p>Oraz dodajmy dla takiego komunikatu stylowanie:</p>
+
+<pre><code class="language-css">
+.form-send-success {
+    font-family: sans-serif;
+    text-align:center;
+    font-size:2rem;
+    font-weight:bold;
+    border:1px solid #eee;
+    color:#333;
+    padding:10rem 0;
+    margin:3rem auto;
+    max-width:40rem;
+}
+
+.form-send-success strong {
+    display:block;
+    margin-bottom:0.5rem;
+}
+
+.form-send-success span {
+    font-size:1rem;
+    color:#888;
+    font-weight:normal;
+    display: block;
+}
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="caly-kod">Cały kod</h2>
+<p>Poniżej zamieszczam cały kod JavaScript wraz z gotowym formularzem:</p>
+
+<pre><code class="language-js">
+{
+    const form = document.querySelector('#contactForm');
+    const inputs = form.querySelectorAll('input[required], textarea[required], select[required]');
+
+    form.setAttribute('novalidate', true);
+
+    const displayFieldError = function(elem) {
+        const fieldRow = elem.closest('.form-row');
+        const fieldError = fieldRow.querySelector('.field-error');
+
+        //jeżeli komunikat z błędem pod polem nie istnieje...
+        if (fieldError === null) {
+            //pobieramy z pola tekst błędu
+            //i tworzymy pole
+            const errorText = elem.dataset.error;
+            const divError = document.createElement('div');
+            divError.classList.add('field-error');
+            divError.innerText = errorText;
+            fieldRow.appendChild(divError);
+        }
+    };
+
+    const hideFieldError = function(elem) {
+        const fieldRow = elem.closest('.form-row');
+        const fieldError = fieldRow.querySelector('.field-error');
+        //jeżeli pobrane pole istnieje - usuń je
+        if (fieldError !== null) {
+            fieldError.remove();
+        }
+    };
+
+    [...inputs].forEach(elem => {
+        elem.addEventListener('input', function() {
+            if (!this.checkValidity()) {
+                this.classList.add('error');
+            } else {
+                this.classList.remove('error');
+                hideFieldError(this);
+            }
+        });
+
+        if (elem.type === "checkbox") {
+            elem.addEventListener('click', function() {
+                const formRow = this.closest('.form-row');
+                if (this.checked) {
+                    this.classList.remove('error');
+                    hideFieldError(this);
+                } else {
+                    this.classList.add('error');
+                }
+            });
+        }
+    });
+
+    const checkFieldsErrors = function(elements) {
+        //ustawiamy zmienną na true. Następnie robimy pętlę po wszystkich polach
+        //jeżeli któreś z pól jest błędne, przełączamy zmienną na false.
+        let fieldsAreValid = true;
+
+        [...elements].forEach(elem => {
+            if (elem.checkValidity()) {
+                hideFieldError(elem);
+                elem.classList.remove('error');
+            } else {
+                displayFieldError(elem);
+                elem.classList.add('error');
+                fieldsAreValid = false;
+            }
+        });
+
+        return fieldsAreValid;
+    };
+
+    form.addEventListener('submit', e => {
+        e.preventDefault();
+
+        //jeżeli wszystkie pola są poprawne...
+        if (checkFieldsErrors(inputs)) {
+            const elements = form.querySelectorAll('input:not(:disabled), textarea:not(:disabled), select:not(:disabled)');
+
+            const dataToSend = new FormData();
+            [...elements].forEach(el => dataToSend.append(el.name, el.value));
+
+            const submit = form.querySelector('[type="submit"]');
+            submit.disabled = true;
+            submit.classList.add('element-is-busy');
+
+            const url = form.getAttribute('action');
+            const method = form.getAttribute('method');
+
+            fetch(url, {
+                method: method.toUpperCase(),
+                body: dataToSend
+            })
+            .then(ret => ret.json())
+            .then(ret => {
+                submit.disabled = false;
+                submit.classList.remove('element-is-busy');
+
+                if (ret.errors) {
+                    ret.errors.map(function(el) {
+                        return '[name="'+el+'"]'
+                    });
+
+                    const badFields = form.querySelectorAll(ret.errors.join(','));
+                    checkFieldsErrors(badFields);
+                } else {
+                    if (ret.status === 'ok') {
+                        const div = document.createElement('div');
+                        div.classList.add('form-send-success');
+
+                        form.parentElement.insertBefore(div, form);
+                        div.innerHTML = '&lt;strong&gt;Wiadomość została wysłana&lt;/strong&gt;&lt;span&gt;Dziękujemy za kontakt. Postaramy się odpowiedzieć jak najszybciej&lt;/span&gt;';
+                        form.remove();
+                    }
+
+                    if (ret.status === 'error') {
+                        //jeżeli istnieje komunikat o błędzie wysyłki
+                        //np. generowany przy poprzednim wysyłaniu formularza
+                        //usuwamy go, by nie duplikować tych komunikatów
+                        if (document.querySelector('.send-error')) {
+                            document.querySelector('.send-error').remove();
+                        }
+                        const div = document.createElement('div');
+                        div.classList.add('send-error');
+                        div.innerHTML = 'Wysłanie wiadomości się nie powiodło';
+                        submit.parentElement.appendChild(div);
+                    }
+                }
+            }).catch(_ => {
+                submit.disabled = false;
+                submit.classList.remove('element-is-busy');
+            });
+        }
+    });
+}
+</code></pre>
+
+<a href="formularz-kontaktowy/formularz-4.html" class="demo-link">Gotowy formularz</a>
+
+<p>Oraz <a href="./formularz-kontaktowy/formularz.zip">paczka z plikami</a>.</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="mini-antyspam">Mini bonus - słodki antyspam</h2>
+<p>
+Powyżej stworzyliśmy prosty w pełni dynamiczny formularz kontaktowy.
+Problem z takimi formularzami jest taki, że bardzo lubią je roboty rozsyłające spam. Aby im przeszkodzić musimy jakoś zabezpieczyć nasze dzieło. Jedną ze sprytniejszych metod jest tak zwana
+<strong>honeypot</strong>. Polega ona na dodaniu do formularza dodatkowego pola, które ukrywamy za pomocą styli:
+</p>
+
+<pre><code class="language-html">
+&lt;span class="form-row honey-row">
+    &lt;label for="honey">Jeżeli jesteś człowiekiem, nie wypełniaj tego pola&lt;/label>
+    &lt;input type="text" name="honey">
+&lt;/span>
+</code></pre>
+
+<pre><code class="language-css">
+.form .honey-row {
+    display:none;
+}
+</code></pre>
+
+<p>
+Większość robotów ignoruje style, ani nie rozumie języka pisanego, więc wypełnią to pole. Wystarczy teraz po stronie serwera
+sprawdzić czy pole to ma wartość. Jak ma, olewamy całą sprawę, ewentualnie pokrzepiając robota miłymi słowami wiadomości w formie sukcesu:
+</p>
+
+<pre data-line="8,13"><code class="language-php">
+&lt;?php
+$mailToSend = 'twoj-email@lorem.pl';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $message = $_POST['email'];
+    $antiSpam = $_POST['honey'];
+    $regulation = $_POST['regulation'];
+    $errors = Array();
+	$return = Array();
+
+    if (empty($antiSpam)) {
+
+        ...
+
+    } else {
+        $return['status'] = 'ok';
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($return);
+}
+</code></pre>
+
+			</div><!-- e: page-content-text -->
+			<footer class="page-footer">
+				<p>
+				Wszelkie prawa zastrzeżone. Jeżeli chcesz używać jakiejś części tego kursu, skontaktuj się z <a href="/kurs/autor.php">autorem</a>.
+				Aha - i ta strona korzysta z <a href="/kurs/polityka-prywatnosci.php">ciasteczek</a>.
+				</p>
+			</footer>
+							<div class="rekl-cnt">
+					<ins
+					class="adsbygoogle" style="margin-top:40px; display:block"
+					data-ad-client="ca-pub-6843603045703750"
+					data-ad-slot="4690777640"
+					data-ad-format="auto"
+					data-full-width-responsive="true"
+					></ins>
+				</div>
+				<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+	(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+					</main><!-- e: page-content -->
+			</div><!-- e: page-content-wrapper -->
+    <aside id="page-sidebar-cnt" class="page-sidebar-cnt">
+	<div id="page-sidebar" class="page-sidebar">
+		<button aria-label="Pokaż/ukryj Menu" aria-expanded="false" aria-controls="page-sidebar" type="button" id="pageSidebarBurger" class="page-sidebar-burger">
+			<span></span>
+		</button>
+
+		<h2 class="visuallyhidden">
+			Menu
+		</h2>
+
+		<button class="sidebar-toggle-btn" title="Pokaż/schowaj menu" aria-hidden="true">
+			<strong>Pokaż/ukryj menu</strong>
+			<span></span>
+			<span></span>
+			<span></span>
+		</button>
+
+		<div class="page-sidebar-title">
+			<a href="/kurs/kontakt.php" title="Nawrzucaj autorowi" class="mail-to-author" id="mailToAuthor">Napisz do mnie</a>
+			<a href="#popupOptions" class="page-setup-link popupOpen" title="Ustawienia strony" id="showOptions">Ustawienia</a>
+			<a href="/index.php" aria-label="Strona główna" class="page-sidebar-title-link">Kurs Javascript</a>
+		</div>
+
+        <form aria-label="Wyszukiwarka" class="search-sidebar" action="/search.php" method="post">
+            <label for="search" class="search-sidebar-label">Szukaj</label>
+            <div class="search-sidebar-input-cnt">
+                <svg class="search-sidebar-input-icon" xmlns="http://www.w3.org/2000/svg" width="26" height="28" viewBox="0 0 26 28" aria-hidden="true">
+                    <path d="M18 13c0-3.859-3.141-7-7-7s-7 3.141-7 7 3.141 7 7 7 7-3.141 7-7zm8 13c0 1.094-.906 2-2 2a1.96 1.96 0 0 1-1.406-.594l-5.359-5.344a10.971 10.971 0 0 1-6.234 1.937c-6.078 0-11-4.922-11-11s4.922-11 11-11 11 4.922 11 11c0 2.219-.672 4.406-1.937 6.234l5.359 5.359c.359.359.578.875.578 1.406z"></path>
+                </svg>
+                <input type="text" id="search" autocomplete="off" name="q" class="search-sidebar-input">
+            </div>
+            <button type="submit" class="search-sidebar-button">Szukaj</button>
+        </form>
+
+		<div class="page-sidebar-table-of-content">
+			<h2 class="visuallyhidden">Spis treści</h2>
+            <div class="page-sidebar-section">
+				<h3 class="page-sidebar-section-title noopen">
+                    <a href="/index.php">Strona główna</a>
+                </h3>
+            </div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Słowem wstępu</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/wstep/wstep.php">Wstęp</a>
+						</li>
+						<li >
+							<a href="/kurs/wstep/co-to-jest-javascript.php">Co to jest JavaScript i z czym go się je?</a>
+						</li>
+						<li >
+							<a href="/kurs/wstep/wymagania.php">Wymagania</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Super podstawy</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/debuger/debuger.php">Debuger</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/pierwszy-skrypt.php">Wstawiamy skrypty na naszą stronę</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/strict-mode.php">Strict mode</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/typy-danych.php">Typy danych i konwersja danych</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/zmienne.php">Zmienne</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/operatory.php">Operatory</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/math.php">Obiekt Math</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/string.php">String - teksty</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/instrukcje-warunkowe.php">Instrukcje warunkowe</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/petle.php">Pętle</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/funkcje.php">Funkcje</a>
+						</li>
+                        <li >
+							<a href="/kurs/super-podstawy/funkcje-tematy-dodatkowe.php">Funkcje - tematy dodatkowe</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/tablice.php">Tablice</a>
+						</li>
+                        <li >
+							<a href="/kurs/super-podstawy/tablice-iteracje.php">Tablice pętle</a>
+						</li>
+						<li >
+							<a href="/kurs/debuger/debugowanie.php">Debugowanie kodu</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+            			<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Obiekty</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+                        <li >
+							<a href="/kurs/obiekty/obiekty.php">Obiekty i this</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-jak-to-dziala.php">Jak to działa</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-konstruktor.php">Konstruktor</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-zaawansowane-this.php">Zaawansowane this</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-dziedziczenie.php">Dziedziczenie w Javascript</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-inne-sposoby-tworzenia.php">Inne sposoby tworzenia obiektów</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-instanceof-hasownproperty.php">instanceof i hasOwnProperty</a>
+						</li>
+                    </ul>
+                </div>
+            </div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">DOM i zdarzenia</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/dom/dom.php">Document Object Model</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-wlasciwosci.php">Właściwości elementów</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-relacje.php">Relacje między elementami</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-tworzenie-i-usuwanie.php">Tworzenie i usuwanie elementów</a>
+						</li>
+                        <li >
+                            <a href="/kurs/dom/style.php">Style w CSS</a>
+                        </li>
+						<li >
+							<a href="/kurs/events/events.php">Zdarzenia</a>
+						</li>
+						<li >
+							<a href="/kurs/events/events-keys.php">Zdarzenia - klawisze</a>
+						</li>
+						<li >
+							<a href="/kurs/events/events-mouse.php">Zdarzenia - myszka</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/projekt-todo.php">Projekt TODO</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/slider.php">Tworzymy slider</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Prawie podstawy</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/grafika/grafika-na-stronie.php">Grafika na stronie</a>
+						</li>
+						<li >
+							<a href="/kurs/intervals/intervals.php">setTimeout i setInterval</a>
+						</li>
+						<li >
+							<a href="/kurs/match-media.php">Praca z RWD</a>
+						</li>
+						<li >
+							<a href="/kurs/okna-dialogowe.php">Okienka dialogowe</a>
+						</li>
+						<li >
+							<a href="/kurs/okna.php">Tworzenie nowych okien</a>
+						</li>
+						<li >
+							<a href="/kurs/date/date.php">Obiekt Date</a>
+						</li>
+						<li >
+							<a href="/kurs/date/date-calendar.php">Tworzymy kalendarz</a>
+						</li>
+						<li >
+							<a href="/kurs/cookies/cookie.php">Obiekt Cookie</a>
+						</li>
+						<li >
+							<a href="/kurs/storage/storage.php">Storage</a>
+						</li>
+						<li >
+							<a href="/kurs/regular.php">Wyrażenia regularne</a>
+						</li>
+						<li >
+							<a href="/kurs/formularze/formularze.php">Formularze</a>
+						</li>
+						<li >
+							<a href="/kurs/formularze/formularze-walidacja.php">Formularze - walidacja</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section show has-active-element">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Ajax</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/ajax/ajax.php">AJAX, REST, JSON</a>
+						</li>
+						<li >
+							<a href="/kurs/ajax/xmlhttprequest.php">XMLHttpRequest</a>
+						</li>
+            			<li >
+							<a href="/kurs/ajax/fetch.php">Fetch API</a>
+						</li>
+						<li class="active">
+							<a href="/kurs/ajax/formularz-kontaktowy.php">Dynamiczny formularz kontaktowy</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Nowy Javascript</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/es6/ecma-script-2015.php">ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/webpack.php">Webpack</a>
+						</li>
+                        <li >
+            				<a href="/kurs/es6/obiekty-w-es6.php">Obiekty w ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/funkcja-strzalkowa.php">Funkcja strzałkowa</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/spread-rest.php">Spread i rest</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/template-strings.php">Template strings</a>
+						</li>
+						<li >
+            				<a href="/kurs/es6/destructuring.php">Dekompozycja</a>
+        				</li>
+						<li >
+							<a href="/kurs/es6/class.php">Klasy w ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/promises.php">Promises</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/async-await.php">Async/Await</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/symbole.php">Symbole</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">jQuery</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/jquery/jquery.php">jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/animacje-w-jquery.php">Animacje w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/jquery-ajax.php">Ajax w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/tabs.php">Taby w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/plugin.php">Karuzela w jQuery</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Canvas</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/canvas/canvas.php">Canvas</a>
+						</li>
+						<li >
+							<a href="/kurs/canvas/canvas-images.php">Grafika w canvas</a>
+						</li>
+						<li >
+						<a href="/kurs/canvas/canvas-paint.php">Praktycznie : Paint w canvas</a>
+						</li>
+
+						<li >
+							<a href="/kurs/canvas/canvas-animacja.php">Animacja w canvas</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Gry</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/gry/hangman/hangman.php">Szubienica</a>
+						</li>
+						<li >
+							<a href="/kurs/gry/memory/memory.php">Memory</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+            			<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Inne</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/dodatkowe-materialy.php">Dodatkowe materiały</a>
+						</li>
+						<li >
+							<a href="/kurs/faq.php">FAQ</a>
+						</li>
+						<li >
+							<a href="/kurs/polityka-prywatnosci.php">Polityka prywatności</a>
+						</li>
+						<li >
+							<a href="/kurs/autor.php">O autorze</a>
+						</li>
+						<li >
+							<a href="/kurs/kontakt.php">Kontakt</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="page-sidebar-section">
+                <a class="special-link" href="/kurs/autor.php#donate">Wesprzyj kurs</a>
+            </div>
+		</div>
+	</div>
+</aside></div><!-- e: page-container -->
+
+<div class="popup" id="popupOptions">
+	<div class="popup-inside">
+        <div class="popup-container-cnt">
+            <div class="popup-container">
+                <button class="popup-close">Zamknij</button>
+
+                <h2 class="popup-title">
+                    Opcje
+                </h2>
+
+                <div class="popup-content">
+                    <form class="form-options">
+                        <div class="form-option">
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <label for="optionsThemeSelect">Wybierz skórkę dla listingów</label>
+                                    <select id="optionsThemeSelect"></select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <pre><code class="language-js">
+                                //tak będzie wyglądał kod
+
+                                function test() {
+                                    for (let i=0; i&lt;10; i++) {
+                                        console.log("Tekst numer ", 1);
+                                    }
+                                }
+
+                                test();
+                                </code></pre>
+                            </div>
+                            <div class="form-row" id="themeLightModeRow">
+                                <div class="form-col">
+                                    <label for="themeLightMode">
+                                        Tryb dzienny / nocny
+                                    </label>
+
+                                    <div class="light-mode-el">
+                                        <input type="checkbox" id="themeLightMode">
+                                        <span class="light-mode"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+	</div>
+</div>
+<script async defer src="https://www.googletagmanager.com/gtag/js?id=UA-38558970-5"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-38558970-5');
+</script>
+
+	<script src="/js/ads.js"></script>
+	<script src="/js/script.min.js?v=0.13" defer></script>
+</body>
+</html>

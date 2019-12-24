@@ -1,0 +1,1369 @@
+<!doctype html>
+<html lang="pl-PL">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kurs Javascript - Formularze - walidacja</title>
+	<meta name="description" content="Kurs Javascript dla superbohaterów, artykuły, tutoriale, porady, zadania do wykonania" />
+    <link rel="canonical" href="https://kursjs.pl/kurs/formularze/formularze-walidacja.php" />
+	<link rel="stylesheet" href="./css.css" />
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,700&display=swap&subset=latin-ext" rel="stylesheet">
+	<meta name="image" content="https://kursjs.pl/kursjs.png">
+<meta name="twitter:card" content="product">
+<meta name="twitter:site" content="@publisher_handle">
+<meta name="twitter:title" content="Kurs Javascript">
+<meta name="twitter:description" content="Kurs Javascript dla superbohaterów">
+<meta name="twitter:creator" content="@kartofelek007">
+<meta name="twitter:image" content="https://kursjs.pl/kursjs.png">
+<meta property="og:title" content="Kurs Javascript">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.kursjs.com/">
+<meta property="og:image" content="https://kursjs.pl/kursjs.png">
+<meta property="og:description" content="Kurs Javascript dla superbohaterów">
+<meta property="og:site_name" content="Kurs Javascript">
+<link rel="apple-touch-icon" sizes="57x57" href="/favicons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/favicons/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/favicons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/favicons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/favicons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/favicons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/favicons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/favicons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="/manifest.json">
+<meta name="msapplication-TileColor" content="#FF6347">
+<meta name="msapplication-TileImage" content="/mstile-144x144.png">
+    <script src="/js/jquery.min.js"></script>
+</head>
+<body>
+
+<div class="page-container" id="pageContainer">
+	<div class="page-content-wrapper">
+        <main class="page-content" id="mainContent"  data-text-for-print="Kurs Javascript dla superbohaterów">
+                        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <div class="rekl-cnt">
+                <ins
+                class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-6843603045703750"
+                data-ad-slot="4690777640"
+                data-ad-format="auto"
+                data-full-width-responsive="true"
+                ></ins>
+            </div>
+                        <div class="page-content-text">
+<style>
+.form .inline {
+    display: inline-block;
+}
+.form .error {
+    color:#DB083E;
+}
+.form .error input[type=text],
+.form .error input[type="url"],
+.form .error input[type="email"],
+.form .error textarea,
+.form .error select {
+    color: #DB083E;
+    border-color: #DB083E;
+    background: #FFEDED url(field-error.png) no-repeat;
+    background-position: calc(100% - 10px) center;
+    padding-right:40px;
+}
+.form .error textarea {
+    background-position: calc(100% - 10px) 10px;
+}
+.form .error input[type="radio"],
+.form .error input[type="checkbox"] {
+    border-color: #DB083E;
+    background: #FFEDED;
+}
+.form .error select {
+    background-image: none;
+    padding-right:4px;
+}
+</style>
+
+
+<h1 class="page-title">Formularze - walidacja</h1>
+
+<p>
+Sprawdzanie danych, które wprowadza użytkownik to jedna z ważniejszych rzeczy o jaką musimy zadbać, ale równocześnie też jedna dość często nie taka prosta do wykonania. Dane możemy sprawdzać na wiele, wiele sposobów. Poniżej przedstawię Tobie jeden z nich. Wcale nie najlepszy i nie jedyny.
+</p>
+
+<p>
+    <strong>Weryfikacja danych powinna przebiegać w 3 etapach</strong>:
+</p>
+<ol>
+    <li>Pierwszy etap to dynamiczna podpowiedź w czasie wprowadzania danych przez użytkownika. Wykorzystamy tutaj zdarzenia change, select, focus, blur lub input.</li>
+    <li>Drugi etap to sprawdzenie danych tuż przed wysłaniem. Jeżeli są poprawne to je prześlemy na serwer. Jeżeli nie, wyświetlamy stosowną informację (ewentualnie wskazujemy błędne pola) i blokujemy wysyłkę.</li>
+    <li>Ostatni - najważniejszy etap - to sprawdzenie przesłanych danych po stronie serwera. Jeżeli dane są błędne, wówczas wracamy do formularza wyświetlając informację i czekamy na wykonanie punktu drugiego.</li>
+</ol>
+
+<p>
+    Tak naprawdę ciężko mówić o pełnoprawnej walidacji danych po stronie przeglądarki.
+   Możemy dane sprawdzać i pokazywać użytkownikowi podpowiedzi. Ale opieranie się w całości na walidacji danych tylko po stronie przeglądarki jest naiwne. Spreparowanie odpowiedniego formularza, czy nagięcie działania skryptów nie jest zbyt ciężką rzeczą. Szczególnie jeżeli mamy dostęp do narzędzi developerskich (<a href="../debuger/debuger.php">1</a>, <a href="../debuger/debugowanie.php">2</a>).
+</p>
+<p>
+   Prawdziwa walidacja danych powinna zawsze się odbywać po stronie serwera. Skrypty w przeglądarce traktuj tylko jako rzeczy służące poprawie użyteczności formularza i pomocy dla użytkownika. Nic więcej.
+</p>
+
+
+<!-- ### -->
+<h2 class="subtitle" id="html">Html</h2>
+<p>
+Do naszych celów stwórzmy prosty formularz z kilkoma rodzajami podstawowych pól:
+</p>
+
+<pre><code class="language-html">
+&lt;form class="form" action="..." method="post">
+    &lt;div class="form-row">
+        &lt;label for="formName">Tekst&lt;/label>
+        &lt;input type="text" id="formName" placeholder="Może być puste" />
+    &lt;/div>
+
+    &lt;div class="form-row">
+        &lt;label for="formDate">Data&lt;/label>
+        &lt;input type="text" id="formDate" pattern="^\d{2}\.\d{2}\.\d{4}$" required placeholder="dd.mm.rrrr" />
+    &lt;/div>
+
+    &lt;div class="form-row">
+        &lt;label for="formUrl">URL&lt;/label>
+        &lt;input type="url" id="formUrl" required placeholder="http://" />
+    &lt;/div>
+
+    &lt;div class="form-row">
+        &lt;label for="formEmail" >Email&lt;/label>
+        &lt;input type="email"  id="formEmail" required placeholder="Email" />
+    &lt;/div>
+
+    &lt;div class="form-row">
+        &lt;label for="formMessage">Wpisz tylko abc&lt;/label>
+        &lt;textarea id="formMessage" required pattern="^abc$">&lt;/textarea>
+    &lt;/div>
+
+    &lt;div class="form-row">
+        &lt;label for="formThing">Wybierz&lt;/label>
+        &lt;select id="formThing" required>
+            &lt;option value="">Wybierz coś&lt;/option>
+            &lt;option value="1">Super opcja 1&lt;/option>
+            &lt;option value="2">Super opcja 2&lt;/option>
+        &lt;/select>
+    &lt;/div>
+
+    &lt;fieldset class="form-row">
+        &lt;label>Zaznacz&lt;/label>
+        &lt;input type="radio" required name="test1" /> 1
+        &lt;input type="radio" required name="test1" /> 2
+        &lt;input type="radio" required name="test1" /> 3
+        &lt;input type="radio" required name="test1" /> 4
+        &lt;input type="radio" required name="test1" /> 5
+    &lt;/fieldset>
+
+    &lt;fieldset class="form-row">
+        &lt;label>Zaznacz&lt;/label>
+        &lt;input type="checkbox" required name="test2" /> 1
+        &lt;input type="checkbox" required name="test2" /> 2
+        &lt;input type="checkbox" required name="test2" /> 3
+        &lt;input type="checkbox" required name="test2" /> 4
+        &lt;input type="checkbox" required name="test2" /> 5
+    &lt;/fieldset>
+
+    &lt;div class="form-row">
+        &lt;button type="submit" class="button">Wyślij&lt;/button>
+    &lt;/div>
+&lt;/form>
+</code></pre>
+
+<a href="./formularz.html" class="demo-link">Przykładowy formularz</a>
+
+<p>
+    Nasz formularz dzięki atrybutom require i pattern ma zapewnioną domyślną walidację HTML.<br>
+    Nie jest to krok wymagany i szczerze mówiąc bardzo dużo developerów go unika.
+    W moim odczuciu taka walidacja to całkiem fajna sprawa. Dzięki niej nawet jak użytkownikowi nie zadziała JavaScript na naszej stronie (a przyczyn może być wiele - np. Adblock będzie miał kaprys i zablokuje nasze skrypty) i tak będzie miał jakieś domyślne podpowiedzi/walidację.<br>
+    Jest ona toporna, nie działa wybitnie, nie ma zbyt dużych możliwości stylowania, z niektorymi polami jest tutaj problem - ale jest i jako tako działa.
+</p>
+<p>
+    Walidacja taka opiera o pewne mechanizmy. Pola wymagane do wypełnienia powinny mieć atrybut <strong>required</strong>.
+    Jeżeli w dane pole powinna być wpisana specyficzna wartość, ustawimy to dodatkowym atrybutem <strong>pattern</strong>, do którego podajemy w postaci <a href="../regular.php">wyrażeń regularnych</a> wzór tekstu który musi być podany.<br>
+    Niektóre pola takie jak url czy email maja już domyślne wzory i do nich atrybutu pattern nie musimy podawać (chyba że chcemy zmienić domyślne zachowanie tych pól).
+</p>
+<p>
+    Do walidacji możemy skorzystać z metody <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLSelectElement/checkValidity">checkValidity</a>.
+    Podejście takie przedstawiłem w <a href="http://domanart.pl/formularz-kontaktowy/">tym</a> i <a href="http://kursjs.pl/kurs/ajax/formularz-kontaktowy.php">tym</a> artykule. W poniższym tekście użyjemy klasycznych mechanizmów.<br>
+    Czy wykorzystasz bardziej klasyczne metody, czy nowe, poniżej nauczymy się kilku ciekawych technik.
+</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="submit_i_reset">Etap 1 - podpowiedzi dla użytkownika</h2>
+<p>
+    Przechodzimy do pracy.<br>
+    Sporo tutaj będzie się powtarzało z poprzednich działów. Walidację napiszmy w formie klasy. Zacznijmy od konstruktora:
+</p>
+
+<pre><code class="language-js">
+class FormValidate = function() {
+    constructor(form, options) {
+        //domyślne opcje naszej walidacji
+        const defaultOptions = {
+            classError : 'error'
+        };
+
+        //formularz właściwy podstawiamy pod this.form
+        this.form = form;
+
+        //tworzymy opcje dla naszego obiektu
+        //scalając przekazane opcje z obiektem defaultOptions
+        this.options = Object.assign({}, defaultOptions, options);
+
+        //wyłączamy walidację HTML
+        this.form.setAttribute('novalidate', 'novalidate');
+    }
+};
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="przygotowaniePol">Przygotowanie pól do weryfikacji</h2>
+<p>
+    Zacznijmy od pierwszego punktu naszego planu. Podczas wypełniania formularza, dynamicznie będziemy użytkownikowi pokazywać informacje, czy popełnia błędy. Aby to zrobić do każdego pola podepniemy odpowiednie zdarzenie.
+</p>
+<p>Pracę napiszmy od funkcji, która zwróci nam odpowiednie pola:</p>
+
+<pre><code class="language-js">
+class FormValidate {
+    ...
+
+    getFields() {
+        //tutaj oczywiście można zastosować bardziej złożone
+        //warianty wybierania pól
+        //ja wybieram te, które są wymagane czyli mają atrybut required
+        return this.form.querySelectorAll('[required]');
+    }
+}
+</code></pre>
+
+<p>Następnie napiszmy funkcję, która podepnie pod te pola odpowiednie eventy:</p>
+
+<pre data-line="5"><code class="language-js">
+class FormValidate {
+    ...
+
+    prepareElements() {
+        const elements = this.getFields();
+
+        elements.forEach(el => {
+            if (el.nodeName.toLowerCase() === 'input') {
+                const type = el.type.toLowerCase();
+
+                switch (type) {
+                    case "text":
+                        el.addEventListener('input', e => this.testInputText(e.target));
+                    break;
+                    case "email":
+                        el.addEventListener('input', e => this.testInputEmail(e.target));
+                    break;
+                    case 'url':
+                        el.addEventListener('input', e => this.testInputURL(e.target));
+                    break;
+                    case 'checkbox':
+                        el.addEventListener('click', e => this.testInputCheckbox(e.target));
+                    break;
+                    case 'radio':
+                        el.addEventListener('click', e => this.testInputCheckbox(e.target));
+                    break;
+                }
+            }
+
+            if (el.nodeName.toLowerCase() === 'textarea') {
+                el.addEventListener('input', e => this.testInputText(e.target));
+            }
+
+            if (el.nodeName.toLowerCase() === 'select') {
+                el.addEventListener('change', e => this.testInputSelect(e.target));
+            }
+        });
+    }
+}
+
+</code></pre>
+
+<p>
+    I odpalamy ją w konstruktorze:
+</p>
+
+<pre data-line="12"><code class="language-js">
+class FormValidate() {
+    constructor(form, options) {
+        const defaultOptions = {
+            classError : 'error'
+        };
+
+        this.form = form;
+        this.options = Object.assign({}, defaultOptions, options);
+
+        this.form.setAttribute('novalidate', 'novalidate');
+
+        this.prepareElements();
+    }
+
+    ...
+};
+</code></pre>
+
+<p>
+    Funkcja prepareElement robi pętlę po wszystkich polach z atrybutem required. Dla każdego takiego pola dodaje odpowiednie zdarzenie z obsługą funkcji sprawdzającej.
+    Za chwilę napiszemy kod każdej takiej funkcji.
+</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="polaText">Sprawdzanie pól tekstowych</h2>
+<p>
+    W powyższym kodzie do sprawdzania pól tekstowych wykorzystujemy funkcję <strong>testInputText(element)</strong>. Napiszmy jej kod:
+</p>
+
+<pre><code class="language-js">
+class FormValidate {
+    ...
+
+    testInputText(input) {
+        let inputIsValid = true;
+        const pattern = input.getAttribute('pattern');
+
+        if (pattern !== null) {
+            //tutaj moglibyśmy skorzystać z checkValidity()
+            const reg = new RegExp(pattern, 'gi');
+
+            if (!reg.test(input.value)) {
+                inputIsValid = false;
+            }
+        } else {
+            if (input.value === '') {
+                inputIsValid = false;
+            }
+        }
+
+        if (inputIsValid) {
+            this.showFieldValidation(input, true);
+            return true;
+        } else {
+            this.showFieldValidation(input, false);
+            return false;
+        }
+    }
+};
+</code></pre>
+
+<p>
+    Pola tekstowe mogą zawierać atrybut <strong>pattern</strong>, który definiuje wzór tekstu, który musi się w tym polu znaleźć by było poprawnie wypełnione. Dla przykładu
+    dla pola z datą może to być pattern <strong>^\d{2}\.\d{2}\.\d{4}$</strong> (spójrz na kod naszego formularza). Jeżeli takiego atrybutu pole nie posiada, a jest wymagane
+    to znaczy, że musi się w nim znaleźć jakakolwiek wartość.<br>
+    Jeżeli dane pole będzie błędnie wyświetlone, wtedy pokażemy błąd za pomocą funkcji <strong>showFieldValidation(input, czyPoleJestPoprawne)</strong>. Dopiszmy ją:
+</p>
+
+<pre><code class="language-js">
+class FormValidate {
+    ...
+
+    showFieldValidation(input, inputIsValid) {
+        if (!inputIsValid) {
+            input.parentElement.classList.add(this.options.classError);
+        } else {
+            input.parentElement.classList.remove(this.options.classError);
+        }
+    }
+}
+</code></pre>
+
+<p>Funkcja ta będzie dodawać klasę błędu do elementu nadrzędnego, a nie samego inputa. Dzięki temu będziemy mieli o wiele większe możliwości stylowania:</p>
+
+<pre><code class="language-css">
+.form-row.error {
+}
+
+.form-row.error label {
+    color: red;
+}
+
+.form-row.error input,
+.form-row.error select,
+.form-row.error textarea {
+    border-color: red;
+}
+
+.form-row.error select:focus,
+.form-row.error input:focus,
+.form-row.error textarea:focus {
+    outline: none;
+    box-shadow: 0 0 2px rgba(255, 0, 0, 0.5);
+}
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="polaEmail">Sprawdzanie pól typu email</h2>
+<p>
+    Sprawdzanie pól email robiliśmy już w <a href="formularze.php#testEmail">poprzednim rozdziale</a> i <a href="../regular.php#email">w rozdziale o wyrażeniach regularnych</a> . Nie powinno to być dla nas wielkim problemem.</p>
+<p>
+    Tutaj tak samo jak w poprzednim teście wyświetlamy błędy za pomocą funkcji showFieldValidation:
+</p>
+
+<pre><code class="language-js">
+class FormValidate {
+    ...
+
+    testInputEmail(input) {
+        const mailReg = new RegExp('^[0-9a-zA-Z_.-]+@[0-9a-zA-Z.-]+\.[a-zA-Z]{2,3}$', 'gi');
+
+        if (!mailReg.test(input.value)) {
+            this.showFieldValidation(input, false);
+            return false;
+        } else {
+            this.showFieldValidation(input, true);
+            return true;
+        }
+    }
+}
+</code></pre>
+
+<p>
+Przy czym warto tutaj ponownie zwrócić uwagę na to, o czym pisałem w rozdziale o wyrażeniach regularnych. Powyższy wzór na prawidłowy email wcale <a href="../regular.php#not-only-one">nie jest jedynym</a>.
+</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="polaUrl">Sprawdzanie pól typu url</h2>
+<p>
+    Pola typu URL powinny zawierać <strong>http://</strong> (lub lepiej https), sam test jest więc bardzo prosty:
+</p>
+
+<pre><code class="language-js">
+class FormValidate {
+    ...
+
+    testInputURL(input) {
+        const urlReg = new RegExp('^https?:\/\/.+', 'i');
+        if (!urlReg.test(input.value)) {
+            this.showFieldValidation(input, false);
+            return false;
+        } else {
+            this.showFieldValidation(input, true);
+            return true;
+        }
+    }
+}
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="polaSelect">Sprawdzanie selektów</h2>
+<p>
+    Dla selektów sprawdzamy aktualnie wybraną pozycję. <a href="formularze.php#select">To także już robiliśmy</a>. Zakładamy tutaj, że option "wybierz" ma wartość -1 lub "":
+</p>
+
+<pre><code class="language-js">
+class FormValidate {
+    ...
+
+    testInputSelect(select) {
+        if (select.value === '' || select.value === '-1') {
+            this.showFieldValidation(select, false);
+            return false;
+        } else {
+            this.showFieldValidation(select, true);
+            return true;
+        }
+    }
+}
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="polaRadio">Sprawdzanie radio i checkboxów</h2>
+<p>
+    Do pól radio i checkbox musimy podejść nieco inaczej. Jak wiemy występują one w grupach, więc musimy testować całe grupy tych pól:
+</p>
+
+<pre><code class="language-js">
+class FormValidate {
+    ...
+
+    testInputCheckbox(input) {
+        const name = input.getAttribute('name');
+        const group = input.form.querySelectorAll(`input[name="${name}"]:checked`);
+
+        if (group.length) {
+            this.showFieldValidation(input, true);
+            return true;
+        } else {
+            this.showFieldValidation(input, false);
+            return false;
+        }
+    }
+}
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="endEtap1">Koniec etapu pierwszego</h2>
+<p>
+    W tym momencie nasz kod wygląda następująco:
+</p>
+
+<pre><code class="language-js">
+class FormValidate {
+    constructor(form, options) {
+        const defaultOptions = {
+            classError : 'error'
+        };
+
+        this.form = form;
+        this.options = Object.assign({}, defaultOptions, options);
+
+        this.form.setAttribute('novalidate', 'novalidate');
+
+        this.prepareElements();
+    }
+
+    getFields() {
+        return this.form.querySelectorAll('[required]');
+    }
+
+    prepareElements() {
+        const elements = this.getFields();
+
+        elements.forEach(el => {
+            if (el.nodeName.toLowerCase() === 'input') {
+                const type = element.type.toLowerCase();
+
+                switch (type) {
+                    case "text":
+                        el.addEventListener('input', e => this.testInputText(e.target));
+                    break;
+                    case "email":
+                        el.addEventListener('input', e => this.testInputEmail(e.target));
+                    break;
+                    case 'url':
+                        el.addEventListener('input', e => this.testInputURL(e.target));
+                    break;
+                    case 'checkbox':
+                        el.addEventListener('click', e => this.testInputCheckbox(e.target));
+                    break;
+                    case 'radio':
+                        el.addEventListener('click', e => this.testInputCheckbox(e.target));
+                    break;
+                }
+            }
+
+            if (el.nodeName.toLowerCase() === 'textarea') {
+                el.addEventListener('input', e => this.testInputText(e.target));
+            }
+
+            if (el.nodeName.toLowerCase() === 'select') {
+                el.addEventListener('change', e => this.testInputSelect(e.target));
+            }
+        });
+    }
+
+    testInputText(input) {
+        let inputIsValid = true;
+        const pattern = input.getAttribute('pattern');
+
+        if (pattern !== null) {
+            //tutaj moglibyśmy skorzystać z checkValidity()
+            const reg = new RegExp(pattern, 'gi');
+
+            if (!reg.test(input.value)) {
+                inputIsValid = false;
+            }
+        } else {
+            if (input.value === '') {
+                inputIsValid = false;
+            }
+        }
+
+        if (inputIsValid) {
+            this.showFieldValidation(input, true);
+            return true;
+        } else {
+            this.showFieldValidation(input, false);
+            return false;
+        }
+    }
+
+    showFieldValidation(input, inputIsValid) {
+        if (!inputIsValid) {
+            input.parentElement.classList.add(this.options.classError);
+        } else {
+            input.parentElement.classList.remove(this.options.classError);
+        }
+    }
+
+    testInputEmail(input) {
+        const mailReg = new RegExp('^[0-9a-zA-Z_.-]+@[0-9a-zA-Z.-]+\.[a-zA-Z]{2,3}$', 'gi');
+
+        if (!mailReg.test(input.value)) {
+            this.showFieldValidation(input, false);
+            return false;
+        } else {
+            this.showFieldValidation(input, true);
+            return true;
+        }
+    }
+
+    testInputURL(input) {
+        const urlReg = new RegExp('^https?:\/\/.+', 'i');
+        if (!urlReg.test(input.value)) {
+            this.showFieldValidation(input, false);
+            return false;
+        } else {
+            this.showFieldValidation(input, true);
+            return true;
+        }
+    }
+
+    testInputSelect(select) {
+        if (select.value === '' || select.value === '-1') {
+            this.showFieldValidation(select, false);
+            return false;
+        } else {
+            this.showFieldValidation(select, true);
+            return true;
+        }
+    }
+
+    testInputCheckbox(input) {
+        const name = input.getAttribute('name');
+        const group = input.form.querySelectorAll(`input[name="${name}"]:checked`);
+
+        if (group.length) {
+            this.showFieldValidation(input, true);
+            return true;
+        } else {
+            this.showFieldValidation(input, false);
+            return false;
+        }
+    }
+}
+</code></pre>
+
+<p>
+    Etap pierwszy mamy zakończony. W tym momencie wystarczy odpalić nasz moduł, by uzyskać dynamiczne sprawdzanie pól w formularzu:
+</p>
+
+<pre><code class="language-js">
+document.addEventListener("DOMContentLoaded", function() {
+    const cfg = {};
+    const form = new FormValidate(document.querySelector('.form'), cfg);
+});
+</code></pre>
+
+<a href="./formularz2.html" class="demo-link">Sprawdź w działaniu.</a>
+
+<!-- ### -->
+<h2 class="subtitle" id="etap2">Etap 2 - sprawdzanie danych przy wysyłaniu formularza</h2>
+<p>
+    Pozostało nam do wykonania sprawdzenie danych przy wysyłce formularza. Jeżeli dane są błędne, wtedy powinniśmy pokazać odpowiednie błędy w formularzu, oraz przerwać jego wysyłanie. Jest to proste zadanie, ponieważ wszystkie niezbędne metody mamy już napisane.
+    Wystarczy dodać obsługę zdarzenia <strong>submit</strong> dla formularza:
+</p>
+
+<pre><code class="language-js">
+class FormValidate {
+    ...
+
+    bindSubmit() {
+        this.form.addEventListener('submit', e => {
+            e.preventDefault();
+
+            let formIsValidated = true;
+            const elements = this.getFields();
+
+            elements.forEach(el => {
+                if (el.nodeName.toLowerCase() === 'input') {
+                    const type = el.type.toLowerCase();
+
+                    if (type === 'email') {
+                        if (!this.testInputEmail(el)) {
+                            formIsValidated = false;
+                        }
+                    }
+                    if (type === 'url') {
+                        if (!this.testInputURL(el)) {
+                            formIsValidated = false;
+                        }
+                    }
+                    if (type === 'text') {
+                        if (!this.testInputText(el)) {
+                            formIsValidated = false;
+                        }
+                    }
+                    if (type === 'checkbox') {
+                        if (!this.testInputCheckbox(el)) {
+                            formIsValidated = false;
+                        }
+                    }
+                    if (type === 'radio') {
+                        if (!this.testInputCheckbox(el)) {
+                            formIsValidated = false;
+                        }
+                    }
+                }
+
+                if (el.nodeName.toLowerCase() === 'textarea') {
+                    if (!this.testInputText(el)) {
+                        formIsValidated = false;
+                    }
+                }
+                if (el.nodeName.toLowerCase() === 'select') {
+                    if (!this.testInputSelect(el)) {
+                        formIsValidated = false;
+                    }
+                }
+            });
+
+            if (formIsValidated) {
+                this.form.submit();
+            } else {
+                return false;
+            }
+        });
+    }
+}
+</code></pre>
+
+<p>I tak jak poprzednio odpalenie tej metody w konstruktorze:</p>
+
+<pre data-line="12"><code class="language-js">
+const FormValidate = function(form, options) {
+    const defaultOptions = {
+        classError : 'error'
+    }
+
+    this.form = form;
+    this.options = Object.assign({}, defaultOptions, options);
+
+    this.form.setAttribute('novalidate', 'novalidate');
+
+    this.prepareElements();
+    this.bindSubmit();
+};
+</code></pre>
+
+<p>
+    Działanie jest tutaj identyczne co w funkcji <strong>prepareElements</strong>. Robimy pętlę po elementach z atrybutem <strong>required</strong> i wykorzystując wcześniej przygotowane funkcje dokonujemy sprawdzenia, czy formularz możemy być wysłany.
+</p>
+
+<a href="./formularz3.html" class="demo-link">Zobacz działanie formularza</a>
+
+<!-- ### -->
+<h2 class="subtitle" id="refaktoryzacja">Refaktoryzacja kodu</h2>
+<p>Jak pewnie zauważyłeś powyżej, w naszym kodzie pojawiły się dwa dość podobne do siebie miejsca. W funkcji <strong>prepateElements()</strong> i wewnątrz eventu submit() testujemy dość podobnie inputy i równie dość podobnie wywołujemy dla nich dane funkcje. Spróbujmy ten kod nieco poprawić przeprowadzając tak zwaną <a href="https://pl.wikipedia.org/wiki/Refaktoryzacja">refaktoryzację</a>.</p>
+
+<p>Każdy z inputów ma dwie charakterystyczne rzeczy: event, który mu podpinamy oraz method, który wskazuje na funkcję, która obsługuje dany typ inputa. Możemy pokusić się o napisanie funkcji, która będzie te dane zbierać w postaci obiektu, dzięki czemu będziemy je trzymać w jednym konkretnym miejscu:</p>
+
+<pre><code class="language-js">
+class FormValidate {
+    ...
+
+    getTestMethod(inputType) {
+        const inputsData = {
+            "text" : {event: "input", method: this.testInputText.bind(this)},
+            "email" : {event: "input", method: this.testInputEmail.bind(this)},
+            "url" : {event: "input", method: this.testInputURL.bind(this)},
+            "checkbox" : {event: "input", method: this.testInputCheckbox.bind(this)},
+            "radio" : {event: "input", method: this.testInputCheckbox.bind(this)},
+            "textarea" : {event: "input", method: this.testInputText.bind(this)},
+            "select" : {event: "change", method: this.testInputSelect.bind(this)}
+        }
+        return inputsData[inputType];
+    }
+
+    ...
+}
+</code></pre>
+
+<p>Każdemu elementowi, który będziemy sprawdzać przypisaliśmy prosty obiekt, który zawiera dwa klucze: event, który określa typ eventu jaki mu podepniemy, oraz metodę, która wskazuje na funkcję, którą użyjemy do sprawdzenia danego inputa.</p>
+
+<p>W powyższej wersji sprawdzaliśmy inputy w kilku krokach za pomocą kawałka kodu:</p>
+
+<pre><code class="language-js">
+...
+
+if (el.nodeName.toUpperCase() === 'INPUT') {
+    const type = el.type.toLowerCase();
+
+    switch (type) {
+        case "text":
+            el.addEventListener('input', e => this.testInputText(e.target));
+        break;
+
+        ...
+    }
+}
+
+if (el.nodeName.toUpperCase() === 'textarea') {
+    el.addEventListener('input', e => this.testInputText(e.target));
+}
+
+...
+</code></pre>
+
+<p>Usprawnijmy ten proces poprzez napisanie osobnej funkcji, która zwróci nam odpowiedni typ inputa:</p>
+
+<pre><code class="language-js">
+class FormValidate {
+    ...
+
+    getInputType(el) {
+        if (el.tagName.toLowerCase() === "input") {
+            return el.type.toLowerCase();
+        } else {
+            return el.tagName.toLowerCase();
+        }
+    }
+
+    ...
+}
+</code></pre>
+
+<p>Mając obydwie funkcje, wykorzystajmy je przerabiając funkcję <strong>prepareElements()</strong>:</p>
+
+<pre><code class="language-js">
+class FormValidate {
+    ...
+
+    prepareElements() {
+        const elements = this.getFields();
+
+        elements.forEach(el => {
+            const inputType = this.getInputType(el);
+            const methodData = this.getTestMethod(inputType);
+
+            el.addEventListener(methodData.event, e => {
+                methodData.method(el);
+            });
+        });
+    }
+
+    ...
+}
+</code></pre>
+
+<p>Podobną pętlę zastosujmy w evencie submit:</p>
+
+<pre data-line="11-17"><code class="language-js">
+class FormValidate {
+    ...
+
+    bindSubmit() {
+        this.form.addEventListener('submit', e => {
+            e.preventDefault();
+
+            const elements = this.getFields();
+            let formIsValidated = true;
+
+            elements.forEach(el => {
+                const inputType = this.getInputType(el);
+                const methodData = this.getTestMethod(inputType);
+                if (!methodData.method(el)) {
+                    formIsValidated = false;
+                }
+            });
+
+            if (formIsValidated) {
+                this.form.submit();
+            } else {
+                return false;
+            }
+        });
+    }
+}
+</code></pre>
+
+<a href="./formularz4.html" class="demo-link">Formularz po zmianach</a>
+
+<!-- ### -->
+<h2 class="subtitle" id="etap3">Etap 3 - sprawdzanie po stronie serwera</h2>
+<p>
+    Nie zapomnijmy o najważniejszym etapie, czyli walidacji po stronie serwera. Tutaj niestety będę musiał zakończyć by się nie ośmieszyć przed swoimi znajomymi backendowcami. Mini podejście przedstawiłem ci w rozdziale gdzie tworzyliśmy
+    <a href="../ajax/formularz-kontaktowy.php#po-stronie-serwera">formularz ajaxowy</a>. Zapewne sporo kolegów backendowców będzie tutaj zgrzytać zębami, bo na co dzień używa się do takich rzeczy mechanizmów z Symfony czy Laravela. I dobrze - to ich działka, nie będziemy im tutaj wkraczać z butami...
+</p>
+
+
+			</div><!-- e: page-content-text -->
+			<footer class="page-footer">
+				<p>
+				Wszelkie prawa zastrzeżone. Jeżeli chcesz używać jakiejś części tego kursu, skontaktuj się z <a href="/kurs/autor.php">autorem</a>.
+				Aha - i ta strona korzysta z <a href="/kurs/polityka-prywatnosci.php">ciasteczek</a>.
+				</p>
+			</footer>
+							<div class="rekl-cnt">
+					<ins
+					class="adsbygoogle" style="margin-top:40px; display:block"
+					data-ad-client="ca-pub-6843603045703750"
+					data-ad-slot="4690777640"
+					data-ad-format="auto"
+					data-full-width-responsive="true"
+					></ins>
+				</div>
+				<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+	(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+					</main><!-- e: page-content -->
+			</div><!-- e: page-content-wrapper -->
+    <aside id="page-sidebar-cnt" class="page-sidebar-cnt">
+	<div id="page-sidebar" class="page-sidebar">
+		<button aria-label="Pokaż/ukryj Menu" aria-expanded="false" aria-controls="page-sidebar" type="button" id="pageSidebarBurger" class="page-sidebar-burger">
+			<span></span>
+		</button>
+
+		<h2 class="visuallyhidden">
+			Menu
+		</h2>
+
+		<button class="sidebar-toggle-btn" title="Pokaż/schowaj menu" aria-hidden="true">
+			<strong>Pokaż/ukryj menu</strong>
+			<span></span>
+			<span></span>
+			<span></span>
+		</button>
+
+		<div class="page-sidebar-title">
+			<a href="/kurs/kontakt.php" title="Nawrzucaj autorowi" class="mail-to-author" id="mailToAuthor">Napisz do mnie</a>
+			<a href="#popupOptions" class="page-setup-link popupOpen" title="Ustawienia strony" id="showOptions">Ustawienia</a>
+			<a href="/index.php" aria-label="Strona główna" class="page-sidebar-title-link">Kurs Javascript</a>
+		</div>
+
+        <form aria-label="Wyszukiwarka" class="search-sidebar" action="/search.php" method="post">
+            <label for="search" class="search-sidebar-label">Szukaj</label>
+            <div class="search-sidebar-input-cnt">
+                <svg class="search-sidebar-input-icon" xmlns="http://www.w3.org/2000/svg" width="26" height="28" viewBox="0 0 26 28" aria-hidden="true">
+                    <path d="M18 13c0-3.859-3.141-7-7-7s-7 3.141-7 7 3.141 7 7 7 7-3.141 7-7zm8 13c0 1.094-.906 2-2 2a1.96 1.96 0 0 1-1.406-.594l-5.359-5.344a10.971 10.971 0 0 1-6.234 1.937c-6.078 0-11-4.922-11-11s4.922-11 11-11 11 4.922 11 11c0 2.219-.672 4.406-1.937 6.234l5.359 5.359c.359.359.578.875.578 1.406z"></path>
+                </svg>
+                <input type="text" id="search" autocomplete="off" name="q" class="search-sidebar-input">
+            </div>
+            <button type="submit" class="search-sidebar-button">Szukaj</button>
+        </form>
+
+		<div class="page-sidebar-table-of-content">
+			<h2 class="visuallyhidden">Spis treści</h2>
+            <div class="page-sidebar-section">
+				<h3 class="page-sidebar-section-title noopen">
+                    <a href="/index.php">Strona główna</a>
+                </h3>
+            </div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Słowem wstępu</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/wstep/wstep.php">Wstęp</a>
+						</li>
+						<li >
+							<a href="/kurs/wstep/co-to-jest-javascript.php">Co to jest JavaScript i z czym go się je?</a>
+						</li>
+						<li >
+							<a href="/kurs/wstep/wymagania.php">Wymagania</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Super podstawy</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/debuger/debuger.php">Debuger</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/pierwszy-skrypt.php">Wstawiamy skrypty na naszą stronę</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/strict-mode.php">Strict mode</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/typy-danych.php">Typy danych i konwersja danych</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/zmienne.php">Zmienne</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/operatory.php">Operatory</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/math.php">Obiekt Math</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/string.php">String - teksty</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/instrukcje-warunkowe.php">Instrukcje warunkowe</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/petle.php">Pętle</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/funkcje.php">Funkcje</a>
+						</li>
+                        <li >
+							<a href="/kurs/super-podstawy/funkcje-tematy-dodatkowe.php">Funkcje - tematy dodatkowe</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/tablice.php">Tablice</a>
+						</li>
+                        <li >
+							<a href="/kurs/super-podstawy/tablice-iteracje.php">Tablice pętle</a>
+						</li>
+						<li >
+							<a href="/kurs/debuger/debugowanie.php">Debugowanie kodu</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+            			<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Obiekty</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+                        <li >
+							<a href="/kurs/obiekty/obiekty.php">Obiekty i this</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-jak-to-dziala.php">Jak to działa</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-konstruktor.php">Konstruktor</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-zaawansowane-this.php">Zaawansowane this</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-dziedziczenie.php">Dziedziczenie w Javascript</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-inne-sposoby-tworzenia.php">Inne sposoby tworzenia obiektów</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-instanceof-hasownproperty.php">instanceof i hasOwnProperty</a>
+						</li>
+                    </ul>
+                </div>
+            </div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">DOM i zdarzenia</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/dom/dom.php">Document Object Model</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-wlasciwosci.php">Właściwości elementów</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-relacje.php">Relacje między elementami</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-tworzenie-i-usuwanie.php">Tworzenie i usuwanie elementów</a>
+						</li>
+                        <li >
+                            <a href="/kurs/dom/style.php">Style w CSS</a>
+                        </li>
+						<li >
+							<a href="/kurs/events/events.php">Zdarzenia</a>
+						</li>
+						<li >
+							<a href="/kurs/events/events-keys.php">Zdarzenia - klawisze</a>
+						</li>
+						<li >
+							<a href="/kurs/events/events-mouse.php">Zdarzenia - myszka</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/projekt-todo.php">Projekt TODO</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/slider.php">Tworzymy slider</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+
+						<div class="page-sidebar-section show has-active-element">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Prawie podstawy</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/grafika/grafika-na-stronie.php">Grafika na stronie</a>
+						</li>
+						<li >
+							<a href="/kurs/intervals/intervals.php">setTimeout i setInterval</a>
+						</li>
+						<li >
+							<a href="/kurs/match-media.php">Praca z RWD</a>
+						</li>
+						<li >
+							<a href="/kurs/okna-dialogowe.php">Okienka dialogowe</a>
+						</li>
+						<li >
+							<a href="/kurs/okna.php">Tworzenie nowych okien</a>
+						</li>
+						<li >
+							<a href="/kurs/date/date.php">Obiekt Date</a>
+						</li>
+						<li >
+							<a href="/kurs/date/date-calendar.php">Tworzymy kalendarz</a>
+						</li>
+						<li >
+							<a href="/kurs/cookies/cookie.php">Obiekt Cookie</a>
+						</li>
+						<li >
+							<a href="/kurs/storage/storage.php">Storage</a>
+						</li>
+						<li >
+							<a href="/kurs/regular.php">Wyrażenia regularne</a>
+						</li>
+						<li >
+							<a href="/kurs/formularze/formularze.php">Formularze</a>
+						</li>
+						<li class="active">
+							<a href="/kurs/formularze/formularze-walidacja.php">Formularze - walidacja</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Ajax</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/ajax/ajax.php">AJAX, REST, JSON</a>
+						</li>
+						<li >
+							<a href="/kurs/ajax/xmlhttprequest.php">XMLHttpRequest</a>
+						</li>
+            			<li >
+							<a href="/kurs/ajax/fetch.php">Fetch API</a>
+						</li>
+						<li >
+							<a href="/kurs/ajax/formularz-kontaktowy.php">Dynamiczny formularz kontaktowy</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Nowy Javascript</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/es6/ecma-script-2015.php">ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/webpack.php">Webpack</a>
+						</li>
+                        <li >
+            				<a href="/kurs/es6/obiekty-w-es6.php">Obiekty w ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/funkcja-strzalkowa.php">Funkcja strzałkowa</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/spread-rest.php">Spread i rest</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/template-strings.php">Template strings</a>
+						</li>
+						<li >
+            				<a href="/kurs/es6/destructuring.php">Dekompozycja</a>
+        				</li>
+						<li >
+							<a href="/kurs/es6/class.php">Klasy w ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/promises.php">Promises</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/async-await.php">Async/Await</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/symbole.php">Symbole</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">jQuery</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/jquery/jquery.php">jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/animacje-w-jquery.php">Animacje w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/jquery-ajax.php">Ajax w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/tabs.php">Taby w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/plugin.php">Karuzela w jQuery</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Canvas</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/canvas/canvas.php">Canvas</a>
+						</li>
+						<li >
+							<a href="/kurs/canvas/canvas-images.php">Grafika w canvas</a>
+						</li>
+						<li >
+						<a href="/kurs/canvas/canvas-paint.php">Praktycznie : Paint w canvas</a>
+						</li>
+
+						<li >
+							<a href="/kurs/canvas/canvas-animacja.php">Animacja w canvas</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Gry</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/gry/hangman/hangman.php">Szubienica</a>
+						</li>
+						<li >
+							<a href="/kurs/gry/memory/memory.php">Memory</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+            			<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Inne</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/dodatkowe-materialy.php">Dodatkowe materiały</a>
+						</li>
+						<li >
+							<a href="/kurs/faq.php">FAQ</a>
+						</li>
+						<li >
+							<a href="/kurs/polityka-prywatnosci.php">Polityka prywatności</a>
+						</li>
+						<li >
+							<a href="/kurs/autor.php">O autorze</a>
+						</li>
+						<li >
+							<a href="/kurs/kontakt.php">Kontakt</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="page-sidebar-section">
+                <a class="special-link" href="/kurs/autor.php#donate">Wesprzyj kurs</a>
+            </div>
+		</div>
+	</div>
+</aside></div><!-- e: page-container -->
+
+<div class="popup" id="popupOptions">
+	<div class="popup-inside">
+        <div class="popup-container-cnt">
+            <div class="popup-container">
+                <button class="popup-close">Zamknij</button>
+
+                <h2 class="popup-title">
+                    Opcje
+                </h2>
+
+                <div class="popup-content">
+                    <form class="form-options">
+                        <div class="form-option">
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <label for="optionsThemeSelect">Wybierz skórkę dla listingów</label>
+                                    <select id="optionsThemeSelect"></select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <pre><code class="language-js">
+                                //tak będzie wyglądał kod
+
+                                function test() {
+                                    for (let i=0; i&lt;10; i++) {
+                                        console.log("Tekst numer ", 1);
+                                    }
+                                }
+
+                                test();
+                                </code></pre>
+                            </div>
+                            <div class="form-row" id="themeLightModeRow">
+                                <div class="form-col">
+                                    <label for="themeLightMode">
+                                        Tryb dzienny / nocny
+                                    </label>
+
+                                    <div class="light-mode-el">
+                                        <input type="checkbox" id="themeLightMode">
+                                        <span class="light-mode"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+	</div>
+</div>
+<script async defer src="https://www.googletagmanager.com/gtag/js?id=UA-38558970-5"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-38558970-5');
+</script>
+
+	<script src="/js/ads.js"></script>
+	<script src="/js/script.min.js?v=0.13" defer></script>
+</body>
+</html>

@@ -3,9 +3,9 @@
 <head>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Kurs Javascript - Wstęp</title>
+    <title>Kurs Javascript - Strict mode</title>
 	<meta name="description" content="Kurs Javascript dla superbohaterów, artykuły, tutoriale, porady, zadania do wykonania" />
-    <link rel="canonical" href="https://kursjs.pl/kurs/wstep/wstep.php" />
+    <link rel="canonical" href="https://kursjs.pl/kurs/super-podstawy/strict-mode.php" />
 	<link rel="stylesheet" href="./css.css" />
     <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,700&display=swap&subset=latin-ext" rel="stylesheet">
 	<meta name="image" content="https://kursjs.pl/kursjs.png">
@@ -57,49 +57,191 @@
             </div>
                         <div class="page-content-text">
 
-
-<h1 class="page-title">Wstęp</h1>
+<h1 class="page-title">Strict mode</h1>
 <p>
-Bardzo krótki wstęp ^^.<br /><br />
-Kurs ten jest o Javascripcie. Uhh...
+JavaScript jest językiem, który ewoluuje. Do języka tego dodawanych jest  wiele nowych rzeczy, równocześnie starsze rozwiązania w celach wstecznej kompatybilności nie za bardzo mogą być ruszane.
 </p>
 <p>
-Wiedz, że nie staram się tutaj tworzyć największego i najlepszego kursu o JavaScript w internecie.<br>
-Ten kurs to twór jednego człowieka.
-Nie mam szans i nie chcę konkurować z molochami takimi jak <a href="https://developer.mozilla.org/pl/">MDN</a>, <a href="https://www.udemy.com/">Udemy</a>, <a href="https://eduweb.pl/">EduWeb</a> czy <a href="https://www.w3schools.com/js/default.asp">w3schools</a>.<br>
-<br><br>
-Nie znajdziesz tutaj wszystkiego z zakresu JavaScript. <br>
-Po jakimś czasie będziesz chciał wiele rzeczy tutaj pokazanych tworzyć inaczej - lepiej.<br>
-Im większy progres będziesz zdobywał stwierdzisz, że wiele rozdziałów można było napisać o wiele lepiej. I dobrze.<br><br>
-
-W każdym bądź razie - jeżeli ta strona jakoś ci posłuży - to tylko plus. Jeżeli nie - po prostu skorzystaj z innego kursu - na rynku jest tego od groma (niektóre wymieniłem <a href="../dodatkowe-materialy.php">tutaj</a>) i każdy znajdzie coś dla siebie. Ja sam mam kilka w swojej kolekcji i twierdzę, że są naprawdę dobre.
-<br><br>
+Takich starych naleciałości można by wymienić przynajmniej naście. Przykładowo jedną z nich jest możliwość odwoływania się do zmiennej globalnej (operowanie bezpośrednio na globalnym obiekcie) bez jej wcześniejszego utworzenia za pomocą jednego ze słów kluczowych (var/let/const):
 </p>
 
-<p>
-Jeszcze mała adnotacja, która siedzi mi w głowie.
-</p>
-<p>
-W internecie znajdziesz setki tutoriali pokazujących najnowsze techniki. A to funkcja strzałkowa, a to jak korzystać z async i await, a to jak robić połączenia fetchem czy chociażby zastosowanie modułów. Małe, konkretne, piękne - jak mój pies (a i od niedawna też kot).
-</p>
-<p>
-Na grupach facebookowych w dyskusjach znajdziesz jeszcze szybciej takie techniki.
-</p>
-<p>
-Tutaj pojawia pewna sprawa, który dotyczy nie tylko JavaScript, ale i całego frontendu. Bardzo często przy takich nowoczesnych tutorialach czy poradach autorzy nie zwracają uwagi na bardzo ważną rzecz - a mianowicie na to, że dobór techniki <strong>zawsze zależy od danego projektu</strong>. To są w końcu rzeczy oczywiste.<br>
-No właśnie nie do końca. To są rzeczy oczywiste - dla nas - osób, które w tej branży siedzą już kilkanaście lat. Ale czy dla osoby zaczynającej?
-</p>
-<p>
-Jeżeli robisz bloga o nowinkach z dziedziny frontentu, raczej możesz założyć, że większość użytkowników będzie korzystała z najnowszych przeglądarek, a więc i możesz używać najnowszych rozwiązań (chociaż najlepiej było by spojrzeć w statystyki Google Analitics które można podpiąć pod stronę).<br>
-Jeżeli jednak robisz stronę dla emerytowanych nauczycieli, czy dla przykładu olbrzymi sklep z którego będą korzystali różnorodni użytkownicy z różnorodnych krajów, wtedy rzucanie się na najnowsze rozwiązania będzie strzałem w stopę.
-</p>
-<p>
-Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie CSS Grid, a czasami nawet flexbox może okazać się czymś, czego użyć nie możesz. Czasami spokojnie będziesz mógł używać najnowszej wersji JavaScript, a czasami będziesz musiał pozostać przy starszej. A jeżeli będziesz musiał pozostać przy starszej, wtedy albo będziesz pisał JavaScript trzymając się klasycznych rozwiązań, albo skorzystasz z narzędzi zamieniających twój kod na starszy zapis.
-</p>
-<p>Autorzy tutoriali często zapominają o tym, że dla początkującej osoby istnieje po prostu JavaScript. Osoby takie często nie zdają sobie sprawy, że nie wszystko w JavaScript można dowolnie używać, nie wiedzą gdzie szukać informacji które przeglądarki co wspierają, jakich narzędzi używać do zamiany kodu i po co w ogóle to robić.</p>
-<p>W kursie tym staram się trzymać klasycznego JavaScript. Jasne - im więcej wiedzy zdobędziesz, im bardziej będziesz rozbudowywał swój warsztat, tym będziesz stosował coraz nowsze i lepsze techniki pisania kodu. A wtedy - tak jak to już pisałem powyżej - będziesz się śmiał z tego kursu. Póki co polecam po prostu uczyć się JavaScript.</p>
+<pre><code class="language-js">
+myVariable = 102;
+console.log(myVariable); //102
+</code></pre>
 
-<a href="./co-to-jest-javascript.php" class="button">To co? Zaczynamy?...</a>
+<p>
+Strict mode to funkcjonalność wprowadzona w ES5 (EcmaScript 2009), która pozwala odpalać nasz skrypt w bardziej restrykcyjnym trybie - tak zwanym "strict mode".<br>
+Tryb ten charakteryzuje się bardziej lepszym podejściem do kodu, eliminuje niektóre "ciche" błędy (takie, które nie są sygnalizowane przez przeglądarkę), lepiej sygnalizuje powszechne kodowe wpadki, czy sygnalizuje niebezpieczne operacje (jak pokazana powyżej).
+</p>
+
+<p>Domyślnie tryb ten jest wyłączony. Aby go włączyć, na początku naszego kodu musimy użyć zapisu <code>"use strict"</code> lub <code>'use strict'</code>:
+</p>
+
+<pre><code class="language-js">
+"use strict";
+
+//ten kod będzie działał w nowszym środowisku
+</code></pre>
+
+<p>Jak widzisz przełącznik ten jest zwykłym stringiem. Dzięki temu, stare przeglądarki bez problemu poradzą sobie z takim kodem - po prostu nie włączą strict mode.</p>
+
+<p>Taki tryb możemy włączać nie tylko dla całego kodu, ale i dla poszczególnych funkcji umieszczając go na ich początku:</p>
+
+<pre><code class="language-js">
+// kod bez strict-mode...
+
+(function(){
+    "use strict";
+    // kod działający na strict-mode
+})();
+
+// kod bez strict-mode...
+</code></pre>
+
+<div class="kartofel-informuje">
+Gdy nasz kod piszemy z wykorzystaniem <a href="../es6/moduly.php">modułów w ES6</a> lub wykorzystując <a href="../es6/class.php">klasy</a>, nie musimy wtedy używać powyższego przełącznika, ponieważ w obydwu przypadkach strict mode jest włączone.
+</div>
+
+<p>W każdym bądź razie - <strong>dobrą praktyką jest rozpoczynać nasz kod od powyższego zapisu</strong>. Możemy tylko na tym zyskać.</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="roznice">Różnice między "strict mode" a normalnym kodem</h2>
+
+<p>Pierwsza różnica między tym trybem a klasycznym to wymieniony powyżej brak możliwości używania zmiennych bez ich zadeklarowania:</p>
+
+<pre><code class="language-js">
+test = 20;
+console.log(test); //ok
+</code></pre>
+
+<pre><code class="language-js">
+"use strict";
+test = 20; //error - test is not defined
+console.log(test);
+</code></pre>
+
+<p>Tyczy się to też dość często popełnianego błędu przez początkujących, którzy mają w zwyczaju pomijanie słów kluczowych przy pętlach:</p>
+
+<pre><code class="language-js">
+"use strict";
+
+for (el of elements) { //error - el is not defined
+    ...
+}
+
+for (i=0; i&lt;10; i++) {//error - i is not defined
+    ...
+}
+</code></pre>
+
+<pre><code class="language-js">
+"use strict";
+
+for (const el of elements) { //ok
+    ...
+}
+
+for (let i=0; i&lt;10; i++) {//ok
+    ...
+}
+</code></pre>
+
+<p>Kolejna różnica to sygnalizowanie błędu, gdy będziemy chcieli nadpisać właściwości obiektu, które oznaczone są jako <a href="../obiekty/obiekty-inne-sposoby-tworzenia.php">nie do zapisu</a>, lub nadpisać rzeczy, które nie nadają się do nadpisania. Tyczy się to szczególnie zmiennych tworzonych za pomocą słowa var (pisałem o tym w <a href="./zmienne.php#nadpisywanie-glownego-obiektu">dziale o zmiennych</a>).</p>
+
+<pre><code class="language-js">
+var top = "Nie wiem"; //window.top = "Nie wiem"
+//powyższy kod nie zadziała, bo window.top zawiera bardzo ważną informację o tym, jakie okno jest na samej górze hierarchii (np. ramek)
+console.log(top); //window
+
+//inny przykład
+NaN = 20;
+console.log(NaN); //NaN
+</code></pre>
+
+<pre><code class="language-js">
+"use strict";
+top = "Nie wiem"; //error: Cannot assign to read only property 'top' of object '#<Window>'
+
+
+NaN = 20; //error
+console.log(NaN);
+</code></pre>
+
+<p>Usuwanie funkcji, zmiennych czy argumentów nie jest już możliwe. Możemy usuwać tylko właściwości obiektów:</p>
+
+<pre><code class="language-js">
+
+function test() {
+
+}
+let nr = 20;
+
+delete test; //error - Delete of an unqualified identifier
+delete nr; //error - Delete of an unqualified identifier
+
+delete window.top //error - Cannot delete property 'top' of #<Window>
+</code></pre>
+
+<p>Kolejna różnica to zabronione używanie słów kluczowych przy tworzeniu zmiennych:</p>
+
+<pre><code class="language-js">
+var let = 20;
+console.log(let); //20
+</code></pre>
+
+<pre><code class="language-js">
+"use strict";
+var let = 20; //Unexpected strict mode reserved word
+</code></pre>
+
+<p>Dodatkowo nie możemy korzystać z <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/with">instrukcji with</a> (którą umyślnie pomijam w kursie, bo i tak nikt z niej nie powinien korzystać).</p>
+
+<p>Kolejna zmiana jest taka, że parametry funkcji nie mogą się powtarzać:
+
+<pre><code class="language-js">
+function test(a, a) { //ok
+
+}
+</code></pre>
+
+<pre><code class="language-js">
+"use strict";
+
+function test(a, a) { //error - Duplicate parameter name not allowed in this context
+
+}
+</code></pre>
+
+<p>
+Deklarując liczby, nie możemy poprzedzać je cyfrą 0:
+</p>
+
+<pre><code class="language-js">
+let nr = 020; //error : Octal literals are not allowed in strict mode.
+</code></pre>
+
+<p>Kolejna zmiana tyczy się niechlubnej funkcji eval(), która służy do uruchamiania kodu, który podajemy jako jej parametr w formie stringu:</p>
+
+<pre><code class="language-js">
+eval("var x = 20; console.log(x);");
+</code></pre>
+
+<p>W domyślnym trybie powyższy kod stworzył by zmienną x dla otaczającego go scope:</p>
+
+<pre><code class="language-js">
+var x = 10;
+eval("var x = 20;");
+console.log(x); //20
+</code></pre>
+
+<p>W przypadku użycia "strict mode", kod wewnątrz eval tworzy swój własny scope dla jego zmiennych:</p>
+
+<pre><code class="language-js">
+var x = 10;
+eval("var x = 20; console.log(x);"); //20
+console.log(x); //10
+</code></pre>
 
 			</div><!-- e: page-content-text -->
 			<footer class="page-footer">
@@ -165,13 +307,13 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
                 </h3>
             </div>
 
-						<div class="page-sidebar-section show has-active-element">
+						<div class="page-sidebar-section ">
 				<h3 class="page-sidebar-section-title">
 					<a href="#">Słowem wstępu</a>
 				</h3>
 				<div class="page-sidebar-list-cnt">
 					<ul class="page-sidebar-list">
-						<li class="active">
+						<li >
 							<a href="/kurs/wstep/wstep.php">Wstęp</a>
 						</li>
 						<li >
@@ -184,7 +326,7 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
 				</div>
 			</div>
 
-						<div class="page-sidebar-section ">
+						<div class="page-sidebar-section show has-active-element">
 				<h3 class="page-sidebar-section-title">
 					<a href="#">Super podstawy</a>
 				</h3>
@@ -196,7 +338,7 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
 						<li >
 							<a href="/kurs/super-podstawy/pierwszy-skrypt.php">Wstawiamy skrypty na naszą stronę</a>
 						</li>
-						<li >
+						<li class="active">
 							<a href="/kurs/super-podstawy/strict-mode.php">Strict mode</a>
 						</li>
 						<li >

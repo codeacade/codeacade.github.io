@@ -3,9 +3,9 @@
 <head>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Kurs Javascript - Wstęp</title>
+    <title>Kurs Javascript - Obiekty - jak to działa w JavaScript</title>
 	<meta name="description" content="Kurs Javascript dla superbohaterów, artykuły, tutoriale, porady, zadania do wykonania" />
-    <link rel="canonical" href="https://kursjs.pl/kurs/wstep/wstep.php" />
+    <link rel="canonical" href="https://kursjs.pl/kurs/obiekty/obiekty-jak-to-dziala.php" />
 	<link rel="stylesheet" href="./css.css" />
     <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,700&display=swap&subset=latin-ext" rel="stylesheet">
 	<meta name="image" content="https://kursjs.pl/kursjs.png">
@@ -57,49 +57,104 @@
             </div>
                         <div class="page-content-text">
 
-
-<h1 class="page-title">Wstęp</h1>
+<h1 class="page-title">Obiekty - jak to działa w JavaScript</h1>
+<!-- ### -->
 <p>
-Bardzo krótki wstęp ^^.<br /><br />
-Kurs ten jest o Javascripcie. Uhh...
+    Zanim przejdziemy do kolejnych tematów, musimy sobie wyjaśnić jak w JavaScript w ogóle te wszystkie obiekty działają.
 </p>
 <p>
-Wiedz, że nie staram się tutaj tworzyć największego i najlepszego kursu o JavaScript w internecie.<br>
-Ten kurs to twór jednego człowieka.
-Nie mam szans i nie chcę konkurować z molochami takimi jak <a href="https://developer.mozilla.org/pl/">MDN</a>, <a href="https://www.udemy.com/">Udemy</a>, <a href="https://eduweb.pl/">EduWeb</a> czy <a href="https://www.w3schools.com/js/default.asp">w3schools</a>.<br>
-<br><br>
-Nie znajdziesz tutaj wszystkiego z zakresu JavaScript. <br>
-Po jakimś czasie będziesz chciał wiele rzeczy tutaj pokazanych tworzyć inaczej - lepiej.<br>
-Im większy progres będziesz zdobywał stwierdzisz, że wiele rozdziałów można było napisać o wiele lepiej. I dobrze.<br><br>
-
-W każdym bądź razie - jeżeli ta strona jakoś ci posłuży - to tylko plus. Jeżeli nie - po prostu skorzystaj z innego kursu - na rynku jest tego od groma (niektóre wymieniłem <a href="../dodatkowe-materialy.php">tutaj</a>) i każdy znajdzie coś dla siebie. Ja sam mam kilka w swojej kolekcji i twierdzę, że są naprawdę dobre.
-<br><br>
+    Pisałem Ci już kilka razy, że w JavaScript praktycznie wszystko jest obiektem.<br>
+    Gdy używasz na przykład obiektu <a href="../super-podstawy/math.php">Math</a>, działasz na obiekcie.<br>
+    Gdy odwołujesz się do właściwości length tablicy, odwołujesz się do właściwości length obiektu tablicy (bo tablice to też obiekty).<br>
+    Używasz window? - używasz obiektu, który ma metody i właściwości. Używasz Date? - to też obiekt - który ma metody i właściwości.
+    Pobierasz coś ze strony? Pobierasz obiekty, które mają metody i właściwości...
+</p>
+<p>
+    No dobrze. Stwórzmy więc na chwilę prosty obiekt i odpalmy na nim metody:
 </p>
 
-<p>
-Jeszcze mała adnotacja, która siedzi mi w głowie.
-</p>
-<p>
-W internecie znajdziesz setki tutoriali pokazujących najnowsze techniki. A to funkcja strzałkowa, a to jak korzystać z async i await, a to jak robić połączenia fetchem czy chociażby zastosowanie modułów. Małe, konkretne, piękne - jak mój pies (a i od niedawna też kot).
-</p>
-<p>
-Na grupach facebookowych w dyskusjach znajdziesz jeszcze szybciej takie techniki.
-</p>
-<p>
-Tutaj pojawia pewna sprawa, który dotyczy nie tylko JavaScript, ale i całego frontendu. Bardzo często przy takich nowoczesnych tutorialach czy poradach autorzy nie zwracają uwagi na bardzo ważną rzecz - a mianowicie na to, że dobór techniki <strong>zawsze zależy od danego projektu</strong>. To są w końcu rzeczy oczywiste.<br>
-No właśnie nie do końca. To są rzeczy oczywiste - dla nas - osób, które w tej branży siedzą już kilkanaście lat. Ale czy dla osoby zaczynającej?
-</p>
-<p>
-Jeżeli robisz bloga o nowinkach z dziedziny frontentu, raczej możesz założyć, że większość użytkowników będzie korzystała z najnowszych przeglądarek, a więc i możesz używać najnowszych rozwiązań (chociaż najlepiej było by spojrzeć w statystyki Google Analitics które można podpiąć pod stronę).<br>
-Jeżeli jednak robisz stronę dla emerytowanych nauczycieli, czy dla przykładu olbrzymi sklep z którego będą korzystali różnorodni użytkownicy z różnorodnych krajów, wtedy rzucanie się na najnowsze rozwiązania będzie strzałem w stopę.
-</p>
-<p>
-Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie CSS Grid, a czasami nawet flexbox może okazać się czymś, czego użyć nie możesz. Czasami spokojnie będziesz mógł używać najnowszej wersji JavaScript, a czasami będziesz musiał pozostać przy starszej. A jeżeli będziesz musiał pozostać przy starszej, wtedy albo będziesz pisał JavaScript trzymając się klasycznych rozwiązań, albo skorzystasz z narzędzi zamieniających twój kod na starszy zapis.
-</p>
-<p>Autorzy tutoriali często zapominają o tym, że dla początkującej osoby istnieje po prostu JavaScript. Osoby takie często nie zdają sobie sprawy, że nie wszystko w JavaScript można dowolnie używać, nie wiedzą gdzie szukać informacji które przeglądarki co wspierają, jakich narzędzi używać do zamiany kodu i po co w ogóle to robić.</p>
-<p>W kursie tym staram się trzymać klasycznego JavaScript. Jasne - im więcej wiedzy zdobędziesz, im bardziej będziesz rozbudowywał swój warsztat, tym będziesz stosował coraz nowsze i lepsze techniki pisania kodu. A wtedy - tak jak to już pisałem powyżej - będziesz się śmiał z tego kursu. Póki co polecam po prostu uczyć się JavaScript.</p>
+<pre data-line="11"><code class="language-js">
+const user = {
+    name: "Marcin",
+    height: 184,
 
-<a href="./co-to-jest-javascript.php" class="button">To co? Zaczynamy?...</a>
+    sayName : function() {
+        console.log("Nazywam się " + this.name);
+    }
+}
+
+user.sayName();
+user.toString();
+</code></pre>
+
+<script>
+    const user = {
+        name: "Marcin",
+        height: 184,
+        sayName : function() {
+            console.log("Nazywam się " + this.name);
+        }
+    };
+
+    user.sayName();
+    user.toString();
+    console.log('%c Nasz obiekt user', 'font-weight:bold');
+    console.dir(user);
+</script>
+
+<p>
+    Ale co się stało? <strong>Przecież nasz obiekt nie ma żadnej metody toString()</strong>.<br>
+    A konsola debugera nie pokazała żadnego błędu.
+</p>
+<p>
+    Zadziałał tutaj mechanizm dziedziczenia, na którym bazują wszystkie obiekty w JavaScript.
+</p>
+<p id="__proto__">
+    Po zbadaniu naszego obiektu w konsoli debugera (zrób to teraz, wypisałem go w konsoli dla Ciebie) debugera zobaczysz w nim właściwość <strong>__proto__</strong>. Jest to właściwość dodawana przez JavaScript automatycznie <strong>każdemu obiektowi</strong>. JavaScript dodał za nas do obiektu mniej więcej coś takiego:
+</p>
+<pre><code class="language-js">
+const user = {
+    //tu nasze właściwości i metody
+
+    __proto__ = {...to jest prototyp obiektu...}
+}
+</code></pre>
+<p>
+    <strong>__proto__</strong> to właściwość, która wskazuje na prototyp, na którym opiera się dany obiekt.<br>
+    Każdy obiekt w JavaScript zbudowany jest na bazie jakiegoś prototypu - czyli obiektu wzorca, który zawiera metody i właściwości, które dany obiekt może wykorzystywać. Nawet jak robisz pojedynczą instancję (jeden obiekt - tak jak robiliśmy powyżej) to jest ona połączona z jakimś obiektem wzorca za pomocą właśnie __proto__.
+</p>
+
+<p>
+    Jeżeli wywołujemy jakąś metodę lub właściwość danego obiektu, JavaScript początkowo szuka ich bezpośrednio w instancji danego obiektu. Jeżeli ich tam nie znajdzie, za pomocą właściwości <strong>__proto__</strong> (która istnieje w każdym obiekcie) przechodzi do prototypu obiektu - czyli <strong>obiektu, który opisuje ogólnie wygląd obiektów danego typu</strong> (np. Array, String, Date itp.). Szuka w takim obiekcie-prototypie danej metody.<br><br>
+
+    Skoro prototyp jest obiektem, to także ma swoje __proto__. Jeżeli JavaScript nie znajdzie w tym prototypie szukanej metody, korzystając z jego __proto__ dalej przechodzi do nadrzędnego prototypu i tak pnie się w górę, aż dojdzie do najwyższego prototypu - rodzica wszelkich obiektów - <strong>Object</strong>, na bazie którego zbudowane są wszelkie obiekty w JavaScript. Prototyp Object właściwości __proto__ już nie ma, więc JavaScript nie ma gdzie iść w górę.
+</p>
+
+<img src="./obiekty-hierarchia.jpg" alt=""  class="border space">
+
+<p>
+    W naszym przypadku nasz obiekt user nie ma metody <strong>toString()</strong>, ale gdy badając go w konsoli rozwiniemy jego zawartość zobaczymy, że ma właściwość __proto__. Gdy rozwiniemy i tą właściwość zobaczymy, że wskazuje ona na inny obiekt który jest prototypem naszego obiektu. W naszym przypadku będzie to Object, który jest prototypem wszystkich obiektów, a który to już metodę toString() posiada (dlatego metodę tą ma każdy obiekt w JavaScript).
+</p>
+<p>
+    JavaScript nie znalazł ten metody w naszym obiekcie, więc wziął sobie z góry hierarchii. Nasz malutki obiekt pożyczył więc sobie metodę od wielkiego mistrza Object. Wielki zaszczyt...
+</p>
+
+<img src="./proto.png" alt="prototyp z debugera 1" class="border space">
+
+
+<!-- ### -->
+<h2 class="subtitle" id="mega-siatka">Mega siatka</h2>
+<p>Z całego powyższego opisu wyłania się nam struktura obiektów w JavaScript, które stanowią rodzaj powiązanej pajęczej sieci.</p>
+<p>Na samej górze jest grand master (on tak się nie nazywa!) - prototyp wszystkich obiektów.
+   Wszelkie obiekty prędzej czy później na niego wskazują za pomocą __proto__, co oznacza, że każdy obiekt w JavaScript może korzystać z jego metod i właściwości.</p>
+<p>Jeżeli dane instancje obiektów są tylko pojedynczymi instancjami (nie zostały stworzone na bazie żadnego konstruktora typu Array, Data(), naszego konstruktora itp.), to ich __proto__ wskazuje na właśnie ten prototyp Object.</p>
+<p>Jeżeli nasze obiekty zostały stworzone na bazie <a href="obiekty-konstruktor.php">konstruktora</a>, to wszystkie one
+   wskazują na wspólny obiekt prototypu (Array, Data, NaszKonstruktor), w którym
+   właściwość o nazwie __proto__ wskazuje na wyższy prototyp. I tak w koło aż do "Wielkiego Żółwia"... znaczy się prototypu Object - który też jest obiektem.
+</p>
+
+<a href="./mapa-prototypow.jpg" target="_blank">Zobacz w powiększeniu</a>
+<a href="./mapa-prototypow.jpg" target="_blank"><img src="./mapa-prototypow.jpg" alt="Mega siatka połączeń" class="space border"></a>
 
 			</div><!-- e: page-content-text -->
 			<footer class="page-footer">
@@ -165,13 +220,13 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
                 </h3>
             </div>
 
-						<div class="page-sidebar-section show has-active-element">
+						<div class="page-sidebar-section ">
 				<h3 class="page-sidebar-section-title">
 					<a href="#">Słowem wstępu</a>
 				</h3>
 				<div class="page-sidebar-list-cnt">
 					<ul class="page-sidebar-list">
-						<li class="active">
+						<li >
 							<a href="/kurs/wstep/wstep.php">Wstęp</a>
 						</li>
 						<li >
@@ -239,7 +294,7 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
 				</div>
 			</div>
 
-            			<div class="page-sidebar-section ">
+            			<div class="page-sidebar-section show has-active-element">
 				<h3 class="page-sidebar-section-title">
 					<a href="#">Obiekty</a>
 				</h3>
@@ -248,7 +303,7 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
                         <li >
 							<a href="/kurs/obiekty/obiekty.php">Obiekty i this</a>
 						</li>
-                        <li >
+                        <li class="active">
 							<a href="/kurs/obiekty/obiekty-jak-to-dziala.php">Jak to działa</a>
 						</li>
                         <li >

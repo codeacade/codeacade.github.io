@@ -3,9 +3,9 @@
 <head>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Kurs Javascript - Wstęp</title>
+    <title>Kurs Javascript - Okna przeglądarki</title>
 	<meta name="description" content="Kurs Javascript dla superbohaterów, artykuły, tutoriale, porady, zadania do wykonania" />
-    <link rel="canonical" href="https://kursjs.pl/kurs/wstep/wstep.php" />
+    <link rel="canonical" href="https://kursjs.pl/kurs/okna.php" />
 	<link rel="stylesheet" href="./css.css" />
     <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,700&display=swap&subset=latin-ext" rel="stylesheet">
 	<meta name="image" content="https://kursjs.pl/kursjs.png">
@@ -58,48 +58,193 @@
                         <div class="page-content-text">
 
 
-<h1 class="page-title">Wstęp</h1>
+<h1 class="page-title">Okna przeglądarki</h1>
 <p>
-Bardzo krótki wstęp ^^.<br /><br />
-Kurs ten jest o Javascripcie. Uhh...
-</p>
-<p>
-Wiedz, że nie staram się tutaj tworzyć największego i najlepszego kursu o JavaScript w internecie.<br>
-Ten kurs to twór jednego człowieka.
-Nie mam szans i nie chcę konkurować z molochami takimi jak <a href="https://developer.mozilla.org/pl/">MDN</a>, <a href="https://www.udemy.com/">Udemy</a>, <a href="https://eduweb.pl/">EduWeb</a> czy <a href="https://www.w3schools.com/js/default.asp">w3schools</a>.<br>
-<br><br>
-Nie znajdziesz tutaj wszystkiego z zakresu JavaScript. <br>
-Po jakimś czasie będziesz chciał wiele rzeczy tutaj pokazanych tworzyć inaczej - lepiej.<br>
-Im większy progres będziesz zdobywał stwierdzisz, że wiele rozdziałów można było napisać o wiele lepiej. I dobrze.<br><br>
-
-W każdym bądź razie - jeżeli ta strona jakoś ci posłuży - to tylko plus. Jeżeli nie - po prostu skorzystaj z innego kursu - na rynku jest tego od groma (niektóre wymieniłem <a href="../dodatkowe-materialy.php">tutaj</a>) i każdy znajdzie coś dla siebie. Ja sam mam kilka w swojej kolekcji i twierdzę, że są naprawdę dobre.
-<br><br>
+Za pomocą JavaScript możemy otwierać nowe okna, formatować ich wygląd, przesyłać między nimi informacje itp.
 </p>
 
-<p>
-Jeszcze mała adnotacja, która siedzi mi w głowie.
-</p>
-<p>
-W internecie znajdziesz setki tutoriali pokazujących najnowsze techniki. A to funkcja strzałkowa, a to jak korzystać z async i await, a to jak robić połączenia fetchem czy chociażby zastosowanie modułów. Małe, konkretne, piękne - jak mój pies (a i od niedawna też kot).
-</p>
-<p>
-Na grupach facebookowych w dyskusjach znajdziesz jeszcze szybciej takie techniki.
-</p>
-<p>
-Tutaj pojawia pewna sprawa, który dotyczy nie tylko JavaScript, ale i całego frontendu. Bardzo często przy takich nowoczesnych tutorialach czy poradach autorzy nie zwracają uwagi na bardzo ważną rzecz - a mianowicie na to, że dobór techniki <strong>zawsze zależy od danego projektu</strong>. To są w końcu rzeczy oczywiste.<br>
-No właśnie nie do końca. To są rzeczy oczywiste - dla nas - osób, które w tej branży siedzą już kilkanaście lat. Ale czy dla osoby zaczynającej?
-</p>
-<p>
-Jeżeli robisz bloga o nowinkach z dziedziny frontentu, raczej możesz założyć, że większość użytkowników będzie korzystała z najnowszych przeglądarek, a więc i możesz używać najnowszych rozwiązań (chociaż najlepiej było by spojrzeć w statystyki Google Analitics które można podpiąć pod stronę).<br>
-Jeżeli jednak robisz stronę dla emerytowanych nauczycieli, czy dla przykładu olbrzymi sklep z którego będą korzystali różnorodni użytkownicy z różnorodnych krajów, wtedy rzucanie się na najnowsze rozwiązania będzie strzałem w stopę.
-</p>
-<p>
-Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie CSS Grid, a czasami nawet flexbox może okazać się czymś, czego użyć nie możesz. Czasami spokojnie będziesz mógł używać najnowszej wersji JavaScript, a czasami będziesz musiał pozostać przy starszej. A jeżeli będziesz musiał pozostać przy starszej, wtedy albo będziesz pisał JavaScript trzymając się klasycznych rozwiązań, albo skorzystasz z narzędzi zamieniających twój kod na starszy zapis.
-</p>
-<p>Autorzy tutoriali często zapominają o tym, że dla początkującej osoby istnieje po prostu JavaScript. Osoby takie często nie zdają sobie sprawy, że nie wszystko w JavaScript można dowolnie używać, nie wiedzą gdzie szukać informacji które przeglądarki co wspierają, jakich narzędzi używać do zamiany kodu i po co w ogóle to robić.</p>
-<p>W kursie tym staram się trzymać klasycznego JavaScript. Jasne - im więcej wiedzy zdobędziesz, im bardziej będziesz rozbudowywał swój warsztat, tym będziesz stosował coraz nowsze i lepsze techniki pisania kodu. A wtedy - tak jak to już pisałem powyżej - będziesz się śmiał z tego kursu. Póki co polecam po prostu uczyć się JavaScript.</p>
+<div class="kartofel-informuje">
+    <p>Przez kilka ostatnich lat sporo się pozmieniało w materii otwierania nowych okien.
+    Po pierwsze większość przeglądarek blokuje otwieranie nowych okien na stronach.
+    Po drugie użytkownicy nie lubią gdy próbuje im się narzucić nowe okna. Po trzecie wreszcie - otwieranie okien na urządzeniach mobilnych mija się z celem. Co najwyżej możemy otworzyć stronę w nowej karcie.
+    </p>
+    <p>Wszystkie te punkty powodują, że nie zalecam otwierania nowych okien, a zamiast ich zalecam używać wszelakiej maści popupów czy modali - najlepiej korzystając z gotowych rozwiązań (<a href="http://fancybox.net/">1</a>, <a href="https://lokeshdhakar.com/projects/lightbox2/">2</a>, <a href="https://getbootstrap.com/docs/4.0/components/modal/">3</a>)</p>
+</div>
 
-<a href="./co-to-jest-javascript.php" class="button">To co? Zaczynamy?...</a>
+<!--###-->
+<h2 class="subtitle" id="noweOkno">Otwieranie nowego okna</h2>
+<p>
+Standardowa konstrukcja otwierająca okno ma postać:
+</p>
+
+<pre><code class="language-js">
+const win = window.open(url, name, options)
+</code></pre>
+
+<table class="tab">
+    <tr>
+        <th>url</th>
+        <td>ścieżka do otwieranej strony lub pusty ciąg, jeżeli okno generujemy dynamicznie</td>
+    </tr>
+    <tr>
+        <th>name</th>
+        <td>nazwa okna, do której możemy się odwoływać atrybutem target w linkach i formularzach. Możemy też tutaj podać target="_blank" jeżeli chcemy otworzyć okno jako nową kartę</td>
+    </tr>
+    <tr>
+        <th>options</th>
+        <td>Dodatkowe opcje otwieranego okna, opisane poniżej</td>
+    </tr>
+</table>
+
+<p>
+Wszystkie możliwe ustawienia znajdziesz na stronie <a href="https://developer.mozilla.org/pl/docs/Web/API/Window/open">https://developer.mozilla.org/pl/docs/Web/API/Window/open</a>,
+    poniżej zamieszczam te najczęściej używane. Tutaj mała uwaga. Przeglądarki są bardzo wybredne jeżeli chodzi o otwierane okna, dlatego nie wszystkie poniższe właściwości będą wszędzie działać.
+</p>
+
+<table class="tab">
+<tr><th>left</th><td> pozycja względem lewej strony ekranu</td></tr>
+<tr><th>top</th><td> pozycja okna względem góry ekranu</td></tr>
+<tr><th>height</th><td> ustawia wysokość okna</td></tr>
+<tr><th>width</th><td> ustawia szerokość okna</td></tr>
+<tr><th>menubar</th><td> (yes/no) pokazuje lub ukrywa menu przeglądarki</td></tr>
+<tr><td>toolbar </td><td> (yes/no) pokazuje lub ukrywa standardowy pasek narzędzi</td></tr>
+<tr><td>location</td><td> (yes/no) pokazuje lub ukrywa pasek adresowy</td></tr>
+<tr><td>directories</td><td> (yes/no) pokazuje lub ukrywa przyciski katalogów </td></tr>
+<tr><td>status</td><td> (yes/no) pokazuje lub ukrywa pasek statusu</td></tr>
+<tr><td>resizable</td><td> (yes/no) określa czy okno może zmienić rozmiar</td></tr>
+<tr><td>scrollbars</td><td> (yes/no) pokazuje lub ukrywa paski przewijania</td></tr>
+<tr><th>dialog</th><td>(yes/no) Usuwa z okna wszystkie menu, statusy itp, zostawiając tylko przycisk zamykania</td></tr>
+<tr><th>noopener</th><td>Zapobiega używaniu zmiennej opener w otwieranych oknach. Patrz <a href="#opener">poniżej</a></td></tr>
+<tr><th>noreferrer</th><td>Zapobiega wysyłaniu informacji o adresie, z której została otwarta strona w oknie. Dodatkowe informacje możesz zobaczyć <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Link_types#noreferrer">tutaj</a></td></tr>
+<tr><th>minizable</th><td>(yes/no) używane wraz z dialog. Jeżeli ustawimy na yes, dialog dodatkowo będzie można zminimalizować</td></tr>
+</table>
+
+<pre><code class="language-js">
+//otwieram jako nowe okno
+const myWin = window.open("http://google.pl", "myWindow", "tolbar=no,scrollbars=no,menubar=no,width=500,height=500");
+
+//otwieram jako nową zakładkę
+const newTab = window.open("http://mypage.pl", "target=_blank");
+</code></pre>
+
+<p>
+Przykładowa funkcja, która otworzy okno na środku ekranu może mieć postać:
+</p>
+
+<pre><code class="language-js">
+const myWindow = function(url, width, height) {
+    const centerH = window.screen.height / 2;
+    const centerW = window.screen.width / 2;
+    const posX = centerW-width/2;
+    const posY = centerH-height/2;
+
+    window.open(url, 'tytul-okna', `dialog=yes,width=${width},height=${height},left=${posX},top=${posY}`);
+};
+
+const btn = document.querySelector('#testWindow');
+btn.addEventListener('click', function() {
+    myWindow('http://google.pl', 600, 400);
+});
+</code></pre>
+
+<p>
+    <button type="button" class="button" id="testWindow">Pokaz Okno</button>
+</p>
+
+<script>
+    {
+        const myWindow = function(url, width, height) {
+            const centerH = window.screen.height / 2;
+            const centerW = window.screen.width / 2;
+            const posX = centerW-width/2;
+            const posY = centerH-height/2;
+
+            window.open(url, 'tytul-okna', `dialog=yes,width=${width},height=${height},left=${posX},top=${posY}`);
+        };
+
+        const btn = document.querySelector('#testWindow');
+        btn.addEventListener('click', function() {
+            myWindow('http://google.pl', 600, 400);
+        });
+    }
+</script>
+
+<!--###-->
+<h2 class="subtitle" id="modify">Modyfikacja okna</h2>
+<p>
+Dzięki przypisaniu nowego okna pod zmienną, możemy nim w łatwy sposób manipulować. Zasady są identyczne jakie stosowaliśmy w <a href="dom/dom.php">rozdziale o DOM</a> - jedyna różnica polega na odwołaniu, gdzie musimy użyć zmiennej, pod którą podstawimy otwarte okno:
+</p>
+
+<pre data-line="3,9"><code class="language-js">
+const win = document.open(...);
+
+const p = win.document.querySelectorAll('p');
+for (const el of p) {
+    p.style.color = 'red';
+    p.innerHTML = 'Lubie koty i psy';
+}
+
+win.document.body.addEventListener('click', function() {
+    console.log('Kliknąłeś body');
+});
+</code></pre>
+
+<!--###-->
+<h2 class="subtitle" id="opener">Właściwość opener</h2>
+<p>
+Jedną z ciekawszych ale i <strong>niebezpiecznych</strong> właściwości otwartych okien/zakładek jest właściwość <strong>opener</strong>. Dzięki niej możemy się odwoływać do okna, z którego utworzyliśmy nowe okno.
+</p>
+
+<pre><code class="language-js">
+opener.document.body.style.background = "yellow";
+</code></pre>
+
+<p>Sprawdźmy to:</p>
+
+<pre><code class="language-js">
+const btn = document.querySelector('#windowOpenerTest');
+btn.addEventListener('click', function() {
+    const win = window.open('window-test-opener.html', 'target="_blank"');
+})
+</code></pre>
+
+<p>
+<button id="windowOpenerTest" class="button">Otwórz okno testowe</button>
+</p>
+<script>
+{
+    const btn = document.querySelector("#windowOpenerTest");
+    btn.addEventListener("click", function() {
+        const win = window.open("window-test-opener.html", 'target="_blank"');
+    })
+}
+</script>
+
+<p>
+Jak zauważysz korzystając z właściwości <strong>opener</strong>, mogę nieźle namieszać na stronie, która otworzyła takie okno.
+</p>
+
+<p>Może to być początek groźnego ataku. Wyobraź sobie, że zamiast otwierać małe okienko, otworzę stronę w nowej zakładce. Równocześnie mogę np. przekierować stronę, która otworzyła nowe okno za pomocą kodu:</p>
+
+<pre><code class="language-js">
+opener.window.location = "https://www.mbąnk.pl/logoutpage.html?type=t"
+</code></pre>
+
+<p>Ty wracasz na swoją stronę i widzisz, że zostałeś niechcący wylogowany ze swojego konta. Logujesz się i... Właśnie przejąłem twoje hasła do twojego konta, ponieważ zalogowałeś się na fejkową stronę na domenie mb<b>ą</b>nk. Jasne - nie każdy z nas ma konto w mBanku. I pewnie większość wzmocni swoją uwagę, gdyby zaistniała powyższa sytuacja.
+</p>
+<p>Ale nie oszukujmy się - przecież wśród nas jest pełno osób, które bardzo łatwo nabierają się na wnuczków policjantów, blokady komputera nakładane przez FBI, lecznicze kołdry itp. A przecież mówimy powyżej o prostym przekierowaniu. Podobne ataki mogą być bardziej wymyślne, bo mogą zmieniać zdarzenia przypisane do elementów, ich html, ustawiać niewidzialne elementy itp.</p>
+
+<p>Z tego też powodu przy otwieraniu nowych okien, powinieneś używać właściwości noopener.</p>
+
+<pre><code class="language-js">
+const win = window.open('window-test-opener.html', 'target="_blank"', 'noopener,....');
+</code></pre>
+
+<p>Dodatkowe zabezpieczenie powinieneś stosować w linkach, gdzie otwierasz stronę w nowej zakładce za pomocą target="_blank". Służy do tego atrybut rel="noopener":</p>
+
+<pre><code class="language-js">
+&lt;a href="..." target="_blank" rel="noopener"> klik &lt;/a>
+</code></pre>
 
 			</div><!-- e: page-content-text -->
 			<footer class="page-footer">
@@ -165,13 +310,13 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
                 </h3>
             </div>
 
-						<div class="page-sidebar-section show has-active-element">
+						<div class="page-sidebar-section ">
 				<h3 class="page-sidebar-section-title">
 					<a href="#">Słowem wstępu</a>
 				</h3>
 				<div class="page-sidebar-list-cnt">
 					<ul class="page-sidebar-list">
-						<li class="active">
+						<li >
 							<a href="/kurs/wstep/wstep.php">Wstęp</a>
 						</li>
 						<li >
@@ -311,7 +456,7 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
 			</div>
 
 
-						<div class="page-sidebar-section ">
+						<div class="page-sidebar-section show has-active-element">
 				<h3 class="page-sidebar-section-title">
 					<a href="#">Prawie podstawy</a>
 				</h3>
@@ -329,7 +474,7 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
 						<li >
 							<a href="/kurs/okna-dialogowe.php">Okienka dialogowe</a>
 						</li>
-						<li >
+						<li class="active">
 							<a href="/kurs/okna.php">Tworzenie nowych okien</a>
 						</li>
 						<li >

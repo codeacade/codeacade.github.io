@@ -3,9 +3,9 @@
 <head>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Kurs Javascript - Wstęp</title>
+    <title>Kurs Javascript - Promises</title>
 	<meta name="description" content="Kurs Javascript dla superbohaterów, artykuły, tutoriale, porady, zadania do wykonania" />
-    <link rel="canonical" href="https://kursjs.pl/kurs/wstep/wstep.php" />
+    <link rel="canonical" href="https://kursjs.pl/kurs/es6/promises.php" />
 	<link rel="stylesheet" href="./css.css" />
     <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,700&display=swap&subset=latin-ext" rel="stylesheet">
 	<meta name="image" content="https://kursjs.pl/kursjs.png">
@@ -57,49 +57,432 @@
             </div>
                         <div class="page-content-text">
 
+<h1 class="page-title">Promises</h1>
+<p>Wyobraź sobie, że masz funkcję asynchroniczną, która służy do wczytywania danych o państwie:</p>
 
-<h1 class="page-title">Wstęp</h1>
-<p>
-Bardzo krótki wstęp ^^.<br /><br />
-Kurs ten jest o Javascripcie. Uhh...
-</p>
-<p>
-Wiedz, że nie staram się tutaj tworzyć największego i najlepszego kursu o JavaScript w internecie.<br>
-Ten kurs to twór jednego człowieka.
-Nie mam szans i nie chcę konkurować z molochami takimi jak <a href="https://developer.mozilla.org/pl/">MDN</a>, <a href="https://www.udemy.com/">Udemy</a>, <a href="https://eduweb.pl/">EduWeb</a> czy <a href="https://www.w3schools.com/js/default.asp">w3schools</a>.<br>
-<br><br>
-Nie znajdziesz tutaj wszystkiego z zakresu JavaScript. <br>
-Po jakimś czasie będziesz chciał wiele rzeczy tutaj pokazanych tworzyć inaczej - lepiej.<br>
-Im większy progres będziesz zdobywał stwierdzisz, że wiele rozdziałów można było napisać o wiele lepiej. I dobrze.<br><br>
+<pre data-line="11"><code class="language-js">
+let country = {};
 
-W każdym bądź razie - jeżeli ta strona jakoś ci posłuży - to tylko plus. Jeżeli nie - po prostu skorzystaj z innego kursu - na rynku jest tego od groma (niektóre wymieniłem <a href="../dodatkowe-materialy.php">tutaj</a>) i każdy znajdzie coś dla siebie. Ja sam mam kilka w swojej kolekcji i twierdzę, że są naprawdę dobre.
-<br><br>
+function getCountry(id) {
+    $.getJSON(`https://restcountries.eu/rest/v2/name/${id}`, res => {
+        country = res;
+    })
+}
+
+function renderPage() {
+    getCountry("Polska");
+    console.log(country); //{}
+}
+
+renderPage();
+</code></pre>
+
+<p>Po odpaleniu funkcji renderPage() pobieramy dane o państwie i wypisujemy je w konsoli.
+    Powyższy kod oczywiście nie zadziała poprawnie. Nie czekając na pełne wykonanie funkcji getCountry() wypisujemy dane państwa, przez co w konsoli pojawia nam się pusty obiekt.</p>
+
+<p>Jak wykonać dany kod dopiero po zakończeniu działania kodu asynchronicznego?</p>
+
+<p>Pierwszym z rozwiązań tego problemu jest zastosowanie tak zwanych funkcji zwrotnych:</p>
+
+<pre data-line="1,3,8-10"><code class="language-js">
+function getCountry(id, cb) {
+    $.getJSON(`https://restcountries.eu/rest/v2/name/${id}`, res => {
+        cb(res);
+    })
+}
+
+function renderPage() {
+    getCountry("Polska", function(data) {
+        console.log(data);
+    });
+}
+
+renderPage();
+</code></pre>
+
+<p>Zastosowanie callbacków nie zawsze będzie takie łatwe jak w powyższych przykładzie.<br>
+
+<pre data-line="14-18"><code class="language-js">
+function getCountry(id, cb) {
+    $.getJSON(`https://restcountries.eu/rest/v2/name/${id}`, res => {
+        cb(res);
+    });
+}
+
+function getWeather(lat, lng, cb) {
+    $.getJSON(`https://weather.cit.api.here.com/weather/1.0/report.json?latitude=${lat}&longitute=${lng}`, res => {
+        cb(res);
+    });
+}
+
+function renderPage() {
+    getCountry("Polska", function(data) {
+        getWeather(data.lat, data.lng, function(dataWeather) {
+            updatePage(data, dataWeather);
+        });
+    });
+}
+</code></pre>
+
+<p>Przy odpalaniu kolejnych callbacków robi nam się z kodu mini choinka (zwana potocznie <a href="https://callbackhell.com/">callback hell</a>), która nie tylko staje się ciężka do późniejszego opanowania, ale i trudna do testów, bo musimy testować wszystko na raz.<br>
+Czy nie było by lepiej, gdybyśmy mogli zrobić 3 oddzielne funkcje, które moglibyśmy następnie odpalać jedna po drugiej?</p>
+
+<pre><code class="language-js">
+function getCountry() { ... }
+function getWeather() { ... }
+function updatePage() { ... }
+
+function renderPage() { //kod uproszczony
+    getCountry()
+    .then(getWeather())
+    .then(updatePage())
+}
+</code></pre>
+
+
+<p>I tutaj właśnie przychodzą nam z pomocą obietnice, które jak sama nazwa wskazuje służą właśnie do składania obietnic. Idealne miejsce dla takich obietnic to kod asynchroniczny, w którym bardzo często pojawia się sytuacja typu "jeżeli dany kod się wykona, zacznij wykonywać inny".</p>
+
+<div class="kartofel-informuje">
+Podobne problemy omawialiśmy już przy <a href="../jquery/jquery-ajax.php#poprzednie-wersje">jQuery i Ajaxie w tej bibliotece</a>.
+</div>
+
+<p>Ogólna konstrukcja wywołania Promise ma postać:</p>
+
+<pre><code class="language-js">
+const promise = new Promise((resolve, reject) => {
+    resolve("Wszystko ok");
+    reject("Nie jest ok");
+});
+</code></pre>
+
+<p>Jak widzisz w parametrze Promise przekazujemy funkcję, która ma 2 opcjonalne parametry. Są nimi funkcje, które będą wywoływane w momencie zakończenia działania Promisa.<br>
+Każda obietnica może zakończyć się na dwa sposoby - powodzeniem i niepowodzeniem.<br>
+Gdy obietnica zakończy się powodzeniem (np. dane się wczytają), powinniśmy wywołać funkcję <strong>resolve()</strong>, do której przekażemy poprawny rezultat. W przypadku błędów powinniśmy wywołać funkcję <strong>reject()</strong>, do której trafią błędne dane.
 </p>
 
-<p>
-Jeszcze mała adnotacja, która siedzi mi w głowie.
-</p>
-<p>
-W internecie znajdziesz setki tutoriali pokazujących najnowsze techniki. A to funkcja strzałkowa, a to jak korzystać z async i await, a to jak robić połączenia fetchem czy chociażby zastosowanie modułów. Małe, konkretne, piękne - jak mój pies (a i od niedawna też kot).
-</p>
-<p>
-Na grupach facebookowych w dyskusjach znajdziesz jeszcze szybciej takie techniki.
-</p>
-<p>
-Tutaj pojawia pewna sprawa, który dotyczy nie tylko JavaScript, ale i całego frontendu. Bardzo często przy takich nowoczesnych tutorialach czy poradach autorzy nie zwracają uwagi na bardzo ważną rzecz - a mianowicie na to, że dobór techniki <strong>zawsze zależy od danego projektu</strong>. To są w końcu rzeczy oczywiste.<br>
-No właśnie nie do końca. To są rzeczy oczywiste - dla nas - osób, które w tej branży siedzą już kilkanaście lat. Ale czy dla osoby zaczynającej?
-</p>
-<p>
-Jeżeli robisz bloga o nowinkach z dziedziny frontentu, raczej możesz założyć, że większość użytkowników będzie korzystała z najnowszych przeglądarek, a więc i możesz używać najnowszych rozwiązań (chociaż najlepiej było by spojrzeć w statystyki Google Analitics które można podpiąć pod stronę).<br>
-Jeżeli jednak robisz stronę dla emerytowanych nauczycieli, czy dla przykładu olbrzymi sklep z którego będą korzystali różnorodni użytkownicy z różnorodnych krajów, wtedy rzucanie się na najnowsze rozwiązania będzie strzałem w stopę.
-</p>
-<p>
-Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie CSS Grid, a czasami nawet flexbox może okazać się czymś, czego użyć nie możesz. Czasami spokojnie będziesz mógł używać najnowszej wersji JavaScript, a czasami będziesz musiał pozostać przy starszej. A jeżeli będziesz musiał pozostać przy starszej, wtedy albo będziesz pisał JavaScript trzymając się klasycznych rozwiązań, albo skorzystasz z narzędzi zamieniających twój kod na starszy zapis.
-</p>
-<p>Autorzy tutoriali często zapominają o tym, że dla początkującej osoby istnieje po prostu JavaScript. Osoby takie często nie zdają sobie sprawy, że nie wszystko w JavaScript można dowolnie używać, nie wiedzą gdzie szukać informacji które przeglądarki co wspierają, jakich narzędzi używać do zamiany kodu i po co w ogóle to robić.</p>
-<p>W kursie tym staram się trzymać klasycznego JavaScript. Jasne - im więcej wiedzy zdobędziesz, im bardziej będziesz rozbudowywał swój warsztat, tym będziesz stosował coraz nowsze i lepsze techniki pisania kodu. A wtedy - tak jak to już pisałem powyżej - będziesz się śmiał z tego kursu. Póki co polecam po prostu uczyć się JavaScript.</p>
+<img src="./promise.png" alt="Promise" class="space">
 
-<a href="./co-to-jest-javascript.php" class="button">To co? Zaczynamy?...</a>
+<p>
+Po stworzeniu nowej instancji Promise, w pierwszym momencie zwracany jest obiekt, który początkowo ma właściwości state ustawioną na "pending" oraz właściwość value, która początkowo wynosi undefined.</p>
+
+<img src="./promise-pending.png" alt="Promise pending" class="space border">
+
+<p>W momencie zakończenia wykonywania Promise dana obietnica przechodzi w stan "settled" (ustalony/załatwiony) i zostaje zwrócony jakiś wynik. Status takiego promise przełączany jest odpowiednio w "fulfilled" lub "rejected", a do odpowiedniej funkcji (resolve/reject)przekazywany jest poprawny lub błędny wynik.</p>
+
+<img src="./promise-resolve.png" alt="Promise resolve" class="space border">
+
+<p>Od tego momentu możemy skorzystać z dodatkowych metod (np. then()), które służą do reakcji na zakończenie danego Promise. Będziemy omawiać je poniżej.</p>
+
+<pre><code class="language-js">
+//zwykła funkcja też może zachowywać się jak kod asynchroniczny
+function getCat(name) {
+    const catName = `Kot ${name}`;
+    return Promise.resolve(catName)
+}
+
+getCat("Maciek").then(res => {
+    console.log(res);
+})
+</code></pre>
+
+<pre><code class="language-js">
+const loadData = function() {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => { //w ramach testu symulujemy opóźnienie wczytywania
+            if (result.ok) {
+                resolve(result.data);
+            } else {
+                reject(new Error("Błędne dane"));
+            }
+        }, 2000);
+    });
+}
+
+
+loadData().then(
+    result => console.log(result),
+    error => console.error(error);,
+)
+</code></pre>
+
+<p>Powyższe listingi to oczywiście tylko rozważanie.<br>
+   Bardziej praktyczny przykład - czyli pobieranie danych z serwera za pomocą <a href="../ajax/xmlhttprequest.php">XMLHTTPRequest</a> może mieć postać:</p>
+
+<pre><code class="language-js">
+const loadData = function() {
+    return new Promise((resolve, reject) {
+        const xhr = new XMLHttpRequest();
+        xhr.open("GET", 'https://jsonplaceholder.typicode.com/posts');
+        xhr.addEventListener('load', () => resolve(xhr.responseText));
+        xhr.addEventListener('error', () => reject(new Error(xhr.statusText)));
+        xhr.send();
+    });
+};
+
+loadData.then(
+    result => console.log(result),
+    error => console.error(error);,
+)
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="then">Promise.then()</h2>
+<p>Po rozwiązaniu Promise możemy zareagować na jego wynik. Służą do tego dodatkowe metody. Pierwszą z tych metod jest <strong>then()</strong>. Pozwala ona reagować zarówno na pozytywne rozwiązanie obietnicy, negatywne jak i oba na raz:</p>
+
+<pre><code class="language-js">
+//z użyciem funkcji strzałkowej
+const loadData = () => new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", 'https://jsonplaceholder.typicode.com/posts');
+    xhr.addEventListener('load', () => resolve(xhr.responseText));
+    xhr.send();
+});
+
+loadData().then(result => {
+    //Promise zakończyło się pozytywnie
+});
+</code></pre>
+
+<pre><code class="language-js">
+const loadData = () => new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", 'https://jsonplaceholder.typicode.com/posts');
+    xhr.addEventListener('load', () => resolve(xhr.responseText));
+    xhr.addEventListener('error', () => reject(new Error(xhr.statusText));
+    xhr.send();
+});
+
+loadData().then(
+    null, //nie interesuje nas pozytywne rozwiązanie
+    error => console.error(error)
+);
+</code></pre>
+
+<pre><code class="language-js">
+const loadData = () => new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", 'https://jsonplaceholder.typicode.com/posts');
+    xhr.addEventListener('load', () => resolve(xhr.responseText));
+    xhr.addEventListener('error', () => reject(new Error(xhr.statusText)));
+    xhr.send();
+});
+
+loadData().then(
+    result => console.log(result),
+    error => console.error(error)
+);
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="catch">.catch()</h2>
+<p>Promise może zwracać odpowiedź pozytywną (resolve) lub negatywną (reject). Do reakcji na negatywną odpowiedź możemy albo użyć tak jak powyżej drugiego parametru funkcji then(), albo metody <strong>catch()</strong>. Patrząc po filmach na youtube metoda ta jest stosowana nawet częściej niż pokazana powyżej:.
+</p>
+
+<pre><code class="language-js">
+const loadData = () => new Promise((resolve, reject) {
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", 'https://jsonplaceholder.typicode.com/posts');
+    xhr.addEventListener('load', () => resolve(xhr.responseText));
+    xhr.addEventListener('error', () => reject(xhr.statusText));
+    xhr.send();
+});
+
+loadData().then(
+    null,
+    error => console.error(error)
+);
+
+loadData()
+.then(result => { ... })
+.catch(error => console.error(error));
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="all">Promise.all()</h2>
+<p>Podobnych funkcji asynchronicznych jak powyższa readData() może być więcej - np. w przypadku gdy chcemy pobrać dane z kilku źródeł. Bardzo często resztę kodu chcielibyśmy wykonać <strong>dopiero po zakończeniu działania ich wszystkich</strong>. Aby poczekać na zakończenie wszystkich wskazanych promisów użyjemy metody <strong>Promise.all()</strong> do której przekażemy tablicę zawierającą nasze promisy:</p>
+
+<pre data-line="17"><code class="language-js">
+function checkData1() {
+    return new Promise((resolve, reject) => {
+        setTimeout(function() {
+            resolve('OK1');
+        }, 1000)
+    });
+}
+
+function checkData2() {
+    return new Promise((resolve, reject) => {
+        setTimeout(function() {
+            resolve('OK2');
+        }, 2000)
+    });
+}
+
+
+Promise.all([
+    checkData1(),
+    checkData2()
+])
+.then(resp => {
+    console.log(resp); //["OK1", "OK2"]
+    console.log(resp[0]); //OK1
+    console.log(resp[1]); //OK2
+});
+</code></pre>
+
+<p>Innym ciekawym zastosowaniem Promise.all jest wykorzystanie go z mapą.
+W poniższym przykładzie mapa zwraca nam nową tablicę z funkcjami getUserData, które zwracają promisy. Pasuje więc idealnie:</p>
+
+<pre><code class="language-js">
+const usersId = [1,2,3,4,5,6];
+
+function getUserData(el) {
+    return fetch(`https://jsonplaceholder.typicode.com/users/${el}`).then(res => res.json())
+}
+
+Promise.all(usersId.map(getUserData))
+    .then(res => console.log(res));
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="race">Promise.race()</h2>
+<p>Jeżeli powyższa metoda Promise.all() czekała na zakończenie wszystkich obietnic, tak metoda
+<strong>race()</strong> zwróci <strong>pierwszy zakończony promise</strong>:</p>
+
+<pre data-line="5,13,17"><code class="language-js">
+function checkData1() {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve('OK1');
+        }, 2000)
+    });
+}
+
+function checkData2() {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve('OK2');
+        }, 1000)
+    });
+}
+
+Promise.race([
+    checkData1(),
+    checkData2()
+])
+.then(resp => {
+    console.log(resp); //OK2
+});
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="finally">Promise.finally()</h2>
+<p>
+    Jeżeli interesowałeś się rozdziałem związanym z <a href="../jquery/jquery-ajax.php">AJAX w jQuery</a>,
+    pewnie pamiętasz funkcja .done(), .fail() i .always().
+</p>
+<p>I tak funkcja <strong>done()</strong> odpalana jest po pozytywnym zakończeniu połączenia, metoda <strong>fail()</strong> odpalana jest w momencie błędu, a metoda <strong>always()</strong> odpalana jest po zakończeniu połączenia - nieważne czy zakończyło się pozytywnie czy negatywnie.</p>
+<p>Porównując to do powyższych kodów, done() to taki nasz then(), fail() to catch(), ale gdzie podział się always()?</p>
+<p>W wersji Ecmascript 2018 wprowadzono nową funkcję <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/finally">finally()</a>, która jest odpowiednikiem właśnie funkcji always() w jQuerowym Ajax, co oznacza że odpalana jest po zakończeniu Promise, bez względu czy zakończyło się powodzeniem czy nie.</p>
+
+<pre><code class="language-js">
+btn.classList.add("loading"); //do buttony dodajemy loading
+btn.disabled = true; //i go wyłączamy
+
+fetch('....')
+.then(res => res.json())
+.then(res => console.log(res))
+.catch(err => alert(err))
+.finally(() => {
+    btn.classList.remove("loading");
+    btn.disabled = false;
+});
+</code></pre>
+
+<!-- ### -->
+<h2 class="subtitle" id="lancuchowe-odpowiedzi">Łańcuchowe odpowiedzi</h2>
+<p>Jeżeli dana funkcja zwróci nowy promise, możemy na niej wykonać jedną z powyższych metod czyli then, catch itp.</p>
+
+<p>Rozważmy powyższy przykład. Każda z funkcji zwraca nowy Promise, więc możemy na niej wykonać then. Jeżeli w takim then znowu zwrócimy Promise, możemy znowu wykonać kolejne then.</p>
+<pre><code class="language-js">
+function checkData1() {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => resolve('OK1'), 2000);
+    });
+}
+
+function checkData2() {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => resolve('OK2'), 2000);
+    });
+}
+
+function checkData3() {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => resolve('OK3'), 2000);
+    });
+}
+
+checkData1()
+.then(res => checkData2())
+.then(res => checkData3())
+.then(resp => {
+    console.log(resp); //OK3
+});
+</code></pre>
+
+<p>Co ciekawe samo then() zwraca nam promise, więc możemy je łączyć w łańcuchy bez potrzeby tworzenia specjalnych funkcji jak powyżej:</p>
+
+<pre><code class="language-js">
+new Promise((resolve, reject) => setTimeout(() => {
+    resolve(10);
+}, 2000))
+.then(num => {
+    console.log('first then: ', num);
+    return num * 2;
+})
+.then(num => {
+    console.log('second then: ', num);
+    return num * 2;
+})
+.then(num => {
+    console.log('last then: ', num);
+});
+</code></pre>
+
+<p>Jeżeli któraś z powyższych funkcji then zwróci normalną wartość (string, numer, boolean itp), zostanie ona potraktowana jako resolve tej funkcji.<br> Jeżeli jednak któraś z tych funkcji then wyrzuci taką wartość za pomocą throw, wtedy zostanie to potraktowane jako reject:</p>
+
+<pre><code class="language-js">
+new Promise((resolve, reject) => setTimeout(() => {
+    resolve(10);
+}, 2000))
+.then(num => {
+    console.log('first then: ', num);
+    return num * 2;
+})
+.then(num => {
+    console.log('second then: ', num);
+    throw num * 2;
+})
+.then(num => {
+    //to się nie wykona, bo powyżej został zwrócony reject
+    console.log('last then: ', num);
+})
+.catch(error => {
+    //to się wykona bo reagujemy na reject
+    console.warn('Błąd', error);
+})
+</code></pre>
+
+<p>Powyższe łączenie then będziesz stosował przy np. ściąganiu danych za pomocą <a href="../ajax/fetch.php">fetch</a>, które też zwraca promise:</p>
+
+<pre><code class="language-js">
+fetch('....')
+    .then(res => res.json())
+    .then(res => {
+        console.log(res);
+    })
+</code></pre>
 
 			</div><!-- e: page-content-text -->
 			<footer class="page-footer">
@@ -165,13 +548,13 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
                 </h3>
             </div>
 
-						<div class="page-sidebar-section show has-active-element">
+						<div class="page-sidebar-section ">
 				<h3 class="page-sidebar-section-title">
 					<a href="#">Słowem wstępu</a>
 				</h3>
 				<div class="page-sidebar-list-cnt">
 					<ul class="page-sidebar-list">
-						<li class="active">
+						<li >
 							<a href="/kurs/wstep/wstep.php">Wstęp</a>
 						</li>
 						<li >
@@ -379,7 +762,7 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
 				</div>
 			</div>
 
-						<div class="page-sidebar-section ">
+						<div class="page-sidebar-section show has-active-element">
 				<h3 class="page-sidebar-section-title">
 					<a href="#">Nowy Javascript</a>
 				</h3>
@@ -409,7 +792,7 @@ Wszystko zależy od założeń projektowych. Czasami dobrym okaże się użycie 
 						<li >
 							<a href="/kurs/es6/class.php">Klasy w ES6</a>
 						</li>
-						<li >
+						<li class="active">
 							<a href="/kurs/es6/promises.php">Promises</a>
 						</li>
 						<li >

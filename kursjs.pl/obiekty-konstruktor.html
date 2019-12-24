@@ -1,0 +1,1201 @@
+<!doctype html>
+<html lang="pl-PL">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kurs Javascript - Obiekty - konstruktor</title>
+	<meta name="description" content="Kurs Javascript dla superbohaterów, artykuły, tutoriale, porady, zadania do wykonania" />
+    <link rel="canonical" href="https://kursjs.pl/kurs/obiekty/obiekty-konstruktor.php" />
+	<link rel="stylesheet" href="./css.css" />
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,700&display=swap&subset=latin-ext" rel="stylesheet">
+	<meta name="image" content="https://kursjs.pl/kursjs.png">
+<meta name="twitter:card" content="product">
+<meta name="twitter:site" content="@publisher_handle">
+<meta name="twitter:title" content="Kurs Javascript">
+<meta name="twitter:description" content="Kurs Javascript dla superbohaterów">
+<meta name="twitter:creator" content="@kartofelek007">
+<meta name="twitter:image" content="https://kursjs.pl/kursjs.png">
+<meta property="og:title" content="Kurs Javascript">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.kursjs.com/">
+<meta property="og:image" content="https://kursjs.pl/kursjs.png">
+<meta property="og:description" content="Kurs Javascript dla superbohaterów">
+<meta property="og:site_name" content="Kurs Javascript">
+<link rel="apple-touch-icon" sizes="57x57" href="/favicons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/favicons/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/favicons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/favicons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/favicons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/favicons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/favicons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/favicons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="/manifest.json">
+<meta name="msapplication-TileColor" content="#FF6347">
+<meta name="msapplication-TileImage" content="/mstile-144x144.png">
+    <script src="/js/jquery.min.js"></script>
+</head>
+<body>
+
+<div class="page-container" id="pageContainer">
+	<div class="page-content-wrapper">
+        <main class="page-content" id="mainContent"  data-text-for-print="Kurs Javascript dla superbohaterów">
+                        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <div class="rekl-cnt">
+                <ins
+                class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-6843603045703750"
+                data-ad-slot="4690777640"
+                data-ad-format="auto"
+                data-full-width-responsive="true"
+                ></ins>
+            </div>
+                        <div class="page-content-text">
+
+<h1 class="page-title">Obiekty - konstruktor</h1>
+<!-- ### -->
+<p>
+    Przypuśćmy, że zamiast pojedynczych niepowiązanych z sobą instancji, chcemy utworzyć kilka "podobnych obiektów" - np. obiektów typu Enemy.<br>
+    Każdy obiekt takiego typu powinien zachowywać się podobnie - czyli posiadać podobne właściwości i metody np. name, surname, width, height i printDetails(), attack() itp.
+</p>
+
+<p>
+    Aby stworzyć grupę podobnych obiektów, możemy posłużyć się tak zwaną <strong>klasą obiektu</strong>.
+    Czym jest klasa? To rodzaj foremki, wydmuszki, która opisuje nam jak będą wyglądać i jak będą się zachowywać tworzone na jej podstawie nowe obiekty.
+</p>
+
+<p>
+    Tak to wygląda przynajmniej w innych językach. W JavaScript powyższy mechanizm początkowo został wymyślony nieco inaczej, bo zamiast klas używamy tutaj konstruktorów - których role pełnią zwykłe funkcje.<br>
+    <a href="../es6/class.php">W nowych wersjach JS</a> została wprowadzona składnia class, która jest nakładką na klasyczny mechanizm konstruktorów i prototypów, dzięki czemu kod jest upodobniony do zapisu klas z innych języków. Nowy zapis jest tak zwanym "syntatic sugar", czyli nakładką, która w zasadzie mocno ułatwia zapis.<br>
+    Zanim jednak poznamy klasy, warto zapoznać się z klasycznym podejściem by wiedzieć, co w zasadzie dzieje się pod przykrywką nowego zapisu.
+</p>
+
+<!-- ### -->
+<h2 class="subtitle" id="constructor">Tworzenie konstruktora</h2>
+<p>Stwórzmy przykładowy konstruktor, na bazie którego stworzymy nowe obiekty:</p>
+
+<pre><code class="language-js">
+function Car(brand, color) {
+    this.age = 0;
+    this.brand = brand;
+    this.color = color;
+
+    this.print = function() {
+        console.log(this.brand + ' koloru ' + this.color);
+    }
+}
+</code></pre>
+
+<p id="konstruktor-duza-litera">Konstruktor to zwykła funkcja, pisana z wielkiej litery. Ta wielka litera to tylko konwencja nazewnicza mówiąca nam, że na bazie tej funkcji będą w przyszłości tworzone nowe obiekty i raczej nie powinniśmy tej funkcji używać do czegoś innego.</p>
+
+<p>Aby teraz utworzyć nowe obiekty na bazie tego konstruktora skorzystamy ze słowa kluczowego <strong>new</strong>:</p>
+
+<pre><code class="language-js">
+//tworzymy 2 obiekty na bazie konstruktora
+
+const car1 = new Car("Fiat", "czerwony");
+car1.print(); //Fiat koloru czerwony
+
+const car2 = new Car("BMW", "czarny");
+car2.print(); //BMW koloru czarny
+</code></pre>
+
+<p>Właściwości, które chcemy by były podawane przy tworzeniu obiektu podajemy jako parametry konstruktora. Cała reszta właściwości ustawiana jest po prostu na sztywno.<br>
+Wszystkie właściwości, które chcemy by stały się właściwościami przyszłych obiektów musimy podawać z wykorzystaniem słowa this. Zmiennie dodatkowe służące do dodatkowych wyliczeń tworzymy klasycznie za pomocą let, const czy var. To samo będzie się tyczyło metod.</p>
+
+<pre><code class="language-js">
+function Car(name, age, speed) {
+    this.name = name;
+    this.age = age;
+
+    let risk = "small";
+    if (age > 8 && age <= 15) {
+        risk = "average";
+    } else if (age > 15) {
+        risk = "big"
+    }
+
+    this.status = risk;
+}
+
+const car1 = new Car("Fiat", 10, 120);
+console.log(car1); {name: "Fiat", age: 10, status : "average"}
+</code></pre>
+
+<div class="kartofel-informuje">
+    <p>
+        Powyżej stworzyliśmy konstruktor dla obiektów własnego typu. Podobnie można też postępować z typami, które już poznałeś.<br>
+        Do tej pory tworzyliśmy zmienne typu string, number, boolean, array jako literały (literał - skrócony zapis). Każdy taki typ możemy stworzyć też za pomocą odpowiednich konstruktorów. I tak string możemy utworzyć poprzez new String(), wartości boolowskie przez new Boolean(), numery przez new Number(), a tablice przez konstruktor tablic czyli new Array().
+    </p>
+
+    <pre><code class="language-js">
+    const txt = new String("Ala ma kota");
+    const nr = new Number(23);
+    const bool = new Boolean(true);
+    </code></pre>
+
+    <p>
+        Metody te przydają się raczej w nielicznych sytuacjach, a w codziennej pracy nie są raczej zalecane.<br>
+        Raz - wydłuża to zapis. Dwa - zwiększa obciążenie pamięci. Normalnie typy proste są proste i tylko w sytuacji użycia na nich jakiś metod czy właściwości (np. length) na chwilę są konwertowane przez JavaScript na obiekty, a potem od razu przywracane do typów prostych. W powyższym przykładzie wszystkie zmienne non stop są obiektami. Po trzecie - używanie konstruktorów dla takich prostych typów może dodatkowo powodować nieoczekiwane rezultaty w działaniu skryptów:
+    </p>
+
+    <pre><code class="language-js">
+    const txt = "Ala ma kota";
+    console.log(typeof txt); //"string";
+
+    const txt2 = new String("Ala ma kota");
+    console.log(typeof txt2); //"object";
+
+
+    const bool = true;
+    console.log(typeof bool); //"boolean";
+
+    const bool2 = new Boolean(true);
+    console.log(typeof bool2); //"object";
+    </code></pre>
+
+    <p>Zamiast tych konstruktorów wybieraj klasyczne skrócone deklaracje (które używałeś do tej pory).</p>
+</div>
+
+<!-- ### -->
+<h2 class="subtitle" id="prototype">Prototyp</h2>
+<p>Stworzyliśmy konstruktor i za pomocą słowa kluczowego <strong>new</strong> na jego bazie stworzyliśmy 2 samochody.</p>
+<p>Słowo kluczowe <strong>new</strong> jest bardzo ważnym słowem.</p>
+
+<p>
+    Zanim zrozumiemy jego wagę, wypiszmy na chwilę w konsoli wcześniej utworzoną funkcję:
+</p>
+
+<pre data-line="11"><code class="language-js">
+function Car(brand, color) {
+    this.age = 0;
+    this.brand = brand;
+    this.color = color;
+
+    this.print = function() {
+        console.log(this.brand + ' koloru ' + this.color );
+    }
+}
+
+console.dir(Car);
+</code></pre>
+
+<p>
+    <img src="./function-prototype.png" alt="Funkcja prorotyp" class="space border">
+</p>
+
+<p>Nasz konstruktor ma automatycznie dodaną przez JavaScript właściwość <strong>prototype</strong>. Właściwość ta wskazuje na obiekt, który stanie się w przyszłości prototypem obiektów tworzonych na bazie naszego konstruktora.</p>
+
+<p>
+I teraz właśnie wkracza na ring słowo kluczowe <strong>new</strong>. Jeżeli za jego pomocą utworzymy nowy obiekt, JavaScript po pierwsze ustawi takiemu obiektowi prototyp biorąc go właśnie z właściwości prototype naszego konstruktora (na ten obiekt będą wskazywać __proto__ nowych obiektów), a dodatkowo zmieni kontekst słowa <strong>this</strong>, które od tego momentu będzie wskazywać na daną instancję obiektu, a nie na obiekt globalny window.
+</p>
+
+<p>Czyli JavaScript za naszymi plecami wykona mniej więcej taki kod:</p>
+
+<pre><code class="language-js">
+const car1 = {} //tworzy pusty obiekt
+car1.__proto__ = Car.prototype; //ustawia jego prototyp
+Car.call(car1, "Fiat", "czerwony"); //wywołanie funkcji call z ustawieniem w jej wnętrzu this na dany obiekt
+</code></pre>
+
+<p>Sprawdźmy na przykładzie:</p>
+
+<pre data-line="11-12"><code class="language-js">
+function Car(brand, color) {
+    this.age = 0;
+    this.brand = brand;
+    this.color = color;
+
+    this.print = function() {
+        console.log(this.brand + ' koloru ' + this.color );
+    }
+}
+
+const car1 = new Car("Fiat", "czerwony");
+console.log(car1.__proto__ === Car.prototype) //true
+</code></pre>
+
+<p>A co się stanie gdy słowo new pominiemy? Konstruktor funkcji zostanie odpalony jak zwykła funkcja, a this nie będzie wskazywał na instancję obiektu a na obiekt window (albo undefined gdy używamy <a href="../super-podstawy/strict-mode.php">"strict mode"</a>):</p>
+
+<pre><code class="language-js">
+const Test = function() {
+    console.log(this);
+}
+
+const test1 = Test("Fiat", "czerwony"); //Window
+
+const test2 = new Test("BMW", "czarny"); //MiniCar
+</code></pre>
+
+<p>
+    Gdy teraz zbadamy nasze obiekty w konsoli, pokaże się coś takiego:
+</p>
+
+<p>
+    <img src="./proto2.png" alt="prototyp z debugera 2" class="border space">
+</p>
+
+<p>
+    Nasz nowy obiekt ma właściwości brand, color, metodę print oraz dodaną przez JavaScript właściwość __proto__,
+    która wskazuje na prototyp brany z konstruktora.<br>
+</p>
+
+<p id="prototype-almost-empty">
+    Początkowo ten prototyp jest praktycznie pusty, bo ma w sobie tylko 2 właściwości:<br>
+    <strong>constructor</strong>, który wskazuje na funkcję za pomocą której został stworzony nasz obiekt, oraz ... <strong>__proto__</strong>, który wskazuje na prototyp "nadrzędny" (w naszym przypadku będzie to już prototyp Object).
+</p>
+
+<img src="./proto3.png" alt="Prototyp 3" class="border space">
+
+<p>
+    Po co nam ta wiedza? Powyższy prototyp jest obiektem, więc możemy go zmieniać tak samo jak to robiliśmy z pojedynczymi obiektami w poprzednich rozdziałach.<br><br>
+    Co nam to daje? Zanim to wyjaśnimy, mini powtórka z poprzednich działów.
+</p>
+<p>
+    Wracamy do początkowej lekcji.<br>
+    W JavaScript dane dzielą się na dwa typy - <a href="../super-podstawy/typy-danych.php">proste i referencyjne</a>. Pamiętasz czym się one charakteryzują?<br>
+</p>
+
+<p>
+    Typy proste trzymają w sobie dane bezpośrednio (można powiedzieć, że są to pojedyncze kopie danych). Typy referencyjne (obiekty) wskazują miejsce w pamięci gdzie dany obiekt się mieści.<br>
+    Oznacza to, że jeżeli dwie i więcej zmiennych wskazuje na dany obiekt, to wszystkie one są "tym samym" i wskazują ten sam obiekt - jeżeli w jednej zmiennej usuniemy lub dodamy temu obiektowi jakąś właściwość lub metodę, to zrobimy to we wszystkich zmiennych, które wskazują na ten obiekt.
+</p>
+
+<p id="prototyp-po-co">
+    Wszystkie obiekty stworzone na bazie danego konstruktora za pomocą właściwości __proto__ wskazują na ten sam obiekt prototyp.<br>
+    Jeżeli kiedykolwiek zmienimy w tym obiekcie cokolwiek, zmieni się to <strong>dla wszystkich instancji</strong> już stworzonych i tworzonych w przyszłości na bazie tego konstruktora.
+</p>
+
+<pre><code class="language-js">
+function Car(brand, color) {
+    this.brand = brand;
+    this.color = color;
+}
+
+//tworzę nowe obiekty
+const car1 = new Car("Fiat", "czerwony");
+const car2 = new Car("BMW", "czarny");
+
+//dodajemy nowe właściwości i metody
+Car.prototype.print = function() {
+    console.log(this.brand + ' koloru ' + this.color);
+}
+
+car1.print(); //Fiat koloru czerwony
+car2.print(); //BMW koloru czarny
+</code></pre>
+
+<p>
+    Spójrzmy jeszcze na dwa przykłady:
+</p>
+
+<pre><code class="language-js">
+function Hero(name, age, power) {
+    this.name = name;
+    this.age = age;
+    this.power = power;
+}
+
+Hero.prototype.kind = "human";
+Hero.prototype.fly = function() {
+    return "Latam sobie w koło";
+}
+Hero.prototype.sayHello = function() {
+    return "Nazywam się " + this.name + " i jestem superbohaterem";
+}
+
+const hero = new Hero("Superman", 30, "Ultra Instynkt");
+hero.sayHello();
+</code></pre>
+
+<p>
+    i kolejny przykład. Tym razem nie będę dodawał do prototypu pojedynczych metod, a ustawię pod niego cały nowy obiekt:
+</p>
+
+<pre id="prototyp-jako-nowy-obiekt"><code class="language-js">
+function SuperHero(name) {
+    this.name = name;
+}
+
+//inna metoda ustawiania prototypu
+//czy lepsza? Nie koniecznie. Zapomnieliśmy o jednej właściwości - constructor
+SuperHero.prototype = {
+    speed : "uber",
+    strength : "big",
+    action : function() {
+        return "Ratowanie świata";
+    }
+}
+</code></pre>
+
+<p id="oszczednosc-zasobow">
+    Bardzo ważna rzecz wynikająca z zastosowania prototypów to oszczędność zasobów.
+    Wyobraź sobie, że tworzymy obiekt w taki sposób:
+</p>
+
+<pre><code class="language-js">
+function Helicopter(name) {
+    this.name = name;
+    this.ammo = 2000;
+    this.rockets = 16;
+    this.attack = function() {
+        this.ammo -= 100;
+        this.rocket -= 2;
+
+        console.log(`
+            Helikopter: ${this.name} atakuje
+            Pozostało amunicji: ${this.ammo}
+            Pozostało rakiet: ${this.rockets}
+        `);
+    }
+}
+
+const army = [];
+for (let i=0; i&lt;=1000000; i++) {
+    const heli = new Helicopter("Apache" + i);
+    army.push(heli);
+}
+</code></pre>
+
+<p>Jeżeli teraz stworzymy na takiej bazie 1000000 obiektów,
+   to będziemy mieli <a href="https://youtu.be/S8qmuTIqsZk?t=30s">1000000 różnych właściwości name, 1000000 różnych właściwości ammo, rockets</a> i uwaga - tyle samo duplikatów metody attack, która przecież za każdym razem będzie taka sama (jej kod się nie zmienia, zmienia się tylko obiekt na który wskazuje this).</p>
+
+<p>Jeżeli jednak zawrzemy ją w prototypie - tym samym obiekcie dla wszystkich instancji naszych obiektów - to ta metoda będzie występować tylko w jednym miejscu w pamięci - w obiekcie prototypu.</p>
+
+<pre><code class="language-js">
+function Helicopter(name) {
+    this.name = name;
+    this.ammo = 2000;
+    this.rockets = 16;
+}
+
+Helicopter.prototype.attack = function() {
+    this.ammo -= 100;
+    this.rocket -= 2;
+
+    console.log(`
+        Helikopter: ${this.name} atakuje
+        Pozostało amunicji: ${this.ammo}
+        Pozostało rakiet: ${this.rockets}
+    `);
+}
+
+const army = [];
+for (let i=0; i&lt;=1000000; i++) {
+    const heli = new Helicopter("Apache" + i);
+    army.push(heli);
+}
+</code></pre>
+
+<img src="./helicopters.png" alt="helikoptery" class="space">
+
+<p id="getPrototypeOf">Pobierzmy powyższy prototyp korzystając z metody <strong>Object.getPrototypeOf(obj)</strong> i sprawdźmy:</p>
+
+<pre><code class="language-js">
+army[0].__proto__.attack === army[1000000].__proto__.attack //true
+
+Object.getPrototypeOf(army[0]).attack === Object.getPrototypeOf(army[1000000]).attack; //true
+</code></pre>
+
+<img src="./user-prototype.png" alt="" class="border space">
+
+<div class="kartofel-informuje" id="proto-w-specyfikacji">
+    Właściwość __proto__ jest ogólnie trochę kontrowersyjną właściwością. Mimo tego, że <strong>nie występuje w specyfikacji</strong> większość przeglądarek i tak zaimplementowało tą właściwość. Dla zapewnienia kompatybilności z przeglądarkami została wprowadzana do specyfikacji w EcmaScript 2015. Jest kilkanaście takich momentów w dziejach JavaScript i CSS, gdzie ewolucja poszła inną drogą niż chcieli autorzy (np. @media, html outline itp). W oryginalnej specyfikacji właściwość __proto__ widnieje pod nazwą [[Prototype]].<br>
+    W dzisiejszych czasach najbezpieczniej odwoływać się do prototypu za pomocą metody <strong>Object.getPrototypeOf(obj)</strong> zamiast bezpośrednio poprzez __proto__
+</div>
+
+<!-- ### -->
+<h2 class="subtitle" id="o-prototypie-ciut-więcej">O prototypie ciut więcej</h2>
+<p>
+    Pozostańmy jeszcze na chwilę w temacie prototypu.
+</p>
+
+<p>Jeżeli dodamy do siebie różne typy danych, czasami wychodzą nam dziwne rzeczy:</p>
+
+<pre><code class="language-js">
+const txt = "ala";
+const nr = 99;
+const tab = [1,2,3];
+const ob = {name : "Marcin"};
+
+console.log(txt + nr); //ala99
+console.log(tab + nr); //1,2,399
+console.log(tab + ob); //1,2,3[object Object]
+console.log(ob + txt); //[object Object]ala
+</code></pre>
+
+<p>
+    Dodając do siebie różne typy, JavaScript sprawdza czy powinien zamienić daną zmienną na string. Jeżeli taka konwersja jest konieczna, robi to. I tak dodając do stringa liczbę, uzyskujemy nowy string.
+</p>
+
+<p>
+Ciekawa rzecz dzieje się gdy konwersji na string są poddawane tablice i obiekty. Tablica zamienia się na kolejne wartości oddzielone przecinkiem, a obiekt na tekst "[object Object]" - co zresztą widać w powyższym kodzie.
+</p>
+
+<p>Czemu tak się dzieje? Do konwersji JavaScript wykorzystuje metodę toString(). No ale przecież przy obiektach i tablicach mamy inny wynik. Dzieje się tak dlatego, że do konwersji na tekst używane są inne wersje metody toString(). Sprawdźmy to:</p>
+
+<pre><code class="language-js">
+const tab = [1,2,3];
+console.dir(tab);
+</code></pre>
+
+<p>
+    <img src="array-prototype.png" class="space border">
+</p>
+
+<pre><code class="language-js">
+const ob = {name : "Marcin"};
+console.dir(ob);
+</code></pre>
+
+<p>
+    <img src="object-prototype.png" class="space border">
+</p>
+
+<p>
+    Tablice są obiektami zbudowanymi na bazie konstruktora Array. Ich właściwości __proto__ wskazują na prototyp w konstruktorze Array, który ma w sobie metodę toString - specjalną jej wersję przystosowaną właśnie dla tablic.
+</p>
+
+<p>
+    Właściwość __proto__ obiektu wskazuje na prototyp wszystkich obiektów. On też ma implementację metody toString - tym razem dla obiektów wszelakich.
+</p>
+
+<p>JavaScript szuka omawianej metody w instancji. Nie znajduje jej tam. Przechodzi wyżej. W przypadku tablic trafia do prototypu tablic i tam znajduje tą metodę. Odpala ją. W przypadku obiektów znajduje ją dopiero w konstruktorze obiektów i dopiero tamtą wersję odpala.</p>
+
+<p>Idąc za ciosem, gdyby nasze obiekty miały własną implementację tej metody, powinna być odpalana właśnie ta implementacja:</p>
+
+<pre><code class="language-js">
+function Human(name, surname) {
+    this.name = name;
+    this.surname = surname;
+}
+Human.prototype.toString = function() {
+    return "[obiekt człowiek]";
+}
+
+const h = new Human("Karol", "Nowak");
+
+console.log("Ala" + h); //ala[obiekt człowiek]
+</code></pre>
+
+<p>Nawet jeżeli nasz typ obiektów ma swoją metodę toString(), każda z instancji może mieć swoją własną wersję:</p>
+
+<pre><code class="language-js">
+function Human(name, surname) {
+    this.name = name;
+    this.surname = surname;
+    //gdyby metoda była tutaj, odpalana była by pierwsza
+}
+Human.prototype.toString = function() {
+    return "[obiekt człowiek]";
+}
+
+const h1 = new Human("Marcin", "Nowak");
+console.log("ala" + h1); //ala[obiekt człowiek]
+
+
+const h2 = new Human("Karol", "Kowalski");
+h2.toString = function() {
+    return "[obiekt ---" + this.name + " ]";
+}
+console.log("ala" + h2); //ala[obiekt --- Karol]
+</code></pre>
+
+
+<!-- ### -->
+<h2 class="subtitle" id="rozszerzanie-domyslnych-typow">Rozszerzanie wbudowanych typów</h2>
+<p>
+    Nie tylko nasze własne typy obiektów możemy modyfikować. Nic nie stoi na przeszkodzie by poruszyć prototypy konstruktorów typów już dostępnych.
+</p>
+
+<p>
+    Możemy więc pokusić się dla przykładu o rozbudowanie stringów:
+</p>
+
+<pre><code class="language-js">
+String.prototype.firstCapital = function() {
+    return this.charAt(0).toUpperCase() + this.substr(1);
+}
+
+String.prototype.mixLetterSize = function() {
+    let text = '';
+
+    for (let i=0; i&lt;this.length; i++) {
+        text += (i % 2 === 0) ? this[i].toUpperCase() : this[i].toLowerCase();
+    }
+
+    return text;
+}
+
+
+const text1 = "marcin";
+console.log(text1.firstCapital()) //wypisze Marcin
+
+const text2 = "marcin";
+console.log(text2.mixLetterSize()) //wypisze mArCiN
+</code></pre>
+
+<p>W ramach testu moglibyśmy też pokusić się o zmianę działania tablic. Co by się stało, gdyby w ich prototypie usunąć metodę toString()?</p>
+
+<pre><code class="language-js">
+console.log("ala" + [1,2,3]) //ala1,2,3
+
+delete Array.prototype.toString;
+
+console.log("ala" + [1,2,3]) //ala[object Array]
+</code></pre>
+
+<p>
+    Pamiętaj też o tym, że nic nie stoi na przeszkodzie by dodawać własne metody nie tylko do prototypów, ale także do pojedynczych instancji które na co dzień używamy:
+</p>
+
+<p>
+    W poniższym przykładzie rozszerzam obiekt Math:
+</p>
+
+<pre><code class="language-js">
+Math.randomBetween = function(min, max) {
+    return Math.floor(Math.random()*(max-min+1)+min);
+}
+
+console.log(Math.randomBetween(10, 20));
+console.log(Math.randomBetween(100, 200));
+</code></pre>
+
+<p>Czy obiekt console:</p>
+
+<pre><code class="language-js">
+console.pretty = function(msg) {
+    //console.log umożliwia zastosowanie znaków formatujących tekst
+    //%c - daje możliwość formatowania tekstu
+    //%s - wstawia w to miejsce tekst przekazany w późniejszych parametrach
+    console.log('%c %s', 'display:block; font: bold 1rem sans-serif; color:tomato;', msg);
+}
+
+console.pretty('Przykładowa wiadomość'); //1. Przykładowa wiadomość
+console.pretty('Inna wiadomość'); //2. Inna wiadomość
+</code></pre>
+
+<div class="kartofel-informuje" id="monkey-patching">
+    <a href="https://developer.mozilla.org/pl/docs/Web/JavaScript/dziedziczenie_lancuch_prototypow#Z%C5%82a_praktyka_Rozszerzanie_natywnych_prototyp%C3%B3w">Powyższe zabawy nie są do końca polecaną praktyką</a> (zwaną potocznie "monkey patching").<br>
+    Wyobraź sobie, że na co dzień bardzo dużo działasz z elementami typu String. I nagle pewnego dnia badasz taki obiekt i się okazuje, że podochodziło do niego mnóstwo nowych metod. Jak to mawiał klasyk - A po co to? A komu to potrzebne? I następuje zdziwienie i konsternacja. Dodatkowo okazuje się, że część metod została nadpisana i działa inaczej niż zwykle. Jasne - można rozwijać obiekty bazowe, ale miej na uwadze, że czasami niektórzy mogą być zmieszani.<br><br>
+    Dodatkowo właśnie przez takie zabawy jakiś czas temu w świecie JavaScript pojawiły się <a href="https://github.com/tc39/proposal-flatMap/pull/56">kontrowersje</a>. Znana biblioteka MooTools rozszerzała wbudowane obiekty o własne metody. W pewnym momencie twórcy JavaScript chcieli wprowadzić swoje metody o podobnych nazwach i nagle zostali postawieni pod ścianą. Gdy wprowadzą dane metody, strony działające na MooTools mogły by przestać działać lub działały by błędnie. Z drugiej strony przez jedną bibliotekę nie mogą prawidłowo rozwijać języka. Bywa różnie...<br><br>
+    Podsumowując ten wywód. Własne typy rozwijaj do woli. Z rozwijaniem wbudowanych typów uważaj. Jeżeli robisz bibliotekę, która ma dogonić popularnością jQuery, raczej bym nie modyfikował natywnych obiektów... Ewentualnie zrobił bym własne typy na bazie tych wbudowanych. Ale o tym ciut poniżej.
+</div>
+
+<div class="tasks-for-you-cnt">
+    <h2 class="subtitle" id="zadania">Trening czyni mistrza</h2>
+    <p>
+        Poniżej zamieszczam kilka zadań, które w ramach ćwiczenia możesz wykonać:
+    </p>
+    <ol class="tasks-for-you">
+        <li>
+            <div class="question">
+                Chcesz stworzyć 3 obiekty typu Car. Każdy samochód powinien mieć ustawione właściwości podawane przy tworzeniu obiektu:
+                - <strong>name</strong> - string,<br>
+                - <strong>brand</strong> - string,<br>
+                - <strong>engine</strong> - string,<br>
+                - <strong>mile</strong> - number,<br>
+                - <strong>age</strong> - number,<br><br>
+                metodę <strong>printDetails()</strong>, która wypisze powyższe właściwości.<br>
+                Wykorzystaj w tym zadaniu prototyp.
+            </div>
+            <div class="solution">
+            <pre><code class="language-js">
+            function Car(name, brand, engine, mile, age) {
+                this.name = name;
+                this.brand = brand;
+                this.engine = engine;
+                this.mile = mile;
+                this.age = age;
+            }
+
+            Car.prototype.printDetails = function() {
+                console.log("Nazwa: " , this.name);
+                console.log("Marka: " , this.brand);
+                console.log("Silnik: " , this.engine);
+                console.log("Przejechane: " , this.mile);
+                console.log("Wiek:" , this.age);
+            }
+
+            const car1 = new Car("Corolla", "Toyota", 1.4, 240000, 15);
+            const car2 = new Car("F10", "BMW", 520, 38000, 2);
+            const car5 = new Car("Mazda III", "Mazda", 1.4, 29000, 2);
+            </code></pre>
+            </div>
+        </li>
+        <li>
+            <div class="question">
+                Stwórz konstruktor Enemy. Każdy obiekt budowany na jego bazie powinien mieć właściwości:<br>
+                - <strong>name</strong> - string - podawane przy tworzeniu - nazwa przeciwnika<br>
+                - <strong>live</strong> - number - ustawione na sztywno na 5<br>
+                - <strong>speed</strong> - number - podawany przy tworzeniu<br>
+                - <strong>attack</strong> - number - podawane przy tworzeniu instancji obiektu<br>
+                - <strong>posX</strong> - number - podawane przy tworzeniu instancji obiektu<br>
+
+                Za pomocą prototypu stwórz metody:<br>
+                - metodę <strong>move()</strong>, która ustawi przeciwnika w nowej pozycji. Pozycję wylicz odejmując od posX szybkość danego obiektu. Funkcja dodatkowo niech wypisze tekst w konsoli "Jestem NNN. Znajduję się na pozycji XXX", w którym wstaw odpowiednie właściwości obiektu.<br>
+                - metodę <strong>attackEnemy()</strong>, która wypisze w konsoli tekst <code>Jestem NNN. Atakuję gracza z pozycji X z siłą XXX</code> wstawiając do niego odpowiednie właściwości obiektu<br>
+                - metodę <strong>hit()</strong>, która odejmie przeciwnikowi jeden punkt życia (live). Dodatkowo niech wypisze w konsoli tekst "Jestem NNN. Mam teraz życia LLL".<br><br>
+
+                Stwórz 2 obiekty typu Enemy. Odpal dla niech kilka razy metodę move(). Odpal dla każdego z nich metodę attack().<br>
+                Dla drugiego z nich odpal 2x metodę hit().
+            </div>
+            <div class="solution">
+                <pre><code class="language-js">
+                    const Enemy = function(name, speed, attack, posX) {
+                        this.name = name;
+                        this.live = 5;
+                        this.speed = speed;
+                        this.attack = attack;
+                        this.posX = posX;
+                    }
+                    Enemy.prototype.printName = function() { //upraszczaj swój kod dodatkowymi metodami
+                        return "Jestem " + this.name + ". "
+                    }
+                    Enemy.prototype.move = function() {
+                        this.posX = this.posX - this.speed;
+                        console.log(this.printName() + "Znajduję się na pozycji " + this.posX);
+                    }
+                    Enemy.prototype.attackEnemy = function() {
+                        console.log(this.printName() + "Atakuję gracza z pozycji " + this.posX + " z siłą " + this.attack);
+                    }
+                    Enemy.prototype.hit = function() {
+                        this.live--
+                        console.log(this.printName() + "Mam teraz życia " + this.live);
+                    }
+
+
+                    const e1 = new Enemy("Enemy1", 4, 10, 250);
+                    e1.move();
+                    e1.move();
+                    e1.move();
+                    e1.attackEnemy();
+
+                    const e2 = new Enemy("Enemy2", 3, 15, 250);
+                    e2.move();
+                    e2.move();
+                    e2.move();
+                    e2.attackEnemy();
+                    e2.hit();
+                    e2.hit();
+                    e2.hit();
+                </code></pre>
+            </div>
+        </li>
+        <li>
+            <div class="question">
+            Rozbuduj obiekty typu String, dodając do ich prototypu metodę <strong>String.sortText(char)</strong>.<br>
+            Powinno się dać ją użyć na dowolnym tekście.<br>
+            Po użyciu powinna ona sortować słowa w danym tekście, a następnie zwracać podobny
+            tekst, tylko posortowany:<br><br>
+
+            <pre><code class="language-js">
+            "Marcin|Ania|Piotrek|Beata".sortText(',');
+
+            output: "Ania|Beata|Marcin|Piotrek"
+            </code></pre>
+
+            Wykorzystaj odpowiednie metody dzielące tekst na tablicę, sortujące tablicę i łączące ją w tekst.
+            </div>
+            <div class="solution">
+                <pre><code class="language-js">
+                    String.prototype.sortText = function(char) {
+                        const tab = this.split(char);
+                        tab.sort();
+
+                        const newStr = tab.join(char);
+                        return newStr;
+                    }
+
+                    console.log("Marcin|Ania|Piotrek|Beata".sortText('|'));
+                </code></pre>
+            </div>
+        </li>
+    </ol>
+</div>
+
+			</div><!-- e: page-content-text -->
+			<footer class="page-footer">
+				<p>
+				Wszelkie prawa zastrzeżone. Jeżeli chcesz używać jakiejś części tego kursu, skontaktuj się z <a href="/kurs/autor.php">autorem</a>.
+				Aha - i ta strona korzysta z <a href="/kurs/polityka-prywatnosci.php">ciasteczek</a>.
+				</p>
+			</footer>
+							<div class="rekl-cnt">
+					<ins
+					class="adsbygoogle" style="margin-top:40px; display:block"
+					data-ad-client="ca-pub-6843603045703750"
+					data-ad-slot="4690777640"
+					data-ad-format="auto"
+					data-full-width-responsive="true"
+					></ins>
+				</div>
+				<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+	(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+					</main><!-- e: page-content -->
+			</div><!-- e: page-content-wrapper -->
+    <aside id="page-sidebar-cnt" class="page-sidebar-cnt">
+	<div id="page-sidebar" class="page-sidebar">
+		<button aria-label="Pokaż/ukryj Menu" aria-expanded="false" aria-controls="page-sidebar" type="button" id="pageSidebarBurger" class="page-sidebar-burger">
+			<span></span>
+		</button>
+
+		<h2 class="visuallyhidden">
+			Menu
+		</h2>
+
+		<button class="sidebar-toggle-btn" title="Pokaż/schowaj menu" aria-hidden="true">
+			<strong>Pokaż/ukryj menu</strong>
+			<span></span>
+			<span></span>
+			<span></span>
+		</button>
+
+		<div class="page-sidebar-title">
+			<a href="/kurs/kontakt.php" title="Nawrzucaj autorowi" class="mail-to-author" id="mailToAuthor">Napisz do mnie</a>
+			<a href="#popupOptions" class="page-setup-link popupOpen" title="Ustawienia strony" id="showOptions">Ustawienia</a>
+			<a href="/index.php" aria-label="Strona główna" class="page-sidebar-title-link">Kurs Javascript</a>
+		</div>
+
+        <form aria-label="Wyszukiwarka" class="search-sidebar" action="/search.php" method="post">
+            <label for="search" class="search-sidebar-label">Szukaj</label>
+            <div class="search-sidebar-input-cnt">
+                <svg class="search-sidebar-input-icon" xmlns="http://www.w3.org/2000/svg" width="26" height="28" viewBox="0 0 26 28" aria-hidden="true">
+                    <path d="M18 13c0-3.859-3.141-7-7-7s-7 3.141-7 7 3.141 7 7 7 7-3.141 7-7zm8 13c0 1.094-.906 2-2 2a1.96 1.96 0 0 1-1.406-.594l-5.359-5.344a10.971 10.971 0 0 1-6.234 1.937c-6.078 0-11-4.922-11-11s4.922-11 11-11 11 4.922 11 11c0 2.219-.672 4.406-1.937 6.234l5.359 5.359c.359.359.578.875.578 1.406z"></path>
+                </svg>
+                <input type="text" id="search" autocomplete="off" name="q" class="search-sidebar-input">
+            </div>
+            <button type="submit" class="search-sidebar-button">Szukaj</button>
+        </form>
+
+		<div class="page-sidebar-table-of-content">
+			<h2 class="visuallyhidden">Spis treści</h2>
+            <div class="page-sidebar-section">
+				<h3 class="page-sidebar-section-title noopen">
+                    <a href="/index.php">Strona główna</a>
+                </h3>
+            </div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Słowem wstępu</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/wstep/wstep.php">Wstęp</a>
+						</li>
+						<li >
+							<a href="/kurs/wstep/co-to-jest-javascript.php">Co to jest JavaScript i z czym go się je?</a>
+						</li>
+						<li >
+							<a href="/kurs/wstep/wymagania.php">Wymagania</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Super podstawy</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/debuger/debuger.php">Debuger</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/pierwszy-skrypt.php">Wstawiamy skrypty na naszą stronę</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/strict-mode.php">Strict mode</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/typy-danych.php">Typy danych i konwersja danych</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/zmienne.php">Zmienne</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/operatory.php">Operatory</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/math.php">Obiekt Math</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/string.php">String - teksty</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/instrukcje-warunkowe.php">Instrukcje warunkowe</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/petle.php">Pętle</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/funkcje.php">Funkcje</a>
+						</li>
+                        <li >
+							<a href="/kurs/super-podstawy/funkcje-tematy-dodatkowe.php">Funkcje - tematy dodatkowe</a>
+						</li>
+						<li >
+							<a href="/kurs/super-podstawy/tablice.php">Tablice</a>
+						</li>
+                        <li >
+							<a href="/kurs/super-podstawy/tablice-iteracje.php">Tablice pętle</a>
+						</li>
+						<li >
+							<a href="/kurs/debuger/debugowanie.php">Debugowanie kodu</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+            			<div class="page-sidebar-section show has-active-element">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Obiekty</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+                        <li >
+							<a href="/kurs/obiekty/obiekty.php">Obiekty i this</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-jak-to-dziala.php">Jak to działa</a>
+						</li>
+                        <li class="active">
+							<a href="/kurs/obiekty/obiekty-konstruktor.php">Konstruktor</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-zaawansowane-this.php">Zaawansowane this</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-dziedziczenie.php">Dziedziczenie w Javascript</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-inne-sposoby-tworzenia.php">Inne sposoby tworzenia obiektów</a>
+						</li>
+                        <li >
+							<a href="/kurs/obiekty/obiekty-instanceof-hasownproperty.php">instanceof i hasOwnProperty</a>
+						</li>
+                    </ul>
+                </div>
+            </div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">DOM i zdarzenia</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/dom/dom.php">Document Object Model</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-wlasciwosci.php">Właściwości elementów</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-relacje.php">Relacje między elementami</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/dom-tworzenie-i-usuwanie.php">Tworzenie i usuwanie elementów</a>
+						</li>
+                        <li >
+                            <a href="/kurs/dom/style.php">Style w CSS</a>
+                        </li>
+						<li >
+							<a href="/kurs/events/events.php">Zdarzenia</a>
+						</li>
+						<li >
+							<a href="/kurs/events/events-keys.php">Zdarzenia - klawisze</a>
+						</li>
+						<li >
+							<a href="/kurs/events/events-mouse.php">Zdarzenia - myszka</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/projekt-todo.php">Projekt TODO</a>
+						</li>
+						<li >
+							<a href="/kurs/dom/slider.php">Tworzymy slider</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Prawie podstawy</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/grafika/grafika-na-stronie.php">Grafika na stronie</a>
+						</li>
+						<li >
+							<a href="/kurs/intervals/intervals.php">setTimeout i setInterval</a>
+						</li>
+						<li >
+							<a href="/kurs/match-media.php">Praca z RWD</a>
+						</li>
+						<li >
+							<a href="/kurs/okna-dialogowe.php">Okienka dialogowe</a>
+						</li>
+						<li >
+							<a href="/kurs/okna.php">Tworzenie nowych okien</a>
+						</li>
+						<li >
+							<a href="/kurs/date/date.php">Obiekt Date</a>
+						</li>
+						<li >
+							<a href="/kurs/date/date-calendar.php">Tworzymy kalendarz</a>
+						</li>
+						<li >
+							<a href="/kurs/cookies/cookie.php">Obiekt Cookie</a>
+						</li>
+						<li >
+							<a href="/kurs/storage/storage.php">Storage</a>
+						</li>
+						<li >
+							<a href="/kurs/regular.php">Wyrażenia regularne</a>
+						</li>
+						<li >
+							<a href="/kurs/formularze/formularze.php">Formularze</a>
+						</li>
+						<li >
+							<a href="/kurs/formularze/formularze-walidacja.php">Formularze - walidacja</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Ajax</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/ajax/ajax.php">AJAX, REST, JSON</a>
+						</li>
+						<li >
+							<a href="/kurs/ajax/xmlhttprequest.php">XMLHttpRequest</a>
+						</li>
+            			<li >
+							<a href="/kurs/ajax/fetch.php">Fetch API</a>
+						</li>
+						<li >
+							<a href="/kurs/ajax/formularz-kontaktowy.php">Dynamiczny formularz kontaktowy</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Nowy Javascript</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/es6/ecma-script-2015.php">ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/webpack.php">Webpack</a>
+						</li>
+                        <li >
+            				<a href="/kurs/es6/obiekty-w-es6.php">Obiekty w ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/funkcja-strzalkowa.php">Funkcja strzałkowa</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/spread-rest.php">Spread i rest</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/template-strings.php">Template strings</a>
+						</li>
+						<li >
+            				<a href="/kurs/es6/destructuring.php">Dekompozycja</a>
+        				</li>
+						<li >
+							<a href="/kurs/es6/class.php">Klasy w ES6</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/promises.php">Promises</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/async-await.php">Async/Await</a>
+						</li>
+						<li >
+							<a href="/kurs/es6/symbole.php">Symbole</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">jQuery</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/jquery/jquery.php">jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/animacje-w-jquery.php">Animacje w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/jquery-ajax.php">Ajax w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/tabs.php">Taby w jQuery</a>
+						</li>
+						<li >
+							<a href="/kurs/jquery/plugin.php">Karuzela w jQuery</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Canvas</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/canvas/canvas.php">Canvas</a>
+						</li>
+						<li >
+							<a href="/kurs/canvas/canvas-images.php">Grafika w canvas</a>
+						</li>
+						<li >
+						<a href="/kurs/canvas/canvas-paint.php">Praktycznie : Paint w canvas</a>
+						</li>
+
+						<li >
+							<a href="/kurs/canvas/canvas-animacja.php">Animacja w canvas</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+						<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Gry</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/gry/hangman/hangman.php">Szubienica</a>
+						</li>
+						<li >
+							<a href="/kurs/gry/memory/memory.php">Memory</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+            			<div class="page-sidebar-section ">
+				<h3 class="page-sidebar-section-title">
+					<a href="#">Inne</a>
+				</h3>
+				<div class="page-sidebar-list-cnt">
+					<ul class="page-sidebar-list">
+						<li >
+							<a href="/kurs/dodatkowe-materialy.php">Dodatkowe materiały</a>
+						</li>
+						<li >
+							<a href="/kurs/faq.php">FAQ</a>
+						</li>
+						<li >
+							<a href="/kurs/polityka-prywatnosci.php">Polityka prywatności</a>
+						</li>
+						<li >
+							<a href="/kurs/autor.php">O autorze</a>
+						</li>
+						<li >
+							<a href="/kurs/kontakt.php">Kontakt</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="page-sidebar-section">
+                <a class="special-link" href="/kurs/autor.php#donate">Wesprzyj kurs</a>
+            </div>
+		</div>
+	</div>
+</aside></div><!-- e: page-container -->
+
+<div class="popup" id="popupOptions">
+	<div class="popup-inside">
+        <div class="popup-container-cnt">
+            <div class="popup-container">
+                <button class="popup-close">Zamknij</button>
+
+                <h2 class="popup-title">
+                    Opcje
+                </h2>
+
+                <div class="popup-content">
+                    <form class="form-options">
+                        <div class="form-option">
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <label for="optionsThemeSelect">Wybierz skórkę dla listingów</label>
+                                    <select id="optionsThemeSelect"></select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <pre><code class="language-js">
+                                //tak będzie wyglądał kod
+
+                                function test() {
+                                    for (let i=0; i&lt;10; i++) {
+                                        console.log("Tekst numer ", 1);
+                                    }
+                                }
+
+                                test();
+                                </code></pre>
+                            </div>
+                            <div class="form-row" id="themeLightModeRow">
+                                <div class="form-col">
+                                    <label for="themeLightMode">
+                                        Tryb dzienny / nocny
+                                    </label>
+
+                                    <div class="light-mode-el">
+                                        <input type="checkbox" id="themeLightMode">
+                                        <span class="light-mode"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+	</div>
+</div>
+<script async defer src="https://www.googletagmanager.com/gtag/js?id=UA-38558970-5"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-38558970-5');
+</script>
+
+	<script src="/js/ads.js"></script>
+	<script src="/js/script.min.js?v=0.13" defer></script>
+</body>
+</html>
