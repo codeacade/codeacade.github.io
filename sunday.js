@@ -13,7 +13,7 @@ var num1, num2;
 var player1 = {score: 0, id: 1}
 
 // Create object for Player2
-var player1 = {score: 0, id: 2}
+var player2 = {score: 0, id: 2}
 
 // Create snapMade variable
 var snapMade = "NO";
