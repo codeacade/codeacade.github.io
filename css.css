@@ -29,17 +29,17 @@ p {
   display: : none;
 }
 span#preload-01 {
-  background-image: url (http://image-url/image1.jpg)
+  background-image: url (./fru1.jpg)
 }
 span#preload-02 {
-  background-image: url (http://image-url/image2.jpg)
+  background-image: url (./fru2.jpg)
 }
 span#preload-03 {
-  background-image: url (http://image-url/image3.jpg)
+  background-image: url (./fru3.jpg)
 }
 span#preload-04 {
-  background-image: url (http://image-url/image4.jpg)
+  background-image: url (./fru4.jpg)
 }
 span#preload-05 {
-  background-image: url (http://image-url/image5.jpg)
+  background-image: url (./fru5.jpg)
 }
