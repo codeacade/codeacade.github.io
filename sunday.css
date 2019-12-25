@@ -26,7 +26,7 @@ h1, p {
 }
 p {
   float: left;
-  display: : none;
+  display: none;
 }
 span#preload-01 {
   background-image: url("fru1.jpg")
