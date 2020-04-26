@@ -6,7 +6,7 @@
         transition: color 0.3s;
       }
 body { 
-    background-image: linear-gradient(to right, #222 , #600);
+    background-image: linear-gradient(to right, #222 , #006);
     font-size: 22px;
     color: #FFDEAD;
     font-family: 'Amatic SC', sans-serif;
