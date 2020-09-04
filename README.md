@@ -55,3 +55,26 @@ Your program shouldn't read any input or call the function, just implement it.
 	None 	None 			"hidden_operand" 	and 								
 	None 	None 			False 			and 								
 	None 	None 			None 			and 	
+
+
+Solution in progress:
+
+
+```python
+def solve():
+	if hidden_operation(False) == None:
+		print("or")
+		print(hidden_operation(False))
+
+	elif hidden_operation(None) == None:
+		print("and")
+		print(hidden_operation(True))
+
+	elif hidden_operation(True) == False:
+		print("not")
+		
+	else:
+		print("or")
+		print(hidden_operation(False))
+
+```
