@@ -1,0 +1,41 @@
+<!DOCTYPE htlml>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>THIS IS SECOND MEME</title>
+  <link rel="text/stylesheet" href="css.css">
+  <style>
+    * {font-family: "Ubuntu Condensed";}
+    div {
+      position: relative;
+    }
+    p {
+      position: absolute;
+      bottom: -10px;
+      left: 10px;
+      width: 280px;
+      font-size: 2rem;
+      color: #eee;
+      text-shadow: 1px 1px 5px #000;
+    }
+    a {text-decoration: none;}
+    a:after {content: " <<";}
+    a:hover:after {content:" >>";}
+  </style>
+</head>
+<body>
+  New Text <input type="text" id="itext" ><br>
+  New Image <input type="file" ><br><br>
+  <div>
+    <img src="oil1.jpg">
+    <p>CON DENSED</p>
+  </div>
+  <a href="pix.html">PIXELZ</a>
+  <script>
+    document.querySelector("#itext").addEventListener("input", chText);
+    function chText() {
+      document.querySelector("p").innerHTML = this.value;
+    }
+  </script>
+</body>
+</html>
