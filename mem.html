@@ -22,6 +22,7 @@
     a:after {content: " <<";}
     a:hover:after {content:" >>";}
   </style>
+  <script src="html2canvas.js"></script>
 </head>
 <body>
   New Text <input type="text" id="itext" ><br>
@@ -30,15 +31,22 @@
     <img src="oil1.jpg">
     <p>CON DENSED</p>
   </div>
+  <button> SAVE </button>
   <a href="pix.html">PIXELZ</a>
   <script>
+    
     document.querySelector("#itext").addEventListener("input", chText);
     document.querySelector("#ifile").addEventListener("change", chFile);
+    document.querySelector("button").addEventListener("click", saveIm);
     function chText() {
       document.querySelector("p").innerHTML = this.value;
     }
     function chFile() {
       document.querySelector("img").src = URL.createObjectURL(this.files[0]); 
+    }
+    function saveIm() {
+      html2canvas(document.querySelector("div"), {allowTaint: true}).then(canvas => {
+    document.body.appendChild(canvas)});
     }
   </script>
 </body>
