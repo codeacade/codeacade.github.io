@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+{% load static %} <!-- dj missing -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="refresh" content="600">
+    <title>STEP</title>
+    <link rel="stylesheet" href=" {% static 'style.css' %} "> <!-- dj missing -->
+</head>
+<body>
+    <h1>STEP</h1>
+    <p>SUM</p>
+    <input type="text" value="0" style="width: 20px;">
+    <input type="text" value="0" style="width: 20px;">
+    <input type="text" value="0" style="width: 20px;">
+    <button onclick="document.querySelector('input').value--;">-</button>
+    <button onclick="document.querySelector('input').value++;">+</button>
+    <button onclick="document.querySelector('p').innerHTML = 
+        parseFloat(document.querySelectorAll('input')[0].value) +
+        parseFloat(document.querySelectorAll('input')[1].value) +
+        parseFloat(document.querySelectorAll('input')[2].value)
+        ;"> 
+        SUM 
+    </button>
+    <button onclick="document.querySelector('input').value = 0;"> RESET </button>
+</body>
+</html>
+
+
