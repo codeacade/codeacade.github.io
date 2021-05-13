@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self' https://www.pythonanywhere.com; script-src 'self' https://code.jquery.com https://www.google-analytics.com; font-src 'self' https://www.pythonanywhere.com https://fonts.googleapis.com https://fonts.gstatic.com; style-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com https://www.pythonanywhere.com; frame-src https://www.pythonanywhere.com; connect-src 'self'">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Following the official Django Tutorial on PythonAnywhere | PythonAnywhere help</title>
+
+    
+        <link href="/assets/css/rst.css" rel="stylesheet" type="text/css">
+        <link href="/assets/css/code.css" rel="stylesheet" type="text/css">
+        <link href="/assets/css/colorbox.css" rel="stylesheet" type="text/css">
+        <link href="/assets/css/theme.css" rel="stylesheet" type="text/css">
+    
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i">
+  <link rel="stylesheet" href="https://www.pythonanywhere.com/help_css/">
+
+  <link href="/assets/css/page.css" rel="stylesheet" type="text/css">
+
+
+    
+            <link rel="alternate" type="application/rss+xml" title="RSS" href="/rss.xml">
+
+      <link rel="canonical" href="https://help.pythonanywhere.com/pages/FollowingTheDjangoTutorial/">
+
+
+
+    
+
+    
+<link rel="stylesheet" type="text/css" href="/assets/css/tipuesearch.css">
+<link rel="stylesheet" type="text/css" href="https://www.pythonanywhere.com/static/anywhere/styles/bootstrap_base.css">
+
+
+
+    
+
+    <meta name="author" content="PythonAnywere">
+    
+
+    
+
+    
+
+
+
+</head>
+<body>
+
+<!-- Menubar -->
+
+
+  <div id="header-container">
+  <nav class="navbar navbar-default fullscreen-main-navbar help-navbar">
+  <div class="navbar-header">
+    <a class="brand" href="https://www.pythonanywhere.com/"><img id="id_logo" src="https://www.pythonanywhere.com/static/anywhere/images/PA-logo.svg" title="PythonAnywhere logo" alt="PythonAnywhere logo"></a>
+  </div>
+  <div class="extra-nav-content">
+      
+<div class="navbar-form pull-right">
+<input type="text" id="tipue_search_input" placeholder="Search">
+</div>
+  </div>
+  <div class="fullscreen-mini-nav">
+    <ul id="id_header_links" class="nav navbar-nav navbar-right help-links">
+    <li><a id="id_feedback_link" class="feedback_link btn-link">Send feedback</a></li>
+    <li><a id="id_forums_link" class="btn-link" href="https://www.pythonanywhere.com/forums/">Forums</a></li>
+    <li><a id="id_help_link" class="btn-link" href="/">Help</a></li>
+    <li><a href="//blog.pythonanywhere.com/" class="btn-link" id="id_blog_link">Blog</a></li>
+  </ul>
+  </div>
+
+  </nav>
+
+  <div id="tipue_search_content"></div>
+
+
+    <div id="id_feedback_container" class="hidden">
+      <iframe id="id_feedback_frame" name="feedback_frame" class="floaty-iframe" src="https://www.pythonanywhere.com/feedback/form/"></iframe>
+    </div>
+
+
+<!-- End of Menubar -->
+<div class="container" id="content" role="main">
+    <!--Body content-->
+    <div class="row-fluid">
+        <div class="span2"></div>
+        <div class="span8">
+            
+            
+<article class="storypage" itemscope="itemscope" itemtype="http://schema.org/Article">
+    <header>
+        
+    <h1 class="p-name entry-title" itemprop="headline name"><a href="/pages/FollowingTheDjangoTutorial/" class="u-url">Following the official Django Tutorial on PythonAnywhere</a></h1>
+
+        
+
+    </header>
+    <div class="e-content entry-content" itemprop="articleBody text">
+    <div>
+<p>We &lt;3 Django at PythonAnywhere, we use it ourselves. Their tutorial is excellent, but there's a couple of small things that are different about the PythonAnywhere environment, compared to a regular PC.</p>
+<p>This guides pertains to the tutorial for Django 2.2: <a href="https://docs.djangoproject.com/en/2.2/intro/tutorial01/">https://docs.djangoproject.com/en/2.2/intro/tutorial01/</a></p>
+<p>This document is not a replacement for the official django tutorial, instead, it's meant to be a companion guide -- the django tutorial is meant to be your primary guide, but when you read each section of the django tutorial, you should also take a look at the corresponding section notes in this guide, for additional instructions.</p>
+<p>So we recommend you keep both the django tutorial and this page open side-by-side as you go through them.</p>
+<h3 id="writing-your-first-django-app-part-1">Writing your first Django app, Part 1</h3>
+<h4 id="creating-a-virtualenv-and-installing-django-into-it">Creating a virtualenv and Installing Django into it</h4>
+<p>The preinstalled versions of Django on PythonAnywhere are a little out of date, but you can use a <em>virtualenv</em> to install your own versions. We'll use a nifty helper tool called virtualenvwrapper. Open up a <strong>Bash Console</strong> and:</p>
+<pre class="code literal-block">mkvirtualenv django2 --python=/usr/bin/python3.6
+pip install django ## this may take a couple of minutes
+</pre>
+
+
+<ul>
+<li>TIP: <em>if you see an error saying mkvirtualenv: command not found, check out <a href="/pages/InstallingVirtualenvWrapper">InstallingVirtualenvWrapper</a></em>.</li>
+</ul>
+<p>Once you've created your virtualenv, you'll be able to see that it's active because your command prompt, which normally says something like <code>17:18 ~ $</code> will get prefixed with a little <code>(django2)</code>, like this:</p>
+<pre class="code literal-block">(django2)17:18 ~ $
+</pre>
+
+
+<p><strong><em>--&gt; Always make sure your virtualenv is active when working on the django tutorial</em></strong></p>
+<p>If you need to reactivate it later, maybe if you close your bash console and open a new one, the command is:</p>
+<pre class="code literal-block">workon django2
+</pre>
+
+
+<p>It's probably a good idea to keep a bash console open at all times in one browser tab, with the virtualenv activated, so you can flick back and forth.</p>
+<h5 id="checking-the-django-installation">Checking the django installation</h5>
+<p>The first command the tutorial asks you to run is to check the installed version:</p>
+<pre class="code literal-block">python -m django --version
+# This should show something like 2.2.1.
+# If it shows anything else, you've probably forgotten to activate your virtualenv!
+</pre>
+
+
+<h4 id="creating-a-project-and-viewing-files">Creating a project, and viewing files</h4>
+<p>After you run the <code>startproject</code> command, you can take a look around the files in your project using our file browser and built-in browser-based editor. Open a new browser tab and go to the <strong>Files</strong> tab, then navigate to your new "mysite" folder.</p>
+<p>Apart from the <strong>Files</strong> tab, you can also use the <code>tree</code> command from the bash console to see the directory tree...</p>
+<h4 id="not-the-development-server-setting-up-your-web-app-on-the-web-tab">(not) the development server: setting up your web app on the Web tab</h4>
+<p>You will probably quickly realize that the Django development server on
+<a href="https://www.pythonanywhere.com/">PythonAnywere</a> (ie. the <code>manage.py runserver</code>
+command) doesn't work.  If you try and run it, you're likely to see an error saying
+<em>That port is already in use</em>. And in any case, it won't be able to create a dev server
+you can access, because our console servers aren't publicly accessible over the
+Internet (they're actually different machines from our web servers).</p>
+<p>Instead, you need to do 3 things:</p>
+<ol>
+<li>
+<p>Create a web app via our interface- this lets us know that you want to create
+   a website with at <code>myusername.pythonanywhere.com</code> and
+   that we should listen and try to respond to any web traffic that comes to us
+   for that domain.</p>
+</li>
+<li>
+<p>Configure the web app to be run inside the virtualenv that you just set up -
+   this lets us know which versions of python and django we should be using.</p>
+</li>
+<li>
+<p>Configure the web app so that we know what actual code to run.</p>
+</li>
+</ol>
+<p>Let's take this step by step.</p>
+<p>First, to create a web app on PythonAnywhere, open up a new browser tab and go
+to our <strong>Web</strong> tab. Click <strong>Add a new web app</strong>, choose <strong>Manual
+configuration</strong> and then <strong>Python 3.6</strong>.</p>
+<ul>
+<li><em>TIP: Make sure you choose "Manual configuration", not "Django" when creating your webapp. We need the manual option to make sure we get Django 2 from our virtualenv</em></li>
+</ul>
+<p>When you hit next, you'll be on your web app configuration page, and it's probably a good idea to keep this tab open
+in your browser at all times too, so that you can easily jump back to it.  It
+will allow you to easily hit reload on your web app, or find your error log, and
+things like that.</p>
+<p>Second, go to the <strong>Virtualenv section</strong> of your web app and enter the name of our virtualenv,
+<strong>django2</strong>.  When you click confirm, you should find completes to a full path like this:
+<em>/home/myusername/.virtualenvs/django2</em>.</p>
+<p>Finally, your wsgi.py file is how we know what code to run for you. Find the
+link to <strong>edit your wsgi file</strong>, delete everything and replace it with this:</p>
+<pre class="code literal-block"><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s">'~/mysite'</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">path</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="p">:</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s">'DJANGO_SETTINGS_MODULE'</span><span class="p">]</span> <span class="o">=</span> <span class="s">'mysite.settings'</span>
+<span class="kn">from</span> <span class="nn">django.core.wsgi</span> <span class="kn">import</span> <span class="n">get_wsgi_application</span>
+<span class="kn">from</span> <span class="nn">django.contrib.staticfiles.handlers</span> <span class="kn">import</span> <span class="n">StaticFilesHandler</span>
+<span class="n">application</span> <span class="o">=</span> <span class="n">StaticFilesHandler</span><span class="p">(</span><span class="n">get_wsgi_application</span><span class="p">())</span>
+</pre>
+
+
+<p>Save the file, then go back to the <strong>Web</strong> tab and hit the <strong>Reload</strong> button. Now instead of the django dev server running on your own machine, you have a django site live and on the Internet, at <em>yourusername.pythonanywhere.com</em>.  Try clicking the link to see it now.</p>
+<p><strong><em>--&gt; Whenever you make changes to files in your django project, you'll need to hit "Reload" on the web tab to publish them and make them live on the actual site.</em></strong></p>
+<h5 id="fixing-the-disallowedhost-error">fixing the DisallowedHost error</h5>
+<p>If you try and click through to yoru site now, you will see an error page (<code>Invalid HTTP_HOST header</code>) instead of the Django welcome page. This is because your page is on the internet, and is access via the url/domain that you just setup (eg. <code>myusername.pythonanywhere.com</code>) is different from running a server locally and accessing it locally.</p>
+<p>You will need to tell Django what site it's processing requests for by going to
+the <strong>Files</strong> tab, and editing <code>mysite/settings.py</code>. Find <code>ALLOWED_HOSTS</code> in
+<code>settings.py</code> and editing it like this:</p>
+<pre class="code literal-block"><span class="n">ALLOWED_HOSTS</span> <span class="o">=</span> <span class="p">[</span><span class="s">'*'</span><span class="p">]</span>
+<span class="c"># once you finish the tutorial, you might want to change this to a more secure setting, 'yourusername.pythonanywhere.com'.</span>
+</pre>
+
+
+<p>Reload your webapp, and now when you visit your site, you should see the expected startup page, with its little rocket and message saying "The install worked successfully! Congratulations!".</p>
+<p>You can now follow along with the rest of Part 1 of the official tutorial, more or less from the <strong>Creating the Polls app</strong> section onwards, using the tab with your Bash console, and another tab for editing files perhaps.</p>
+<ul>
+<li><em>TIP: when you've finished editing views.py and the various urls.py files, don't forget to reload your webapp before going to check out your new /polls/ url on your live site</em></li>
+</ul>
+<h3 id="writing-your-first-django-app-part-2">Writing your first Django app, Part 2</h3>
+<h4 id="database-setup-and-settingspy">Database setup and settings.py</h4>
+<p>We support different databases, but using SQlite, the default, is probably simplest at this stage. You can change your <code>TIME_ZONE</code> setting as they suggest if you like though.</p>
+<ul>
+<li>TIP: <em>the links to the documentation in the comments in settings.py should point to the same django version as your virtualenv, 2.0. If they don't, then you probably accidentally ran the <code>startproject</code> command without activating the virtualenv. Probably best to delete the whole <code>mysite</code> directory, make sure your virtualenv is active, and run <code>startproject</code> again.</em>.</li>
+</ul>
+<h4 id="playing-with-the-api">Playing with the API</h4>
+<p>Everything in this section should work fine in your Bash console.</p>
+<p>(A minor thing: if you want a better interactive interpreter for <code>manage.py shell</code>, do a</p>
+<pre class="code literal-block">pip install ipython
+</pre>
+
+
+<p>and you'll get nice tab-completion and syntax highlighting).</p>
+<h4 id="do-not-start-the-development-server-to-access-the-django-admin">
+<em>Do not</em> start the development server to access the Django Admin</h4>
+<p>Remember, don't use <code>runserver</code> and <em>localhost:8000</em> on PythonAnywhere.
+Instead, go back to your <strong>Web</strong> tab, hit reload if you have made any changes
+following the Django tutorial, and then you will then be able to go to
+<em>myusername.pythonanywhere.com/admin</em> and see the admin site up and running.</p>
+<h3 id="writing-your-first-django-app-part-3-4">Writing your first Django app, Part 3 &amp; 4</h3>
+<p>This part should all work smoothly.</p>
+<p>You'll probably find yourself using our "Files" tab quite a lot here, to create new files and directories, and edit them, as well as occasionlly flicking back to the Bash console to run commands, or the Web tab to reload your web app, and maybe to yet another tab to check your live site.</p>
+<p>When we use PythonAnywhere, we often find ourselves with lots of different browser tabs open at the same time  -- one for a Bash console, several tabs for the different files we're editing, and maybe a tab for the web app config. See what workflow suits you!</p>
+<h3 id="part-5-testing">Part 5 (testing)</h3>
+<p>If you ignored our suggestion earlier to just use SQLite, and you chose a different database, you will need to explicitly create a test database for django to use to run the tests...</p>
+<h3 id="part-6-static-files">Part 6 (static files)</h3>
+<p>We used a little hack in our wsgi file that means static files are served by <code>django.contrib.static.StaticFilesHandler</code>.  Everything will work fine, but for a production app, you should read our <a href="https://help.pythonanywhere.com/pages/DjangoStaticFiles">guide to static files in django</a></p>
+<h3 id="part-7-customising-the-admin">Part 7 (customising the admin)</h3>
+<p>All of this will work fine, just remember to reload your web app every time you want to see changes to the admin.</p>
+<p>If you haven't found it already, you might see a little "reload" icon in the editor, which will save you a trip to the web tab...</p>
+<p>Happy Django-ing!</p>
+</div>
+    </div>
+    
+
+</article>
+
+        </div>
+    </div>
+    <!--End of body content-->
+    <div class="footerbox">
+        <div id="id_footer" class="container">
+
+            <footer id="id_copyright_div">
+                    <p>
+                        <i>Want to improve this page?
+                            <a href="https://github.com/pythonanywhere/help_pages">Submit a pull request!</a></i>
+                    </p>
+                <p>
+                    
+                           Copyright © 2011-2020 <a href="https://www.pythonanywhere.com/about/company_details/">PythonAnywhere LLP</a>
+                           —
+                           <a href="https://www.pythonanywhere.com/terms/">Terms</a>
+                           —
+                           <a href="https://www.pythonanywhere.com/privacy/">Privacy &amp; Cookies</a><br>
+                           "Python" is a registered trademark of the Python Software Foundation.
+                </p>
+            </footer>
+        </div>
+        
+    </div>
+</div>
+
+        <script src="/assets/js/all-nocdn.js"></script>
+    
+
+    <script type="javascript" src="/assets/js/pretty.js"></script>
+    
+
+  <script type="text/javascript" src="https://code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>
+  <script type="text/javascript" src="/assets/js/feedback.js"></script>
+  <script type="text/javascript" src="/assets/js/google.js"></script>
+    
+
+<script src="/assets/js/tipuesearch_set.js"></script>
+<script src="/assets/js/tipuesearch.js"></script>
+
+
+</div>
+</body>
+</html>
